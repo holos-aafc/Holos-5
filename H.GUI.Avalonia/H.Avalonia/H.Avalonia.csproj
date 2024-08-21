@@ -13,6 +13,21 @@
   </ItemGroup>
 
   <ItemGroup>
+    <AvaloniaXaml Remove="Views\ComponentViews\**" />
+    <AvaloniaXaml Remove="Views\DetailViews\**" />
+    <AvaloniaXaml Remove="Views\Shared\**" />
+    <Compile Remove="Views\ComponentViews\**" />
+    <Compile Remove="Views\DetailViews\**" />
+    <Compile Remove="Views\Shared\**" />
+    <EmbeddedResource Remove="Views\ComponentViews\**" />
+    <EmbeddedResource Remove="Views\DetailViews\**" />
+    <EmbeddedResource Remove="Views\Shared\**" />
+    <None Remove="Views\ComponentViews\**" />
+    <None Remove="Views\DetailViews\**" />
+    <None Remove="Views\Shared\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectCapability Include="Avalonia" />
     <TrimmerRootAssembly Include="Avalonia.Themes.Fluent" />
   </ItemGroup>
@@ -42,6 +57,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Update="Views\ClimateDataView.axaml.cs">
       <DependentUpon>ClimateDataView.axaml</DependentUpon>
     </Compile>
@@ -56,9 +76,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Views\ComponentViews\" />
-    <Folder Include="Views\DetailViews\" />
-    <Folder Include="Views\Shared\" />
-    <Folder Include="Views\SupportingViews\" />
+    <EmbeddedResource Update="Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>

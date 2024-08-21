@@ -14,6 +14,8 @@ using Prism.Regions;
 using System;
 using ClimateResultsView = H.Avalonia.Views.ResultViews.ClimateResultsView;
 using SoilResultsView = H.Avalonia.Views.ResultViews.SoilResultsView;
+using H.Avalonia.ViewModels.SupportingViews.Disclaimer;
+using H.Avalonia.Views.SupportingViews.Disclaimer;
 
 namespace H.Avalonia
 {
@@ -49,6 +51,9 @@ namespace H.Avalonia
             containerRegistry.RegisterForNavigation<ClimateResultsView, ClimateResultsViewModel>();
             containerRegistry.RegisterForNavigation<SoilResultsView, SoilResultsViewModel>();
 
+            // New development work
+            containerRegistry.RegisterForNavigation<DisclaimerView, DisclaimerViewModel>();
+
             // 
             //containerRegistry.RegisterSingleton<ResultsViewModelBase>();
             containerRegistry.RegisterSingleton<Storage>();
@@ -77,7 +82,7 @@ namespace H.Avalonia
             regionManager.RegisterViewWithRegion(UiRegions.ToolbarRegion, typeof(ToolbarView));
             regionManager.RegisterViewWithRegion(UiRegions.SidebarRegion, typeof(SidebarView));
             regionManager.RegisterViewWithRegion(UiRegions.FooterRegion, typeof(FooterView));
-            regionManager.RegisterViewWithRegion(UiRegions.ContentRegion, typeof(AboutPageView));
+            regionManager.RegisterViewWithRegion(UiRegions.ContentRegion, typeof(DisclaimerView));
 
             var geographicProvider = Container.Resolve<GeographicDataProvider>();
             geographicProvider.Initialize();

@@ -5,15 +5,89 @@
 			 xmlns:viewModels="clr-namespace:H.Avalonia.ViewModels"
              xmlns:properties="clr-namespace:H.Avalonia.Core.Properties;assembly=H.Avalonia.Core"
 			 xmlns:valueConverters="clr-namespace:H.Infrastructure.Controls.ValueConverters;assembly=H.Infrastructure"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="720"
+			 xmlns:h="clr-namespace:H.Avalonia"
+			 xmlns:disclaimer="clr-namespace:H.Avalonia.ViewModels.SupportingViews.Disclaimer"
+			 mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="720"
+			 x:DataType="disclaimer:DisclaimerViewModelDesign"
              x:Class="H.Avalonia.Views.SupportingViews.Disclaimer.DisclaimerView">
 
-	<UserControl.Resources>
-		<valueConverters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
-		<valueConverters:EnumDescriptionConverter x:Key="EnumDescriptionConverter" />
+	<Design.DataContext>
+		<disclaimer:DisclaimerViewModelDesign/>
+    </Design.DataContext>
+
+    <UserControl.Resources>
+		<!--<valueConverters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+		<valueConverters:EnumDescriptionConverter x:Key="EnumDescriptionConverter" />-->
 	</UserControl.Resources>
 
 	<Grid Margin="20">
-		<TextBox>HI</TextBox>
-	</Grid>
+		<Grid Margin="20">
+			<StackPanel Orientation="Vertical">
+				<Grid Name="LanguageSelectionGrid"
+					  >
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition/>
+						<ColumnDefinition/>
+					</Grid.ColumnDefinitions>
+
+
+
+					<!--<telerik:RadComboBox Grid.Column="1"
+										 Style="{StaticResource HolosWideRadComboBoxStyle}"
+										 ItemsSource="{Binding Path=Languages}"
+										 SelectedItem="{Binding Path=SelectedLanguage, Mode=TwoWay}">
+
+						<telerik:RadComboBox.ItemTemplate>
+							<DataTemplate>
+								<TextBlock Text="{Binding Converter={StaticResource EnumDescriptionConverter}}" />
+							</DataTemplate>
+						</telerik:RadComboBox.ItemTemplate>
+					</telerik:RadComboBox>-->
+				</Grid>
+
+				<Grid Name="ProductNameGrid">
+					<StackPanel Orientation="Horizontal">
+						<Label Content="{Binding VersionString}"/>
+						<TextBlock VerticalAlignment="Center">
+							<Run>(</Run>
+							<Run Text="{x:Static h:GuiConstants.VersionReleaseDateString}"/>
+							<Run>)</Run>
+						</TextBlock>
+					</StackPanel>
+				</Grid>
+
+				<Grid Name="AboutHolosGrid" Margin="0,40,0,0">
+					<Label Content="{Binding Path=AboutHolosString}"/>
+				</Grid>
+
+				<Grid Name="ToBeKeptInformedGrid" Margin="0,10,0,0">
+					<Label Content="{Binding Path=ToBeKeptInformedString}"/>
+				</Grid>
+
+				<Grid Name="DisclaimerGrid" Margin="0,20,0,0">
+					<StackPanel Orientation="Vertical">
+						<!--<TextBox BorderThickness="0" FontSize="14" Text="{x:Static properties:Resources.TitleDisclaimer}" FontWeight="Bold" Margin="0,0,0,10"/>-->
+						<TextBox BorderThickness="0" FontSize="14" Text="{Binding Path=DisclaimerWordString}" FontWeight="Bold" Margin="0,0,0,10"/>
+						<TextBox Height="200" TextWrapping="Wrap" IsReadOnly="True"  Text="{Binding Path=DisclaimerRtfString}"/>
+					</StackPanel>
+				</Grid>
+
+				<Grid Name="CommandGrid">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition/>
+						<ColumnDefinition/>
+						<ColumnDefinition/>
+					</Grid.ColumnDefinitions>
+					<StackPanel Grid.Column="1"  Orientation="Horizontal" HorizontalAlignment="Center">
+						<Button 
+										   Margin="0"
+										   
+										   IsDefault="True"
+										   Content="{x:Static properties:Resources.LabelOk}"/>
+					</StackPanel>
+					<Image Grid.Column="2" Source="{StaticResource CanadaLogo}" HorizontalAlignment="Right" Width="100"/>
+				</Grid>
+			</StackPanel>
+		</Grid>
+    </Grid>
 </UserControl>

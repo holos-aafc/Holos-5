@@ -9,7 +9,7 @@ namespace H.Avalonia.Views.SupportingViews.Disclaimer
     {
         public DisclaimerView()
         {
-            //InitializeComponent();
+            InitializeComponent();
         }
     }
 }

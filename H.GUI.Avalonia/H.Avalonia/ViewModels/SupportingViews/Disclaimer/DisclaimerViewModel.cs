@@ -111,7 +111,7 @@ namespace H.Avalonia.ViewModels.SupportingViews.Disclaimer
             {
                 this.AboutHolosString = "HOLOS-IE - a tool to estimate and reduce greenhouse gas emissions from farms";
                 this.ToBeKeptInformedString = "To be kept informed about  future versions, please send your contact information (including email address) to ibrahim.khalil1@ucd.ie";
-                //this.DisclaimerRtfString = Resources.Disclaimer_English_Text;
+                this.DisclaimerRtfString = Resources.Disclaimer_English_TXT;
 
                 this.DisclaimerWordString = "Disclaimer";
                 Settings.Default.DisplayLanguage = Languages.English.GetDescription();
@@ -120,7 +120,7 @@ namespace H.Avalonia.ViewModels.SupportingViews.Disclaimer
             {
                 this.AboutHolosString = "Holos - outil d'évaluation et de réduction des émissions de gaz à effet de serre des fermes agricoles";
                 this.ToBeKeptInformedString = "Pour être informé de la publication des prochaines versions du logiciel, faites parvenir vos coordonnées (y compris votre adresse électronique) à ibrahim.khalil1@ucd.ie";
-                //this.DisclaimerRtfString = Resources.Disclaimer_French_Text;
+                this.DisclaimerRtfString = Resources.Disclaimer_French_TXT;
                 this.DisclaimerWordString = "Avis de non-responsabilité";
 
                 Settings.Default.DisplayLanguage = Languages.French.GetDescription();

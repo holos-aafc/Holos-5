@@ -109,7 +109,7 @@ namespace H.Avalonia.ViewModels.SupportingViews.Disclaimer
             this.UpdateDisplayBasedOnLanguage();
             this.VersionString = GuiConstants.GetVersionString();
 
-            this.OkCommand = new DelegateCommand<object>(OnOkExecute);
+            this.OkCommand = new DelegateCommand<object>(OnOkExecute, OkCanExecute);
         }
 
         #endregion
@@ -169,6 +169,11 @@ namespace H.Avalonia.ViewModels.SupportingViews.Disclaimer
         {
             // Navigate to next view
             base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(SoilDataView));
+        }
+
+        private bool OkCanExecute(object arg)
+        {
+            return true;
         }
 
         #endregion

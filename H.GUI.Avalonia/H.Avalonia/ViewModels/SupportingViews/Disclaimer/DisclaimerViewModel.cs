@@ -38,7 +38,7 @@ namespace H.Avalonia.ViewModels.SupportingViews.Disclaimer
 
         public DisclaimerViewModel(IRegionManager regionManager,
                                    IEventAggregator eventAggregator,
-                                   Storage storage)
+                                   Storage storage) : base(regionManager, eventAggregator, storage)
         {
             LanguageCollection = new ObservableCollection<Languages>(EnumHelper.GetValues<Languages>());
             this.Construct();

@@ -32,17 +32,11 @@
 
 
 
-					<!--<telerik:RadComboBox Grid.Column="1"
-										 Style="{StaticResource HolosWideRadComboBoxStyle}"
-										 ItemsSource="{Binding Path=Languages}"
-										 SelectedItem="{Binding Path=SelectedLanguage, Mode=TwoWay}">
+					<ComboBox Grid.Column="1"
+                              ItemsSource="{Binding LanguageCollection}"
+                              SelectedItem="{Binding SelectedLanguage, Mode=TwoWay}">
 
-						<telerik:RadComboBox.ItemTemplate>
-							<DataTemplate>
-								<TextBlock Text="{Binding Converter={StaticResource EnumDescriptionConverter}}" />
-							</DataTemplate>
-						</telerik:RadComboBox.ItemTemplate>
-					</telerik:RadComboBox>-->
+					</ComboBox>
 				</Grid>
 
 				<Grid Name="ProductNameGrid">

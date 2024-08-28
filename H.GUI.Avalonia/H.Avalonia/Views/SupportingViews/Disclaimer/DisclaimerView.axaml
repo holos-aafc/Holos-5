@@ -30,9 +30,7 @@
 						<ColumnDefinition/>
 					</Grid.ColumnDefinitions>
 
-
-
-					<ComboBox Grid.Column="1"
+                    <ComboBox Grid.Column="1"
                               ItemsSource="{Binding LanguageCollection}"
                               SelectedItem="{Binding SelectedLanguage, Mode=TwoWay}">
 
@@ -72,11 +70,10 @@
 						<ColumnDefinition/>
 					</Grid.ColumnDefinitions>
 					<StackPanel Grid.Column="1"  Orientation="Horizontal" HorizontalAlignment="Center">
-						<Button 
-										   Margin="0"
-										   
-										   IsDefault="True"
-										   Content="{x:Static properties:Resources.LabelOk}"/>
+						<Button IsDefault="True"
+								
+								
+                                Content="{x:Static properties:Resources.LabelOk}"/>
 					</StackPanel>
                 </Grid>
 			</StackPanel>

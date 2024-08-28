@@ -41,7 +41,6 @@ namespace H.Avalonia.ViewModels.SupportingViews.Disclaimer
                                    Storage storage)
         {
             LanguageCollection = new ObservableCollection<Languages>(EnumHelper.GetValues<Languages>());
-            //LanguageCollection.Remove(Languages.French);
             this.Construct();
         }
 

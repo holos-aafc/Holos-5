@@ -11,6 +11,8 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using H.Avalonia.Views;
+using Prism.Commands;
 
 namespace H.Avalonia.ViewModels.SupportingViews.Disclaimer
 {
@@ -26,6 +28,8 @@ namespace H.Avalonia.ViewModels.SupportingViews.Disclaimer
         private string _disclaimerRtfString;
         private string _versionString;
         private string _disclaimerWordString;
+
+        private DelegateCommand<object> _okCommand;
 
         #endregion
 
@@ -89,6 +93,12 @@ namespace H.Avalonia.ViewModels.SupportingViews.Disclaimer
             set { SetProperty(ref _showLanguageBox, value); }
         }
 
+        public DelegateCommand<object> OkCommand
+        {
+            get => _okCommand;
+            set => SetProperty(ref _okCommand, value);
+        }
+
         #endregion
 
         #region Public Methods
@@ -98,6 +108,8 @@ namespace H.Avalonia.ViewModels.SupportingViews.Disclaimer
             this.SetHolosLanguageToSystemLanguage();
             this.UpdateDisplayBasedOnLanguage();
             this.VersionString = GuiConstants.GetVersionString();
+
+            this.OkCommand = new DelegateCommand<object>(OnOkExecute);
         }
 
         #endregion
@@ -151,6 +163,12 @@ namespace H.Avalonia.ViewModels.SupportingViews.Disclaimer
         private void OnSelectedLanguageChanged()
         {
             this.UpdateDisplayBasedOnLanguage();
+        }
+
+        private void OnOkExecute(object obj)
+        {
+            // Navigate to next view
+            base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(SoilDataView));
         }
 
         #endregion

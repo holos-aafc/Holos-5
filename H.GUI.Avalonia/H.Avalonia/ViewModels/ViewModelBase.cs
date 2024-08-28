@@ -42,7 +42,7 @@ namespace H.Avalonia.ViewModels
         {
             if (regionManager != null)
             {
-                _regionManager = regionManager;
+                RegionManager = regionManager;
             }
             else
             {
@@ -91,9 +91,17 @@ namespace H.Avalonia.ViewModels
         /// <summary>
         /// The notification manager that handles displaying notifications on the page.
         /// </summary>
-        public WindowNotificationManager NotificationManager { get; set; } 
+        public WindowNotificationManager NotificationManager { get; set; }
+
+        protected IRegionManager RegionManager
+        {
+            get => _regionManager;
+            set => SetProperty(ref _regionManager, value);
+        }
 
         #endregion
+
+        #region Public Methods
 
         public bool IsNavigationTarget(NavigationContext navigationContext)
         {
@@ -115,6 +123,8 @@ namespace H.Avalonia.ViewModels
         public virtual bool OnNavigatingTo(NavigationContext navigationContext)
         {
             return true;
-        }
+        } 
+
+        #endregion
     }
 }

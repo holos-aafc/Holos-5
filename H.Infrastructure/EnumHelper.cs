@@ -36,6 +36,10 @@ namespace H.Infrastructure
 
             return enumerationValue.ToString();
         }
+        public static IEnumerable<T> GetValues<T>()
+        {
+            return Enum.GetValues(typeof(T)).Cast<T>().ToList();
+        }
 
         #endregion
 

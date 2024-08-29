@@ -6,31 +6,78 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Avalonia.Controls.Notifications;
+using Prism.Events;
 
 namespace H.Avalonia.ViewModels
 {
     public class ViewModelBase : BindableBase, INavigationAware
     {
-        private Storage? _storage;
+        #region Fields
+        
+        private Storage? _storage; 
+        private IEventAggregator _eventAggregator;
+        private IRegionManager _regionManager;
+
+        #endregion
+
+        #region Constructors
 
         protected ViewModelBase()
         {
         }
+
         protected ViewModelBase(Storage storage)
         {
-            Storage = storage;
+            if (storage != null)
+            {
+                Storage = storage;
+            }
+            else
+            {
+                throw new ArgumentNullException(nameof(storage));
+            }
         }
 
         protected ViewModelBase(IRegionManager regionManager)
         {
-
+            if (regionManager != null)
+            {
+                RegionManager = regionManager;
+            }
+            else
+            {
+                throw new ArgumentNullException(nameof(regionManager));
+            }
         }
 
-        protected ViewModelBase(IRegionManager regionManager, Storage storage)
+        protected ViewModelBase(IRegionManager regionManager, Storage storage) : this(regionManager)
         {
-            Storage = storage;
+            if (storage != null)
+            {
+                Storage = storage;
+            }
+            else
+            {
+                throw new ArgumentNullException(nameof(storage));
+            }
         }
 
+        protected ViewModelBase(IRegionManager regionManager, IEventAggregator eventAggregator, Storage storage) : this(regionManager)
+        {
+            if (eventAggregator != null)
+            {
+                _eventAggregator = eventAggregator;
+            }
+            else
+            {
+                throw new ArgumentNullException(nameof(regionManager));
+            }
+        }
+
+        #endregion
+
+        #region Properties
+        
         /// <summary>
         /// A storage file that contains various data items that are shored between viewmodels are passed around the system. This storage
         /// item is instantiated using Prism and through Dependency Injection, is passed within the system.
@@ -40,12 +87,22 @@ namespace H.Avalonia.ViewModels
             get => _storage;
             set => SetProperty(ref _storage, value);
         }
-        
+
         /// <summary>
         /// The notification manager that handles displaying notifications on the page.
         /// </summary>
         public WindowNotificationManager NotificationManager { get; set; }
-        
+
+        protected IRegionManager RegionManager
+        {
+            get => _regionManager;
+            set => SetProperty(ref _regionManager, value);
+        }
+
+        #endregion
+
+        #region Public Methods
+
         public bool IsNavigationTarget(NavigationContext navigationContext)
         {
             return true;
@@ -66,6 +123,8 @@ namespace H.Avalonia.ViewModels
         public virtual bool OnNavigatingTo(NavigationContext navigationContext)
         {
             return true;
-        }
+        } 
+
+        #endregion
     }
 }

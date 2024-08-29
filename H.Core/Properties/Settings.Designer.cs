@@ -26,6 +26,17 @@ namespace H.Core.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Metric")]
+        public string DisplayLanguage
+        {
+            get
+            {
+                return ((string)(this["DisplayLanguage"]));
+            }
+            set
+            {
+                this["DisplayLanguage"] = value;
+            }
+        }
         public global::H.Core.Enumerations.MeasurementSystemType MeasurementSystem {
             get {
                 return ((global::H.Core.Enumerations.MeasurementSystemType)(this["MeasurementSystem"]));

@@ -181,7 +181,14 @@ namespace H.Avalonia.ViewModels.SupportingViews.Disclaimer
         private void OnOkExecute(object obj)
         {
             // Navigate to next view
-            base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(SoilDataView));
+            if (_countrySettings.Version == CountryVersion.Canada)
+            {
+                base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(SoilDataView));
+            }
+            else
+            {
+                base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(ClimateDataView));
+            }
         }
 
         private bool OkCanExecute(object arg)

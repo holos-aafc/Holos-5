@@ -12,6 +12,11 @@ public class ConfigurationFileHelper
 
     #region Public Methods
 
+    /// <summary>
+    /// Reads application settings file to see if a boolean value has been set
+    /// </summary>
+    /// <param name="settingName">The name of the setting to check</param>
+    /// <returns><c>true</c> if the setting exists and is enabled, <c>false</c> if the setting does not exist or is not enabled</returns>
     public static bool BooleanAppSettingIsEnabled(string settingName)
     {
         var result = false;
@@ -34,6 +39,10 @@ public class ConfigurationFileHelper
         return result;
     }
 
+    /// <summary>
+    /// Returns the system version being used. This is not the same as the version number
+    /// </summary>
+    /// <returns>A value from the <see cref="CountryVersion"/> indicating which system version is enabled</returns>
     public static CountryVersion GetCountryVersion()
     {
         CountryVersion countryVersion = CountryVersion.Canada;

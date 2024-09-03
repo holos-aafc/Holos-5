@@ -26,7 +26,7 @@
         </Grid.RowDefinitions>
         <Image Grid.Row="0"
                Width="120"
-               Source="/Assets/Images/holoslogo.png"
+               Source="/Assets/Images/HOLOSIE.png"
                RenderOptions.BitmapInterpolationMode="HighQuality">
         </Image>
 

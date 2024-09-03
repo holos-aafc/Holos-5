@@ -16,6 +16,7 @@ using ClimateResultsView = H.Avalonia.Views.ResultViews.ClimateResultsView;
 using SoilResultsView = H.Avalonia.Views.ResultViews.SoilResultsView;
 using H.Avalonia.ViewModels.SupportingViews.Disclaimer;
 using H.Avalonia.Views.SupportingViews.Disclaimer;
+using H.Core.Services;
 
 namespace H.Avalonia
 {
@@ -63,6 +64,8 @@ namespace H.Avalonia
             containerRegistry.RegisterSingleton<ExportHelpers>();
             containerRegistry.RegisterSingleton<ImportHelpers>();
             containerRegistry.RegisterSingleton<KmlHelpers>();
+
+            containerRegistry.RegisterSingleton<ICountrySettings, CountrySettings>();
 
             // Dialogs
             containerRegistry.RegisterDialog<DeleteRowDialog, DeleteRowDialogViewModel>();

@@ -13,3 +13,10 @@ To get started with HOLOS, you only need to install **Visual Studio 2022**. Visu
 1. **Download Visual Studio 2022**:
 
    - Visit the [Visual Studio website](https://visualstudio.microsoft.com/downloads/) and download the Visual Studio 2022 installer.
+
+2. 2. **Install Visual Studio 2022:**
+
+   - Run the installer.
+   - During installation, select the .NET Desktop Development workload. If not selected then from the right side window select .NET 6.0/7.0/8.0 SDK. 
+   - Then select Visual Studio Extension Development.
+ These steps will ensure that you have everything you need to start and work with this project.

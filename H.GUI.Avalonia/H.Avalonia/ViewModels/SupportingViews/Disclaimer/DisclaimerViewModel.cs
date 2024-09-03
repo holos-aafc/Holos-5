@@ -12,6 +12,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using H.Avalonia.Views;
+using H.Core.Services;
 using Prism.Commands;
 
 namespace H.Avalonia.ViewModels.SupportingViews.Disclaimer
@@ -31,6 +32,8 @@ namespace H.Avalonia.ViewModels.SupportingViews.Disclaimer
 
         private DelegateCommand<object> _okCommand;
 
+        private ICountrySettings _countrySettings;
+
         #endregion
 
         #region Constructors
@@ -42,8 +45,18 @@ namespace H.Avalonia.ViewModels.SupportingViews.Disclaimer
 
         public DisclaimerViewModel(IRegionManager regionManager,
                                    IEventAggregator eventAggregator,
-                                   Storage storage) : base(regionManager, eventAggregator, storage)
+                                   Storage storage,
+                                   ICountrySettings countrySettings) : base(regionManager, eventAggregator, storage)
         {
+            if (countrySettings != null)
+            {
+                _countrySettings = countrySettings; 
+            }
+            else
+            {
+                throw new ArgumentNullException(nameof(countrySettings));
+            }
+
             LanguageCollection = new ObservableCollection<Languages>(EnumHelper.GetValues<Languages>());
             this.Construct();
         }
@@ -168,7 +181,14 @@ namespace H.Avalonia.ViewModels.SupportingViews.Disclaimer
         private void OnOkExecute(object obj)
         {
             // Navigate to next view
-            base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(SoilDataView));
+            if (_countrySettings.Version == CountryVersion.Canada)
+            {
+                base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(SoilDataView));
+            }
+            else
+            {
+                base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(ClimateDataView));
+            }
         }
 
         private bool OkCanExecute(object arg)

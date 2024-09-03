@@ -7,3 +7,9 @@ https://docs.google.com/spreadsheets/d/1qKW-QNd9eCmvQP8VAPcQOgrb9fi_gqSGWFhmVh_J
 ## Prerequisites
 
 To get started with HOLOS, you only need to install **Visual Studio 2022**. Visual Studio will automatically prompt you to download and install all the necessary prerequisites during the setup process.
+
+### Visual Studio 2022 Installation
+
+1. **Download Visual Studio 2022**:
+
+   - Visit the [Visual Studio website](https://visualstudio.microsoft.com/downloads/) and download the Visual Studio 2022 installer.

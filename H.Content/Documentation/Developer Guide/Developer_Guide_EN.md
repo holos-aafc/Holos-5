@@ -4,3 +4,6 @@ All text in the GUI must have an entry in a resource file. This enables the GUI 
 
 https://docs.google.com/spreadsheets/d/1qKW-QNd9eCmvQP8VAPcQOgrb9fi_gqSGWFhmVh_JYLA/edit?usp=drive_link
 
+## Prerequisites
+
+To get started with HOLOS, you only need to install **Visual Studio 2022**. Visual Studio will automatically prompt you to download and install all the necessary prerequisites during the setup process.

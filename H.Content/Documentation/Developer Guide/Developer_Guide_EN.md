@@ -26,3 +26,8 @@ To get started with HOLOS, you only need to install **Visual Studio 2022**. Visu
 - After installing Visual Studio, open it and go to the **Extensions** menu.
 - Select **Manage Extensions** and search for the **Avalonia for Visual Studo 2022** extension.
 - Install the extension and restart Visual Studio.
+
+### Set H.Avalonia as the Startup Project
+
+- In the Solution Explorer, right-click on the `H.Avalonia` folder inside `H.GUI.Avalonia`.
+- Select **Set as Startup Project** to ensure that the project is started properly.

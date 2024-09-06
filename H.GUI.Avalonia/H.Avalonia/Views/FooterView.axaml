@@ -9,6 +9,6 @@
         <viewmodels:FooterViewModel/>
     </Design.DataContext>
     <Image Width="70" 
-           Source="{StaticResource CanadaLogo}"
+           Source="{StaticResource DefaultEULogo}"
            HorizontalAlignment="Right"/>
 </UserControl>

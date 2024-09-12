@@ -12,7 +12,7 @@
   <StackPanel>
     <Image
          Width="200"
-         Source="/Assets/Images/holoslogo.png"
+         Source="/Assets/Images/HOLOSIE.png"
          RenderOptions.BitmapInterpolationMode="HighQuality">
     </Image>
     <TextBlock Text="{x:Static properties:Resources.ApplicationTitle}"

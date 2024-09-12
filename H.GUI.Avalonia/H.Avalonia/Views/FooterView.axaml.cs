@@ -1,6 +1,4 @@
-using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
 
 namespace H.Avalonia.Views
 {
@@ -9,6 +7,14 @@ namespace H.Avalonia.Views
         public FooterView()
         {
             InitializeComponent();
+            InitializeFooterImage();
+
+        }
+        public void InitializeFooterImage()
+        {
+            // found = false | footerImage = null
+            var found = this.TryGetResource("DefaultEULogo", this.ActualThemeVariant, out var footerImage);
+            this.DynamicImage.Source = (global::Avalonia.Media.IImage?)footerImage;
         }
     }
 }

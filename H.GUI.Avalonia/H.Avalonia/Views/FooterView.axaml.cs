@@ -1,9 +1,17 @@
 using Avalonia.Controls;
+using H.Avalonia.ViewModels;
+using H.Core.Enumerations;
+using H.Core.Services;
+using SharpKml.Dom;
 
 namespace H.Avalonia.Views
 {
     public partial class FooterView : UserControl
     {
+        private string _footerImageTitleCa = "CanadaLogo";
+        private string _footerImageTitleIE = "DefaultEULogo";
+
+        private CountrySettings _countrySettrings = new CountrySettings();
         public FooterView()
         {
             InitializeComponent();
@@ -11,10 +19,19 @@ namespace H.Avalonia.Views
 
         }
         public void InitializeFooterImage()
-        {
-            // found = false | footerImage = null
-            var found = this.TryGetResource("DefaultEULogo", this.ActualThemeVariant, out var footerImage);
-            this.DynamicImage.Source = (global::Avalonia.Media.IImage?)footerImage;
+        {   
+            if (_countrySettrings.Version == CountryVersion.Ireland)
+            {
+                // found = false | footerImage = null
+                var found = this.TryGetResource(_footerImageTitleIE, this.ActualThemeVariant, out var footerImage);
+                this.DynamicImage.Source = (global::Avalonia.Media.IImage?)footerImage;
+            }
+            else
+            {
+                // found = false | footerImage = null
+                var found = this.TryGetResource(_footerImageTitleCa, this.ActualThemeVariant, out var footerImage);
+                this.DynamicImage.Source = (global::Avalonia.Media.IImage?)footerImage;
+            }
         }
     }
 }

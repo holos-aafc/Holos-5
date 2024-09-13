@@ -14,12 +14,35 @@ namespace H.Avalonia.ViewModels
     public class FooterViewModel : ViewModelBase
     {
         #region Fields
+
+        private ICountrySettings _countrySettings;
+
         #endregion Fields
 
-        #region Constractors
-        public FooterViewModel() { }
+        #region Constructors
 
-        public FooterViewModel(IRegionManager regionManager) : base(regionManager) { }
-        #endregion Constractors
+        public FooterViewModel(IRegionManager regionManager, ICountrySettings countrySettings) : base(regionManager)
+        {
+            if (countrySettings != null)
+            {
+                _countrySettings = countrySettings;
+            }
+            else
+            {
+                throw new ArgumentNullException(nameof(countrySettings));
+            }
+        }
+
+        #endregion Constructors
+
+        #region Properties
+
+        public ICountrySettings CountrySettings
+        {
+            get => _countrySettings;
+            set => SetProperty(ref _countrySettings, value);
+        }
+
+        #endregion
     }
 }

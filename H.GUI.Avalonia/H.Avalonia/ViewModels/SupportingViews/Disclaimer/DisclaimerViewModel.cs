@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using H.Avalonia.Views;
 using H.Core.Services;
 using Prism.Commands;
+using H.Avalonia.Views.SupportingViews.MeasurementProvince;
 
 namespace H.Avalonia.ViewModels.SupportingViews.Disclaimer
 {
@@ -187,7 +188,7 @@ namespace H.Avalonia.ViewModels.SupportingViews.Disclaimer
             }
             else
             {
-                base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(ClimateDataView));
+                base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(MeasurementProvinceView));
             }
         }
 

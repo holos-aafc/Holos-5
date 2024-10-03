@@ -1,6 +1,9 @@
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using H.Avalonia.ViewModels.SupportingViews.MeasurementProvince;
+using Prism.Regions;
+using H.Core.Services;
 
 namespace H.Avalonia.Views.SupportingViews.MeasurementProvince
 {
@@ -9,7 +12,9 @@ namespace H.Avalonia.Views.SupportingViews.MeasurementProvince
         public MeasurementProvinceView()
         {
             InitializeComponent();
-            DataContext = new MeasurementProvinceViewModel(); 
+            var regionManager = (IRegionManager)((App)Application.Current).Container.Resolve(typeof(IRegionManager));
+            var countrySettings = (ICountrySettings)((App)Application.Current).Container.Resolve(typeof(ICountrySettings));
+            DataContext = new MeasurementProvinceViewModel(regionManager, countrySettings);
         }
 
         private void InitializeComponent()

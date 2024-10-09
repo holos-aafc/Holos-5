@@ -19,6 +19,7 @@ using H.Avalonia.Views.SupportingViews.Disclaimer;
 using H.Avalonia.ViewModels.SupportingViews.MeasurementProvince;
 using H.Avalonia.Views.SupportingViews.MeasurementProvince;
 using H.Core.Services;
+using H.Core.Services.Provinces;
 
 namespace H.Avalonia
 {
@@ -69,6 +70,8 @@ namespace H.Avalonia
             containerRegistry.RegisterSingleton<KmlHelpers>();
 
             containerRegistry.RegisterSingleton<ICountrySettings, CountrySettings>();
+            containerRegistry.RegisterSingleton<IProvinces, ProvincesService>();
+
 
             // Dialogs
             containerRegistry.RegisterDialog<DeleteRowDialog, DeleteRowDialogViewModel>();

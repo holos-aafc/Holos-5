@@ -11,9 +11,10 @@ using System.Linq;
 using System.Collections.Generic;
 using H.Core.Services.Provinces;
 
+
 namespace H.Avalonia.ViewModels.SupportingViews.MeasurementProvince
 {
-    public class MeasurementProvinceViewModel : BindableBase
+    public class MeasurementProvinceViewModel : ViewModelBase
     {
         #region Fields
 
@@ -21,17 +22,19 @@ namespace H.Avalonia.ViewModels.SupportingViews.MeasurementProvince
         private object _selectedProvince;
         private readonly IRegionManager _regionManager;
         private readonly IProvinces _provincesService;
-        private readonly ICountrySettings _countrySettings;
 
         #endregion
 
         #region Constructors
 
-        public MeasurementProvinceViewModel(IRegionManager regionManager, IProvinces provincesService, ICountrySettings countrySettings)
+        public MeasurementProvinceViewModel(IRegionManager regionManager, IProvinces provincesService) : base(regionManager)
         {
+
+
+
+
             _regionManager = regionManager;
             _provincesService = provincesService;
-            _countrySettings = countrySettings;
 
             MeasurementSystemCollection = new ObservableCollection<MeasurementSystemType>(EnumHelper.GetValues<MeasurementSystemType>());
             ProvinceCollection = new ObservableCollection<object>(_provincesService.GetProvinces());
@@ -69,16 +72,8 @@ namespace H.Avalonia.ViewModels.SupportingViews.MeasurementProvince
         #region Methods
 
         private void OnNavigate()
-        {
-            // Navigate to next view based on country version
-            if (_countrySettings.Version == CountryVersion.Canada)
-            {
-                _regionManager.RequestNavigate(UiRegions.ContentRegion, nameof(SoilDataView));
-            }
-            else
-            {
-                _regionManager.RequestNavigate(UiRegions.ContentRegion, nameof(ClimateDataView));
-            }
+        {               
+            _regionManager.RequestNavigate(UiRegions.ContentRegion, nameof(BlankView));                     
         }
 
         #endregion

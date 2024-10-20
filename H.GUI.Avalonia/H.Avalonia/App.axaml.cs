@@ -54,10 +54,13 @@ namespace H.Avalonia
             containerRegistry.RegisterForNavigation<AboutPageView, AboutPageViewModel>();
             containerRegistry.RegisterForNavigation<ClimateResultsView, ClimateResultsViewModel>();
             containerRegistry.RegisterForNavigation<SoilResultsView, SoilResultsViewModel>();
-
+                
             // New development work
             containerRegistry.RegisterForNavigation<DisclaimerView, DisclaimerViewModel>();
             containerRegistry.RegisterForNavigation<MeasurementProvinceView, MeasurementProvinceViewModel>();
+
+            // Blank Page
+            containerRegistry.RegisterForNavigation<BlankView, BlankViewModel>();
 
             // 
             //containerRegistry.RegisterSingleton<ResultsViewModelBase>();

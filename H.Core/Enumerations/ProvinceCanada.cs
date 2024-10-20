@@ -4,9 +4,7 @@ using H.Infrastructure;
 namespace H.Core.Enumerations
 {
     public enum ProvinceCanada
-    {
-        [LocalizedDescription("EnumSelectProvince", typeof(Resources))]
-        SelectProvince,
+    {       
         [LocalizedDescription("Alberta", typeof(Resources))]
         Alberta,
         [LocalizedDescription("BritishColumbia", typeof(Resources))]

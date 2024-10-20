@@ -1,23 +1,33 @@
+using System;
 using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
-using Prism.Regions;
 using H.Avalonia.ViewModels.SupportingViews.MeasurementProvince;
-using H.Core.Services.Provinces;
-using H.Core.Services;
 
 namespace H.Avalonia.Views.SupportingViews.MeasurementProvince
 {
     public partial class MeasurementProvinceView : UserControl
     {
-        public MeasurementProvinceView(IRegionManager regionManager, IProvinces provincesService, ICountrySettings countrySettings)
+        #region Fields
+
+        private MeasurementProvinceViewModel _measurementProvinceViewModel;
+
+        #endregion
+
+        #region Constructors
+
+        public MeasurementProvinceView(MeasurementProvinceViewModel measurementProvinceViewModel)
         {
             InitializeComponent();
-            DataContext = new MeasurementProvinceViewModel(regionManager, provincesService, countrySettings);
+
+            if (measurementProvinceViewModel != null)
+            {
+                _measurementProvinceViewModel = measurementProvinceViewModel;
+            }
+            else
+            {
+                throw new ArgumentNullException(nameof(measurementProvinceViewModel));
+            }
         }
 
-        private void InitializeComponent()
-        {
-            AvaloniaXamlLoader.Load(this);
-        }
+        #endregion
     }
 }

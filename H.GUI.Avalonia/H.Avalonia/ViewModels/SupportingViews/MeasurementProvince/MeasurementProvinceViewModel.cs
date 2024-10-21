@@ -10,6 +10,7 @@ using System.Windows.Input;
 using System.Linq;
 using System.Collections.Generic;
 using H.Core.Services.Provinces;
+using System;
 
 
 namespace H.Avalonia.ViewModels.SupportingViews.MeasurementProvince
@@ -33,8 +34,10 @@ namespace H.Avalonia.ViewModels.SupportingViews.MeasurementProvince
 
 
 
-            _regionManager = regionManager;
-            _provincesService = provincesService;
+            _regionManager = regionManager ?? throw new ArgumentNullException(nameof(regionManager));
+            _provincesService = provincesService ?? throw new ArgumentNullException(nameof(provincesService));
+
+
 
             MeasurementSystemCollection = new ObservableCollection<MeasurementSystemType>(EnumHelper.GetValues<MeasurementSystemType>());
             ProvinceCollection = new ObservableCollection<object>(_provincesService.GetProvinces());

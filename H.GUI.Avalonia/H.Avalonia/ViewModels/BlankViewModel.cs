@@ -1,9 +1,7 @@
-﻿using Prism.Mvvm;
-
-namespace H.Avalonia.ViewModels
+﻿namespace H.Avalonia.ViewModels
 {
-    public class BlankViewModel : BindableBase
-    {
+    public class BlankViewModel : ViewModelBase
+    {       
         // Work-In-Progress
     }
 }

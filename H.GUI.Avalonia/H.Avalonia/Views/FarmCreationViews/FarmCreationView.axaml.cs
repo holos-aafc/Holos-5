@@ -1,14 +1,34 @@
-using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
+using H.Avalonia.ViewModels;
+using System;
 
 namespace H.Avalonia.Views.FarmCreationViews
 {
     public partial class FarmCreationView : UserControl
     {
-        public FarmCreationView()
+
+        #region Fields
+
+        private FarmCreationViewModel _farmCreationViewModel;
+
+        #endregion
+
+        #region Constructors
+
+
+        public FarmCreationView(FarmCreationViewModel farmCreationViewModel)
         {
             InitializeComponent();
+            if (farmCreationViewModel != null)
+            {
+                _farmCreationViewModel = farmCreationViewModel;
+            }
+            else
+            {
+                throw new ArgumentNullException(nameof(farmCreationViewModel));
+            }
+
         }
+        #endregion
     }
 }

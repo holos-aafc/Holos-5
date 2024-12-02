@@ -12,13 +12,13 @@
 				<Button.Styles>
 					<Style Selector="Button">
 						<Setter Property="FontWeight" Value="Bold" />
-						<Setter Property="Foreground" Value="#696969" />
-						<Setter Property="Background" Value="#EDEDED" />
+						<Setter Property="Foreground" Value="#FFFFFF" />
+						<Setter Property="Background" Value="#007C4B" />
 					</Style>
 					<Style Selector="Button:pointerover /template/ ContentPresenter">
 						<Setter Property="FontWeight" Value="Bold" />
 						<Setter Property="Foreground" Value="#FFFFFF" />
-						<Setter Property="Background" Value="#009E60" />
+						<Setter Property="Background" Value="#007C4B" />
 					</Style>
 				</Button.Styles>
 			</Button>
@@ -32,7 +32,7 @@
 					<Style Selector="Button:pointerover /template/ ContentPresenter">
 						<Setter Property="FontWeight" Value="Bold" />
 						<Setter Property="Foreground" Value="#FFFFFF" />
-						<Setter Property="Background" Value="#009E60" />
+						<Setter Property="Background" Value="#007C4B" />
 					</Style>
 				</Button.Styles>
 			</Button>
@@ -50,7 +50,7 @@
 				<Style Selector="Button:pointerover /template/ ContentPresenter">
 					<Setter Property="FontWeight" Value="Bold" />
 					<Setter Property="Foreground" Value="#FFFFFF" />
-					<Setter Property="Background" Value="#009E60" />
+					<Setter Property="Background" Value="#007C4B" />
 				</Style>
 			</Button.Styles>
 		</Button>

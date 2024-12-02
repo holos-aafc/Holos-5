@@ -1,13 +1,39 @@
-using Avalonia;
+using System;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
+using H.Avalonia.ViewModels;
 
-namespace H.Avalonia;
-
-public partial class FarmOptionsView : UserControl
+namespace H.Avalonia.Views.FarmCreationViews
 {
-    public FarmOptionsView()
+    public partial class FarmOptionsView : UserControl
     {
-        InitializeComponent();
+        #region Fields
+
+        private FarmOptionsViewModel _farmOptionsViewModel;
+
+        #endregion
+
+        #region Constructors
+
+        public FarmOptionsView(FarmOptionsViewModel farmOptionsViewModel)
+        {
+            InitializeComponent();
+
+            if (farmOptionsViewModel != null)
+            {
+                _farmOptionsViewModel = farmOptionsViewModel;
+            }
+            else
+            {
+                throw new ArgumentNullException(nameof(farmOptionsViewModel));
+            }
+        }
+
+        #endregion
+
+        private void InitializeComponent()
+        {
+            AvaloniaXamlLoader.Load(this);
+        }
     }
 }

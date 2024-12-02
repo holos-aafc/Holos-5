@@ -1,7 +1,41 @@
-﻿namespace H.Avalonia.ViewModels
+﻿using Prism.Commands;
+using Prism.Regions;
+using System.Windows.Input;
+using System;
+
+namespace H.Avalonia.ViewModels
 {
     public class FarmOptionsViewModel : ViewModelBase
     {
-        // Work-In-Progress
+        #region Fields
+
+        private readonly IRegionManager _regionManager;
+
+        #endregion
+
+        #region Constructors
+
+        public FarmOptionsViewModel(IRegionManager regionManager) : base(regionManager)
+        {
+            _regionManager = regionManager ?? throw new ArgumentNullException(nameof(regionManager));
+            NavigateToCreateNewFarmCommand = new DelegateCommand(OnNavigateToCreateNewFarm);
+        }
+
+        #endregion
+
+        #region Properties
+
+        public ICommand NavigateToCreateNewFarmCommand { get; }
+
+        #endregion
+
+        #region Methods
+
+        private void OnNavigateToCreateNewFarm()
+        {
+            _regionManager.RequestNavigate(UiRegions.ContentRegion, nameof(FarmCreationView));
+        }
+
+        #endregion
     }
 }

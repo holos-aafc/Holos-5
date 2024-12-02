@@ -20,6 +20,7 @@ using H.Avalonia.ViewModels.SupportingViews.MeasurementProvince;
 using H.Avalonia.Views.SupportingViews.MeasurementProvince;
 using H.Core.Services;
 using H.Core.Services.Provinces;
+using H.Avalonia.Views.FarmCreationViews;
 
 namespace H.Avalonia
 {
@@ -59,7 +60,8 @@ namespace H.Avalonia
             containerRegistry.RegisterForNavigation<DisclaimerView, DisclaimerViewModel>();
             containerRegistry.RegisterForNavigation<MeasurementProvinceView, MeasurementProvinceViewModel>();
             containerRegistry.RegisterForNavigation<FarmOptionsView,FarmOptionsViewModel>();
-
+            containerRegistry.RegisterForNavigation<FarmCreationView, FarmCreationViewModel>();
+                
             // Blank Page
             containerRegistry.RegisterForNavigation<BlankView, BlankViewModel>();
 

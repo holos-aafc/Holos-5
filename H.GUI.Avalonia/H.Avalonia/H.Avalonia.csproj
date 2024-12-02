@@ -106,4 +106,8 @@
   <ItemGroup>
     <UpToDateCheckInput Remove="Views\FarmCreationViews\FarmCreationView.axaml" />
   </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\FarmCreationViews\FarmOpenExistingView.axaml" />
+  </ItemGroup>
 </Project>

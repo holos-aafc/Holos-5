@@ -20,6 +20,7 @@ namespace H.Avalonia.ViewModels
         {
             _regionManager = regionManager ?? throw new ArgumentNullException(nameof(regionManager));
             NavigateToCreateNewFarmCommand = new DelegateCommand(OnNavigateToCreateNewFarm);
+            NavigateToOpenExistingFarmCommand = new DelegateCommand(OnNavigateToOpenExistingFarm);
         }
 
         #endregion
@@ -27,10 +28,16 @@ namespace H.Avalonia.ViewModels
         #region Properties
 
         public ICommand NavigateToCreateNewFarmCommand { get; }
+        public ICommand NavigateToOpenExistingFarmCommand { get; }
 
         #endregion
 
         #region Methods
+
+        private void OnNavigateToOpenExistingFarm()
+        {
+            _regionManager.RequestNavigate(UiRegions.ContentRegion, nameof(FarmOpenExistingView));
+        }
 
         private void OnNavigateToCreateNewFarm()
         {

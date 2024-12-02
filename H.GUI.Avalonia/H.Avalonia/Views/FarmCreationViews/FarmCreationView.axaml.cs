@@ -2,12 +2,13 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 
-namespace H.Avalonia;
-
-public partial class FarmCreationView : UserControl
+namespace H.Avalonia.Views.FarmCreationViews
 {
-    public FarmCreationView()
+    public partial class FarmCreationView : UserControl
     {
-        InitializeComponent();
+        public FarmCreationView()
+        {
+            InitializeComponent();
+        }
     }
 }

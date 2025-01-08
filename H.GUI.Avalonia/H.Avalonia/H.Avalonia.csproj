@@ -4,6 +4,7 @@
     <TargetFramework>net7.0</TargetFramework>
     <Nullable>enable</Nullable>
     <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
+    <ApplicationIcon>Assets\Images\Icons\HolosIEIcon.ico</ApplicationIcon>
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
 
@@ -21,6 +22,14 @@
     <EmbeddedResource Remove="Views\Shared\**" />
     <None Remove="Views\DetailViews\**" />
     <None Remove="Views\Shared\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AvaloniaResource Remove="Assets\Images\Icons\HolosIEIcon.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Assets\Images\Icons\HolosIEIcon.ico" />
   </ItemGroup>
 
   <ItemGroup>
@@ -53,10 +62,19 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Assets\Images\Icons\HolosIEIcon.ico">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Update="Resources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Views\BlankView.axaml.cs">
+      <DependentUpon>BlankView.axaml</DependentUpon>
     </Compile>
     <Compile Update="Views\ClimateDataView.axaml.cs">
       <DependentUpon>ClimateDataView.axaml</DependentUpon>
@@ -71,6 +89,9 @@
     <Compile Update="Views\ResultViews\SoilResultsView.axaml.cs">
       <DependentUpon>SoilResultsView.axaml</DependentUpon>
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\SupportingViews\MeasurementProvince\MeasurementProvinceView.axaml.cs">
+      <DependentUpon>MeasurementProvinceView.axaml</DependentUpon>
     </Compile>
   </ItemGroup>
 

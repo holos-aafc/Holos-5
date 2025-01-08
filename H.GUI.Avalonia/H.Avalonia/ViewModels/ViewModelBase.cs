@@ -14,7 +14,7 @@ namespace H.Avalonia.ViewModels
     {
         #region Fields
         
-        private Storage? _storage; 
+        private Storage _storage; 
         private IEventAggregator _eventAggregator;
         private IRegionManager _regionManager;
 
@@ -30,11 +30,23 @@ namespace H.Avalonia.ViewModels
         {
             if (storage != null)
             {
-                Storage = storage;
+                this.Storage = storage;
             }
             else
             {
                 throw new ArgumentNullException(nameof(storage));
+            }
+        }
+
+        protected ViewModelBase(IEventAggregator eventAggregator)
+        {
+            if (eventAggregator != null)
+            {
+                this.EventAggregator = eventAggregator;
+            }
+            else
+            {
+                throw new ArgumentNullException(nameof(eventAggregator));
             }
         }
 
@@ -62,15 +74,27 @@ namespace H.Avalonia.ViewModels
             }
         }
 
-        protected ViewModelBase(IRegionManager regionManager, IEventAggregator eventAggregator, Storage storage) : this(regionManager)
+        protected ViewModelBase(IRegionManager regionManager, IEventAggregator eventAggregator) : this(regionManager)
         {
-            if (eventAggregator != null)
+            if(eventAggregator != null)
             {
-                _eventAggregator = eventAggregator;
+                this.EventAggregator = eventAggregator;
             }
             else
             {
-                throw new ArgumentNullException(nameof(regionManager));
+                throw new ArgumentNullException(nameof(eventAggregator));
+            }
+        }
+
+        protected ViewModelBase(IRegionManager regionManager, IEventAggregator eventAggregator, Storage storage) : this(regionManager, storage)
+        {
+            if (eventAggregator != null)
+            {
+                this.EventAggregator = eventAggregator;
+            }
+            else
+            {
+                throw new ArgumentNullException(nameof(eventAggregator));
             }
         }
 
@@ -82,7 +106,7 @@ namespace H.Avalonia.ViewModels
         /// A storage file that contains various data items that are shored between viewmodels are passed around the system. This storage
         /// item is instantiated using Prism and through Dependency Injection, is passed within the system.
         /// </summary>
-        public Storage? Storage
+        public Storage Storage
         {
             get => _storage;
             set => SetProperty(ref _storage, value);
@@ -97,6 +121,12 @@ namespace H.Avalonia.ViewModels
         {
             get => _regionManager;
             set => SetProperty(ref _regionManager, value);
+        }
+
+        protected IEventAggregator EventAggregator 
+        {
+            get => _eventAggregator;
+            set { SetProperty(ref _eventAggregator, value); } 
         }
 
         #endregion

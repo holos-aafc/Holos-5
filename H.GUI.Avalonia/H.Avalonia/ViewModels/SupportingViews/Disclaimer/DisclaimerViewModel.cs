@@ -168,7 +168,8 @@ namespace H.Avalonia.ViewModels.SupportingViews.Disclaimer
         private void OnOkExecute(object obj)
         {
             // Navigate to next view
-            base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(SoilDataView));
+            base.RegionManager.RequestNavigate(UiRegions.SidebarRegion, nameof(Views.ComponentViews.MyComponentsView));
+            base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(Views.ComponentViews.ChooseComponentsView));
         }
 
         private bool OkCanExecute(object arg)

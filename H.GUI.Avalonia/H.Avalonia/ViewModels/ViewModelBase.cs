@@ -13,7 +13,9 @@ namespace H.Avalonia.ViewModels
     public class ViewModelBase : BindableBase, INavigationAware
     {
         #region Fields
-        
+
+        protected bool IsInitialized;
+
         private Storage _storage; 
         private IEventAggregator _eventAggregator;
         private IRegionManager _regionManager;

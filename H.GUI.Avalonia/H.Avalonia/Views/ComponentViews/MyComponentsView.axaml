@@ -42,8 +42,8 @@
                  BorderBrush="LightGray"
                  BorderThickness="1"
                  Grid.Row="1"
-                 SelectedItem="{Binding Path=Storage.Farm.SelectedComponent, Mode=TwoWay}"
-                 ItemsSource="{Binding Path=Storage.Farm.Components}">
+                 SelectedItem="{Binding Path=SelectedItem}"
+                 ItemsSource="{Binding Path=MyComponents}">
 		</ListBox>
 
 		<Border Grid.Row="2"

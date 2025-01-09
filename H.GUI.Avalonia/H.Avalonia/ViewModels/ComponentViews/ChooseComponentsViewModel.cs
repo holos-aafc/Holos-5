@@ -11,6 +11,7 @@ using System.Reactive;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using H.Avalonia.Events;
 using ReactiveUI;
 
 namespace H.Avalonia.ViewModels.ComponentViews
@@ -117,8 +118,10 @@ namespace H.Avalonia.ViewModels.ComponentViews
 
         public void OnAddComponentExecute()
         {
-            base.Storage.Farm.Components.Add(this.SelectedAvailableComponent);
-            base.Storage.Farm.SelectedComponent = this.SelectedAvailableComponent;
+            base.Storage.Farm.ComponentsAsStrings.Add(this.SelectedAvailableComponent);
+            base.Storage.Farm.SelectedComponentAsString = this.SelectedAvailableComponent;
+
+            base.EventAggregator.GetEvent<ComponentAddedEvent>().Publish(this.SelectedAvailableComponent);
         }
 
         public void OnFinishedAddingComponentsExecute()

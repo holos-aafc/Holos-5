@@ -12,7 +12,9 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using H.Avalonia.Views;
+using H.Core.Services;
 using Prism.Commands;
+using H.Avalonia.Views.SupportingViews.MeasurementProvince;
 
 namespace H.Avalonia.ViewModels.SupportingViews.Disclaimer
 {
@@ -31,6 +33,8 @@ namespace H.Avalonia.ViewModels.SupportingViews.Disclaimer
 
         private DelegateCommand<object> _okCommand;
 
+        private ICountrySettings _countrySettings;
+
         #endregion
 
         #region Constructors
@@ -42,8 +46,18 @@ namespace H.Avalonia.ViewModels.SupportingViews.Disclaimer
 
         public DisclaimerViewModel(IRegionManager regionManager,
                                    IEventAggregator eventAggregator,
-                                   Storage storage) : base(regionManager, eventAggregator, storage)
+                                   Storage storage,
+                                   ICountrySettings countrySettings) : base(regionManager, eventAggregator, storage)
         {
+            if (countrySettings != null)
+            {
+                _countrySettings = countrySettings; 
+            }
+            else
+            {
+                throw new ArgumentNullException(nameof(countrySettings));
+            }
+
             LanguageCollection = new ObservableCollection<Languages>(EnumHelper.GetValues<Languages>());
             this.Construct();
         }

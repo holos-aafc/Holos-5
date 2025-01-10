@@ -1,0 +1,86 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:componentViews="clr-namespace:H.Avalonia.ViewModels.ComponentViews"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="H.Avalonia.Views.ComponentViews.ChooseComponentsView">
+
+    <Design.DataContext>
+        <componentViews:ChooseComponentsViewModelDesign/>
+    </Design.DataContext>
+
+    <Grid>
+        <Grid.RowDefinitions>
+
+			<!-- Title row -->
+            <RowDefinition Height="Auto"/>
+
+			<!-- Content row -->
+            <RowDefinition/>
+
+			<!-- Command row -->
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+
+			<!-- Main content column -->
+            <ColumnDefinition Width="1*"/>
+
+			<!-- Gridsplitter column -->
+            <ColumnDefinition Width="Auto"/>
+
+			<!-- Component description column -->
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Name="TitleGrid" 
+              Grid.Row="0"
+              Grid.Column="0"
+              Grid.ColumnSpan="3"
+              Height="100"
+              VerticalAlignment="Center">
+            <Border BorderBrush="LightGray" BorderThickness="1">
+            <StackPanel Margin="10,0" VerticalAlignment="Center">
+                <TextBlock Classes="title-textblock">Choose Components For Your Farm</TextBlock>
+            </StackPanel>
+            </Border>
+        </Grid>
+
+        <Grid Name="AvailableComponentsGrid" 
+              Grid.Row="1"
+              Grid.Column="0">
+
+            <ListBox SelectedItem="{Binding Path=SelectedAvailableComponent, Mode=TwoWay}"
+                     ItemsSource="{Binding Path=AvailableComponents}"
+                     BorderBrush="LightGray"
+					 BorderThickness="1">
+            </ListBox>
+        </Grid>
+
+        <GridSplitter Grid.Column="1" Grid.Row="1" VerticalAlignment="Stretch"></GridSplitter>
+
+        <Grid Name="DescriptionGrid" 
+              Grid.Row="1"
+              Grid.Column="2">
+            <StackPanel Margin="10">
+                <TextBlock FontSize="20" Classes="title-textblock" Text="{Binding Path=SelectedComponentTitle}"/>
+                <TextBlock FontSize="16" TextWrapping="Wrap" Margin="0,20,0,0" Text="{Binding Path=SelectedComponentDescription}"/>
+            </StackPanel>
+        </Grid>
+
+        <Grid Name="CommandGrid" 
+              Grid.Row="2"
+              Grid.Column="0"
+              Grid.ColumnSpan="3"
+              Height="100">
+            <Border BorderBrush="LightGray" BorderThickness="1">
+            <UniformGrid Columns="2">
+                <Button Margin="10,0" Command="{Binding OnAddComponentExecute}" HorizontalContentAlignment="Center" HorizontalAlignment="Stretch">Add Selected Component</Button>
+                <Button Margin="10,0" Command="{Binding OnFinishedAddingComponentsExecute}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center">Finished Selecting Components</Button>
+            </UniformGrid>
+            </Border>
+        </Grid>
+    </Grid>
+</UserControl>

@@ -181,7 +181,9 @@ namespace H.Avalonia.ViewModels.SupportingViews.Disclaimer
 
         private void OnOkExecute(object obj)
         {
-            base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(MeasurementProvinceView));         
+            // Navigate to next view
+            base.RegionManager.RequestNavigate(UiRegions.SidebarRegion, nameof(Views.ComponentViews.MyComponentsView));
+            base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(Views.ComponentViews.ChooseComponentsView));
         }
 
         private bool OkCanExecute(object arg)

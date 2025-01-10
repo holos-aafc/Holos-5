@@ -8,5 +8,5 @@
     
     <!-- Add Styles Here -->
     <StyleInclude Source="ResourceStyles.axaml"/>
-    <StyleInclude Source="ControlsStyles.axaml"/>
+    <StyleInclude Source="ControlsStyles.axaml"/>	
 </Styles>

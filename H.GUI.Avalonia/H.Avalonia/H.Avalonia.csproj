@@ -14,16 +14,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <AvaloniaXaml Remove="Views\ComponentViews\**" />
     <AvaloniaXaml Remove="Views\DetailViews\**" />
     <AvaloniaXaml Remove="Views\Shared\**" />
-    <Compile Remove="Views\ComponentViews\**" />
     <Compile Remove="Views\DetailViews\**" />
     <Compile Remove="Views\Shared\**" />
-    <EmbeddedResource Remove="Views\ComponentViews\**" />
     <EmbeddedResource Remove="Views\DetailViews\**" />
     <EmbeddedResource Remove="Views\Shared\**" />
-    <None Remove="Views\ComponentViews\**" />
     <None Remove="Views\DetailViews\**" />
     <None Remove="Views\Shared\**" />
   </ItemGroup>
@@ -82,6 +78,9 @@
     </Compile>
     <Compile Update="Views\ClimateDataView.axaml.cs">
       <DependentUpon>ClimateDataView.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\ComponentViews\MyComponentsView.axaml.cs">
+      <DependentUpon>MyComponentsView.axaml</DependentUpon>
     </Compile>
     <Compile Update="Views\ResultViews\ClimateResultsView.axaml.cs">
       <DependentUpon>ClimateResultsView.axaml</DependentUpon>

@@ -12,8 +12,26 @@ namespace H.Avalonia
 {
     public class Storage : BindableBase
     {
+        #region Fields
+
+        private Farm _farm;
+
         private bool _showSingleCoordinateResults;
         private bool _showMultipleCoordinateResults;
+
+        #endregion
+
+        #region Constructors
+        public Storage()
+        {
+            this.Farm = new Farm();
+
+            ClimateViewItems = new ObservableCollection<ClimateViewItem>();
+            SoilViewItems = new ObservableCollection<SoilViewItem>();
+            SingleSoilViewItem = new SoilViewItem();
+        } 
+
+        #endregion
 
         /// <summary>
         /// A collection of viewitems added by the user for which data is required.
@@ -48,11 +66,10 @@ namespace H.Avalonia
             set => SetProperty(ref _showMultipleCoordinateResults, value);
         }
 
-        public Storage()
+        public Farm Farm
         {
-            ClimateViewItems = new ObservableCollection<ClimateViewItem>();
-            SoilViewItems = new ObservableCollection<SoilViewItem>();
-            SingleSoilViewItem = new SoilViewItem();
+            get => _farm;
+            set => SetProperty(ref _farm, value);
         }
     }
 }

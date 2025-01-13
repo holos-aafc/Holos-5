@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using H.Avalonia.Events;
 using H.Avalonia.Views.ComponentViews;
@@ -87,11 +88,14 @@ public class MyComponentsViewModel : ViewModelBase
 
     private void OnComponentAddedEvent(ComponentBase componentBase)
     {
-        this.MyComponents.Add(componentBase);
-        this.SelectedComponent = componentBase;
+        var instanceType = componentBase.GetType();
+        var instance = Activator.CreateInstance(instanceType) as ComponentBase;
 
-        base.Storage.Farm.Components.Add(componentBase);
-        base.Storage.Farm.SelectedComponent = componentBase;
+        this.MyComponents.Add(instance);
+        this.SelectedComponent = instance;
+
+        base.Storage.Farm.Components.Add(instance);
+        base.Storage.Farm.SelectedComponent = instance;
     }
 
     #endregion

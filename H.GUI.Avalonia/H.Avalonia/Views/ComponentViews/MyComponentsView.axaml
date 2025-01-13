@@ -3,12 +3,17 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			 xmlns:componentView="clr-namespace:H.Avalonia.ViewModels.ComponentViews"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 xmlns:infrastructure="clr-namespace:H.Avalonia.Infrastructure;assembly=H.Avalonia.Infrastructure"
+			 mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="H.Avalonia.Views.ComponentViews.MyComponentsView">
 
 	<Design.DataContext>
 		<componentView:MyComponentsViewModelDesign/>
 	</Design.DataContext>
+
+    <UserControl.Resources>
+        <infrastructure:EnumDescriptionConverter x:Key="EnumDescriptionConverter" />
+    </UserControl.Resources>
 
 	<Grid Name="MyComponentsGrid">
 
@@ -42,9 +47,15 @@
                  BorderBrush="LightGray"
                  BorderThickness="1"
                  Grid.Row="1"
-                 SelectedItem="{Binding Path=SelectedItem}"
+                 SelectedItem="{Binding Path=SelectedComponent}"
                  ItemsSource="{Binding Path=MyComponents}">
-		</ListBox>
+
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Path=ComponentType, Converter={StaticResource EnumDescriptionConverter}}"></TextBlock>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
 
 		<Border Grid.Row="2"
                 BorderBrush="LightGray"

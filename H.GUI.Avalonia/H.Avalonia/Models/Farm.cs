@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using H.Core.Models;
 using Prism.Mvvm;
 
@@ -8,11 +9,6 @@ public class Farm : BindableBase
 {
     #region Fields
 
-    private string _selectedComponentString;
-
-    private ObservableCollection<string> _componentsAsStrings;
-
-    private ComponentBase _selectedComponent;
 
     #endregion
 
@@ -20,30 +16,15 @@ public class Farm : BindableBase
 
     public Farm()
     {
-        this.ComponentsAsStrings = new ObservableCollection<string>();
+        this.Components = new List<ComponentBase>();
     }
 
     #endregion
 
     #region Properties
 
-    public ObservableCollection<string> ComponentsAsStrings
-    {
-        get => _componentsAsStrings;
-        set => SetProperty(ref _componentsAsStrings, value);
-    }
-
-    public string SelectedComponentAsString
-    {
-        get => _selectedComponentString;
-        set => SetProperty(ref _selectedComponentString, value);
-    }
-
-    public ComponentBase SelectedComponent
-    {
-        get => _selectedComponent;
-        set =>  _selectedComponent = value;
-    }
+    public List<ComponentBase> Components { get; set; }
+    public ComponentBase SelectedComponent { get; set; }
 
     #endregion
 }

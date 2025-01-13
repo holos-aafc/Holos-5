@@ -2,6 +2,7 @@
 using System.Linq;
 using H.Avalonia.Events;
 using H.Avalonia.Views.ComponentViews;
+using H.Core.Models;
 using Prism.Events;
 using Prism.Regions;
 using ReactiveUI;
@@ -12,8 +13,8 @@ public class MyComponentsViewModel : ViewModelBase
 {
     #region Fields
 
-    private string _selectedItem;
-    private ObservableCollection<string> _myComponents;
+    private ComponentBase _selectedComponent;
+    private ObservableCollection<ComponentBase> _myComponents;
 
     #endregion
 
@@ -21,29 +22,30 @@ public class MyComponentsViewModel : ViewModelBase
 
     public MyComponentsViewModel()
     {
-        this.MyComponents = new ObservableCollection<string>();
+        this.MyComponents = new ObservableCollection<ComponentBase>();
     }
 
     public MyComponentsViewModel(Storage storage, IRegionManager regionManager, IEventAggregator eventAggregator) : base(regionManager, eventAggregator, storage)
     {
-        this.MyComponents = new ObservableCollection<string>();
-        base.EventAggregator.GetEvent<ComponentAddedEvent>().Subscribe(OnComponentAddedEvent);
-    }
+        this.MyComponents = new ObservableCollection<ComponentBase>();
 
-    public ObservableCollection<string> MyComponents
-    {
-        get => _myComponents;
-        set => SetProperty(ref _myComponents, value);
+        base.EventAggregator.GetEvent<ComponentAddedEvent>().Subscribe(OnComponentAddedEvent);
     }
 
     #endregion
 
     #region Properties
 
-    public string SelectedItem
+    public ComponentBase SelectedComponent
     {
-        get => _selectedItem;
-        set => SetProperty(ref _selectedItem, value);
+        get => _selectedComponent;
+        set => SetProperty(ref _selectedComponent, value);
+    }
+
+    public ObservableCollection<ComponentBase> MyComponents
+    {
+        get => _myComponents;
+        set => SetProperty(ref _myComponents, value);
     }
 
     #endregion
@@ -61,9 +63,9 @@ public class MyComponentsViewModel : ViewModelBase
     {
         if (!base.IsInitialized)
         {
-            foreach (var componentsAsString in base.Storage.Farm.ComponentsAsStrings)
+            foreach (var component in base.Storage.Farm.Components)
             {
-                this.MyComponents.Add(componentsAsString);
+                this.MyComponents.Add(component);
             }
 
             base.IsInitialized = true;
@@ -83,13 +85,13 @@ public class MyComponentsViewModel : ViewModelBase
         }
     }
 
-    private void OnComponentAddedEvent(string component)
+    private void OnComponentAddedEvent(ComponentBase componentBase)
     {
-        this.MyComponents.Add(component);
-        this.SelectedItem = component;
+        this.MyComponents.Add(componentBase);
+        this.SelectedComponent = componentBase;
 
-        base.Storage.Farm.ComponentsAsStrings.Add(component);
-        base.Storage.Farm.SelectedComponentAsString = component;
+        base.Storage.Farm.Components.Add(componentBase);
+        base.Storage.Farm.SelectedComponent = componentBase;
     }
 
     #endregion

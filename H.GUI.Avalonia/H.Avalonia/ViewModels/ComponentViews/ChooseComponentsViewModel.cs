@@ -12,6 +12,11 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using H.Avalonia.Events;
+using H.Core.Models;
+using H.Core.Models.Animals.Sheep;
+using H.Core.Models.LandManagement.Fields;
+using H.Core.Models.LandManagement.Rotation;
+using H.Infrastructure;
 using ReactiveUI;
 
 namespace H.Avalonia.ViewModels.ComponentViews
@@ -20,41 +25,34 @@ namespace H.Avalonia.ViewModels.ComponentViews
     {
         #region Fields
 
-        private string _selectedAvailableComponent;
         private string _selectedComponentTitle;
         private string _selectedComponentDescription;
 
-        private ObservableCollection<string> _availableComponents;
+        private ComponentBase _selectedComponent;
+
+        private ObservableCollection<ComponentBase> _availableComponents;
 
         #endregion
 
         #region Constructors
 
-        public ChooseComponentsViewModel() { }
+        public ChooseComponentsViewModel()
+        {
+            this.AvailableComponents = new ObservableCollection<ComponentBase>() { new FieldSystemComponent(), new RotationComponent(), new SheepComponent(), new SheepFeedlotComponent() };
+            this.SelectedComponent = this.AvailableComponents.First();
+        }
 
         public ChooseComponentsViewModel(IEventAggregator eventAggregator, IRegionManager regionManager, Storage storage) : base(regionManager, eventAggregator, storage)
         {
-            this.AvailableComponents = new ObservableCollection<string>() { "Field", "Rotation", "Shelterbelt" };
-            this.SelectedAvailableComponent = this.AvailableComponents.ElementAt(1);
-
             this.PropertyChanged += OnPropertyChanged;
+
+            this.AvailableComponents = new ObservableCollection<ComponentBase>() { new FieldSystemComponent(), new RotationComponent(), new SheepComponent(), new SheepFeedlotComponent()};
+            this.SelectedComponent = this.AvailableComponents.First();
         }
 
         #endregion
 
         #region Properties
-
-        public ObservableCollection<string> AvailableComponents
-        {
-            get => _availableComponents;
-            set => SetProperty(ref _availableComponents, value);
-        }
-
-        public string SelectedAvailableComponent
-        {
-            get => _selectedAvailableComponent;
-            set => SetProperty(ref _selectedAvailableComponent, value);
-        }
 
         public string SelectedComponentTitle
         {
@@ -66,6 +64,18 @@ namespace H.Avalonia.ViewModels.ComponentViews
         {
             get => _selectedComponentDescription;
             set => SetProperty(ref _selectedComponentDescription, value);
+        }
+
+        public ObservableCollection<ComponentBase> AvailableComponents
+        {
+            get => _availableComponents;
+            set => SetProperty(ref _availableComponents, value);
+        }
+
+        public ComponentBase SelectedComponent
+        {
+            get => _selectedComponent;
+            set => SetProperty(ref _selectedComponent, value);
         }
 
         #endregion
@@ -81,7 +91,7 @@ namespace H.Avalonia.ViewModels.ComponentViews
 
         public void InitializeViewModel()
         {
-            this.SelectedAvailableComponent = this.AvailableComponents.First();
+            this.SelectedComponent = this.AvailableComponents.First();
         }
 
         #endregion
@@ -98,18 +108,18 @@ namespace H.Avalonia.ViewModels.ComponentViews
 
         private void OnPropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName is nameof(this.SelectedAvailableComponent))
+            if (e.PropertyName is nameof(this.SelectedComponent))
             {
-                this.SelectedComponentTitle = this.SelectedAvailableComponent;
-                if (this.SelectedAvailableComponent.Equals("Field"))
+                this.SelectedComponentTitle = this.SelectedComponent.ComponentType.GetDescription();
+                if (this.SelectedComponent.ComponentType == ComponentType.Field)
                 {
                     this.SelectedComponentDescription = "A component that allows the user to grow crops";
                 }
-                else if (this.SelectedAvailableComponent.Equals("Shelterbelt"))
+                else if (this.SelectedComponent.ComponentType == ComponentType.Shelterbelt)
                 {
                     this.SelectedComponentDescription = "A component that allows the user to grow trees on the farm";
                 }
-                else if (this.SelectedAvailableComponent.Equals("Rotation"))
+                else if (this.SelectedComponent.ComponentType == ComponentType.Rotation)
                 {
                     this.SelectedComponentDescription = "A component that allows the user create a crop rotation";
                 }
@@ -118,10 +128,11 @@ namespace H.Avalonia.ViewModels.ComponentViews
 
         public void OnAddComponentExecute()
         {
-            base.Storage.Farm.ComponentsAsStrings.Add(this.SelectedAvailableComponent);
-            base.Storage.Farm.SelectedComponentAsString = this.SelectedAvailableComponent;
 
-            base.EventAggregator.GetEvent<ComponentAddedEvent>().Publish(this.SelectedAvailableComponent);
+            base.Storage.Farm.Components.Add(this.SelectedComponent);
+            base.Storage.Farm.SelectedComponent = this.SelectedComponent;
+
+            base.EventAggregator.GetEvent<ComponentAddedEvent>().Publish(this.SelectedComponent);
         }
 
         public void OnFinishedAddingComponentsExecute()

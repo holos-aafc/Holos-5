@@ -3,7 +3,7 @@ using Prism.Events;
 
 namespace H.Avalonia.Events;
 
-public class ComponentAddedEvent : PubSubEvent<string>
+public class ComponentAddedEvent : PubSubEvent<ComponentBase>
 {
     
 }

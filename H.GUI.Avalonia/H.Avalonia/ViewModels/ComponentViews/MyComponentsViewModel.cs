@@ -4,6 +4,7 @@ using System.Linq;
 using H.Avalonia.Events;
 using H.Avalonia.Views.ComponentViews;
 using H.Core.Models;
+using H.Core.Models.Animals.Sheep;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Prism.Events;
 using Prism.Regions;
@@ -141,6 +142,18 @@ public class MyComponentsViewModel : ViewModelBase
             if (this.SelectedComponent.ComponentType == ComponentType.Field)
             {
                 this.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(FieldComponentView));
+            }
+            else if (this.SelectedComponent.ComponentType == ComponentType.Sheep)
+            {
+                this.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(SheepComponentView));
+            }
+            else if (this.SelectedComponent.ComponentType == ComponentType.Rotation)
+            {
+                this.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(RotationComponentView));
+            }
+            else if (this.SelectedComponent.ComponentType == ComponentType.SheepFeedlot)
+            {
+                this.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(SheepFeedlotComponentView));
             }
         }
     }

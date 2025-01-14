@@ -64,6 +64,9 @@ namespace H.Avalonia
             // New development work
             containerRegistry.RegisterForNavigation<DisclaimerView, DisclaimerViewModel>();
             containerRegistry.RegisterForNavigation<MeasurementProvinceView, MeasurementProvinceViewModel>();
+            containerRegistry.RegisterForNavigation<SheepComponentView, SheepComponentViewModel>();
+            containerRegistry.RegisterForNavigation<RotationComponentView, RotationComponentViewModel>();
+            containerRegistry.RegisterForNavigation<SheepFeedlotComponentView, SheepFeedlotComponentViewModel>();
 
             // Blank Page
             containerRegistry.RegisterForNavigation<BlankView, BlankViewModel>();

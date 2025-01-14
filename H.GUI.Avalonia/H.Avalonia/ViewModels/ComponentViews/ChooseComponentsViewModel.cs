@@ -128,7 +128,6 @@ namespace H.Avalonia.ViewModels.ComponentViews
 
         public void OnAddComponentExecute()
         {
-
             base.Storage.Farm.Components.Add(this.SelectedComponent);
             base.Storage.Farm.SelectedComponent = this.SelectedComponent;
 
@@ -140,6 +139,8 @@ namespace H.Avalonia.ViewModels.ComponentViews
             var view = this.RegionManager.Regions[UiRegions.ContentRegion].ActiveViews.Single();
             this.RegionManager.Regions[UiRegions.ContentRegion].Deactivate(view);
             this.RegionManager.Regions[UiRegions.ContentRegion].Remove(view);
+
+            base.EventAggregator.GetEvent<EditingComponentsCompletedEvent>().Publish();
         }
 
         #endregion

@@ -17,7 +17,9 @@ using SoilResultsView = H.Avalonia.Views.ResultViews.SoilResultsView;
 using H.Avalonia.ViewModels.SupportingViews.Disclaimer;
 using H.Avalonia.Views.SupportingViews.Disclaimer;
 using H.Avalonia.ViewModels.ComponentViews;
+using H.Avalonia.ViewModels.ComponentViews.LandManagement;
 using H.Avalonia.ViewModels.SupportingViews.MeasurementProvince;
+using H.Avalonia.Views.ComponentViews;
 using H.Avalonia.Views.SupportingViews.MeasurementProvince;
 using H.Core.Services;
 using H.Core.Services.Provinces;
@@ -55,8 +57,9 @@ namespace H.Avalonia
             containerRegistry.RegisterForNavigation<AboutPageView, AboutPageViewModel>();
             containerRegistry.RegisterForNavigation<ClimateResultsView, ClimateResultsViewModel>();
             containerRegistry.RegisterForNavigation<SoilResultsView, SoilResultsViewModel>();
-            containerRegistry.RegisterForNavigation<Views.ComponentViews.MyComponentsView, MyComponentsViewModel>();
-            containerRegistry.RegisterForNavigation<Views.ComponentViews.ChooseComponentsView, ChooseComponentsViewModel>();
+            containerRegistry.RegisterForNavigation<MyComponentsView, MyComponentsViewModel>();
+            containerRegistry.RegisterForNavigation<ChooseComponentsView, ChooseComponentsViewModel>();
+            containerRegistry.RegisterForNavigation<FieldComponentView, FieldComponentViewModel>();
 
             // New development work
             containerRegistry.RegisterForNavigation<DisclaimerView, DisclaimerViewModel>();

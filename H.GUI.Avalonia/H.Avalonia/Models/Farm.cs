@@ -5,7 +5,7 @@ using Prism.Mvvm;
 
 namespace H.Avalonia.Models;
 
-public class Farm : BindableBase
+public class Farm
 {
     #region Fields
 
@@ -23,7 +23,7 @@ public class Farm : BindableBase
 
     #region Properties
 
-    public List<ComponentBase> Components { get; set; }
+    public IList<ComponentBase> Components { get; set; }
     public ComponentBase SelectedComponent { get; set; }
 
     #endregion

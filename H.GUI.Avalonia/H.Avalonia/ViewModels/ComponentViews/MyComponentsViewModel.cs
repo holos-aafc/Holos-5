@@ -4,6 +4,7 @@ using System.Linq;
 using H.Avalonia.Events;
 using H.Avalonia.Views.ComponentViews;
 using H.Core.Models;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Prism.Events;
 using Prism.Regions;
 using ReactiveUI;
@@ -28,9 +29,12 @@ public class MyComponentsViewModel : ViewModelBase
 
     public MyComponentsViewModel(Storage storage, IRegionManager regionManager, IEventAggregator eventAggregator) : base(regionManager, eventAggregator, storage)
     {
+        base.PropertyChanged += OnPropertyChanged;
+
         this.MyComponents = new ObservableCollection<ComponentBase>();
 
         base.EventAggregator.GetEvent<ComponentAddedEvent>().Subscribe(OnComponentAddedEvent);
+        base.EventAggregator.GetEvent<EditingComponentsCompletedEvent>().Subscribe(OnEditingComponentsCompletedEvent);
     }
 
     #endregion
@@ -96,6 +100,49 @@ public class MyComponentsViewModel : ViewModelBase
 
         base.Storage.Farm.Components.Add(instance);
         base.Storage.Farm.SelectedComponent = instance;
+    }
+
+    private void OnPropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
+    {
+        if (e.PropertyName.Equals(nameof(this.SelectedComponent)))
+        {
+            var isInEditMode = this.RegionManager.Regions[UiRegions.ContentRegion].ActiveViews.Any(x => x.GetType() == typeof(ChooseComponentsView));
+            if (!isInEditMode)
+            {
+                this.ClearActiveView();
+                this.NavigateToSelectedComponent();
+            }
+        }
+    }
+
+    private void OnEditingComponentsCompletedEvent()
+    {
+
+
+        this.NavigateToSelectedComponent();
+    }
+
+    private void ClearActiveView()
+    {
+        // Clear current view
+        var activeView = this.RegionManager.Regions[UiRegions.ContentRegion].ActiveViews.SingleOrDefault();
+        if (activeView != null)
+        {
+            this.RegionManager.Regions[UiRegions.ContentRegion].Deactivate(activeView);
+            this.RegionManager.Regions[UiRegions.ContentRegion].Remove(activeView);
+        }
+    }
+
+    private void NavigateToSelectedComponent()
+    {
+        // When the user is finished editing components, navigate to the selected component
+        if (this.SelectedComponent != null)
+        {
+            if (this.SelectedComponent.ComponentType == ComponentType.Field)
+            {
+                this.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(FieldComponentView));
+            }
+        }
     }
 
     #endregion

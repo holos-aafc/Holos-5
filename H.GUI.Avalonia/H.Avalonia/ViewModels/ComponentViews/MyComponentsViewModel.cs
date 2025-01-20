@@ -139,24 +139,24 @@ public class MyComponentsViewModel : ViewModelBase
         // When the user is finished editing components, navigate to the selected component
         if (this.SelectedComponent != null)
         {
-            if (this.SelectedComponent.ComponentType == ComponentType.Field)
+            switch(this.SelectedComponent.ComponentType)
             {
-                this.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(FieldComponentView));
-            }
-            else if (this.SelectedComponent.ComponentType == ComponentType.Sheep)
-            {
-                this.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(SheepComponentView));
-            }
-            else if (this.SelectedComponent.ComponentType == ComponentType.Rotation)
-            {
-                this.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(RotationComponentView));
-            }
-            else if (this.SelectedComponent.ComponentType == ComponentType.SheepFeedlot)
-            {
-                this.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(SheepFeedlotComponentView));
-            }
+                case ComponentType.Field:
+                    this.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(FieldComponentView));
+                    break;
+                case ComponentType.Sheep:
+                    this.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(SheepComponentView));
+                    break;
+                case ComponentType.Rotation:
+                    this.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(RotationComponentView));
+                    break;
+                case ComponentType.SheepFeedlot:
+                    this.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(SheepFeedlotComponentView));
+                    break;
+                default:
+                    break;
+            } 
         }
     }
-
     #endregion
 }

@@ -4,11 +4,8 @@ using System.Linq;
 using H.Avalonia.Events;
 using H.Avalonia.Views.ComponentViews;
 using H.Core.Models;
-using H.Core.Models.Animals.Sheep;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Prism.Events;
 using Prism.Regions;
-using ReactiveUI;
 
 namespace H.Avalonia.ViewModels.ComponentViews;
 
@@ -139,23 +136,8 @@ public class MyComponentsViewModel : ViewModelBase
         // When the user is finished editing components, navigate to the selected component
         if (this.SelectedComponent != null)
         {
-            switch(this.SelectedComponent.ComponentType)
-            {
-                case ComponentType.Field:
-                    this.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(FieldComponentView));
-                    break;
-                case ComponentType.Sheep:
-                    this.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(SheepComponentView));
-                    break;
-                case ComponentType.Rotation:
-                    this.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(RotationComponentView));
-                    break;
-                case ComponentType.SheepFeedlot:
-                    this.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(SheepFeedlotComponentView));
-                    break;
-                default:
-                    break;
-            } 
+            var viewName = ComponentTypeToViewTypeMapper.GetViewName(this.SelectedComponent);
+            this.RegionManager.RequestNavigate(UiRegions.ContentRegion, viewName);
         }
     }
     #endregion

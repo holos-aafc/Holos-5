@@ -67,6 +67,7 @@ namespace H.Avalonia
             containerRegistry.RegisterForNavigation<SheepComponentView, SheepComponentViewModel>();
             containerRegistry.RegisterForNavigation<RotationComponentView, RotationComponentViewModel>();
             containerRegistry.RegisterForNavigation<SheepFeedlotComponentView, SheepFeedlotComponentViewModel>();
+            containerRegistry.RegisterForNavigation<ShelterbeltComponentView, ShelterbeltComponentViewModel>();
 
             // Blank Page
             containerRegistry.RegisterForNavigation<BlankView, BlankViewModel>();

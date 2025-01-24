@@ -14,8 +14,9 @@ using System.Threading.Tasks;
 using H.Avalonia.Events;
 using H.Core.Models;
 using H.Core.Models.Animals.Sheep;
-using H.Core.Models.LandManagement.Fields;
+using H.Core.Models.LandManagement.Fields;  
 using H.Core.Models.LandManagement.Rotation;
+using H.Core.Models.LandManagement.Shelterbelt;
 using H.Infrastructure;
 using ReactiveUI;
 
@@ -38,15 +39,16 @@ namespace H.Avalonia.ViewModels.ComponentViews
 
         public ChooseComponentsViewModel()
         {
-            this.AvailableComponents = new ObservableCollection<ComponentBase>() { new FieldSystemComponent(), new RotationComponent(), new SheepComponent(), new SheepFeedlotComponent() };
+            this.AvailableComponents = new ObservableCollection<ComponentBase>();
+            InitializeAvailableComponents();
             this.SelectedComponent = this.AvailableComponents.First();
         }
 
         public ChooseComponentsViewModel(IEventAggregator eventAggregator, IRegionManager regionManager, Storage storage) : base(regionManager, eventAggregator, storage)
         {
             this.PropertyChanged += OnPropertyChanged;
-
-            this.AvailableComponents = new ObservableCollection<ComponentBase>() { new FieldSystemComponent(), new RotationComponent(), new SheepComponent(), new SheepFeedlotComponent()};
+            this.AvailableComponents = new ObservableCollection<ComponentBase>();
+            InitializeAvailableComponents();
             this.SelectedComponent = this.AvailableComponents.First();
         }
 
@@ -102,6 +104,15 @@ namespace H.Avalonia.ViewModels.ComponentViews
         {
         }
 
+        private void InitializeAvailableComponents()
+        {
+            _availableComponents.Add(new FieldSystemComponent());
+            _availableComponents.Add(new RotationComponent());
+            _availableComponents.Add(new SheepComponent());
+            _availableComponents.Add(new SheepFeedlotComponent());
+            _availableComponents.Add(new ShelterbeltComponent());
+        }
+
         #endregion
 
         #region Event Handlers
@@ -111,18 +122,7 @@ namespace H.Avalonia.ViewModels.ComponentViews
             if (e.PropertyName is nameof(this.SelectedComponent))
             {
                 this.SelectedComponentTitle = this.SelectedComponent.ComponentType.GetDescription();
-                if (this.SelectedComponent.ComponentType == ComponentType.Field)
-                {
-                    this.SelectedComponentDescription = "A component that allows the user to grow crops";
-                }
-                else if (this.SelectedComponent.ComponentType == ComponentType.Shelterbelt)
-                {
-                    this.SelectedComponentDescription = "A component that allows the user to grow trees on the farm";
-                }
-                else if (this.SelectedComponent.ComponentType == ComponentType.Rotation)
-                {
-                    this.SelectedComponentDescription = "A component that allows the user create a crop rotation";
-                }
+                this.SelectedComponentDescription = this.SelectedComponent.ComponentDescriptionString;
             }
         }
 

@@ -16,6 +16,7 @@ using H.Core.Models;
 using H.Core.Models.Animals.Sheep;
 using H.Core.Models.LandManagement.Fields;  
 using H.Core.Models.LandManagement.Rotation;
+using H.Core.Models.Animals.Beef;
 using H.Core.Models.LandManagement.Shelterbelt;
 using H.Infrastructure;
 using ReactiveUI;
@@ -108,9 +109,12 @@ namespace H.Avalonia.ViewModels.ComponentViews
         {
             _availableComponents.Add(new FieldSystemComponent());
             _availableComponents.Add(new RotationComponent());
+            _availableComponents.Add(new ShelterbeltComponent());
+            _availableComponents.Add(new CowCalfComponent());
+            _availableComponents.Add(new BackgroundingComponent());
+            _availableComponents.Add(new FinishingComponent());
             _availableComponents.Add(new SheepComponent());
             _availableComponents.Add(new SheepFeedlotComponent());
-            _availableComponents.Add(new ShelterbeltComponent());
         }
 
         #endregion

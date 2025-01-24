@@ -23,6 +23,24 @@ public class ComponentTypeToViewTypeMapper
         {
             return nameof(ShelterbeltComponentView);
         }
+        
+        /*
+         * Beef Production
+         */
+
+        if (component.ComponentType == ComponentType.CowCalf)
+        {
+            return nameof(CowCalfComponentView);
+        }
+        if (component.ComponentType == ComponentType.Backgrounding)
+        {
+            return nameof(BackgroundingComponentView);
+        }
+        if (component.ComponentType == ComponentType.Finishing)
+        {
+            return nameof(FinishingComponentView);
+        }
+
 
         /*
          * Sheep

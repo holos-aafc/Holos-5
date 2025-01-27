@@ -41,6 +41,13 @@ public class ComponentTypeToViewTypeMapper
             return nameof(FinishingComponentView);
         }
 
+        /*
+         * Dairy
+         */
+
+         if (component.ComponentType == ComponentType.Dairy) {
+            return nameof(DairyComponentView);
+         }
 
         /*
          * Sheep

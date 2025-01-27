@@ -19,6 +19,7 @@ using H.Avalonia.Views.SupportingViews.Disclaimer;
 using H.Avalonia.ViewModels.ComponentViews;
 using H.Avalonia.ViewModels.ComponentViews.LandManagement;
 using H.Avalonia.ViewModels.ComponentViews.Beef;
+using H.Avalonia.ViewModels.ComponentViews.Dairy;
 using H.Avalonia.ViewModels.SupportingViews.MeasurementProvince;
 using H.Avalonia.Views.ComponentViews;
 using H.Avalonia.Views.SupportingViews.MeasurementProvince;
@@ -72,6 +73,7 @@ namespace H.Avalonia
             containerRegistry.RegisterForNavigation<CowCalfComponentView, CowCalfComponentViewModel>();
             containerRegistry.RegisterForNavigation<BackgroundingComponentView, BackgroundingComponentViewModel>();
             containerRegistry.RegisterForNavigation<FinishingComponentView, FinishingComponentViewModel>();
+            containerRegistry.RegisterForNavigation<DairyComponentView, DairyComponentViewModel>();
             // Blank Page
             containerRegistry.RegisterForNavigation<BlankView, BlankViewModel>();
 

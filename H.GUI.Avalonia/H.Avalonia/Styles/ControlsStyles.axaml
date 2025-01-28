@@ -84,8 +84,5 @@
         <Setter Property="VerticalAlignment" Value="Center" />
 	</Style>
 
-    <Style Selector="TextBlock.title-textblock">
-    </Style>
-
 
 </Styles>

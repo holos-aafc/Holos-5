@@ -21,6 +21,7 @@ using H.Core.Models.LandManagement.Shelterbelt;
 using H.Core.Models.Animals.Dairy;
 using H.Infrastructure;
 using ReactiveUI;
+using H.Core.Models.Animals.OtherAnimals;
 
 namespace H.Avalonia.ViewModels.ComponentViews
 {
@@ -119,6 +120,12 @@ namespace H.Avalonia.ViewModels.ComponentViews
             _availableComponents.Add(new SheepFeedlotComponent());
             _availableComponents.Add(new RamsComponent());
             _availableComponents.Add(new EwesAndLambsComponent());
+            _availableComponents.Add(new GoatsComponent());
+            _availableComponents.Add(new DeerComponent());
+            _availableComponents.Add(new HorsesComponent());
+            _availableComponents.Add(new MulesComponent());
+            _availableComponents.Add(new BisonComponent());
+            _availableComponents.Add(new LlamaComponent());
         }
 
         #endregion

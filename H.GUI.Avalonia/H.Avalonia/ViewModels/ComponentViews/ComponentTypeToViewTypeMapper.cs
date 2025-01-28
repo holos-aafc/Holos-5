@@ -1,4 +1,5 @@
 using H.Core.Models;
+using H.Core.Models.Animals.OtherAnimals;
 
 namespace H.Avalonia.ViewModels.ComponentViews;
 
@@ -71,6 +72,39 @@ public class ComponentTypeToViewTypeMapper
         if(component.ComponentType == ComponentType.LambsAndEwes)
         {
             return nameof(LambsAndEwesComponentView);
+        }
+
+        /*
+         * Other Animals
+         */
+        if(component.ComponentType == ComponentType.Goats)
+        {
+            return nameof(GoatsComponentView);
+        }
+
+        if (component.ComponentType == ComponentType.Deer)
+        {
+            return nameof(DeerComponentView);
+        }
+        
+        if (component.ComponentType == ComponentType.Horses)
+        {
+            return nameof(HorsesComponentView);
+        }
+        
+        if (component.ComponentType == ComponentType.Mules)
+        {
+            return nameof(MulesComponentView);
+        }
+        
+        if (component.ComponentType == ComponentType.Bison)
+        {
+            return nameof(BisonComponentView);
+        }
+
+        if (component.ComponentType == ComponentType.Llamas)
+        {
+            return nameof(LlamaComponentView);
         }
 
         return string.Empty;

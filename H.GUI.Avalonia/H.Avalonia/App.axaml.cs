@@ -26,6 +26,7 @@ using H.Avalonia.Views.SupportingViews.MeasurementProvince;
 using H.Core.Services;
 using H.Core.Services.Provinces;
 using H.Avalonia.ViewModels.ComponentViews.Sheep;
+using H.Avalonia.ViewModels.ComponentViews.OtherAnimals;
 
 namespace H.Avalonia
 {
@@ -77,6 +78,13 @@ namespace H.Avalonia
             containerRegistry.RegisterForNavigation<DairyComponentView, DairyComponentViewModel>();
             containerRegistry.RegisterForNavigation<RamsComponentView, RamsComponentViewModel>();
             containerRegistry.RegisterForNavigation<LambsAndEwesComponentView, LambsAndEwesComponentViewModel>();
+            containerRegistry.RegisterForNavigation<GoatsComponentView, GoatsComponentViewModel>();
+            containerRegistry.RegisterForNavigation<DeerComponentView, DeerComponentViewModel>();
+            containerRegistry.RegisterForNavigation<HorsesComponentView, HorsesComponentViewModel>();
+            containerRegistry.RegisterForNavigation<MulesComponentView, MulesComponentViewModel>();
+            containerRegistry.RegisterForNavigation<BisonComponentView, BisonComponentViewModel>();
+            containerRegistry.RegisterForNavigation<LlamaComponentView, LlamaComponentViewModel>();
+
             // Blank Page
             containerRegistry.RegisterForNavigation<BlankView, BlankViewModel>();
 

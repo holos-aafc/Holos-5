@@ -117,6 +117,8 @@ namespace H.Avalonia.ViewModels.ComponentViews
             _availableComponents.Add(new DairyComponent());
             _availableComponents.Add(new SheepComponent());
             _availableComponents.Add(new SheepFeedlotComponent());
+            _availableComponents.Add(new RamsComponent());
+            _availableComponents.Add(new EwesAndLambsComponent());
         }
 
         #endregion

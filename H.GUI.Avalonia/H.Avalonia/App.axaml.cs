@@ -25,6 +25,7 @@ using H.Avalonia.Views.ComponentViews;
 using H.Avalonia.Views.SupportingViews.MeasurementProvince;
 using H.Core.Services;
 using H.Core.Services.Provinces;
+using H.Avalonia.ViewModels.ComponentViews.Sheep;
 
 namespace H.Avalonia
 {
@@ -74,6 +75,8 @@ namespace H.Avalonia
             containerRegistry.RegisterForNavigation<BackgroundingComponentView, BackgroundingComponentViewModel>();
             containerRegistry.RegisterForNavigation<FinishingComponentView, FinishingComponentViewModel>();
             containerRegistry.RegisterForNavigation<DairyComponentView, DairyComponentViewModel>();
+            containerRegistry.RegisterForNavigation<RamsComponentView, RamsComponentViewModel>();
+            containerRegistry.RegisterForNavigation<LambsAndEwesComponentView, LambsAndEwesComponentViewModel>();
             // Blank Page
             containerRegistry.RegisterForNavigation<BlankView, BlankViewModel>();
 

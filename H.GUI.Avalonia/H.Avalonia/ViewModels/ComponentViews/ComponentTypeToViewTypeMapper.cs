@@ -63,6 +63,16 @@ public class ComponentTypeToViewTypeMapper
             return nameof(SheepFeedlotComponentView);
         }
 
+        if(component.ComponentType == ComponentType.Rams)
+        {
+            return nameof(RamsComponentView);
+        }
+        
+        if(component.ComponentType == ComponentType.LambsAndEwes)
+        {
+            return nameof(LambsAndEwesComponentView);
+        }
+
         return string.Empty;
     }
 }

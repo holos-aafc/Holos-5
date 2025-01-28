@@ -30,7 +30,7 @@
 		</Grid.RowDefinitions>
 
 		<Grid Row="0">
-			<Border Classes="mycomponent-border">
+			<Border Classes="component-border">
 				<TextBlock 
 						   Classes="title-textblock"
 						   Text="My Components">
@@ -55,7 +55,7 @@
         </ListBox>
 
 		<Border Grid.Row="2"
-                Classes="mycomponent-border"
+                Classes="component-border"
                 Height="100">
 			<StackPanel HorizontalAlignment="Center" VerticalAlignment="Center"
                         Margin="20,0">

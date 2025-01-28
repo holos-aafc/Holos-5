@@ -1,5 +1,4 @@
 using H.Core.Models;
-using H.Core.Models.Animals.OtherAnimals;
 
 namespace H.Avalonia.ViewModels.ComponentViews;
 
@@ -77,6 +76,7 @@ public class ComponentTypeToViewTypeMapper
         /*
          * Other Animals
          */
+
         if(component.ComponentType == ComponentType.Goats)
         {
             return nameof(GoatsComponentView);
@@ -107,6 +107,39 @@ public class ComponentTypeToViewTypeMapper
             return nameof(LlamaComponentView);
         }
 
+        /*
+         * Infrastructure
+         */
+
+        if (component.ComponentType == ComponentType.AnaerobicDigestion)
+        {
+            return nameof(AnaerobicDigestionComponentView);
+        }
+
+        /*
+         * Swine
+         */
+
+        if (component.ComponentType == ComponentType.SwineGrowers)
+        {
+            return nameof(GrowerToFinishComponentView);
+        }
+
+        if (component.ComponentType == ComponentType.FarrowToWean)
+        {
+            return nameof(FarrowToWeanComponentView);
+        }
+
+        if (component.ComponentType == ComponentType.IsoWean)
+        {
+            return nameof(IsoWeanComponentView);
+        }
+
+        if (component.ComponentType == ComponentType.FarrowToFinish)
+        {
+            return nameof(FarrowToFinishComponentView);
+        }
+        
         return string.Empty;
     }
 }

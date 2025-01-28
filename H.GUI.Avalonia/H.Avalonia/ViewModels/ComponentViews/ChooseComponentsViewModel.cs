@@ -19,9 +19,11 @@ using H.Core.Models.LandManagement.Rotation;
 using H.Core.Models.Animals.Beef;
 using H.Core.Models.LandManagement.Shelterbelt;
 using H.Core.Models.Animals.Dairy;
+using H.Core.Models.Animals.OtherAnimals;
+using H.Core.Models.Infrastructure;
+using H.Core.Models.Animals.Swine;
 using H.Infrastructure;
 using ReactiveUI;
-using H.Core.Models.Animals.OtherAnimals;
 
 namespace H.Avalonia.ViewModels.ComponentViews
 {
@@ -126,6 +128,11 @@ namespace H.Avalonia.ViewModels.ComponentViews
             _availableComponents.Add(new MulesComponent());
             _availableComponents.Add(new BisonComponent());
             _availableComponents.Add(new LlamaComponent());
+            _availableComponents.Add(new AnaerobicDigestionComponent());
+            _availableComponents.Add(new GrowerToFinishComponent());
+            _availableComponents.Add(new FarrowToWeanComponent());
+            _availableComponents.Add(new IsoWeanComponent());
+            _availableComponents.Add(new FarrowToFinishComponent());
         }
 
         #endregion

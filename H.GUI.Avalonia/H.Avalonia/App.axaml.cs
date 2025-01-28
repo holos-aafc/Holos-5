@@ -20,13 +20,15 @@ using H.Avalonia.ViewModels.ComponentViews;
 using H.Avalonia.ViewModels.ComponentViews.LandManagement;
 using H.Avalonia.ViewModels.ComponentViews.Beef;
 using H.Avalonia.ViewModels.ComponentViews.Dairy;
+using H.Avalonia.ViewModels.ComponentViews.Sheep;
+using H.Avalonia.ViewModels.ComponentViews.OtherAnimals;
+using H.Avalonia.ViewModels.ComponentViews.Infrastructure;
+using H.Avalonia.ViewModels.ComponentViews.Swine;
 using H.Avalonia.ViewModels.SupportingViews.MeasurementProvince;
 using H.Avalonia.Views.ComponentViews;
 using H.Avalonia.Views.SupportingViews.MeasurementProvince;
 using H.Core.Services;
 using H.Core.Services.Provinces;
-using H.Avalonia.ViewModels.ComponentViews.Sheep;
-using H.Avalonia.ViewModels.ComponentViews.OtherAnimals;
 
 namespace H.Avalonia
 {
@@ -84,6 +86,11 @@ namespace H.Avalonia
             containerRegistry.RegisterForNavigation<MulesComponentView, MulesComponentViewModel>();
             containerRegistry.RegisterForNavigation<BisonComponentView, BisonComponentViewModel>();
             containerRegistry.RegisterForNavigation<LlamaComponentView, LlamaComponentViewModel>();
+            containerRegistry.RegisterForNavigation<AnaerobicDigestionComponentView, AnaerobicDigestionComponentViewModel>();
+            containerRegistry.RegisterForNavigation<GrowerToFinishComponentView, GrowerToFinishComponentViewModel>();
+            containerRegistry.RegisterForNavigation<FarrowToWeanComponentView, FarrowToWeanComponentViewModel>();
+            containerRegistry.RegisterForNavigation<IsoWeanComponentView, IsoWeanComponentViewModel>();
+            containerRegistry.RegisterForNavigation<FarrowToFinishComponentView, FarrowToFinishComponentViewModel>();
 
             // Blank Page
             containerRegistry.RegisterForNavigation<BlankView, BlankViewModel>();

@@ -49,6 +49,30 @@ public class ComponentTypeToViewTypeMapper
             return nameof(DairyComponentView);
          }
 
+         /*
+          * Swine
+          */
+
+        if (component.ComponentType == ComponentType.SwineGrowers)
+        {
+            return nameof(GrowerToFinishComponentView);
+        }
+
+        if (component.ComponentType == ComponentType.FarrowToWean)
+        {
+            return nameof(FarrowToWeanComponentView);
+        }
+
+        if (component.ComponentType == ComponentType.IsoWean)
+        {
+            return nameof(IsoWeanComponentView);
+        }
+
+        if (component.ComponentType == ComponentType.FarrowToFinish)
+        {
+            return nameof(FarrowToFinishComponentView);
+        }
+
         /*
          * Sheep
          */
@@ -108,6 +132,45 @@ public class ComponentTypeToViewTypeMapper
         }
 
         /*
+         * Poultry
+         */
+
+        if (component.ComponentType == ComponentType.ChickenPulletFarm)
+        {
+            return nameof(ChickenPulletsComponentView);
+        }
+
+        if (component.ComponentType == ComponentType.ChickenMultiplierBreeder)
+        {
+            return nameof(ChickenMultiplierBreederComponentView);
+        }
+
+        if (component.ComponentType == ComponentType.ChickenMeatProduction)
+        {
+            return nameof(ChickenMeatProductionComponentView);
+        }
+
+        if (component.ComponentType == ComponentType.TurkeyMultiplierBreeder)
+        {
+            return nameof(TurkeyMultiplierBreederComponentView);
+        }
+
+        if (component.ComponentType == ComponentType.TurkeyMeatProduction)
+        {
+            return nameof(TurkeyMeatProductionComponentView);
+        }
+
+        if (component.ComponentType == ComponentType.ChickenEggProduction)
+        {
+            return nameof(ChickenEggProductionComponentView);
+        }
+
+        if (component.ComponentType == ComponentType.ChickenMultiplierHatchery)
+        {
+            return nameof(ChickenMultiplierHatcheryComponentView);
+        }
+
+        /*
          * Infrastructure
          */
 
@@ -116,30 +179,6 @@ public class ComponentTypeToViewTypeMapper
             return nameof(AnaerobicDigestionComponentView);
         }
 
-        /*
-         * Swine
-         */
-
-        if (component.ComponentType == ComponentType.SwineGrowers)
-        {
-            return nameof(GrowerToFinishComponentView);
-        }
-
-        if (component.ComponentType == ComponentType.FarrowToWean)
-        {
-            return nameof(FarrowToWeanComponentView);
-        }
-
-        if (component.ComponentType == ComponentType.IsoWean)
-        {
-            return nameof(IsoWeanComponentView);
-        }
-
-        if (component.ComponentType == ComponentType.FarrowToFinish)
-        {
-            return nameof(FarrowToFinishComponentView);
-        }
-        
         return string.Empty;
     }
 }

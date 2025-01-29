@@ -22,6 +22,8 @@ using H.Core.Models.Animals.Dairy;
 using H.Core.Models.Animals.OtherAnimals;
 using H.Core.Models.Infrastructure;
 using H.Core.Models.Animals.Swine;
+using H.Core.Models.Animals.Poultry.Chicken;
+using H.Core.Models.Animals.Poultry.Turkey;
 using H.Infrastructure;
 using ReactiveUI;
 
@@ -111,28 +113,74 @@ namespace H.Avalonia.ViewModels.ComponentViews
 
         private void InitializeAvailableComponents()
         {
-            _availableComponents.Add(new FieldSystemComponent());
+            /*
+             * Land Management
+             */
+
             _availableComponents.Add(new RotationComponent());
             _availableComponents.Add(new ShelterbeltComponent());
+            _availableComponents.Add(new FieldSystemComponent());
+            
+            /*
+             * Beef production
+             */
+
             _availableComponents.Add(new CowCalfComponent());
             _availableComponents.Add(new BackgroundingComponent());
             _availableComponents.Add(new FinishingComponent());
+
+            /*
+             * Dairy cattle
+             */
+
             _availableComponents.Add(new DairyComponent());
-            _availableComponents.Add(new SheepComponent());
+
+            /*
+             * Swine
+             */
+
+            _availableComponents.Add(new GrowerToFinishComponent());
+            _availableComponents.Add(new FarrowToWeanComponent());
+            _availableComponents.Add(new IsoWeanComponent());
+            _availableComponents.Add(new FarrowToFinishComponent());
+
+            /*
+             * Sheep
+             */
+
+            // _availableComponents.Add(new SheepComponent());
             _availableComponents.Add(new SheepFeedlotComponent());
             _availableComponents.Add(new RamsComponent());
             _availableComponents.Add(new EwesAndLambsComponent());
+
+            /*
+             * Other animals / livestock
+             */
+
             _availableComponents.Add(new GoatsComponent());
             _availableComponents.Add(new DeerComponent());
             _availableComponents.Add(new HorsesComponent());
             _availableComponents.Add(new MulesComponent());
             _availableComponents.Add(new BisonComponent());
             _availableComponents.Add(new LlamaComponent());
+            
+            /*
+             * Poultry
+             */
+
+            _availableComponents.Add(new ChickenPulletsComponent());
+            _availableComponents.Add(new ChickenMultiplierBreederComponent());
+            _availableComponents.Add(new ChickenMeatProductionComponent());
+            _availableComponents.Add(new TurkeyMultiplierBreederComponent());
+            _availableComponents.Add(new TurkeyMeatProductionComponent());
+            _availableComponents.Add(new ChickenEggProductionComponent());
+            _availableComponents.Add(new ChickenMultiplierHatcheryComponent());
+
+            /* 
+             * Land Management
+             */
+
             _availableComponents.Add(new AnaerobicDigestionComponent());
-            _availableComponents.Add(new GrowerToFinishComponent());
-            _availableComponents.Add(new FarrowToWeanComponent());
-            _availableComponents.Add(new IsoWeanComponent());
-            _availableComponents.Add(new FarrowToFinishComponent());
         }
 
         #endregion

@@ -24,6 +24,7 @@ using H.Avalonia.ViewModels.ComponentViews.Sheep;
 using H.Avalonia.ViewModels.ComponentViews.OtherAnimals;
 using H.Avalonia.ViewModels.ComponentViews.Infrastructure;
 using H.Avalonia.ViewModels.ComponentViews.Swine;
+using H.Avalonia.ViewModels.ComponentViews.Poultry;
 using H.Avalonia.ViewModels.SupportingViews.MeasurementProvince;
 using H.Avalonia.Views.ComponentViews;
 using H.Avalonia.Views.SupportingViews.MeasurementProvince;
@@ -91,6 +92,13 @@ namespace H.Avalonia
             containerRegistry.RegisterForNavigation<FarrowToWeanComponentView, FarrowToWeanComponentViewModel>();
             containerRegistry.RegisterForNavigation<IsoWeanComponentView, IsoWeanComponentViewModel>();
             containerRegistry.RegisterForNavigation<FarrowToFinishComponentView, FarrowToFinishComponentViewModel>();
+            containerRegistry.RegisterForNavigation<ChickenPulletsComponentView, ChickenPulletsComponentViewModel>();
+            containerRegistry.RegisterForNavigation<ChickenMultiplierBreederComponentView, ChickenMultiplierBreederComponentViewModel>();
+            containerRegistry.RegisterForNavigation<ChickenMeatProductionComponentView, ChickenMeatProductionComponentViewModel>(); 
+            containerRegistry.RegisterForNavigation<TurkeyMultiplierBreederComponentView, TurkeyMultiplierBreederComponentViewModel>();
+            containerRegistry.RegisterForNavigation<TurkeyMeatProductionComponentView, TurkeyMeatProductionComponentViewModel>();
+            containerRegistry.RegisterForNavigation<ChickenEggProductionComponentView, ChickenEggProductionComponentViewModel>();
+            containerRegistry.RegisterForNavigation<ChickenMultiplierHatcheryComponentView,  ChickenMultiplierHatcheryComponentViewModel>();
 
             // Blank Page
             containerRegistry.RegisterForNavigation<BlankView, BlankViewModel>();

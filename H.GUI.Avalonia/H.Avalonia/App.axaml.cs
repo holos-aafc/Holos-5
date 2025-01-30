@@ -18,6 +18,13 @@ using H.Avalonia.ViewModels.SupportingViews.Disclaimer;
 using H.Avalonia.Views.SupportingViews.Disclaimer;
 using H.Avalonia.ViewModels.ComponentViews;
 using H.Avalonia.ViewModels.ComponentViews.LandManagement;
+using H.Avalonia.ViewModels.ComponentViews.Beef;
+using H.Avalonia.ViewModels.ComponentViews.Dairy;
+using H.Avalonia.ViewModels.ComponentViews.Sheep;
+using H.Avalonia.ViewModels.ComponentViews.OtherAnimals;
+using H.Avalonia.ViewModels.ComponentViews.Infrastructure;
+using H.Avalonia.ViewModels.ComponentViews.Swine;
+using H.Avalonia.ViewModels.ComponentViews.Poultry;
 using H.Avalonia.ViewModels.SupportingViews.MeasurementProvince;
 using H.Avalonia.Views.ComponentViews;
 using H.Avalonia.Views.SupportingViews.MeasurementProvince;
@@ -64,6 +71,34 @@ namespace H.Avalonia
             // New development work
             containerRegistry.RegisterForNavigation<DisclaimerView, DisclaimerViewModel>();
             containerRegistry.RegisterForNavigation<MeasurementProvinceView, MeasurementProvinceViewModel>();
+            containerRegistry.RegisterForNavigation<SheepComponentView, SheepComponentViewModel>();
+            containerRegistry.RegisterForNavigation<RotationComponentView, RotationComponentViewModel>();
+            containerRegistry.RegisterForNavigation<SheepFeedlotComponentView, SheepFeedlotComponentViewModel>();
+            containerRegistry.RegisterForNavigation<ShelterbeltComponentView, ShelterbeltComponentViewModel>();
+            containerRegistry.RegisterForNavigation<CowCalfComponentView, CowCalfComponentViewModel>();
+            containerRegistry.RegisterForNavigation<BackgroundingComponentView, BackgroundingComponentViewModel>();
+            containerRegistry.RegisterForNavigation<FinishingComponentView, FinishingComponentViewModel>();
+            containerRegistry.RegisterForNavigation<DairyComponentView, DairyComponentViewModel>();
+            containerRegistry.RegisterForNavigation<RamsComponentView, RamsComponentViewModel>();
+            containerRegistry.RegisterForNavigation<LambsAndEwesComponentView, LambsAndEwesComponentViewModel>();
+            containerRegistry.RegisterForNavigation<GoatsComponentView, GoatsComponentViewModel>();
+            containerRegistry.RegisterForNavigation<DeerComponentView, DeerComponentViewModel>();
+            containerRegistry.RegisterForNavigation<HorsesComponentView, HorsesComponentViewModel>();
+            containerRegistry.RegisterForNavigation<MulesComponentView, MulesComponentViewModel>();
+            containerRegistry.RegisterForNavigation<BisonComponentView, BisonComponentViewModel>();
+            containerRegistry.RegisterForNavigation<LlamaComponentView, LlamaComponentViewModel>();
+            containerRegistry.RegisterForNavigation<AnaerobicDigestionComponentView, AnaerobicDigestionComponentViewModel>();
+            containerRegistry.RegisterForNavigation<GrowerToFinishComponentView, GrowerToFinishComponentViewModel>();
+            containerRegistry.RegisterForNavigation<FarrowToWeanComponentView, FarrowToWeanComponentViewModel>();
+            containerRegistry.RegisterForNavigation<IsoWeanComponentView, IsoWeanComponentViewModel>();
+            containerRegistry.RegisterForNavigation<FarrowToFinishComponentView, FarrowToFinishComponentViewModel>();
+            containerRegistry.RegisterForNavigation<ChickenPulletsComponentView, ChickenPulletsComponentViewModel>();
+            containerRegistry.RegisterForNavigation<ChickenMultiplierBreederComponentView, ChickenMultiplierBreederComponentViewModel>();
+            containerRegistry.RegisterForNavigation<ChickenMeatProductionComponentView, ChickenMeatProductionComponentViewModel>(); 
+            containerRegistry.RegisterForNavigation<TurkeyMultiplierBreederComponentView, TurkeyMultiplierBreederComponentViewModel>();
+            containerRegistry.RegisterForNavigation<TurkeyMeatProductionComponentView, TurkeyMeatProductionComponentViewModel>();
+            containerRegistry.RegisterForNavigation<ChickenEggProductionComponentView, ChickenEggProductionComponentViewModel>();
+            containerRegistry.RegisterForNavigation<ChickenMultiplierHatcheryComponentView,  ChickenMultiplierHatcheryComponentViewModel>();
 
             // Blank Page
             containerRegistry.RegisterForNavigation<BlankView, BlankViewModel>();

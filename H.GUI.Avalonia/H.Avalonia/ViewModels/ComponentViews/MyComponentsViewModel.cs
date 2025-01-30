@@ -4,10 +4,8 @@ using System.Linq;
 using H.Avalonia.Events;
 using H.Avalonia.Views.ComponentViews;
 using H.Core.Models;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Prism.Events;
 using Prism.Regions;
-using ReactiveUI;
 
 namespace H.Avalonia.ViewModels.ComponentViews;
 
@@ -148,12 +146,9 @@ public class MyComponentsViewModel : ViewModelBase
         // When the user is finished editing components, navigate to the selected component
         if (this.SelectedComponent != null)
         {
-            if (this.SelectedComponent.ComponentType == ComponentType.Field)
-            {
-                this.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(FieldComponentView));
-            }
+            var viewName = ComponentTypeToViewTypeMapper.GetViewName(this.SelectedComponent);
+            this.RegionManager.RequestNavigate(UiRegions.ContentRegion, viewName);
         }
     }
-
     #endregion
 }

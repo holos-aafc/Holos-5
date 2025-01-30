@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:componentViews="clr-namespace:H.Avalonia.ViewModels.ComponentViews"
              xmlns:infrastructure="clr-namespace:H.Avalonia.Infrastructure;assembly=H.Avalonia.Infrastructure"
+			 xmlns:properties="clr-namespace:H.Core.Properties;assembly=H.Core"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="H.Avalonia.Views.ComponentViews.ChooseComponentsView">
 
@@ -51,7 +52,7 @@
               VerticalAlignment="Center">
             <Border Classes="component-border">
             <StackPanel Margin="10,0" VerticalAlignment="Center">
-                <TextBlock Classes="title-textblock">Choose Components For Your Farm</TextBlock>
+                <TextBlock Text="{x:Static properties:Resources.ChooseComponents}" Classes="title-textblock"></TextBlock>
             </StackPanel>
             </Border>
         </Grid>
@@ -93,8 +94,8 @@
               Height="100">
             <Border Classes="component-border">
             <UniformGrid Columns="2">
-                <Button Margin="10,0" Command="{Binding OnAddComponentExecute}" HorizontalContentAlignment="Center" HorizontalAlignment="Stretch">Add Selected Component</Button>
-                <Button Margin="10,0" Command="{Binding OnFinishedAddingComponentsExecute}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center">Finished Selecting Components</Button>
+                <Button Content="{x:Static properties:Resources.LabelAddSelectComponent}" Margin="10,0" Command="{Binding OnAddComponentExecute}" HorizontalContentAlignment="Center" HorizontalAlignment="Stretch"></Button>
+                <Button Content="{x:Static properties:Resources.LabelFinishSelectComponent}" Margin="10,0" Command="{Binding OnFinishedAddingComponentsExecute}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"></Button>
             </UniformGrid>
             </Border>
         </Grid>

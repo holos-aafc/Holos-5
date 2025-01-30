@@ -5749,4 +5749,7 @@ Please note: emissions related to the deposition or application of livestock man
   <data name="LabelOriginOfDigestate" xml:space="preserve">
     <value>Orgin of digestate</value>
   </data>
+  <data name="EnumShelterbelt" xml:space="preserve">
+    <value>Shelterbelt</value>
+  </data>
 </root>

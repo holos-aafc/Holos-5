@@ -4,6 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			 xmlns:componentView="clr-namespace:H.Avalonia.ViewModels.ComponentViews"
 			 xmlns:infrastructure="clr-namespace:H.Avalonia.Infrastructure;assembly=H.Avalonia.Infrastructure"
+			 xmlns:avalonia="clr-namespace:H.Avalonia"
+			 xmlns:componentViews="clr-namespace:H.Avalonia.Views.ComponentViews"
 			 mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="H.Avalonia.Views.ComponentViews.MyComponentsView">
 
@@ -25,6 +27,9 @@
 			<!-- Listbox row definition -->
 			<RowDefinition Height="*"/>
 
+            <!-- Gridsplitter row definition -->
+            <RowDefinition Height="Auto"/>
+
 			<!-- Command row definition -->
 			<RowDefinition Height="Auto"/>
 		</Grid.RowDefinitions>
@@ -37,7 +42,6 @@
 				</TextBlock>
 			</Border>
 		</Grid>
-
 
 		<ListBox Name="MyComponentsListBox"
                  SelectionMode="Single"
@@ -54,6 +58,7 @@
             </ListBox.ItemTemplate>
         </ListBox>
 
+
 		<Border Grid.Row="2"
                 Classes="component-border"
                 Height="100">
@@ -63,4 +68,5 @@
             </StackPanel>
         </Border>
 	</Grid>
+
 </UserControl>

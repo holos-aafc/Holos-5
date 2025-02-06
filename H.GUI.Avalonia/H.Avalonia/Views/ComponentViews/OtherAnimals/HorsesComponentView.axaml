@@ -24,7 +24,15 @@
 			</TextBlock>
 
 			<Button Margin="10,20,0,0" BorderBrush="#D7D7D7" Background="White" Height="40" Width="175">Add Group</Button>
-			<!--Table here-->
+			<StackPanel>
+				<DataGrid AutoGenerateColumns="True" Margin="10,20,0,0" HorizontalAlignment="Left" BorderThickness="1" GridLinesVisibility="All">
+					<DataGrid.Columns>
+						<DataGridTemplateColumn Width="Auto"/>
+						<DataGridTextColumn Width="Auto" Header="Group Name"/>
+						<DataGridTemplateColumn Width="Auto"/>
+					</DataGrid.Columns>
+				</DataGrid>
+			</StackPanel>
 		</StackPanel>
 		
 		<!--Step 2-->
@@ -34,8 +42,18 @@
 				<Run Text="Define the management periods for the selected animal group"/>
 			</TextBlock>
 
-			<Button Margin="10,20,0,0" BorderBrush="#D7D7D7" Background="White" Width="275" Height="40">Add Management Period </Button>
-			<!--Table here-->
+			<Button Margin="10,20,0,0" BorderBrush="#D7D7D7" Background="White" Width="275" Height="45" >Add Management Period </Button>
+			<StackPanel>
+				<DataGrid AutoGenerateColumns="True" Margin="10,20,0,0" HorizontalAlignment="Left" BorderThickness="1" GridLinesVisibility="All">
+					<DataGrid.Columns>
+						<DataGridTemplateColumn Width="Auto"/>
+						<DataGridTextColumn Width="Auto" Header="Management Period Name"/>
+						<DataGridTextColumn Width="Auto" Header="Start Date"/>
+						<DataGridTextColumn Width="Auto" Header="End Date"/>
+						<DataGridTextColumn Width="Auto" Header="Number of Days"/>
+					</DataGrid.Columns>
+				</DataGrid>
+			</StackPanel>
 		</StackPanel>
 
 		<!--Step 3-->
@@ -44,7 +62,7 @@
 				<Run Text="Step 3:" FontWeight="Bold"/>
 				<Run Text=" Define the management of horses during this selected period of time"/>
 			</TextBlock>
-			<!--Table here-->
+			<!--Tabbed Content here-->
 		</StackPanel>
 
 

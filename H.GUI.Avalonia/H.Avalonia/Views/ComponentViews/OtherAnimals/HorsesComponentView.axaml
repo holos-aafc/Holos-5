@@ -23,7 +23,7 @@
 				<Run Text="Define the animal groups for this horses component"/>	
 			</TextBlock>
 
-			<Button Margin="10,20,0,0" BorderBrush="#D7D7D7" Background="White" Height="40" Width="175">Add Group</Button>
+			<Button Margin="10,20,0,0" BorderBrush="#D7D7D7" Background="White" Foreground="#605D5D" Height="40" Width="175">Add Group</Button>
 			<StackPanel>
 				<DataGrid AutoGenerateColumns="True" Margin="10,20,0,0" HorizontalAlignment="Left" BorderThickness="1" GridLinesVisibility="All">
 					<DataGrid.Columns>
@@ -42,7 +42,7 @@
 				<Run Text="Define the management periods for the selected animal group"/>
 			</TextBlock>
 
-			<Button Margin="10,20,0,0" BorderBrush="#D7D7D7" Background="White" Width="275" Height="45" >Add Management Period </Button>
+			<Button Margin="10,20,0,0" BorderBrush="#D7D7D7" Background="White" Foreground="#605D5D" Width="275" Height="45">Add Management Period </Button>
 			<StackPanel>
 				<DataGrid AutoGenerateColumns="True" Margin="10,20,0,0" HorizontalAlignment="Left" BorderThickness="1" GridLinesVisibility="All">
 					<DataGrid.Columns>
@@ -62,10 +62,55 @@
 				<Run Text="Step 3:" FontWeight="Bold"/>
 				<Run Text=" Define the management of horses during this selected period of time"/>
 			</TextBlock>
-			<!--Tabbed Content here-->
+			<TabControl>
+				<!--General tab-->
+				<TabItem Header="General" FontSize="18">
+					<StackPanel Margin="10, 20, 10, 10">
+						<TextBlock FontSize="16" Foreground="#605D5D" FontWeight="Bold">General Management</TextBlock>
+						<TextBlock FontSize="16" Foreground="#605D5D" TextWrapping="Wrap">
+							Basic information about this group of animals can be entered here. Values entered here will apply to the animals during the selected management period.
+						</TextBlock>
+						<StackPanel Orientation="Horizontal">
+							<TextBlock FontSize="16" Margin="10,20,10,20" Foreground="#605D5D" TextWrapping="Wrap">Number of animals: </TextBlock>
+							<NumericUpDown Value="10" HorizontalAlignment="Right" VerticalAlignment="Center" Increment="1" Padding="10"/>
+						</StackPanel>
+					</StackPanel>
+				</TabItem>
+				<!--Housing tab-->
+				<TabItem Header="Housing" FontSize="18">
+					<StackPanel Margin="10,20,10,10" Orientation="Horizontal">
+						<Grid ColumnDefinitions="400,300*" HorizontalAlignment="Stretch">
+							<!-- Left side -->
+							<StackPanel Grid.Column="0" HorizontalAlignment="Left" Margin="10" Spacing="5">
+								<TextBlock FontSize="16" Foreground="#605D5D" FontWeight="Bold"> Housing Management </TextBlock>
+								<TextBlock FontSize="16" Foreground="#605D5D" TextWrapping="WrapWithOverflow">
+									Basic information about this group of animals can be entered here. Values entered here will apply to the animals during the selected management period.
+								</TextBlock>
+								<StackPanel Orientation="Horizontal" Margin="0,20,0,0">
+									<TextBlock FontSize="16" VerticalAlignment="Center" Margin="0,0,10,0" Foreground="#605D5D" TextWrapping="Wrap">Housing type: </TextBlock>
+									<ComboBox SelectedIndex="0" MaxDropDownHeight="100">
+										<ComboBoxItem>Housed in barn</ComboBoxItem>
+										<ComboBoxItem>Confined no barn</ComboBoxItem>
+										<ComboBoxItem>Pasture/range/paddock</ComboBoxItem>
+									</ComboBox>
+								</StackPanel>
+							</StackPanel>
+							<!--Right side-->
+							<StackPanel Grid.Column="1" HorizontalAlignment="Right" Margin="10" Spacing="5">
+								<TextBlock FontSize="16" Foreground="#605D5D" FontWeight="Bold"> Additional Information </TextBlock>
+								<TextBlock Text="Bedding type:"/>
+								<Button>Bedding Application Calculator</Button>
+							</StackPanel>
+						</Grid>
+					</StackPanel>
+				</TabItem>
+				<!--Manure Tab-->
+				<TabItem Header="Manure" FontSize="18">
+					<TextBlock Margin="5">This is tab 3 content</TextBlock>
+				</TabItem>
+			</TabControl>
 		</StackPanel>
-
-
+	
 	</Grid>
-
+	
 </UserControl>

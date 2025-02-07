@@ -28,5 +28,9 @@ public partial class FarmOpenExistingView : UserControl
             throw new ArgumentNullException(nameof(farmOpenExistingViewmodel));
         }
     }
+    public FarmOpenExistingView()
+    {
+        InitializeComponent();
+    }
     #endregion
 }

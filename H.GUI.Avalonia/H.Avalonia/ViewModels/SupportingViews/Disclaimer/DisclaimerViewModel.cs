@@ -1,4 +1,4 @@
-﻿using ExCSS;
+using ExCSS;
 using H.Core.Enumerations;
 using H.Core.Properties;
 using H.Infrastructure;
@@ -15,6 +15,7 @@ using H.Avalonia.Views;
 using H.Core.Services;
 using Prism.Commands;
 using H.Avalonia.Views.SupportingViews.MeasurementProvince;
+using H.Avalonia.Views.SupportingViews.RegionSelection;
 using H.Avalonia.Views.FarmCreationViews;
 
 namespace H.Avalonia.ViewModels.SupportingViews.Disclaimer
@@ -181,10 +182,11 @@ namespace H.Avalonia.ViewModels.SupportingViews.Disclaimer
         }
 
         private void OnOkExecute(object obj)
-        {                       
+        {                                        
             // Navigate to next view
             
             //base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(FarmOptionsView));                     
+            //base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(RegionSelectionView));         
             base.RegionManager.RequestNavigate(UiRegions.SidebarRegion, nameof(Views.ComponentViews.MyComponentsView));
             base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(Views.ComponentViews.ChooseComponentsView));
         }

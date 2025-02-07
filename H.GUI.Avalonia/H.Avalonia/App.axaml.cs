@@ -28,8 +28,14 @@ using H.Avalonia.ViewModels.ComponentViews.Poultry;
 using H.Avalonia.ViewModels.SupportingViews.MeasurementProvince;
 using H.Avalonia.Views.ComponentViews;
 using H.Avalonia.Views.SupportingViews.MeasurementProvince;
+using H.Avalonia.Views.SupportingViews.RegionSelection;
+using H.Avalonia.ViewModels.SupportingViews.RegionSelection;
+
 using H.Core.Services;
 using H.Core.Services.Provinces;
+using H.Avalonia.Views.SupportingViews.CountrySelection;
+using H.Avalonia.ViewModels.SupportingViews.CountrySelection;
+using H.Core.Services.RegionCountries;
 using H.Avalonia.Views.FarmCreationViews;
 
 namespace H.Avalonia
@@ -71,7 +77,9 @@ namespace H.Avalonia
 
             // New development work
             containerRegistry.RegisterForNavigation<DisclaimerView, DisclaimerViewModel>();
+            containerRegistry.RegisterForNavigation<RegionSelectionView, RegionSelectionViewModel>();
             containerRegistry.RegisterForNavigation<MeasurementProvinceView, MeasurementProvinceViewModel>();
+            containerRegistry.RegisterForNavigation<CountrySelectionView, CountrySelectionViewModel>();
             containerRegistry.RegisterForNavigation<FarmOptionsView,FarmOptionsViewModel>();
             containerRegistry.RegisterForNavigation<FarmCreationView, FarmCreationViewModel>();
             containerRegistry.RegisterForNavigation<FarmOpenExistingView, FarmOpenExistingViewmodel>();
@@ -107,7 +115,6 @@ namespace H.Avalonia
             // Blank Page
             containerRegistry.RegisterForNavigation<BlankView, BlankViewModel>();
 
-            // 
             //containerRegistry.RegisterSingleton<ResultsViewModelBase>();
             containerRegistry.RegisterSingleton<Storage>();
 
@@ -118,7 +125,9 @@ namespace H.Avalonia
             containerRegistry.RegisterSingleton<KmlHelpers>();
 
             containerRegistry.RegisterSingleton<ICountrySettings, CountrySettings>();
+            containerRegistry.Register<ICountries, CountriesService>();
             containerRegistry.RegisterSingleton<IProvinces, ProvincesService>();
+           
 
 
             // Dialogs

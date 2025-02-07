@@ -1,6 +1,7 @@
 ﻿using Avalonia.Controls.Chrome;
 using H.Avalonia.Views;
 using Prism.Commands;
+using Prism.Events;
 using Prism.Regions;
 using System;
 using System.Collections.Generic;
@@ -12,21 +13,25 @@ namespace H.Avalonia.ViewModels
 {
     public class SidebarViewModel : ViewModelBase
     {
+        #region Fields
+        
         private string? _title;
-        private readonly IRegionManager _regionManager = null!;
+        private readonly IRegionManager _regionManager = null!; 
+
+        #endregion
 
         public SidebarViewModel()
         {
             Title = Core.Properties.Resources.ApplicationTitle;
         }
 
-        public SidebarViewModel(IRegionManager regionManager) : base(regionManager)
+        public SidebarViewModel(IRegionManager regionManager, IEventAggregator eventAggregator) : base(regionManager, eventAggregator)
         {
             Title = Core.Properties.Resources.ApplicationTitle;
             _regionManager = regionManager;
             SwitchToClimateViewCommand = new DelegateCommand(OnClickSwitchToClimateView);
             SwitchToSoilViewCommand = new DelegateCommand(OnClickSwitchToSoilView);
-            SwitchToAboutViewCommand = new DelegateCommand(OnClickSwitchToAboutView);
+            SwitchToAboutViewCommand = new DelegateCommand(OnClickSwitchToAboutView);            
         }
 
         /// <summary>

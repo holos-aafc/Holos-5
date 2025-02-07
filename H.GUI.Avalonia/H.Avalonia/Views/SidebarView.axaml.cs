@@ -9,7 +9,12 @@ namespace H.Avalonia.Views
 {
     public partial class SidebarView : UserControl
     {
-        private Button? _navigationButton;
+        #region Fields
+        
+        private Button? _navigationButton; 
+
+        #endregion
+
         public SidebarView()
         {
             InitializeComponent();

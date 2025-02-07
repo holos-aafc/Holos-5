@@ -5,8 +5,6 @@
             <!-- Add Controls for Previewer Here -->
         </Border>
     </Design.PreviewWith>
-
-    <!-- Add Styles Here -->
     
     <!-- Button Styles -->
     <Style Selector="Button">
@@ -51,7 +49,7 @@
         <Setter Property="Background" Value="MediumAquamarine"/>
     </Style>
     
-    <!-- DataGrid Styles Styles -->
+    <!-- DataGrid Styles -->
     <Style Selector="DataGridCell NumericUpDown">
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="ShowButtonSpinner" Value="False"/>
@@ -63,4 +61,28 @@
     </Style>
     <Style Selector="DataGridCell.numericStyle">
     </Style>
+
+	<!-- GridSplitter Styles -->
+	<Style Selector="GridSplitter.default-vertical-gridsplitter">
+		<Setter Property="Background" Value="LightGray"/>
+		<Setter Property="Width" Value="2"/>
+	</Style>
+
+    <!-- Grid.Border Styles-->
+    <Style Selector="Border.component-border">
+        <Setter Property="BorderBrush" Value="LightGray" />
+        <Setter Property="BorderThickness" Value="1" />
+    </Style>
+
+	<!-- TextBlock Styles -->
+	<Style Selector="TextBlock.title-textblock">
+		<Setter Property="FontWeight" Value="Bold"/>
+		<Setter Property="FontSize" Value="18" />
+		<Setter Property="Foreground" Value="{StaticResource DefaultForegroundTextBrush}" />
+        <Setter Property="Padding" Value="20" />
+        <Setter Property="TextWrapping" Value="Wrap" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+	</Style>
+    
+
 </Styles>

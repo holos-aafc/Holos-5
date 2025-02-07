@@ -29,6 +29,10 @@ namespace H.Avalonia.Views.FarmCreationViews
             }
 
         }
+        public FarmCreationView()
+        {
+            InitializeComponent();
+        }
         #endregion
     }
 }

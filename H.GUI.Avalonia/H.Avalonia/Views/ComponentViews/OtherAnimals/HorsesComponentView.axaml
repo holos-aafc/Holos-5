@@ -2,8 +2,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:componentView="clr-namespace:H.Avalonia.ViewModels.ComponentViews.OtherAnimals"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="H.Avalonia.HorsesComponentView">
+	
+	<Design.DataContext>
+		<componentView:HorsesComponentViewModelDesign/>
+	</Design.DataContext>
+	
 	<Grid>
 		<Grid.RowDefinitions>
 			<RowDefinition Height="Auto"/> <!-- Title -->
@@ -13,7 +19,7 @@
 		</Grid.RowDefinitions>
 
 		<!-- Title -->
-		<TextBlock Grid.Row="0" Text="Horses" FontSize="36" FontWeight="Bold" Margin="10,20,0,0" Foreground="#605D5D"/>
+		<TextBlock Grid.Row="0" Text="{Binding Path=ViewName}" FontSize="36" FontWeight="Bold" Margin="10,20,0,0" Foreground="#605D5D"/>
 		<Border BorderBrush="#D7D7D7" BorderThickness="0,0,0,3" Margin="0,75,0,0"/>
 
 		<!-- Step 1 -->
@@ -25,11 +31,9 @@
 
 			<Button Margin="10,20,0,0" BorderBrush="#D7D7D7" Background="White" Foreground="#605D5D" Height="40" Width="175">Add Group</Button>
 			<StackPanel>
-				<DataGrid AutoGenerateColumns="True" Margin="10,20,0,0" HorizontalAlignment="Left" BorderThickness="1" GridLinesVisibility="All">
+				<DataGrid AutoGenerateColumns="False" Margin="10,20,0,0" HorizontalAlignment="Left" BorderThickness="1" GridLinesVisibility="All">
 					<DataGrid.Columns>
-						<DataGridTemplateColumn Width="Auto"/>
 						<DataGridTextColumn Width="Auto" Header="Group Name"/>
-						<DataGridTemplateColumn Width="Auto"/>
 					</DataGrid.Columns>
 				</DataGrid>
 			</StackPanel>
@@ -44,13 +48,12 @@
 
 			<Button Margin="10,20,0,0" BorderBrush="#D7D7D7" Background="White" Foreground="#605D5D" Width="275" Height="45">Add Management Period </Button>
 			<StackPanel>
-				<DataGrid AutoGenerateColumns="True" Margin="10,20,0,0" HorizontalAlignment="Left" BorderThickness="1" GridLinesVisibility="All">
+				<DataGrid ItemsSource="{Binding Path=ManagementPeriods}" AutoGenerateColumns="False" Margin="10,20,0,0" HorizontalAlignment="Left" BorderThickness="1" GridLinesVisibility="All">
 					<DataGrid.Columns>
-						<DataGridTemplateColumn Width="Auto"/>
-						<DataGridTextColumn Width="Auto" Header="Management Period Name"/>
-						<DataGridTextColumn Width="Auto" Header="Start Date"/>
-						<DataGridTextColumn Width="Auto" Header="End Date"/>
-						<DataGridTextColumn Width="Auto" Header="Number of Days"/>
+						<DataGridTextColumn Width="Auto" Header="Management Period Name" Binding="{Binding Path=GroupName}"/>
+						<DataGridTextColumn Width="Auto" Header="Start Date" Binding="{Binding Path=Start}"/>
+						<DataGridTextColumn Width="Auto" Header="End Date" Binding="{Binding Path=End}"/>
+						<DataGridTextColumn Width="Auto" Header="Number of Days" Binding="{Binding Path=NumberOfDays}"/>
 					</DataGrid.Columns>
 				</DataGrid>
 			</StackPanel>

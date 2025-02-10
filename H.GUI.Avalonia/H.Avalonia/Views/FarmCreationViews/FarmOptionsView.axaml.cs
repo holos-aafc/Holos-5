@@ -28,6 +28,10 @@ namespace H.Avalonia.Views.FarmCreationViews
                 throw new ArgumentNullException(nameof(farmOptionsViewModel));
             }
         }
+        public FarmOptionsView()
+        {
+            InitializeComponent();
+        }
 
         #endregion
 

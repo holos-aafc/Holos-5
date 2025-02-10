@@ -6,7 +6,6 @@ namespace H.Avalonia.Views.FarmCreationViews
 {
     public partial class FarmCreationView : UserControl
     {
-
         #region Fields
 
         private FarmCreationViewModel _farmCreationViewModel;
@@ -15,10 +14,15 @@ namespace H.Avalonia.Views.FarmCreationViews
 
         #region Constructors
 
+        public FarmCreationView()
+        {
+            InitializeComponent();
+        }
 
         public FarmCreationView(FarmCreationViewModel farmCreationViewModel)
         {
             InitializeComponent();
+
             if (farmCreationViewModel != null)
             {
                 _farmCreationViewModel = farmCreationViewModel;
@@ -29,10 +33,7 @@ namespace H.Avalonia.Views.FarmCreationViews
             }
 
         }
-        public FarmCreationView()
-        {
-            InitializeComponent();
-        }
+
         #endregion
     }
 }

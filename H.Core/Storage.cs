@@ -9,6 +9,7 @@ using System.Linq;
 using System.Resources;
 using System.Threading;
 using System.Threading.Tasks;
+using DynamicData;
 using H.Core.Models;
 using H.Core.Tools;
 using H.Infrastructure;
@@ -17,7 +18,7 @@ using Prism.Mvvm;
 
 namespace H.Core
 {
-    public class Storage : BindableBase
+    public class Storage : BindableBase, IStorage
     {
         #region Fields
 
@@ -600,10 +601,12 @@ namespace H.Core
                 farmToImport.Guid = Guid.NewGuid();
             }
 
-            this.ApplicationData.Farms.AddRange(farmsToImport);
+            foreach (var farm in farmsToImport)
+            {
+                this.ApplicationData.Farms.Add(farm);
+            }
         }
 
         #endregion
-
     }
 }

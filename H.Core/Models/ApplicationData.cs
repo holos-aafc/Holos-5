@@ -16,7 +16,7 @@ namespace H.Core.Models
 
         private GlobalSettings _globalSettings;
         private DisplayUnitStrings _displayDisplayUnitStrings;
-        private ObservableCollection<Farm> _farms;
+        private IList<Farm> _farms;
 
         #endregion
 
@@ -25,7 +25,7 @@ namespace H.Core.Models
         public ApplicationData()
         {
             this.GlobalSettings = new GlobalSettings();
-            this.Farms = new ObservableCollection<Farm>();
+            this.Farms = new List<Farm>();
             this.DisplayUnitStrings = new DisplayUnitStrings();
         }
 
@@ -39,7 +39,7 @@ namespace H.Core.Models
             set { this.SetProperty(ref _globalSettings, value); }
         }
 
-        public ObservableCollection<Farm> Farms
+        public IList<Farm> Farms
         {
             get { return _farms; }
             set { this.SetProperty(ref _farms, value); }

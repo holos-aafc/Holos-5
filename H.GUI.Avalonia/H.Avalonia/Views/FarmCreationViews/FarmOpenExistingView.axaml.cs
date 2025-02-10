@@ -13,7 +13,6 @@ public partial class FarmOpenExistingView : UserControl
     private FarmOpenExistingViewmodel _farmOpenExistingViewmodel;
 
     #endregion
-    
 
     #region Constructors
     public FarmOpenExistingView(FarmOpenExistingViewmodel farmOpenExistingViewmodel)

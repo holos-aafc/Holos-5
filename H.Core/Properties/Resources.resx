@@ -5985,4 +5985,40 @@ Please note: emissions related to the deposition or application of livestock man
   <data name="LabelEditComponents" xml:space="preserve">
     <value>Edit Components</value>
   </data>
+  <data name="LabelCreateNewFarm" xml:space="preserve">
+    <value>Create a new farm</value>
+  </data>
+  <data name="WatermarkYourFarmName" xml:space="preserve">
+    <value>Your Farm Name</value>
+  </data>
+  <data name="WatermarkComments" xml:space="preserve">
+    <value>Comments</value>
+  </data>
+  <data name="ButtonCreateNewFarm" xml:space="preserve">
+    <value>Create New Farm</value>
+  </data>
+  <data name="ButtonGoBack" xml:space="preserve">
+    <value>Go Back</value>
+  </data>
+  <data name="LabelOpenAnExistingFarm" xml:space="preserve">
+    <value>Open an existing farm</value>
+  </data>
+  <data name="LabelSearchforfarms" xml:space="preserve">
+    <value>Search for farms...</value>
+  </data>
+  <data name="ButtonOpen" xml:space="preserve">
+    <value>Open</value>
+  </data>
+  <data name="LabelWouldYouLikeToOpenAnExistingFarmOrCreateANewOne" xml:space="preserve">
+    <value>Would you like to open an existing farm or create a new one?</value>
+  </data>
+  <data name="ButtonOpenExistingFarm" xml:space="preserve">
+    <value>Open Existing Farm</value>
+  </data>
+  <data name="LabelOrImportFromAFile" xml:space="preserve">
+    <value>Or import from a file</value>
+  </data>
+  <data name="ButtonImport" xml:space="preserve">
+    <value>Import</value>
+  </data>
 </root>

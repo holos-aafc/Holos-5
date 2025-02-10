@@ -69,6 +69,7 @@ namespace H.Avalonia.ViewModels
                 base.StorageService.AddFarm(farm);
                 base.StorageService.SetActiveFarm(farm);
 
+                base.RegionManager.RequestNavigate(UiRegions.SidebarRegion, nameof(MyComponentsView));
                 base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(ChooseComponentsView));
             }
         }

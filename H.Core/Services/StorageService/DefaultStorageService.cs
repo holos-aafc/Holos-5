@@ -47,5 +47,13 @@ public class DefaultStorageService : IStorageService
         return false;
     }
 
+    public void AddFarm(Farm farm)
+    {
+        if (farm != null)
+        {
+            _storage.ApplicationData.Farms.Add(farm);
+        }
+    }
+
     #endregion
 }

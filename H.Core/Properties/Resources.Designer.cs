@@ -619,6 +619,51 @@ namespace H.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create New Farm.
+        /// </summary>
+        public static string ButtonCreateNewFarm {
+            get {
+                return ResourceManager.GetString("ButtonCreateNewFarm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Go Back.
+        /// </summary>
+        public static string ButtonGoBack {
+            get {
+                return ResourceManager.GetString("ButtonGoBack", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Import.
+        /// </summary>
+        public static string ButtonImport {
+            get {
+                return ResourceManager.GetString("ButtonImport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open.
+        /// </summary>
+        public static string ButtonOpen {
+            get {
+                return ResourceManager.GetString("ButtonOpen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open Existing Farm.
+        /// </summary>
+        public static string ButtonOpenExistingFarm {
+            get {
+                return ResourceManager.GetString("ButtonOpenExistingFarm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Canary seed.
         /// </summary>
         public static string CanarySeed {
@@ -9088,6 +9133,15 @@ namespace H.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create a new farm.
+        /// </summary>
+        public static string LabelCreateNewFarm {
+            get {
+                return ResourceManager.GetString("LabelCreateNewFarm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Crop.
         /// </summary>
         public static string LabelCrop {
@@ -10888,6 +10942,15 @@ namespace H.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Open an existing farm.
+        /// </summary>
+        public static string LabelOpenAnExistingFarm {
+            get {
+                return ResourceManager.GetString("LabelOpenAnExistingFarm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Open gilts.
         /// </summary>
         public static string LabelOpenGilts {
@@ -10911,6 +10974,15 @@ namespace H.Core.Properties {
         public static string LabelOriginOfDigestate {
             get {
                 return ResourceManager.GetString("LabelOriginOfDigestate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Or import from a file.
+        /// </summary>
+        public static string LabelOrImportFromAFile {
+            get {
+                return ResourceManager.GetString("LabelOrImportFromAFile", resourceCulture);
             }
         }
         
@@ -11244,6 +11316,15 @@ namespace H.Core.Properties {
         public static string LabelSaturatedFattyAcid {
             get {
                 return ResourceManager.GetString("LabelSaturatedFattyAcid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search for farms....
+        /// </summary>
+        public static string LabelSearchforfarms {
+            get {
+                return ResourceManager.GetString("LabelSearchforfarms", resourceCulture);
             }
         }
         
@@ -12369,6 +12450,15 @@ namespace H.Core.Properties {
         public static string LabelWFac {
             get {
                 return ResourceManager.GetString("LabelWFac", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Would you like to open an existing farm or create a new one?.
+        /// </summary>
+        public static string LabelWouldYouLikeToOpenAnExistingFarmOrCreateANewOne {
+            get {
+                return ResourceManager.GetString("LabelWouldYouLikeToOpenAnExistingFarmOrCreateANewOne", resourceCulture);
             }
         }
         
@@ -17479,6 +17569,24 @@ namespace H.Core.Properties {
         public static string VitEInfo {
             get {
                 return ResourceManager.GetString("VitEInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Comments.
+        /// </summary>
+        public static string WatermarkComments {
+            get {
+                return ResourceManager.GetString("WatermarkComments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your Farm Name.
+        /// </summary>
+        public static string WatermarkYourFarmName {
+            get {
+                return ResourceManager.GetString("WatermarkYourFarmName", resourceCulture);
             }
         }
         

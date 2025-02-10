@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net7.0</TargetFramework>
@@ -100,5 +100,11 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\SupportingViews\RegionSelectionView.axaml" />
+    <UpToDateCheckInput Remove="Views\FarmCreationViews\FarmCreationView.axaml" />
+    <UpToDateCheckInput Remove="Views\FarmCreationViews\FarmOpenExistingView.axaml" />
   </ItemGroup>
 </Project>

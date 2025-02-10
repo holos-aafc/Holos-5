@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Avalonia.Controls.Notifications;
+using H.Core.Services.StorageService;
 using Prism.Events;
 
 namespace H.Avalonia.ViewModels
@@ -19,6 +20,7 @@ namespace H.Avalonia.ViewModels
         private Storage _storage; 
         private IEventAggregator _eventAggregator;
         private IRegionManager _regionManager;
+        private IStorageService _storageService;
 
         #endregion
 
@@ -54,6 +56,27 @@ namespace H.Avalonia.ViewModels
 
         protected ViewModelBase(IRegionManager regionManager)
         {
+            if (regionManager != null)
+            {
+                RegionManager = regionManager;
+            }
+            else
+            {
+                throw new ArgumentNullException(nameof(regionManager));
+            }
+        }
+
+        protected ViewModelBase(IRegionManager regionManager, IStorageService storageService)
+        {
+            if (storageService != null)
+            {
+                this.StorageService = storageService;
+            }
+            else
+            {
+                throw new ArgumentNullException(nameof(storageService));
+            }
+
             if (regionManager != null)
             {
                 RegionManager = regionManager;
@@ -129,6 +152,12 @@ namespace H.Avalonia.ViewModels
         {
             get => _eventAggregator;
             set { SetProperty(ref _eventAggregator, value); } 
+        }
+
+        public IStorageService StorageService
+        {
+            get => _storageService;
+            set => SetProperty(ref _storageService, value);
         }
 
         #endregion

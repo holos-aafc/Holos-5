@@ -187,8 +187,8 @@ namespace H.Avalonia.ViewModels.SupportingViews.Disclaimer
             
             //base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(FarmOptionsView));                     
             //base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(RegionSelectionView));         
-            base.RegionManager.RequestNavigate(UiRegions.SidebarRegion, nameof(Views.ComponentViews.MyComponentsView));
-            base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(Views.ComponentViews.ChooseComponentsView));
+            //base.RegionManager.RequestNavigate(UiRegions.SidebarRegion, nameof(Views.ComponentViews.MyComponentsView));
+            base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(FarmOpenExistingView));
         }
 
         private bool OkCanExecute(object arg)

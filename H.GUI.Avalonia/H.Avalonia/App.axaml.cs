@@ -37,6 +37,8 @@ using H.Avalonia.Views.SupportingViews.CountrySelection;
 using H.Avalonia.ViewModels.SupportingViews.CountrySelection;
 using H.Core.Services.RegionCountries;
 using H.Avalonia.Views.FarmCreationViews;
+using H.Core;
+using H.Core.Services.StorageService;
 
 namespace H.Avalonia
 {
@@ -116,7 +118,18 @@ namespace H.Avalonia
             containerRegistry.RegisterForNavigation<BlankView, BlankViewModel>();
 
             //containerRegistry.RegisterSingleton<ResultsViewModelBase>();
+
+            #region Storage Registrations
+
+            // V5 object
             containerRegistry.RegisterSingleton<Storage>();
+
+            // V4 object
+            containerRegistry.RegisterSingleton<IStorage, H.Core.Storage>();
+
+            containerRegistry.RegisterSingleton<IStorageService, DefaultStorageService>();
+
+            #endregion
 
             // Providers
             containerRegistry.RegisterSingleton<GeographicDataProvider>();
@@ -127,23 +140,21 @@ namespace H.Avalonia
             containerRegistry.RegisterSingleton<ICountrySettings, CountrySettings>();
             containerRegistry.Register<ICountries, CountriesService>();
             containerRegistry.RegisterSingleton<IProvinces, ProvincesService>();
-           
-
-
+            
             // Dialogs
             containerRegistry.RegisterDialog<DeleteRowDialog, DeleteRowDialogViewModel>();
         }
 
         protected override AvaloniaObject CreateShell()
         {
-            return Container.Resolve<MainWindow>();
+            return base.Container.Resolve<MainWindow>();
         }
 
         /// <summary>Called after Initialize.</summary>
         protected override void OnInitialized()
         {
-            // Register Views to the Region it will appear in. Don't register them in the ViewModel.
-            var regionManager = Container.Resolve<IRegionManager>();
+            // Register views to the Region it will appear in. Don't register them in the ViewModel.
+            var regionManager = base.Container.Resolve<IRegionManager>();
 
             regionManager.RegisterViewWithRegion(UiRegions.ToolbarRegion, typeof(ToolbarView));
                         
@@ -158,6 +169,9 @@ namespace H.Avalonia
             var geographicProvider = Container.Resolve<GeographicDataProvider>();
             geographicProvider.Initialize();
             Container.Resolve<KmlHelpers>();
+
+            var storage = Container.Resolve<IStorage>();
+            storage.Load();
         }
     }
 }

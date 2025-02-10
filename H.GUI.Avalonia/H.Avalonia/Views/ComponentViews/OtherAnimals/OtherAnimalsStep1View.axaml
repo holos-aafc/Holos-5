@@ -13,9 +13,9 @@
 			<Run Text="component"/>
 		</TextBlock>
 
-		<Button Margin="10,20,0,0" BorderBrush="#D7D7D7" Background="White" Foreground="#605D5D" Height="40" Width="175">Add Group</Button>
+		<Button Command="{Binding HandleAddGroupEvent}" Margin="10,20,0,0" BorderBrush="#D7D7D7" Background="White" Foreground="#605D5D" Height="40" Width="175">Add Group</Button>
 		<StackPanel>
-			<DataGrid ItemsSource="{Binding Path=Groups}" AutoGenerateColumns="False" Margin="10,20,0,0" HorizontalAlignment="Left" BorderThickness="1" GridLinesVisibility="All">
+			<DataGrid ItemsSource="{Binding Path=Groups}" AutoGenerateColumns="False" Margin="10,20,0,0" HorizontalAlignment="Left" BorderThickness="1" GridLinesVisibility="All" MaxHeight="75">
 				<DataGrid.Columns>
 					<DataGridTextColumn Width="Auto" Header="Group Name" Binding="{Binding Path=GroupType}"/>
 				</DataGrid.Columns>

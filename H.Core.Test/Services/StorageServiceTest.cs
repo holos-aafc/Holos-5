@@ -89,5 +89,14 @@ public class StorageServiceTest
         Assert.AreEqual(2, result.Select(x => x.Guid).Distinct().Count());
     }
 
+    [TestMethod]
+    public void AddFarm()
+    {
+        _storageService.AddFarm(new Farm());
+        _storageService.AddFarm(new Farm());
+
+        Assert.AreEqual(2, _applicationData.Farms.Count);
+    }
+
     #endregion
 }

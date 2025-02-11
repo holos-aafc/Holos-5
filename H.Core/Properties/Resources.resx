@@ -6021,4 +6021,13 @@ Please note: emissions related to the deposition or application of livestock man
   <data name="ButtonImport" xml:space="preserve">
     <value>Import</value>
   </data>
+  <data name="LabelFarmName" xml:space="preserve">
+    <value>Farm Name</value>
+  </data>
+  <data name="LabelComments" xml:space="preserve">
+    <value>Comments</value>
+  </data>
+  <data name="LabelCreatedOn" xml:space="preserve">
+    <value>Created On</value>
+  </data>
 </root>

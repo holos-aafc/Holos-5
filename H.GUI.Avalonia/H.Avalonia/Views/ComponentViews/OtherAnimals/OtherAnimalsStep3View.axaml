@@ -21,7 +21,7 @@
 						Basic information about this group of animals can be entered here. Values entered here will apply to the animals during the selected management period.
 					</TextBlock>
 					<StackPanel Orientation="Horizontal">
-						<TextBlock FontSize="16" Margin="10,20,10,20" Foreground="#605D5D" TextWrapping="Wrap">Number of animals: </TextBlock>
+						<TextBlock FontSize="16" Margin="0,20,10,20" Foreground="#605D5D" TextWrapping="Wrap">Number of animals: </TextBlock>
 						<NumericUpDown Value="10" HorizontalAlignment="Right" VerticalAlignment="Center" Increment="1" Padding="10"/>
 					</StackPanel>
 				</StackPanel>
@@ -34,7 +34,7 @@
 						<StackPanel Grid.Column="0" HorizontalAlignment="Left" Margin="10" Spacing="5">
 							<TextBlock FontSize="16" Foreground="#605D5D" FontWeight="Bold"> Housing Management </TextBlock>
 							<TextBlock FontSize="16" Foreground="#605D5D" TextWrapping="WrapWithOverflow">
-								Basic information about this group of animals can be entered here. Values entered here will apply to the animals during the selected management period.
+								Animal housing details can be entered on this tab.
 							</TextBlock>
 							<StackPanel Orientation="Horizontal" Margin="0,20,0,0">
 								<TextBlock FontSize="16" VerticalAlignment="Center" Margin="0,0,10,0" Foreground="#605D5D" TextWrapping="Wrap">Housing type: </TextBlock>
@@ -56,7 +56,21 @@
 			</TabItem>
 			<!--Manure Tab-->
 			<TabItem Header="Manure" FontSize="18">
-				<TextBlock Margin="5">This is tab 3 content</TextBlock>
+				<StackPanel Margin="10, 20, 10, 10" HorizontalAlignment="Left">
+					<TextBlock FontSize="16" Foreground="#605D5D" FontWeight="Bold">Manure</TextBlock>
+					<TextBlock FontSize="16" Foreground="#605D5D" TextWrapping="Wrap">
+						Manure handling system details can be entered on this tab.
+					</TextBlock>
+					<StackPanel Orientation="Horizontal" >
+						<TextBlock FontSize="16" Margin="0,25,10,20" Foreground="#605D5D" TextWrapping="Wrap">Manure handling system:</TextBlock>
+						<StackPanel Orientation="Horizontal" Margin="0,20,0,0">
+							<ComboBox SelectedIndex="0" MaxDropDownHeight="100">
+								<ComboBoxItem>Solid storage (stockpiled)</ComboBoxItem>
+								<ComboBoxItem>Pasture/range/paddock</ComboBoxItem>
+							</ComboBox>
+						</StackPanel>
+					</StackPanel>
+				</StackPanel>
 			</TabItem>
 		</TabControl>
 	</StackPanel>

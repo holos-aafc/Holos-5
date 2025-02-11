@@ -6030,4 +6030,10 @@ Please note: emissions related to the deposition or application of livestock man
   <data name="LabelCreatedOn" xml:space="preserve">
     <value>Created On</value>
   </data>
+  <data name="LabelModifiedOn" xml:space="preserve">
+    <value>Modified On</value>
+  </data>
+  <data name="LabelProvince" xml:space="preserve">
+    <value>Province</value>
+  </data>
 </root>

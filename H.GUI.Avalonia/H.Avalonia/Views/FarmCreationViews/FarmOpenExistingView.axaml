@@ -7,6 +7,9 @@
 			 xmlns:FarmCreationViews="clr-namespace:H.Avalonia.ViewModels"
              x:Class="H.Avalonia.Views.FarmCreationViews.FarmOpenExistingView">
 	
+	<Design.DataContext>
+		<FarmCreationViews:FarmOpenExistingViewmodel />
+	</Design.DataContext>
 		
 	
 	<StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -20,31 +23,28 @@
 			</Grid>
 		</StackPanel>
 
-		<StackPanel>
-			<DataGrid ItemsSource="{Binding Farms}" AutoGenerateColumns="False" Margin="0 20 0 0" Width="450">
+		
+			<DataGrid ItemsSource="{Binding Farms}"  AutoGenerateColumns="False" Margin="0 20 0 0" Padding="20" GridLinesVisibility="All">
+				<DataGrid.Styles>
+					<Style Selector="DataGridColumnHeader">
+						<Setter Property="FontWeight" Value="Bold" />
+						<Setter Property="FontSize" Value="14" />
+					</Style>
+				</DataGrid.Styles>
 				<DataGrid.Columns>
-					<DataGridTextColumn Header="{x:Static properties:Resources.LabelFarmName}" Binding="{Binding Name}" Width="*" />
-					<DataGridTextColumn Header="{x:Static properties:Resources.LabelComments}" Binding="{Binding Comments}" Width="*" />
-					<DataGridTextColumn Header="{x:Static properties:Resources.LabelCreatedOn}" Binding="{Binding CreatedOn}" Width="*" />
+					<DataGridTextColumn Header="{x:Static properties:Resources.LabelFarmName}" Binding="{Binding Name}"  />
+					<DataGridTextColumn Header="{x:Static properties:Resources.LabelProvince}" Binding="{Binding Province}"  />
+					<DataGridTextColumn Header="{x:Static properties:Resources.LabelComments}" Binding="{Binding Comments}"  />
+					<DataGridTextColumn Header="{x:Static properties:Resources.LabelCreatedOn}" Binding="{Binding DateCreated}" />
+					<DataGridTextColumn Header="{x:Static properties:Resources.LabelModifiedOn}" Binding="{Binding DateModified}"  />
 				</DataGrid.Columns>
 			</DataGrid>
-		</StackPanel>
+		
 			
 		
 		<StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
 			<Button Content="{x:Static properties:Resources.ButtonOpen}" HorizontalAlignment="Center"  Margin="0 120 0 0" Padding="100,10">
-				<Button.Styles>
-					<Style Selector="Button">
-						<Setter Property="FontWeight" Value="Bold" />
-						<Setter Property="Foreground" Value="#FFFFFF" />
-						<Setter Property="Background" Value="#007C4B" />
-					</Style>
-					<Style Selector="Button:pointerover /template/ ContentPresenter">
-						<Setter Property="FontWeight" Value="Bold" />
-						<Setter Property="Foreground" Value="#FFFFFF" />
-						<Setter Property="Background" Value="#007C4B" />
-					</Style>
-				</Button.Styles>
+				
 			</Button>
 		</StackPanel>
 		
@@ -52,14 +52,10 @@
 		<Button Content="{x:Static properties:Resources.ButtonGoBack}" Margin="0 10 0 0" HorizontalAlignment="Center" Command="{Binding NavigateToPreviousPage}">
 			<Button.Styles>
 				<Style Selector="Button">
-					<Setter Property="FontWeight" Value="Bold" />
-					<Setter Property="Foreground" Value="#696969" />
 					<Setter Property="Background" Value="#EDEDED" />
 				</Style>
 				<Style Selector="Button:pointerover /template/ ContentPresenter">
-					<Setter Property="FontWeight" Value="Bold" />
-					<Setter Property="Foreground" Value="#FFFFFF" />
-					<Setter Property="Background" Value="#007C4B" />
+					<Setter Property="Background" Value="MediumAquamarine" />
 				</Style>
 			</Button.Styles>
 		</Button>

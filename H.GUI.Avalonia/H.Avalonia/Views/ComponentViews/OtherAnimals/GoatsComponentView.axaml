@@ -2,7 +2,51 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:viewModels="clr-namespace:H.Avalonia.ViewModels.ComponentViews.OtherAnimals"
+			 xmlns:viewSections="clr-namespace:H.Avalonia"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="H.Avalonia.GoatsComponentView">
-  This is a goat component
+
+	<Design.DataContext>
+		<viewModels:GoatsComponentViewModelDesign/>
+	</Design.DataContext>
+
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<!-- Title -->
+			<RowDefinition Height="*"/>
+			<!-- Content -->
+		</Grid.RowDefinitions>
+
+		<StackPanel Grid.Row="0">
+			<!-- Title -->
+			<TextBlock Text="{Binding Path=ViewName}" FontSize="36" FontWeight="Bold" Margin="10,10,0,0" Foreground="#605D5D"/>
+			<Border BorderBrush="#D7D7D7" BorderThickness="0,0,0,3" Margin="0,10,0,0"/>
+		</StackPanel>
+
+		<ScrollViewer Grid.Row="1">
+			<Grid>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"/>
+					<!-- Step 1 -->
+					<RowDefinition Height="Auto"/>
+					<!-- Step 2 -->
+					<RowDefinition Height="Auto"/>
+					<!-- Step 3-->
+				</Grid.RowDefinitions>
+
+				<!-- Step 1 -->
+				<viewSections:OtherAnimalsStep1View Grid.Row="0"/>
+
+				<!--Step 2-->
+				<viewSections:OtherAnimalsStep2View Grid.Row="1"/>
+
+				<!--Step 3-->
+				<viewSections:OtherAnimalsStep3View Grid.Row="2"/>
+
+			</Grid>
+		</ScrollViewer>
+	</Grid>
+	
 </UserControl>

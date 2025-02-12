@@ -6036,4 +6036,7 @@ Please note: emissions related to the deposition or application of livestock man
   <data name="LabelProvince" xml:space="preserve">
     <value>Province</value>
   </data>
+  <data name="LabelEcodistrict" xml:space="preserve">
+    <value>Ecodistrict</value>
+  </data>
 </root>

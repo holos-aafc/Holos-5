@@ -45,6 +45,7 @@ namespace H.Avalonia.ViewModels
 
         public override void OnNavigatedTo(NavigationContext navigationContext)
         {
+            Farms.Clear();
             var farms = base.StorageService.GetAllFarms();
             Farms.Add(farms);
             base.OnNavigatedTo(navigationContext);

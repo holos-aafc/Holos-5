@@ -34,6 +34,7 @@
 				<DataGrid.Columns>
 					<DataGridTextColumn Header="{x:Static properties:Resources.LabelFarmName}" Binding="{Binding Name}"  />
 					<DataGridTextColumn Header="{x:Static properties:Resources.LabelProvince}" Binding="{Binding Province}"  />
+					<DataGridTextColumn Header="{x:Static properties:Resources.LabelEcodistrict}" Binding="{Binding DefaultSoilData.EcodistrictName}"  />
 					<DataGridTextColumn Header="{x:Static properties:Resources.LabelComments}" Binding="{Binding Comments}"  />
 					<DataGridTextColumn Header="{x:Static properties:Resources.LabelCreatedOn}" Binding="{Binding DateCreated}" />
 					<DataGridTextColumn Header="{x:Static properties:Resources.LabelModifiedOn}" Binding="{Binding DateModified}"  />

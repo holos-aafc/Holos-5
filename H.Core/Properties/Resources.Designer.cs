@@ -9430,6 +9430,15 @@ namespace H.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ecodistrict.
+        /// </summary>
+        public static string LabelEcodistrict {
+            get {
+                return ResourceManager.GetString("LabelEcodistrict", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Edit Components.
         /// </summary>
         public static string LabelEditComponents {

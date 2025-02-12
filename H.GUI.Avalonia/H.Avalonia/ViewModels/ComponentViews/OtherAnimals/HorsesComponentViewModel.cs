@@ -1,6 +1,5 @@
 ﻿using H.Core.Enumerations;
 
-
 namespace H.Avalonia.ViewModels.ComponentViews.OtherAnimals
 {
     public class HorsesComponentViewModel : OtherAnimalsViewModelBase

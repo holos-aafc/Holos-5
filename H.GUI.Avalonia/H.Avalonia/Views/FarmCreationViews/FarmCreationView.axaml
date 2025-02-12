@@ -37,14 +37,10 @@
 		<Button Content="{x:Static properties:Resources.ButtonGoBack}" Margin="0 10 0 0" HorizontalAlignment="Center" Command="{Binding NavigateToPreviousPage}">
 			<Button.Styles>
 				<Style Selector="Button">
-					<Setter Property="FontWeight" Value="Bold" />
-					<Setter Property="Foreground" Value="#696969" />
 					<Setter Property="Background" Value="#EDEDED" />
 				</Style>
 				<Style Selector="Button:pointerover /template/ ContentPresenter">
-					<Setter Property="FontWeight" Value="Bold" />
-					<Setter Property="Foreground" Value="#FFFFFF" />
-					<Setter Property="Background" Value="#007C4B" />
+					<Setter Property="Background" Value="MediumAquamarine" />
 				</Style>
 			</Button.Styles>
 		</Button>

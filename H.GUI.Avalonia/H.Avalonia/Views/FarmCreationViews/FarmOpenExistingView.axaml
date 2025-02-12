@@ -4,46 +4,62 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
 			 xmlns:properties="clr-namespace:H.Core.Properties;assembly=H.Core"
-                x:Class="H.Avalonia.Views.FarmCreationViews.FarmOpenExistingView">
+			 xmlns:FarmCreationViews="clr-namespace:H.Avalonia.ViewModels"
+             x:Class="H.Avalonia.Views.FarmCreationViews.FarmOpenExistingView">
+	
+	<Design.DataContext>
+		<FarmCreationViews:FarmOpenExistingViewmodel />
+	</Design.DataContext>
+		
+	
 	<StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
 		<TextBlock Text="{x:Static properties:Resources.LabelOpenAnExistingFarm}"
                    HorizontalAlignment="Center" Margin="0,0,0,30" FontWeight="Bold" FontSize="20" Foreground="#696969" />
-		<StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="0 0 0 20">
+		
+		<StackPanel Orientation="Vertical" HorizontalAlignment="Center" Margin="0 0 0 20">
 			<Grid Width="260" VerticalAlignment="Center">
 				<TextBox Watermark="{x:Static  properties:Resources.LabelSearchforfarms}" VerticalContentAlignment="Center" VerticalAlignment="Center" Foreground="#696969" BorderBrush="#EDEDED" BorderThickness="2" FontWeight="SemiBold" Padding="40,10,0,10" />
 				<Image Source="avares://H.Avalonia/Assets/Images/Icons/search-icon.png" Width="20" Height="20" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0"/>
 			</Grid>
 		</StackPanel>
+
+		
+			<DataGrid ItemsSource="{Binding Farms}"  AutoGenerateColumns="False" Margin="0 20 0 0" Padding="20" GridLinesVisibility="All">
+				<DataGrid.Styles>
+					<Style Selector="DataGridColumnHeader">
+						<Setter Property="FontWeight" Value="Bold" />
+						<Setter Property="FontSize" Value="14" />
+					</Style>
+				</DataGrid.Styles>
+				<DataGrid.Columns>
+					<DataGridTextColumn Header="{x:Static properties:Resources.LabelFarmName}" Binding="{Binding Name}"  />
+					<DataGridTextColumn Header="{x:Static properties:Resources.LabelProvince}" Binding="{Binding Province}"  />
+					<DataGridTextColumn Header="{x:Static properties:Resources.LabelEcodistrict}" Binding="{Binding DefaultSoilData.EcodistrictName}"  />
+					<DataGridTextColumn Header="{x:Static properties:Resources.LabelComments}" Binding="{Binding Comments}"  />
+					<DataGridTextColumn Header="{x:Static properties:Resources.LabelCreatedOn}" Binding="{Binding DateCreated}" />
+					<DataGridTextColumn Header="{x:Static properties:Resources.LabelModifiedOn}" Binding="{Binding DateModified}"  />
+				</DataGrid.Columns>
+			</DataGrid>
+		
+			
+		
 		<StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
 			<Button Content="{x:Static properties:Resources.ButtonOpen}" HorizontalAlignment="Center"  Margin="0 120 0 0" Padding="100,10">
-				<Button.Styles>
-					<Style Selector="Button">
-						<Setter Property="FontWeight" Value="Bold" />
-						<Setter Property="Foreground" Value="#FFFFFF" />
-						<Setter Property="Background" Value="#007C4B" />
-					</Style>
-					<Style Selector="Button:pointerover /template/ ContentPresenter">
-						<Setter Property="FontWeight" Value="Bold" />
-						<Setter Property="Foreground" Value="#FFFFFF" />
-						<Setter Property="Background" Value="#007C4B" />
-					</Style>
-				</Button.Styles>
+				
 			</Button>
 		</StackPanel>
+		
 		<Border BorderBrush="#EDEDED" BorderThickness="0,0,0,1" Margin="0,20" Width="450" />
 		<Button Content="{x:Static properties:Resources.ButtonGoBack}" Margin="0 10 0 0" HorizontalAlignment="Center" Command="{Binding NavigateToPreviousPage}">
 			<Button.Styles>
 				<Style Selector="Button">
-					<Setter Property="FontWeight" Value="Bold" />
-					<Setter Property="Foreground" Value="#696969" />
 					<Setter Property="Background" Value="#EDEDED" />
 				</Style>
 				<Style Selector="Button:pointerover /template/ ContentPresenter">
-					<Setter Property="FontWeight" Value="Bold" />
-					<Setter Property="Foreground" Value="#FFFFFF" />
-					<Setter Property="Background" Value="#007C4B" />
+					<Setter Property="Background" Value="MediumAquamarine" />
 				</Style>
 			</Button.Styles>
 		</Button>
 	</StackPanel>
+	
 </UserControl>

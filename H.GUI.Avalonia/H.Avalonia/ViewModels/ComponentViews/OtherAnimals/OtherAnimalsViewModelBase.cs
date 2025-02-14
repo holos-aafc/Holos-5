@@ -69,7 +69,7 @@ namespace H.Avalonia.ViewModels.ComponentViews.OtherAnimals
         public void HandleAddManagementPeriodEvent()
         {
             int numPeriods = ManagementPeriods.Count;
-            ManagementPeriods.Add(new ManagementPeriod { GroupName = $"Period #{numPeriods}", Start = new DateTime(2020, 03, 13), End = new DateTime(2021, 03, 13), NumberOfDays = 364 });
+            ManagementPeriods.Add(new ManagementPeriod { GroupName = $"Period #{numPeriods}", Start = new DateTime(2024, 01, 01), End = new DateTime(2025, 01, 01), NumberOfDays = 364 });
         }
         
         #endregion

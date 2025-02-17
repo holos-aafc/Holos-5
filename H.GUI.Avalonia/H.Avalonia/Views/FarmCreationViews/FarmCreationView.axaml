@@ -7,7 +7,9 @@
 			 xmlns:viewModels="clr-namespace:H.Avalonia.ViewModels"
 			 x:Class="H.Avalonia.Views.FarmCreationViews.FarmCreationView">
 
-    <Design.DataContext>
+	
+    
+	<Design.DataContext>
         <viewModels:FarmCreationViewModelDesign/>
     </Design.DataContext>
 
@@ -19,18 +21,6 @@
 			<TextBox Text="{Binding Path=FarmComments}"  Watermark="{x:Static properties:Resources.WatermarkComments}" Margin="0 15 0 0" Foreground="#696969"  BorderBrush="#EDEDED" FontWeight="SemiBold" BorderThickness="2" AcceptsReturn="True" TextWrapping="Wrap"/>
 			<Button Content="{x:Static properties:Resources.ButtonCreateNewFarm}" Margin="0 15 0 0"
                     Command="{Binding Path=OnCreateNewFarmExecute}">
-				<Button.Styles>
-					<Style Selector="Button">
-						<Setter Property="FontWeight" Value="Bold" />
-						<Setter Property="Foreground" Value="#FFFFFF" />
-						<Setter Property="Background" Value="#007C4B" />
-					</Style>
-					<Style Selector="Button:pointerover /template/ ContentPresenter">
-						<Setter Property="FontWeight" Value="Bold" />
-						<Setter Property="Foreground" Value="#FFFFFF" />
-						<Setter Property="Background" Value="#007C4B" />
-					</Style>
-				</Button.Styles>
 			</Button>
 		</StackPanel>
 		<Border BorderBrush="#EDEDED" BorderThickness="0,0,0,1" Margin="0,20" Width="450" />

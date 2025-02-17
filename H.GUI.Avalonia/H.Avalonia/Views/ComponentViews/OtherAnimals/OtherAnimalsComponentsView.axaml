@@ -6,17 +6,35 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="H.Avalonia.OtherAnimalsComponentsView">
 
+	<UserControl.Styles>
+		<Style Selector="DataValidationErrors">
+			<Setter Property="ErrorTemplate">
+				<DataTemplate>
+					<ItemsControl ItemsSource="{Binding}">
+						<ItemsControl.Styles>
+							<Style Selector="TextBlock">
+								<Setter Property="FontSize" Value="12"/>
+								<Setter Property="TextWrapping" Value="Wrap" />
+								<Setter Property="Foreground" Value="Red"/>
+							</Style>
+						</ItemsControl.Styles>
+					</ItemsControl>
+				</DataTemplate>
+			</Setter>
+		</Style>
+	</UserControl.Styles>
+
 	<Grid>
 		<Grid.RowDefinitions>
-			<RowDefinition Height="Auto"/>
 			<!-- Title -->
-			<RowDefinition Height="*"/>
+			<RowDefinition Height="Auto"/>
 			<!-- Content -->
+			<RowDefinition Height="*"/>
 		</Grid.RowDefinitions>
 
 		<StackPanel Grid.Row="0">
 			<!-- Title -->
-			<TextBlock Text="{Binding Path=ViewName}" FontSize="36" FontWeight="Bold" Margin="10,10,0,0" Foreground="#605D5D"/>
+			<TextBox Text="{Binding Path=ViewName}" FontSize="36" FontWeight="Bold" Margin="10,10,0,0" Foreground="#605D5D" BorderThickness="0"/>
 			<Border BorderBrush="#D7D7D7" BorderThickness="0,0,0,3" Margin="0,10,0,0"/>
 		</StackPanel>
 

@@ -1,20 +1,25 @@
-﻿using H.Avalonia.Views.FarmCreationViews;
+﻿using System;
+using H.Avalonia.Views.FarmCreationViews;
 using Prism.Commands;
 using Prism.Regions;
 using System.Windows.Input;
 using H.Avalonia.Views.ComponentViews;
 using H.Core.Models;
 using H.Core.Services.StorageService;
+using System.ComponentModel;
+using System.Collections.Generic;
+using System.Linq;
+using System.Collections;
 
 namespace H.Avalonia.ViewModels
 {
     public class FarmCreationViewModel : ViewModelBase
     {
+        
         #region Fields
 
         private string _farmName;
         private string _farmComments;
-
 
         #endregion
 
@@ -38,7 +43,13 @@ namespace H.Avalonia.ViewModels
         public string FarmName
         {
             get => _farmName;
-            set => SetProperty(ref _farmName, value);
+            set
+            {
+                if (SetProperty(ref _farmName, value))
+                {    
+                    ValidateFarmName();
+                }
+            }
         }
 
         public string FarmComments
@@ -58,20 +69,26 @@ namespace H.Avalonia.ViewModels
 
         public void OnCreateNewFarmExecute()
         {
-            if (string.IsNullOrWhiteSpace(this.FarmName) == false)
+            // Validate FarmName before proceeding
+            ValidateFarmName();
+
+            if (HasErrors)
             {
-                var farm = new Farm()
-                {
-                    Name = this.FarmName,
-                    Comments = this.FarmComments,
-                };
-
-                base.StorageService.AddFarm(farm);
-                base.StorageService.SetActiveFarm(farm);
-
-                base.RegionManager.RequestNavigate(UiRegions.SidebarRegion, nameof(MyComponentsView));
-                base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(ChooseComponentsView));
+                // Optionally notify the user that there are validation errors
+                return;
             }
+
+            var farm = new Farm()
+            {
+                Name = this.FarmName,
+                Comments = this.FarmComments,
+            };
+
+            base.StorageService.AddFarm(farm);
+            base.StorageService.SetActiveFarm(farm);
+
+            base.RegionManager.RequestNavigate(UiRegions.SidebarRegion, nameof(MyComponentsView));
+            base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(ChooseComponentsView));
         }
 
         #endregion
@@ -82,7 +99,19 @@ namespace H.Avalonia.ViewModels
         {
            base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(FarmOptionsView));
         }
+        private void ValidateFarmName()
+        {
+            const string propertyName = nameof(FarmName);
 
+            if (string.IsNullOrWhiteSpace(_farmName))
+            {
+                AddError(propertyName, "Farm name cannot be empty.");
+            }
+            else
+            {
+                RemoveError(propertyName);
+            }
+        }
         #endregion
     }
 }

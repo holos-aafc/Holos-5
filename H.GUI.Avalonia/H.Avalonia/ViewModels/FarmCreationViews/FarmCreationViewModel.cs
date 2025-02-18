@@ -13,15 +13,13 @@ using System.Collections;
 
 namespace H.Avalonia.ViewModels
 {
-    public class FarmCreationViewModel : ViewModelBase, INotifyDataErrorInfo
+    public class FarmCreationViewModel : ViewModelBase
     {
-        public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
+        
         #region Fields
 
         private string _farmName;
         private string _farmComments;
-        private readonly Dictionary<string, List<string>> _errors = new Dictionary<string, List<string>>();
-
 
         #endregion
 
@@ -48,8 +46,7 @@ namespace H.Avalonia.ViewModels
             set
             {
                 if (SetProperty(ref _farmName, value))
-                {
-                    
+                {    
                     ValidateFarmName();
                 }
             }
@@ -60,8 +57,6 @@ namespace H.Avalonia.ViewModels
             get => _farmComments;
             set => SetProperty(ref  _farmComments, value);
         }
-
-        public bool HasErrors => _errors.Any();
 
         #endregion
 
@@ -104,15 +99,6 @@ namespace H.Avalonia.ViewModels
         {
            base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(FarmOptionsView));
         }
-
-        public IEnumerable GetErrors(string propertyName)
-        {
-            if (string.IsNullOrWhiteSpace(propertyName) || !_errors.ContainsKey(propertyName))
-            {
-                return null;
-            }
-            return _errors[propertyName];
-        }
         private void ValidateFarmName()
         {
             const string propertyName = nameof(FarmName);
@@ -126,41 +112,6 @@ namespace H.Avalonia.ViewModels
                 RemoveError(propertyName);
             }
         }
-
-        private void AddError(string propertyName, string error)
-        {
-            if (!_errors.ContainsKey(propertyName))
-            {
-                _errors[propertyName] = new List<string>();
-            }
-
-            if (!_errors[propertyName].Contains(error))
-            {
-                _errors[propertyName].Add(error);
-                OnErrorsChanged(propertyName);
-            }
-        }
-
-        private void RemoveError(string propertyName)
-        {
-            if (_errors.ContainsKey(propertyName))
-            {
-                _errors[propertyName].Clear();
-                _errors.Remove(propertyName);
-                OnErrorsChanged(propertyName);
-            }
-        }
-
-        private void OnErrorsChanged(string propertyName)
-        {
-            ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(propertyName));
-        }
-
-        IEnumerable INotifyDataErrorInfo.GetErrors(string? propertyName)
-        {
-            return GetErrors(propertyName);
-        }
-
         #endregion
     }
 }

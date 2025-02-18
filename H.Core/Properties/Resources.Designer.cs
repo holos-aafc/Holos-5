@@ -9097,6 +9097,15 @@ namespace H.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Comments.
+        /// </summary>
+        public static string LabelComments {
+            get {
+                return ResourceManager.GetString("LabelComments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Copper.
         /// </summary>
         public static string LabelCopper {
@@ -9129,6 +9138,15 @@ namespace H.Core.Properties {
         public static string LabelCpAid {
             get {
                 return ResourceManager.GetString("LabelCpAid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Created On.
+        /// </summary>
+        public static string LabelCreatedOn {
+            get {
+                return ResourceManager.GetString("LabelCreatedOn", resourceCulture);
             }
         }
         
@@ -9412,6 +9430,15 @@ namespace H.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ecodistrict.
+        /// </summary>
+        public static string LabelEcodistrict {
+            get {
+                return ResourceManager.GetString("LabelEcodistrict", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Edit Components.
         /// </summary>
         public static string LabelEditComponents {
@@ -9543,6 +9570,15 @@ namespace H.Core.Properties {
         public static string LabelFarm {
             get {
                 return ResourceManager.GetString("LabelFarm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Farm Name.
+        /// </summary>
+        public static string LabelFarmName {
+            get {
+                return ResourceManager.GetString("LabelFarmName", resourceCulture);
             }
         }
         
@@ -10699,6 +10735,15 @@ namespace H.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Modified On.
+        /// </summary>
+        public static string LabelModifiedOn {
+            get {
+                return ResourceManager.GetString("LabelModifiedOn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Moisture content.
         /// </summary>
         public static string LabelMoistureContent {
@@ -11199,6 +11244,15 @@ namespace H.Core.Properties {
         public static string LabelProportionOfSoilOrganicCarbon {
             get {
                 return ResourceManager.GetString("LabelProportionOfSoilOrganicCarbon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Province.
+        /// </summary>
+        public static string LabelProvince {
+            get {
+                return ResourceManager.GetString("LabelProvince", resourceCulture);
             }
         }
         

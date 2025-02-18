@@ -1,16 +1,16 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
+using System.Diagnostics;
 using H.Core.Enumerations;
 using H.Core.Models.Animals;
 using Prism.Regions;
 
 namespace H.Avalonia.ViewModels.ComponentViews.OtherAnimals
 {
-    public class OtherAnimalsViewModelBase : ViewModelBase, INotifyDataErrorInfo
+    public class OtherAnimalsViewModelBase : ViewModelBase
     {
         #region Fields
 
@@ -19,8 +19,6 @@ namespace H.Avalonia.ViewModels.ComponentViews.OtherAnimals
         private ObservableCollection<ManagementPeriod> _managementPeriods;
         private ObservableCollection<AnimalGroup> _animalGroups;
 
-        private Dictionary<string, List<ValidationResult>> _errors = new Dictionary<string, List<ValidationResult>>();
-
         #endregion
 
         #region Constructors
@@ -28,6 +26,7 @@ namespace H.Avalonia.ViewModels.ComponentViews.OtherAnimals
         public OtherAnimalsViewModelBase() 
         { 
             ManagementPeriods = new ObservableCollection<ManagementPeriod>();
+            //ManagementPeriods.CollectionChanged += ManagementPeriodCollectionChanged;
             Groups = new ObservableCollection<AnimalGroup>();
         }
 
@@ -64,91 +63,15 @@ namespace H.Avalonia.ViewModels.ComponentViews.OtherAnimals
             set => SetProperty(ref _animalGroups, value);
         }
 
-        #endregion
-
-        #region INotifyDataErrorInfo Implementation
-
-        // Using code from avalonia docs
-
-        public event EventHandler<DataErrorsChangedEventArgs>? ErrorsChanged;
-
-        public bool HasErrors => _errors.Count > 0;
-
-        public IEnumerable GetErrors(string? propertyName)
-        {
-            // return list of all errors if propertyName is null/empty
-            if (string.IsNullOrEmpty(propertyName))
-            {
-                List<ValidationResult> allErrors = new List<ValidationResult>();
-                foreach (var dictionaryEntry  in _errors)
-                {
-                    foreach (ValidationResult error in dictionaryEntry.Value)
-                    {
-                        allErrors.Add(error);
-                    }
-                }
-                return allErrors;
-            }
-
-            // if a specifc propertyName is given, check for associated errors
-            if (_errors.ContainsKey(propertyName))
-            {
-                return _errors[propertyName];
-            }
-
-            // In case there are no errors we return an empty array.
-            return Array.Empty<ValidationResult>();
-        }
-
-        protected void ClearErrors(string? propertyName = null)
-        {
-            // Clear everything if propertyName is null/empty
-            if (string.IsNullOrEmpty(propertyName))
-            {
-                _errors.Clear();
-            }
-            // remove errors for a specifc property if propertyName given
-            else
-            {
-                _errors.Remove(propertyName);
-            }
-
-            // Notify that errors have changed
-            ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(propertyName));
-            this.RaisePropertyChanged(nameof(HasErrors));
-        }
-
-        protected void AddError(string propertyName, string errorMessage)
-        {
-            List<ValidationResult> propertyErrors;
-
-            if (_errors.ContainsKey(propertyName))
-            {
-                propertyErrors = _errors[propertyName];
-            }
-            else
-            {
-                propertyErrors = new List<ValidationResult>();
-                _errors.Add(propertyName, propertyErrors);
-            }
-
-            propertyErrors.Add(new ValidationResult(errorMessage));
-
-            // Notify that errors have changed
-            ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(propertyName));
-            this.RaisePropertyChanged(nameof(HasErrors));
-        }
-
-        private void ValidateViewName()
-        {
-            ClearErrors(nameof(ViewName));
-
-            if (string.IsNullOrEmpty(ViewName))
-            {
-                AddError(nameof(ViewName), "Name cannot be empty.");
-                return;
-            }
-        }
+        //public string TestCollectionError 
+        //{ 
+        //    get
+        //    {
+        //        List<string> errors = (List<string>)GetErrors(nameof(ManagementPeriods));
+        //        return errors[0];
+        //    }
+        
+        //}
 
         #endregion
 
@@ -167,7 +90,79 @@ namespace H.Avalonia.ViewModels.ComponentViews.OtherAnimals
         public void HandleAddManagementPeriodEvent()
         {
             int numPeriods = ManagementPeriods.Count;
-            ManagementPeriods.Add(new ManagementPeriod { GroupName = $"Period #{numPeriods}", Start = new DateTime(2024, 01, 01), End = new DateTime(2025, 01, 01), NumberOfDays = 364 });
+            var newManagementPeriod = new ManagementPeriod { GroupName = $"Period #{numPeriods}", Start = new DateTime(2024, 01, 01), End = new DateTime(2025, 01, 01), NumberOfDays = 364 };
+            //newManagementPeriod.PropertyChanged += ManagementPeriodPropertyChanged;
+            ManagementPeriods.Add(newManagementPeriod);
+            //ValidateManagementPeriodCollection();
+        }
+
+        #endregion
+
+        #region Validation Logic
+
+        private void ValidateViewName()
+        {
+            RemoveError(nameof(ViewName));
+
+            if (string.IsNullOrEmpty(ViewName))
+            {
+                AddError(nameof(ViewName), "Name cannot be empty.");
+                return;
+            }
+        }
+
+        private void ValidateManagementPeriodCollection()
+        {
+            if (ManagementPeriods.Count > 2)
+            {
+                Debug.WriteLine("Here");
+                AddError(nameof(ManagementPeriods), "Cannot exceed one management period");
+                Debug.WriteLine("Stored error");
+            }
+
+            foreach (var error in GetErrors(nameof(ManagementPeriods)))
+            {
+                Debug.WriteLine(error);
+            }
+
+            //foreach (ManagementPeriod period in ManagementPeriods)
+            //{
+            //    if (string.IsNullOrEmpty(period.GroupName))
+            //    {
+            //        AddError(nameof(ManagementPeriods), "Name cannot be empty.");
+            //    }
+
+            //    int dateCompareResult = DateTime.Compare(period.Start, period.End);
+
+            //    if (dateCompareResult == 0)
+            //    {
+            //        AddError(nameof(ManagementPeriods), "Start and End dates must be different");
+            //    }
+
+            //    if (dateCompareResult > 0)
+            //    {
+            //        AddError(nameof(ManagementPeriods), "End date must be later than the start date");
+            //    }
+
+            //    if (period.NumberOfDays <= 0)
+            //    {
+            //        AddError(nameof(ManagementPeriods), "Number of Days must be greater than 0");
+            //    }
+            //}
+
+            OnErrorsChanged(nameof(ManagementPeriods));
+            this.RaisePropertyChanged(nameof(HasErrors));
+            this.RaisePropertyChanged(nameof(ManagementPeriods));
+        }
+
+        private void ManagementPeriodCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
+        {
+            ValidateManagementPeriodCollection();
+        }
+
+        private void ManagementPeriodPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            ValidateManagementPeriodCollection();
         }
 
         #endregion

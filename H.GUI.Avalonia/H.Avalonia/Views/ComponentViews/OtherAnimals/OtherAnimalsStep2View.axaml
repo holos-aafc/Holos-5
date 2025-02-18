@@ -22,5 +22,6 @@
 					</DataGrid.Columns>
 				</DataGrid>
 			</StackPanel>
+		<!--<TextBlock Text="{Binding Path=TestCollectionError}"/>-->
 		</StackPanel>
 </UserControl>

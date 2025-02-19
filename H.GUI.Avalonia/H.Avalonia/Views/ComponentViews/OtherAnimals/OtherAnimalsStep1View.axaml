@@ -1,0 +1,25 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="H.Avalonia.OtherAnimalsStep1View">
+	
+	<StackPanel>
+		<TextBlock FontSize="16" Margin="10,20,0,0" Foreground="#605D5D">
+			<Run Text="Step 1:" FontWeight="Bold"/>
+			<Run Text="Define the animal groups for this"/> 
+			<Run Text="{Binding ViewName}"/>
+			<Run Text="component"/>
+		</TextBlock>
+
+		<Button Command="{Binding HandleAddGroupEvent}" Margin="10,20,0,0" BorderBrush="#D7D7D7" Background="White" Foreground="#605D5D" Height="40" Width="175">Add Group</Button>
+		<StackPanel>
+			<DataGrid ItemsSource="{Binding Path=Groups}" AutoGenerateColumns="False" Margin="10,20,0,0" HorizontalAlignment="Left" BorderThickness="1" GridLinesVisibility="All" Height="75">
+				<DataGrid.Columns>
+					<DataGridTextColumn Width="Auto" Header="Group Name" Binding="{Binding Path=GroupType}"/>
+				</DataGrid.Columns>
+			</DataGrid>
+		</StackPanel>
+	</StackPanel>
+</UserControl>

@@ -11,7 +11,7 @@
 				<Run Text="Define the management periods for the selected animal group"/>
 			</TextBlock>
 
-			<Button Command="{Binding HandleAddManagementPeriodEvent}" Margin="10,20,0,0" BorderBrush="#D7D7D7" Background="White" Foreground="#605D5D" Width="275" Height="45">Add Management Period </Button>
+			<Button Command="{Binding HandleAddManagementPeriodEvent}" Classes="add-management-period">Add Management Period</Button> 
 			<StackPanel>
 				<DataGrid ItemsSource="{Binding Path=ManagementPeriods}" AutoGenerateColumns="False" Margin="10,20,0,0" HorizontalAlignment="Left" BorderThickness="1" GridLinesVisibility="All" Height="100">
 					<DataGrid.Columns>

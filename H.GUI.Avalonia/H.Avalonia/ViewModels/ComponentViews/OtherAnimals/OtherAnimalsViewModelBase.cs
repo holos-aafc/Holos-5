@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Collections.Specialized;
-using System.ComponentModel;
-using System.Diagnostics;
 using H.Core.Enumerations;
 using H.Core.Models.Animals;
 using Prism.Regions;
@@ -26,7 +22,6 @@ namespace H.Avalonia.ViewModels.ComponentViews.OtherAnimals
         public OtherAnimalsViewModelBase() 
         { 
             ManagementPeriods = new ObservableCollection<ManagementPeriod>();
-            //ManagementPeriods.CollectionChanged += ManagementPeriodCollectionChanged;
             Groups = new ObservableCollection<AnimalGroup>();
         }
 
@@ -34,6 +29,10 @@ namespace H.Avalonia.ViewModels.ComponentViews.OtherAnimals
 
         #region Properties
 
+        /// <summary>
+        /// String used to refer to a particular other animals component, value set by child classes. Binded to the view(s), used as a title.
+        /// Can be changed by the user, if they happen to leave it empty, an error will be thrown.
+        /// </summary>
         public string ViewName
         {
             get => _viewName;
@@ -46,32 +45,32 @@ namespace H.Avalonia.ViewModels.ComponentViews.OtherAnimals
             }
         }
 
+        /// <summary>
+        ///  The type of animal a respective component represents, used in the Groups collection / Groups data grid in the view(s), value set in child classes.
+        /// </summary>
         public AnimalType OtherAnimalType
         {
             get => _otherAnimalType;
             set => SetProperty(ref _otherAnimalType, value);
         }
 
+        /// <summary>
+        /// An Observable Collection that holds ManagementPeriod objects, binded to a DataGrid in the view(s).
+        /// </summary>
         public ObservableCollection<ManagementPeriod> ManagementPeriods
         {
             get => _managementPeriods;
             set => SetProperty(ref _managementPeriods, value);
         }
+
+        /// <summary>
+        /// An Observable Collection that holds AnimalGroup objects, binded to a DataGrid in the view(s).
+        /// </summary>
         public ObservableCollection<AnimalGroup> Groups
         {
             get => _animalGroups;
             set => SetProperty(ref _animalGroups, value);
         }
-
-        //public string TestCollectionError 
-        //{ 
-        //    get
-        //    {
-        //        List<string> errors = (List<string>)GetErrors(nameof(ManagementPeriods));
-        //        return errors[0];
-        //    }
-        
-        //}
 
         #endregion
 
@@ -82,24 +81,31 @@ namespace H.Avalonia.ViewModels.ComponentViews.OtherAnimals
             base.OnNavigatedTo(navigationContext);
         }
 
+        /// <summary>
+        ///  Binded to a button in the view, adds an item to the Groups collection / a row to the respective binded DataGrid. Seeded with OtherAnimalType.
+        /// </summary>
         public void HandleAddGroupEvent()
         {
             Groups.Add(new AnimalGroup { GroupType = OtherAnimalType });
         }
 
+        /// <summary>
+        ///  Binded to a button in the view, adds an item to the ManagementPeriods collection / a row to the respective binded DataGrid. Seeded with some default values.
+        /// </summary>
         public void HandleAddManagementPeriodEvent()
         {
             int numPeriods = ManagementPeriods.Count;
             var newManagementPeriod = new ManagementPeriod { GroupName = $"Period #{numPeriods}", Start = new DateTime(2024, 01, 01), End = new DateTime(2025, 01, 01), NumberOfDays = 364 };
-            //newManagementPeriod.PropertyChanged += ManagementPeriodPropertyChanged;
             ManagementPeriods.Add(newManagementPeriod);
-            //ValidateManagementPeriodCollection();
         }
 
         #endregion
 
-        #region Validation Logic
+        #region Private Methods
 
+        /// <summary>
+        /// Ensures that a user cannot leave the ViewName empty when editing it in the UI. Uses INotifyDataErrorInfo implementation in ViewModelBase.
+        /// </summary>
         private void ValidateViewName()
         {
             RemoveError(nameof(ViewName));
@@ -109,60 +115,6 @@ namespace H.Avalonia.ViewModels.ComponentViews.OtherAnimals
                 AddError(nameof(ViewName), "Name cannot be empty.");
                 return;
             }
-        }
-
-        private void ValidateManagementPeriodCollection()
-        {
-            if (ManagementPeriods.Count > 2)
-            {
-                Debug.WriteLine("Here");
-                AddError(nameof(ManagementPeriods), "Cannot exceed one management period");
-                Debug.WriteLine("Stored error");
-            }
-
-            foreach (var error in GetErrors(nameof(ManagementPeriods)))
-            {
-                Debug.WriteLine(error);
-            }
-
-            //foreach (ManagementPeriod period in ManagementPeriods)
-            //{
-            //    if (string.IsNullOrEmpty(period.GroupName))
-            //    {
-            //        AddError(nameof(ManagementPeriods), "Name cannot be empty.");
-            //    }
-
-            //    int dateCompareResult = DateTime.Compare(period.Start, period.End);
-
-            //    if (dateCompareResult == 0)
-            //    {
-            //        AddError(nameof(ManagementPeriods), "Start and End dates must be different");
-            //    }
-
-            //    if (dateCompareResult > 0)
-            //    {
-            //        AddError(nameof(ManagementPeriods), "End date must be later than the start date");
-            //    }
-
-            //    if (period.NumberOfDays <= 0)
-            //    {
-            //        AddError(nameof(ManagementPeriods), "Number of Days must be greater than 0");
-            //    }
-            //}
-
-            OnErrorsChanged(nameof(ManagementPeriods));
-            this.RaisePropertyChanged(nameof(HasErrors));
-            this.RaisePropertyChanged(nameof(ManagementPeriods));
-        }
-
-        private void ManagementPeriodCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
-        {
-            ValidateManagementPeriodCollection();
-        }
-
-        private void ManagementPeriodPropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            ValidateManagementPeriodCollection();
         }
 
         #endregion

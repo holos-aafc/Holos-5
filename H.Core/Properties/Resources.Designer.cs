@@ -592,6 +592,15 @@ namespace H.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add Group.
+        /// </summary>
+        public static string ButtonAddGroup {
+            get {
+                return ResourceManager.GetString("ButtonAddGroup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add Harvest Date.
         /// </summary>
         public static string ButtonAddHarvestDate {
@@ -601,11 +610,29 @@ namespace H.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add Management Period.
+        /// </summary>
+        public static string ButtonAddManagementPeriod {
+            get {
+                return ResourceManager.GetString("ButtonAddManagementPeriod", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add Manure Substrate Type.
         /// </summary>
         public static string ButtonAddManureSubstrateTypes {
             get {
                 return ResourceManager.GetString("ButtonAddManureSubstrateTypes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bedding Application Calculator.
+        /// </summary>
+        public static string ButtonBeddingApplication {
+            get {
+                return ResourceManager.GetString("ButtonBeddingApplication", resourceCulture);
             }
         }
         
@@ -8035,6 +8062,15 @@ namespace H.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Additional Information.
+        /// </summary>
+        public static string LabelAdditionalInformation {
+            get {
+                return ResourceManager.GetString("LabelAdditionalInformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add Selected Component.
         /// </summary>
         public static string LabelAddSelectComponent {
@@ -8589,6 +8625,15 @@ namespace H.Core.Properties {
         public static string LabelBeddingMaterialType {
             get {
                 return ResourceManager.GetString("LabelBeddingMaterialType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bedding type:.
+        /// </summary>
+        public static string LabelBeddingType {
+            get {
+                return ResourceManager.GetString("LabelBeddingType", resourceCulture);
             }
         }
         
@@ -9493,6 +9538,15 @@ namespace H.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to End Date.
+        /// </summary>
+        public static string LabelEndDate {
+            get {
+                return ResourceManager.GetString("LabelEndDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Energy CO2.
         /// </summary>
         public static string LabelEnergyCO2 {
@@ -9826,6 +9880,15 @@ namespace H.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to General Management.
+        /// </summary>
+        public static string LabelGeneralManagement {
+            get {
+                return ResourceManager.GetString("LabelGeneralManagement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Gestation.
         /// </summary>
         public static string LabelGestationDiet {
@@ -9921,6 +9984,15 @@ namespace H.Core.Properties {
         public static string LabelGrossEnergy {
             get {
                 return ResourceManager.GetString("LabelGrossEnergy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Group Name.
+        /// </summary>
+        public static string LabelGroupName {
+            get {
+                return ResourceManager.GetString("LabelGroupName", resourceCulture);
             }
         }
         
@@ -10083,6 +10155,24 @@ namespace H.Core.Properties {
         public static string LabelHolosOnlySupportsCertainHardinessZones {
             get {
                 return ResourceManager.GetString("LabelHolosOnlySupportsCertainHardinessZones", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Housing Management.
+        /// </summary>
+        public static string LabelHousingManagement {
+            get {
+                return ResourceManager.GetString("LabelHousingManagement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Housing type:.
+        /// </summary>
+        public static string LabelHousingType {
+            get {
+                return ResourceManager.GetString("LabelHousingType", resourceCulture);
             }
         }
         
@@ -10537,6 +10627,15 @@ namespace H.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Management Period Name.
+        /// </summary>
+        public static string LabelManagementPeriodName {
+            get {
+                return ResourceManager.GetString("LabelManagementPeriodName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Manganese.
         /// </summary>
         public static string LabelManganese {
@@ -10551,6 +10650,24 @@ namespace H.Core.Properties {
         public static string LabelManureCarbonInput {
             get {
                 return ResourceManager.GetString("LabelManureCarbonInput", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Manure handling system:.
+        /// </summary>
+        public static string LabelManureHandlingSystem {
+            get {
+                return ResourceManager.GetString("LabelManureHandlingSystem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Manure Management.
+        /// </summary>
+        public static string LabelManureManagement {
+            get {
+                return ResourceManager.GetString("LabelManureManagement", resourceCulture);
             }
         }
         
@@ -10906,6 +11023,15 @@ namespace H.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Number of animals:.
+        /// </summary>
+        public static string LabelNumberOfAnimals {
+            get {
+                return ResourceManager.GetString("LabelNumberOfAnimals", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Number of bales.
         /// </summary>
         public static string LabelNumberOfBales {
@@ -10920,6 +11046,15 @@ namespace H.Core.Properties {
         public static string LabelNumberOfBalesAvailableForSupplementalFeeding {
             get {
                 return ResourceManager.GetString("LabelNumberOfBalesAvailableForSupplementalFeeding", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Number of Days.
+        /// </summary>
+        public static string LabelNumberOfDays {
+            get {
+                return ResourceManager.GetString("LabelNumberOfDays", resourceCulture);
             }
         }
         
@@ -11743,11 +11878,74 @@ namespace H.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Start Date.
+        /// </summary>
+        public static string LabelStartDate {
+            get {
+                return ResourceManager.GetString("LabelStartDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Start year of field history.
         /// </summary>
         public static string LabelStartYearOfFieldHistory {
             get {
                 return ResourceManager.GetString("LabelStartYearOfFieldHistory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Step 1:.
+        /// </summary>
+        public static string LabelStep1 {
+            get {
+                return ResourceManager.GetString("LabelStep1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Define the animal groups for this component.
+        /// </summary>
+        public static string LabelStep1Text {
+            get {
+                return ResourceManager.GetString("LabelStep1Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Step 2:.
+        /// </summary>
+        public static string LabelStep2 {
+            get {
+                return ResourceManager.GetString("LabelStep2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Define the management periods for the selected animal group.
+        /// </summary>
+        public static string LabelStep2Text {
+            get {
+                return ResourceManager.GetString("LabelStep2Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Step 3:.
+        /// </summary>
+        public static string LabelStep3 {
+            get {
+                return ResourceManager.GetString("LabelStep3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Define the management of this group of animals during the selected period of time.
+        /// </summary>
+        public static string LabelStep3Text {
+            get {
+                return ResourceManager.GetString("LabelStep3Text", resourceCulture);
             }
         }
         
@@ -15752,6 +15950,15 @@ namespace H.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to General.
+        /// </summary>
+        public static string TitleGeneralTab {
+            get {
+                return ResourceManager.GetString("TitleGeneralTab", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Grazing.
         /// </summary>
         public static string TitleGrazing {
@@ -15793,6 +16000,15 @@ namespace H.Core.Properties {
         public static string TitleHarvest {
             get {
                 return ResourceManager.GetString("TitleHarvest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Housing.
+        /// </summary>
+        public static string TitleHousingTab {
+            get {
+                return ResourceManager.GetString("TitleHousingTab", resourceCulture);
             }
         }
         
@@ -15847,6 +16063,15 @@ namespace H.Core.Properties {
         public static string TitleManureExportDetails {
             get {
                 return ResourceManager.GetString("TitleManureExportDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Manure.
+        /// </summary>
+        public static string TitleManureTab {
+            get {
+                return ResourceManager.GetString("TitleManureTab", resourceCulture);
             }
         }
         

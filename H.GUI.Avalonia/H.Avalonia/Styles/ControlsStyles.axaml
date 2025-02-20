@@ -100,6 +100,22 @@
         <Setter Property="VerticalAlignment" Value="Center" />
 	</Style>
 
+	<!-- TextBox Styles -->
+	<Style Selector="TextBox.view-title">
+		<Setter Property="FontSize" Value="36"/>
+		<Setter Property="FontWeight" Value="Bold"/>
+		<Setter Property="Margin" Value="10,10,0,0"/>
+		<Setter Property="Foreground" Value="#605D5D"/>
+		<Setter Property="BorderThickness" Value="0"/>
+	</Style>
+	
+	<!-- Border Styles -->
+	<Style Selector="Border.title-underline">
+		<Setter Property="BorderBrush" Value="#D7D7D7"/>
+		<Setter Property="BorderThickness" Value="0,0,0,3"/>
+		<Setter Property="Margin" Value="0,10,0,0"/>
+	</Style>
+
 	<!-- DataValidationErrors Styles-->
 	    <!--Textblock-->
 		<Style Selector="DataValidationErrors">

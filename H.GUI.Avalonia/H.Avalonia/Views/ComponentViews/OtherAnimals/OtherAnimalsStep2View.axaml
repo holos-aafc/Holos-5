@@ -2,23 +2,24 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:properties="clr-namespace:H.Core.Properties;assembly=H.Core"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="H.Avalonia.OtherAnimalsStep2View">
 
 	<StackPanel>
 			<TextBlock FontSize="16" Margin="10,20,0,0" Foreground="#605D5D">
-				<Run Text="Step 2:" FontWeight="Bold"/>
-				<Run Text="Define the management periods for the selected animal group"/>
+				<Run Text="{x:Static properties:Resources.LabelStep2}" FontWeight="Bold"/>
+				<Run Text="{x:Static properties:Resources.LabelStep2Text}"/>
 			</TextBlock>
 
-			<Button Command="{Binding HandleAddManagementPeriodEvent}" Classes="add-management-period">Add Management Period</Button> 
+			<Button Command="{Binding HandleAddManagementPeriodEvent}" Classes="add-management-period" Content="{x:Static properties:Resources.ButtonAddManagementPeriod}"></Button> 
 			<StackPanel>
 				<DataGrid ItemsSource="{Binding Path=ManagementPeriods}" AutoGenerateColumns="False" Margin="10,20,0,0" HorizontalAlignment="Left" BorderThickness="1" GridLinesVisibility="All" Height="100">
 					<DataGrid.Columns>
-						<DataGridTextColumn Width="Auto" Header="Management Period Name" Binding="{Binding Path=GroupName}"/>
-						<DataGridTextColumn Width="Auto" Header="Start Date" Binding="{Binding Path=Start}"/>
-						<DataGridTextColumn Width="Auto" Header="End Date" Binding="{Binding Path=End}"/>
-						<DataGridTextColumn Width="Auto" Header="Number of Days" Binding="{Binding Path=NumberOfDays}"/>
+						<DataGridTextColumn Width="Auto" Header="{x:Static properties:Resources.LabelManagementPeriodName}" Binding="{Binding Path=GroupName}"/>
+						<DataGridTextColumn Width="Auto" Header="{x:Static properties:Resources.LabelStartDate}" Binding="{Binding Path=Start}"/>
+						<DataGridTextColumn Width="Auto" Header="{x:Static properties:Resources.LabelEndDate}" Binding="{Binding Path=End}"/>
+						<DataGridTextColumn Width="Auto" Header="{x:Static properties:Resources.LabelNumberOfDays}" Binding="{Binding Path=NumberOfDays}"/>
 					</DataGrid.Columns>
 				</DataGrid>
 			</StackPanel>

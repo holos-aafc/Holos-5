@@ -16,8 +16,8 @@
 
 		<StackPanel Grid.Row="0">
 			<!-- Title -->
-			<TextBox Text="{Binding Path=ViewName}" FontSize="36" FontWeight="Bold" Margin="10,10,0,0" Foreground="#605D5D" BorderThickness="0"/>
-			<Border BorderBrush="#D7D7D7" BorderThickness="0,0,0,3" Margin="0,10,0,0"/>
+			<TextBox Classes="view-title" Text="{Binding Path=ViewName}"/> 
+			<Border Classes="title-underline"/> 
 		</StackPanel>
 
 		<ScrollViewer Grid.Row="1">

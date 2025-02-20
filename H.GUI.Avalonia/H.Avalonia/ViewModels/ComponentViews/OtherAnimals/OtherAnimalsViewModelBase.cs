@@ -46,7 +46,7 @@ namespace H.Avalonia.ViewModels.ComponentViews.OtherAnimals
         }
 
         /// <summary>
-        ///  The type of animal a respective component represents, used in the Groups collection / Groups data grid in the view(s), value set in child classes.
+        ///  The <see cref="AnimalType"/> a respective component represents, used in the <see cref="Groups"/> collection / Groups data grid in the view(s), value set in child classes.
         /// </summary>
         public AnimalType OtherAnimalType
         {
@@ -55,7 +55,7 @@ namespace H.Avalonia.ViewModels.ComponentViews.OtherAnimals
         }
 
         /// <summary>
-        /// An Observable Collection that holds ManagementPeriod objects, binded to a DataGrid in the view(s).
+        /// An Observable Collection that holds <see cref="ManagementPeriod"/> objects, binded to a DataGrid in the view(s).
         /// </summary>
         public ObservableCollection<ManagementPeriod> ManagementPeriods
         {
@@ -64,7 +64,7 @@ namespace H.Avalonia.ViewModels.ComponentViews.OtherAnimals
         }
 
         /// <summary>
-        /// An Observable Collection that holds AnimalGroup objects, binded to a DataGrid in the view(s).
+        /// An Observable Collection that holds <see cref="AnimalGroup"/> objects, binded to a DataGrid in the view(s).
         /// </summary>
         public ObservableCollection<AnimalGroup> Groups
         {
@@ -82,7 +82,7 @@ namespace H.Avalonia.ViewModels.ComponentViews.OtherAnimals
         }
 
         /// <summary>
-        ///  Binded to a button in the view, adds an item to the Groups collection / a row to the respective binded DataGrid. Seeded with OtherAnimalType.
+        ///  Binded to a button in the view, adds an item to the <see cref="Groups"/> collection / a row to the respective binded DataGrid. Seeded with <see cref="OtherAnimalType"/>.
         /// </summary>
         public void HandleAddGroupEvent()
         {
@@ -90,7 +90,7 @@ namespace H.Avalonia.ViewModels.ComponentViews.OtherAnimals
         }
 
         /// <summary>
-        ///  Binded to a button in the view, adds an item to the ManagementPeriods collection / a row to the respective binded DataGrid. Seeded with some default values.
+        ///  Binded to a button in the view, adds an item to the <see cref="ManagementPeriods"/> collection / a row to the respective binded DataGrid. Seeded with some default values.
         /// </summary>
         public void HandleAddManagementPeriodEvent()
         {
@@ -104,7 +104,7 @@ namespace H.Avalonia.ViewModels.ComponentViews.OtherAnimals
         #region Private Methods
 
         /// <summary>
-        /// Ensures that a user cannot leave the ViewName empty when editing it in the UI. Uses INotifyDataErrorInfo implementation in ViewModelBase.
+        /// Ensures that a user cannot leave the <see cref="ViewName"/> empty when editing it in the UI. Uses INotifyDataErrorInfo implementation in <see cref="ViewModelBase"/>.
         /// </summary>
         private void ValidateViewName()
         {

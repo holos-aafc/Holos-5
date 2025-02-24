@@ -13,7 +13,7 @@ using System.Collections;
 
 namespace H.Avalonia.ViewModels
 {
-    public class ViewModelBase : BindableBase, INavigationAware, INotifyDataErrorInfo
+    public abstract class ViewModelBase : BindableBase, INavigationAware, INotifyDataErrorInfo
     {
         #region Fields
 
@@ -43,6 +43,18 @@ namespace H.Avalonia.ViewModels
             else
             {
                 throw new ArgumentNullException(nameof(storage));
+            }
+        }
+
+        protected ViewModelBase(IStorageService storageService)
+        {
+            if (storageService != null)
+            {
+                this.StorageService = storageService;
+            }
+            else
+            {
+                throw new ArgumentNullException(nameof(storageService));
             }
         }
 

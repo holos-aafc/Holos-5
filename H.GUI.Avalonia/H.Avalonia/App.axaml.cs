@@ -44,6 +44,7 @@ namespace H.Avalonia
 {
     public partial class App : PrismApplication
     {
+        
         public override void Initialize()
         {
             AvaloniaXamlLoader.Load(this);
@@ -55,9 +56,19 @@ namespace H.Avalonia
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
                 desktop.MainWindow = new MainWindow();
+                desktop.Exit += OnExit;
             }
 
             base.OnFrameworkInitializationCompleted();
+        }
+
+        private void OnExit(object sender, ControlledApplicationLifetimeExitEventArgs e)
+        {
+            var storage = Container.Resolve<IStorage>();
+            if (storage != null)
+            {
+                storage.Save();
+            }
         }
 
         /// <summary>Register Services and Views.</summary>

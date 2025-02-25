@@ -28,13 +28,13 @@ public class MyComponentsViewModel : ViewModelBase
         this.MyComponents = new ObservableCollection<ComponentBase>();
     }
 
-    public MyComponentsViewModel(IStorageService storageService, IRegionManager regionManager, IEventAggregator eventAggregator) : base(regionManager, eventAggregator, storageService)
+
+    public MyComponentsViewModel(IRegionManager regionManager, IEventAggregator eventAggregator, IStorageService storageService) : base(regionManager, eventAggregator, storageService)
     {
         base.PropertyChanged += OnPropertyChanged;
 
         this.MyComponents = new ObservableCollection<ComponentBase>();
         
-        this.SelectedFarm = storageService.GetActiveFarm();
 
         base.EventAggregator.GetEvent<ComponentAddedEvent>().Subscribe(OnComponentAddedEvent);
         base.EventAggregator.GetEvent<EditingComponentsCompletedEvent>().Subscribe(OnEditingComponentsCompletedEvent);
@@ -75,7 +75,8 @@ public class MyComponentsViewModel : ViewModelBase
     {
         if (!base.IsInitialized)
         {
-            foreach (var component in SelectedFarm.Components)
+
+            foreach (var component in base.ActiveFarm.Components)
             {
                 this.MyComponents.Add(component);
             }
@@ -115,8 +116,8 @@ public class MyComponentsViewModel : ViewModelBase
         this.MyComponents.Add(instance);
         this.SelectedComponent = instance;
 
-        this.SelectedFarm.Components.Add(instance);
-        //base.Storage.Farm.SelectedComponent = instance;
+        base.ActiveFarm.Components.Add(instance);
+        base.ActiveFarm.SelectedComponent = instance;
     }
 
     private void OnPropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)

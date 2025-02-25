@@ -412,7 +412,7 @@ namespace H.Core.Test.Services
                     CarbonModellingStrategy = CarbonModellingStrategies.ICBM,
                 },
 
-                Components = new ObservableCollection<ComponentBase>()
+                Components = new List<ComponentBase>()
                 {
                     new FieldSystemComponent()
                     {

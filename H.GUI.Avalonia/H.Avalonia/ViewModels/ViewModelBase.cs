@@ -139,27 +139,6 @@ namespace H.Avalonia.ViewModels
                 throw new ArgumentNullException(nameof(eventAggregator));
             }
         }
-        protected ViewModelBase(IRegionManager regionManager, IEventAggregator eventAggregator, IStorageService storageService) : this(regionManager, storageService)
-        {
-            if (eventAggregator != null)
-            {
-                this.EventAggregator = eventAggregator;
-            }
-            else
-            {
-                throw new ArgumentNullException(nameof(eventAggregator));
-            }
-
-            if (storageService != null)
-            {
-                this.StorageService = storageService;
-            }
-            else
-            {
-                throw new ArgumentNullException(nameof(storageService));
-            }
-        }
-      
 
         #endregion
 

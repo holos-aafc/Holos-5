@@ -2005,7 +2005,7 @@ namespace H.Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Chicken Multiplier Hatchery.
+        ///   Looks up a localized string similar to Multiplier Hatchery.
         /// </summary>
         public static string EnumChickenMultiplierHatchery {
             get {
@@ -6127,7 +6127,7 @@ namespace H.Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Young toms.
+        ///   Looks up a localized string similar to Toms.
         /// </summary>
         public static string EnumYoungTom {
             get {
@@ -6136,7 +6136,7 @@ namespace H.Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Young turkey hens.
+        ///   Looks up a localized string similar to Turkey hens.
         /// </summary>
         public static string EnumYoungTurkeyHen {
             get {

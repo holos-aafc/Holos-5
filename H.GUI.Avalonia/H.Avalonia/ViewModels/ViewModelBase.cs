@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Avalonia.Controls.Notifications;
+using H.Core.Models;
 using H.Core.Services.StorageService;
 using Prism.Events;
 
@@ -14,6 +15,8 @@ namespace H.Avalonia.ViewModels
     public class ViewModelBase : BindableBase, INavigationAware
     {
         #region Fields
+
+        private Farm _activeFarm;
 
         protected bool IsInitialized;
 
@@ -99,8 +102,16 @@ namespace H.Avalonia.ViewModels
             }
         }
 
-        protected ViewModelBase(IRegionManager regionManager, IEventAggregator eventAggregator) : this(regionManager)
+        protected ViewModelBase(
+            IRegionManager regionManager, 
+            IEventAggregator eventAggregator,
+            IStorageService storageService) : this(regionManager)
         {
+            if (storageService != null)
+            {
+                this.StorageService = storageService;
+            }
+
             if(eventAggregator != null)
             {
                 this.EventAggregator = eventAggregator;
@@ -109,6 +120,8 @@ namespace H.Avalonia.ViewModels
             {
                 throw new ArgumentNullException(nameof(eventAggregator));
             }
+
+            this.SetActiveFarm(this.StorageService);
         }
 
         protected ViewModelBase(IRegionManager regionManager, IEventAggregator eventAggregator, Storage storage) : this(regionManager, storage)
@@ -160,6 +173,12 @@ namespace H.Avalonia.ViewModels
             set => SetProperty(ref _storageService, value);
         }
 
+        public Farm ActiveFarm
+        {
+            get => _activeFarm;
+            set => SetProperty(ref _activeFarm, value);
+        }
+
         #endregion
 
         #region Public Methods
@@ -184,7 +203,19 @@ namespace H.Avalonia.ViewModels
         public virtual bool OnNavigatingTo(NavigationContext navigationContext)
         {
             return true;
-        } 
+        }
+
+        #endregion
+
+        #region Private Methods
+
+        private void SetActiveFarm(IStorageService storageService)
+        {
+            if (storageService != null)
+            {
+                this.ActiveFarm = storageService.GetActiveFarm();
+            }
+        }
 
         #endregion
     }

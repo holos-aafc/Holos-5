@@ -177,7 +177,7 @@ namespace H.Core.Test.Services
         {
             Farm farm = new Farm()
             {
-                Components = new ObservableCollection<ComponentBase>()
+                Components = new List<ComponentBase>()
                 {
                     new DairyComponent()
                 },

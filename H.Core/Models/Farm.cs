@@ -120,7 +120,6 @@ namespace H.Core.Models
             this.EnableCarbonModelling = true;
 
             this.StageStates = new List<StageStateBase>();
-            this.Components.CollectionChanged += ComponentsOnCollectionChanged;
 
             this.PropertyChanged += FarmPropertyChanged;
 
@@ -162,6 +161,8 @@ namespace H.Core.Models
         #endregion
 
         #region Properties
+
+        public ComponentBase SelectedComponent { get; set; }
 
         public bool ResultsCalculated
         {
@@ -252,7 +253,7 @@ namespace H.Core.Models
         /// <summary>
         /// A collection of all the components the user has selected for this farm.
         /// </summary>
-        public ObservableCollection<ComponentBase> Components { get; set; } = new ObservableCollection<ComponentBase>();
+        public List<ComponentBase> Components { get; set; } = new List<ComponentBase>();
 
         /// <summary>
         /// The default allocation of total N2O emissions within the year

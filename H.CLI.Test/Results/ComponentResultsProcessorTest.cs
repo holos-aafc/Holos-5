@@ -165,7 +165,7 @@ namespace H.CLI.Test.Results
                 Name = "Farm1",
                 PolygonId = 100,
                 SettingsFileName = "settingsfile1",
-                Components = new ObservableCollection<ComponentBase>()
+                Components = new List<ComponentBase>()
                 {
                     new FarrowToWeanComponent()
                     {
@@ -191,7 +191,7 @@ namespace H.CLI.Test.Results
             {
                 Name = "Farm2",
                 SettingsFileName = "settingsfile1",
-                Components = new ObservableCollection<ComponentBase>()
+                Components = new List<ComponentBase>()
                 {
                     new FarrowToWeanComponent()
                     {
@@ -409,7 +409,7 @@ namespace H.CLI.Test.Results
                 Name = "Farm1",
                 SettingsFileName = "settingsfile1",
                 GeographicData = new GeographicData(),
-                Components = new ObservableCollection<ComponentBase>()
+                Components = new List<ComponentBase>()
                 {
                     new CowCalfComponent()
                     {
@@ -436,7 +436,7 @@ namespace H.CLI.Test.Results
                 Name = "Farm2",
                 SettingsFileName = "settingsfile1",
                 GeographicData = new GeographicData(),
-                Components = new ObservableCollection<ComponentBase>()
+                Components = new List<ComponentBase>()
                 {
                     new CowCalfComponent()
                     {

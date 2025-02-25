@@ -4,6 +4,7 @@ using System.Linq;
 using H.Avalonia.Events;
 using H.Avalonia.Views.ComponentViews;
 using H.Core.Models;
+using H.Core.Services.StorageService;
 using Prism.Events;
 using Prism.Regions;
 
@@ -25,7 +26,7 @@ public class MyComponentsViewModel : ViewModelBase
         this.MyComponents = new ObservableCollection<ComponentBase>();
     }
 
-    public MyComponentsViewModel(Storage storage, IRegionManager regionManager, IEventAggregator eventAggregator) : base(regionManager, eventAggregator, storage)
+    public MyComponentsViewModel(IRegionManager regionManager, IEventAggregator eventAggregator, IStorageService storageService) : base(regionManager, eventAggregator, storageService)
     {
         base.PropertyChanged += OnPropertyChanged;
 
@@ -66,7 +67,7 @@ public class MyComponentsViewModel : ViewModelBase
     {
         if (!base.IsInitialized)
         {
-            foreach (var component in base.Storage.Farm.Components)
+            foreach (var component in base.ActiveFarm.Components)
             {
                 this.MyComponents.Add(component);
             }
@@ -106,8 +107,8 @@ public class MyComponentsViewModel : ViewModelBase
         this.MyComponents.Add(instance);
         this.SelectedComponent = instance;
 
-        base.Storage.Farm.Components.Add(instance);
-        base.Storage.Farm.SelectedComponent = instance;
+        base.ActiveFarm.Components.Add(instance);
+        base.ActiveFarm.SelectedComponent = instance;
     }
 
     private void OnPropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -125,8 +126,6 @@ public class MyComponentsViewModel : ViewModelBase
 
     private void OnEditingComponentsCompletedEvent()
     {
-
-
         this.NavigateToSelectedComponent();
     }
 

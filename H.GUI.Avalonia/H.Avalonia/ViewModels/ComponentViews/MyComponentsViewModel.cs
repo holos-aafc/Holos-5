@@ -115,8 +115,8 @@ public class MyComponentsViewModel : ViewModelBase
         this.MyComponents.Add(instance);
         this.SelectedComponent = instance;
 
-        base.Storage.Farm.Components.Add(instance);
-        base.Storage.Farm.SelectedComponent = instance;
+        this.SelectedFarm.Components.Add(instance);
+        //base.Storage.Farm.SelectedComponent = instance;
     }
 
     private void OnPropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)

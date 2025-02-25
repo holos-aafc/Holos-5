@@ -126,11 +126,32 @@ namespace H.Avalonia.ViewModels
                 throw new ArgumentNullException(nameof(eventAggregator));
             }
         }
+        protected ViewModelBase(IRegionManager regionManager, IEventAggregator eventAggregator, IStorageService storageService) : this(regionManager, storageService)
+        {
+            if (eventAggregator != null)
+            {
+                this.EventAggregator = eventAggregator;
+            }
+            else
+            {
+                throw new ArgumentNullException(nameof(eventAggregator));
+            }
+
+            if (storageService != null)
+            {
+                this.StorageService = storageService;
+            }
+            else
+            {
+                throw new ArgumentNullException(nameof(storageService));
+            }
+        }
+      
 
         #endregion
 
         #region Properties
-        
+
         /// <summary>
         /// A storage file that contains various data items that are shored between viewmodels are passed around the system. This storage
         /// item is instantiated using Prism and through Dependency Injection, is passed within the system.

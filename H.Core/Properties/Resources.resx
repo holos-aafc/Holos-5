@@ -6039,4 +6039,79 @@ Please note: emissions related to the deposition or application of livestock man
   <data name="LabelEcodistrict" xml:space="preserve">
     <value>Ecodistrict</value>
   </data>
+  <data name="ButtonAddGroup" xml:space="preserve">
+    <value>Add Group</value>
+  </data>
+  <data name="LabelStep1" xml:space="preserve">
+    <value>Step 1:</value>
+  </data>
+  <data name="LabelStep1Text" xml:space="preserve">
+    <value>Define the animal groups for this component</value>
+  </data>
+  <data name="LabelStep2" xml:space="preserve">
+    <value>Step 2:</value>
+  </data>
+  <data name="LabelStep2Text" xml:space="preserve">
+    <value>Define the management periods for the selected animal group</value>
+  </data>
+  <data name="ButtonAddManagementPeriod" xml:space="preserve">
+    <value>Add Management Period</value>
+  </data>
+  <data name="LabelStep3" xml:space="preserve">
+    <value>Step 3:</value>
+  </data>
+  <data name="LabelStep3Text" xml:space="preserve">
+    <value>Define the management of this group of animals during the selected period of time</value>
+  </data>
+  <data name="LabelGroupName" xml:space="preserve">
+    <value>Group Name</value>
+  </data>
+  <data name="LabelStartDate" xml:space="preserve">
+    <value>Start Date</value>
+  </data>
+  <data name="LabelEndDate" xml:space="preserve">
+    <value>End Date</value>
+  </data>
+  <data name="LabelNumberOfDays" xml:space="preserve">
+    <value>Number of Days</value>
+  </data>
+  <data name="LabelManagementPeriodName" xml:space="preserve">
+    <value>Management Period Name</value>
+  </data>
+  <data name="TitleGeneralTab" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="TitleHousingTab" xml:space="preserve">
+    <value>Housing</value>
+  </data>
+  <data name="TitleManureTab" xml:space="preserve">
+    <value>Manure</value>
+  </data>
+  <data name="LabelGeneralManagement" xml:space="preserve">
+    <value>General Management</value>
+  </data>
+  <data name="LabelHousingManagement" xml:space="preserve">
+    <value>Housing Management</value>
+  </data>
+  <data name="LabelManureManagement" xml:space="preserve">
+    <value>Manure Management</value>
+  </data>
+  <data name="LabelAdditionalInformation" xml:space="preserve">
+    <value>Additional Information</value>
+  </data>
+  <data name="LabelNumberOfAnimals" xml:space="preserve">
+    <value>Number of animals:</value>
+  </data>
+  <data name="LabelHousingType" xml:space="preserve">
+    <value>Housing type:</value>
+  </data>
+  <data name="LabelBeddingType" xml:space="preserve">
+    <value>Bedding type:</value>
+  </data>
+  <data name="ButtonBeddingApplication" xml:space="preserve">
+    <value>Bedding Application Calculator</value>
+  </data>
+  <data name="LabelManureHandlingSystem" xml:space="preserve">
+    <value>Manure handling system:</value>
+  </data>
 </root>

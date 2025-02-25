@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using H.Avalonia.Events;
+using H.Avalonia.Models;
 using H.Avalonia.Views.ComponentViews;
 using H.Core.Models;
 using H.Core.Services.StorageService;
@@ -16,6 +17,7 @@ public class MyComponentsViewModel : ViewModelBase
 
     private ComponentBase _selectedComponent;
     private ObservableCollection<ComponentBase> _myComponents;
+    private H.Core.Models.Farm _selectedFarm;
 
     #endregion
 
@@ -26,11 +28,13 @@ public class MyComponentsViewModel : ViewModelBase
         this.MyComponents = new ObservableCollection<ComponentBase>();
     }
 
+
     public MyComponentsViewModel(IRegionManager regionManager, IEventAggregator eventAggregator, IStorageService storageService) : base(regionManager, eventAggregator, storageService)
     {
         base.PropertyChanged += OnPropertyChanged;
 
         this.MyComponents = new ObservableCollection<ComponentBase>();
+        
 
         base.EventAggregator.GetEvent<ComponentAddedEvent>().Subscribe(OnComponentAddedEvent);
         base.EventAggregator.GetEvent<EditingComponentsCompletedEvent>().Subscribe(OnEditingComponentsCompletedEvent);
@@ -51,6 +55,11 @@ public class MyComponentsViewModel : ViewModelBase
         get => _myComponents;
         set => SetProperty(ref _myComponents, value);
     }
+    public H.Core.Models.Farm SelectedFarm
+    {
+        get => _selectedFarm;
+        set => SetProperty(ref _selectedFarm, value);
+    }
 
     #endregion
 
@@ -59,7 +68,6 @@ public class MyComponentsViewModel : ViewModelBase
     public override void OnNavigatedTo(NavigationContext navigationContext)
     {
         base.OnNavigatedTo(navigationContext);
-
         this.InitializeViewModel();
     }
 
@@ -67,6 +75,7 @@ public class MyComponentsViewModel : ViewModelBase
     {
         if (!base.IsInitialized)
         {
+
             foreach (var component in base.ActiveFarm.Components)
             {
                 this.MyComponents.Add(component);

@@ -31,7 +31,6 @@ namespace H.Avalonia.ViewModels.ComponentViews.OtherAnimals.Tests
             _mock = new Mock<IStorageService>();
             _mockStorageService = _mock.Object;
             _viewModel = new HorsesComponentViewModel(_mockStorageService);
-
         }
 
         [TestCleanup]
@@ -109,6 +108,20 @@ namespace H.Avalonia.ViewModels.ComponentViews.OtherAnimals.Tests
             Assert.AreEqual(testManagementPeriod.Start, _viewModel.ManagementPeriodViewModels[0].StartDate);
             Assert.AreEqual(testManagementPeriod.End, _viewModel.ManagementPeriodViewModels[0].EndDate);
             Assert.AreEqual(testManagementPeriod.NumberOfDays, _viewModel.ManagementPeriodViewModels[0].NumberOfDays);
+        }
+
+        [TestMethod]
+        public void TestValidateViewName()
+        {
+            Assert.IsFalse(_viewModel.HasErrors);
+
+            _viewModel.ViewName = "";
+
+            Assert.IsTrue(_viewModel.HasErrors);
+            var errors = _viewModel.GetErrors(nameof(_viewModel.ViewName)) as List<string>;
+            Assert.IsNotNull(errors);
+            Assert.AreEqual(1, errors.Count);
+            Assert.AreEqual("Name cannot be empty.", errors.First());
         }
     }
 }

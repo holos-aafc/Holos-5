@@ -1,0 +1,47 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:viewSections="clr-namespace:H.Avalonia"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="H.Avalonia.OtherAnimalsComponentsView">
+
+	<Grid>
+		<Grid.RowDefinitions>
+			<!-- Title -->
+			<RowDefinition Height="Auto"/>
+			<!-- Content -->
+			<RowDefinition Height="*"/>
+		</Grid.RowDefinitions>
+
+		<StackPanel Grid.Row="0">
+			<!-- Title -->
+			<TextBox Classes="view-title" Text="{Binding Path=ViewName}"/> 
+			<Border Classes="title-underline"/> 
+		</StackPanel>
+
+		<ScrollViewer Grid.Row="1">
+			<Grid>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"/>
+					<!-- Step 1 -->
+					<RowDefinition Height="Auto"/>
+					<!-- Step 2 -->
+					<RowDefinition Height="Auto"/>
+					<!-- Step 3-->
+				</Grid.RowDefinitions>
+
+				<!-- Step 1 -->
+				<viewSections:OtherAnimalsStep1View Grid.Row="0"/>
+
+				<!--Step 2-->
+				<viewSections:OtherAnimalsStep2View Grid.Row="1"/>
+
+				<!--Step 3-->
+				<viewSections:OtherAnimalsStep3View Grid.Row="2"/>
+
+			</Grid>
+		</ScrollViewer>
+	</Grid>
+	
+</UserControl>

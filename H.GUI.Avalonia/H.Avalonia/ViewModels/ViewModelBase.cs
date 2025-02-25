@@ -9,10 +9,12 @@ using Avalonia.Controls.Notifications;
 using H.Core.Models;
 using H.Core.Services.StorageService;
 using Prism.Events;
+using System.ComponentModel;
+using System.Collections;
 
 namespace H.Avalonia.ViewModels
 {
-    public class ViewModelBase : BindableBase, INavigationAware
+    public class ViewModelBase : BindableBase, INavigationAware, INotifyDataErrorInfo
     {
         #region Fields
 
@@ -24,6 +26,8 @@ namespace H.Avalonia.ViewModels
         private IEventAggregator _eventAggregator;
         private IRegionManager _regionManager;
         private IStorageService _storageService;
+        private readonly Dictionary<string, List<string>> _errors = new Dictionary<string, List<string>>();
+        public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
 
         #endregion
 
@@ -172,6 +176,7 @@ namespace H.Avalonia.ViewModels
             get => _storageService;
             set => SetProperty(ref _storageService, value);
         }
+        public bool HasErrors => _errors.Any();
 
         public Farm ActiveFarm
         {
@@ -203,6 +208,46 @@ namespace H.Avalonia.ViewModels
         public virtual bool OnNavigatingTo(NavigationContext navigationContext)
         {
             return true;
+        }
+        public IEnumerable GetErrors(string propertyName)
+        {
+            if (string.IsNullOrWhiteSpace(propertyName) || !_errors.ContainsKey(propertyName))
+            {
+                return null;
+            }
+            return _errors[propertyName];
+        }
+        public void AddError(string propertyName, string error)
+        {
+            if (!_errors.ContainsKey(propertyName))
+            {
+                _errors[propertyName] = new List<string>();
+            }
+
+            if (!_errors[propertyName].Contains(error))
+            {
+                _errors[propertyName].Add(error);
+                OnErrorsChanged(propertyName);
+            }
+        }
+        public void RemoveError(string propertyName)
+        {
+            if (_errors.ContainsKey(propertyName))
+            {
+                _errors[propertyName].Clear();
+                _errors.Remove(propertyName);
+                OnErrorsChanged(propertyName);
+            }
+        }
+
+        public void OnErrorsChanged(string propertyName)
+        {
+            ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(propertyName));
+        }
+
+        IEnumerable INotifyDataErrorInfo.GetErrors(string? propertyName)
+        {
+            return GetErrors(propertyName);
         }
 
         #endregion

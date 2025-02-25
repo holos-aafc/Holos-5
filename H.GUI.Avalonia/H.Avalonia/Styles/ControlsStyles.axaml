@@ -48,7 +48,23 @@
         <Setter Property="FontFamily" Value="{DynamicResource RobotoFontFamily}" />
         <Setter Property="Background" Value="MediumAquamarine"/>
     </Style>
-    
+	<Style Selector="Button.add-management-period">
+		<Setter Property="Margin" Value="10,20,0,0"/>
+		<Setter Property="BorderBrush" Value="#D7D7D7"/>   
+		<Setter Property="Background" Value="White"/>
+		<Setter Property="Foreground" Value="#605D5D"/>
+		<Setter Property="Width" Value="275"/>
+		<Setter Property="Height" Value="45"/>
+	</Style>
+	<Style Selector="Button.add-group">
+		<Setter Property="Margin" Value="10,20,0,0"/>
+		<Setter Property="BorderBrush" Value="#D7D7D7"/>
+		<Setter Property="Background" Value="White"/>
+		<Setter Property="Foreground" Value="#605D5D"/>
+		<Setter Property="Width" Value="175"/>
+		<Setter Property="Height" Value="40"/>
+	</Style>
+	
     <!-- DataGrid Styles -->
     <Style Selector="DataGridCell NumericUpDown">
         <Setter Property="BorderThickness" Value="0"/>
@@ -83,6 +99,38 @@
         <Setter Property="TextWrapping" Value="Wrap" />
         <Setter Property="VerticalAlignment" Value="Center" />
 	</Style>
-    
 
+	<!-- TextBox Styles -->
+	<Style Selector="TextBox.view-title">
+		<Setter Property="FontSize" Value="36"/>
+		<Setter Property="FontWeight" Value="Bold"/>
+		<Setter Property="Margin" Value="10,10,0,0"/>
+		<Setter Property="Foreground" Value="#605D5D"/>
+		<Setter Property="BorderThickness" Value="0"/>
+	</Style>
+	
+	<!-- Border Styles -->
+	<Style Selector="Border.title-underline">
+		<Setter Property="BorderBrush" Value="#D7D7D7"/>
+		<Setter Property="BorderThickness" Value="0,0,0,3"/>
+		<Setter Property="Margin" Value="0,10,0,0"/>
+	</Style>
+
+	<!-- DataValidationErrors Styles-->
+	    <!--Textblock-->
+		<Style Selector="DataValidationErrors">
+			<Setter Property="ErrorTemplate">
+				<DataTemplate>
+					<ItemsControl ItemsSource="{Binding}">
+						<ItemsControl.Styles>
+							<Style Selector="TextBlock">
+								<Setter Property="FontSize" Value="12"/>
+								<Setter Property="TextWrapping" Value="Wrap" />
+								<Setter Property="Foreground" Value="Red"/>
+							</Style>
+						</ItemsControl.Styles>
+					</ItemsControl>
+				</DataTemplate>
+			</Setter>
+		</Style>
 </Styles>

@@ -116,7 +116,7 @@ namespace H.Avalonia.ViewModels.ComponentViews
 
             if ( NumberOfDays <= 0)
             {
-                AddError(nameof(NumberOfDays), "Number of Days must be greater than 0.");
+                AddError(nameof(NumberOfDays), "Must be greater than 0.");
             }
         }
 

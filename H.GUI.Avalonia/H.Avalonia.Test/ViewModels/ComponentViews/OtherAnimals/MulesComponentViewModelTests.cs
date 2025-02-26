@@ -1,20 +1,36 @@
 ﻿using H.Core.Enumerations;
+using H.Core.Services.StorageService;
+using Moq;
 
 namespace H.Avalonia.ViewModels.ComponentViews.OtherAnimals.Tests
 {
     [TestClass]
     public class MulesComponentViewModelTests
     {
-        private static MulesComponentViewModel _viewModel;
+        private MulesComponentViewModel _viewModel;
+        private IStorageService _mockStorageService;
+        private Mock<IStorageService> _mock;
 
         [ClassInitialize]
         public static void ClassInitialize(TestContext context)
         {
-            _viewModel = new MulesComponentViewModel();
         }
 
         [ClassCleanup]
         public static void ClassCleanup()
+        {
+        }
+
+        [TestInitialize]
+        public void TestInitialize()
+        {
+            _mock = new Mock<IStorageService>();
+            _mockStorageService = _mock.Object;
+            _viewModel = new MulesComponentViewModel(_mockStorageService);
+        }
+
+        [TestCleanup]
+        public void TestCleanup()
         {
         }
 

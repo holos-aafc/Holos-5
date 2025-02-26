@@ -66,6 +66,15 @@ namespace H.Avalonia.ViewModels.ComponentViews
 
         #endregion
 
+        #region Constructors
+
+        public ManagementPeriodViewModel()
+        {
+
+        }
+
+        #endregion
+
         #region Private Methods
 
         private void ValidatePeriodName()
@@ -83,9 +92,9 @@ namespace H.Avalonia.ViewModels.ComponentViews
         {
             RemoveError(nameof(StartDate));
 
-            if (StartDate >= EndDate || StartDate == default(DateTime))
+            if ((StartDate >= EndDate && EndDate != default) || StartDate == default)
             {
-                AddError(nameof(StartDate), "Start Date must be a valid date before the End Date.");
+                AddError(nameof(StartDate), "Must be a valid date before the End Date.");
                 return;
             }
         }
@@ -94,13 +103,11 @@ namespace H.Avalonia.ViewModels.ComponentViews
         {
             RemoveError(nameof(EndDate));
 
-            if(EndDate <= StartDate || EndDate == default(DateTime))
+            if ((EndDate <= StartDate && StartDate != default) || EndDate == default)
             {
-                AddError(nameof(EndDate), "End Date must be a valid date later than the Start Date.");
+                AddError(nameof(EndDate), "Must be a valid date later than the Start Date.");
                 return;
             }
-
-
         }
 
         private void ValidateNumberOfDays()

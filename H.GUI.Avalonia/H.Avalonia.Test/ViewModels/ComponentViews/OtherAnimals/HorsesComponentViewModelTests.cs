@@ -1,5 +1,4 @@
-﻿using H.Core;
-using H.Core.Enumerations;
+﻿using H.Core.Enumerations;
 using H.Core.Models;
 using H.Core.Models.Animals;
 using H.Core.Models.Animals.OtherAnimals;
@@ -11,7 +10,7 @@ namespace H.Avalonia.ViewModels.ComponentViews.OtherAnimals.Tests
     [TestClass]
     public class HorsesComponentViewModelTests
     {
-        private static HorsesComponentViewModel _viewModel;
+        private HorsesComponentViewModel _viewModel;
         private IStorageService _mockStorageService;
         private Mock<IStorageService> _mock;
 
@@ -51,6 +50,8 @@ namespace H.Avalonia.ViewModels.ComponentViews.OtherAnimals.Tests
             AnimalType expectedAnimalType = AnimalType.Horses;
             Assert.AreEqual(expectedAnimalType, _viewModel.OtherAnimalType);
         }
+
+        // Below we are testing methods found in OtherAnimalsViewModelBase (abstract) used by all child classes (horses, bison, goats, etc.)
 
         [TestMethod]
         public void TestConstructorInitializingCollections()
@@ -118,10 +119,9 @@ namespace H.Avalonia.ViewModels.ComponentViews.OtherAnimals.Tests
             _viewModel.ViewName = "";
 
             Assert.IsTrue(_viewModel.HasErrors);
-            var errors = _viewModel.GetErrors(nameof(_viewModel.ViewName)) as List<string>;
+            var errors = _viewModel.GetErrors(nameof(_viewModel.ViewName)) as IEnumerable<string>;
             Assert.IsNotNull(errors);
-            Assert.AreEqual(1, errors.Count);
-            Assert.AreEqual("Name cannot be empty.", errors.First());
+            Assert.AreEqual("Name cannot be empty.", errors.ToList()[0]);
         }
     }
 }

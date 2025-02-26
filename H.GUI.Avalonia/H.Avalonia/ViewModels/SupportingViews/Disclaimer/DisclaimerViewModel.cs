@@ -141,7 +141,7 @@ namespace H.Avalonia.ViewModels.SupportingViews.Disclaimer
                 else
                 {
                     this.AboutHolosString = "Holos - outil d'évaluation et de réduction des émissions de gaz à effet de serre des fermes agricoles";
-                    this.ToBeKeptInformedString = "Pour être informé de la publication des prochaines versions du logiciel, faites parvenir vos coordonnées (y compris votre adresse électronique) à ibrahim.khalil1@ucd.ie";
+                    this.ToBeKeptInformedString = "Pour être informé de la publication des prochaines versions du logiciel, faites parvenir vos coordonnées (y compris votre adresse électronique) à holos@agr.gc.ca";
                     this.DisclaimerRtfString = Resources.Disclaimer_French_TXT;
                     this.DisclaimerWordString = "Avis de non-responsabilité";
 

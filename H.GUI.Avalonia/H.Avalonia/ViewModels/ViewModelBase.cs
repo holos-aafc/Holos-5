@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Avalonia.Controls.Notifications;
+using H.Core.Models;
 using H.Core.Services.StorageService;
 using Prism.Events;
 using System.ComponentModel;
@@ -16,6 +17,8 @@ namespace H.Avalonia.ViewModels
     public abstract class ViewModelBase : BindableBase, INavigationAware, INotifyDataErrorInfo
     {
         #region Fields
+
+        private Farm _activeFarm;
 
         protected bool IsInitialized;
 
@@ -115,8 +118,16 @@ namespace H.Avalonia.ViewModels
             }
         }
 
-        protected ViewModelBase(IRegionManager regionManager, IEventAggregator eventAggregator) : this(regionManager)
+        protected ViewModelBase(
+            IRegionManager regionManager, 
+            IEventAggregator eventAggregator,
+            IStorageService storageService) : this(regionManager)
         {
+            if (storageService != null)
+            {
+                this.StorageService = storageService;
+            }
+
             if(eventAggregator != null)
             {
                 this.EventAggregator = eventAggregator;
@@ -125,6 +136,8 @@ namespace H.Avalonia.ViewModels
             {
                 throw new ArgumentNullException(nameof(eventAggregator));
             }
+
+            this.SetActiveFarm(this.StorageService);
         }
 
         protected ViewModelBase(IRegionManager regionManager, IEventAggregator eventAggregator, Storage storage) : this(regionManager, storage)
@@ -142,7 +155,7 @@ namespace H.Avalonia.ViewModels
         #endregion
 
         #region Properties
-        
+
         /// <summary>
         /// A storage file that contains various data items that are shored between viewmodels are passed around the system. This storage
         /// item is instantiated using Prism and through Dependency Injection, is passed within the system.
@@ -176,6 +189,12 @@ namespace H.Avalonia.ViewModels
             set => SetProperty(ref _storageService, value);
         }
         public bool HasErrors => _errors.Any();
+
+        public Farm ActiveFarm
+        {
+            get => _activeFarm;
+            set => SetProperty(ref _activeFarm, value);
+        }
 
         #endregion
 
@@ -241,6 +260,18 @@ namespace H.Avalonia.ViewModels
         IEnumerable INotifyDataErrorInfo.GetErrors(string? propertyName)
         {
             return GetErrors(propertyName);
+        }
+
+        #endregion
+
+        #region Private Methods
+
+        private void SetActiveFarm(IStorageService storageService)
+        {
+            if (storageService != null)
+            {
+                this.ActiveFarm = storageService.GetActiveFarm();
+            }
         }
 
         #endregion

@@ -17,7 +17,8 @@ public interface IStorage
     /// are any backups available. If yes tries to load the most recent backup, otherwise it sets <see cref="ApplicationData"/> to a new instance
     /// of <see cref="Models.ApplicationData"/>
     /// </summary>
-    void Load(); 
+    void Load();
+    void Save();
 
     #endregion
 }

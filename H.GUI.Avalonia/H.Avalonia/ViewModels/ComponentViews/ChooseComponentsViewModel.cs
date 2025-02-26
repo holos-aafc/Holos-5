@@ -24,6 +24,7 @@ using H.Core.Models.Infrastructure;
 using H.Core.Models.Animals.Swine;
 using H.Core.Models.Animals.Poultry.Chicken;
 using H.Core.Models.Animals.Poultry.Turkey;
+using H.Core.Services.StorageService;
 using H.Infrastructure;
 using ReactiveUI;
 
@@ -51,7 +52,7 @@ namespace H.Avalonia.ViewModels.ComponentViews
             this.SelectedComponent = this.AvailableComponents.First();
         }
 
-        public ChooseComponentsViewModel(IEventAggregator eventAggregator, IRegionManager regionManager, Storage storage) : base(regionManager, eventAggregator, storage)
+        public ChooseComponentsViewModel(IEventAggregator eventAggregator, IRegionManager regionManager, IStorageService storageService) : base(regionManager, eventAggregator, storageService)
         {
             this.PropertyChanged += OnPropertyChanged;
             this.AvailableComponents = new ObservableCollection<ComponentBase>();
@@ -198,9 +199,6 @@ namespace H.Avalonia.ViewModels.ComponentViews
 
         public void OnAddComponentExecute()
         {
-            base.Storage.Farm.Components.Add(this.SelectedComponent);
-            base.Storage.Farm.SelectedComponent = this.SelectedComponent;
-
             base.EventAggregator.GetEvent<ComponentAddedEvent>().Publish(this.SelectedComponent);
         }
 

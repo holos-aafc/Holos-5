@@ -5756,4 +5756,7 @@ Please note: emissions related to the deposition or application of livestock man
   <data name="LabelAddSelectComponent" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
+  <data name="LabelWouldYouLikeToOpenAnExistingFarmOrCreateANewOne" xml:space="preserve">
+    <value>Souhaitez-vous ouvrir une ferme existante ou en créer une nouvelle ?</value>
+  </data>
 </root>

@@ -26,7 +26,6 @@ namespace H.Avalonia.ViewModels.SupportingViews.Disclaimer
 
         private Languages _selectedLanguage;
 
-        private bool _showLanguageBox;
         private string _aboutHolosString;
         private string _toBeKeptInformedString;
         private string _disclaimerRtfString;
@@ -35,7 +34,7 @@ namespace H.Avalonia.ViewModels.SupportingViews.Disclaimer
 
         private DelegateCommand<object> _okCommand;
 
-        private ICountrySettings _countrySettings;
+        private readonly ICountrySettings _countrySettings;
 
         #endregion
 
@@ -72,7 +71,7 @@ namespace H.Avalonia.ViewModels.SupportingViews.Disclaimer
         public Languages SelectedLanguage
         {
             get { return _selectedLanguage; }
-            set { SetProperty(ref _selectedLanguage, value, OnSelectedLanguageChanged); }
+            set { SetProperty(ref _selectedLanguage, value); }
         }
 
         public string AboutHolosString
@@ -103,11 +102,6 @@ namespace H.Avalonia.ViewModels.SupportingViews.Disclaimer
             get { return _versionString; }
             set { _versionString = value; }
         }
-        public bool ShowLanguageBox
-        {
-            get { return _showLanguageBox; }
-            set { SetProperty(ref _showLanguageBox, value); }
-        }
 
         public DelegateCommand<object> OkCommand
         {
@@ -121,8 +115,7 @@ namespace H.Avalonia.ViewModels.SupportingViews.Disclaimer
 
         public new void Construct()
         {
-            this.SetHolosLanguageToSystemLanguage();
-            this.UpdateDisplayBasedOnLanguage();
+            this.UpdateDisplay();
             this.VersionString = GuiConstants.GetVersionString();
 
             this.OkCommand = new DelegateCommand<object>(OnOkExecute, OkCanExecute);
@@ -132,54 +125,40 @@ namespace H.Avalonia.ViewModels.SupportingViews.Disclaimer
 
         #region Private Methods
 
-        private void UpdateDisplayBasedOnLanguage()
+        private void UpdateDisplay()
         {
-            if (this.SelectedLanguage == Languages.English)
+            if (_countrySettings.Version == CountryVersion.Canada)
+            {
+                if (_countrySettings.Language == Languages.English)
+                {
+                    this.AboutHolosString = "HOLOS - a tool to estimate and reduce greenhouse gas emissions from farms";
+                    this.ToBeKeptInformedString = "To be kept informed about  future versions, please send your contact information (including email address) to holos@agr.gc.ca";
+                    this.DisclaimerRtfString = Resources.Disclaimer_English_TXT;
+
+                    this.DisclaimerWordString = "Disclaimer";
+                    Settings.Default.DisplayLanguage = Languages.English.GetDescription();
+                }
+                else
+                {
+                    this.AboutHolosString = "Holos - outil d'évaluation et de réduction des émissions de gaz à effet de serre des fermes agricoles";
+                    this.ToBeKeptInformedString = "Pour être informé de la publication des prochaines versions du logiciel, faites parvenir vos coordonnées (y compris votre adresse électronique) à holos@agr.gc.ca";
+                    this.DisclaimerRtfString = Resources.Disclaimer_French_TXT;
+                    this.DisclaimerWordString = "Avis de non-responsabilité";
+
+                    Settings.Default.DisplayLanguage = Languages.French.GetDescription();
+                }
+            }
+            else
             {
                 this.AboutHolosString = "HOLOS-IE - a tool to estimate and reduce greenhouse gas emissions from farms";
                 this.ToBeKeptInformedString = "To be kept informed about  future versions, please send your contact information (including email address) to ibrahim.khalil1@ucd.ie";
                 this.DisclaimerRtfString = Resources.Disclaimer_English_TXT;
-
-                this.DisclaimerWordString = "Disclaimer";
-                Settings.Default.DisplayLanguage = Languages.English.GetDescription();
             }
-            else
-            {
-                this.AboutHolosString = "Holos - outil d'évaluation et de réduction des émissions de gaz à effet de serre des fermes agricoles";
-                this.ToBeKeptInformedString = "Pour être informé de la publication des prochaines versions du logiciel, faites parvenir vos coordonnées (y compris votre adresse électronique) à ibrahim.khalil1@ucd.ie";
-                this.DisclaimerRtfString = Resources.Disclaimer_French_TXT;
-                this.DisclaimerWordString = "Avis de non-responsabilité";
-
-                Settings.Default.DisplayLanguage = Languages.French.GetDescription();
-            }
-        }
-
-        private void SetHolosLanguageToSystemLanguage()
-        {
-            const string usEnglish = "en-US";
-            var culture = Thread.CurrentThread.CurrentCulture;
-
-            //some computers might have their region set to united states english best to keep their gui in english
-            //if (culture.Name == Infrastructure.InfrastructureConstants.EnglishCultureInfo.Name || culture.Name == usEnglish)
-            //{
-            //    this.SelectedLanguage = Core.Enumerations.Languages.English;
-            //}
-            //else
-            //{
-            //    this.SelectedLanguage = Core.Enumerations.Languages.French;
-            //}
-            // Currently, we are supporting only English
-            this.SelectedLanguage = Languages.English;
         }
 
         #endregion
 
         #region Event Handlers
-
-        private void OnSelectedLanguageChanged()
-        {
-            this.UpdateDisplayBasedOnLanguage();
-        }
 
         private void OnOkExecute(object obj)
         {                                        

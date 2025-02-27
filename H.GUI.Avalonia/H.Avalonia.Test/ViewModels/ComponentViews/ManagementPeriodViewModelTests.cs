@@ -86,7 +86,7 @@
 
             var errors = _viewModel.GetErrors(nameof(_viewModel.NumberOfDays)) as IEnumerable<string>;
             Assert.IsNotNull (errors);
-            Assert.AreEqual("Number of Days must be greater than 0.", errors.ToList()[0]);
+            Assert.AreEqual("Must be greater than 0.", errors.ToList()[0]);
         }
     }
 }

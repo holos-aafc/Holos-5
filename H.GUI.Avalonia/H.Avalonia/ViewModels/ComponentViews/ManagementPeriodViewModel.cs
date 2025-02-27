@@ -9,7 +9,7 @@ namespace H.Avalonia.ViewModels.ComponentViews
         private string _periodName;
         private DateTime _startDate;
         private DateTime _endDate;
-        private int _numberOfDays;
+        private int _numberOfDays;  
 
         #endregion
 
@@ -83,7 +83,7 @@ namespace H.Avalonia.ViewModels.ComponentViews
 
             if (string.IsNullOrEmpty(PeriodName))
             {
-                AddError(nameof(PeriodName), "Name cannot be empty.");
+                AddError(nameof(PeriodName), H.Core.Properties.Resources.ErrorNameCannotBeEmpty);
                 return;
             }
         }
@@ -94,7 +94,7 @@ namespace H.Avalonia.ViewModels.ComponentViews
 
             if ((StartDate >= EndDate && EndDate != default) || StartDate == default)
             {
-                AddError(nameof(StartDate), "Must be a valid date before the End Date.");
+                AddError(nameof(StartDate), H.Core.Properties.Resources.ErrorStartDate);
                 return;
             }
         }
@@ -105,7 +105,7 @@ namespace H.Avalonia.ViewModels.ComponentViews
 
             if ((EndDate <= StartDate && StartDate != default) || EndDate == default)
             {
-                AddError(nameof(EndDate), "Must be a valid date later than the Start Date.");
+                AddError(nameof(EndDate), H.Core.Properties.Resources.ErrorEndDate);
                 return;
             }
         }
@@ -116,7 +116,8 @@ namespace H.Avalonia.ViewModels.ComponentViews
 
             if ( NumberOfDays <= 0)
             {
-                AddError(nameof(NumberOfDays), "Must be greater than 0.");
+                AddError(nameof(NumberOfDays), H.Core.Properties.Resources.ErrorMustBeGreaterThan0);
+                return;
             }
         }
 

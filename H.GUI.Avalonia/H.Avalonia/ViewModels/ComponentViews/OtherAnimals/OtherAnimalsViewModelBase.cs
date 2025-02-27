@@ -136,7 +136,7 @@ namespace H.Avalonia.ViewModels.ComponentViews.OtherAnimals
 
             if (string.IsNullOrEmpty(ViewName))
             {
-                AddError(nameof(ViewName), "Name cannot be empty.");
+                AddError(nameof(ViewName), H.Core.Properties.Resources.ErrorNameCannotBeEmpty);
                 return;
             }
         }

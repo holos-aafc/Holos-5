@@ -44,6 +44,7 @@ using KmlHelpers = H.Avalonia.Infrastructure.KmlHelpers;
 using System.Text.RegularExpressions;
 using System.Threading;
 using H.Core.Enumerations;
+using H.Avalonia.ViewModels.SupportingViews.Start;
 
 namespace H.Avalonia
 {
@@ -129,6 +130,7 @@ namespace H.Avalonia
             containerRegistry.RegisterForNavigation<TurkeyMeatProductionComponentView, TurkeyMeatProductionComponentViewModel>();
             containerRegistry.RegisterForNavigation<ChickenEggProductionComponentView, ChickenEggProductionComponentViewModel>();
             containerRegistry.RegisterForNavigation<ChickenMultiplierHatcheryComponentView,  ChickenMultiplierHatcheryComponentViewModel>();
+            containerRegistry.RegisterForNavigation<StartView, StartViewModel>();
 
             // Blank Page
             containerRegistry.RegisterForNavigation<BlankView, BlankViewModel>();

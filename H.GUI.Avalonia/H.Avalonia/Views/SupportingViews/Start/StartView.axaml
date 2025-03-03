@@ -4,5 +4,25 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="H.Avalonia.StartView">
-  This is the start view
+
+	<Grid>
+		<Grid.RowDefinitions>
+			<!--Title-->
+			<RowDefinition Height="Auto"/>
+			<!--Progress Bar-->
+			<RowDefinition Height="*"/>
+		</Grid.RowDefinitions>
+		
+		<!--Title-->
+		<StackPanel Grid.Row="0" Margin="0 150 0 0">
+			<TextBlock FontSize="64" FontWeight="Bold" Foreground="Gray" HorizontalAlignment="Center" VerticalAlignment="Center"> Holos v5</TextBlock>
+		</StackPanel>
+
+		<!--Progress Bar-->
+		<StackPanel Grid.Row="1" >
+			<ProgressBar Margin="0 20 0 10" Height="15" Width="30" Minimum="0" Maximum="100" Value="50" Foreground="Green"/> <!--Bind with view model-->
+			<TextBlock HorizontalAlignment="Center">Loading please wait ...</TextBlock>
+		</StackPanel>	
+	</Grid>
+	
 </UserControl>

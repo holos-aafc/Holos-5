@@ -44,13 +44,13 @@
 			
 		
 		<StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
-			<Button Content="{x:Static properties:Resources.ButtonOpen}" HorizontalAlignment="Center" Command="{Binding OnOpenFarmExecute}" Margin="0 120 0 0" Padding="100,10">
+			<Button Content="{x:Static properties:Resources.ButtonOpen}" HorizontalAlignment="Center" Command="{Binding OnOpenFarmExecute}" Margin="0 120 0 0" >
 				
 			</Button>
 		</StackPanel>
 		
 		<Border BorderBrush="#EDEDED" BorderThickness="0,0,0,1" Margin="0,20" Width="450" />
-		<Button Content="{x:Static properties:Resources.ButtonGoBack}" Margin="0 10 0 0" HorizontalAlignment="Center" Command="{Binding NavigateToPreviousPage}">
+		<Button Content="{x:Static properties:Resources.ButtonGoBack}"  HorizontalAlignment="Center" Command="{Binding NavigateToPreviousPage}">
 			<Button.Styles>
 				<Style Selector="Button">
 					<Setter Property="Background" Value="#EDEDED" />

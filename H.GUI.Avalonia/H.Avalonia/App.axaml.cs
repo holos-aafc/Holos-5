@@ -30,6 +30,7 @@ using H.Avalonia.Views.ComponentViews;
 using H.Avalonia.Views.SupportingViews.MeasurementProvince;
 using H.Avalonia.Views.SupportingViews.RegionSelection;
 using H.Avalonia.ViewModels.SupportingViews.RegionSelection;
+using H.Avalonia.ViewModels.OptionsViews;
 
 using H.Core.Services;
 using H.Core.Services.Provinces;
@@ -87,6 +88,11 @@ namespace H.Avalonia
             containerRegistry.RegisterForNavigation<MyComponentsView, MyComponentsViewModel>();
             containerRegistry.RegisterForNavigation<ChooseComponentsView, ChooseComponentsViewModel>();
             containerRegistry.RegisterForNavigation<FieldComponentView, FieldComponentViewModel>();
+            containerRegistry.RegisterForNavigation<OptionsView, OptionsViewModel>();
+            containerRegistry.RegisterForNavigation<SelectOptionView, SelectOptionViewModel>();
+            containerRegistry.RegisterForNavigation<OptionFarmView, OptionFarmViewModel>();
+            containerRegistry.RegisterForNavigation<OptionUserSettingsView, OptionUserSettingsViewModel>();
+            containerRegistry.RegisterForNavigation<OptionSoilView, OptionSoilViewModel>();
 
             // New development work
             containerRegistry.RegisterForNavigation<DisclaimerView, DisclaimerViewModel>();

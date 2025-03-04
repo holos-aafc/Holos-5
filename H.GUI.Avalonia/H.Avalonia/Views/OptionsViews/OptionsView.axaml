@@ -1,0 +1,70 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:OptionsViews="clr-namespace:H.Avalonia.ViewModels.OptionsViews"
+			 mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 x:Class="H.Avalonia.OptionsView">
+
+	<Design.DataContext>
+		<OptionsViews:OptionsViewModel />
+	</Design.DataContext>
+	
+	<Grid >
+		<Grid.RowDefinitions>
+			<RowDefinition Height="100"/>
+			<RowDefinition Height="*"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+		</Grid.RowDefinitions>
+
+		<Grid Row="0">
+			<Border Classes="component-border">
+				<StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+					<TextBlock Text="Settings" Classes="title-textblock"/>
+				</StackPanel>
+			</Border>
+		</Grid>
+
+		<ScrollViewer Grid.Row="1">
+			<Border BorderBrush="LightGray"
+                 BorderThickness="1">
+				<StackPanel  Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}">
+					<ListBox SelectionMode="Single" Margin="5,0" SelectedItem="{Binding Path=SelectedItem}">
+					<ListBoxItem Margin="-5, 0" IsEnabled="False" >
+						<TextBlock Foreground="Black" FontWeight="Bold" Text="Settings"/>
+					</ListBoxItem>
+					<ListBoxItem Content="Farm"/>
+						<ListBoxItem Content="Soil"/>
+						<ListBoxItem Content="Barn Temperatures"/>
+						<ListBoxItem Content="Percipitation"/>
+					<ListBoxItem Content="User Settings"/>
+					<ListBoxItem Content="Energy"/>
+					<ListBoxItem Content="Crop Defaults"/>
+					</ListBox>
+				</StackPanel>
+			</Border>
+		</ScrollViewer>
+
+		<Border Grid.Row="2"
+                Classes="component-border"
+                Height="100">
+			<StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center"
+                        Margin="20,0">
+				<Button Content="Go Back" Command="{Binding OnCancelExecute}"  HorizontalAlignment="Center" Margin="10" >
+					<Button.Styles>
+						<Style Selector="Button">
+							<Setter Property="Background" Value="#EDEDED" />
+						</Style>
+						<Style Selector="Button:pointerover /template/ ContentPresenter">
+							<Setter Property="Background" Value="MediumAquamarine" />
+						</Style>
+					</Button.Styles>
+				</Button>
+			</StackPanel>
+		</Border>
+	</Grid>
+</UserControl>
+
+
+

@@ -152,7 +152,6 @@ namespace H.Avalonia.ViewModels.SupportingViews.Start
                 _geographicDataProvider.Initialize();
                 
                 this.ProgressValue = 25;
-                Thread.Sleep(500);
 
                 this.ProgressValue = 50;
                 _smallAreaYieldProvider.Initialize();
@@ -160,7 +159,6 @@ namespace H.Avalonia.ViewModels.SupportingViews.Start
                 //base.InvokeOnUiThread(() => _mapViewModel.LoadMapFrameworkElements());
                 
                 this.ProgressValue = 75;
-                Thread.Sleep(500);
                 
                 this.ProgressValue = 100;
             }

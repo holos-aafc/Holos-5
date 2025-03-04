@@ -11,6 +11,7 @@ using Avalonia;
 using Avalonia.Threading;
 using H.Avalonia.Views.FarmCreationViews;
 using H.Core.Services.StorageService;
+using H.Core.Providers.Soil;
 
 namespace H.Avalonia.ViewModels.SupportingViews.Start
 {
@@ -23,6 +24,7 @@ namespace H.Avalonia.ViewModels.SupportingViews.Start
         private int _progressValue;
 
         GeographicDataProvider _geographicDataProvider;
+        SmallAreaYieldProvider _smallAreaYieldProvider;
 
         #endregion
 
@@ -33,7 +35,7 @@ namespace H.Avalonia.ViewModels.SupportingViews.Start
 
         }
  
-        public StartViewModel(IRegionManager regionManager, IEventAggregator eventAggregator, IStorageService storageService, GeographicDataProvider geographicDataProvider) : base(regionManager, eventAggregator, storageService) 
+        public StartViewModel(IRegionManager regionManager, IEventAggregator eventAggregator, IStorageService storageService, GeographicDataProvider geographicDataProvider, SmallAreaYieldProvider smallAreaYieldProvider) : base(regionManager, eventAggregator, storageService) 
         {
             if (geographicDataProvider != null)
             {
@@ -42,6 +44,14 @@ namespace H.Avalonia.ViewModels.SupportingViews.Start
             else
             {
                 throw (new ArgumentNullException(nameof(geographicDataProvider)));
+            }
+            if (smallAreaYieldProvider != null)
+            {
+                _smallAreaYieldProvider = smallAreaYieldProvider;
+            }
+            else
+            {
+                throw (new ArgumentNullException(nameof(smallAreaYieldProvider)));
             }
         }
 
@@ -139,18 +149,19 @@ namespace H.Avalonia.ViewModels.SupportingViews.Start
                 this.IsBusyMessage = H.Core.Properties.Resources.MessageLoadingPleaseWait;
 
                 this.ProgressValue = 0;
-                Thread.Sleep(2000);
-                this.ProgressValue = 25;
-
                 _geographicDataProvider.Initialize();
+                
+                this.ProgressValue = 25;
+                Thread.Sleep(500);
 
                 this.ProgressValue = 50;
-                Thread.Sleep(2000);
+                _smallAreaYieldProvider.Initialize();
 
                 //base.InvokeOnUiThread(() => _mapViewModel.LoadMapFrameworkElements());
                 
                 this.ProgressValue = 75;
-                Thread.Sleep(2000);
+                Thread.Sleep(500);
+                
                 this.ProgressValue = 100;
             }
             catch (Exception ex)

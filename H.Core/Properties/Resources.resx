@@ -6126,4 +6126,22 @@ Please note: emissions related to the deposition or application of livestock man
   <data name="ErrorMustBeGreaterThan0" xml:space="preserve">
     <value>Must be greater than 0.</value>
   </data>
+  <data name="LabelName" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="LabelPolygon" xml:space="preserve">
+    <value>Polygon</value>
+  </data>
+  <data name="LabelCoordinates" xml:space="preserve">
+    <value>Coordinates</value>
+  </data>
+  <data name="LabelHardinessZone" xml:space="preserve">
+    <value>Hardiness Zone</value>
+  </data>
+  <data name="LabelGrowingSeasonPrecipitationmm" xml:space="preserve">
+    <value>Growing Season Precipitation (mm)</value>
+  </data>
+  <data name="LabelGrowingSeasonEvapotranspirationmm" xml:space="preserve">
+    <value>Growing Season Evapotranspiration (mm)</value>
+  </data>
 </root>

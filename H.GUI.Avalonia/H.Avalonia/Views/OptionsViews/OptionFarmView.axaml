@@ -1,0 +1,40 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:OptionsViews="clr-namespace:H.Avalonia.ViewModels.OptionsViews"
+			 xmlns:properties="clr-namespace:H.Core.Properties;assembly=H.Core"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="800"
+             x:Class="H.Avalonia.OptionFarmView">
+
+	<Design.DataContext>
+		<OptionsViews:OptionFarmViewModel />
+	</Design.DataContext>
+	
+	<Grid>
+				<StackPanel Margin="10" Spacing="10" Width="350" VerticalAlignment="Center" HorizontalAlignment="Center">
+					<TextBlock Text="{x:Static properties:Resources.LabelName}"/>
+					<TextBox TextChanged="" Text="{Binding FarmName, Mode=TwoWay}"  />
+					<TextBlock Text="{x:Static properties:Resources.LabelComments}"/>
+					<TextBox Text="{Binding FarmComments, Mode=TwoWay}"  />
+					<TextBlock Text="{x:Static properties:Resources.LabelPolygon}"/>
+					<TextBox IsReadOnly="True" IsEnabled="False" Text="{Binding ActiveFarm.PolygonId}"  />
+					<TextBlock Text="{x:Static properties:Resources.LabelCoordinates}"/>
+					<TextBox IsReadOnly="True" IsEnabled="False" Text="{Binding Coordinates}" />
+					<TextBlock Text="{x:Static properties:Resources.LabelProvince}"/>
+					<TextBox IsReadOnly="True" IsEnabled="False" Text="{Binding ActiveFarm.Province}"  />
+					<TextBlock Text="{x:Static properties:Resources.LabelHardinessZone}"/>
+					<TextBox IsReadOnly="True" IsEnabled="False" Text="{Binding ActiveFarm.GeographicData.HardinessZoneString}" />
+					<TextBlock Text="{x:Static properties:Resources.LabelGrowingSeasonPrecipitationmm}"/>
+					<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding GrowingSeasonPrecipitation, Mode=TwoWay}" />
+					<TextBlock Text="{x:Static properties:Resources.LabelGrowingSeasonEvapotranspirationmm}"  />
+					<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding GrowingSeasonEvapotranspiration, Mode=TwoWay}" />
+					<TextBlock Text="Holos Operation Mode" />
+					<Grid >
+						<RadioButton  Content="Basic Mode"></RadioButton>
+						<RadioButton HorizontalAlignment="Right" Content="Advanced Mode"></RadioButton>
+					</Grid>
+				</StackPanel>
+			
+	</Grid>
+</UserControl>

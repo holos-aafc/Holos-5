@@ -83,6 +83,12 @@
     <Compile Update="Views\ComponentViews\MyComponentsView.axaml.cs">
       <DependentUpon>MyComponentsView.axaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\OptionsViews\OptionFarmView.axaml.cs">
+      <DependentUpon>OptionFarmView.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\OptionsViews\OptionSoilView.axaml.cs">
+      <DependentUpon>OptionSoilView.axaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\ResultViews\ClimateResultsView.axaml.cs">
       <DependentUpon>ClimateResultsView.axaml</DependentUpon>
       <SubType>Code</SubType>

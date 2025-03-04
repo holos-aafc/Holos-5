@@ -9187,6 +9187,15 @@ namespace H.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Coordinates.
+        /// </summary>
+        public static string LabelCoordinates {
+            get {
+                return ResourceManager.GetString("LabelCoordinates", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Copper.
         /// </summary>
         public static string LabelCopper {
@@ -10087,11 +10096,38 @@ namespace H.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Growing Season Evapotranspiration (mm).
+        /// </summary>
+        public static string LabelGrowingSeasonEvapotranspirationmm {
+            get {
+                return ResourceManager.GetString("LabelGrowingSeasonEvapotranspirationmm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Growing season precipitation.
         /// </summary>
         public static string LabelGrowingSeasonPrecipitation {
             get {
                 return ResourceManager.GetString("LabelGrowingSeasonPrecipitation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Growing Season Precipitation (mm).
+        /// </summary>
+        public static string LabelGrowingSeasonPrecipitationmm {
+            get {
+                return ResourceManager.GetString("LabelGrowingSeasonPrecipitationmm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hardiness Zone.
+        /// </summary>
+        public static string LabelHardinessZone {
+            get {
+                return ResourceManager.GetString("LabelHardinessZone", resourceCulture);
             }
         }
         
@@ -10960,6 +10996,15 @@ namespace H.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        public static string LabelName {
+            get {
+                return ResourceManager.GetString("LabelName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Net Energy.
         /// </summary>
         public static string LabelNetEnergy {
@@ -11307,6 +11352,15 @@ namespace H.Core.Properties {
         public static string LabelPlantCarbonInProduct {
             get {
                 return ResourceManager.GetString("LabelPlantCarbonInProduct", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Polygon.
+        /// </summary>
+        public static string LabelPolygon {
+            get {
+                return ResourceManager.GetString("LabelPolygon", resourceCulture);
             }
         }
         

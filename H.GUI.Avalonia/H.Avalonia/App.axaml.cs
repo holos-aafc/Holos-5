@@ -40,6 +40,11 @@ using H.Core.Services.RegionCountries;
 using H.Avalonia.Views.FarmCreationViews;
 using H.Core;
 using H.Core.Services.StorageService;
+using H.Infrastructure;
+using KmlHelpers = H.Avalonia.Infrastructure.KmlHelpers;
+using System.Text.RegularExpressions;
+using System.Threading;
+using H.Core.Enumerations;
 
 namespace H.Avalonia
 {
@@ -170,6 +175,8 @@ namespace H.Avalonia
         /// <summary>Called after Initialize.</summary>
         protected override void OnInitialized()
         {
+            this.SetLanguage();
+
             // Register views to the Region it will appear in. Don't register them in the ViewModel.
             var regionManager = base.Container.Resolve<IRegionManager>();
 
@@ -189,6 +196,18 @@ namespace H.Avalonia
 
             var storage = Container.Resolve<IStorage>();
             storage.Load();
+        }
+
+        private void SetLanguage()
+        {
+            var settings = this.Container.Resolve<ICountrySettings>();
+            var language = settings.Language;
+
+            if (language == Languages.French)
+            {
+                H.Avalonia.Resources.Culture = InfrastructureConstants.FrenchCultureInfo;
+                H.Core.Properties.Resources.Culture = InfrastructureConstants.FrenchCultureInfo;
+            }
         }
     }
 }

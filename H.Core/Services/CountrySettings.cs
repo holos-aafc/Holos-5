@@ -10,13 +10,15 @@ public class CountrySettings : ICountrySettings
     public CountrySettings()
     {
         this.Version = ConfigurationFileHelper.GetCountryVersion();
+        this.Language = ConfigurationFileHelper.GetLanguage();
     }
 
     #endregion
 
 	#region Properties
 
-	public CountryVersion Version { get; set; } 
+	public CountryVersion Version { get; set; }
+    public Languages Language { get; set; }
 
-	#endregion
+    #endregion
 }

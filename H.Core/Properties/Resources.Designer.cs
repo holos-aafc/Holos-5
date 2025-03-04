@@ -6172,11 +6172,47 @@ namespace H.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Must be a valid date later than the Start Date..
+        /// </summary>
+        public static string ErrorEndDate {
+            get {
+                return ResourceManager.GetString("ErrorEndDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Field area cannot be 0.
         /// </summary>
         public static string ErrorFieldAreaCannotBeZero {
             get {
                 return ResourceManager.GetString("ErrorFieldAreaCannotBeZero", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Must be greater than 0..
+        /// </summary>
+        public static string ErrorMustBeGreaterThan0 {
+            get {
+                return ResourceManager.GetString("ErrorMustBeGreaterThan0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name cannot be empty..
+        /// </summary>
+        public static string ErrorNameCannotBeEmpty {
+            get {
+                return ResourceManager.GetString("ErrorNameCannotBeEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Must be a valid date before the End Date..
+        /// </summary>
+        public static string ErrorStartDate {
+            get {
+                return ResourceManager.GetString("ErrorStartDate", resourceCulture);
             }
         }
         

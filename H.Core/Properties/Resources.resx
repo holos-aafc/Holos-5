@@ -6114,6 +6114,18 @@ Please note: emissions related to the deposition or application of livestock man
   <data name="LabelManureHandlingSystem" xml:space="preserve">
     <value>Manure handling system:</value>
   </data>
+  <data name="ErrorNameCannotBeEmpty" xml:space="preserve">
+    <value>Name cannot be empty.</value>
+  </data>
+  <data name="ErrorStartDate" xml:space="preserve">
+    <value>Must be a valid date before the End Date.</value>
+  </data>
+  <data name="ErrorEndDate" xml:space="preserve">
+    <value>Must be a valid date later than the Start Date.</value>
+  </data>
+  <data name="ErrorMustBeGreaterThan0" xml:space="preserve">
+    <value>Must be greater than 0.</value>
+  </data>
   <data name="LabelName" xml:space="preserve">
     <value>Name</value>
   </data>

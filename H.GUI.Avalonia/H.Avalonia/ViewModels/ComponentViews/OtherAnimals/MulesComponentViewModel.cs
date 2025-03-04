@@ -1,4 +1,5 @@
 ﻿using H.Core.Enumerations;
+using H.Core.Services.StorageService;
 
 namespace H.Avalonia.ViewModels.ComponentViews.OtherAnimals
 {
@@ -6,10 +7,15 @@ namespace H.Avalonia.ViewModels.ComponentViews.OtherAnimals
     {
         #region Constructors
 
-        public MulesComponentViewModel() 
+        public MulesComponentViewModel(IStorageService storageService) : base(storageService) 
         {
             ViewName = "Mules";
             OtherAnimalType = AnimalType.Mules;
+        }
+
+        public MulesComponentViewModel() 
+        { 
+        
         }
 
         #endregion

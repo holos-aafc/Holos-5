@@ -70,6 +70,36 @@ namespace H.Core.Helpers
         }
 
         /// <summary>
+        /// Returns the system version being used. This is not the same as the version number
+        /// </summary>
+        /// <returns>A value from the <see cref="CountryVersion"/> indicating which system version is enabled</returns>
+        public static Languages GetLanguage()
+        {
+            Languages language = Languages.English;
+            const string settingName = "Language";
+
+            try
+            {
+                ConfigurationManager.RefreshSection("appSettings");
+
+                var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+                if (config.AppSettings.Settings.AllKeys.Contains(settingName))
+                {
+                    var setting = config.AppSettings.Settings[settingName].Value;
+                    if (setting.Equals("french", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        language = Languages.French;
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+            }
+
+            return language;
+        }
+
+        /// <summary>
         /// Updates the CountryVersion setting in the App.config file.
         /// </summary>
         /// <param name="countryVersion">The country version to set.</param>

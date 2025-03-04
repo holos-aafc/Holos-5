@@ -21,7 +21,7 @@
 		<Grid Row="0">
 			<Border Classes="component-border">
 				<StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-					<TextBlock Text="Settings" Classes="title-textblock"/>
+					<TextBlock Text="Options" Classes="title-textblock"/>
 				</StackPanel>
 			</Border>
 		</Grid>

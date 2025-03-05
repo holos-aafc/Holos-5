@@ -6144,4 +6144,43 @@ Please note: emissions related to the deposition or application of livestock man
   <data name="LabelGrowingSeasonEvapotranspirationmm" xml:space="preserve">
     <value>Growing Season Evapotranspiration (mm)</value>
   </data>
+  <data name="LabelManureHandlingSystemColumn" xml:space="preserve">
+    <value>Manure handling system</value>
+  </data>
+  <data name="LabelMoistureContentColumn" xml:space="preserve">
+    <value>Moisture content (%)</value>
+  </data>
+  <data name="LabelTotalNitrogenColumn" xml:space="preserve">
+    <value>Total nitrogen (% wet weight)</value>
+  </data>
+  <data name="LabelTotalCarbonColumn" xml:space="preserve">
+    <value>Total carbon (% wet weight)</value>
+  </data>
+  <data name="LabelTotalPhosphorusColumn" xml:space="preserve">
+    <value>Total phosphorus (% wet weight)</value>
+  </data>
+  <data name="LabelCarbonToNitrogen" xml:space="preserve">
+    <value>C:N</value>
+  </data>
+  <data name="MessageDefaultManureComposition" xml:space="preserve">
+    <value>Manure types and default composition</value>
+  </data>
+  <data name="MessageDefaultBeddingComposition" xml:space="preserve">
+    <value>Default composition of bedding materials for beef and dairy cattle, swine, and poultry</value>
+  </data>
+  <data name="LabelComponentCategory" xml:space="preserve">
+    <value>Component category</value>
+  </data>
+  <data name="LabelBeddingTypeColumn" xml:space="preserve">
+    <value>Bedding type</value>
+  </data>
+  <data name="LabelTotalNitrogenDryMatter" xml:space="preserve">
+    <value>Total nitrogen (kg N (kg DM)^1)</value>
+  </data>
+  <data name="LabelTotalPhosphorusDryMatter" xml:space="preserve">
+    <value>Total phosphorus (kg P (kg DM)^1)</value>
+  </data>
+  <data name="LabelTotalCarbonDryMatter" xml:space="preserve">
+    <value>Total carbon (kg C (kg DM)^1)</value>
+  </data>
 </root>

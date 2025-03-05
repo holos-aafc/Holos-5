@@ -8674,6 +8674,15 @@ namespace H.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bedding type.
+        /// </summary>
+        public static string LabelBeddingTypeColumn {
+            get {
+                return ResourceManager.GetString("LabelBeddingTypeColumn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Below Ground Carbon Input (i_bg).
         /// </summary>
         public static string LabelBelowGroundCarbonInput {
@@ -9097,6 +9106,15 @@ namespace H.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to C:N.
+        /// </summary>
+        public static string LabelCarbonToNitrogen {
+            get {
+                return ResourceManager.GetString("LabelCarbonToNitrogen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Postruminal Starch Digestibility.
         /// </summary>
         public static string LabelCB1ID {
@@ -9183,6 +9201,15 @@ namespace H.Core.Properties {
         public static string LabelComments {
             get {
                 return ResourceManager.GetString("LabelComments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Component category.
+        /// </summary>
+        public static string LabelComponentCategory {
+            get {
+                return ResourceManager.GetString("LabelComponentCategory", resourceCulture);
             }
         }
         
@@ -10735,6 +10762,15 @@ namespace H.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Manure handling system.
+        /// </summary>
+        public static string LabelManureHandlingSystemColumn {
+            get {
+                return ResourceManager.GetString("LabelManureHandlingSystemColumn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Manure Management.
         /// </summary>
         public static string LabelManureManagement {
@@ -10938,6 +10974,15 @@ namespace H.Core.Properties {
         public static string LabelMoistureContent {
             get {
                 return ResourceManager.GetString("LabelMoistureContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Moisture content (%).
+        /// </summary>
+        public static string LabelMoistureContentColumn {
+            get {
+                return ResourceManager.GetString("LabelMoistureContentColumn", resourceCulture);
             }
         }
         
@@ -12247,11 +12292,29 @@ namespace H.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Total carbon (% wet weight).
+        /// </summary>
+        public static string LabelTotalCarbonColumn {
+            get {
+                return ResourceManager.GetString("LabelTotalCarbonColumn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Total CO2.
         /// </summary>
         public static string LabelTotalCarbonDioxide {
             get {
                 return ResourceManager.GetString("LabelTotalCarbonDioxide", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total carbon (kg C (kg DM)^1).
+        /// </summary>
+        public static string LabelTotalCarbonDryMatter {
+            get {
+                return ResourceManager.GetString("LabelTotalCarbonDryMatter", resourceCulture);
             }
         }
         
@@ -12427,6 +12490,24 @@ namespace H.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Total nitrogen (% wet weight).
+        /// </summary>
+        public static string LabelTotalNitrogenColumn {
+            get {
+                return ResourceManager.GetString("LabelTotalNitrogenColumn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total nitrogen (kg N (kg DM)^1).
+        /// </summary>
+        public static string LabelTotalNitrogenDryMatter {
+            get {
+                return ResourceManager.GetString("LabelTotalNitrogenDryMatter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Total N emissions.
         /// </summary>
         public static string LabelTotalNitrogenEmissions {
@@ -12450,6 +12531,24 @@ namespace H.Core.Properties {
         public static string LabelTotalNitrogenOutputs {
             get {
                 return ResourceManager.GetString("LabelTotalNitrogenOutputs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total phosphorus (% wet weight).
+        /// </summary>
+        public static string LabelTotalPhosphorusColumn {
+            get {
+                return ResourceManager.GetString("LabelTotalPhosphorusColumn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total phosphorus (kg P (kg DM)^1).
+        /// </summary>
+        public static string LabelTotalPhosphorusDryMatter {
+            get {
+                return ResourceManager.GetString("LabelTotalPhosphorusDryMatter", resourceCulture);
             }
         }
         
@@ -13419,11 +13518,29 @@ namespace H.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Default composition of bedding materials for beef and dairy cattle, swine, and poultry.
+        /// </summary>
+        public static string MessageDefaultBeddingComposition {
+            get {
+                return ResourceManager.GetString("MessageDefaultBeddingComposition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to A summary of the manure application of all fields in the farm.
         /// </summary>
         public static string MessageDefaultManureApplicationSummaryHeader {
             get {
                 return ResourceManager.GetString("MessageDefaultManureApplicationSummaryHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Manure types and default composition.
+        /// </summary>
+        public static string MessageDefaultManureComposition {
+            get {
+                return ResourceManager.GetString("MessageDefaultManureComposition", resourceCulture);
             }
         }
         

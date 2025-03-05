@@ -37,7 +37,7 @@
 					<ListBoxItem Content="Farm"/>
 						<ListBoxItem Content="Soil"/>
 						<ListBoxItem Content="Barn Temperatures"/>
-						<ListBoxItem Content="Percipitation"/>
+						<ListBoxItem Content="Precipitation"/>
 					<ListBoxItem Content="User Settings"/>
 					<ListBoxItem Content="Energy"/>
 					<ListBoxItem Content="Crop Defaults"/>

@@ -100,6 +100,7 @@ namespace H.Avalonia
             containerRegistry.RegisterForNavigation<OptionSoilView, OptionSoilViewModel>();
 
             // New development work
+            containerRegistry.RegisterForNavigation<OptionBarnTemperatureView, OptionBarnTemperatureViewModel>();
             containerRegistry.RegisterForNavigation<DisclaimerView, DisclaimerViewModel>();
             containerRegistry.RegisterForNavigation<RegionSelectionView, RegionSelectionViewModel>();
             containerRegistry.RegisterForNavigation<MeasurementProvinceView, MeasurementProvinceViewModel>();

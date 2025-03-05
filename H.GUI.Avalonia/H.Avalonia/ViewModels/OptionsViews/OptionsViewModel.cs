@@ -45,6 +45,9 @@ namespace H.Avalonia.ViewModels.OptionsViews
                     case "Soil":
                         base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(OptionSoilView));
                         break;
+                    case "Barn Temperatures":
+                        base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(OptionBarnTemperatureView));
+                        break;
                     case "User Settings":
                         base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(OptionUserSettingsView));
                         break;

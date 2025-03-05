@@ -51,6 +51,12 @@ namespace H.Avalonia.ViewModels.OptionsViews
                     case "User Settings":
                         base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(OptionUserSettingsView));
                         break;
+                    case "Default Bedding Composition":
+                        base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(DefaultBeddingCompositionView));
+                        break;
+                    case "Default Manure Composition":
+                        base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(DefaultManureCompositionView));
+                        break;
                 }
             }
         }

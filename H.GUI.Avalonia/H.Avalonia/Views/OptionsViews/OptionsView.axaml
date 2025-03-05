@@ -35,12 +35,14 @@
 						<TextBlock Foreground="Black" FontWeight="Bold" Text="Settings"/>
 					</ListBoxItem>
 					<ListBoxItem Content="Farm"/>
-						<ListBoxItem Content="Soil"/>
-						<ListBoxItem Content="Barn Temperatures"/>
-						<ListBoxItem Content="Precipitation"/>
+					<ListBoxItem Content="Soil"/>
+					<ListBoxItem Content="Barn Temperatures"/>
+					<ListBoxItem Content="Percipitation"/>
 					<ListBoxItem Content="User Settings"/>
 					<ListBoxItem Content="Energy"/>
 					<ListBoxItem Content="Crop Defaults"/>
+					<ListBoxItem Content="Default Bedding Composition"/>
+					<ListBoxItem Content="Default Manure Composition"/>
 					</ListBox>
 				</StackPanel>
 			</Border>

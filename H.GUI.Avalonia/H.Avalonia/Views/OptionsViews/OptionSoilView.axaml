@@ -11,12 +11,35 @@
 		<OptionsViews:OptionSoilViewModel />
 	</Design.DataContext>
 
-  <Grid>
-				<StackPanel Margin="10" Spacing="10" Width="350" VerticalAlignment="Center" HorizontalAlignment="Center">
-					<TextBlock Text="{x:Static properties:Resources.LabelEcodistrict}"/>
-					<TextBox TextChanged="" Text="{Binding ActiveFarm.DefaultSoilData.EcodistrictName, Mode=TwoWay}"  />
-					<TextBlock Text="Soil functional category"/>
-				</StackPanel>
-			
+  <Grid RowDefinitions="Auto,*">
+	  <TextBlock  Background="#3C4DBB" Foreground="WhiteSmoke" TextWrapping="Wrap" Grid.Row="0" Padding="40, 15" Text="The Soil tab can be used to change the soil properties for the entire farm. The default values are shown for the current soil type. The soil for the farm can be customized by changing individual soil properties. in order to change the soil type for the specific field only, go to the specific field and select 'soil' tab within the field."  />
+	  <ScrollViewer Grid.Row="1">
+		  <StackPanel Margin="20" Spacing="10" Width="350" VerticalAlignment="Center" HorizontalAlignment="Center">
+			  <TextBlock Text="{x:Static properties:Resources.LabelEcodistrict}"/>
+			  <TextBox IsReadOnly="True" IsEnabled="False" Text="{Binding ActiveFarm.DefaultSoilData.EcodistrictName, Mode=TwoWay}"  />
+			  <TextBlock Text="Soil functional category"/>
+			  <TextBox IsReadOnly="True" IsEnabled="False" TextChanged="" Text="{Binding ActiveFarm.DefaultSoilData.SoilFunctionalCategoryString, Mode=TwoWay}"  />
+			  <TextBlock Text="Soil great group"/>
+			  <TextBox IsReadOnly="True" IsEnabled="False" TextChanged="" Text="{Binding ActiveFarm.DefaultSoilData.SoilGreatGroupString, Mode=TwoWay}"  />
+			  <TextBlock Text="Soil texture"/>
+			  <ComboBox HorizontalAlignment="Stretch" ItemsSource="{Binding SoilTextures}" SelectedItem="{Binding SelectedSoilTexture, Mode=TwoWay}"  />
+			  <TextBlock Text="Top Layer thickness (mm)"/>
+			  <NumericUpDown FormatString="{}{0:0.00}" Value="{Binding TopLayerThickness, Mode=TwoWay}" />
+			  <TextBlock Text="Bulk density"/>
+			  <NumericUpDown FormatString="{}{0:0.00}" Value="{Binding BulkDensity, Mode=TwoWay}" />
+			  <TextBlock Text="Proportion of clay in soil"/>
+			  <NumericUpDown FormatString="{}{0:0.00}" Value="{Binding ProportionOfClayInSoil, Mode=TwoWay}" />
+			  <TextBlock Text="Proportion of sand in soil"/>
+			  <NumericUpDown FormatString="{}{0:0.00}" Value="{Binding ProportionOfSandInSoil, Mode=TwoWay}" />
+			  <TextBlock Text="Percentage of soil organic carbon (%)"/>
+			  <NumericUpDown FormatString="{}{0:0.00}" Value="{Binding ProportionOfSoilOrganicCarbon, Mode=TwoWay}" />
+			  <TextBlock Text="Soil pH"/>
+			  <NumericUpDown FormatString="{}{0:0.00}" Value="{Binding SoilPh, Mode=TwoWay}" />
+			  <TextBlock Text="Soil cation exchange capacity (mEq 100g^-1)"/>
+			  <NumericUpDown FormatString="{}{0:0.00}" Value="{Binding SoilCec, Mode=TwoWay}" />
+			  <TextBlock Text="Carbon modelling equilibrium"/>
+			  <NumericUpDown FormatString="{}{0:0}" Value="{Binding CarbonModellingEquilibriumYear, Mode=TwoWay}" />
+		  </StackPanel>
+	  </ScrollViewer>
 	</Grid>
 </UserControl>

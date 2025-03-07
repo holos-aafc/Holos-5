@@ -8,7 +8,7 @@
 	<StackPanel>
 		<TextBlock Text="{x:Static properties:Resources.MessageDefaultManureComposition}" Margin="0 0 0 20"/>
 		<StackPanel>
-			<DataGrid ItemsSource="{Binding Path=ActiveFarm.DefaultManureCompositionData}" AutoGenerateColumns="False">
+			<DataGrid ItemsSource="{Binding Path=DefaultManureCompositionDataViewModels}" AutoGenerateColumns="False">
 				<DataGrid.Columns>
 					<DataGridTextColumn Header="{x:Static properties:Resources.LabelManureType}" Binding="{Binding Path=AnimalType}"/>
 					<DataGridTextColumn Header="{x:Static properties:Resources.LabelManureHandlingSystemColumn}" Binding="{Binding Path=ManureStateTypeString}"/>

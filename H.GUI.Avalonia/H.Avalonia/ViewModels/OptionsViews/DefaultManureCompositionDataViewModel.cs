@@ -1,0 +1,148 @@
+﻿using System;
+using H.Core.Enumerations;
+using H.Core.Providers.Animals;
+
+namespace H.Avalonia.ViewModels.OptionsViews
+{
+    public class DefaultManureCompositionDataViewModel : ViewModelBase
+    {
+        #region Fields
+
+        private DefaultManureCompositionData _dataClassInstance;
+        private double _moistureContent;
+        private double _nitrogenFraction;
+        private double _carbonFraction;
+        private double _phosphorusFraction;
+        private double _carbonToNitrogenRatio;
+
+        #endregion
+
+        #region Constructors
+
+        public DefaultManureCompositionDataViewModel(DefaultManureCompositionData dataClassInstance)
+        {
+            if (dataClassInstance != null)
+            {
+                _dataClassInstance = dataClassInstance;
+
+                _moistureContent = _dataClassInstance.MoistureContent;
+                _nitrogenFraction = _dataClassInstance.NitrogenFraction;
+                _carbonFraction= _dataClassInstance.CarbonFraction;
+                _phosphorusFraction = _dataClassInstance.PhosphorusFraction;
+                _carbonToNitrogenRatio = _dataClassInstance.CarbonToNitrogenRatio;
+            }
+            else
+            {
+                throw (new ArgumentNullException(nameof(dataClassInstance)));
+            }
+        }
+
+        #endregion
+
+        #region Properties
+
+        public AnimalType AnimalType
+        {
+            get { return _dataClassInstance.AnimalType; }
+        }
+
+        public string ManureStateTypeString
+        {
+            get { return _dataClassInstance.ManureStateTypeString; }
+        }
+
+        public double MoistureContent
+        {
+            get => _moistureContent;
+            set
+            {
+                if(SetProperty(ref _moistureContent, value))
+                {
+                    if (ValidateNumericProperty(nameof(MoistureContent), value))
+                    {
+                        _dataClassInstance.MoistureContent = value;
+                    }
+                }
+            }
+        }
+
+        public double NitrogenFraction
+        {
+            get => _nitrogenFraction;
+            set
+            {
+                if (SetProperty(ref _nitrogenFraction, value))
+                {
+                    if (ValidateNumericProperty(nameof(NitrogenFraction), value))
+                    {
+                        _dataClassInstance.NitrogenFraction = value;
+                    }
+                }
+            }
+        }
+
+        public double CarbonFraction
+        {
+            get => _carbonFraction;
+            set
+            {
+                if (SetProperty(ref _carbonFraction, value))
+                {
+                    if (ValidateNumericProperty(nameof(CarbonFraction), value))
+                    {
+                        _dataClassInstance.CarbonFraction = value;
+                    }
+                }
+            }
+        }
+
+        public double PhosphorusFraction  
+        {
+            get => _phosphorusFraction;
+            set
+            {
+                if (SetProperty(ref _phosphorusFraction, value))
+                {
+                    if (ValidateNumericProperty(nameof(PhosphorusFraction), value))
+                    {
+                        _dataClassInstance.PhosphorusFraction = value;
+                    }
+                }
+            }
+        }
+
+        public double CarbonToNitrogenRatio
+        {
+            get => _carbonToNitrogenRatio;
+            set
+            {
+                if (SetProperty(ref _carbonToNitrogenRatio, value))
+                {
+                    if (ValidateNumericProperty(nameof(CarbonToNitrogenRatio), value))
+                    {
+                        _dataClassInstance.CarbonToNitrogenRatio = value;
+                    }
+                }
+            }
+        }
+
+        #endregion
+
+        #region Private Methods
+
+        private bool ValidateNumericProperty(string propertyName, double property)
+        {
+            RemoveError(propertyName);
+
+            if (property < 0.0)
+            {
+                AddError(propertyName, H.Core.Properties.Resources.ErrorMustBeGreaterThan0);
+                return false;
+            }
+
+            return true;
+        }
+
+        #endregion
+    }
+}

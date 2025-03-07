@@ -41,8 +41,6 @@ namespace H.Avalonia.ViewModels.OptionsViews
 
         #region Properties
 
-        public int MyProperty { get; set; }
-
         public string ComponentCategoryString
         {
             get { return _dataClassInstance.ComponentCategoryString; }

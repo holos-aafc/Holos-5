@@ -98,6 +98,7 @@ namespace H.Avalonia
             containerRegistry.RegisterForNavigation<OptionFarmView, OptionFarmViewModel>();
             containerRegistry.RegisterForNavigation<OptionUserSettingsView, OptionUserSettingsViewModel>();
             containerRegistry.RegisterForNavigation<OptionSoilView, OptionSoilViewModel>();
+            containerRegistry.RegisterForNavigation<OptionSoilN2OBreakdownView, OptionSoilN2OBreakdownViewModel>();
 
             // New development work
             containerRegistry.RegisterForNavigation<DisclaimerView, DisclaimerViewModel>();

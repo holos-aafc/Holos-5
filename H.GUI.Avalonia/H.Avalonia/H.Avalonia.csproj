@@ -86,6 +86,9 @@
     <Compile Update="Views\OptionsViews\OptionFarmView.axaml.cs">
       <DependentUpon>OptionFarmView.axaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\OptionsViews\OptionSoilN2OBreakdownView.axaml.cs">
+      <DependentUpon>OptionSoilN2OBreakdownView.axaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\OptionsViews\OptionSoilView.axaml.cs">
       <DependentUpon>OptionSoilView.axaml</DependentUpon>
     </Compile>

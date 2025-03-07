@@ -12,7 +12,8 @@
 	</Design.DataContext>
 	
 	<Grid>
-				<StackPanel Margin="10" Spacing="10" Width="350" VerticalAlignment="Center" HorizontalAlignment="Center">
+		<ScrollViewer>
+				<StackPanel Margin="20" Spacing="10" Width="350" VerticalAlignment="Center" HorizontalAlignment="Center">
 					<TextBlock Text="{x:Static properties:Resources.LabelName}"/>
 					<TextBox TextChanged="" Text="{Binding FarmName, Mode=TwoWay}"  />
 					<TextBlock Text="{x:Static properties:Resources.LabelComments}"/>
@@ -31,10 +32,10 @@
 					<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding GrowingSeasonEvapotranspiration, Mode=TwoWay}" />
 					<TextBlock Text="Holos Operation Mode" />
 					<Grid >
-						<RadioButton  Content="Basic Mode"></RadioButton>
-						<RadioButton HorizontalAlignment="Right" Content="Advanced Mode"></RadioButton>
+						<RadioButton IsChecked="{Binding ActiveFarm.IsBasicMode}" GroupName="OperationMode" Content="Basic Mode"></RadioButton>
+						<RadioButton GroupName="OperationMode" IsChecked="{Binding ActiveFarm.IsAdvancedMode}" HorizontalAlignment="Right" Content="Advanced Mode"></RadioButton>
 					</Grid>
 				</StackPanel>
-			
+		</ScrollViewer>
 	</Grid>
 </UserControl>

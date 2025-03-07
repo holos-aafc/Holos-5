@@ -1,0 +1,42 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:OptionsViews="clr-namespace:H.Avalonia.ViewModels.OptionsViews"
+			 xmlns:properties="clr-namespace:H.Core.Properties;assembly=H.Core"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="H.Avalonia.OptionSoilN2OBreakdownView">
+
+  <Grid RowDefinitions="Auto,*">
+	  <TextBlock  Background="#3C4DBB" Foreground="WhiteSmoke" TextWrapping="Wrap" Grid.Row="0" Padding="40, 15" Text="The monthly emissions distribution for the year. This distribution can be adjusted based on your farm's results. Please note that the addition of all montly percentages
+should add up to 100%."  />
+	  <ScrollViewer Grid.Row="1">
+		  <StackPanel Margin="20" Spacing="10" Width="350" VerticalAlignment="Center" HorizontalAlignment="Center">
+			  <TextBlock Text="January  (%)"/>
+			  <NumericUpDown FormatString="{}{0:0.00}" Value="{Binding ActiveFarm.AnnualSoilN2OBreakdown.January, Mode=TwoWay}" />
+			  <TextBlock Text="February (%)"/>
+			  <NumericUpDown FormatString="{}{0:0.00}" Value="{Binding ActiveFarm.AnnualSoilN2OBreakdown.February, Mode=TwoWay}" />
+			  <TextBlock Text="March (%)"/>
+			  <NumericUpDown FormatString="{}{0:0.00}" Value="{Binding ActiveFarm.AnnualSoilN2OBreakdown.March, Mode=TwoWay}" />
+			  <TextBlock Text="April (%)"/>
+			  <NumericUpDown FormatString="{}{0:0.00}" Value="{Binding ActiveFarm.AnnualSoilN2OBreakdown.April, Mode=TwoWay}" />
+			  <TextBlock Text="May (%)"/>
+			  <NumericUpDown FormatString="{}{0:0.00}" Value="{Binding ActiveFarm.AnnualSoilN2OBreakdown.May, Mode=TwoWay}" />
+			  <TextBlock Text="June (%)"/>
+			  <NumericUpDown FormatString="{}{0:0.00}" Value="{Binding ActiveFarm.AnnualSoilN2OBreakdown.June, Mode=TwoWay}" />
+			  <TextBlock Text="July (%)"/>
+			  <NumericUpDown FormatString="{}{0:0.00}" Value="{Binding ActiveFarm.AnnualSoilN2OBreakdown.July, Mode=TwoWay}" />
+			  <TextBlock Text="August (%)"/>
+			  <NumericUpDown FormatString="{}{0:0.00}" Value="{Binding ActiveFarm.AnnualSoilN2OBreakdown.August, Mode=TwoWay}" />
+			  <TextBlock Text="September (%)"/>
+			  <NumericUpDown FormatString="{}{0:0.00}" Value="{Binding ActiveFarm.AnnualSoilN2OBreakdown.September, Mode=TwoWay}" />
+			  <TextBlock Text="October (%)"/>
+			  <NumericUpDown FormatString="{}{0:0.00}" Value="{Binding ActiveFarm.AnnualSoilN2OBreakdown.October, Mode=TwoWay}" />
+			  <TextBlock Text="November (%)"/>
+			  <NumericUpDown FormatString="{}{0:0.00}" Value="{Binding ActiveFarm.AnnualSoilN2OBreakdown.November, Mode=TwoWay}" />
+			  <TextBlock Text="December (%)"/>
+			  <NumericUpDown FormatString="{}{0:).00}" Value="{Binding ActiveFarm.AnnualSoilN2OBreakdown.December, Mode=TwoWay}" />
+		  </StackPanel>
+	  </ScrollViewer>
+	</Grid>
+</UserControl>

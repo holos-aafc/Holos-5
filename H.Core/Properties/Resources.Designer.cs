@@ -13590,6 +13590,15 @@ namespace H.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Loading please wait....
+        /// </summary>
+        public static string MessageLoadingPleaseWait {
+            get {
+                return ResourceManager.GetString("MessageLoadingPleaseWait", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Holos accounts for the {0} {1} of manure deposited from this group of animals while grazing on the pasture..
         /// </summary>
         public static string MessageManureFromAnimalsOnPastureAccountedFor {

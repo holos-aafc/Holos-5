@@ -11,6 +11,10 @@ using H.Core.Services.StorageService;
 using Prism.Events;
 using System.ComponentModel;
 using System.Collections;
+using Avalonia;
+using Avalonia.Threading;
+using System;
+using System.Threading.Tasks;
 
 namespace H.Avalonia.ViewModels
 {
@@ -260,6 +264,18 @@ namespace H.Avalonia.ViewModels
         IEnumerable INotifyDataErrorInfo.GetErrors(string? propertyName)
         {
             return GetErrors(propertyName);
+        }
+
+        public void InvokeOnUiThread(Action action)
+        {
+            if (Dispatcher.UIThread.CheckAccess())
+            {
+                action();
+            }
+            else
+            {
+                Dispatcher.UIThread.Invoke(action);
+            }
         }
 
         #endregion

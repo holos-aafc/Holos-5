@@ -163,7 +163,7 @@ namespace H.Avalonia.ViewModels.SupportingViews.Disclaimer
         private void OnOkExecute(object obj)
         {                                        
             // Navigate to next view
-            base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(FarmOptionsView));
+            base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(StartView));
         }
 
         private bool OkCanExecute(object arg)

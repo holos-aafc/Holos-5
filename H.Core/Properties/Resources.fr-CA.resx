@@ -5762,16 +5762,7 @@ Please note: emissions related to the deposition or application of livestock man
   <data name="ErrorNameCannotBeEmpty" xml:space="preserve">
     <value>Le nom ne peut pas être vide.</value>
   </data>
-  <data name="LabelName" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="LabelPolygon" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="LabelCoordinates" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="LabelHardinessZone" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="MessageLoadingPleaseWait" xml:space="preserve">
+    <value>Chargement, veuillez patienter...</value>
   </data>
 </root>

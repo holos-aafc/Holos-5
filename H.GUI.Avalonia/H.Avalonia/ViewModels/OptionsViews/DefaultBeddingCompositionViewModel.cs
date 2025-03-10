@@ -24,8 +24,14 @@ namespace H.Avalonia.ViewModels.OptionsViews
 
             foreach (var dataClassInstance in base.ActiveFarm.DefaultsCompositionOfBeddingMaterials)
             {
-                var table30DefaultBeddingViewModel = new Table_30_Default_Bedding_Material_Composition_ViewModel(dataClassInstance);
-                BeddingMaterialCompositionTable30ViewModels.Add(table30DefaultBeddingViewModel);
+                var dataClassViewModel = new Table_30_Default_Bedding_Material_Composition_ViewModel(dataClassInstance);
+                dataClassViewModel.SetSuppressValidationFlag(true);
+                dataClassViewModel.TotalNitrogenKilogramsDryMatter = dataClassInstance.TotalNitrogenKilogramsDryMatter;
+                dataClassViewModel.TotalPhosphorusKilogramsDryMatter = dataClassInstance.TotalPhosphorusKilogramsDryMatter;
+                dataClassViewModel.TotalCarbonKilogramsDryMatter = dataClassInstance.TotalCarbonKilogramsDryMatter;
+                dataClassViewModel.CarbonToNitrogenRatio = dataClassInstance.CarbonToNitrogenRatio;
+                dataClassViewModel.SetSuppressValidationFlag(false);
+                BeddingMaterialCompositionTable30ViewModels.Add(dataClassViewModel);
             }
         }
 

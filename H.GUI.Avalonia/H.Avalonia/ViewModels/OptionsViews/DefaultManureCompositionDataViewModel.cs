@@ -20,16 +20,15 @@ namespace H.Avalonia.ViewModels.OptionsViews
 
         #region Constructors
 
+        /// <summary>
+        /// This class is a view model wrapper over <see cref="DefaultManureCompositionData"/> that provides data validation 
+        /// </summary>
+        /// <param name="dataClassInstance"></param>
         public DefaultManureCompositionDataViewModel(DefaultManureCompositionData dataClassInstance)
         {
             if (dataClassInstance != null)
             {
                 _dataClassInstance = dataClassInstance;
-                //_moistureContent = _dataClassInstance.MoistureContent;
-                //_nitrogenFraction = _dataClassInstance.NitrogenFraction;
-                //_carbonFraction= _dataClassInstance.CarbonFraction;
-                //_phosphorusFraction = _dataClassInstance.PhosphorusFraction;
-                //_carbonToNitrogenRatio = _dataClassInstance.CarbonToNitrogenRatio;
             }
             else
             {

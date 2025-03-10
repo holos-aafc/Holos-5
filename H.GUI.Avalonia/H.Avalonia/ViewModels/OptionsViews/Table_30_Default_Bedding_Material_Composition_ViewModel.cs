@@ -12,6 +12,7 @@ namespace H.Avalonia.ViewModels.OptionsViews
         private double _totalPhosphorusKilogramsDryMatter;
         private double _totalCarbonKilogramsDryMatter;
         private double _carbonToNitrogenRatio;
+        private bool _supressValidationFlag;
 
         #endregion
 
@@ -25,11 +26,6 @@ namespace H.Avalonia.ViewModels.OptionsViews
             if (dataClassInstance != null)
             {
                 _dataClassInstance = dataClassInstance;
-
-                _totalNitrogenKilogramsDryMatter = _dataClassInstance.TotalNitrogenKilogramsDryMatter;
-                _totalPhosphorusKilogramsDryMatter = _dataClassInstance.TotalPhosphorusKilogramsDryMatter;
-                _totalCarbonKilogramsDryMatter = _dataClassInstance.TotalCarbonKilogramsDryMatter;
-                _carbonToNitrogenRatio = _dataClassInstance.CarbonToNitrogenRatio;
             }
             else
             {
@@ -58,7 +54,7 @@ namespace H.Avalonia.ViewModels.OptionsViews
             {
                 if(SetProperty(ref _totalNitrogenKilogramsDryMatter, value))
                 {
-                    if(ValidateNumericProperty(nameof(TotalNitrogenKilogramsDryMatter), value))
+                    if(ValidateNumericProperty(nameof(TotalNitrogenKilogramsDryMatter), value) && !_supressValidationFlag)
                     {
                         _dataClassInstance.TotalNitrogenKilogramsDryMatter = value;
                     }
@@ -73,7 +69,7 @@ namespace H.Avalonia.ViewModels.OptionsViews
             {
                 if (SetProperty(ref _totalPhosphorusKilogramsDryMatter, value))
                 {
-                    if(ValidateNumericProperty(nameof(TotalPhosphorusKilogramsDryMatter), value))
+                    if(ValidateNumericProperty(nameof(TotalPhosphorusKilogramsDryMatter), value) && !_supressValidationFlag)
                     {
                         _dataClassInstance.TotalPhosphorusKilogramsDryMatter = value;
                     }
@@ -89,7 +85,7 @@ namespace H.Avalonia.ViewModels.OptionsViews
             {
                 if(SetProperty(ref _totalCarbonKilogramsDryMatter, value))
                 {
-                    if(ValidateNumericProperty(nameof(TotalCarbonKilogramsDryMatter), value))
+                    if(ValidateNumericProperty(nameof(TotalCarbonKilogramsDryMatter), value) && !_supressValidationFlag)
                     {
                         _dataClassInstance.TotalCarbonKilogramsDryMatter = value;
                     }
@@ -104,12 +100,21 @@ namespace H.Avalonia.ViewModels.OptionsViews
             {
                 if (SetProperty(ref _carbonToNitrogenRatio, value))
                 {
-                    if (ValidateNumericProperty(nameof(CarbonToNitrogenRatio), value))
+                    if (ValidateNumericProperty(nameof(CarbonToNitrogenRatio), value) && !_supressValidationFlag)
                     {
                         _dataClassInstance.CarbonToNitrogenRatio = value;
                     }
                 }
             }
+        }
+
+        #endregion
+
+        #region Public Methods
+
+        public void SetSuppressValidationFlag(bool flag)
+        {
+            _supressValidationFlag = flag;
         }
 
         #endregion

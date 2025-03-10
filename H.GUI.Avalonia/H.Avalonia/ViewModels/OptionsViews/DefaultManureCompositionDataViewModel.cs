@@ -14,6 +14,7 @@ namespace H.Avalonia.ViewModels.OptionsViews
         private double _carbonFraction;
         private double _phosphorusFraction;
         private double _carbonToNitrogenRatio;
+        private bool _supressValidationFlag;
 
         #endregion
 
@@ -24,12 +25,11 @@ namespace H.Avalonia.ViewModels.OptionsViews
             if (dataClassInstance != null)
             {
                 _dataClassInstance = dataClassInstance;
-
-                _moistureContent = _dataClassInstance.MoistureContent;
-                _nitrogenFraction = _dataClassInstance.NitrogenFraction;
-                _carbonFraction= _dataClassInstance.CarbonFraction;
-                _phosphorusFraction = _dataClassInstance.PhosphorusFraction;
-                _carbonToNitrogenRatio = _dataClassInstance.CarbonToNitrogenRatio;
+                //_moistureContent = _dataClassInstance.MoistureContent;
+                //_nitrogenFraction = _dataClassInstance.NitrogenFraction;
+                //_carbonFraction= _dataClassInstance.CarbonFraction;
+                //_phosphorusFraction = _dataClassInstance.PhosphorusFraction;
+                //_carbonToNitrogenRatio = _dataClassInstance.CarbonToNitrogenRatio;
             }
             else
             {
@@ -58,7 +58,7 @@ namespace H.Avalonia.ViewModels.OptionsViews
             {
                 if(SetProperty(ref _moistureContent, value))
                 {
-                    if (ValidateNumericProperty(nameof(MoistureContent), value))
+                    if (ValidateNumericProperty(nameof(MoistureContent), value) && !_supressValidationFlag)
                     {
                         _dataClassInstance.MoistureContent = value;
                     }
@@ -73,7 +73,7 @@ namespace H.Avalonia.ViewModels.OptionsViews
             {
                 if (SetProperty(ref _nitrogenFraction, value))
                 {
-                    if (ValidateNumericProperty(nameof(NitrogenFraction), value))
+                    if (ValidateNumericProperty(nameof(NitrogenFraction), value) && !_supressValidationFlag)
                     {
                         _dataClassInstance.NitrogenFraction = value;
                     }
@@ -88,7 +88,7 @@ namespace H.Avalonia.ViewModels.OptionsViews
             {
                 if (SetProperty(ref _carbonFraction, value))
                 {
-                    if (ValidateNumericProperty(nameof(CarbonFraction), value))
+                    if (ValidateNumericProperty(nameof(CarbonFraction), value) && !_supressValidationFlag)
                     {
                         _dataClassInstance.CarbonFraction = value;
                     }
@@ -103,7 +103,7 @@ namespace H.Avalonia.ViewModels.OptionsViews
             {
                 if (SetProperty(ref _phosphorusFraction, value))
                 {
-                    if (ValidateNumericProperty(nameof(PhosphorusFraction), value))
+                    if (ValidateNumericProperty(nameof(PhosphorusFraction), value) && !_supressValidationFlag)
                     {
                         _dataClassInstance.PhosphorusFraction = value;
                     }
@@ -118,12 +118,21 @@ namespace H.Avalonia.ViewModels.OptionsViews
             {
                 if (SetProperty(ref _carbonToNitrogenRatio, value))
                 {
-                    if (ValidateNumericProperty(nameof(CarbonToNitrogenRatio), value))
+                    if (ValidateNumericProperty(nameof(CarbonToNitrogenRatio), value) && !_supressValidationFlag)
                     {
                         _dataClassInstance.CarbonToNitrogenRatio = value;
                     }
                 }
             }
+        }
+
+        #endregion
+
+        #region Public Methods
+
+        public void SetSuppressValidationFlag(bool flag)
+        {
+            _supressValidationFlag = flag;
         }
 
         #endregion

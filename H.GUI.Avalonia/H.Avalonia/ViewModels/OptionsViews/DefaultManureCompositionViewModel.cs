@@ -24,11 +24,18 @@ namespace H.Avalonia.ViewModels.OptionsViews
 
             foreach(var dataClassInstance in base.ActiveFarm.DefaultManureCompositionData)
             {
-                var defaultManureCompositionDataViewModel = new DefaultManureCompositionDataViewModel(dataClassInstance);
-                DefaultManureCompositionDataViewModels.Add(defaultManureCompositionDataViewModel);
+                var dataClassViewModel = new DefaultManureCompositionDataViewModel(dataClassInstance);
+                dataClassViewModel.SetSuppressValidationFlag(true);
+                dataClassViewModel.MoistureContent = dataClassInstance.MoistureContent;
+                dataClassViewModel.NitrogenFraction = dataClassInstance.NitrogenFraction;
+                dataClassViewModel.CarbonFraction = dataClassInstance.CarbonFraction;
+                dataClassViewModel.PhosphorusFraction = dataClassInstance.PhosphorusFraction;
+                dataClassViewModel.CarbonToNitrogenRatio = dataClassInstance.CarbonToNitrogenRatio;
+                dataClassViewModel.SetSuppressValidationFlag(false);
+                DefaultManureCompositionDataViewModels.Add(dataClassViewModel);
             }
         }
-
+         
         #endregion
 
         #region Properties

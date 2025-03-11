@@ -9205,6 +9205,7 @@ namespace H.Core.Properties {
         }
         
         /// <summary>
+
         ///   Looks up a localized string similar to Component category.
         /// </summary>
         public static string LabelComponentCategory {

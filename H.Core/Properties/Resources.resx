@@ -6147,6 +6147,7 @@ Please note: emissions related to the deposition or application of livestock man
   <data name="LabelGrowingSeasonEvapotranspirationmm" xml:space="preserve">
     <value>Growing Season Evapotranspiration (mm)</value>
   </data>
+
   <data name="LabelManureHandlingSystemColumn" xml:space="preserve">
     <value>Manure handling system</value>
   </data>

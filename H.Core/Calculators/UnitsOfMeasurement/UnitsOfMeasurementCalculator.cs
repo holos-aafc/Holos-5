@@ -4,6 +4,7 @@
 
 using H.Core.Enumerations;
 using H.Core.Properties;
+using H.Core.Services.StorageService;
 using H.Infrastructure;
 using Prism.Mvvm;
 using System;
@@ -19,13 +20,29 @@ namespace H.Core.Calculators.UnitsOfMeasurement
     /// </summary>
     public class UnitsOfMeasurementCalculator : BindableBase, IUnitsOfMeasurementCalculator
     {
+        private IStorageService _storageService;
+
         #region Constructors
 
         public UnitsOfMeasurementCalculator()
         {
-            _isMetric = Settings.Default.MeasurementSystem == MeasurementSystemType.Metric;
 
-            this.SetUnits();
+        }
+
+        public UnitsOfMeasurementCalculator(IStorageService storageService)
+        {
+            if (storageService != null)
+            {
+                _storageService = storageService;
+                _isMetric = storageService.GetActiveFarm().MeasurementSystemType == MeasurementSystemType.Metric;
+                this.SetUnits();
+
+            }
+            else
+            {
+                throw (new ArgumentNullException(nameof(storageService)));
+            }
+            //_isMetric = Settings.Default.MeasurementSystem == MeasurementSystemType.Metric;
         }
 
         #endregion

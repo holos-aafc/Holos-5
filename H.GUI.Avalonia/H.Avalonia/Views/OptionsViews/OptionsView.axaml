@@ -31,6 +31,7 @@
                  BorderThickness="1">
 				<StackPanel  Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}">
 					<ListBox SelectionMode="Single" Margin="5,0" SelectedItem="{Binding Path=SelectedItem}">
+
 						<ListBoxItem Margin="-5, 0" IsEnabled="False" >
 							<TextBlock Foreground="Black" FontWeight="Bold" Text="File"/>
 						</ListBoxItem>
@@ -40,12 +41,17 @@
 						<TextBlock Foreground="Black" FontWeight="Bold" Text="Settings"/>
 					</ListBoxItem>
 					<ListBoxItem Content="Farm"/>
+
 						<ListBoxItem Content="Soil"/>
 						<ListBoxItem Content="Barn Temperatures"/>
 						<ListBoxItem Content="Soil N2O Breakdown"/>
+
+					<ListBoxItem Content="Percipitation"/>
 					<ListBoxItem Content="User Settings"/>
 					<ListBoxItem Content="Energy"/>
 					<ListBoxItem Content="Crop Defaults"/>
+					<ListBoxItem Content="Default Bedding Composition"/>
+					<ListBoxItem Content="Default Manure Composition"/>
 					</ListBox>
 				</StackPanel>
 			</Border>

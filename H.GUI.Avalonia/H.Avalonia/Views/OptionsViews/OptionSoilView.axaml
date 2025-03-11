@@ -11,6 +11,7 @@
 		<OptionsViews:OptionSoilViewModel />
 	</Design.DataContext>
 
+
   <Grid RowDefinitions="Auto,*">
 	  <TextBlock  Background="#3C4DBB" Foreground="WhiteSmoke" TextWrapping="Wrap" Grid.Row="0" Padding="40, 15" Text="The Soil tab can be used to change the soil properties for the entire farm. The default values are shown for the current soil type. The soil for the farm can be customized by changing individual soil properties. In order to change the soil type for the specific field only, go to the specific field and select 'soil' tab within the field."  />
 	  <ScrollViewer Grid.Row="1">
@@ -41,5 +42,6 @@
 			  <NumericUpDown FormatString="{}{0:0}" Value="{Binding Data.CarbonModellingEquilibriumYear, Mode=TwoWay}" />
 		  </StackPanel>
 	  </ScrollViewer>
+
 	</Grid>
 </UserControl>

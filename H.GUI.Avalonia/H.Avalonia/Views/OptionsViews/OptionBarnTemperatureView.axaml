@@ -1,0 +1,56 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:OptionsViews="clr-namespace:H.Avalonia.ViewModels.OptionsViews"
+			 xmlns:properties="clr-namespace:H.Core.Properties;assembly=H.Core"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="H.Avalonia.OptionBarnTemperatureView">
+
+	<Design.DataContext>
+		<OptionsViews:OptionBarnTemperatureViewModel/>
+	</Design.DataContext>
+	
+	<Grid Name="LayoutGrid">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="*"/>
+		</Grid.RowDefinitions>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="200"/>
+			<ColumnDefinition Width="*"/>
+		</Grid.ColumnDefinitions>
+
+		<TextBlock Text="{x:Static properties:Resources.MessageMonthlyTemperatureBreakdownHeader}" FontSize="16" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="10 15 10 0"/>
+
+		<ScrollViewer Grid.Row="1" Grid.Column="0">
+			<StackPanel Margin="15 15 15 15">
+				<TextBlock Text="{x:Static properties:Resources.January}"/>
+				<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding TemperatureData, Mode=TwoWay}" />
+				<TextBlock Text="{x:Static properties:Resources.February}"  />
+				<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding TemperatureData, Mode=TwoWay}" />
+				<TextBlock Text="{x:Static properties:Resources.March}"  />
+				<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding TemperatureData, Mode=TwoWay}" />
+				<TextBlock Text="{x:Static properties:Resources.April}"  />
+				<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding TemperatureData, Mode=TwoWay}" />
+				<TextBlock Text="{x:Static properties:Resources.May}"  />
+				<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding TemperatureData, Mode=TwoWay}" />
+				<TextBlock Text="{x:Static properties:Resources.June}"  />
+				<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding TemperatureData, Mode=TwoWay}" />
+				<TextBlock Text="{x:Static properties:Resources.July}"  />
+				<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding TemperatureData, Mode=TwoWay}" />
+				<TextBlock Text="{x:Static properties:Resources.August}"  />
+				<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding TemperatureData, Mode=TwoWay}" />
+				<TextBlock Text="{x:Static properties:Resources.September}"  />
+				<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding TemperatureData, Mode=TwoWay}" />
+				<TextBlock Text="{x:Static properties:Resources.October}"  />
+				<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding TemperatureData, Mode=TwoWay}" />
+				<TextBlock Text="{x:Static properties:Resources.November}"  />
+				<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding TemperatureData, Mode=TwoWay}" />
+				<TextBlock Text="{x:Static properties:Resources.December}"  />
+				<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding TemperatureData, Mode=TwoWay}" />
+			</StackPanel>
+		</ScrollViewer>
+	</Grid>
+
+</UserControl>

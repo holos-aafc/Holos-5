@@ -1,0 +1,23 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 xmlns:properties="clr-namespace:H.Core.Properties;assembly=H.Core"
+             x:Class="H.Avalonia.DefaultBeddingCompositionView">
+	<StackPanel>
+		<TextBlock Text="{x:Static properties:Resources.MessageDefaultBeddingComposition}" Margin="0 0 0 20"/>
+		<StackPanel>
+		  <DataGrid ItemsSource="{Binding Path=BeddingMaterialCompositionTable30ViewModels}" AutoGenerateColumns="False">
+			  <DataGrid.Columns>
+				  <DataGridTextColumn Header="{x:Static properties:Resources.LabelComponentCategory}" Binding="{Binding Path=ComponentCategoryString}"/>
+				  <DataGridTextColumn Header="{x:Static properties:Resources.LabelBeddingTypeColumn}" Binding="{Binding Path=BeddingMaterialString}"/>
+				  <DataGridTextColumn Header="{x:Static properties:Resources.LabelTotalNitrogenDryMatter}" Binding="{Binding Path=TotalNitrogenKilogramsDryMatter}"/>
+				  <DataGridTextColumn Header="{x:Static properties:Resources.LabelTotalPhosphorusDryMatter}" Binding="{Binding Path=TotalPhosphorusKilogramsDryMatter}"/>
+				  <DataGridTextColumn Header="{x:Static properties:Resources.LabelTotalCarbonDryMatter}" Binding="{Binding Path=TotalCarbonKilogramsDryMatter}"/>
+				  <DataGridTextColumn Header="{x:Static properties:Resources.LabelCarbonToNitrogen}" Binding="{Binding Path=CarbonToNitrogenRatio}"/>
+			  </DataGrid.Columns>
+		  </DataGrid>
+	  </StackPanel>
+	</StackPanel>
+</UserControl>

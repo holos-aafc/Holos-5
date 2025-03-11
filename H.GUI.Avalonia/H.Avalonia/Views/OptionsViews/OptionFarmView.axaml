@@ -12,6 +12,7 @@
 	</Design.DataContext>
 	
 	<Grid>
+
 		<ScrollViewer>
 				<StackPanel Margin="20" Spacing="10" Width="350" VerticalAlignment="Center" HorizontalAlignment="Center">
 					<TextBlock Text="{x:Static properties:Resources.LabelName}"/>
@@ -22,11 +23,13 @@
 					<TextBox IsReadOnly="True" IsEnabled="False" Text="{Binding ActiveFarm.PolygonId}"  />
 					<TextBlock Text="{x:Static properties:Resources.LabelCoordinates}"/>
 					<TextBox IsReadOnly="True" IsEnabled="False" Text="{Binding Data.Coordinates}" />
+
 					<TextBlock Text="{x:Static properties:Resources.LabelProvince}"/>
 					<TextBox IsReadOnly="True" IsEnabled="False" Text="{Binding ActiveFarm.Province}"  />
 					<TextBlock Text="{x:Static properties:Resources.LabelHardinessZone}"/>
 					<TextBox IsReadOnly="True" IsEnabled="False" Text="{Binding ActiveFarm.GeographicData.HardinessZoneString}" />
 					<TextBlock Text="{x:Static properties:Resources.LabelGrowingSeasonPrecipitationmm}"/>
+
 					<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.GrowingSeasonPrecipitation, Mode=TwoWay}" />
 					<TextBlock Text="{x:Static properties:Resources.LabelGrowingSeasonEvapotranspirationmm}"  />
 					<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.GrowingSeasonEvapotranspiration, Mode=TwoWay}" />
@@ -37,5 +40,6 @@
 					</Grid>
 				</StackPanel>
 		</ScrollViewer>
+
 	</Grid>
 </UserControl>

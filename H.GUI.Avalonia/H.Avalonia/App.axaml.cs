@@ -46,6 +46,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using H.Core.Enumerations;
 using H.Avalonia.ViewModels.SupportingViews.Start;
+using H.Core.Calculators.UnitsOfMeasurement;
 
 namespace H.Avalonia
 {
@@ -100,8 +101,12 @@ namespace H.Avalonia
             containerRegistry.RegisterForNavigation<OptionUserSettingsView, OptionUserSettingsViewModel>();
             containerRegistry.RegisterForNavigation<OptionSoilView, OptionSoilViewModel>();
             containerRegistry.RegisterForNavigation<OptionSoilN2OBreakdownView, OptionSoilN2OBreakdownViewModel>();
+            containerRegistry.RegisterForNavigation<DefaultBeddingCompositionView, DefaultBeddingCompositionViewModel>();
+            containerRegistry.RegisterForNavigation<DefaultManureCompositionView, DefaultManureCompositionViewModel>();
+
 
             // New development work
+            containerRegistry.RegisterForNavigation<OptionBarnTemperatureView, OptionBarnTemperatureViewModel>();
             containerRegistry.RegisterForNavigation<DisclaimerView, DisclaimerViewModel>();
             containerRegistry.RegisterForNavigation<RegionSelectionView, RegionSelectionViewModel>();
             containerRegistry.RegisterForNavigation<MeasurementProvinceView, MeasurementProvinceViewModel>();
@@ -165,6 +170,9 @@ namespace H.Avalonia
             containerRegistry.RegisterSingleton<ICountrySettings, CountrySettings>();
             containerRegistry.Register<ICountries, CountriesService>();
             containerRegistry.RegisterSingleton<IProvinces, ProvincesService>();
+
+            // Unit conversion
+            containerRegistry.RegisterSingleton<IUnitsOfMeasurementCalculator, UnitsOfMeasurementCalculator>();
             
             // Dialogs
             containerRegistry.RegisterDialog<DeleteRowDialog, DeleteRowDialogViewModel>();

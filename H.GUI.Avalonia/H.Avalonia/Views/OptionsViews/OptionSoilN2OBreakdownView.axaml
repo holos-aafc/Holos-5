@@ -13,29 +13,29 @@ should add up to 100%."  />
 	  <ScrollViewer Grid.Row="1">
 		  <StackPanel Margin="20" Spacing="10" Width="350" VerticalAlignment="Center" HorizontalAlignment="Center">
 			  <TextBlock Text="January  (%)"/>
-			  <NumericUpDown FormatString="{}{0:0.00}" Value="{Binding ActiveFarm.AnnualSoilN2OBreakdown.January, Mode=TwoWay}" />
+			  <NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.January, Mode=TwoWay}" />
 			  <TextBlock Text="February (%)"/>
-			  <NumericUpDown FormatString="{}{0:0.00}" Value="{Binding ActiveFarm.AnnualSoilN2OBreakdown.February, Mode=TwoWay}" />
-			  <TextBlock Text="March (%)"/>
-			  <NumericUpDown FormatString="{}{0:0.00}" Value="{Binding ActiveFarm.AnnualSoilN2OBreakdown.March, Mode=TwoWay}" />
-			  <TextBlock Text="April (%)"/>
-			  <NumericUpDown FormatString="{}{0:0.00}" Value="{Binding ActiveFarm.AnnualSoilN2OBreakdown.April, Mode=TwoWay}" />
-			  <TextBlock Text="May (%)"/>
-			  <NumericUpDown FormatString="{}{0:0.00}" Value="{Binding ActiveFarm.AnnualSoilN2OBreakdown.May, Mode=TwoWay}" />
-			  <TextBlock Text="June (%)"/>
-			  <NumericUpDown FormatString="{}{0:0.00}" Value="{Binding ActiveFarm.AnnualSoilN2OBreakdown.June, Mode=TwoWay}" />
-			  <TextBlock Text="July (%)"/>
-			  <NumericUpDown FormatString="{}{0:0.00}" Value="{Binding ActiveFarm.AnnualSoilN2OBreakdown.July, Mode=TwoWay}" />
-			  <TextBlock Text="August (%)"/>
-			  <NumericUpDown FormatString="{}{0:0.00}" Value="{Binding ActiveFarm.AnnualSoilN2OBreakdown.August, Mode=TwoWay}" />
-			  <TextBlock Text="September (%)"/>
-			  <NumericUpDown FormatString="{}{0:0.00}" Value="{Binding ActiveFarm.AnnualSoilN2OBreakdown.September, Mode=TwoWay}" />
-			  <TextBlock Text="October (%)"/>
-			  <NumericUpDown FormatString="{}{0:0.00}" Value="{Binding ActiveFarm.AnnualSoilN2OBreakdown.October, Mode=TwoWay}" />
-			  <TextBlock Text="November (%)"/>
-			  <NumericUpDown FormatString="{}{0:0.00}" Value="{Binding ActiveFarm.AnnualSoilN2OBreakdown.November, Mode=TwoWay}" />
-			  <TextBlock Text="December (%)"/>
-			  <NumericUpDown FormatString="{}{0:).00}" Value="{Binding ActiveFarm.AnnualSoilN2OBreakdown.December, Mode=TwoWay}" />
+			  <NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.February, Mode=TwoWay}" />
+			  <TextBlock Text="March (%)"/>							   
+			  <NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.March, Mode=TwoWay}" />
+			  <TextBlock Text="April (%)"/>							   
+			  <NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.April, Mode=TwoWay}" />
+			  <TextBlock Text="May (%)"/>							   
+			  <NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.May, Mode=TwoWay}" />
+			  <TextBlock Text="June (%)"/>							   
+			  <NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.June, Mode=TwoWay}" />
+			  <TextBlock Text="July (%)"/>							   
+			  <NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.July, Mode=TwoWay}" />
+			  <TextBlock Text="August (%)"/>						   
+			  <NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.August, Mode=TwoWay}" />
+			  <TextBlock Text="September (%)"/>						   
+			  <NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.September, Mode=TwoWay}" />
+			  <TextBlock Text="October (%)"/>						   
+			  <NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.October, Mode=TwoWay}" />
+			  <TextBlock Text="November (%)"/>						   
+			  <NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.November, Mode=TwoWay}" />
+			  <TextBlock Text="December (%)"/>						   
+			  <NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.December, Mode=TwoWay}" />
 		  </StackPanel>
 	  </ScrollViewer>
 	</Grid>

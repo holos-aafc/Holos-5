@@ -22,23 +22,23 @@
 			  <TextBlock Text="Soil great group"/>
 			  <TextBox IsReadOnly="True" IsEnabled="False" TextChanged="" Text="{Binding ActiveFarm.DefaultSoilData.SoilGreatGroupString, Mode=TwoWay}"  />
 			  <TextBlock Text="Soil texture"/>
-			  <ComboBox HorizontalAlignment="Stretch" ItemsSource="{Binding SoilTextures}" SelectedItem="{Binding SelectedSoilTexture, Mode=TwoWay}"  />
+			  <ComboBox HorizontalAlignment="Stretch" ItemsSource="{Binding SoilTextures}" SelectedItem="{Binding Data.SelectedSoilTexture, Mode=TwoWay}"  />
 			  <TextBlock Text="Top Layer thickness (mm)"/>
-			  <NumericUpDown FormatString="{}{0:0.00}" Value="{Binding TopLayerThickness, Mode=TwoWay}" />
+			  <NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.TopLayerThickness, Mode=TwoWay}" />
 			  <TextBlock Text="Bulk density"/>
-			  <NumericUpDown FormatString="{}{0:0.00}" Value="{Binding BulkDensity, Mode=TwoWay}" />
+			  <NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.BulkDensity, Mode=TwoWay}" />
 			  <TextBlock Text="Proportion of clay in soil"/>
-			  <NumericUpDown FormatString="{}{0:0.00}" Value="{Binding ProportionOfClayInSoil, Mode=TwoWay}" />
+			  <NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.ProportionOfClayInSoil, Mode=TwoWay}" />
 			  <TextBlock Text="Proportion of sand in soil"/>
-			  <NumericUpDown FormatString="{}{0:0.00}" Value="{Binding ProportionOfSandInSoil, Mode=TwoWay}" />
+			  <NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.ProportionOfSandInSoil, Mode=TwoWay}" />
 			  <TextBlock Text="Percentage of soil organic carbon (%)"/>
-			  <NumericUpDown FormatString="{}{0:0.00}" Value="{Binding ProportionOfSoilOrganicCarbon, Mode=TwoWay}" />
+			  <NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.ProportionOfSoilOrganicCarbon, Mode=TwoWay}" />
 			  <TextBlock Text="Soil pH"/>
-			  <NumericUpDown FormatString="{}{0:0.0}" Value="{Binding SoilPh, Mode=TwoWay}" />
+			  <NumericUpDown FormatString="{}{0:0.0}" Value="{Binding Data.SoilPh, Mode=TwoWay}" />
 			  <TextBlock Text="Soil cation exchange capacity (mEq 100g^-1)"/>
-			  <NumericUpDown FormatString="{}{0:0}" Value="{Binding SoilCec, Mode=TwoWay}" />
+			  <NumericUpDown FormatString="{}{0:0}" Value="{Binding Data.SoilCec, Mode=TwoWay}" />
 			  <TextBlock Text="Carbon modelling equilibrium"/>
-			  <NumericUpDown FormatString="{}{0:0}" Value="{Binding CarbonModellingEquilibriumYear, Mode=TwoWay}" />
+			  <NumericUpDown FormatString="{}{0:0}" Value="{Binding Data.CarbonModellingEquilibriumYear, Mode=TwoWay}" />
 		  </StackPanel>
 	  </ScrollViewer>
 	</Grid>

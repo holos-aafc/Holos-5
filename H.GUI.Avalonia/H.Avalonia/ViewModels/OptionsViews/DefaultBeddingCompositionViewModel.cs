@@ -1,4 +1,6 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
+using H.Core.Calculators.UnitsOfMeasurement;
 using H.Core.Services.StorageService;
 using Prism.Events;
 using Prism.Regions;
@@ -10,6 +12,7 @@ namespace H.Avalonia.ViewModels.OptionsViews
         #region Fields
 
         private ObservableCollection<Table_30_Default_Bedding_Material_Composition_ViewModel> _beddingMaterialCompositionTable30ViewModels;
+        private IUnitsOfMeasurementCalculator _unitsCalculator;
 
         #endregion
 
@@ -18,8 +21,17 @@ namespace H.Avalonia.ViewModels.OptionsViews
         public DefaultBeddingCompositionViewModel(
             IRegionManager regionManager,
             IEventAggregator eventAggregator,
-            IStorageService storageService) : base(regionManager, eventAggregator, storageService)
+            IStorageService storageService, IUnitsOfMeasurementCalculator unitsCalculator) : base(regionManager, eventAggregator, storageService) // 
         {
+            if (unitsCalculator != null)
+            {
+                _unitsCalculator = unitsCalculator;
+            }
+            else
+            {
+                throw (new ArgumentNullException(nameof(unitsCalculator)));
+            }
+
             BeddingMaterialCompositionTable30ViewModels = new ObservableCollection<Table_30_Default_Bedding_Material_Composition_ViewModel>();
 
             foreach (var dataClassInstance in base.ActiveFarm.DefaultsCompositionOfBeddingMaterials)

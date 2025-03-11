@@ -6126,6 +6126,9 @@ Please note: emissions related to the deposition or application of livestock man
   <data name="ErrorMustBeGreaterThan0" xml:space="preserve">
     <value>Must be greater than 0.</value>
   </data>
+  <data name="MessageLoadingPleaseWait" xml:space="preserve">
+    <value>Loading please wait...</value>
+  </data>
   <data name="LabelName" xml:space="preserve">
     <value>Name</value>
   </data>

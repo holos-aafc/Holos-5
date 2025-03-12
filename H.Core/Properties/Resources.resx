@@ -6147,7 +6147,6 @@ Please note: emissions related to the deposition or application of livestock man
   <data name="LabelGrowingSeasonEvapotranspirationmm" xml:space="preserve">
     <value>Growing Season Evapotranspiration (mm)</value>
   </data>
-
   <data name="LabelManureHandlingSystemColumn" xml:space="preserve">
     <value>Manure handling system</value>
   </data>
@@ -6186,5 +6185,8 @@ Please note: emissions related to the deposition or application of livestock man
   </data>
   <data name="LabelTotalCarbonDryMatter" xml:space="preserve">
     <value>Total carbon (kg C (kg DM)^1)</value>
+  </data>
+  <data name="MessageMonthlyBarnTemperatureBreakdownHeader" xml:space="preserve">
+    <value>Indoor temperatures for dairy barns on the farm</value>
   </data>
 </root>

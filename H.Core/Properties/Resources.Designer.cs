@@ -9205,7 +9205,6 @@ namespace H.Core.Properties {
         }
         
         /// <summary>
-
         ///   Looks up a localized string similar to Component category.
         /// </summary>
         public static string LabelComponentCategory {
@@ -13614,6 +13613,15 @@ namespace H.Core.Properties {
         public static string MessageManureFromGrazingPeriodsAccountedFor {
             get {
                 return ResourceManager.GetString("MessageManureFromGrazingPeriodsAccountedFor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Indoor temperatures for dairy barns on the farm.
+        /// </summary>
+        public static string MessageMonthlyBarnTemperatureBreakdownHeader {
+            get {
+                return ResourceManager.GetString("MessageMonthlyBarnTemperatureBreakdownHeader", resourceCulture);
             }
         }
         

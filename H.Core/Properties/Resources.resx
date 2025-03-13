@@ -6186,6 +6186,9 @@ Please note: emissions related to the deposition or application of livestock man
   <data name="LabelTotalCarbonDryMatter" xml:space="preserve">
     <value>Total carbon (kg C (kg DM)^1)</value>
   </data>
+  <data name="MessageMonthlyBarnTemperatureBreakdownHeader" xml:space="preserve">
+    <value>Indoor temperatures for dairy barns on the farm</value>
+  </data>
   <data name="ErrorMustBeNonNegative" xml:space="preserve">
     <value>Must be greater than or equal to 0.</value>
   </data>

@@ -13626,6 +13626,15 @@ namespace H.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Indoor temperatures for dairy barns on the farm.
+        /// </summary>
+        public static string MessageMonthlyBarnTemperatureBreakdownHeader {
+            get {
+                return ResourceManager.GetString("MessageMonthlyBarnTemperatureBreakdownHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Monthly Holos estimates for the livestock components represent monthly estimates are for a single production cycle only. Therefore, to get an annual emissions value for these components, multiply the results by the number of production cycles in a year.
         ///
         ///Please note: emissions related to the deposition or application of livestock manure to a field are reported under the relevant field or rotation component..

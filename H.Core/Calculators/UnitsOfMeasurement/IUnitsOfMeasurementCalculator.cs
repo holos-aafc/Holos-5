@@ -20,5 +20,15 @@ namespace H.Core.Calculators.UnitsOfMeasurement
         /// </summary>
         double GetUnitsOfMeasurementValue(MeasurementSystemType measurementSystemType,
             MetricUnitsOfMeasurement unitsOfMeasurement, double value, bool exportedFromFarm);
+
+        /// <summary>
+        /// Converts input from Metric to Imperial units
+        /// </summary>
+        double GetUnitsOfMeasurementValue(MeasurementSystemType measurementSystemType, MetricUnitsOfMeasurement metricUnits, double value);
+        
+        /// <summary>
+        /// Converts input from Imperial to Metric units
+        /// </summary>
+        double GetUnitsOfMeasurementValue(MeasurementSystemType measurementSystemType, ImperialUnitsOfMeasurement imperialUnits, double value);
     }
 }

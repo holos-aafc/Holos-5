@@ -21,7 +21,7 @@ namespace H.Avalonia.ViewModels.OptionsViews
         public DefaultBeddingCompositionViewModel(
             IRegionManager regionManager,
             IEventAggregator eventAggregator,
-            IStorageService storageService, IUnitsOfMeasurementCalculator unitsCalculator) : base(regionManager, eventAggregator, storageService) // 
+            IStorageService storageService, IUnitsOfMeasurementCalculator unitsCalculator) : base(regionManager, eventAggregator, storageService) 
         {
             if (unitsCalculator != null)
             {
@@ -36,13 +36,13 @@ namespace H.Avalonia.ViewModels.OptionsViews
 
             foreach (var dataClassInstance in base.ActiveFarm.DefaultsCompositionOfBeddingMaterials)
             {
-                var dataClassViewModel = new Table_30_Default_Bedding_Material_Composition_ViewModel(dataClassInstance);
-                dataClassViewModel.SetSuppressValidationFlag(true);
+                var dataClassViewModel = new Table_30_Default_Bedding_Material_Composition_ViewModel(dataClassInstance, unitsCalculator);
+                dataClassViewModel.SetInitializationFlag(true);
                 dataClassViewModel.TotalNitrogenKilogramsDryMatter = dataClassInstance.TotalNitrogenKilogramsDryMatter;
                 dataClassViewModel.TotalPhosphorusKilogramsDryMatter = dataClassInstance.TotalPhosphorusKilogramsDryMatter;
                 dataClassViewModel.TotalCarbonKilogramsDryMatter = dataClassInstance.TotalCarbonKilogramsDryMatter;
                 dataClassViewModel.CarbonToNitrogenRatio = dataClassInstance.CarbonToNitrogenRatio;
-                dataClassViewModel.SetSuppressValidationFlag(false);
+                dataClassViewModel.SetInitializationFlag(false);
                 BeddingMaterialCompositionTable30ViewModels.Add(dataClassViewModel);
             }
         }

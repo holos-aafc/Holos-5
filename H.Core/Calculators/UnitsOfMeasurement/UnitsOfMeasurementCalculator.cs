@@ -3,12 +3,9 @@
 #endregion
 
 using H.Core.Enumerations;
-using H.Core.Properties;
 using H.Core.Services.StorageService;
 using H.Infrastructure;
 using Prism.Mvvm;
-using System;
-using System.Diagnostics;
 
 namespace H.Core.Calculators.UnitsOfMeasurement
 {
@@ -42,7 +39,6 @@ namespace H.Core.Calculators.UnitsOfMeasurement
             {
                 throw (new ArgumentNullException(nameof(storageService)));
             }
-            //_isMetric = Settings.Default.MeasurementSystem == MeasurementSystemType.Metric;
         }
 
         #endregion
@@ -212,6 +208,38 @@ namespace H.Core.Calculators.UnitsOfMeasurement
                         //we are being called from the CLI and therefore nee to be converted appropriatedly
                         return Math.Round(ConvertValueToImperialFromMetric(unitsOfMeasurement, value), roundingDigits);
                     }
+                default:
+                    return Math.Round(value, roundingDigits);
+            }
+        }
+
+        /// <summary>
+        /// Converts input from metric to imperial units
+        /// </summary>
+        public double GetUnitsOfMeasurementValue(MeasurementSystemType measurementSystemType, MetricUnitsOfMeasurement metricUnits, double value)
+        {
+            switch (measurementSystemType)
+            {
+                case MeasurementSystemType.Imperial:
+                    return Math.Round(ConvertValueToImperialFromMetric(metricUnits, value), roundingDigits);
+                case MeasurementSystemType.Metric:
+                    throw (new ArgumentException("Incorrect MeasurementSystemType used, attempting to convert from units from Metric to Metric."));
+                default:
+                    return Math.Round(value, roundingDigits);
+            }
+        }
+
+        /// <summary>
+        /// Converts input from imperial to metric units
+        /// </summary>
+        public double GetUnitsOfMeasurementValue(MeasurementSystemType measurementSystemType, ImperialUnitsOfMeasurement imperialUnits, double value)
+        {
+            switch (measurementSystemType)
+            {
+                case MeasurementSystemType.Metric:
+                    return Math.Round(ConvertValueToMetricFromImperial(imperialUnits, value), roundingDigits);
+                case MeasurementSystemType.Imperial:
+                    throw (new ArgumentException("Incorrect MeasurementSystemType used, attempting to convert from units from Imperial to Imperial."));
                 default:
                     return Math.Round(value, roundingDigits);
             }

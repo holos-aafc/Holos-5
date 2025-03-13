@@ -1,5 +1,7 @@
 ﻿using System;
 using H.Core.Providers.Animals;
+using H.Core.Calculators.UnitsOfMeasurement;
+using H.Core.Enumerations;
 
 namespace H.Avalonia.ViewModels.OptionsViews
 {
@@ -8,11 +10,12 @@ namespace H.Avalonia.ViewModels.OptionsViews
         #region Fields
         
         private Table_30_Default_Bedding_Material_Composition_Data _dataClassInstance;
+        private readonly IUnitsOfMeasurementCalculator _unitsCalculator;
         private double _totalNitrogenKilogramsDryMatter;
         private double _totalPhosphorusKilogramsDryMatter;
         private double _totalCarbonKilogramsDryMatter;
         private double _carbonToNitrogenRatio;
-        private bool _supressValidationFlag;
+        private bool _initializationFlag;
 
         #endregion
 
@@ -21,7 +24,7 @@ namespace H.Avalonia.ViewModels.OptionsViews
         /// This class is a view model wrapper over <see cref="Table_30_Default_Bedding_Material_Composition_Data"/> that provides data validation 
         /// </summary>
         /// <param name="dataClassInstance"></param>
-        public Table_30_Default_Bedding_Material_Composition_ViewModel(Table_30_Default_Bedding_Material_Composition_Data dataClassInstance)
+        public Table_30_Default_Bedding_Material_Composition_ViewModel(Table_30_Default_Bedding_Material_Composition_Data dataClassInstance, IUnitsOfMeasurementCalculator unitsCalculator)
         {
             if (dataClassInstance != null)
             {
@@ -30,6 +33,14 @@ namespace H.Avalonia.ViewModels.OptionsViews
             else
             {
                 throw (new ArgumentNullException(nameof(dataClassInstance)));
+            }
+            if (unitsCalculator != null)
+            {
+                _unitsCalculator = unitsCalculator;
+            }
+            else
+            {
+                throw (new ArgumentNullException(nameof(unitsCalculator)));
             }
         }
 
@@ -49,14 +60,31 @@ namespace H.Avalonia.ViewModels.OptionsViews
 
         public double TotalNitrogenKilogramsDryMatter
         {
-            get => _totalNitrogenKilogramsDryMatter;
+            get
+            {
+                if (_unitsCalculator.IsMetric)
+                {
+                    return _totalNitrogenKilogramsDryMatter;
+                }
+                else
+                {
+                    return _unitsCalculator.GetUnitsOfMeasurementValue(MeasurementSystemType.Imperial, MetricUnitsOfMeasurement.KilogramsNitrogen, _totalNitrogenKilogramsDryMatter);
+                }
+            }
             set
             {
-                if(SetProperty(ref _totalNitrogenKilogramsDryMatter, value))
+                double metricValue = value;
+
+                if (!_initializationFlag && !_unitsCalculator.IsMetric)
                 {
-                    if(ValidateNumericProperty(nameof(TotalNitrogenKilogramsDryMatter), value) && !_supressValidationFlag)
+                    metricValue = _unitsCalculator.GetUnitsOfMeasurementValue(MeasurementSystemType.Metric, ImperialUnitsOfMeasurement.PoundsNitrogen, metricValue);
+                }
+
+                if (SetProperty(ref _totalNitrogenKilogramsDryMatter, metricValue))
+                {
+                    if (ValidateNumericProperty(nameof(TotalNitrogenKilogramsDryMatter), metricValue) && !_initializationFlag)
                     {
-                        _dataClassInstance.TotalNitrogenKilogramsDryMatter = value;
+                        _dataClassInstance.TotalNitrogenKilogramsDryMatter = metricValue;
                     }
                 }
             }
@@ -69,7 +97,7 @@ namespace H.Avalonia.ViewModels.OptionsViews
             {
                 if (SetProperty(ref _totalPhosphorusKilogramsDryMatter, value))
                 {
-                    if(ValidateNumericProperty(nameof(TotalPhosphorusKilogramsDryMatter), value) && !_supressValidationFlag)
+                    if(ValidateNumericProperty(nameof(TotalPhosphorusKilogramsDryMatter), value) && !_initializationFlag)
                     {
                         _dataClassInstance.TotalPhosphorusKilogramsDryMatter = value;
                     }
@@ -85,7 +113,7 @@ namespace H.Avalonia.ViewModels.OptionsViews
             {
                 if(SetProperty(ref _totalCarbonKilogramsDryMatter, value))
                 {
-                    if(ValidateNumericProperty(nameof(TotalCarbonKilogramsDryMatter), value) && !_supressValidationFlag)
+                    if(ValidateNumericProperty(nameof(TotalCarbonKilogramsDryMatter), value) && !_initializationFlag)
                     {
                         _dataClassInstance.TotalCarbonKilogramsDryMatter = value;
                     }
@@ -100,7 +128,7 @@ namespace H.Avalonia.ViewModels.OptionsViews
             {
                 if (SetProperty(ref _carbonToNitrogenRatio, value))
                 {
-                    if (ValidateNumericProperty(nameof(CarbonToNitrogenRatio), value) && !_supressValidationFlag)
+                    if (ValidateNumericProperty(nameof(CarbonToNitrogenRatio), value) && !_initializationFlag)
                     {
                         _dataClassInstance.CarbonToNitrogenRatio = value;
                     }
@@ -112,9 +140,9 @@ namespace H.Avalonia.ViewModels.OptionsViews
 
         #region Public Methods
 
-        public void SetSuppressValidationFlag(bool flag)
+        public void SetInitializationFlag(bool flag)
         {
-            _supressValidationFlag = flag;
+            _initializationFlag = flag;
         }
 
         #endregion
@@ -127,7 +155,7 @@ namespace H.Avalonia.ViewModels.OptionsViews
 
             if (property < 0.0)
             {
-                AddError(propertyName, H.Core.Properties.Resources.ErrorMustBeGreaterThan0); // need to update error message
+                AddError(propertyName, H.Core.Properties.Resources.ErrorMustBeNonNegative);
                 return false;
             }
             

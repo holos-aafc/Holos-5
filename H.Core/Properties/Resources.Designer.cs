@@ -6199,6 +6199,15 @@ namespace H.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Must be greater than or equal to 0..
+        /// </summary>
+        public static string ErrorMustBeNonNegative {
+            get {
+                return ResourceManager.GetString("ErrorMustBeNonNegative", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Name cannot be empty..
         /// </summary>
         public static string ErrorNameCannotBeEmpty {
@@ -9205,7 +9214,6 @@ namespace H.Core.Properties {
         }
         
         /// <summary>
-
         ///   Looks up a localized string similar to Component category.
         /// </summary>
         public static string LabelComponentCategory {

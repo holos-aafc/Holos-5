@@ -145,6 +145,11 @@ namespace H.Avalonia.ViewModels.OptionsViews
             _initializationFlag = flag;
         }
 
+        public void UpdateUnitsOfMeasurementDependentProperties() 
+        {
+            RaisePropertyChanged(nameof(TotalNitrogenKilogramsDryMatter));
+        }
+
         #endregion
 
         #region Private Methods

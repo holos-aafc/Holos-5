@@ -2,6 +2,7 @@
 
 #endregion
 
+using System.ComponentModel;
 using H.Core.Enumerations;
 using H.Core.Services.StorageService;
 using H.Infrastructure;
@@ -47,7 +48,8 @@ namespace H.Core.Calculators.UnitsOfMeasurement
 
         public bool IsMetric
         {
-            get { return _isMetric; }
+            get => _isMetric;
+            set => SetProperty(ref _isMetric, value); 
         }
         public string KilogramsPerHectareString
         {
@@ -59,7 +61,7 @@ namespace H.Core.Calculators.UnitsOfMeasurement
 
         #region Fields
         private int roundingDigits = 4;
-        private readonly bool _isMetric;
+        private bool _isMetric;
         private string _kilogramsPerHectareString;
         private const double YardsToMetersFactor = 0.9144;
         private const double KgToLbsFactor = 2.205;

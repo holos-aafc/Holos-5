@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using H.Core.Calculators.UnitsOfMeasurement;
 using H.Core.Services.StorageService;
 using Prism.Events;
@@ -45,6 +46,9 @@ namespace H.Avalonia.ViewModels.OptionsViews
                 dataClassViewModel.SetInitializationFlag(false);
                 BeddingMaterialCompositionTable30ViewModels.Add(dataClassViewModel);
             }
+
+            _unitsCalculator.PropertyChanged -= UnitsOfMeasurementChangeListener;
+            _unitsCalculator.PropertyChanged += UnitsOfMeasurementChangeListener;
         }
 
         #endregion
@@ -55,6 +59,21 @@ namespace H.Avalonia.ViewModels.OptionsViews
         {
             get => _beddingMaterialCompositionTable30ViewModels;
             set => SetProperty(ref _beddingMaterialCompositionTable30ViewModels, value);
+        }
+
+        #endregion
+
+        #region Private Methods
+
+        private void UnitsOfMeasurementChangeListener(object? sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(IUnitsOfMeasurementCalculator.IsMetric))
+            {
+                foreach (var viewModel in  BeddingMaterialCompositionTable30ViewModels)
+                {
+                    viewModel.UpdateUnitsOfMeasurementDependentProperties();
+                }
+            }
         }
 
         #endregion

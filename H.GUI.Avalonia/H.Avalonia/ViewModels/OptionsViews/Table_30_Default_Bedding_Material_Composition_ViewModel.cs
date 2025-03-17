@@ -68,7 +68,7 @@ namespace H.Avalonia.ViewModels.OptionsViews
                 }
                 else
                 {
-                    return _unitsCalculator.GetUnitsOfMeasurementValue(MeasurementSystemType.Imperial, MetricUnitsOfMeasurement.KilogramsNitrogen, _totalNitrogenKilogramsDryMatter);
+                    return _unitsCalculator.GetUnitsOfMeasurementValue(MeasurementSystemType.Imperial, MetricUnitsOfMeasurement.Kilograms, _totalNitrogenKilogramsDryMatter);
                 }
             }
             set
@@ -77,7 +77,7 @@ namespace H.Avalonia.ViewModels.OptionsViews
 
                 if (!_initializationFlag && !_unitsCalculator.IsMetric)
                 {
-                    metricValue = _unitsCalculator.GetUnitsOfMeasurementValue(MeasurementSystemType.Metric, ImperialUnitsOfMeasurement.PoundsNitrogen, metricValue);
+                    metricValue = _unitsCalculator.GetUnitsOfMeasurementValue(MeasurementSystemType.Metric, ImperialUnitsOfMeasurement.Pounds, metricValue);
                 }
 
                 if (SetProperty(ref _totalNitrogenKilogramsDryMatter, metricValue))
@@ -92,30 +92,63 @@ namespace H.Avalonia.ViewModels.OptionsViews
 
         public double TotalPhosphorusKilogramsDryMatter
         {
-            get => _totalPhosphorusKilogramsDryMatter;
+            get
+            {
+                if (_unitsCalculator.IsMetric)
+                {
+                    return _totalPhosphorusKilogramsDryMatter;
+                }
+                else
+                {
+                    return _unitsCalculator.GetUnitsOfMeasurementValue(MeasurementSystemType.Imperial, MetricUnitsOfMeasurement.Kilograms, _totalPhosphorusKilogramsDryMatter);
+                }
+            }
             set
             {
-                if (SetProperty(ref _totalPhosphorusKilogramsDryMatter, value))
+                double metricValue = value;
+
+                if (!_initializationFlag && !_unitsCalculator.IsMetric)
                 {
-                    if(ValidateNumericProperty(nameof(TotalPhosphorusKilogramsDryMatter), value) && !_initializationFlag)
+                    metricValue = _unitsCalculator.GetUnitsOfMeasurementValue(MeasurementSystemType.Metric, ImperialUnitsOfMeasurement.Pounds, metricValue);
+                }
+
+                if (SetProperty(ref _totalPhosphorusKilogramsDryMatter, metricValue))
+                {
+                    if (ValidateNumericProperty(nameof(TotalPhosphorusKilogramsDryMatter), metricValue) && !_initializationFlag)
                     {
-                        _dataClassInstance.TotalPhosphorusKilogramsDryMatter = value;
+                        _dataClassInstance.TotalPhosphorusKilogramsDryMatter = metricValue;
                     }
                 }
             }
-                
         }
 
         public double TotalCarbonKilogramsDryMatter
         {
-            get => _totalCarbonKilogramsDryMatter;
+            get
+            {
+                if (_unitsCalculator.IsMetric)
+                {
+                    return _totalCarbonKilogramsDryMatter;
+                }
+                else
+                {
+                    return _unitsCalculator.GetUnitsOfMeasurementValue(MeasurementSystemType.Imperial, MetricUnitsOfMeasurement.Kilograms, _totalCarbonKilogramsDryMatter);
+                }
+            }
             set
             {
-                if(SetProperty(ref _totalCarbonKilogramsDryMatter, value))
+                double metricValue = value;
+
+                if (!_initializationFlag && !_unitsCalculator.IsMetric)
                 {
-                    if(ValidateNumericProperty(nameof(TotalCarbonKilogramsDryMatter), value) && !_initializationFlag)
+                    metricValue = _unitsCalculator.GetUnitsOfMeasurementValue(MeasurementSystemType.Metric, ImperialUnitsOfMeasurement.Pounds, metricValue);
+                }
+
+                if (SetProperty(ref _totalCarbonKilogramsDryMatter, metricValue))
+                {
+                    if (ValidateNumericProperty(nameof(TotalCarbonKilogramsDryMatter), metricValue) && !_initializationFlag)
                     {
-                        _dataClassInstance.TotalCarbonKilogramsDryMatter = value;
+                        _dataClassInstance.TotalCarbonKilogramsDryMatter = metricValue;
                     }
                 }
             }
@@ -148,6 +181,8 @@ namespace H.Avalonia.ViewModels.OptionsViews
         public void UpdateUnitsOfMeasurementDependentProperties() 
         {
             RaisePropertyChanged(nameof(TotalNitrogenKilogramsDryMatter));
+            RaisePropertyChanged(nameof(TotalPhosphorusKilogramsDryMatter));
+            RaisePropertyChanged(nameof(TotalCarbonKilogramsDryMatter));
         }
 
         #endregion

@@ -64,32 +64,6 @@ namespace H.Avalonia.ViewModels.OptionsViews
             }
         }
 
-        public ISeries[] Series { get; set; } =
-        {
-            new ColumnSeries<double>
-            {
-                Values = new double[] {},
-                Fill = new SolidColorPaint(SKColors.MediumAquamarine),
-            }
-        };
-
-        public Axis[] XAxes { get; set; }
-            = new Axis[]
-            {
-                new Axis
-                {
-                    NamePaint = new SolidColorPaint(SKColors.Black),
-
-                    LabelsPaint = new SolidColorPaint(SKColors.Black),
-                    TextSize = 14,
-                    LabelsRotation = 20,
-                    ShowSeparatorLines = true,
-
-                    Labels = new string[] { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"}
-                }
-            };
-
-
         #endregion
 
         #region Public Methods
@@ -105,23 +79,6 @@ namespace H.Avalonia.ViewModels.OptionsViews
                 BindingTemperatureData = _indoorTemperatureProvider.GetIndoorTemperature(_province);
                 BindingTemperatureData.IsInitialized = true;
             }
-            CreateBarnTemperatureSeries();
-        }
-
-        #endregion
-
-        #region Private Methods
-
-        private void CreateBarnTemperatureSeries()
-        {
-            var values = new ObservableCollection<double> { };
-            foreach (Months month in Enum.GetValues(typeof(Months)).Cast<Months>())
-            {  
-                {
-                    values.Add(Math.Round(BindingTemperatureData.GetValueByMonth(month), 2));
-                };
-            }
-            Series[0].Values = values;
         }
 
         #endregion
@@ -132,7 +89,6 @@ namespace H.Avalonia.ViewModels.OptionsViews
         {
             if (sender is TemperatureData)
             {
-                CreateBarnTemperatureSeries();
                 ActiveFarm.ClimateData.BarnTemperatureData = BindingTemperatureData;
             }
         }

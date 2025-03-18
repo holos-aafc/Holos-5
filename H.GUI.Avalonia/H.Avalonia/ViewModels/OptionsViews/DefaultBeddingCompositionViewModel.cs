@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using H.Core.Calculators.UnitsOfMeasurement;
 using H.Core.Services.StorageService;
 using Prism.Events;
@@ -21,7 +22,7 @@ namespace H.Avalonia.ViewModels.OptionsViews
         public DefaultBeddingCompositionViewModel(
             IRegionManager regionManager,
             IEventAggregator eventAggregator,
-            IStorageService storageService, IUnitsOfMeasurementCalculator unitsCalculator) : base(regionManager, eventAggregator, storageService) // 
+            IStorageService storageService, IUnitsOfMeasurementCalculator unitsCalculator) : base(regionManager, eventAggregator, storageService) 
         {
             if (unitsCalculator != null)
             {
@@ -36,15 +37,18 @@ namespace H.Avalonia.ViewModels.OptionsViews
 
             foreach (var dataClassInstance in base.ActiveFarm.DefaultsCompositionOfBeddingMaterials)
             {
-                var dataClassViewModel = new Table_30_Default_Bedding_Material_Composition_ViewModel(dataClassInstance);
-                dataClassViewModel.SetSuppressValidationFlag(true);
+                var dataClassViewModel = new Table_30_Default_Bedding_Material_Composition_ViewModel(dataClassInstance, unitsCalculator);
+                dataClassViewModel.SetInitializationFlag(true);
                 dataClassViewModel.TotalNitrogenKilogramsDryMatter = dataClassInstance.TotalNitrogenKilogramsDryMatter;
                 dataClassViewModel.TotalPhosphorusKilogramsDryMatter = dataClassInstance.TotalPhosphorusKilogramsDryMatter;
                 dataClassViewModel.TotalCarbonKilogramsDryMatter = dataClassInstance.TotalCarbonKilogramsDryMatter;
                 dataClassViewModel.CarbonToNitrogenRatio = dataClassInstance.CarbonToNitrogenRatio;
-                dataClassViewModel.SetSuppressValidationFlag(false);
+                dataClassViewModel.SetInitializationFlag(false);
                 BeddingMaterialCompositionTable30ViewModels.Add(dataClassViewModel);
             }
+
+            _unitsCalculator.PropertyChanged -= UnitsOfMeasurementChangeListener;
+            _unitsCalculator.PropertyChanged += UnitsOfMeasurementChangeListener;
         }
 
         #endregion
@@ -55,6 +59,21 @@ namespace H.Avalonia.ViewModels.OptionsViews
         {
             get => _beddingMaterialCompositionTable30ViewModels;
             set => SetProperty(ref _beddingMaterialCompositionTable30ViewModels, value);
+        }
+
+        #endregion
+
+        #region Private Methods
+
+        private void UnitsOfMeasurementChangeListener(object? sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(IUnitsOfMeasurementCalculator.IsMetric))
+            {
+                foreach (var viewModel in  BeddingMaterialCompositionTable30ViewModels)
+                {
+                    viewModel.UpdateUnitsOfMeasurementDependentProperties();
+                }
+            }
         }
 
         #endregion

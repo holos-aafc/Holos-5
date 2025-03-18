@@ -22,37 +22,135 @@
 			<ColumnDefinition Width="*"/>
 		</Grid.ColumnDefinitions>
 
-		<TextBlock Text="Indoor temperatures for dairy barns on the farm" FontSize="16" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="10 15 10 0"/>
+		<TextBlock Text="{x:Static properties:Resources.MessageMonthlyBarnTemperatureBreakdownHeader}" FontSize="16" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="10 15 10 0"/>
 
 		<ScrollViewer Grid.Row="1" Grid.Column="0">
-			<StackPanel Margin="15 15 15 15">			
+			<StackPanel Margin="15 15 15 15">	
+				
 				<TextBlock Text="{x:Static properties:Resources.January}"/>
-				<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding BindingTemperatureData.January, Mode=TwoWay}" />
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="140"/>
+						<ColumnDefinition Width="*"/>
+					</Grid.ColumnDefinitions>
+					<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding BindingTemperatureData.January, Mode=TwoWay}" Grid.Column="0"/>
+					<TextBlock Text=" (°C)" Grid.Column="1"/>
+				</Grid>
+
 				<TextBlock Text="{x:Static properties:Resources.February}"  />
-				<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding BindingTemperatureData.February, Mode=TwoWay}" />
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="140"/>
+						<ColumnDefinition Width="*"/>
+					</Grid.ColumnDefinitions>
+					<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding BindingTemperatureData.February, Mode=TwoWay}" />
+					<TextBlock Text=" (°C)" Grid.Column="1"/>
+				</Grid>
+				
 				<TextBlock Text="{x:Static properties:Resources.March}"  />
-				<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding BindingTemperatureData.March, Mode=TwoWay}" />
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="140"/>
+						<ColumnDefinition Width="*"/>
+					</Grid.ColumnDefinitions>
+					<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding BindingTemperatureData.March, Mode=TwoWay}" />
+					<TextBlock Text=" (°C)" Grid.Column="1"/>
+				</Grid>
+				
 				<TextBlock Text="{x:Static properties:Resources.April}"  />
-				<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding BindingTemperatureData.April, Mode=TwoWay}" />
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="140"/>
+						<ColumnDefinition Width="*"/>
+					</Grid.ColumnDefinitions>
+					<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding BindingTemperatureData.April, Mode=TwoWay}" />
+					<TextBlock Text=" (°C)" Grid.Column="1"/>
+				</Grid>
+	
 				<TextBlock Text="{x:Static properties:Resources.May}"  />
-				<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding BindingTemperatureData.May, Mode=TwoWay}" />
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="140"/>
+						<ColumnDefinition Width="*"/>
+					</Grid.ColumnDefinitions>
+					<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding BindingTemperatureData.May, Mode=TwoWay}" />
+					<TextBlock Text=" (°C)" Grid.Column="1"/>
+				</Grid>
+				
 				<TextBlock Text="{x:Static properties:Resources.June}"  />
-				<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding BindingTemperatureData.June, Mode=TwoWay}" />
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="140"/>
+						<ColumnDefinition Width="*"/>
+					</Grid.ColumnDefinitions>
+					<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding BindingTemperatureData.June, Mode=TwoWay}" />
+					<TextBlock Text=" (°C)" Grid.Column="1"/>
+				</Grid>
+				
 				<TextBlock Text="{x:Static properties:Resources.July}"  />
-				<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding BindingTemperatureData.July, Mode=TwoWay}" />
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="140"/>
+						<ColumnDefinition Width="*"/>
+					</Grid.ColumnDefinitions>
+					<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding BindingTemperatureData.July, Mode=TwoWay}" />
+					<TextBlock Text=" (°C)" Grid.Column="1"/>
+				</Grid>
+				
 				<TextBlock Text="{x:Static properties:Resources.August}"  />
-				<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding BindingTemperatureData.August, Mode=TwoWay}" />
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="140"/>
+						<ColumnDefinition Width="*"/>
+					</Grid.ColumnDefinitions>
+					<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding BindingTemperatureData.August, Mode=TwoWay}" />
+					<TextBlock Text=" (°C)" Grid.Column="1"/>
+				</Grid>
+				
 				<TextBlock Text="{x:Static properties:Resources.September}"  />
-				<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding BindingTemperatureData.September, Mode=TwoWay}" />
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="140"/>
+						<ColumnDefinition Width="*"/>
+					</Grid.ColumnDefinitions>
+					<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding BindingTemperatureData.September, Mode=TwoWay}" />
+					<TextBlock Text=" (°C)" Grid.Column="1"/>
+				</Grid>
+				
+				
 				<TextBlock Text="{x:Static properties:Resources.October}"  />
-				<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding BindingTemperatureData.October, Mode=TwoWay}" />
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="140"/>
+						<ColumnDefinition Width="*"/>
+					</Grid.ColumnDefinitions>
+					<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding BindingTemperatureData.October, Mode=TwoWay}" />
+					<TextBlock Text=" (°C)" Grid.Column="1"/>
+				</Grid>
+				
 				<TextBlock Text="{x:Static properties:Resources.November}"  />
-				<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding BindingTemperatureData.November, Mode=TwoWay}" />
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="140"/>
+						<ColumnDefinition Width="*"/>
+					</Grid.ColumnDefinitions>
+					<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding BindingTemperatureData.November, Mode=TwoWay}" />
+					<TextBlock Text=" (°C)" Grid.Column="1"/>
+				</Grid>
+				
 				<TextBlock Text="{x:Static properties:Resources.December}"  />
-				<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding BindingTemperatureData.December, Mode=TwoWay}" />
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="140"/>
+						<ColumnDefinition Width="*"/>
+					</Grid.ColumnDefinitions>
+					<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding BindingTemperatureData.December, Mode=TwoWay}" />
+					<TextBlock Text=" (°C)" Grid.Column="1"/>
+				</Grid>
+				
 			</StackPanel>
-		</ScrollViewer>   
-		<lvc:CartesianChart Series="{Binding Series}" XAxes="{Binding XAxes}" Grid.Row="1" Grid.Column="1" Margin="20 20 20 20"/> 
+		</ScrollViewer>
+		<lvc:CartesianChart Name="TemperatureChart" Grid.Row="1" Grid.Column="1" Margin="20 20 20 20"/> 
 		
 	</Grid>
 

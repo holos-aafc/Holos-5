@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Mapsui.Extensions;
+using H.Core.Enumerations;
 using H.Core.Services.StorageService;
 
 namespace H.Avalonia.ViewModels.OptionsViews
 {
-    public class SoilN2OBreakdownDisplayViewModel : ViewModelBase
+    public class PrecipitationDisplayViewModel : ViewModelBase
     {
         #region Fields
         private double _january;
@@ -25,12 +26,15 @@ namespace H.Avalonia.ViewModels.OptionsViews
         private double _december;
         #endregion
         #region Constructors
-        public SoilN2OBreakdownDisplayViewModel(IStorageService storageService) : base(storageService)
+        public PrecipitationDisplayViewModel(IStorageService storageService) : base(storageService)
         {
-            ActiveFarm = base.StorageService.GetActiveFarm();
+            ActiveFarm = StorageService.GetActiveFarm();
+            PrecipitationSeriesValues = new ObservableCollection<double>();
+            CreatePrecipitationSeries();
         }
         #endregion
         #region Properties
+        public ObservableCollection<double> PrecipitationSeriesValues { get; set; }
         public double January
         {
             get => _january;
@@ -43,11 +47,12 @@ namespace H.Avalonia.ViewModels.OptionsViews
                     {
                         return;
                     }
-                    if (ActiveFarm.AnnualSoilN2OBreakdown.January != value)
+                    if (ActiveFarm.ClimateData.PrecipitationData.January != value)
                     {
-                        ActiveFarm.AnnualSoilN2OBreakdown.January = value;
+                        ActiveFarm.ClimateData.PrecipitationData.January = value;
+                        PrecipitationSeriesValues[0] = value;
                     }
-                } 
+                }
             }
         }
         public double February
@@ -62,9 +67,10 @@ namespace H.Avalonia.ViewModels.OptionsViews
                     {
                         return;
                     }
-                    if (ActiveFarm.AnnualSoilN2OBreakdown.February != value)
+                    if (ActiveFarm.ClimateData.PrecipitationData.February != value)
                     {
-                        ActiveFarm.AnnualSoilN2OBreakdown.February = value;
+                        ActiveFarm.ClimateData.PrecipitationData.February = value;
+                        PrecipitationSeriesValues[1] = value;
                     }
                 }
             }
@@ -74,16 +80,17 @@ namespace H.Avalonia.ViewModels.OptionsViews
             get => _march;
             set
             {
-               if (SetProperty(ref _march, value))
+                if (SetProperty(ref _march, value))
                 {
                     ValidateMarch();
                     if (HasErrors)
                     {
                         return;
                     }
-                    if (ActiveFarm.AnnualSoilN2OBreakdown.March != value)
+                    if (ActiveFarm.ClimateData.PrecipitationData.March != value)
                     {
-                        ActiveFarm.AnnualSoilN2OBreakdown.March = value;
+                        ActiveFarm.ClimateData.PrecipitationData.March = value;
+                        PrecipitationSeriesValues[2] = value;
                     }
                 }
             }
@@ -94,15 +101,16 @@ namespace H.Avalonia.ViewModels.OptionsViews
             set
             {
                 if (SetProperty(ref _april, value))
-                    {
+                {
                     ValidateApril();
                     if (HasErrors)
                     {
                         return;
                     }
-                    if (ActiveFarm.AnnualSoilN2OBreakdown.April != value)
+                    if (ActiveFarm.ClimateData.PrecipitationData.April != value)
                     {
-                        ActiveFarm.AnnualSoilN2OBreakdown.April = value;
+                        ActiveFarm.ClimateData.PrecipitationData.April = value;
+                        PrecipitationSeriesValues[3] = value;
                     }
                 }
             }
@@ -119,9 +127,10 @@ namespace H.Avalonia.ViewModels.OptionsViews
                     {
                         return;
                     }
-                    if (ActiveFarm.AnnualSoilN2OBreakdown.May != value)
+                    if (ActiveFarm.ClimateData.PrecipitationData.May != value)
                     {
-                        ActiveFarm.AnnualSoilN2OBreakdown.May = value;
+                        ActiveFarm.ClimateData.PrecipitationData.May = value;
+                        PrecipitationSeriesValues[4] = value;
                     }
                 }
             }
@@ -131,16 +140,17 @@ namespace H.Avalonia.ViewModels.OptionsViews
             get => _june;
             set
             {
-                if (!SetProperty(ref _june, value)) 
-                { 
+                if (!SetProperty(ref _june, value))
+                {
                     ValidateJune();
                     if (HasErrors)
                     {
                         return;
                     }
-                    if (ActiveFarm.AnnualSoilN2OBreakdown.June != value)
+                    if (ActiveFarm.ClimateData.PrecipitationData.June != value)
                     {
-                        ActiveFarm.AnnualSoilN2OBreakdown.June = value;
+                        ActiveFarm.ClimateData.PrecipitationData.June = value;
+                        PrecipitationSeriesValues[5] = value;
                     }
                 }
             }
@@ -157,12 +167,13 @@ namespace H.Avalonia.ViewModels.OptionsViews
                     {
                         return;
                     }
-                    if (ActiveFarm.AnnualSoilN2OBreakdown.July != value)
+                    if (ActiveFarm.ClimateData.PrecipitationData.July != value)
                     {
-                        ActiveFarm.AnnualSoilN2OBreakdown.July = value;
+                        ActiveFarm.ClimateData.PrecipitationData.July = value;
+                        PrecipitationSeriesValues[6] = value;
                     }
                 }
-                
+
             }
         }
         public double August
@@ -177,12 +188,13 @@ namespace H.Avalonia.ViewModels.OptionsViews
                     {
                         return;
                     }
-                    if (ActiveFarm.AnnualSoilN2OBreakdown.August != value)
+                    if (ActiveFarm.ClimateData.PrecipitationData.August != value)
                     {
-                        ActiveFarm.AnnualSoilN2OBreakdown.August = value;
+                        ActiveFarm.ClimateData.PrecipitationData.August = value;
+                        PrecipitationSeriesValues[7] = value;
                     }
                 }
-                
+
             }
         }
         public double September
@@ -197,12 +209,13 @@ namespace H.Avalonia.ViewModels.OptionsViews
                     {
                         return;
                     }
-                    if (ActiveFarm.AnnualSoilN2OBreakdown.September != value)
+                    if (ActiveFarm.ClimateData.PrecipitationData.September != value)
                     {
-                        ActiveFarm.AnnualSoilN2OBreakdown.September = value;
+                        ActiveFarm.ClimateData.PrecipitationData.September = value;
+                        PrecipitationSeriesValues[8] = value;
                     }
                 }
-                
+
             }
         }
         public double October
@@ -217,12 +230,13 @@ namespace H.Avalonia.ViewModels.OptionsViews
                     {
                         return;
                     }
-                    if (ActiveFarm.AnnualSoilN2OBreakdown.October != value)
+                    if (ActiveFarm.ClimateData.PrecipitationData.October != value)
                     {
-                        ActiveFarm.AnnualSoilN2OBreakdown.October = value;
+                        ActiveFarm.ClimateData.PrecipitationData.October = value;
+                        PrecipitationSeriesValues[9] = value;
                     }
                 }
-                
+
             }
         }
         public double November
@@ -237,9 +251,10 @@ namespace H.Avalonia.ViewModels.OptionsViews
                     {
                         return;
                     }
-                    if (ActiveFarm.AnnualSoilN2OBreakdown.November != value)
+                    if (ActiveFarm.ClimateData.PrecipitationData.November != value)
                     {
-                        ActiveFarm.AnnualSoilN2OBreakdown.November = value;
+                        ActiveFarm.ClimateData.PrecipitationData.November = value;
+                        PrecipitationSeriesValues[10] = value;
                     }
                 }
             }
@@ -256,21 +271,31 @@ namespace H.Avalonia.ViewModels.OptionsViews
                     {
                         return;
                     }
-                    if (ActiveFarm.AnnualSoilN2OBreakdown.December != value)
+                    if (ActiveFarm.ClimateData.PrecipitationData.December != value)
                     {
-                        ActiveFarm.AnnualSoilN2OBreakdown.December = value;
+                        ActiveFarm.ClimateData.PrecipitationData.December = value;
+                        PrecipitationSeriesValues[11] = value;
                     }
                 }
-                
+
             }
         }
         #endregion
         #region Methods
+        private void CreatePrecipitationSeries()
+        {
+            var months = Enum.GetValues(typeof(H.Core.Enumerations.Months));
+            PrecipitationSeriesValues.Clear();
+            foreach (Months month in months)
+            {
+                PrecipitationSeriesValues.Add(ActiveFarm.ClimateData.PrecipitationData.GetValueByMonth(month));
+            }
+        }
         private void ValidateJanuary()
         {
             if (January < 0.00 || January > 100.00)
             {
-                AddError(nameof(January), "Percentage must be between 0 and 100");
+                AddError(nameof(January), "Value cannot be below zero");
             }
             else
             {
@@ -278,10 +303,10 @@ namespace H.Avalonia.ViewModels.OptionsViews
             }
         }
         private void ValidateFebruary()
-        {
-            if (February < 0.00 || February > 100.00)
+        { 
+            if (February < 0.00)
             {
-                AddError(nameof(February), "Percentage must be between 0 and 100");
+                AddError(nameof(February), "Value cannot be below zero");
             }
             else
             {
@@ -290,9 +315,9 @@ namespace H.Avalonia.ViewModels.OptionsViews
         }
         private void ValidateMarch()
         {
-            if (March < 0.00 || March > 100.00)
+            if (March < 0.00)
             {
-                AddError(nameof(March), "Percentage must be between 0 and 100");
+                AddError(nameof(March), "Value cannot be below zero");
             }
             else
             {
@@ -300,10 +325,10 @@ namespace H.Avalonia.ViewModels.OptionsViews
             }
         }
         private void ValidateApril()
-        {
-            if (April < 0.00 || April > 100.00)
+        { 
+            if (April < 0.00)
             {
-                AddError(nameof(April), "Percentage must be between 0 and 100");
+                AddError(nameof(April), "Value cannot be below zero");
             }
             else
             {
@@ -312,9 +337,9 @@ namespace H.Avalonia.ViewModels.OptionsViews
         }
         private void ValidateMay()
         {
-            if (May < 0.00 || May > 100.00)
+            if (May < 0.00)
             {
-                AddError(nameof(May), "Percentage must be between 0 and 100");
+                AddError(nameof(May), "Value cannot be below zero");
             }
             else
             {
@@ -323,9 +348,9 @@ namespace H.Avalonia.ViewModels.OptionsViews
         }
         private void ValidateJune()
         {
-            if (June < 0.00 || June > 100.00)
+            if (June < 0.00)
             {
-                AddError(nameof(June), "Percentage must be between 0 and 100");
+                AddError(nameof(June), "Value cannot be below zero");
             }
             else
             {
@@ -334,9 +359,9 @@ namespace H.Avalonia.ViewModels.OptionsViews
         }
         private void ValidateJuly()
         {
-            if (July < 0.00 || July > 100.00)
+            if (July < 0.00)
             {
-                AddError(nameof(July), "Percentage must be between 0 and 100");
+                AddError(nameof(July), "Value cannot be below zero");
             }
             else
             {
@@ -345,9 +370,9 @@ namespace H.Avalonia.ViewModels.OptionsViews
         }
         private void ValidateAugust()
         {
-            if (August < 0.00 || August > 100.00)
+            if (August < 0.00)
             {
-                AddError(nameof(August), "Percentage must be between 0 and 100");
+                AddError(nameof(August), "Value cannot be below zero");
             }
             else
             {
@@ -356,9 +381,9 @@ namespace H.Avalonia.ViewModels.OptionsViews
         }
         private void ValidateSeptember()
         {
-            if (September < 0.00 || September > 100.00)
+            if (September < 0.00)
             {
-                AddError(nameof(September), "Percentage must be between 0 and 100");
+                AddError(nameof(September), "Value cannot be below zero");
             }
             else
             {
@@ -367,9 +392,9 @@ namespace H.Avalonia.ViewModels.OptionsViews
         }
         private void ValidateOctober()
         {
-            if (October < 0.00 || October > 100.00)
+            if (October < 0.00)
             {
-                AddError(nameof(October), "Percentage must be between 0 and 100");
+                AddError(nameof(October), "Value cannot be below zero");
             }
             else
             {
@@ -378,9 +403,9 @@ namespace H.Avalonia.ViewModels.OptionsViews
         }
         private void ValidateNovember()
         {
-            if (November < 0.00 || November > 100.00)
+            if (November < 0.00)
             {
-                AddError(nameof(November), "Percentage must be between 0 and 100");
+                AddError(nameof(November), "Value cannot be below zero");
             }
             else
             {
@@ -389,9 +414,9 @@ namespace H.Avalonia.ViewModels.OptionsViews
         }
         private void ValidateDecember()
         {
-            if (December < 0.00 || December > 100.00)
+            if (December < 0.00)
             {
-                AddError(nameof(December), "Percentage must be between 0 and 100");
+                AddError(nameof(December), "Value cannot be below zero");
             }
             else
             {

@@ -41,15 +41,10 @@
 						<TextBlock Foreground="Black" FontWeight="Bold" Text="Settings"/>
 					</ListBoxItem>
 					<ListBoxItem Content="Farm"/>
-
-						<ListBoxItem Content="Soil"/>
-						<ListBoxItem Content="Barn Temperatures"/>
-						<ListBoxItem Content="Soil N2O Breakdown"/>
-
-					<ListBoxItem Content="Percipitation"/>
-					<ListBoxItem Content="User Settings"/>
-					<ListBoxItem Content="Energy"/>
-					<ListBoxItem Content="Crop Defaults"/>
+					<ListBoxItem Content="Soil"/>
+					<ListBoxItem Content="Barn Temperatures"/>
+					<ListBoxItem Content="Soil N2O Breakdown"/>
+					<ListBoxItem Content="Precipitation"/>
 					<ListBoxItem Content="Default Bedding Composition"/>
 					<ListBoxItem Content="Default Manure Composition"/>
 					</ListBox>
@@ -62,16 +57,7 @@
                 Height="100">
 			<StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center"
                         Margin="20,0">
-				<Button Content="Go Back" Command="{Binding OnCancelExecute}"  HorizontalAlignment="Center" Margin="10" >
-					<Button.Styles>
-						<Style Selector="Button">
-							<Setter Property="Background" Value="#EDEDED" />
-						</Style>
-						<Style Selector="Button:pointerover /template/ ContentPresenter">
-							<Setter Property="Background" Value="MediumAquamarine" />
-						</Style>
-					</Button.Styles>
-				</Button>
+				<Button Content="Go Back" Classes="back-button" Command="{Binding OnCancelExecute}"  HorizontalAlignment="Center" Margin="10" />
 			</StackPanel>
 		</Border>
 	</Grid>

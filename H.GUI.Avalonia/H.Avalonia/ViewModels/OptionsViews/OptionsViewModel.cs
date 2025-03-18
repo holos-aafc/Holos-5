@@ -52,8 +52,8 @@ namespace H.Avalonia.ViewModels.OptionsViews
                     case "Barn Temperatures":
                         base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(OptionBarnTemperatureView));
                         break;
-                    case "User Settings":
-                        base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(OptionUserSettingsView));
+                    case "Precipitation":
+                        base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(OptionPrecipitationView));
                         break;
                     case "Default Bedding Composition":
                         base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(DefaultBeddingCompositionView));

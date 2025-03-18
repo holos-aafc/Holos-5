@@ -85,18 +85,16 @@
             </StackPanel>
         </Grid>
 
-        <GridSplitter Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="2" HorizontalAlignment="Stretch"/>
-
 		<Grid Name="CommandGrid" 
               Grid.Row="3"
               Grid.Column="0"
               Grid.ColumnSpan="3"
               Height="100">
             <Border Classes="component-border">
-            <UniformGrid Columns="2">
-                <Button Content="{x:Static properties:Resources.LabelAddSelectComponent}" Margin="10,0" Command="{Binding OnAddComponentExecute}" HorizontalContentAlignment="Center" HorizontalAlignment="Stretch"></Button>
-                <Button Content="{x:Static properties:Resources.LabelFinishSelectComponent}" Margin="10,0" Command="{Binding OnFinishedAddingComponentsExecute}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"></Button>
-            </UniformGrid>
+            <Grid ColumnDefinitions="*,*">
+                <Button Grid.Column="0" Content="{x:Static properties:Resources.LabelAddSelectComponent}" Margin="10,0" Command="{Binding OnAddComponentExecute}" HorizontalContentAlignment="Center" HorizontalAlignment="Center"></Button>
+                <Button Grid.Column="2" Content="{x:Static properties:Resources.LabelFinishSelectComponent}" Margin="10,0" Command="{Binding OnFinishedAddingComponentsExecute}" HorizontalAlignment="Center" HorizontalContentAlignment="Center"></Button>
+            </Grid>
             </Border>
         </Grid>
     </Grid>

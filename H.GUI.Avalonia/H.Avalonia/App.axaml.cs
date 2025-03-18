@@ -103,6 +103,7 @@ namespace H.Avalonia
             containerRegistry.RegisterForNavigation<OptionSoilN2OBreakdownView, OptionSoilN2OBreakdownViewModel>();
             containerRegistry.RegisterForNavigation<DefaultBeddingCompositionView, DefaultBeddingCompositionViewModel>();
             containerRegistry.RegisterForNavigation<DefaultManureCompositionView, DefaultManureCompositionViewModel>();
+            containerRegistry.RegisterForNavigation<OptionPrecipitationView, OptionPrecipitationViewModel>();
 
 
             // New development work

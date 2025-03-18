@@ -61,6 +61,7 @@ namespace H.Core.Calculators.UnitsOfMeasurement
 
         #region Fields
         private int roundingDigits = 4;
+        private int roundingSixDigits = 6;
         private bool _isMetric;
         private string _kilogramsPerHectareString;
         private const double YardsToMetersFactor = 0.9144;
@@ -239,7 +240,7 @@ namespace H.Core.Calculators.UnitsOfMeasurement
             switch (measurementSystemType)
             {
                 case MeasurementSystemType.Metric:
-                    return Math.Round(ConvertValueToMetricFromImperial(imperialUnits, value), roundingDigits);
+                    return Math.Round(ConvertValueToMetricFromImperial(imperialUnits, value), roundingSixDigits);
                 case MeasurementSystemType.Imperial:
                     throw (new ArgumentException("Incorrect MeasurementSystemType used, attempting to convert from units from Imperial to Imperial."));
                 default:

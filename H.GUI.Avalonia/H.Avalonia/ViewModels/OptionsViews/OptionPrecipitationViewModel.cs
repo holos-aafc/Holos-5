@@ -22,16 +22,12 @@ namespace H.Avalonia.ViewModels.OptionsViews
     {
         #region Fields
         private PrecipitationDisplayViewModel _data;
-        private event PropertyChangedEventHandler _valuesChanged;
-        public int i;
-        private double _january;
         #endregion
         #region Constructors
         public OptionPrecipitationViewModel() { }
         public OptionPrecipitationViewModel(IRegionManager regionManager, IStorageService storageService) : base(regionManager, storageService)
         {
             Data = new PrecipitationDisplayViewModel(storageService);
-            i = 10;
             //Data.PropertyChanged += Data_PropertyChanged;
             GetData();
         }

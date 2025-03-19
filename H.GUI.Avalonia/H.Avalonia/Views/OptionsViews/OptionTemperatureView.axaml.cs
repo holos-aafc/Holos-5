@@ -13,18 +13,18 @@ using System;
 
 namespace H.Avalonia;
 
-public partial class OptionBarnTemperatureView : UserControl
+public partial class OptionTemperatureView : UserControl
 {
     #region Fields
 
-    private OptionBarnTemperatureViewModel _viewModel;
+    private OptionTemperatureViewModel _viewModel;
 
-    public OptionBarnTemperatureView? ViewModel => DataContext as OptionBarnTemperatureView;
+    public OptionTemperatureView? ViewModel => DataContext as OptionTemperatureView;
 
     #endregion
 
     #region Constructors
-    public OptionBarnTemperatureView(OptionBarnTemperatureViewModel viewModel)
+    public OptionTemperatureView(OptionTemperatureViewModel viewModel)
     {
         InitializeComponent();
         this._viewModel = viewModel;

@@ -17,7 +17,7 @@
 			<StackPanel Spacing="5" Width="200" Margin="15">
 				<TextBlock Text="{x:Static properties:Resources.January}"/>
 				<Grid ColumnDefinitions="*, Auto">
-					<NumericUpDown Grid.Column="0" FormatString="{}{0:0.00}" Value="{Binding Data.January, Mode=TwoWay}" />
+					<NumericUpDown Grid.Column="0" FormatString="{}{0:0.00}" Value="{Binding January, Mode=TwoWay}" />
 					<TextBlock VerticalAlignment="Center" Margin="10,0,0,0" Grid.Column="1" Text="(mm)" />
 				</Grid>
 				<TextBlock Text="{x:Static properties:Resources.February}"  />

@@ -10,14 +10,15 @@ using LiveChartsCore.SkiaSharpView;
 using LiveChartsCore;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using SkiaSharp;
-using System;
+using System.ComponentModel;
+using H.Avalonia.ViewModels;
 
 namespace H.Avalonia;
 
 public partial class OptionPrecipitationView : UserControl
 {
     private OptionPrecipitationViewModel _viewModel;
-    public OptionPrecipitationViewModel? ViewModel => DataContext as OptionPrecipitationViewModel;
+    
     public OptionPrecipitationView(OptionPrecipitationViewModel viewModel)
     {
         InitializeComponent();
@@ -25,11 +26,13 @@ public partial class OptionPrecipitationView : UserControl
         this._viewModel.Data.PropertyChanged += OnDataPropertyChanged;
         BuildChart();
     }
+    
 
     private void OnDataPropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
     {
-
+        BuildChart();
     }
+    
     private void BuildChart()
     {
         PrecipitationChart.Series = Series;

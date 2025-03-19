@@ -14,32 +14,47 @@ using BruTile.Wmts.Generated;
 using DynamicData.Kernel;
 using System.Collections.ObjectModel;
 using Avalonia.Controls;
+using System.ComponentModel;
 
 namespace H.Avalonia.ViewModels.OptionsViews
 {
     public class OptionPrecipitationViewModel : ViewModelBase
     {
         #region Fields
-        private bool _collectionIsReady;
+        private PrecipitationDisplayViewModel _data;
+        private event PropertyChangedEventHandler _valuesChanged;
+        public int i;
+        private double _january;
         #endregion
         #region Constructors
         public OptionPrecipitationViewModel() { }
         public OptionPrecipitationViewModel(IRegionManager regionManager, IStorageService storageService) : base(regionManager, storageService)
         {
             Data = new PrecipitationDisplayViewModel(storageService);
+            i = 10;
+            //Data.PropertyChanged += Data_PropertyChanged;
             GetData();
-
         }
 
-        
+        private void Data_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            System.Diagnostics.Debug.WriteLine("raised");
+        }
         #endregion
         #region Properties
-        public bool CollectionIsReady
+        
+        public PrecipitationDisplayViewModel Data
         {
-            get => _collectionIsReady;
-            set => SetProperty(ref _collectionIsReady, value);
+            get => _data;
+            set
+            {
+                if (_data != value)
+                {
+                    SetProperty(ref _data, value);
+                }
+            }
         }
-        public PrecipitationDisplayViewModel Data { get; set; }
+       
 
         //public ISeries[] Series { get; set; } =
         //{
@@ -88,7 +103,6 @@ namespace H.Avalonia.ViewModels.OptionsViews
             Data.November = ActiveFarm.ClimateData.PrecipitationData.November;
             Data.December = ActiveFarm.ClimateData.PrecipitationData.December;
             //Series[0].Values = Data.PrecipitationSeriesValues;
-            CollectionIsReady = true;
         }
         #endregion
 

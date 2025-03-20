@@ -5,422 +5,222 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using H.Core.Enumerations;
+using H.Core.Providers.Precipitation;
 using H.Core.Services.StorageService;
+using Prism.Events;
 
 namespace H.Avalonia.ViewModels.OptionsViews
 {
     public class PrecipitationDisplayViewModel : ViewModelBase
     {
         #region Fields
-        private double _january;
-        private double _february;
-        private double _march;
-        private double _april;
-        private double _may;
-        private double _june;
-        private double _july;
-        private double _august;
-        private double _september;
-        private double _october;
-        private double _november;
-        private double _december;
+        private PrecipitationData _bindingPrecipitationData = new PrecipitationData();
         #endregion
         #region Constructors
         public PrecipitationDisplayViewModel(IStorageService storageService) : base(storageService)
         {
-            ActiveFarm = StorageService.GetActiveFarm();
-            PrecipitationSeriesValues = new ObservableCollection<double>();
-            CreatePrecipitationSeries();
+            ActiveFarm = base.StorageService.GetActiveFarm();
+            ManageData();
         }
         #endregion
         #region Properties
-        public ObservableCollection<double> PrecipitationSeriesValues { get; set; }
+        public PrecipitationData BindingPrecipitationData
+        {
+            get => _bindingPrecipitationData;
+            set => SetProperty(ref _bindingPrecipitationData, value);
+        }
         public double January
         {
-            get => _january;
+            get => BindingPrecipitationData.January;
             set
             {
-                if (SetProperty(ref _january, value))
+                ValidateValue(value, nameof(January));
+                if (HasErrors)
                 {
-                    ValidateJanuary();
-                    if (HasErrors)
-                    {
-                        return;
-                    }
-                    if (ActiveFarm.ClimateData.PrecipitationData.January != value)
-                    {
-                        ActiveFarm.ClimateData.PrecipitationData.January = value;
-                        PrecipitationSeriesValues[0] = value;
-                    }
+                    return;
                 }
+                BindingPrecipitationData.January = value;
+                RaisePropertyChanged(nameof(January));
             }
         }
         public double February
         {
-            get => _february;
+            get => BindingPrecipitationData.February;
             set
             {
-                if (SetProperty(ref _february, value))
+                ValidateValue(value, nameof(February));
+                if (HasErrors)
                 {
-                    ValidateFebruary();
-                    if (HasErrors)
-                    {
-                        return;
-                    }
-                    if (ActiveFarm.ClimateData.PrecipitationData.February != value)
-                    {
-                        ActiveFarm.ClimateData.PrecipitationData.February = value;
-                        PrecipitationSeriesValues[1] = value;
-                    }
+                    return;
                 }
+                BindingPrecipitationData.February = value;
+                RaisePropertyChanged(nameof(February));
             }
         }
         public double March
         {
-            get => _march;
+            get => BindingPrecipitationData.March;
             set
             {
-                if (SetProperty(ref _march, value))
+                ValidateValue(value, nameof(March));
+                if (HasErrors)
                 {
-                    ValidateMarch();
-                    if (HasErrors)
-                    {
-                        return;
-                    }
-                    if (ActiveFarm.ClimateData.PrecipitationData.March != value)
-                    {
-                        ActiveFarm.ClimateData.PrecipitationData.March = value;
-                        PrecipitationSeriesValues[2] = value;
-                    }
+                    return;
                 }
+                BindingPrecipitationData.March = value;
+                RaisePropertyChanged(nameof(March));
             }
         }
         public double April
         {
-            get => _april;
+            get => BindingPrecipitationData.April;
             set
             {
-                if (SetProperty(ref _april, value))
+                ValidateValue(value, nameof(April));
+                if (HasErrors)
                 {
-                    ValidateApril();
-                    if (HasErrors)
-                    {
-                        return;
-                    }
-                    if (ActiveFarm.ClimateData.PrecipitationData.April != value)
-                    {
-                        ActiveFarm.ClimateData.PrecipitationData.April = value;
-                        PrecipitationSeriesValues[3] = value;
-                    }
+                    return;
                 }
+                BindingPrecipitationData.April = value;
+                RaisePropertyChanged(nameof(April));
             }
         }
         public double May
         {
-            get => _may;
+            get => BindingPrecipitationData.May;
             set
             {
-                if (SetProperty(ref _may, value))
+                ValidateValue(value, nameof(May));
+                if (HasErrors)
                 {
-                    ValidateMay();
-                    if (HasErrors)
-                    {
-                        return;
-                    }
-                    if (ActiveFarm.ClimateData.PrecipitationData.May != value)
-                    {
-                        ActiveFarm.ClimateData.PrecipitationData.May = value;
-                        PrecipitationSeriesValues[4] = value;
-                    }
+                    return;
                 }
+                BindingPrecipitationData.May = value;
+                RaisePropertyChanged(nameof(May));
             }
         }
         public double June
         {
-            get => _june;
+            get => BindingPrecipitationData.June;
             set
             {
-                if (!SetProperty(ref _june, value))
+                ValidateValue(value, nameof(June));
+                if (HasErrors)
                 {
-                    ValidateJune();
-                    if (HasErrors)
-                    {
-                        return;
-                    }
-                    if (ActiveFarm.ClimateData.PrecipitationData.June != value)
-                    {
-                        ActiveFarm.ClimateData.PrecipitationData.June = value;
-                        PrecipitationSeriesValues[5] = value;
-                    }
+                    return;
                 }
+                BindingPrecipitationData.June = value;
+                RaisePropertyChanged(nameof(June));
             }
         }
         public double July
         {
-            get => _july;
+            get => BindingPrecipitationData.July;
             set
             {
-                if (SetProperty(ref _july, value))
+                ValidateValue(value, nameof(July));
+                if (HasErrors)
                 {
-                    ValidateJuly();
-                    if (HasErrors)
-                    {
-                        return;
-                    }
-                    if (ActiveFarm.ClimateData.PrecipitationData.July != value)
-                    {
-                        ActiveFarm.ClimateData.PrecipitationData.July = value;
-                        PrecipitationSeriesValues[6] = value;
-                    }
+                    return;
                 }
-
+                BindingPrecipitationData.July = value;
+                RaisePropertyChanged(nameof(July));
             }
         }
         public double August
         {
-            get => _august;
+            get => BindingPrecipitationData.August;
             set
             {
-                if (SetProperty(ref _august, value))
+                ValidateValue(value, nameof(August));
+                if (HasErrors)
                 {
-                    ValidateAugust();
-                    if (HasErrors)
-                    {
-                        return;
-                    }
-                    if (ActiveFarm.ClimateData.PrecipitationData.August != value)
-                    {
-                        ActiveFarm.ClimateData.PrecipitationData.August = value;
-                        PrecipitationSeriesValues[7] = value;
-                    }
+                    return;
                 }
-
+                BindingPrecipitationData.August = value;
+                RaisePropertyChanged(nameof(August));
             }
         }
         public double September
         {
-            get => _september;
+            get => BindingPrecipitationData.September;
             set
             {
-                if (SetProperty(ref _september, value))
+                ValidateValue(value, nameof(September));
+                if (HasErrors)
                 {
-                    ValidateSeptember();
-                    if (HasErrors)
-                    {
-                        return;
-                    }
-                    if (ActiveFarm.ClimateData.PrecipitationData.September != value)
-                    {
-                        ActiveFarm.ClimateData.PrecipitationData.September = value;
-                        PrecipitationSeriesValues[8] = value;
-                    }
+                    return;
                 }
-
+                BindingPrecipitationData.September = value;
+                RaisePropertyChanged(nameof(September));
             }
         }
         public double October
         {
-            get => _october;
+            get => BindingPrecipitationData.October;
             set
             {
-                if (SetProperty(ref _october, value))
+                ValidateValue(value, nameof(October));
+                if (HasErrors)
                 {
-                    ValidateOctober();
-                    if (HasErrors)
-                    {
-                        return;
-                    }
-                    if (ActiveFarm.ClimateData.PrecipitationData.October != value)
-                    {
-                        ActiveFarm.ClimateData.PrecipitationData.October = value;
-                        PrecipitationSeriesValues[9] = value;
-                    }
+                    return;
                 }
-
+                BindingPrecipitationData.October = value;
+                RaisePropertyChanged(nameof(October));
             }
         }
         public double November
         {
-            get => _november;
+            get => BindingPrecipitationData.November;
             set
             {
-                if (SetProperty(ref _november, value))
+                ValidateValue(value, nameof(November));
+                if (HasErrors)
                 {
-                    ValidateNovember();
-                    if (HasErrors)
-                    {
-                        return;
-                    }
-                    if (ActiveFarm.ClimateData.PrecipitationData.November != value)
-                    {
-                        ActiveFarm.ClimateData.PrecipitationData.November = value;
-                        PrecipitationSeriesValues[10] = value;
-                    }
+                    return;
                 }
+                BindingPrecipitationData.November = value;
+                RaisePropertyChanged(nameof(November));
             }
         }
         public double December
         {
-            get => _december;
+            get => BindingPrecipitationData.December;
             set
             {
-                if (SetProperty(ref _december, value))
+                ValidateValue(value, nameof(December));
+                if (HasErrors)
                 {
-                    ValidateDecember();
-                    if (HasErrors)
-                    {
-                        return;
-                    }
-                    if (ActiveFarm.ClimateData.PrecipitationData.December != value)
-                    {
-                        ActiveFarm.ClimateData.PrecipitationData.December = value;
-                        PrecipitationSeriesValues[11] = value;
-                    }
+                    return;
                 }
-
+                BindingPrecipitationData.December = value;
+                RaisePropertyChanged(nameof(December));
             }
         }
         #endregion
         #region Methods
-        private void CreatePrecipitationSeries()
+        public void ValidateValue(double value, string propertyName)
         {
-            var months = Enum.GetValues(typeof(H.Core.Enumerations.Months));
-            PrecipitationSeriesValues.Clear();
-            foreach (Months month in months)
+            if (value < 0)
             {
-                PrecipitationSeriesValues.Add(ActiveFarm.ClimateData.PrecipitationData.GetValueByMonth(month));
+                AddError(propertyName, "Value must be greater than 0");
+            }
+            else
+            {
+                RemoveError(propertyName);
             }
         }
-        private void ValidateJanuary()
+        public void ManageData()
         {
-            if (January < 0.00 || January > 100.00)
-            {
-                AddError(nameof(January), "Value cannot be below zero");
-            }
-            else
-            {
-                RemoveError(nameof(January));
-            }
+            BindingPrecipitationData = ActiveFarm.ClimateData.PrecipitationData;
+            BindingPrecipitationData.PropertyChanged -= OnDataPropertyChanged;
+            BindingPrecipitationData.PropertyChanged += OnDataPropertyChanged;
         }
-        private void ValidateFebruary()
-        { 
-            if (February < 0.00)
-            {
-                AddError(nameof(February), "Value cannot be below zero");
-            }
-            else
-            {
-                RemoveError(nameof(February));
-            }
-        }
-        private void ValidateMarch()
+        private void OnDataPropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            if (March < 0.00)
+            if (sender is PrecipitationData)
             {
-                AddError(nameof(March), "Value cannot be below zero");
-            }
-            else
-            {
-                RemoveError(nameof(March));
-            }
-        }
-        private void ValidateApril()
-        { 
-            if (April < 0.00)
-            {
-                AddError(nameof(April), "Value cannot be below zero");
-            }
-            else
-            {
-                RemoveError(nameof(April));
-            }
-        }
-        private void ValidateMay()
-        {
-            if (May < 0.00)
-            {
-                AddError(nameof(May), "Value cannot be below zero");
-            }
-            else
-            {
-                RemoveError(nameof(May));
-            }
-        }
-        private void ValidateJune()
-        {
-            if (June < 0.00)
-            {
-                AddError(nameof(June), "Value cannot be below zero");
-            }
-            else
-            {
-                RemoveError(nameof(June));
-            }
-        }
-        private void ValidateJuly()
-        {
-            if (July < 0.00)
-            {
-                AddError(nameof(July), "Value cannot be below zero");
-            }
-            else
-            {
-                RemoveError(nameof(July));
-            }
-        }
-        private void ValidateAugust()
-        {
-            if (August < 0.00)
-            {
-                AddError(nameof(August), "Value cannot be below zero");
-            }
-            else
-            {
-                RemoveError(nameof(August));
-            }
-        }
-        private void ValidateSeptember()
-        {
-            if (September < 0.00)
-            {
-                AddError(nameof(September), "Value cannot be below zero");
-            }
-            else
-            {
-                RemoveError(nameof(September));
-            }
-        }
-        private void ValidateOctober()
-        {
-            if (October < 0.00)
-            {
-                AddError(nameof(October), "Value cannot be below zero");
-            }
-            else
-            {
-                RemoveError(nameof(October));
-            }
-        }
-        private void ValidateNovember()
-        {
-            if (November < 0.00)
-            {
-                AddError(nameof(November), "Value cannot be below zero");
-            }
-            else
-            {
-                RemoveError(nameof(November));
-            }
-        }
-        private void ValidateDecember()
-        {
-            if (December < 0.00)
-            {
-                AddError(nameof(December), "Value cannot be below zero");
-            }
-            else
-            {
-                RemoveError(nameof(December));
+                ActiveFarm.ClimateData.PrecipitationData = BindingPrecipitationData;
             }
         }
         #endregion

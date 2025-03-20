@@ -29,7 +29,7 @@ public partial class OptionPrecipitationView : UserControl
     {
         InitializeComponent();
         this._viewModel = viewModel;
-        viewModel.BindingPrecipitationData.PropertyChanged += ViewModel_PropertyChanged;
+        viewModel.Data.BindingPrecipitationData.PropertyChanged += ViewModel_PropertyChanged;
         BuildChart();
     }
 
@@ -44,7 +44,7 @@ public partial class OptionPrecipitationView : UserControl
         foreach (Months month in Enum.GetValues(typeof(Months)))
         {
             {
-                values.Add(Math.Round(this._viewModel.BindingPrecipitationData.GetValueByMonth(month), 2));
+                values.Add(Math.Round(this._viewModel.Data.BindingPrecipitationData.GetValueByMonth(month), 2));
             };
         }
         Series[0].Values = values;

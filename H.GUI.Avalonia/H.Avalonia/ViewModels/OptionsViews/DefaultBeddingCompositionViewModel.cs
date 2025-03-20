@@ -12,7 +12,7 @@ namespace H.Avalonia.ViewModels.OptionsViews
     {
         #region Fields
 
-        private ObservableCollection<Table_30_Default_Bedding_Material_Composition_ViewModel> _beddingMaterialCompositionTable30ViewModels;
+        private ObservableCollection<DefaultBeddingCompositionDataViewModel> _beddingCompositionDataViewModels;
         private IUnitsOfMeasurementCalculator _unitsCalculator;
 
         #endregion
@@ -33,18 +33,18 @@ namespace H.Avalonia.ViewModels.OptionsViews
                 throw (new ArgumentNullException(nameof(unitsCalculator)));
             }
 
-            BeddingMaterialCompositionTable30ViewModels = new ObservableCollection<Table_30_Default_Bedding_Material_Composition_ViewModel>();
+            BeddingCompositionDataViewModels = new ObservableCollection<DefaultBeddingCompositionDataViewModel>();
 
             foreach (var dataClassInstance in base.ActiveFarm.DefaultsCompositionOfBeddingMaterials)
             {
-                var dataClassViewModel = new Table_30_Default_Bedding_Material_Composition_ViewModel(dataClassInstance, unitsCalculator);
+                var dataClassViewModel = new DefaultBeddingCompositionDataViewModel(dataClassInstance, unitsCalculator);
                 dataClassViewModel.SetInitializationFlag(true);
                 dataClassViewModel.TotalNitrogenKilogramsDryMatter = dataClassInstance.TotalNitrogenKilogramsDryMatter;
                 dataClassViewModel.TotalPhosphorusKilogramsDryMatter = dataClassInstance.TotalPhosphorusKilogramsDryMatter;
                 dataClassViewModel.TotalCarbonKilogramsDryMatter = dataClassInstance.TotalCarbonKilogramsDryMatter;
                 dataClassViewModel.CarbonToNitrogenRatio = dataClassInstance.CarbonToNitrogenRatio;
                 dataClassViewModel.SetInitializationFlag(false);
-                BeddingMaterialCompositionTable30ViewModels.Add(dataClassViewModel);
+                BeddingCompositionDataViewModels.Add(dataClassViewModel);
             }
 
             _unitsCalculator.PropertyChanged -= UnitsOfMeasurementChangeListener;
@@ -55,10 +55,10 @@ namespace H.Avalonia.ViewModels.OptionsViews
 
         #region Properties
 
-        public ObservableCollection<Table_30_Default_Bedding_Material_Composition_ViewModel> BeddingMaterialCompositionTable30ViewModels
+        public ObservableCollection<DefaultBeddingCompositionDataViewModel> BeddingCompositionDataViewModels
         {
-            get => _beddingMaterialCompositionTable30ViewModels;
-            set => SetProperty(ref _beddingMaterialCompositionTable30ViewModels, value);
+            get => _beddingCompositionDataViewModels;
+            set => SetProperty(ref _beddingCompositionDataViewModels, value);
         }
 
         #endregion
@@ -69,7 +69,7 @@ namespace H.Avalonia.ViewModels.OptionsViews
         {
             if (e.PropertyName == nameof(IUnitsOfMeasurementCalculator.IsMetric))
             {
-                foreach (var viewModel in  BeddingMaterialCompositionTable30ViewModels)
+                foreach (var viewModel in  BeddingCompositionDataViewModels)
                 {
                     viewModel.UpdateUnitsOfMeasurementDependentProperties();
                 }

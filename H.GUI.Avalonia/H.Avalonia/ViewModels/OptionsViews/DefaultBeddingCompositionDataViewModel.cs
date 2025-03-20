@@ -2,10 +2,11 @@
 using H.Core.Providers.Animals;
 using H.Core.Calculators.UnitsOfMeasurement;
 using H.Core.Enumerations;
+using System.Diagnostics;
 
 namespace H.Avalonia.ViewModels.OptionsViews
 {
-    public class Table_30_Default_Bedding_Material_Composition_ViewModel : ViewModelBase
+    public class DefaultBeddingCompositionDataViewModel : ViewModelBase
     {
         #region Fields
         
@@ -24,7 +25,7 @@ namespace H.Avalonia.ViewModels.OptionsViews
         /// This class is a view model wrapper over <see cref="Table_30_Default_Bedding_Material_Composition_Data"/> that provides data validation 
         /// </summary>
         /// <param name="dataClassInstance"></param>
-        public Table_30_Default_Bedding_Material_Composition_ViewModel(Table_30_Default_Bedding_Material_Composition_Data dataClassInstance, IUnitsOfMeasurementCalculator unitsCalculator)
+        public DefaultBeddingCompositionDataViewModel(Table_30_Default_Bedding_Material_Composition_Data dataClassInstance, IUnitsOfMeasurementCalculator unitsCalculator)
         {
             if (dataClassInstance != null)
             {

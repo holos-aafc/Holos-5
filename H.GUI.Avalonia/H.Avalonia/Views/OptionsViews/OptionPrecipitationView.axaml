@@ -17,62 +17,62 @@
 			<StackPanel Spacing="5" Width="200" Margin="15">
 				<TextBlock Text="{x:Static properties:Resources.January}"/>
 				<Grid ColumnDefinitions="*, Auto">
-					<NumericUpDown Grid.Column="0" FormatString="{}{0:0.00}" Value="{Binding Data.January, Mode=TwoWay}" />
+					<NumericUpDown Grid.Column="0" FormatString="{}{0:0.00}" Value="{Binding BindingPrecipitationData.January, Mode=TwoWay}" />
 					<TextBlock VerticalAlignment="Center" Margin="10,0,0,0" Grid.Column="1" Text="(mm)" />
 				</Grid>
 				<TextBlock Text="{x:Static properties:Resources.February}"  />
 				<Grid ColumnDefinitions="*, Auto">
-				<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.February, Mode=TwoWay}" />
+				<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding BindingPrecipitationData.February, Mode=TwoWay}" />
 				<TextBlock VerticalAlignment="Center" Margin="10,0,0,0" Grid.Column="1" Text="(mm)" />
 				</Grid>
 				<TextBlock Text="{x:Static properties:Resources.March}"  />
 				<Grid ColumnDefinitions="*, Auto">
-				<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.March, Mode=TwoWay}" />
+				<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding BindingPrecipitationData.March, Mode=TwoWay}" />
 					<TextBlock VerticalAlignment="Center" Margin="10,0,0,0" Grid.Column="1" Text="(mm)" />
 				</Grid>
 				<TextBlock Text="{x:Static properties:Resources.April}"  />
 					<Grid ColumnDefinitions="*, Auto">
-				<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.April, Mode=TwoWay}" />
+				<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding BindingPrecipitationData.April, Mode=TwoWay}" />
 				<TextBlock VerticalAlignment="Center" Margin="10,0,0,0" Grid.Column="1" Text="(mm)" />
 			</Grid>
 				<TextBlock Text="{x:Static properties:Resources.May}"  />
 				<Grid ColumnDefinitions="*, Auto">
-				<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.May, Mode=TwoWay}" />
+				<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding BindingPrecipitationData.May, Mode=TwoWay}" />
 					<TextBlock VerticalAlignment="Center" Margin="10,0,0,0" Grid.Column="1" Text="(mm)" />
 				</Grid>
 				<TextBlock Text="{x:Static properties:Resources.June}"  />
 				<Grid ColumnDefinitions="*, Auto">
-				<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.June, Mode=TwoWay}" />
+				<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding BindingPrecipitationData.June, Mode=TwoWay}" />
 				<TextBlock VerticalAlignment="Center" Margin="10,0,0,0" Grid.Column="1" Text="(mm)" />
 			</Grid>
 				<TextBlock Text="{x:Static properties:Resources.July}"  />
 				<Grid ColumnDefinitions="*, Auto">
-				<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.July, Mode=TwoWay}" />
+				<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding BindingPrecipitationData.July, Mode=TwoWay}" />
 					<TextBlock VerticalAlignment="Center" Margin="10,0,0,0" Grid.Column="1" Text="(mm)" />
 				</Grid>
 				<TextBlock Text="{x:Static properties:Resources.August}"  />
 				<Grid ColumnDefinitions="*, Auto">
-				<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.August, Mode=TwoWay}" />
+				<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding BindingPrecipitationData.August, Mode=TwoWay}" />
 				<TextBlock VerticalAlignment="Center" Margin="10,0,0,0" Grid.Column="1" Text="(mm)" />
 			</Grid>
 				<TextBlock Text="{x:Static properties:Resources.September}"  />
 				<Grid ColumnDefinitions="*, Auto">
-				<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.September, Mode=TwoWay}" />
+				<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding BindingPrecipitationData.September, Mode=TwoWay}" />
 					<TextBlock VerticalAlignment="Center" Margin="10,0,0,0" Grid.Column="1" Text="(mm)" />
 				</Grid>
 				<TextBlock Text="{x:Static properties:Resources.October}"  />
 				<Grid ColumnDefinitions="*, Auto">
-				<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.October, Mode=TwoWay}" />
+				<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding BindingPrecipitationData.October, Mode=TwoWay}" />
 				<TextBlock VerticalAlignment="Center" Margin="10,0,0,0" Grid.Column="1" Text="(mm)" />
 			</Grid>
 				<TextBlock Text="{x:Static properties:Resources.November}"  />
 				<Grid ColumnDefinitions="*, Auto">
-				<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.November, Mode=TwoWay}" />
+				<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding BindingPrecipitationData.November, Mode=TwoWay}" />
 					<TextBlock VerticalAlignment="Center" Margin="10,0,0,0" Grid.Column="1" Text="(mm)" />
 				</Grid>
 				<TextBlock Text="{x:Static properties:Resources.December}"  />
 				<Grid ColumnDefinitions="*, Auto">
-				<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.December, Mode=TwoWay}" />
+				<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding BindingPrecipitationData.December, Mode=TwoWay}" />
 				<TextBlock VerticalAlignment="Center" Margin="10,0,0,0" Grid.Column="1" Text="(mm)" />
 			</Grid>
 			</StackPanel>

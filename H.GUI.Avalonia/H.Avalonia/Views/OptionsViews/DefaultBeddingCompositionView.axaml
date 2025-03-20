@@ -8,7 +8,7 @@
 	<StackPanel>
 		<TextBlock Text="{x:Static properties:Resources.MessageDefaultBeddingComposition}" Margin="0 0 0 20"/>
 		<StackPanel>
-		  <DataGrid ItemsSource="{Binding Path=BeddingMaterialCompositionTable30ViewModels}" AutoGenerateColumns="False">
+		  <DataGrid ItemsSource="{Binding Path=BeddingCompositionDataViewModels}" AutoGenerateColumns="False">
 			  <DataGrid.Columns>
 				  <DataGridTextColumn Header="{x:Static properties:Resources.LabelComponentCategory}" Binding="{Binding Path=ComponentCategoryString}"/>
 				  <DataGridTextColumn Header="{x:Static properties:Resources.LabelBeddingTypeColumn}" Binding="{Binding Path=BeddingMaterialString}"/>

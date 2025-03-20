@@ -12,6 +12,17 @@ namespace H.Avalonia.ViewModels.OptionsViews
         public OptionSoilViewModel() { }
         public OptionSoilViewModel(IRegionManager regionManager, IStorageService storageService) : base(regionManager, storageService)
         {
+            ManageData();
+            Data = new SoilDisplayViewModel(storageService);
+        }
+        #endregion
+        #region Properties
+        public SoilDisplayViewModel Data { get; set; }
+        public ObservableCollection<SoilTexture> SoilTextures { get; set; }
+        #endregion
+        #region Methods
+        public void ManageData()
+        {
             SoilTextures = new ObservableCollection<SoilTexture>();
             ActiveFarm = base.StorageService.GetActiveFarm();
             var soilTextures = SoilTexture.GetValues(typeof(SoilTexture));
@@ -22,20 +33,7 @@ namespace H.Avalonia.ViewModels.OptionsViews
                     SoilTextures.Add(soilTexture);
                 }
             }
-            Data = new SoilDisplayViewModel(storageService);
-            Data.BulkDensity = ActiveFarm.DefaultSoilData.BulkDensity;
-            Data.TopLayerThickness = ActiveFarm.DefaultSoilData.TopLayerThickness;
-            Data.ProportionOfClayInSoil = ActiveFarm.DefaultSoilData.ProportionOfClayInSoil;
-            Data.SelectedSoilTexture = ActiveFarm.DefaultSoilData.SoilTexture;
-            Data.ProportionOfSandInSoil = ActiveFarm.DefaultSoilData.ProportionOfSandInSoil;
-            Data.ProportionOfSoilOrganicCarbon = ActiveFarm.DefaultSoilData.ProportionOfSoilOrganicCarbon;
-            Data.SoilPh = ActiveFarm.DefaultSoilData.SoilPh;
-            Data.CarbonModellingEquilibriumYear = ActiveFarm.CarbonModellingEquilibriumYear;
         }
-        #endregion
-        #region Properties
-        public SoilDisplayViewModel Data { get; set; }
-        public ObservableCollection<SoilTexture> SoilTextures { get; set; }
         #endregion
     }
 }

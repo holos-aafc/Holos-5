@@ -1,5 +1,7 @@
 ﻿using System;
 using H.Core.Enumerations;
+using H.Core.Providers.Precipitation;
+using H.Core.Providers.Soil;
 using H.Core.Services.StorageService;
 using Mapsui.Extensions;
 
@@ -8,20 +10,21 @@ namespace H.Avalonia.ViewModels.OptionsViews
     public class SoilDisplayViewModel : ViewModelBase
     {
         #region Fields
-        private double _bulkDensity;
-        private SoilTexture _selectedSoilTexture;
-        private double _topLayerThickness;
-        private double _proportionOfClayInSoil;
-        private double _proportionOfSandInSoil;
-        private double _proportionOfSoilOrganicCarbon;
-        private double _soilPh;
-        private double _soilCec;
-        private int _carbonModellingEquilibriumYear;
+        private SoilTexture _selectedSoilTexture;        
+        private int _carbonModellingEquilibriumYear; 
+        private SoilData _bindingSoilData = new SoilData();
         #endregion
-        #region Properties
+        #region Constructors
         public SoilDisplayViewModel(IStorageService storageService) : base(storageService) 
         {
-            ActiveFarm = base.StorageService.GetActiveFarm();
+            ManageData();
+        }
+        #endregion
+        #region Properties
+        public SoilData BindingSoilData
+        {
+            get => _bindingSoilData;
+            set => SetProperty(ref _bindingSoilData, value);
         }
         public SoilTexture SelectedSoilTexture
         {
@@ -36,142 +39,94 @@ namespace H.Avalonia.ViewModels.OptionsViews
         }
         public double BulkDensity
         {
-            get => _bulkDensity;
+            get => BindingSoilData.BulkDensity;
             set
             {
-                if (SetProperty(ref _bulkDensity, value))
+               ValidateDouble(value, nameof(BulkDensity));
+                if (HasErrors)
                 {
-                    ValidateBulkDensity();
-                    if (HasErrors)
-                    {
-                        // Optionally notify the user that there are validation errors
-                        return;
-                    }
-                    if (ActiveFarm.DefaultSoilData.BulkDensity != value)
-                    {
-                        ActiveFarm.DefaultSoilData.BulkDensity = value;
-                    }
+                    return;
                 }
+                BindingSoilData.BulkDensity = value;
             }
         }
         public double TopLayerThickness
         {
-            get => _topLayerThickness;
+            get => BindingSoilData.TopLayerThickness;
             set
             {
-                if (SetProperty(ref _topLayerThickness, value))
+                ValidateDouble(value, nameof(TopLayerThickness));
+                if (HasErrors)
                 {
-                    ValidateTopLayerThickness();
-                    if (HasErrors)
-                    {
-                        // Optionally notify the user that there are validation errors
-                        return;
-                    }
-                    if (ActiveFarm.DefaultSoilData.TopLayerThickness != value)
-                    {
-                        ActiveFarm.DefaultSoilData.TopLayerThickness = value;
-                    }
+                    return;
                 }
+                BindingSoilData.TopLayerThickness = value;
             }
         }
         public double ProportionOfClayInSoil
         {
-            get => _proportionOfClayInSoil;
+            get => BindingSoilData.ProportionOfClayInSoil;
             set
             {
-                if (SetProperty(ref _proportionOfClayInSoil, value))
+                ValidateDouble(value, nameof(ProportionOfClayInSoil));
+                if (HasErrors)
                 {
-                    ValidateProportionOfClayInSoil();
-                    if (HasErrors)
-                    {
-                        // Optionally notify the user that there are validation errors
-                        return;
-                    }
-                    if (ActiveFarm.DefaultSoilData.ProportionOfClayInSoil != value)
-                    {
-                        ActiveFarm.DefaultSoilData.ProportionOfClayInSoil = value;
-                    }
+                    return;
                 }
+                BindingSoilData.ProportionOfClayInSoil = value;
             }
         }
         public double ProportionOfSandInSoil
         {
-            get => _proportionOfSandInSoil;
+            get => BindingSoilData.ProportionOfSandInSoil;
             set
             {
-                if (SetProperty(ref _proportionOfSandInSoil, value))
+                ValidateDouble(value, nameof(ProportionOfSandInSoil));
+                if (HasErrors)
                 {
-                    ValidateProportionOfSandInSoil();
-                    if (HasErrors)
-                    {
-                        // Optionally notify the user that there are validation errors
-                        return;
-                    }
-                    if (ActiveFarm.DefaultSoilData.ProportionOfSandInSoil != value)
-                    {
-                        ActiveFarm.DefaultSoilData.ProportionOfSandInSoil = value;
-                    }
+                    return;
                 }
+                BindingSoilData.ProportionOfSandInSoil = value;
             }
         }
         public double SoilPh
         {
-            get => _soilPh;
+            get => BindingSoilData.SoilPh;
             set
             {
-                if (SetProperty(ref _soilPh, value))
+                ValidateDouble(value, nameof(SoilPh));
+                if (HasErrors)
                 {
-                    ValidateSoilPh();
-                    if (HasErrors)
-                    {
-                        // Optionally notify the user that there are validation errors
-                        return;
-                    }
-                    if (ActiveFarm.DefaultSoilData.SoilPh != value)
-                    {
-                        ActiveFarm.DefaultSoilData.SoilPh = value;
-                    }
+                    return;
                 }
+                BindingSoilData.SoilPh = value;
             }
         }
         public double ProportionOfSoilOrganicCarbon
         {
-            get => _proportionOfSoilOrganicCarbon;
+            get => BindingSoilData.ProportionOfSoilOrganicCarbon;
             set
             {
-                if (SetProperty(ref _proportionOfSoilOrganicCarbon, value))
+                ValidateDouble(value, nameof(ProportionOfSoilOrganicCarbon));
+                if (HasErrors)
                 {
-                    ValidateProportionOfSoilOrganicCarbon();
-                    if (HasErrors)
-                    {
-                        // Optionally notify the user that there are validation errors
-                        return;
-                    }
-                    if (ActiveFarm.DefaultSoilData.ProportionOfSoilOrganicCarbon != value)
-                    {
-                        ActiveFarm.DefaultSoilData.ProportionOfSoilOrganicCarbon = value;
-                    }
+                    return;
                 }
+                BindingSoilData.ProportionOfSoilOrganicCarbon = value;
             }
         }
         public double SoilCec
         {
-            get => _soilCec;
+            get => BindingSoilData.SoilCec;
             set
             {
-                if (SetProperty(ref _soilCec, value))
+                ValidateDouble(value, nameof(SoilCec));
+                if (HasErrors)
                 {
-                    ValidateSoilCec();
-                    if (HasErrors)
-                    {
-                        // Optionally notify the user that there are validation errors
-                        return;
-                    }
-                    if (ActiveFarm.DefaultSoilData.SoilCec != value)
-                    {
-                        ActiveFarm.DefaultSoilData.SoilCec = value;
-                    }
+                    return;
                 }
+                BindingSoilData.SoilCec = value;
+                
             }
         }
         public int CarbonModellingEquilibriumYear
@@ -179,98 +134,26 @@ namespace H.Avalonia.ViewModels.OptionsViews
             get => _carbonModellingEquilibriumYear;
             set
             {
-                if (SetProperty(ref _carbonModellingEquilibriumYear, value))
-                {
-                    ValidateCarbonModellingEquilibriumYear();
+                SetProperty(ref _carbonModellingEquilibriumYear, value);
+                ValidateCarbonModellingEquilibriumYear();
                     if (HasErrors)
                     {
-                        // Optionally notify the user that there are validation errors
                         return;
                     }
-                    if (ActiveFarm.CarbonModellingEquilibriumYear != value)
-                    {
-                        ActiveFarm.CarbonModellingEquilibriumYear = value;
-                    }
-                }
+                    ActiveFarm.CarbonModellingEquilibriumYear = value;
             }
         }
         #endregion
         #region Methods
-        private void ValidateBulkDensity()
+        public void ValidateDouble(double value, string propertyName)
         {
-            if (BulkDensity.IsNanOrInfOrZero())
+            if(value < 0)
             {
-                AddError(nameof(BulkDensity), "Bulk Density must be greater than 0.");
+                AddError(propertyName, "Value cannot be below 0");
             }
             else
             {
-                RemoveError(nameof(BulkDensity));
-            }
-        }
-        private void ValidateTopLayerThickness()
-        {
-            if (TopLayerThickness.IsNanOrInfOrZero())
-            {
-                AddError(nameof(TopLayerThickness), "Top Layer Thickness must be greater than 0.");
-            }
-            else
-            {
-                RemoveError(nameof(TopLayerThickness));
-            }
-        }
-        private void ValidateProportionOfClayInSoil()
-        {
-            if (ProportionOfClayInSoil.IsNanOrInfOrZero())
-            {
-                AddError(nameof(ProportionOfClayInSoil), "Proportion of Clay in Soil must be greater than 0.");
-            }
-            else
-            {
-                RemoveError(nameof(ProportionOfClayInSoil));
-            }
-        }
-        private void ValidateProportionOfSandInSoil()
-        {
-            if (ProportionOfSandInSoil.IsNanOrInfOrZero())
-            {
-                AddError(nameof(ProportionOfSandInSoil), "Proportion of Sand in Soil must be greater than 0.");
-            }
-            else
-            {
-                RemoveError(nameof(ProportionOfSandInSoil));
-            }
-        }
-        private void ValidateProportionOfSoilOrganicCarbon()
-        {
-            if (ProportionOfSoilOrganicCarbon.IsNanOrInfOrZero())
-            {
-                AddError(nameof(ProportionOfSoilOrganicCarbon), "Proportion of Soil Organic Carbon must be greater than 0.");
-            }
-            else
-            {
-                RemoveError(nameof(ProportionOfSoilOrganicCarbon));
-            }
-        }
-        private void ValidateSoilPh()
-        {
-            if (SoilPh.IsNanOrInfOrZero())
-            {
-                AddError(nameof(SoilPh), "Soil pH must be greater than 0.");
-            }
-            else
-            {
-                RemoveError(nameof(SoilPh));
-            }
-        }
-        private void ValidateSoilCec()
-        {
-            if (SoilCec.IsNanOrInfOrZero())
-            {
-                AddError(nameof(SoilCec), "Soil CEC must be greater than 0.");
-            }
-            else
-            {
-                RemoveError(nameof(SoilCec));
+                RemoveError(propertyName);
             }
         }
         private void ValidateCarbonModellingEquilibriumYear()
@@ -283,6 +166,47 @@ namespace H.Avalonia.ViewModels.OptionsViews
             else
             {
                 RemoveError(nameof(CarbonModellingEquilibriumYear));
+            }
+        }
+        public void ManageData()
+        {
+            ActiveFarm = base.StorageService.GetActiveFarm();
+            CarbonModellingEquilibriumYear = ActiveFarm.CarbonModellingEquilibriumYear;
+            BindingSoilData = ActiveFarm.DefaultSoilData;
+            BindingSoilData.PropertyChanged -= OnSoilDataPropertyChanged;
+            BindingSoilData.PropertyChanged += OnSoilDataPropertyChanged;
+        }
+        #endregion
+        #region Event Handlers
+        public void OnSoilDataPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(BulkDensity))
+            {
+                BulkDensity = ActiveFarm.DefaultSoilData.BulkDensity;
+            }
+            else if (e.PropertyName == nameof(TopLayerThickness))
+            {
+                TopLayerThickness = ActiveFarm.DefaultSoilData.TopLayerThickness;
+            }
+            else if (e.PropertyName == nameof(ProportionOfClayInSoil))
+            {
+                ProportionOfClayInSoil = ActiveFarm.DefaultSoilData.ProportionOfClayInSoil;
+            }
+            else if (e.PropertyName == nameof(ProportionOfSandInSoil))
+            {
+                ProportionOfSandInSoil = ActiveFarm.DefaultSoilData.ProportionOfSandInSoil;
+            }
+            else if (e.PropertyName == nameof(ProportionOfSoilOrganicCarbon))
+            {
+                ProportionOfSoilOrganicCarbon = ActiveFarm.DefaultSoilData.ProportionOfSoilOrganicCarbon;
+            }
+            else if (e.PropertyName == nameof(SoilPh))
+            {
+                SoilPh = ActiveFarm.DefaultSoilData.SoilPh;
+            }
+            else if (e.PropertyName == nameof(SoilCec))
+            {
+                SoilCec = ActiveFarm.DefaultSoilData.SoilCec;
             }
         }
         #endregion

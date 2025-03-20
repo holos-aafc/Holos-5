@@ -244,6 +244,7 @@ namespace H.Avalonia.ViewModels
             {
                 _errors[propertyName].Add(error);
                 OnErrorsChanged(propertyName);
+                this.RaisePropertyChanged(nameof(HasErrors));
             }
         }
         public void RemoveError(string propertyName)
@@ -253,6 +254,7 @@ namespace H.Avalonia.ViewModels
                 _errors[propertyName].Clear();
                 _errors.Remove(propertyName);
                 OnErrorsChanged(propertyName);
+                this.RaisePropertyChanged(nameof(HasErrors));
             }
         }
 

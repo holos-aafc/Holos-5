@@ -40,7 +40,6 @@ namespace H.Avalonia.ViewModels.OptionsViews
                     ValidateFarmComments();
                     if (HasErrors)
                     {
-                        // Optionally notify the user that there are validation errors
                         return;
                     }
                     if (ActiveFarm.Comments != value)
@@ -61,7 +60,6 @@ namespace H.Avalonia.ViewModels.OptionsViews
                     ValidateFarmName();
                     if (HasErrors)
                     {
-                        // Optionally notify the user that there are validation errors
                         return;
                     }
                     if (ActiveFarm.Name != value)
@@ -82,7 +80,6 @@ namespace H.Avalonia.ViewModels.OptionsViews
                     ValidatePrecipitation();
                     if (HasErrors)
                     {
-                        // Optionally notify the user that there are validation errors
                         return;
                     }
                     if (ActiveFarm.ClimateData.PrecipitationData.GrowingSeasonPrecipitation != value)
@@ -103,7 +100,6 @@ namespace H.Avalonia.ViewModels.OptionsViews
                     ValidateEvapotranspiration();
                     if (HasErrors)
                     {
-                        // Optionally notify the user that there are validation errors
                         return;
                     }
                     if (ActiveFarm.ClimateData.EvapotranspirationData.GrowingSeasonEvapotranspiration != value)

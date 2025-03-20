@@ -1,22 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using LiveChartsCore.SkiaSharpView.Painting;
-using LiveChartsCore.SkiaSharpView;
-using LiveChartsCore;
-using SkiaSharp;
-using Prism.Regions;
+﻿using Prism.Regions;
 using H.Core.Services.StorageService;
-using H.Core.Enumerations;
-using BruTile.Wmts.Generated;
-using DynamicData.Kernel;
-using System.Collections.ObjectModel;
-using Avalonia.Controls;
-using System.ComponentModel;
 using H.Core.Providers.Precipitation;
 using Prism.Events;
+using DynamicData.Binding;
+using H.Core.Enumerations;
+using System;
+using System.ComponentModel;
 
 namespace H.Avalonia.ViewModels.OptionsViews
 {
@@ -50,15 +39,22 @@ namespace H.Avalonia.ViewModels.OptionsViews
         public PrecipitationData BindingPrecipitationData
         {
             get => _bindingPrecipitationData;
+            set => SetProperty(ref _bindingPrecipitationData, value);  
+        }
+       public double January
+        {
+            get => BindingPrecipitationData.January;
             set
             {
-                if (_bindingPrecipitationData != value)
+                ValidateValue(value, nameof(January));
+                if(HasErrors)
                 {
-                    SetProperty(ref _bindingPrecipitationData, value);
+                    return;
                 }
+                BindingPrecipitationData.January = value;
+                RaisePropertyChanged(nameof(January));
             }
         }
-       
         #endregion
 
         #region Public Methods
@@ -73,16 +69,23 @@ namespace H.Avalonia.ViewModels.OptionsViews
             BindingPrecipitationData.April = ActiveFarm.ClimateData.PrecipitationData.April;
             ... */  
         }
-
-        #endregion
-
-        #region Event Handler
-
+        public void ValidateValue(double value, string propertyName)
+        {
+            if (value < 0)
+            {
+                AddError(propertyName, "Value must be greater than 0");
+            }
+            else
+            {
+                RemoveError(propertyName);
+            }
+        }
         private void Data_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             if (sender is PrecipitationData)
             {
                 ActiveFarm.ClimateData.PrecipitationData = BindingPrecipitationData;
+                
             }
         }
 

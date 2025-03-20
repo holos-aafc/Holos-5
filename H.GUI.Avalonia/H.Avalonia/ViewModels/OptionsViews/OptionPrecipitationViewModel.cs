@@ -28,17 +28,11 @@ namespace H.Avalonia.ViewModels.OptionsViews
         public OptionPrecipitationViewModel(IRegionManager regionManager, IStorageService storageService) : base(regionManager, storageService)
         {
             Data = new PrecipitationDisplayViewModel(storageService);
-            //Data.PropertyChanged += Data_PropertyChanged;
             GetData();
         }
 
-        private void Data_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
-        {
-            System.Diagnostics.Debug.WriteLine("raised");
-        }
         #endregion
-        #region Properties
-        
+        #region Properties 
         public PrecipitationDisplayViewModel Data
         {
             get => _data;
@@ -50,7 +44,6 @@ namespace H.Avalonia.ViewModels.OptionsViews
                 }
             }
         }
-       
 
         //public ISeries[] Series { get; set; } =
         //{

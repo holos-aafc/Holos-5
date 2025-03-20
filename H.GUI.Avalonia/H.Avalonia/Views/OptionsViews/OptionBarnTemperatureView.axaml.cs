@@ -54,7 +54,7 @@ public partial class OptionBarnTemperatureView : UserControl
                     LabelsPaint = new SolidColorPaint(SKColors.Black),
                     TextSize = 14,
                     LabelsRotation = 20,
-                    Padding = new LiveChartsCore.Drawing.Padding(-8, 10, 10, 0),
+                    Padding = new LiveChartsCore.Drawing.Padding(-8, 0, 0, 0),
                     ShowSeparatorLines = true,
                     Labels = new string[] { H.Core.Properties.Resources.January, H.Core.Properties.Resources.February, H.Core.Properties.Resources.March, H.Core.Properties.Resources.April, H.Core.Properties.Resources.May, H.Core.Properties.Resources.June, H.Core.Properties.Resources.July, H.Core.Properties.Resources.August, H.Core.Properties.Resources.September, H.Core.Properties.Resources.October, H.Core.Properties.Resources.November, H.Core.Properties.Resources.December}
                 }

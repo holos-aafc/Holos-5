@@ -69,7 +69,22 @@ namespace H.Avalonia.ViewModels.OptionsViews
 
         public void InitializeBindingTemperatureData()
         {
-
+            if (ActiveFarm.ClimateData.TemperatureData != null)
+            {
+                BindingTemperatureData = ActiveFarm.ClimateData.TemperatureData;
+            }
+            else
+            {
+                var values = new TemperatureData();
+                foreach (Months month in Enum.GetValues(typeof(Months)))
+                {
+                    {
+                        values.GetValueByMonth(month);
+                    };
+                }
+                BindingTemperatureData = values;
+                BindingTemperatureData.IsInitialized = true;
+            }
         }
 
         #endregion
@@ -80,7 +95,7 @@ namespace H.Avalonia.ViewModels.OptionsViews
         {
             if (sender is TemperatureData)
             {
-                ActiveFarm.ClimateData.BarnTemperatureData = BindingTemperatureData;
+                ActiveFarm.ClimateData.TemperatureData = BindingTemperatureData;
             }
         }
 

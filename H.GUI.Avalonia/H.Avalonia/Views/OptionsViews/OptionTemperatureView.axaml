@@ -22,7 +22,8 @@
 			<ColumnDefinition Width="*"/>
 		</Grid.ColumnDefinitions>
 
-		<TextBlock Text="{x:Static properties:Resources.MessageMonthlyTemperatureBreakdownHeader}" FontSize="16" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="10 15 10 0"/>
+
+		<TextBlock Padding="40, 15" Grid.Row="0" Grid.ColumnSpan="2" Background="#3C4DBB" Foreground="WhiteSmoke" Text="{x:Static properties:Resources.MessageMonthlyTemperatureBreakdownHeader}" />
 
 		<ScrollViewer Grid.Row="1" Grid.Column="0">
 			<StackPanel Margin="15 15 15 15">

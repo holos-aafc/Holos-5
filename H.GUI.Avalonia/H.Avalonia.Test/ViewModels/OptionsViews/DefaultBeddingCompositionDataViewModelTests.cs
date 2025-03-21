@@ -39,8 +39,9 @@ namespace H.Avalonia.ViewModels.OptionsViews.Tests
         {
             _mockUnitsCalculator.Setup(x => x.IsMetric).Returns(true);
             var testDataClassInstance = new Table_30_Default_Bedding_Material_Composition_Data();
-
             _viewModel = new DefaultBeddingCompositionDataViewModel(testDataClassInstance, _unitsCalculatorMock);
+            _viewModel.SetInitializationFlag(false);
+
             _viewModel.TotalNitrogenKilogramsDryMatter = 0.005;
 
             // Getter should return backing field as is (i.e. in metric units)
@@ -57,6 +58,7 @@ namespace H.Avalonia.ViewModels.OptionsViews.Tests
             _mockUnitsCalculator.Setup(x => x.GetUnitsOfMeasurementValue(MeasurementSystemType.Imperial, MetricUnitsOfMeasurement.Kilograms, 4.535147)).Returns(10);
             var testDataClassInstance = new Table_30_Default_Bedding_Material_Composition_Data();
             _viewModel = new DefaultBeddingCompositionDataViewModel(testDataClassInstance, _unitsCalculatorMock);
+            _viewModel.SetInitializationFlag(false);
 
             _viewModel.TotalNitrogenKilogramsDryMatter = 10;
 
@@ -67,7 +69,41 @@ namespace H.Avalonia.ViewModels.OptionsViews.Tests
         }
 
         [TestMethod]
-        public void TestValidateNumericProperty()
+        public void TestSetterDuringInitializationMetric()
+        {
+            _mockUnitsCalculator.Setup(x => x.IsMetric).Returns(true);
+            var testDataClassInstance = new Table_30_Default_Bedding_Material_Composition_Data();
+            _viewModel = new DefaultBeddingCompositionDataViewModel(testDataClassInstance, _unitsCalculatorMock);
+            _viewModel.SetInitializationFlag(true);
+
+            _viewModel.TotalNitrogenKilogramsDryMatter = 7.5;
+
+            Assert.AreEqual(7.5, _viewModel.TotalNitrogenKilogramsDryMatter);
+            // Data class instance should not be updated when initialization occurs
+            Assert.AreEqual(0, testDataClassInstance.TotalNitrogenKilogramsDryMatter);
+        }
+
+        [TestMethod]
+        public void TestSetterDuringInitializationImperial()
+        {
+            _mockUnitsCalculator.Setup(x => x.IsMetric).Returns(false);
+            _mockUnitsCalculator.Setup(x => x.GetUnitsOfMeasurementValue(MeasurementSystemType.Imperial, MetricUnitsOfMeasurement.Kilograms, 0.375)).Returns(0.8269);
+            var testDataClassInstance = new Table_30_Default_Bedding_Material_Composition_Data();
+            _viewModel = new DefaultBeddingCompositionDataViewModel(testDataClassInstance, _unitsCalculatorMock);
+            _viewModel.SetInitializationFlag(true);
+
+            _viewModel.TotalNitrogenKilogramsDryMatter = 0.375;
+            
+            // There should be no method call to convert to metric units 
+            _mockUnitsCalculator.Verify(x => x.GetUnitsOfMeasurementValue(MeasurementSystemType.Metric, ImperialUnitsOfMeasurement.Pounds, It.IsAny<Double>()), Times.Never());
+            // Data class instance should not be updated when initialization occurs
+            Assert.AreEqual(0, testDataClassInstance.TotalNitrogenKilogramsDryMatter);
+            // Getter should return the input (metric) converted to imperial units
+            Assert.AreEqual(0.8269, _viewModel.TotalNitrogenKilogramsDryMatter);
+        }
+
+        [TestMethod]
+        public void TestValidateNumericPropertyWithNegative()
         {
             _mockUnitsCalculator.Setup(x => x.IsMetric).Returns(true);
             var testDataClassInstance = new Table_30_Default_Bedding_Material_Composition_Data();
@@ -84,6 +120,34 @@ namespace H.Avalonia.ViewModels.OptionsViews.Tests
             var errors = _viewModel.GetErrors(nameof(_viewModel.TotalPhosphorusKilogramsDryMatter)) as IEnumerable<string>;
             Assert.IsNotNull(errors);
             Assert.AreEqual("Must be greater than or equal to 0.", errors.ToList()[0]);
+        }
+
+        [TestMethod]
+        public void TestValidateNumericPropertyWithZero()
+        {
+            _mockUnitsCalculator.Setup(x => x.IsMetric).Returns(true);
+            var testDataClassInstance = new Table_30_Default_Bedding_Material_Composition_Data();
+            _viewModel = new DefaultBeddingCompositionDataViewModel(testDataClassInstance, _unitsCalculatorMock);
+
+            _viewModel.TotalPhosphorusKilogramsDryMatter = 0;
+            Assert.IsTrue(!_viewModel.HasErrors);
+
+            Assert.AreEqual(0, _viewModel.TotalPhosphorusKilogramsDryMatter);
+            Assert.AreEqual(0, testDataClassInstance.TotalPhosphorusKilogramsDryMatter);
+        }
+
+        [TestMethod]
+        public void TestValidateNumericPropertyWithPositive()
+        {
+            _mockUnitsCalculator.Setup(x => x.IsMetric).Returns(true);
+            var testDataClassInstance = new Table_30_Default_Bedding_Material_Composition_Data();
+            _viewModel = new DefaultBeddingCompositionDataViewModel(testDataClassInstance, _unitsCalculatorMock);
+
+            _viewModel.TotalPhosphorusKilogramsDryMatter = 12;
+            Assert.IsTrue(!_viewModel.HasErrors);
+
+            Assert.AreEqual(12, _viewModel.TotalPhosphorusKilogramsDryMatter);
+            Assert.AreEqual(12, testDataClassInstance.TotalPhosphorusKilogramsDryMatter);
         }
     }
 }

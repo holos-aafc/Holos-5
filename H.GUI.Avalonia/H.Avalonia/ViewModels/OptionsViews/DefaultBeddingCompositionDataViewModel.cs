@@ -76,6 +76,8 @@ namespace H.Avalonia.ViewModels.OptionsViews
             {
                 double metricValue = value;
 
+                // Conversion should only occur when the user is editing in the gui NOT during initialization 
+                // Assumed during initialization this class is always seeded with metric values (copied over from data class, which is seeded by a provider)
                 if (!_initializationFlag && !_unitsCalculator.IsMetric)
                 {
                     metricValue = _unitsCalculator.GetUnitsOfMeasurementValue(MeasurementSystemType.Metric, ImperialUnitsOfMeasurement.Pounds, metricValue);
@@ -108,6 +110,8 @@ namespace H.Avalonia.ViewModels.OptionsViews
             {
                 double metricValue = value;
 
+                // Conversion should only occur when the user is editing in the gui NOT during initialization 
+                // Assumed during initialization this class is always seeded with metric values (copied over from data class, which is seeded by a provider)
                 if (!_initializationFlag && !_unitsCalculator.IsMetric)
                 {
                     metricValue = _unitsCalculator.GetUnitsOfMeasurementValue(MeasurementSystemType.Metric, ImperialUnitsOfMeasurement.Pounds, metricValue);
@@ -140,6 +144,8 @@ namespace H.Avalonia.ViewModels.OptionsViews
             {
                 double metricValue = value;
 
+                // Conversion should only occur when the user is editing in the gui NOT during initialization 
+                // Assumed during initialization this class is always seeded with metric values (copied over from data class, which is seeded by a provider)
                 if (!_initializationFlag && !_unitsCalculator.IsMetric)
                 {
                     metricValue = _unitsCalculator.GetUnitsOfMeasurementValue(MeasurementSystemType.Metric, ImperialUnitsOfMeasurement.Pounds, metricValue);

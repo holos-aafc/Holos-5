@@ -6,19 +6,21 @@
 			 xmlns:properties="clr-namespace:H.Core.Properties;assembly=H.Core"
              x:Class="H.Avalonia.DefaultManureCompositionView">
 	<StackPanel>
-		<TextBlock Text="{x:Static properties:Resources.MessageDefaultManureComposition}" Margin="0 0 0 20"/>
+		<TextBlock Padding="40, 15" Background="#3C4DBB" Foreground="WhiteSmoke" Text="{x:Static properties:Resources.MessageDefaultManureComposition}" Margin="0 0 0 20"/>
 		<StackPanel>
-			<DataGrid ItemsSource="{Binding Path=DefaultManureCompositionDataViewModels}" AutoGenerateColumns="False">
-				<DataGrid.Columns>
-					<DataGridTextColumn Header="{x:Static properties:Resources.LabelManureType}" Binding="{Binding Path=AnimalType}"/>
-					<DataGridTextColumn Header="{x:Static properties:Resources.LabelManureHandlingSystemColumn}" Binding="{Binding Path=ManureStateTypeString}"/>
-					<DataGridTextColumn Header="{x:Static properties:Resources.LabelMoistureContentColumn}" Binding="{Binding Path=MoistureContent}"/>
-					<DataGridTextColumn Header="{x:Static properties:Resources.LabelTotalNitrogenColumn}" Binding="{Binding Path=NitrogenFraction}"/>
-					<DataGridTextColumn Header="{x:Static properties:Resources.LabelTotalCarbonColumn}" Binding="{Binding Path=CarbonFraction}"/>
-					<DataGridTextColumn Header="{x:Static properties:Resources.LabelTotalPhosphorusColumn}" Binding="{Binding Path=PhosphorusFraction}"/>
-					<DataGridTextColumn Header="{x:Static properties:Resources.LabelCarbonToNitrogen}" Binding="{Binding Path=CarbonToNitrogenRatio}"/>
-				</DataGrid.Columns>
-			</DataGrid>
+			<ScrollViewer>
+				<DataGrid ItemsSource="{Binding Path=DefaultManureCompositionDataViewModels}" AutoGenerateColumns="False">
+					<DataGrid.Columns>
+						<DataGridTextColumn Header="{x:Static properties:Resources.LabelManureType}" Binding="{Binding Path=AnimalType}"/>
+						<DataGridTextColumn Header="{x:Static properties:Resources.LabelManureHandlingSystemColumn}" Binding="{Binding Path=ManureStateTypeString}"/>
+						<DataGridTextColumn Header="{x:Static properties:Resources.LabelMoistureContentColumn}" Binding="{Binding Path=MoistureContent}"/>
+						<DataGridTextColumn Header="{x:Static properties:Resources.LabelTotalNitrogenColumn}" Binding="{Binding Path=NitrogenFraction}"/>
+						<DataGridTextColumn Header="{x:Static properties:Resources.LabelTotalCarbonColumn}" Binding="{Binding Path=CarbonFraction}"/>
+						<DataGridTextColumn Header="{x:Static properties:Resources.LabelTotalPhosphorusColumn}" Binding="{Binding Path=PhosphorusFraction}"/>
+						<DataGridTextColumn Header="{x:Static properties:Resources.LabelCarbonToNitrogen}" Binding="{Binding Path=CarbonToNitrogenRatio}"/>
+					</DataGrid.Columns>
+				</DataGrid>
+			</ScrollViewer>
 		</StackPanel>
 	</StackPanel>
 </UserControl>

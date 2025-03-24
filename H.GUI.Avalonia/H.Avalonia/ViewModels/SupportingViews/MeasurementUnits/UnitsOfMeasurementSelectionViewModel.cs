@@ -23,7 +23,8 @@ namespace H.Avalonia.ViewModels.SupportingViews.MeasurementUnits
         public UnitsOfMeasurementSelectionViewModel(IRegionManager regionManager, IEventAggregator eventAggregator, 
             IStorageService storageService) : base(regionManager, eventAggregator, storageService)
         {
-            _measurementSystemTypes = new ObservableCollection<MeasurementSystemType>() { MeasurementSystemType.Metric, MeasurementSystemType.Imperial };
+            _measurementSystemTypes = new ObservableCollection<MeasurementSystemType>() { MeasurementSystemType.None, MeasurementSystemType.Metric, MeasurementSystemType.Imperial };
+            _selectedMeasurementType = MeasurementSystemType.None;
             NextCommand = new DelegateCommand(OnNextExecute, NextCanExecute);
         }
 
@@ -41,11 +42,15 @@ namespace H.Avalonia.ViewModels.SupportingViews.MeasurementUnits
             get { return _selectedMeasurementType; }
             set
             {
-                if (SetProperty(ref _selectedMeasurementType, value))
+                if(SetProperty(ref _selectedMeasurementType, value))
                 {
-                    var activeFarm = StorageService.GetActiveFarm();
-                    activeFarm.MeasurementSystemType = value;
-                    activeFarm.MeasurementSystemSelected = true;
+                    if (value == MeasurementSystemType.Metric || value == MeasurementSystemType.Imperial)
+                    {
+                        var activeFarm = StorageService.GetActiveFarm();
+                        activeFarm.MeasurementSystemType = value;
+                        activeFarm.MeasurementSystemSelected = true;
+                    }
+                    NextCommand.RaiseCanExecuteChanged();
                 }
             }
         }

@@ -12,30 +12,67 @@
 should add up to 100%."  />
 	  <ScrollViewer Grid.Row="1">
 		  <StackPanel Margin="20" Spacing="10" Width="350" VerticalAlignment="Center" HorizontalAlignment="Center">
-			  <TextBlock Text="January  (%)"/>
-			  <NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.January, Mode=TwoWay}" />
-			  <TextBlock Text="February (%)"/>
-			  <NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.February, Mode=TwoWay}" />
-			  <TextBlock Text="March (%)"/>							   
-			  <NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.March, Mode=TwoWay}" />
-			  <TextBlock Text="April (%)"/>							   
+			  <TextBlock Text="{x:Static properties:Resources.January}"/>
+			  <Grid ColumnDefinitions="*, Auto">
+				  <NumericUpDown Grid.Column="0" FormatString="{}{0:0.00}" Value="{Binding Data.January, Mode=TwoWay}" />
+				  <TextBlock Margin="8" VerticalAlignment="Center" Grid.Column="1" Text="{x:Static properties:Resources.Percentage}"/>
+			  </Grid>
+			  
+			  <TextBlock Text="{x:Static properties:Resources.February}"/>
+			  <Grid ColumnDefinitions="*, Auto">
+				  <NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.February, Mode=TwoWay}" />
+				  <TextBlock Margin="8" VerticalAlignment="Center" Grid.Column="1" Text="{x:Static properties:Resources.Percentage}"/>
+			  </Grid>
+			  <TextBlock Text="{x:Static properties:Resources.March}"/>
+			  <Grid ColumnDefinitions="*, Auto">
+				  <NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.March, Mode=TwoWay}" />
+				  <TextBlock Margin="8" VerticalAlignment="Center" Grid.Column="1" Text="{x:Static properties:Resources.Percentage}"/>
+			  </Grid>
+			  <TextBlock Text="{x:Static properties:Resources.April}"/>
+			  <Grid ColumnDefinitions="*, Auto">
 			  <NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.April, Mode=TwoWay}" />
-			  <TextBlock Text="May (%)"/>							   
-			  <NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.May, Mode=TwoWay}" />
-			  <TextBlock Text="June (%)"/>							   
+				  <TextBlock Margin="8" VerticalAlignment="Center" Grid.Column="1" Text="{x:Static properties:Resources.Percentage}"/>
+			  </Grid>
+			  <TextBlock Text="{x:Static properties:Resources.May}"/>
+			  <Grid ColumnDefinitions="*, Auto">
+				<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.May, Mode=TwoWay}" />
+				<TextBlock Margin="8" VerticalAlignment="Center" Grid.Column="1" Text="{x:Static properties:Resources.Percentage}"/>
+			  </Grid>
+			  <TextBlock Text="{x:Static properties:Resources.June}"/>
+			  <Grid ColumnDefinitions="*, Auto">
 			  <NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.June, Mode=TwoWay}" />
-			  <TextBlock Text="July (%)"/>							   
+				  <TextBlock Margin="8" VerticalAlignment="Center" Grid.Column="1" Text="{x:Static properties:Resources.Percentage}"/>
+			  </Grid>
+			  <TextBlock Text="{x:Static properties:Resources.July}"/>
+			  <Grid ColumnDefinitions="*, Auto">
 			  <NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.July, Mode=TwoWay}" />
-			  <TextBlock Text="August (%)"/>						   
+				  <TextBlock Margin="8" VerticalAlignment="Center" Grid.Column="1" Text="{x:Static properties:Resources.Percentage}"/>
+			  </Grid>
+			  <TextBlock Text="{x:Static properties:Resources.August}"/>
+			  <Grid ColumnDefinitions="*, Auto">
 			  <NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.August, Mode=TwoWay}" />
-			  <TextBlock Text="September (%)"/>						   
+				  <TextBlock Margin="8" VerticalAlignment="Center" Grid.Column="1" Text="{x:Static properties:Resources.Percentage}"/>
+			  </Grid>
+			  <TextBlock Text="{x:Static properties:Resources.September}"/>
+			  <Grid ColumnDefinitions="*, Auto">
 			  <NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.September, Mode=TwoWay}" />
-			  <TextBlock Text="October (%)"/>						   
+				  <TextBlock Margin="8" VerticalAlignment="Center" Grid.Column="1" Text="{x:Static properties:Resources.Percentage}"/>
+			  </Grid>
+			  <TextBlock Text="{x:Static properties:Resources.October}"/>
+				  <Grid ColumnDefinitions="*, Auto">					   
 			  <NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.October, Mode=TwoWay}" />
-			  <TextBlock Text="November (%)"/>						   
+					  <TextBlock Margin="8" VerticalAlignment="Center" Grid.Column="1" Text="{x:Static properties:Resources.Percentage}"/>
+				  </Grid>
+			  <TextBlock Text="{x:Static properties:Resources.November}"/>
+			  <Grid ColumnDefinitions="*, Auto">
 			  <NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.November, Mode=TwoWay}" />
-			  <TextBlock Text="December (%)"/>						   
+				  <TextBlock Margin="8" VerticalAlignment="Center" Grid.Column="1" Text="{x:Static properties:Resources.Percentage}"/>
+			  </Grid>
+			  <TextBlock Text="{x:Static properties:Resources.December}"/>
+			  <Grid ColumnDefinitions="*, Auto">
 			  <NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.December, Mode=TwoWay}" />
+				  <TextBlock Margin="8" VerticalAlignment="Center" Grid.Column="1" Text="{x:Static properties:Resources.Percentage}"/>
+			  </Grid>
 		  </StackPanel>
 	  </ScrollViewer>
 	</Grid>

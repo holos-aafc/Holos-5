@@ -19,7 +19,6 @@ namespace H.Avalonia.ViewModels.OptionsViews
         #region Constructors
         public PrecipitationDisplayViewModel(IStorageService storageService) : base(storageService)
         {
-            ActiveFarm = base.StorageService.GetActiveFarm();
             ManageData();
         }
         #endregion
@@ -203,7 +202,7 @@ namespace H.Avalonia.ViewModels.OptionsViews
         {
             if (value < 0)
             {
-                AddError(propertyName, "Value must be greater than 0");
+                AddError(propertyName, "Value cannot be below 0");
             }
             else
             {

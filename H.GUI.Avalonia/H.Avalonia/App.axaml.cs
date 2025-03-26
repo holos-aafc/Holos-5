@@ -147,6 +147,7 @@ namespace H.Avalonia
             containerRegistry.RegisterForNavigation<ChickenMultiplierHatcheryComponentView,  ChickenMultiplierHatcheryComponentViewModel>();
             containerRegistry.RegisterForNavigation<StartView, StartViewModel>();
             containerRegistry.RegisterForNavigation<UnitsOfMeasurementSelectionView, UnitsOfMeasurementSelectionViewModel>();
+            containerRegistry.RegisterForNavigation<OptionEvapotranspirationView, OptionEvapotranspirationViewModel>();
 
             // Blank Page
             containerRegistry.RegisterForNavigation<BlankView, BlankViewModel>();

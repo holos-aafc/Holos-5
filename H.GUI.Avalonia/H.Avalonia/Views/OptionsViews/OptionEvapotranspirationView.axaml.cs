@@ -5,49 +5,25 @@ using LiveChartsCore.SkiaSharpView.Painting;
 using LiveChartsCore.SkiaSharpView;
 using LiveChartsCore;
 using SkiaSharp;
-using H.Avalonia.ViewModels.OptionsViews;
-using H.Core.Providers.Temperature;
 using H.Core.Enumerations;
 using System.Collections.ObjectModel;
 using System;
+using H.Avalonia.ViewModels.OptionsViews;
 
 namespace H.Avalonia;
 
-public partial class OptionPrecipitationView : UserControl
+public partial class OptionEvapotranspirationView : UserControl
 {
     #region Fields
-
-    private OptionPrecipitationViewModel _viewModel;
-
-    public OptionPrecipitationView? ViewModel => DataContext as OptionPrecipitationView;
-
+    private OptionEvapotranspirationViewModel _viewModel;
     #endregion
-
     #region Constructors
-
-    public OptionPrecipitationView(OptionPrecipitationViewModel viewModel)
+    public OptionEvapotranspirationView(OptionEvapotranspirationViewModel viewModel)
     {
         InitializeComponent();
         this._viewModel = viewModel;
-        viewModel.Data.BindingPrecipitationData.PropertyChanged += ViewModel_PropertyChanged;
+        viewModel.BindingEvapotranspirationData.PropertyChanged += ViewModel_PropertyChanged;
         BuildChart();
-    }
-
-    #endregion
-    #region Methods
-    private void BuildChart()
-    {
-        PrecipitationChart.Series = Series;
-        PrecipitationChart.XAxes = XAxes;
-
-        var values = new ObservableCollection<double> { };
-        foreach (Months month in Enum.GetValues(typeof(Months)))
-        {
-            {
-                values.Add(Math.Round(this._viewModel.Data.BindingPrecipitationData.GetValueByMonth(month), 2));
-            };
-        }
-        Series[0].Values = values;
     }
     #endregion
     #region Properties
@@ -59,7 +35,7 @@ public partial class OptionPrecipitationView : UserControl
             Fill = new LinearGradientPaint(
                 new SKColor(155, 212, 106), new SKColor(83, 123, 58),
                 new SKPoint(0.5f, 0),
-                new SKPoint(0.5f, 1)),    
+                new SKPoint(0.5f, 1)),
         }
     };
 
@@ -79,13 +55,26 @@ public partial class OptionPrecipitationView : UserControl
         }
     };
     #endregion
-    #region Event Handlers
+    #region Methods
+    private void BuildChart()
+    {
+        EvotranspirationChart.Series = Series;
+        EvotranspirationChart.XAxes = XAxes;
 
+        var values = new ObservableCollection<double> { };
+        foreach (Months month in Enum.GetValues(typeof(Months)))
+        {
+            {
+                values.Add(Math.Round(this._viewModel.BindingEvapotranspirationData.GetValueByMonth(month), 2));
+            };
+        }
+        Series[0].Values = values;
+    }
+    #endregion
+    #region Event Handlers
     private void ViewModel_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
     {
         BuildChart();
     }
-
     #endregion
-
 }

@@ -48,7 +48,6 @@ namespace H.Avalonia.ViewModels.OptionsViews
                     case "Soil N2O Breakdown":
                         base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(OptionSoilN2OBreakdownView));
                         break;
-
                     case "Barn Temperatures":
                         base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(OptionBarnTemperatureView));
                         break;
@@ -63,6 +62,9 @@ namespace H.Avalonia.ViewModels.OptionsViews
                         break;
                     case "Default Manure Composition":
                         base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(DefaultManureCompositionView));
+                        break;
+                    case "Evapotranspiration":
+                        base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(OptionEvapotranspirationView));
                         break;
                 }
             }

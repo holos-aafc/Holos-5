@@ -43,9 +43,10 @@
 					<ListBoxItem Content="Farm"/>
 					<ListBoxItem Content="Soil"/>
 					<ListBoxItem Content="Barn Temperatures"/>
-					<ListBoxItem Content="Temperature"/>
-					<ListBoxItem Content="Soil N2O Breakdown"/>
 					<ListBoxItem Content="Precipitation"/>
+					<ListBoxItem Content="Temperature"/>
+					<ListBoxItem Content="Evapotranspiration"/>
+					<ListBoxItem Content="Soil N2O Breakdown"/>
 					<ListBoxItem Content="Default Bedding Composition"/>
 					<ListBoxItem Content="Default Manure Composition"/>
 					</ListBox>

@@ -6192,4 +6192,25 @@ Please note: emissions related to the deposition or application of livestock man
   <data name="ErrorMustBeNonNegative" xml:space="preserve">
     <value>Must be greater than or equal to 0.</value>
   </data>
+  <data name="UnitMm" xml:space="preserve">
+    <value>(mm)</value>
+  </data>
+  <data name="LabelSoilGreatGroup" xml:space="preserve">
+    <value>Soil great group</value>
+  </data>
+  <data name="LabelPercentageOfSoilOrganicCarbon" xml:space="preserve">
+    <value>Percentage of soil organic carbon</value>
+  </data>
+  <data name="UnitPercentage" xml:space="preserve">
+    <value>(%)</value>
+  </data>
+  <data name="UnitMiliEquivalentsPer100g" xml:space="preserve">
+    <value>(mEq 100g^-1)</value>
+  </data>
+  <data name="LabelCarbonModellingEquilibrium" xml:space="preserve">
+    <value>Carbon modelling equilibrium</value>
+  </data>
+  <data name="DescriptionOptionSoilView" xml:space="preserve">
+    <value>The Soil tab can be used to change the soil properties for the entire farm. The default values are shown for the current soil type. The soil for the farm can be customized by changing individual soil properties. In order to change the soil type for the specific field only, go to the specific field and select 'soil' tab within the field.</value>
+  </data>
 </root>

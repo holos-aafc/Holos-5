@@ -1123,6 +1123,15 @@ namespace H.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The Soil tab can be used to change the soil properties for the entire farm. The default values are shown for the current soil type. The soil for the farm can be customized by changing individual soil properties. In order to change the soil type for the specific field only, go to the specific field and select &apos;soil&apos; tab within the field..
+        /// </summary>
+        public static string DescriptionOptionSoilView {
+            get {
+                return ResourceManager.GetString("DescriptionOptionSoilView", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
         public static string DescriptorSoilTypeForFarm {
@@ -9088,6 +9097,15 @@ namespace H.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Carbon modelling equilibrium.
+        /// </summary>
+        public static string LabelCarbonModellingEquilibrium {
+            get {
+                return ResourceManager.GetString("LabelCarbonModellingEquilibrium", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Carbon modelling strategy.
         /// </summary>
         public static string LabelCarbonModellingStrategy {
@@ -11338,6 +11356,15 @@ namespace H.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Percentage of soil organic carbon.
+        /// </summary>
+        public static string LabelPercentageOfSoilOrganicCarbon {
+            get {
+                return ResourceManager.GetString("LabelPercentageOfSoilOrganicCarbon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Perennial establishment growth.
         /// </summary>
         public static string LabelPerennialEstablishmentGrowth {
@@ -11955,6 +11982,15 @@ namespace H.Core.Properties {
         public static string LabelSoilCEC {
             get {
                 return ResourceManager.GetString("LabelSoilCEC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Soil great group.
+        /// </summary>
+        public static string LabelSoilGreatGroup {
+            get {
+                return ResourceManager.GetString("LabelSoilGreatGroup", resourceCulture);
             }
         }
         
@@ -17947,6 +17983,33 @@ namespace H.Core.Properties {
         public static string UndersownBarley {
             get {
                 return ResourceManager.GetString("UndersownBarley", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to (mEq 100g^-1).
+        /// </summary>
+        public static string UnitMiliEquivalentsPer100g {
+            get {
+                return ResourceManager.GetString("UnitMiliEquivalentsPer100g", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to (mm).
+        /// </summary>
+        public static string UnitMm {
+            get {
+                return ResourceManager.GetString("UnitMm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to (%).
+        /// </summary>
+        public static string UnitPercentage {
+            get {
+                return ResourceManager.GetString("UnitPercentage", resourceCulture);
             }
         }
         

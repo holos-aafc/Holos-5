@@ -63,6 +63,7 @@ namespace H.Avalonia.ViewModels
             {
                 throw new ArgumentNullException(nameof(storageService));
             }
+            this.SetActiveFarm(this.StorageService);
         }
 
         protected ViewModelBase(IEventAggregator eventAggregator)

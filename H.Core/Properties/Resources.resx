@@ -4751,9 +4751,6 @@
   <data name="TitleAnaerobicDigestionComponent" xml:space="preserve">
     <value>Anaerobic Digestion</value>
   </data>
-  <data name="BTUPerStandardCubicFoot" xml:space="preserve">
-    <value />
-  </data>
   <data name="KilogramVolatileSolidsPerCubicMeterPerDay" xml:space="preserve">
     <value>Kg VS m^-3 d^-1</value>
   </data>
@@ -4836,7 +4833,7 @@
     <value>Substrate type</value>
   </data>
   <data name="LabelTotalNitrogen" xml:space="preserve">
-    <value>Total Nitrogen</value>
+    <value>Total nitrogen</value>
   </data>
   <data name="LabelTotalSolids" xml:space="preserve">
     <value>Total Solids</value>
@@ -6150,18 +6147,6 @@ Please note: emissions related to the deposition or application of livestock man
   <data name="LabelManureHandlingSystemColumn" xml:space="preserve">
     <value>Manure handling system</value>
   </data>
-  <data name="LabelMoistureContentColumn" xml:space="preserve">
-    <value>Moisture content (%)</value>
-  </data>
-  <data name="LabelTotalNitrogenColumn" xml:space="preserve">
-    <value>Total nitrogen (% wet weight)</value>
-  </data>
-  <data name="LabelTotalCarbonColumn" xml:space="preserve">
-    <value>Total carbon (% wet weight)</value>
-  </data>
-  <data name="LabelTotalPhosphorusColumn" xml:space="preserve">
-    <value>Total phosphorus (% wet weight)</value>
-  </data>
   <data name="LabelCarbonToNitrogen" xml:space="preserve">
     <value>C:N</value>
   </data>
@@ -6177,14 +6162,8 @@ Please note: emissions related to the deposition or application of livestock man
   <data name="LabelBeddingTypeColumn" xml:space="preserve">
     <value>Bedding type</value>
   </data>
-  <data name="LabelTotalNitrogenDryMatter" xml:space="preserve">
-    <value>Total nitrogen (kg N (kg DM)^1)</value>
-  </data>
-  <data name="LabelTotalPhosphorusDryMatter" xml:space="preserve">
-    <value>Total phosphorus (kg P (kg DM)^1)</value>
-  </data>
-  <data name="LabelTotalCarbonDryMatter" xml:space="preserve">
-    <value>Total carbon (kg C (kg DM)^1)</value>
+  <data name="LabelTotalPhosphorus" xml:space="preserve">
+    <value>Total phosphorus</value>
   </data>
   <data name="MessageMonthlyBarnTemperatureBreakdownHeader" xml:space="preserve">
     <value>Indoor temperatures for dairy barns on the farm</value>

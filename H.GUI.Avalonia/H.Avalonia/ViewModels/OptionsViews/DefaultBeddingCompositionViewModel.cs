@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using H.Core;
 using H.Core.Calculators.UnitsOfMeasurement;
 using H.Core.Services.StorageService;
 using Prism.Events;
@@ -14,6 +15,9 @@ namespace H.Avalonia.ViewModels.OptionsViews
 
         private ObservableCollection<DefaultBeddingCompositionDataViewModel> _beddingCompositionDataViewModels;
         private IUnitsOfMeasurementCalculator _unitsCalculator;
+        private string _nitrogenConcentrationHeader;
+        private string _phosphorusConcentrationHeader;
+        private string _carbonConcentrationHeader;
 
         #endregion
 
@@ -49,6 +53,8 @@ namespace H.Avalonia.ViewModels.OptionsViews
 
             _unitsCalculator.PropertyChanged -= UnitsOfMeasurementChangeListener;
             _unitsCalculator.PropertyChanged += UnitsOfMeasurementChangeListener;
+
+            SetHeaderStrings();
         }
 
         #endregion
@@ -59,6 +65,23 @@ namespace H.Avalonia.ViewModels.OptionsViews
         {
             get => _beddingCompositionDataViewModels;
             set => SetProperty(ref _beddingCompositionDataViewModels, value);
+        }
+
+        public string NitrogenConcentrationHeader
+        {
+            get =>_nitrogenConcentrationHeader; 
+            set => SetProperty(ref _nitrogenConcentrationHeader, value); 
+        }
+        public string PhosphorusConcentrationHeader
+        {
+            get { return _phosphorusConcentrationHeader; }
+            set { SetProperty(ref _phosphorusConcentrationHeader, value); }
+        }
+
+        public string CarbonConcentrationHeader
+        {
+            get { return _carbonConcentrationHeader; }
+            set { SetProperty(ref _carbonConcentrationHeader, value); }
         }
 
         #endregion
@@ -74,6 +97,13 @@ namespace H.Avalonia.ViewModels.OptionsViews
                     viewModel.UpdateUnitsOfMeasurementDependentProperties();
                 }
             }
+        }
+
+        private void SetHeaderStrings()
+        {
+            NitrogenConcentrationHeader = H.Core.Properties.Resources.LabelTotalNitrogen + " " + StorageService.Storage.ApplicationData.DisplayUnitStrings.KilogramsNitrogenPerKilogramDryMatter;
+            PhosphorusConcentrationHeader = H.Core.Properties.Resources.LabelTotalPhosphorus + " " + StorageService.Storage.ApplicationData.DisplayUnitStrings.KilogramsPhosphorusPerKilogramDryMatter;
+            CarbonConcentrationHeader = H.Core.Properties.Resources.LabelTotalCarbon + " " + StorageService.Storage.ApplicationData.DisplayUnitStrings.KilogramsCarbonPerKilogramDryMatter;
         }
 
         #endregion

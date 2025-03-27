@@ -13,10 +13,10 @@
 					<DataGrid.Columns>
 						<DataGridTextColumn Header="{x:Static properties:Resources.LabelManureType}" Binding="{Binding Path=AnimalType}"/>
 						<DataGridTextColumn Header="{x:Static properties:Resources.LabelManureHandlingSystemColumn}" Binding="{Binding Path=ManureStateTypeString}"/>
-						<DataGridTextColumn Header="{x:Static properties:Resources.LabelMoistureContentColumn}" Binding="{Binding Path=MoistureContent}"/>
-						<DataGridTextColumn Header="{x:Static properties:Resources.LabelTotalNitrogenColumn}" Binding="{Binding Path=NitrogenFraction}"/>
-						<DataGridTextColumn Header="{x:Static properties:Resources.LabelTotalCarbonColumn}" Binding="{Binding Path=CarbonFraction}"/>
-						<DataGridTextColumn Header="{x:Static properties:Resources.LabelTotalPhosphorusColumn}" Binding="{Binding Path=PhosphorusFraction}"/>
+						<DataGridTextColumn Header="{Binding Path=MoistureContentHeader}" Binding="{Binding Path=MoistureContent}"/>
+						<DataGridTextColumn Header="{Binding Path=NitrogenFractionHeader}" Binding="{Binding Path=NitrogenFraction}"/>
+						<DataGridTextColumn Header="{Binding Path=CarbonFractionHeader}" Binding="{Binding Path=CarbonFraction}"/>
+						<DataGridTextColumn Header="{Binding Path=PhosphorusFractionHeader}" Binding="{Binding Path=PhosphorusFraction}"/>
 						<DataGridTextColumn Header="{x:Static properties:Resources.LabelCarbonToNitrogen}" Binding="{Binding Path=CarbonToNitrogenRatio}"/>
 					</DataGrid.Columns>
 				</DataGrid>

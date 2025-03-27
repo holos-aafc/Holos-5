@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using H.Avalonia.Views.ComponentViews;
+using H.Core;
 using H.Core.Enumerations;
+using H.Core.Models;
 using H.Core.Services.StorageService;
 using Prism.Commands;
 using Prism.Events;
@@ -63,6 +65,7 @@ namespace H.Avalonia.ViewModels.SupportingViews.MeasurementUnits
 
         private void OnNextExecute()
         {
+            StorageService.Storage.ApplicationData.DisplayUnitStrings.SetStrings(StorageService.GetActiveFarm().MeasurementSystemType);
             RegionManager.RequestNavigate(UiRegions.SidebarRegion, nameof(MyComponentsView));
             RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(ChooseComponentsView));
         }

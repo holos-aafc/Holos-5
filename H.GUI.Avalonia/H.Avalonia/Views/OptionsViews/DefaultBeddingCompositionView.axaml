@@ -13,9 +13,9 @@
 					  <DataGrid.Columns>
 						  <DataGridTextColumn Header="{x:Static properties:Resources.LabelComponentCategory}" Binding="{Binding Path=ComponentCategoryString}"/>
 						  <DataGridTextColumn Header="{x:Static properties:Resources.LabelBeddingTypeColumn}" Binding="{Binding Path=BeddingMaterialString}"/>
-						  <DataGridTextColumn Header="{x:Static properties:Resources.LabelTotalNitrogenDryMatter}" Binding="{Binding Path=TotalNitrogenKilogramsDryMatter}"/>
-						  <DataGridTextColumn Header="{x:Static properties:Resources.LabelTotalPhosphorusDryMatter}" Binding="{Binding Path=TotalPhosphorusKilogramsDryMatter}"/>
-						  <DataGridTextColumn Header="{x:Static properties:Resources.LabelTotalCarbonDryMatter}" Binding="{Binding Path=TotalCarbonKilogramsDryMatter}"/>
+						  <DataGridTextColumn Header="{Binding Path=NitrogenConcentrationHeader}" Binding="{Binding Path=TotalNitrogenKilogramsDryMatter}"/>
+						  <DataGridTextColumn Header="{Binding Path=PhosphorusConcentrationHeader}" Binding="{Binding Path=TotalPhosphorusKilogramsDryMatter}"/>
+						  <DataGridTextColumn Header="{Binding Path=CarbonConcentrationHeader}" Binding="{Binding Path=TotalCarbonKilogramsDryMatter}"/>
 						  <DataGridTextColumn Header="{x:Static properties:Resources.LabelCarbonToNitrogen}" Binding="{Binding Path=CarbonToNitrogenRatio}"/>
 					  </DataGrid.Columns>
 				  </DataGrid>

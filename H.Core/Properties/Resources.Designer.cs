@@ -520,15 +520,6 @@ namespace H.Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string BTUPerStandardCubicFoot {
-            get {
-                return ResourceManager.GetString("BTUPerStandardCubicFoot", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Buckwheat.
         /// </summary>
         public static string Buckwheat {
@@ -10987,15 +10978,6 @@ namespace H.Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Moisture content (%).
-        /// </summary>
-        public static string LabelMoistureContentColumn {
-            get {
-                return ResourceManager.GetString("LabelMoistureContentColumn", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Monosaturated Fatty Acid.
         /// </summary>
         public static string LabelMonosaturatedFattyAcid {
@@ -12301,29 +12283,11 @@ namespace H.Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Total carbon (% wet weight).
-        /// </summary>
-        public static string LabelTotalCarbonColumn {
-            get {
-                return ResourceManager.GetString("LabelTotalCarbonColumn", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Total CO2.
         /// </summary>
         public static string LabelTotalCarbonDioxide {
             get {
                 return ResourceManager.GetString("LabelTotalCarbonDioxide", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Total carbon (kg C (kg DM)^1).
-        /// </summary>
-        public static string LabelTotalCarbonDryMatter {
-            get {
-                return ResourceManager.GetString("LabelTotalCarbonDryMatter", resourceCulture);
             }
         }
         
@@ -12490,29 +12454,11 @@ namespace H.Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Total Nitrogen.
+        ///   Looks up a localized string similar to Total nitrogen.
         /// </summary>
         public static string LabelTotalNitrogen {
             get {
                 return ResourceManager.GetString("LabelTotalNitrogen", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Total nitrogen (% wet weight).
-        /// </summary>
-        public static string LabelTotalNitrogenColumn {
-            get {
-                return ResourceManager.GetString("LabelTotalNitrogenColumn", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Total nitrogen (kg N (kg DM)^1).
-        /// </summary>
-        public static string LabelTotalNitrogenDryMatter {
-            get {
-                return ResourceManager.GetString("LabelTotalNitrogenDryMatter", resourceCulture);
             }
         }
         
@@ -12544,20 +12490,11 @@ namespace H.Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Total phosphorus (% wet weight).
+        ///   Looks up a localized string similar to Total phosphorus.
         /// </summary>
-        public static string LabelTotalPhosphorusColumn {
+        public static string LabelTotalPhosphorus {
             get {
-                return ResourceManager.GetString("LabelTotalPhosphorusColumn", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Total phosphorus (kg P (kg DM)^1).
-        /// </summary>
-        public static string LabelTotalPhosphorusDryMatter {
-            get {
-                return ResourceManager.GetString("LabelTotalPhosphorusDryMatter", resourceCulture);
+                return ResourceManager.GetString("LabelTotalPhosphorus", resourceCulture);
             }
         }
         

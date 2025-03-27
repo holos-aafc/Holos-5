@@ -26,7 +26,7 @@ namespace H.Avalonia.ViewModels
 
         protected bool IsInitialized;
 
-        private Storage _storage; 
+        private Storage _storagePlaceholder;
         private IEventAggregator _eventAggregator;
         private IRegionManager _regionManager;
         private IStorageService _storageService;
@@ -39,18 +39,6 @@ namespace H.Avalonia.ViewModels
 
         protected ViewModelBase()
         {
-        }
-
-        protected ViewModelBase(Storage storage)
-        {
-            if (storage != null)
-            {
-                this.Storage = storage;
-            }
-            else
-            {
-                throw new ArgumentNullException(nameof(storage));
-            }
         }
 
         protected ViewModelBase(IStorageService storageService)
@@ -114,7 +102,7 @@ namespace H.Avalonia.ViewModels
         {
             if (storage != null)
             {
-                Storage = storage;
+                StoragePlaceholder = storage;
             }
             else
             {
@@ -160,14 +148,10 @@ namespace H.Avalonia.ViewModels
 
         #region Properties
 
-        /// <summary>
-        /// A storage file that contains various data items that are shored between viewmodels are passed around the system. This storage
-        /// item is instantiated using Prism and through Dependency Injection, is passed within the system.
-        /// </summary>
-        public Storage Storage
+        public Storage StoragePlaceholder
         {
-            get => _storage;
-            set => SetProperty(ref _storage, value);
+            get => _storagePlaceholder;
+            set => SetProperty(ref _storagePlaceholder, value);
         }
 
         /// <summary>

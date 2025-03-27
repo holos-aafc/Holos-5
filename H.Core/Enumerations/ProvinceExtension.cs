@@ -16,6 +16,8 @@
 
         #region Public Methods
 
+
+
         /// <summary>
         /// Get the province neighbour if possible.
         /// </summary>
@@ -38,6 +40,7 @@
 
             return province;
         }
+
         public static Region GetRegion(this Province province)
         {
             if (province == Province.Alberta ||

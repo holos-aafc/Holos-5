@@ -89,8 +89,6 @@ namespace H.Core.Enumerations
         [LocalizedDescription("EnumWicklow", typeof(Resources))]
         Wicklow,
 
-        // Canadian's provience
-
         [LocalizedDescription("Alberta", typeof(Resources))]
         Alberta,
 

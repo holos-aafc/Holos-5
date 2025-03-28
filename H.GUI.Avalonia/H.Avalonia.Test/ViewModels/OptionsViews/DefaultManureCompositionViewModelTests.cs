@@ -1,4 +1,6 @@
-﻿using H.Core.Models;
+﻿using H.Core;
+using H.Core.Enumerations;
+using H.Core.Models;
 using H.Core.Providers.Animals;
 using H.Core.Services.StorageService;
 using Moq;
@@ -17,6 +19,9 @@ namespace H.Avalonia.ViewModels.OptionsViews.Tests
         private IRegionManager _regionManagerMock;
         private Mock<IEventAggregator> _mockEventAggregator;
         private IEventAggregator _eventAggregatorMock;
+
+        private Mock<IStorage> _mockStorage;
+        private IStorage _storageMock;
 
         [ClassInitialize]
         public static void ClassInitialize(TestContext context)
@@ -37,6 +42,9 @@ namespace H.Avalonia.ViewModels.OptionsViews.Tests
             _eventAggregatorMock = _mockEventAggregator.Object;
             _mockStorageService = new Mock<IStorageService>();
             _storageServiceMock = _mockStorageService.Object;
+
+            _mockStorage = new Mock<IStorage>();
+            _storageMock = _mockStorage.Object;
         }
 
         [TestCleanup]
@@ -55,6 +63,14 @@ namespace H.Avalonia.ViewModels.OptionsViews.Tests
             testDataClassInstance.CarbonFraction = 6.0;
             testDataClassInstance.CarbonToNitrogenRatio = 10.0;
             testFarm.DefaultManureCompositionData.Add(testDataClassInstance);
+
+            var displayUnitsInstance = new DisplayUnitStrings();
+            displayUnitsInstance.SetStrings(MeasurementSystemType.Metric);
+            var applicationDataInstance = new ApplicationData();
+            applicationDataInstance.DisplayUnitStrings = displayUnitsInstance;
+
+            _mockStorage.Setup(x => x.ApplicationData).Returns(applicationDataInstance);
+            _mockStorageService.Setup(x => x.Storage).Returns(_storageMock);
             _mockStorageService.Setup(x => x.GetActiveFarm()).Returns(testFarm);
 
 

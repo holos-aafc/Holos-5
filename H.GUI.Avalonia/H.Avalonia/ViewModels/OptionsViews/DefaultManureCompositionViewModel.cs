@@ -23,7 +23,7 @@ namespace H.Avalonia.ViewModels.OptionsViews
         public DefaultManureCompositionViewModel(
             IRegionManager regionManager,
             IEventAggregator eventAggregator,
-            IStorageService storageService) : base(regionManager, eventAggregator, storageService) 
+            IStorageService storageService) : base(regionManager, eventAggregator, storageService)
         {
             DefaultManureCompositionDataViewModels = new ObservableCollection<DefaultManureCompositionDataViewModel>();
 
@@ -39,7 +39,6 @@ namespace H.Avalonia.ViewModels.OptionsViews
                 dataClassViewModel.SetSuppressValidationFlag(false);
                 DefaultManureCompositionDataViewModels.Add(dataClassViewModel);
             }
-            SetHeaderStrings();
         }
          
         #endregion
@@ -55,7 +54,7 @@ namespace H.Avalonia.ViewModels.OptionsViews
         public string NitrogenFractionHeader
         {
             get => _nitrogenFractionHeader;
-            set => SetProperty(ref _nitrogenFractionHeader, value); 
+            set => SetProperty(ref _nitrogenFractionHeader, value);
         }
 
         public string CarbonFractionHeader
@@ -67,7 +66,7 @@ namespace H.Avalonia.ViewModels.OptionsViews
         public string PhosphorusFractionHeader
         {
             get => _phosphorusFractionHeader;
-            set => SetProperty(ref _phosphorusFractionHeader, value); 
+            set => SetProperty(ref _phosphorusFractionHeader, value);
         }
 
         public string MoistureContentHeader
@@ -78,14 +77,24 @@ namespace H.Avalonia.ViewModels.OptionsViews
 
         #endregion
 
+        #region Public Methods
+
+        public override void OnNavigatedTo(NavigationContext navigationContext)
+        {
+            SetStrings();
+        }
+
+        #endregion
+
         #region Private Methods
 
-        private void SetHeaderStrings()
+        private void SetStrings()
         {
-            NitrogenFractionHeader = H.Core.Properties.Resources.LabelTotalNitrogen + " " + StorageService.Storage.ApplicationData.DisplayUnitStrings.PercentageWetWeight;
-            PhosphorusFractionHeader = H.Core.Properties.Resources.LabelTotalPhosphorus + " " + StorageService.Storage.ApplicationData.DisplayUnitStrings.PercentageWetWeight;
-            CarbonFractionHeader = H.Core.Properties.Resources.LabelTotalCarbon + " " + StorageService.Storage.ApplicationData.DisplayUnitStrings.PercentageWetWeight;
-            MoistureContentHeader = H.Core.Properties.Resources.LabelMoistureContent + " " + StorageService.Storage.ApplicationData.DisplayUnitStrings.PercentageString;
+            var displayUnits = StorageService.Storage.ApplicationData.DisplayUnitStrings;
+            NitrogenFractionHeader = H.Core.Properties.Resources.LabelTotalNitrogen + " " + displayUnits.PercentageWetWeight;
+            CarbonFractionHeader = H.Core.Properties.Resources.LabelTotalCarbon + " " + displayUnits.PercentageWetWeight;
+            PhosphorusFractionHeader = H.Core.Properties.Resources.LabelTotalPhosphorus + " " + displayUnits.PercentageWetWeight;
+            MoistureContentHeader = H.Core.Properties.Resources.LabelMoistureContent + " " + displayUnits.PercentageString;
         }
 
         #endregion

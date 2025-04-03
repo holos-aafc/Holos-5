@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
-using H.Core;
 using H.Core.Calculators.UnitsOfMeasurement;
 using H.Core.Services.StorageService;
 using Prism.Events;
@@ -26,22 +24,18 @@ namespace H.Avalonia.ViewModels.OptionsViews
         public DefaultBeddingCompositionViewModel(
             IRegionManager regionManager,
             IEventAggregator eventAggregator,
-            IStorageService storageService, IUnitsOfMeasurementCalculator unitsCalculator) : base(regionManager, eventAggregator, storageService) 
+            IStorageService storageService, 
+            IUnitsOfMeasurementCalculator unitsCalculator) : base(regionManager, eventAggregator, storageService)
         {
-            if (unitsCalculator != null)
-            {
-                _unitsCalculator = unitsCalculator;
-            }
-            else
-            {
-                throw (new ArgumentNullException(nameof(unitsCalculator)));
-            }
+            _unitsCalculator = unitsCalculator;
+            _unitsCalculator.PropertyChanged -= UnitsOfMeasurementChangeListener;
+            _unitsCalculator.PropertyChanged += UnitsOfMeasurementChangeListener;
 
             BeddingCompositionDataViewModels = new ObservableCollection<DefaultBeddingCompositionDataViewModel>();
 
             foreach (var dataClassInstance in base.ActiveFarm.DefaultsCompositionOfBeddingMaterials)
             {
-                var dataClassViewModel = new DefaultBeddingCompositionDataViewModel(dataClassInstance, unitsCalculator);
+                var dataClassViewModel = new DefaultBeddingCompositionDataViewModel(dataClassInstance, _unitsCalculator);
                 dataClassViewModel.SetInitializationFlag(true);
                 dataClassViewModel.TotalNitrogenKilogramsDryMatter = dataClassInstance.TotalNitrogenKilogramsDryMatter;
                 dataClassViewModel.TotalPhosphorusKilogramsDryMatter = dataClassInstance.TotalPhosphorusKilogramsDryMatter;
@@ -50,11 +44,6 @@ namespace H.Avalonia.ViewModels.OptionsViews
                 dataClassViewModel.SetInitializationFlag(false);
                 BeddingCompositionDataViewModels.Add(dataClassViewModel);
             }
-
-            _unitsCalculator.PropertyChanged -= UnitsOfMeasurementChangeListener;
-            _unitsCalculator.PropertyChanged += UnitsOfMeasurementChangeListener;
-
-            SetHeaderStrings();
         }
 
         #endregion
@@ -69,19 +58,29 @@ namespace H.Avalonia.ViewModels.OptionsViews
 
         public string NitrogenConcentrationHeader
         {
-            get =>_nitrogenConcentrationHeader; 
-            set => SetProperty(ref _nitrogenConcentrationHeader, value); 
+            get => _nitrogenConcentrationHeader;
+            set => SetProperty(ref _nitrogenConcentrationHeader, value);
         }
+
         public string PhosphorusConcentrationHeader
         {
-            get { return _phosphorusConcentrationHeader; }
-            set { SetProperty(ref _phosphorusConcentrationHeader, value); }
+            get => _phosphorusConcentrationHeader;
+            set => SetProperty(ref _phosphorusConcentrationHeader, value);
         }
 
         public string CarbonConcentrationHeader
         {
-            get { return _carbonConcentrationHeader; }
-            set { SetProperty(ref _carbonConcentrationHeader, value); }
+            get => _carbonConcentrationHeader;
+            set => SetProperty(ref _carbonConcentrationHeader, value);
+        }
+
+        #endregion
+
+        #region Public Methods
+
+        public override void OnNavigatedTo(NavigationContext navigationContext)
+        {
+            SetStrings(); 
         }
 
         #endregion
@@ -99,11 +98,12 @@ namespace H.Avalonia.ViewModels.OptionsViews
             }
         }
 
-        private void SetHeaderStrings()
+        private void SetStrings()
         {
-            NitrogenConcentrationHeader = H.Core.Properties.Resources.LabelTotalNitrogen + " " + StorageService.Storage.ApplicationData.DisplayUnitStrings.KilogramsNitrogenPerKilogramDryMatter;
-            PhosphorusConcentrationHeader = H.Core.Properties.Resources.LabelTotalPhosphorus + " " + StorageService.Storage.ApplicationData.DisplayUnitStrings.KilogramsPhosphorusPerKilogramDryMatter;
-            CarbonConcentrationHeader = H.Core.Properties.Resources.LabelTotalCarbon + " " + StorageService.Storage.ApplicationData.DisplayUnitStrings.KilogramsCarbonPerKilogramDryMatter;
+            var displayUnits = StorageService.Storage.ApplicationData.DisplayUnitStrings;
+            NitrogenConcentrationHeader = H.Core.Properties.Resources.LabelTotalNitrogen + " " + displayUnits.KilogramsNitrogenPerKilogramDryMatter;
+            PhosphorusConcentrationHeader = H.Core.Properties.Resources.LabelTotalPhosphorus + " " + displayUnits.KilogramsPhosphorusPerKilogramDryMatter;
+            CarbonConcentrationHeader = H.Core.Properties.Resources.LabelTotalCarbon + " " + displayUnits.KilogramsCarbonPerKilogramDryMatter;
         }
 
         #endregion

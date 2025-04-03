@@ -69,6 +69,8 @@ namespace H.Avalonia.ViewModels
         public void OnOpenFarmExecute()
         {
             base.StorageService.SetActiveFarm(this.SelectedFarm);
+            // Line below ensures that the proper unit strings are used for the MeasurementSystemType of the existing farm being opened
+            base.StorageService.Storage.ApplicationData.DisplayUnitStrings.SetStrings(this.SelectedFarm.MeasurementSystemType);
             base.RegionManager.RequestNavigate(UiRegions.SidebarRegion, nameof(MyComponentsView));
 
             var view = this.RegionManager.Regions[UiRegions.ContentRegion].ActiveViews.Single();

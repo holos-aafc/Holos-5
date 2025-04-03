@@ -22,7 +22,6 @@ namespace H.Avalonia.ViewModels.OptionsViews.Tests
         private IEventAggregator _eventAggregatorMock;
         private Mock<IUnitsOfMeasurementCalculator> _mockUnitsCalculator;
         private IUnitsOfMeasurementCalculator _unitsCalculatorMock;
-
         private Mock<IStorage> _mockStorage;
         private IStorage _storageMock;
 
@@ -47,9 +46,6 @@ namespace H.Avalonia.ViewModels.OptionsViews.Tests
             _storageServiceMock = _mockStorageService.Object;
             _mockUnitsCalculator = new Mock<IUnitsOfMeasurementCalculator>();
             _unitsCalculatorMock = _mockUnitsCalculator.Object;
-            
-            _mockStorage = new Mock<IStorage>();
-            _storageMock = _mockStorage.Object;
         }
 
         [TestCleanup]
@@ -68,13 +64,6 @@ namespace H.Avalonia.ViewModels.OptionsViews.Tests
             testDataClassInstance.CarbonToNitrogenRatio = 50.0;
             testFarm.DefaultsCompositionOfBeddingMaterials.Add(testDataClassInstance);
 
-            var displayUnitsInstance = new DisplayUnitStrings();
-            displayUnitsInstance.SetStrings(MeasurementSystemType.Metric);
-            var applicationDataInstance = new ApplicationData();
-            applicationDataInstance.DisplayUnitStrings = displayUnitsInstance;
-
-            _mockStorage.Setup(x => x.ApplicationData).Returns(applicationDataInstance);
-            _mockStorageService.Setup(x => x.Storage).Returns(_storageMock);
             _mockStorageService.Setup(x => x.GetActiveFarm()).Returns(testFarm);
             _mockUnitsCalculator.Setup(x => x.IsMetric).Returns(true);
 
@@ -88,23 +77,24 @@ namespace H.Avalonia.ViewModels.OptionsViews.Tests
         }
 
         [TestMethod]
-        public void TestSetHeaderStringsMetric()
+        public void TestSetStringsMetric()
         {
-            // Set up to mirror logic when the user presses the next button in the UnitsOfMeasurementSelectionView/Model
             var testFarm = new Farm();
             testFarm.MeasurementSystemType = MeasurementSystemType.Metric;
-            testFarm.MeasurementSystemSelected = true;
             var displayUnitsInstance = new DisplayUnitStrings();
             displayUnitsInstance.SetStrings(testFarm.MeasurementSystemType);
             var applicationDataInstance = new ApplicationData();
             applicationDataInstance.DisplayUnitStrings = displayUnitsInstance;
 
+            _mockStorage = new Mock<IStorage>();
+            _storageMock = _mockStorage.Object;
             _mockStorage.Setup(x => x.ApplicationData).Returns(applicationDataInstance);
             _mockStorageService.Setup(x => x.Storage).Returns(_storageMock);
             _mockStorageService.Setup(x => x.GetActiveFarm()).Returns(testFarm);
 
-            // Constructor calls private SetHeaderStrings() method
             _viewModel = new DefaultBeddingCompositionViewModel(_regionManagerMock, _eventAggregatorMock, _storageServiceMock, _unitsCalculatorMock);
+
+            _viewModel.OnNavigatedTo(null); // implicitly calling private method SetStrings()
 
             Assert.AreEqual("Total nitrogen (kg N (kg DM)^1)", _viewModel.NitrogenConcentrationHeader);
             Assert.AreEqual("Total phosphorus (kg P (kg DM)^1)", _viewModel.PhosphorusConcentrationHeader);
@@ -112,23 +102,24 @@ namespace H.Avalonia.ViewModels.OptionsViews.Tests
         }
 
         [TestMethod]
-        public void TestSetHeaderStringsImperial()
+        public void TestSetStringsImperial()
         {
-            // Set up to mirror logic when the user presses the next button in the UnitsOfMeasurementSelectionView/Model
             var testFarm = new Farm();
             testFarm.MeasurementSystemType = MeasurementSystemType.Imperial;
-            testFarm.MeasurementSystemSelected = true;
             var displayUnitsInstance = new DisplayUnitStrings();
             displayUnitsInstance.SetStrings(testFarm.MeasurementSystemType);
             var applicationDataInstance = new ApplicationData();
             applicationDataInstance.DisplayUnitStrings = displayUnitsInstance;
 
+            _mockStorage = new Mock<IStorage>();
+            _storageMock = _mockStorage.Object;
             _mockStorage.Setup(x => x.ApplicationData).Returns(applicationDataInstance);
             _mockStorageService.Setup(x => x.Storage).Returns(_storageMock);
             _mockStorageService.Setup(x => x.GetActiveFarm()).Returns(testFarm);
 
-            // Constructor calls private SetHeaderStrings() method
             _viewModel = new DefaultBeddingCompositionViewModel(_regionManagerMock, _eventAggregatorMock, _storageServiceMock, _unitsCalculatorMock);
+
+            _viewModel.OnNavigatedTo(null); // implicitly calling private method SetStrings()
 
             Assert.AreEqual("Total nitrogen (lb N (lb DM)^-1)", _viewModel.NitrogenConcentrationHeader);
             Assert.AreEqual("Total phosphorus (lb P (lb DM)^-1)", _viewModel.PhosphorusConcentrationHeader);

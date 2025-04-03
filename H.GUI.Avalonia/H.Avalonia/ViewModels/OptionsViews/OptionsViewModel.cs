@@ -75,6 +75,7 @@ namespace H.Avalonia.ViewModels.OptionsViews
             {
                 this.RegionManager.Regions[UiRegions.ContentRegion].Deactivate(activeView);
                 this.RegionManager.Regions[UiRegions.ContentRegion].Remove(activeView);
+                SelectedItem = null; // need to set this to null because the option in the combo box stays selected otherwise
             }
         }
 

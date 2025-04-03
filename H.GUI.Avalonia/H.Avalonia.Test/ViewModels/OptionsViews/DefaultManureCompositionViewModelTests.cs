@@ -19,7 +19,6 @@ namespace H.Avalonia.ViewModels.OptionsViews.Tests
         private IRegionManager _regionManagerMock;
         private Mock<IEventAggregator> _mockEventAggregator;
         private IEventAggregator _eventAggregatorMock;
-
         private Mock<IStorage> _mockStorage;
         private IStorage _storageMock;
 
@@ -42,9 +41,6 @@ namespace H.Avalonia.ViewModels.OptionsViews.Tests
             _eventAggregatorMock = _mockEventAggregator.Object;
             _mockStorageService = new Mock<IStorageService>();
             _storageServiceMock = _mockStorageService.Object;
-
-            _mockStorage = new Mock<IStorage>();
-            _storageMock = _mockStorage.Object;
         }
 
         [TestCleanup]
@@ -64,15 +60,7 @@ namespace H.Avalonia.ViewModels.OptionsViews.Tests
             testDataClassInstance.CarbonToNitrogenRatio = 10.0;
             testFarm.DefaultManureCompositionData.Add(testDataClassInstance);
 
-            var displayUnitsInstance = new DisplayUnitStrings();
-            displayUnitsInstance.SetStrings(MeasurementSystemType.Metric);
-            var applicationDataInstance = new ApplicationData();
-            applicationDataInstance.DisplayUnitStrings = displayUnitsInstance;
-
-            _mockStorage.Setup(x => x.ApplicationData).Returns(applicationDataInstance);
-            _mockStorageService.Setup(x => x.Storage).Returns(_storageMock);
             _mockStorageService.Setup(x => x.GetActiveFarm()).Returns(testFarm);
-
 
             _viewModel = new DefaultManureCompositionViewModel(_regionManagerMock, _eventAggregatorMock, _storageServiceMock);
 
@@ -82,6 +70,60 @@ namespace H.Avalonia.ViewModels.OptionsViews.Tests
             Assert.AreEqual(testDataClassInstance.PhosphorusFraction, _viewModel.DefaultManureCompositionDataViewModels[0].PhosphorusFraction);
             Assert.AreEqual(testDataClassInstance.CarbonFraction, _viewModel.DefaultManureCompositionDataViewModels[0].CarbonFraction);
             Assert.AreEqual(testDataClassInstance.CarbonToNitrogenRatio, _viewModel.DefaultManureCompositionDataViewModels[0].CarbonToNitrogenRatio);
+        }
+
+        // Units strings should not change between metric or imperial, testing to ensure this is this is the case 
+
+        [TestMethod]
+        public void TestSetStringsMetric()
+        {
+            var testFarm = new Farm();
+            testFarm.MeasurementSystemType = MeasurementSystemType.Metric;
+            var displayUnitsInstance = new DisplayUnitStrings();
+            displayUnitsInstance.SetStrings(testFarm.MeasurementSystemType);
+            var applicationDataInstance = new ApplicationData();
+            applicationDataInstance.DisplayUnitStrings = displayUnitsInstance;
+
+            _mockStorage = new Mock<IStorage>();
+            _storageMock = _mockStorage.Object;
+            _mockStorage.Setup(x => x.ApplicationData).Returns(applicationDataInstance);
+            _mockStorageService.Setup(x => x.Storage).Returns(_storageMock);
+            _mockStorageService.Setup(x => x.GetActiveFarm()).Returns(testFarm);
+
+            _viewModel = new DefaultManureCompositionViewModel(_regionManagerMock, _eventAggregatorMock, _storageServiceMock);
+
+            _viewModel.OnNavigatedTo(null); // implicitly calling private method SetStrings()
+
+            Assert.AreEqual("Total nitrogen (% wet weight)", _viewModel.NitrogenFractionHeader);
+            Assert.AreEqual("Total phosphorus (% wet weight)", _viewModel.PhosphorusFractionHeader);
+            Assert.AreEqual("Total carbon (% wet weight)", _viewModel.CarbonFractionHeader);
+            Assert.AreEqual("Moisture content (%)", _viewModel.MoistureContentHeader);
+        }
+
+        [TestMethod]
+        public void TestSetStringsImperial()
+        {
+            var testFarm = new Farm();
+            testFarm.MeasurementSystemType = MeasurementSystemType.Imperial;
+            var displayUnitsInstance = new DisplayUnitStrings();
+            displayUnitsInstance.SetStrings(testFarm.MeasurementSystemType);
+            var applicationDataInstance = new ApplicationData();
+            applicationDataInstance.DisplayUnitStrings = displayUnitsInstance;
+
+            _mockStorage = new Mock<IStorage>();
+            _storageMock = _mockStorage.Object;
+            _mockStorage.Setup(x => x.ApplicationData).Returns(applicationDataInstance);
+            _mockStorageService.Setup(x => x.Storage).Returns(_storageMock);
+            _mockStorageService.Setup(x => x.GetActiveFarm()).Returns(testFarm);
+
+            _viewModel = new DefaultManureCompositionViewModel(_regionManagerMock, _eventAggregatorMock, _storageServiceMock);
+
+            _viewModel.OnNavigatedTo(null); // implicitly calling private method SetStrings()
+
+            Assert.AreEqual("Total nitrogen (% wet weight)", _viewModel.NitrogenFractionHeader);
+            Assert.AreEqual("Total phosphorus (% wet weight)", _viewModel.PhosphorusFractionHeader);
+            Assert.AreEqual("Total carbon (% wet weight)", _viewModel.CarbonFractionHeader);
+            Assert.AreEqual("Moisture content (%)", _viewModel.MoistureContentHeader);
         }
     }
 }

@@ -3,10 +3,12 @@ using H.Core.Providers.Animals;
 using H.Core.Providers.Feed;
 using System;
 using System.Collections.ObjectModel;
+using H.Core.Enumerations;
+using FastExpressionCompiler.LightExpression;
 
 namespace H.Core.Services
 {
-    public class FarmHelper
+    public class FarmHelper : IFarmHelper
     {
         #region Fields
 
@@ -29,6 +31,9 @@ namespace H.Core.Services
             farm.Diets.AddRange(_dietProvider.GetDiets());
             farm.DefaultManureCompositionData.AddRange(_defaultManureCompositionProvider.ManureCompositionData);
             farm.DefaultsCompositionOfBeddingMaterials.AddRange(_defaultBeddingMaterialCompositionProvider.Data);
+
+            farm.MeasurementSystemType = MeasurementSystemType.Metric;
+            farm.MeasurementSystemSelected = true;
 
             return farm;
         }

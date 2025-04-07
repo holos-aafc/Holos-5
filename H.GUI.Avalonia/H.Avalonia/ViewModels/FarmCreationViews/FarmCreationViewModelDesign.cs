@@ -1,4 +1,5 @@
-﻿using H.Core.Services.StorageService;
+﻿using H.Core.Services;
+using H.Core.Services.StorageService;
 using Prism.Regions;
 
 namespace H.Avalonia.ViewModels;
@@ -11,9 +12,9 @@ public class FarmCreationViewModelDesign : FarmCreationViewModel
     {
     }
 
-    public FarmCreationViewModelDesign(IRegionManager regionManager, IStorageService storageService) : base(regionManager, storageService)
+    public FarmCreationViewModelDesign(IRegionManager regionManager, IStorageService storageService, IFarmHelper farmHelper) : base(regionManager, storageService, farmHelper)
     {
-    } 
+    }
 
     #endregion
 }

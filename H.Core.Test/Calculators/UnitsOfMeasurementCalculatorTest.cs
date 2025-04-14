@@ -1,6 +1,8 @@
 ﻿using H.Core.Calculators.UnitsOfMeasurement;
 using H.Core.Enumerations;
+using H.Core.Services.StorageService;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 using System;
 
 namespace H.Core.Test.Calculators
@@ -544,6 +546,22 @@ namespace H.Core.Test.Calculators
         {
             var value = _calculator.ConvertValueToImperialFromMetric(MetricUnitsOfMeasurement.MethanePerCubicMeterPerDay, 3);
             Assert.AreEqual(3.92, Math.Round(value, 2));
+        }
+
+        [TestMethod]
+        public void TestMeasurementSystemChangeHandling()
+        {
+            Mock<IStorageService> _mockStorageService = new Mock<IStorageService>();
+            IStorageService _storageServiceMoc = _mockStorageService.Object;
+            var testFarm = new Core.Models.Farm();
+            testFarm.MeasurementSystemType = MeasurementSystemType.Metric;
+            _mockStorageService.Setup(x => x.GetActiveFarm()).Returns(testFarm);
+            UnitsOfMeasurementCalculator calculatorInstance = new UnitsOfMeasurementCalculator(_storageServiceMoc); // Using new constructor where IStorageService is injected 
+            Assert.IsTrue(calculatorInstance.IsMetric);
+
+            testFarm.MeasurementSystemType = MeasurementSystemType.Imperial;
+
+            Assert.IsFalse(calculatorInstance.IsMetric);
         }
     }
 }

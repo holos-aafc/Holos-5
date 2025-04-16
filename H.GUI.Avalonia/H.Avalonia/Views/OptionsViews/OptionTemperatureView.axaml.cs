@@ -10,6 +10,7 @@ using H.Core.Providers.Temperature;
 using H.Core.Enumerations;
 using System.Collections.ObjectModel;
 using System;
+using H.Avalonia.ViewModels.Styles;
 
 namespace H.Avalonia;
 
@@ -38,26 +39,13 @@ public partial class OptionTemperatureView : UserControl
 
     public ISeries[] Series { get; set; } =
         {
-            new ColumnSeries<double>
-            {
-                Values = new double[] {},
-                Fill = new SolidColorPaint(SKColors.DarkSeaGreen),
-            }
+            BarChartStyles.ColumnSeriesStyles,
         };
 
     public Axis[] XAxes { get; set; }
          = new Axis[]
         {
-                new Axis
-                {
-                    NamePaint = new SolidColorPaint(SKColors.Black),
-                    LabelsPaint = new SolidColorPaint(SKColors.Black),
-                    TextSize = 14,
-                    LabelsRotation = 20,
-                    Padding = new LiveChartsCore.Drawing.Padding(-8, 10, 10, 0),
-                    ShowSeparatorLines = true,
-                    Labels = new string[] { H.Core.Properties.Resources.January, H.Core.Properties.Resources.February, H.Core.Properties.Resources.March, H.Core.Properties.Resources.April, H.Core.Properties.Resources.May, H.Core.Properties.Resources.June, H.Core.Properties.Resources.July, H.Core.Properties.Resources.August, H.Core.Properties.Resources.September, H.Core.Properties.Resources.October, H.Core.Properties.Resources.November, H.Core.Properties.Resources.December}
-                }
+            BarChartStyles.BarAxisStyles
         };
 
     #endregion
@@ -77,6 +65,8 @@ public partial class OptionTemperatureView : UserControl
             };
         }
         Series[0].Values = values;
+        XAxes[0].Labels = Enum.GetNames(typeof(Months));
+        XAxes[0].Name = H.Core.Properties.Resources.Months;
     }
 
     #endregion

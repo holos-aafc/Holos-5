@@ -6213,4 +6213,67 @@ Please note: emissions related to the deposition or application of livestock man
   <data name="DescriptionOptionSoilView" xml:space="preserve">
     <value>The Soil tab can be used to change the soil properties for the entire farm. The default values are shown for the current soil type. The soil for the farm can be customized by changing individual soil properties. In order to change the soil type for the specific field only, go to the specific field and select 'soil' tab within the field.</value>
   </data>
+  <data name="LabelCarbonModelling" xml:space="preserve">
+    <value>Carbon Modelling</value>
+  </data>
+  <data name="DescriptionOptionSoilN2OBreakdown" xml:space="preserve">
+    <value>The monthly emissions distribution for the year. This distribution can be adjusted based on your farm's results. Please note that the addition of all montly percentages</value>
+  </data>
+  <data name="LabelCarbonConcentration" xml:space="preserve">
+    <value>Carbon concentration</value>
+  </data>
+  <data name="LabelEquilibriumCalculationStrategy" xml:space="preserve">
+    <value>Equilibrium year yield calculation strategy</value>
+  </data>
+  <data name="LabelUseCustomEquilibriumCarbonValue" xml:space="preserve">
+    <value>Use custom equilibrium carbon value</value>
+  </data>
+  <data name="LabelUseCustomRuninPeriodTillage" xml:space="preserve">
+    <value>Use custom run-in period tillage</value>
+  </data>
+  <data name="LabelBiomass" xml:space="preserve">
+    <value>Biomass</value>
+  </data>
+  <data name="LabelProductReturnedToSoilForAnnuals" xml:space="preserve">
+    <value>Product returned to soil for annuals</value>
+  </data>
+  <data name="LabelStrawReturnedToSoilForAnnuals" xml:space="preserve">
+    <value>Straw returned to soil for annuals</value>
+  </data>
+  <data name="ErrorMustBeBetween0And100" xml:space="preserve">
+    <value>Must be between 0 and 100</value>
+  </data>
+  <data name="LabelRootsReturnedToSoilForAnnuals" xml:space="preserve">
+    <value>Roots returned to soil for annuals</value>
+  </data>
+  <data name="LabelProductReturnedToSoilForFodderCorn" xml:space="preserve">
+    <value>Product returned to soil for fodder corn</value>
+  </data>
+  <data name="LabelRootsReturnedToSoilForFodderCorn" xml:space="preserve">
+    <value>Roots returned to soil for fodder corn</value>
+  </data>
+  <data name="LabelProductReturnedToSoilForPerennials" xml:space="preserve">
+    <value>Product returned to soil for perennials</value>
+  </data>
+  <data name="LabelRootsReturnedToSoilForPerennials" xml:space="preserve">
+    <value>Roots returned to soil for perennials</value>
+  </data>
+  <data name="LabelProductReturnedToSoilForRootCrops" xml:space="preserve">
+    <value>Product returned to soil for root crops</value>
+  </data>
+  <data name="LabelStrawReturnedToSoilForRootCrops" xml:space="preserve">
+    <value>Straw returned to soil for root crops</value>
+  </data>
+  <data name="LabelSupplementalFeedingLoss" xml:space="preserve">
+    <value>Supplemental feeding loss</value>
+  </data>
+  <data name="LabelN2O" xml:space="preserve">
+    <value>N₂O</value>
+  </data>
+  <data name="LabelVolatilizationEmissionFactor" xml:space="preserve">
+    <value>Volatilization emission factor</value>
+  </data>
+  <data name="ErrorMustbeAValidYear" xml:space="preserve">
+    <value>Must be a valid Year</value>
+  </data>
 </root>

@@ -13,7 +13,6 @@ namespace H.Avalonia.ViewModels.OptionsViews
     {
 
         #region Constructors
-
         public OptionPrecipitationViewModel()
         { 
 

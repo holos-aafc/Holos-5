@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using H.Core.Enumerations;
 using H.Core.Providers.Precipitation;
 using H.Core.Providers.Soil;
@@ -9,45 +10,37 @@ namespace H.Avalonia.ViewModels.OptionsViews
 {
     public class SoilDisplayViewModel : ViewModelBase
     {
-        #region Fields
-        private SoilTexture _selectedSoilTexture;        
-        private int _carbonModellingEquilibriumYear; 
+        #region Fields        
         private SoilData _bindingSoilData = new SoilData();
         #endregion
+
         #region Constructors
         public SoilDisplayViewModel(IStorageService storageService) : base(storageService) 
         {
             ManageData();
         }
         #endregion
+
         #region Properties
         public SoilData BindingSoilData
         {
             get => _bindingSoilData;
             set => SetProperty(ref _bindingSoilData, value);
         }
-        public SoilTexture SelectedSoilTexture
-        {
-            get => _selectedSoilTexture;
-            set
-            {
-                if (SetProperty(ref _selectedSoilTexture, value))
-                {
-                    ActiveFarm.DefaultSoilData.SoilTexture = value;
-                }
-            }
-        }
+
+        //Wrapper properties for validating and setting values
         public double BulkDensity
         {
             get => BindingSoilData.BulkDensity;
             set
             {
-               ValidateDouble(value, nameof(BulkDensity));
+               ValidateNonNegative(value, nameof(BulkDensity));
                 if (HasErrors)
                 {
                     return;
                 }
                 BindingSoilData.BulkDensity = value;
+                RaisePropertyChanged(nameof(BulkDensity));
             }
         }
         public double TopLayerThickness
@@ -55,12 +48,13 @@ namespace H.Avalonia.ViewModels.OptionsViews
             get => BindingSoilData.TopLayerThickness;
             set
             {
-                ValidateDouble(value, nameof(TopLayerThickness));
+                ValidateNonNegative(value, nameof(TopLayerThickness));
                 if (HasErrors)
                 {
                     return;
                 }
                 BindingSoilData.TopLayerThickness = value;
+                RaisePropertyChanged(nameof(TopLayerThickness));
             }
         }
         public double ProportionOfClayInSoil
@@ -68,12 +62,13 @@ namespace H.Avalonia.ViewModels.OptionsViews
             get => BindingSoilData.ProportionOfClayInSoil;
             set
             {
-                ValidateDouble(value, nameof(ProportionOfClayInSoil));
+                ValidateNonNegative(value, nameof(ProportionOfClayInSoil));
                 if (HasErrors)
                 {
                     return;
                 }
                 BindingSoilData.ProportionOfClayInSoil = value;
+                RaisePropertyChanged(nameof(ProportionOfClayInSoil));
             }
         }
         public double ProportionOfSandInSoil
@@ -81,12 +76,13 @@ namespace H.Avalonia.ViewModels.OptionsViews
             get => BindingSoilData.ProportionOfSandInSoil;
             set
             {
-                ValidateDouble(value, nameof(ProportionOfSandInSoil));
+                ValidateNonNegative(value, nameof(ProportionOfSandInSoil));
                 if (HasErrors)
                 {
                     return;
                 }
                 BindingSoilData.ProportionOfSandInSoil = value;
+                RaisePropertyChanged(nameof(ProportionOfSandInSoil));
             }
         }
         public double SoilPh
@@ -94,12 +90,13 @@ namespace H.Avalonia.ViewModels.OptionsViews
             get => BindingSoilData.SoilPh;
             set
             {
-                ValidateDouble(value, nameof(SoilPh));
+                ValidateNonNegative(value, nameof(SoilPh));
                 if (HasErrors)
                 {
                     return;
                 }
                 BindingSoilData.SoilPh = value;
+                RaisePropertyChanged(nameof(SoilPh));
             }
         }
         public double ProportionOfSoilOrganicCarbon
@@ -107,12 +104,13 @@ namespace H.Avalonia.ViewModels.OptionsViews
             get => BindingSoilData.ProportionOfSoilOrganicCarbon;
             set
             {
-                ValidateDouble(value, nameof(ProportionOfSoilOrganicCarbon));
+                ValidateNonNegative(value, nameof(ProportionOfSoilOrganicCarbon));
                 if (HasErrors)
                 {
                     return;
                 }
                 BindingSoilData.ProportionOfSoilOrganicCarbon = value;
+                RaisePropertyChanged(nameof(ProportionOfSoilOrganicCarbon));
             }
         }
         public double SoilCec
@@ -120,63 +118,82 @@ namespace H.Avalonia.ViewModels.OptionsViews
             get => BindingSoilData.SoilCec;
             set
             {
-                ValidateDouble(value, nameof(SoilCec));
+                ValidateNonNegative(value, nameof(SoilCec));
                 if (HasErrors)
                 {
                     return;
                 }
                 BindingSoilData.SoilCec = value;
-                
+                RaisePropertyChanged(nameof(SoilCec));
             }
         }
         public int CarbonModellingEquilibriumYear
         {
-            get => _carbonModellingEquilibriumYear;
+            get => ActiveFarm.CarbonModellingEquilibriumYear;
             set
             {
-                SetProperty(ref _carbonModellingEquilibriumYear, value);
-                ValidateCarbonModellingEquilibriumYear();
-                    if (HasErrors)
-                    {
-                        return;
-                    }
-                    ActiveFarm.CarbonModellingEquilibriumYear = value;
+                ValidateYear(value, nameof(CarbonModellingEquilibriumYear));
+                if (HasErrors)
+                {
+                    return;
+                }
+                ActiveFarm.CarbonModellingEquilibriumYear = value;
+                RaisePropertyChanged(nameof(CarbonModellingEquilibriumYear));
             }
         }
+
+        //Collection of all soil textures for combo box
+        public ObservableCollection<SoilTexture> SoilTextures { get; set; }
         #endregion
+
         #region Methods
-        public void ValidateDouble(double value, string propertyName)
+        //Validate that the value is not negative
+        public void ValidateNonNegative(double value, string propertyName)
         {
             if(value < 0)
             {
-                AddError(propertyName, "Value cannot be below 0");
+                AddError(propertyName, H.Core.Properties.Resources.ErrorMustBeGreaterThan0);
             }
             else
             {
                 RemoveError(propertyName);
             }
         }
-        private void ValidateCarbonModellingEquilibriumYear()
+
+        //Validate that the year is greater than 0
+        private void ValidateYear(int value, string propertyName)
         {
-            int currentYear = DateTime.Today.Year;
-            if (CarbonModellingEquilibriumYear > currentYear || CarbonModellingEquilibriumYear <= 0)
+            if (value <= 0)
             {
-                AddError(nameof(CarbonModellingEquilibriumYear), "Must be a valid year.");
+                AddError(nameof(propertyName), H.Core.Properties.Resources.ErrorMustbeAValidYear);
             }
             else
             {
-                RemoveError(nameof(CarbonModellingEquilibriumYear));
+                RemoveError(nameof(propertyName));
             }
         }
         public void ManageData()
         {
-            ActiveFarm = base.StorageService.GetActiveFarm();
-            CarbonModellingEquilibriumYear = ActiveFarm.CarbonModellingEquilibriumYear;
+            //Binds the soil data from the active farm
             BindingSoilData = ActiveFarm.DefaultSoilData;
+
+            //Populate the soil texture collection
+            SoilTextures = new ObservableCollection<SoilTexture>();
+            var soilTextures = SoilTexture.GetValues(typeof(SoilTexture));
+            foreach (SoilTexture soilTexture in soilTextures)
+            {
+                if (!SoilTextures.Contains(soilTexture))
+                {
+                    SoilTextures.Add(soilTexture);
+                }
+            }
+
+            //Listens for changes to the soil data
             BindingSoilData.PropertyChanged -= OnSoilDataPropertyChanged;
             BindingSoilData.PropertyChanged += OnSoilDataPropertyChanged;
         }
         #endregion
+
         #region Event Handlers
         public void OnSoilDataPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {

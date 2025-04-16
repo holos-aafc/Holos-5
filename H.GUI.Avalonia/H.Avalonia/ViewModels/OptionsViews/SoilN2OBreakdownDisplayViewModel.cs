@@ -5,397 +5,206 @@ using System.Text;
 using System.Threading.Tasks;
 using Mapsui.Extensions;
 using H.Core.Services.StorageService;
+using ExCSS;
 
 namespace H.Avalonia.ViewModels.OptionsViews
 {
     public class SoilN2OBreakdownDisplayViewModel : ViewModelBase
     {
-        #region Fields
-        private double _january;
-        private double _february;
-        private double _march;
-        private double _april;
-        private double _may;
-        private double _june;
-        private double _july;
-        private double _august;
-        private double _september;
-        private double _october;
-        private double _november;
-        private double _december;
-        #endregion
+ 
         #region Constructors
         public SoilN2OBreakdownDisplayViewModel(IStorageService storageService) : base(storageService)
-        {
-            ActiveFarm = base.StorageService.GetActiveFarm();
+        {          
         }
         #endregion
+
         #region Properties
+        ///Wrapper properties for validating and setting values
         public double January
         {
-            get => _january;
+            get => ActiveFarm.AnnualSoilN2OBreakdown.January;
             set
             {
-                if (SetProperty(ref _january, value))
-                {
-                    ValidateJanuary();
-                    if (HasErrors)
+                ValidatePercentage(value, nameof(January));
+                if (HasErrors)
                     {
                         return;
                     }
-                    if (ActiveFarm.AnnualSoilN2OBreakdown.January != value)
-                    {
-                        ActiveFarm.AnnualSoilN2OBreakdown.January = value;
-                    }
-                } 
+                     ActiveFarm.AnnualSoilN2OBreakdown.January = value;
+                    RaisePropertyChanged(nameof(January));
             }
         }
         public double February
         {
-            get => _february;
+            get => ActiveFarm.AnnualSoilN2OBreakdown.February;
             set
             {
-                if (SetProperty(ref _february, value))
-                {
-                    ValidateFebruary();
-                    if (HasErrors)
+                ValidatePercentage(value, nameof(February));
+                if (HasErrors)
                     {
                         return;
                     }
-                    if (ActiveFarm.AnnualSoilN2OBreakdown.February != value)
-                    {
-                        ActiveFarm.AnnualSoilN2OBreakdown.February = value;
-                    }
-                }
+                    ActiveFarm.AnnualSoilN2OBreakdown.February = value;
+                    RaisePropertyChanged(nameof(February));
             }
         }
         public double March
         {
-            get => _march;
+            get => ActiveFarm.AnnualSoilN2OBreakdown.March;
             set
             {
-               if (SetProperty(ref _march, value))
-                {
-                    ValidateMarch();
-                    if (HasErrors)
+                ValidatePercentage(value, nameof(March));
+                if (HasErrors)
                     {
                         return;
                     }
-                    if (ActiveFarm.AnnualSoilN2OBreakdown.March != value)
-                    {
-                        ActiveFarm.AnnualSoilN2OBreakdown.March = value;
-                    }
-                }
+                    ActiveFarm.AnnualSoilN2OBreakdown.March = value;
+                    RaisePropertyChanged(nameof(March));
             }
         }
         public double April
         {
-            get => _april;
+            get => ActiveFarm.AnnualSoilN2OBreakdown.April;
             set
             {
-                if (SetProperty(ref _april, value))
-                    {
-                    ValidateApril();
-                    if (HasErrors)
+
+                ValidatePercentage(value, nameof(April));
+                if (HasErrors)
                     {
                         return;
                     }
-                    if (ActiveFarm.AnnualSoilN2OBreakdown.April != value)
-                    {
-                        ActiveFarm.AnnualSoilN2OBreakdown.April = value;
-                    }
-                }
+                    ActiveFarm.AnnualSoilN2OBreakdown.April = value;
+                   RaisePropertyChanged(nameof(April));
             }
         }
         public double May
         {
-            get => _may;
+            get => ActiveFarm.AnnualSoilN2OBreakdown.May;
             set
             {
-                if (SetProperty(ref _may, value))
-                {
-                    ValidateMay();
-                    if (HasErrors)
+                ValidatePercentage(value, nameof(May));
+                if (HasErrors)
                     {
                         return;
                     }
-                    if (ActiveFarm.AnnualSoilN2OBreakdown.May != value)
-                    {
-                        ActiveFarm.AnnualSoilN2OBreakdown.May = value;
-                    }
-                }
+                    ActiveFarm.AnnualSoilN2OBreakdown.May = value;
+                    RaisePropertyChanged(nameof(May));
             }
         }
         public double June
         {
-            get => _june;
+            get => ActiveFarm.AnnualSoilN2OBreakdown.June;
             set
             {
-                if (!SetProperty(ref _june, value)) 
-                { 
-                    ValidateJune();
-                    if (HasErrors)
+                ValidatePercentage(value, nameof(June));
+                if (HasErrors)
                     {
                         return;
                     }
-                    if (ActiveFarm.AnnualSoilN2OBreakdown.June != value)
-                    {
-                        ActiveFarm.AnnualSoilN2OBreakdown.June = value;
-                    }
-                }
+                   ActiveFarm.AnnualSoilN2OBreakdown.June = value;
+                   RaisePropertyChanged(nameof(June));
             }
         }
         public double July
         {
-            get => _july;
+            get => ActiveFarm.AnnualSoilN2OBreakdown.July;
             set
             {
-                if (SetProperty(ref _july, value))
-                {
-                    ValidateJuly();
-                    if (HasErrors)
+                ValidatePercentage(value, nameof(July));
+                if (HasErrors)
                     {
                         return;
                     }
-                    if (ActiveFarm.AnnualSoilN2OBreakdown.July != value)
-                    {
-                        ActiveFarm.AnnualSoilN2OBreakdown.July = value;
-                    }
-                }
-                
+                    ActiveFarm.AnnualSoilN2OBreakdown.July = value;
             }
         }
         public double August
         {
-            get => _august;
+            get => ActiveFarm.AnnualSoilN2OBreakdown.August;
             set
             {
-                if (SetProperty(ref _august, value))
-                {
-                    ValidateAugust();
-                    if (HasErrors)
+                ValidatePercentage(value, nameof(August));
+                if (HasErrors)
                     {
                         return;
                     }
-                    if (ActiveFarm.AnnualSoilN2OBreakdown.August != value)
-                    {
-                        ActiveFarm.AnnualSoilN2OBreakdown.August = value;
-                    }
-                }
-                
+                    ActiveFarm.AnnualSoilN2OBreakdown.August = value;
+                    RaisePropertyChanged(nameof(August));
+
             }
         }
         public double September
         {
-            get => _september;
+            get => ActiveFarm.AnnualSoilN2OBreakdown.September;
             set
             {
-                if (SetProperty(ref _september, value))
-                {
-                    ValidateSeptember();
-                    if (HasErrors)
+                ValidatePercentage(value, nameof(September));
+                if (HasErrors)
                     {
                         return;
                     }
-                    if (ActiveFarm.AnnualSoilN2OBreakdown.September != value)
-                    {
-                        ActiveFarm.AnnualSoilN2OBreakdown.September = value;
-                    }
-                }
-                
+                    ActiveFarm.AnnualSoilN2OBreakdown.September = value;
+                    RaisePropertyChanged(nameof(September));
+
             }
         }
         public double October
         {
-            get => _october;
+            get => ActiveFarm.AnnualSoilN2OBreakdown.October;
             set
             {
-                if (SetProperty(ref _october, value))
-                {
-                    ValidateOctober();
-                    if (HasErrors)
+                ValidatePercentage(value, nameof(October));
+                if (HasErrors)
                     {
                         return;
                     }
-                    if (ActiveFarm.AnnualSoilN2OBreakdown.October != value)
-                    {
-                        ActiveFarm.AnnualSoilN2OBreakdown.October = value;
-                    }
-                }
-                
+                     ActiveFarm.AnnualSoilN2OBreakdown.October = value;
+                    RaisePropertyChanged(nameof(October));
+
             }
         }
         public double November
         {
-            get => _november;
+            get => ActiveFarm.AnnualSoilN2OBreakdown.November;
             set
             {
-                if (SetProperty(ref _november, value))
-                {
-                    ValidateNovember();
-                    if (HasErrors)
+                ValidatePercentage(value, nameof(November));
+                if (HasErrors)
                     {
                         return;
                     }
-                    if (ActiveFarm.AnnualSoilN2OBreakdown.November != value)
-                    {
-                        ActiveFarm.AnnualSoilN2OBreakdown.November = value;
-                    }
-                }
+                    ActiveFarm.AnnualSoilN2OBreakdown.November = value;
+                    RaisePropertyChanged(nameof(November));
             }
         }
         public double December
         {
-            get => _december;
+            get => ActiveFarm.AnnualSoilN2OBreakdown.December;
             set
             {
-                if (SetProperty(ref _december, value))
-                {
-                    ValidateDecember();
+                ValidatePercentage(value, nameof(December));
                     if (HasErrors)
                     {
                         return;
                     }
-                    if (ActiveFarm.AnnualSoilN2OBreakdown.December != value)
-                    {
-                        ActiveFarm.AnnualSoilN2OBreakdown.December = value;
-                    }
-                }
-                
+                    ActiveFarm.AnnualSoilN2OBreakdown.December = value;
+                    RaisePropertyChanged(nameof(December));
+
             }
         }
         #endregion
+
         #region Methods
-        private void ValidateJanuary()
+        ///Validation methods
+        private void ValidatePercentage(double value, string propertyName)
         {
-            if (January < 0.00 || January > 100.00)
+            if (value < 0.00 || value > 100.00)
             {
-                AddError(nameof(January), "Percentage must be between 0 and 100");
+                AddError(propertyName, H.Core.Properties.Resources.ErrorMustBeBetween0And100);
             }
             else
             {
-                RemoveError(nameof(January));
-            }
-        }
-        private void ValidateFebruary()
-        {
-            if (February < 0.00 || February > 100.00)
-            {
-                AddError(nameof(February), "Percentage must be between 0 and 100");
-            }
-            else
-            {
-                RemoveError(nameof(February));
-            }
-        }
-        private void ValidateMarch()
-        {
-            if (March < 0.00 || March > 100.00)
-            {
-                AddError(nameof(March), "Percentage must be between 0 and 100");
-            }
-            else
-            {
-                RemoveError(nameof(March));
-            }
-        }
-        private void ValidateApril()
-        {
-            if (April < 0.00 || April > 100.00)
-            {
-                AddError(nameof(April), "Percentage must be between 0 and 100");
-            }
-            else
-            {
-                RemoveError(nameof(April));
-            }
-        }
-        private void ValidateMay()
-        {
-            if (May < 0.00 || May > 100.00)
-            {
-                AddError(nameof(May), "Percentage must be between 0 and 100");
-            }
-            else
-            {
-                RemoveError(nameof(May));
-            }
-        }
-        private void ValidateJune()
-        {
-            if (June < 0.00 || June > 100.00)
-            {
-                AddError(nameof(June), "Percentage must be between 0 and 100");
-            }
-            else
-            {
-                RemoveError(nameof(June));
-            }
-        }
-        private void ValidateJuly()
-        {
-            if (July < 0.00 || July > 100.00)
-            {
-                AddError(nameof(July), "Percentage must be between 0 and 100");
-            }
-            else
-            {
-                RemoveError(nameof(July));
-            }
-        }
-        private void ValidateAugust()
-        {
-            if (August < 0.00 || August > 100.00)
-            {
-                AddError(nameof(August), "Percentage must be between 0 and 100");
-            }
-            else
-            {
-                RemoveError(nameof(August));
-            }
-        }
-        private void ValidateSeptember()
-        {
-            if (September < 0.00 || September > 100.00)
-            {
-                AddError(nameof(September), "Percentage must be between 0 and 100");
-            }
-            else
-            {
-                RemoveError(nameof(September));
-            }
-        }
-        private void ValidateOctober()
-        {
-            if (October < 0.00 || October > 100.00)
-            {
-                AddError(nameof(October), "Percentage must be between 0 and 100");
-            }
-            else
-            {
-                RemoveError(nameof(October));
-            }
-        }
-        private void ValidateNovember()
-        {
-            if (November < 0.00 || November > 100.00)
-            {
-                AddError(nameof(November), "Percentage must be between 0 and 100");
-            }
-            else
-            {
-                RemoveError(nameof(November));
-            }
-        }
-        private void ValidateDecember()
-        {
-            if (December < 0.00 || December > 100.00)
-            {
-                AddError(nameof(December), "Percentage must be between 0 and 100");
-            }
-            else
-            {
-                RemoveError(nameof(December));
+                RemoveError(propertyName);
             }
         }
         #endregion

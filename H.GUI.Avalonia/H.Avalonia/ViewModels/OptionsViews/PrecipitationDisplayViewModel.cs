@@ -14,6 +14,7 @@ namespace H.Avalonia.ViewModels.OptionsViews
     public class PrecipitationDisplayViewModel : ViewModelBase
     {
         #region Fields
+        private double _testValue;
         private PrecipitationData _bindingPrecipitationData = new PrecipitationData();
         #endregion
         #region Constructors
@@ -21,6 +22,7 @@ namespace H.Avalonia.ViewModels.OptionsViews
         {
             ManageData();
         }
+
         #endregion
         #region Properties
         public PrecipitationData BindingPrecipitationData
@@ -28,6 +30,19 @@ namespace H.Avalonia.ViewModels.OptionsViews
             get => _bindingPrecipitationData;
             set => SetProperty(ref _bindingPrecipitationData, value);
         }
+
+        /// <summary>
+        /// dummy property to bind to the view for testing
+        /// </summary>
+        public double TestValue 
+        { 
+            get =>_testValue;
+            set => SetProperty(ref _testValue, value);
+        }
+        /// <summary>
+        /// end dummy property
+        /// </summary>
+
         public double January
         {
             get => BindingPrecipitationData.January;

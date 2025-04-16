@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ExCSS;
 using H.Core.Services.StorageService;
 using Mapsui.Extensions;
 
@@ -12,19 +13,17 @@ namespace H.Avalonia.ViewModels.OptionsViews
     {
         #region Fields
         private string _coordinates;
-        private string _farmName;
-        private string _farmComments;
-        private double _growingSeasonPrecipitation;
-        private double _growingSeasonEvapotranspiration;
         #endregion
 
         #region Constructors
         public FarmDisplayViewModel(IStorageService storageService) : base(storageService)
         {
-            ActiveFarm = base.StorageService.GetActiveFarm();
+            Coordinates = $"{ActiveFarm.Latitude}, {ActiveFarm.Longitude}";
         }
         #endregion
+
         #region Properties
+        ///Wrapper properties for validating and setting values
         public string Coordinates
         {
             get => _coordinates;
@@ -32,129 +31,86 @@ namespace H.Avalonia.ViewModels.OptionsViews
         }
         public string FarmComments
         {
-            get => _farmComments;
+            get => ActiveFarm.Comments;
             set
             {
-                if (SetProperty(ref _farmComments, value))
-                {
-                    ValidateFarmComments();
-                    if (HasErrors)
+                ValidateString(value, nameof(FarmComments));
+                if (HasErrors)
                     {
                         return;
                     }
-                    if (ActiveFarm.Comments != value)
-                    {
-                        ActiveFarm.Comments = value;
-                    }
+                     ActiveFarm.Comments = value;
+                RaisePropertyChanged(nameof(FarmComments));
 
-                }
             }
         }
         public string FarmName
         {
-            get => _farmName;
+            get => ActiveFarm.Name;
             set
             {
-                if (SetProperty(ref _farmName, value))
-                {
-                    ValidateFarmName();
+                ValidateString(value, nameof(FarmName));
                     if (HasErrors)
                     {
                         return;
                     }
-                    if (ActiveFarm.Name != value)
-                    {
-                        ActiveFarm.Name = value;
-                    }
-
-                }
+                    ActiveFarm.Name = value;
+                    RaisePropertyChanged(nameof(FarmName));
             }
         }
         public double GrowingSeasonPrecipitation
         {
-            get => _growingSeasonPrecipitation;
+            get => ActiveFarm.ClimateData.PrecipitationData.GrowingSeasonPrecipitation;
             set
             {
-                if (SetProperty(ref _growingSeasonPrecipitation, value))
-                {
-                    ValidatePrecipitation();
+                ValidateNonNegative(value, nameof(GrowingSeasonPrecipitation));
                     if (HasErrors)
                     {
                         return;
                     }
-                    if (ActiveFarm.ClimateData.PrecipitationData.GrowingSeasonPrecipitation != value)
-                    {
-                        ActiveFarm.ClimateData.PrecipitationData.GrowingSeasonPrecipitation = value;
-                    }
-
-                }
+                    ActiveFarm.ClimateData.PrecipitationData.GrowingSeasonPrecipitation = value;
+                    RaisePropertyChanged(nameof(GrowingSeasonPrecipitation));
             }
         }
         public double GrowingSeasonEvapotranspiration
         {
-            get => _growingSeasonEvapotranspiration;
+            get => ActiveFarm.ClimateData.EvapotranspirationData.GrowingSeasonEvapotranspiration;
             set
             {
-                if (SetProperty(ref _growingSeasonEvapotranspiration, value))
-                {
-                    ValidateEvapotranspiration();
+                ValidateNonNegative(value, nameof(GrowingSeasonEvapotranspiration));
                     if (HasErrors)
                     {
                         return;
                     }
-                    if (ActiveFarm.ClimateData.EvapotranspirationData.GrowingSeasonEvapotranspiration != value)
-                    {
-                        ActiveFarm.ClimateData.EvapotranspirationData.GrowingSeasonEvapotranspiration = value;
-                    }
-
-                }
+                    ActiveFarm.ClimateData.EvapotranspirationData.GrowingSeasonEvapotranspiration = value;
+                    RaisePropertyChanged(nameof(GrowingSeasonEvapotranspiration));
             }
         }
         #endregion
+
         #region Private Methods
-        private void ValidateFarmName()
+        ///Validation methods for properties
+        private void ValidateString(string value, string propertyName)
         {
-            if (string.IsNullOrWhiteSpace(FarmName))
+            if (string.IsNullOrWhiteSpace(value))
             {
-                AddError(nameof(FarmName), "Farm name is required.");
+                AddError(propertyName, H.Core.Properties.Resources.ErrorNameCannotBeEmpty);
             }
             else
             {
-                RemoveError(nameof(FarmName));
+                RemoveError(propertyName);
             }
 
         }
-        private void ValidateFarmComments()
+        private void ValidateNonNegative(double value, string propertyName)
         {
-            if (string.IsNullOrWhiteSpace(FarmComments))
+            if (value.IsNanOrInfOrZero())
             {
-                AddError(nameof(FarmComments), "Farm comments are required.");
+                AddError(propertyName, H.Core.Properties.Resources.ErrorMustBeGreaterThan0);
             }
             else
             {
-                RemoveError(nameof(FarmComments));
-            }
-        }
-        private void ValidatePrecipitation()
-        {
-            if (GrowingSeasonPrecipitation.IsNanOrInfOrZero())
-            {
-                AddError(nameof(GrowingSeasonPrecipitation), "Growing season precipitation must be greater than 0.");
-            }
-            else
-            {
-                RemoveError(nameof(GrowingSeasonPrecipitation));
-            }
-        }
-        private void ValidateEvapotranspiration()
-        {
-            if (GrowingSeasonEvapotranspiration.IsNanOrInfOrZero())
-            {
-                AddError(nameof(GrowingSeasonEvapotranspiration), "Growing season evapotranspiration must be greater than 0.");
-            }
-            else
-            {
-                RemoveError(nameof(GrowingSeasonEvapotranspiration));
+                RemoveError(propertyName);
             }
         }
         #endregion

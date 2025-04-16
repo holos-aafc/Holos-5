@@ -23,7 +23,7 @@
 			  <TextBlock Text="{x:Static properties:Resources.LabelSoilGreatGroup}"/>
 			  <TextBox IsReadOnly="True" IsEnabled="False" TextChanged="" Text="{Binding ActiveFarm.DefaultSoilData.SoilGreatGroupString, Mode=TwoWay}"  />
 			  <TextBlock Text="{x:Static properties:Resources.SoilTexture}"/>
-			  <ComboBox HorizontalAlignment="Stretch" ItemsSource="{Binding SoilTextures}" SelectedItem="{Binding Data.SelectedSoilTexture, Mode=TwoWay}"  />
+			  <ComboBox HorizontalAlignment="Stretch" ItemsSource="{Binding Data.SoilTextures}" SelectedItem="{Binding ActiveFarm.DefaultSoilData.SoilTexture, Mode=TwoWay}"  />
 			  <TextBlock Text="{x:Static properties:Resources.TopLayerThickness}">
 				  <Run Text=" "></Run>
 				  <Run Text="{x:Static properties:Resources.UnitMm}"></Run>

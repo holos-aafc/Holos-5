@@ -66,6 +66,9 @@ namespace H.Avalonia.ViewModels.OptionsViews
                     case "Evapotranspiration":
                         base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(OptionEvapotranspirationView));
                         break;
+                    case "User Settings":
+                        base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(OptionUserSettingsView));
+                        break;
                 }
             }
         }

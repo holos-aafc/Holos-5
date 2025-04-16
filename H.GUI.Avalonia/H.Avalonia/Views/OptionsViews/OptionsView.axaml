@@ -49,6 +49,7 @@
 					<ListBoxItem Content="Soil N2O Breakdown"/>
 					<ListBoxItem Content="Default Bedding Composition"/>
 					<ListBoxItem Content="Default Manure Composition"/>
+						<ListBoxItem Content="User Settings"/>
 					</ListBox>
 				</StackPanel>
 			</Border>

@@ -10,15 +10,9 @@ namespace H.Avalonia.ViewModels.OptionsViews
     {
 
         public OptionFarmViewModel() { }
-        public OptionFarmViewModel(IRegionManager regionManager, IStorageService storageService) : base(regionManager, storageService)
+        public OptionFarmViewModel(IStorageService storageService) : base(storageService)
         {
-            ActiveFarm = base.StorageService.GetActiveFarm();
             Data = new FarmDisplayViewModel(storageService);
-            Data.FarmName = ActiveFarm.Name;
-            Data.FarmComments = ActiveFarm.Comments;
-            Data.Coordinates = $"{ActiveFarm.Latitude}, {ActiveFarm.Longitude}";
-            Data.GrowingSeasonPrecipitation = ActiveFarm.ClimateData.PrecipitationData.GrowingSeasonPrecipitation;
-            Data.GrowingSeasonEvapotranspiration = ActiveFarm.ClimateData.EvapotranspirationData.GrowingSeasonEvapotranspiration;
         }
 
         public FarmDisplayViewModel Data { get; set; }

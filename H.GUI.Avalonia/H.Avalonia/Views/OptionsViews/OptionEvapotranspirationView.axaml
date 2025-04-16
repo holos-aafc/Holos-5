@@ -15,7 +15,7 @@
 	<Grid RowDefinitions="Auto, *" ColumnDefinitions="Auto,*">
 		<TextBlock Padding="40, 15" Grid.Row="0" Grid.ColumnSpan="2" Background="#3C4DBB" Foreground="WhiteSmoke" Text="The monthly precipitation averages for the farm." />
 		<ScrollViewer Grid.Row="1" Grid.Column="0">
-			<StackPanel Spacing="5" Width="200" Margin="15">
+			<StackPanel Spacing="5" Width="180" Margin="15">
 				<TextBlock Text="{x:Static properties:Resources.January}"/>
 				<Grid ColumnDefinitions="*, Auto">
 					<NumericUpDown Grid.Column="0" FormatString="{}{0:0.00}" Value="{Binding BindingEvapotranspirationData.January, Mode=TwoWay}" />

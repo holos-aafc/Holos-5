@@ -549,7 +549,7 @@ namespace H.Core.Test.Calculators
         }
 
         [TestMethod]
-        public void TestMeasurementSystemChangeHandling()
+        public void TestMeasurementSystemChangeImperial()
         {
             Mock<IStorageService> _mockStorageService = new Mock<IStorageService>();
             IStorageService _storageServiceMoc = _mockStorageService.Object;
@@ -562,6 +562,22 @@ namespace H.Core.Test.Calculators
             testFarm.MeasurementSystemType = MeasurementSystemType.Imperial;
 
             Assert.IsFalse(calculatorInstance.IsMetric);
+        }
+
+        [TestMethod]
+        public void TestMeasurementSystemChangeMetric()
+        {
+            Mock<IStorageService> _mockStorageService = new Mock<IStorageService>();
+            IStorageService _storageServiceMoc = _mockStorageService.Object;
+            var testFarm = new Core.Models.Farm();
+            testFarm.MeasurementSystemType = MeasurementSystemType.Imperial;
+            _mockStorageService.Setup(x => x.GetActiveFarm()).Returns(testFarm);
+            UnitsOfMeasurementCalculator calculatorInstance = new UnitsOfMeasurementCalculator(_storageServiceMoc); // Using new constructor where IStorageService is injected 
+            Assert.IsFalse(calculatorInstance.IsMetric);
+
+            testFarm.MeasurementSystemType = MeasurementSystemType.Metric;
+
+            Assert.IsTrue(calculatorInstance.IsMetric);
         }
     }
 }

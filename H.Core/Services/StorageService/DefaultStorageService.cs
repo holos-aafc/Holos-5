@@ -42,6 +42,17 @@ public class DefaultStorageService : IStorageService
         {
             Storage.ApplicationData.GlobalSettings.ActiveFarm = farm;
 
+            var index = Storage.ApplicationData.Farms.IndexOf(farm);
+
+            if (index != -1)
+            {
+                Storage.ApplicationData.Farms.RemoveAt(index);
+            }
+
+            // Ensuring the Farms List<Farm> contains the same instance as the ActiveFarm
+            // This prevents multiple references to different instances of the same farm
+            AddFarm(GetActiveFarm());
+
             return true;
         }
 

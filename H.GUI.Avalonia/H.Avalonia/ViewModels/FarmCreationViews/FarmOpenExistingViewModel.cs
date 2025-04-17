@@ -64,12 +64,6 @@ namespace H.Avalonia.ViewModels
         public void OnOpenFarmExecute()
         {
             base.StorageService.SetActiveFarm(this.SelectedFarm);
-
-            // Three lines below are adapted from V4 to fix a references bug with the Farms collection
-            var index = base.StorageService.Storage.ApplicationData.Farms.IndexOf(this.SelectedFarm);
-            base.StorageService.Storage.ApplicationData.Farms.RemoveAt(index);
-            base.StorageService.Storage.ApplicationData.Farms.Add(base.StorageService.GetActiveFarm());
-
             // Line below ensures that the proper unit strings are used for the MeasurementSystemType of the existing farm being opened
             base.StorageService.Storage.ApplicationData.DisplayUnitStrings.SetStrings(this.SelectedFarm.MeasurementSystemType);
 

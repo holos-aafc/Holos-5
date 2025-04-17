@@ -93,7 +93,6 @@ namespace H.Avalonia.ViewModels
             farm.Name = FarmName;
             farm.Comments = FarmComments;
 
-            base.StorageService.AddFarm(farm);
             base.StorageService.SetActiveFarm(farm);
             base.StorageService.Storage.ApplicationData.DisplayUnitStrings.SetStrings(farm.MeasurementSystemType);
 

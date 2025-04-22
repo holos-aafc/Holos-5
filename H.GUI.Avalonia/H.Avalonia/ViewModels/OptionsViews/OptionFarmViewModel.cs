@@ -19,14 +19,9 @@ namespace H.Avalonia.ViewModels.OptionsViews
         public OptionFarmViewModel(IStorageService storageService) : base(storageService)
         {
             Data = new FarmDisplayViewModel(storageService);
-            Data.FarmName = activeFarm.Name;
-            Data.FarmComments = activeFarm.Comments;
-            Data.Coordinates = $"{activeFarm.Latitude}, {activeFarm.Longitude}";
-            Data.GrowingSeasonPrecipitation = activeFarm.ClimateData.PrecipitationData.GrowingSeasonPrecipitation;
-            Data.GrowingSeasonEvapotranspiration = activeFarm.ClimateData.EvapotranspirationData.GrowingSeasonEvapotranspiration;
 
             _measurementSystemTypes = new ObservableCollection<MeasurementSystemType>() { MeasurementSystemType.Metric, MeasurementSystemType.Imperial };
-            _selectedMeasurementType = activeFarm.MeasurementSystemType;
+            _selectedMeasurementType = StorageService.GetActiveFarm().MeasurementSystemType;
         }
 
         #endregion

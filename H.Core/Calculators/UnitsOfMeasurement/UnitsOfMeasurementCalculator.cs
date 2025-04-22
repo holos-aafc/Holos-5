@@ -4,6 +4,7 @@
 
 using System.ComponentModel;
 using H.Core.Enumerations;
+using H.Core.Models;
 using H.Core.Services.StorageService;
 using H.Infrastructure;
 using Prism.Mvvm;
@@ -17,14 +18,12 @@ namespace H.Core.Calculators.UnitsOfMeasurement
     /// https://www.rayglen.com/crop-bushel-weights/
     /// </summary>
     public class UnitsOfMeasurementCalculator : BindableBase, IUnitsOfMeasurementCalculator
-    {
-        private IStorageService _storageService;
-
+    {  
         #region Constructors
 
+        //TODO update the calls to this constructor, need to use the one that takes in an IStorageService
         public UnitsOfMeasurementCalculator()
         {
-
         }
 
         public UnitsOfMeasurementCalculator(IStorageService storageService)
@@ -32,9 +31,11 @@ namespace H.Core.Calculators.UnitsOfMeasurement
             if (storageService != null)
             {
                 _storageService = storageService;
-                _isMetric = storageService.GetActiveFarm().MeasurementSystemType == MeasurementSystemType.Metric;
+                _isMetric = _storageService.GetActiveFarm().MeasurementSystemType == MeasurementSystemType.Metric;
                 this.SetUnits();
 
+                _storageService.GetActiveFarm().PropertyChanged -= MeasurementSystemChangedHandler;
+                _storageService.GetActiveFarm().PropertyChanged += MeasurementSystemChangedHandler;
             }
             else
             {
@@ -60,6 +61,7 @@ namespace H.Core.Calculators.UnitsOfMeasurement
         #endregion
 
         #region Fields
+        private readonly IStorageService _storageService;
         private int roundingDigits = 4;
         private int roundingSixDigits = 6;
         private bool _isMetric;
@@ -1242,7 +1244,7 @@ namespace H.Core.Calculators.UnitsOfMeasurement
 
         private void SetUnits()
         {
-            if (_isMetric)
+            if (IsMetric)
             {
                 this.KilogramsPerHectareString = " kg ha⁻¹";
             }
@@ -1255,6 +1257,14 @@ namespace H.Core.Calculators.UnitsOfMeasurement
         private string WrapString(string unitsOfMeasurement)
         {
             return " (" + unitsOfMeasurement + ")";
+        }
+
+        private void MeasurementSystemChangedHandler(object? sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(Farm.MeasurementSystemType))
+            {
+                IsMetric = _storageService.GetActiveFarm().MeasurementSystemType == MeasurementSystemType.Metric;
+            }
         }
 
         #endregion

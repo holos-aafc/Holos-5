@@ -95,7 +95,7 @@ namespace H.Avalonia.ViewModels.Results
             try
             {
                 _exportHelpers.ExportPath = file.Path.AbsolutePath;
-                if (Storage.ShowSingleCoordinateResults)
+                if (StoragePlaceholder.ShowSingleCoordinateResults)
                 {
                     _exportHelpers.ExportToCSV(SingleSoilResultsViewItems, _soilResultsViewItemMap);
                 }
@@ -124,17 +124,17 @@ namespace H.Avalonia.ViewModels.Results
             var cancellationToken = _cancellationTokenSource.Token;
             try
             {
-                if (Storage.ShowSingleCoordinateResults)
+                if (StoragePlaceholder.ShowSingleCoordinateResults)
                 {
                     var sourceCollection = new ObservableCollection<SoilViewItem>
                 {
-                    Storage.SingleSoilViewItem
+                    StoragePlaceholder.SingleSoilViewItem
                 };
                     await AddViewItemsToCollection(cancellationToken, sourceCollection, SingleSoilResultsViewItems);
                 }
                 else
                 {
-                    await AddViewItemsToCollection(cancellationToken, Storage.SoilViewItems, SoilResultsViewItems);
+                    await AddViewItemsToCollection(cancellationToken, StoragePlaceholder.SoilViewItems, SoilResultsViewItems);
                 }
             }
             catch (TaskCanceledException e)

@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace H.Avalonia
 {
+    [Obsolete ("This class is no longer in use, use H.Core.Storage.cs instead")] 
     public class Storage : BindableBase
     {
         #region Fields

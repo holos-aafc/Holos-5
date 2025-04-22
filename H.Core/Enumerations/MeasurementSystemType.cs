@@ -9,6 +9,9 @@ namespace H.Core.Enumerations
         Metric,
 
         [LocalizedDescription("Imperial", typeof(Resources))]
-        Imperial
+        Imperial,
+
+        [LocalizedDescription("None", typeof(Resources))]
+        None
     }
 }

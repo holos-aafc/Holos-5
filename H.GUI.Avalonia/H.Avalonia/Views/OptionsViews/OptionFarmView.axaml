@@ -44,6 +44,10 @@
 						<RadioButton IsChecked="{Binding ActiveFarm.IsBasicMode}" GroupName="OperationMode" Content="{x:Static properties:Resources.LabelBasicMode}"></RadioButton>
 						<RadioButton GroupName="OperationMode" IsChecked="{Binding ActiveFarm.IsAdvancedMode}" HorizontalAlignment="Right" Content="{x:Static properties:Resources.LabelAdvancedMode}"></RadioButton>
 					</Grid>
+					<StackPanel>
+						<TextBlock Text="Units of Measurement"/>
+						<ComboBox ItemsSource="{Binding Path=MeasurementSystemTypes}" SelectedItem="{Binding Path=SelectedMeasurementSystem}" HorizontalAlignment="Left" Width="350" Margin="0 10 0 0"/>
+					</StackPanel>
 				</StackPanel>
 		</ScrollViewer>
 

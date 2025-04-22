@@ -4,6 +4,12 @@ namespace H.Core.Services.StorageService;
 
 public interface IStorageService
 {
+    #region Properties
+    
+    public IStorage Storage { get; set; }
+
+    #endregion
+
     #region Public Methods
 
     /// <summary>

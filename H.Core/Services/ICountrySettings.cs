@@ -6,4 +6,5 @@ public interface ICountrySettings
 {
     CountryVersion Version { get; set; }
     Languages Language { get; set; }
+    List<Province> GetProvinces();
 }

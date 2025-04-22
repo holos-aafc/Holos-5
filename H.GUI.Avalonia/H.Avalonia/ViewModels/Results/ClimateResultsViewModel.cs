@@ -93,7 +93,7 @@ namespace H.Avalonia.ViewModels.Results
         private async Task AddViewItemsToCollectionAsync(CancellationToken cancellationToken)
         {
             IsProcessingData = true;
-            foreach (var viewItem in Storage.ClimateViewItems)
+            foreach (var viewItem in StoragePlaceholder.ClimateViewItems)
             {
                 for (var currentYear = viewItem.StartYear; currentYear <= viewItem.EndYear; currentYear++)
                 {

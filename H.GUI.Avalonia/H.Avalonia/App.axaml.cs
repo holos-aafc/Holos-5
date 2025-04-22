@@ -47,7 +47,6 @@ using System.Threading;
 using H.Core.Enumerations;
 using H.Avalonia.ViewModels.SupportingViews.Start;
 using H.Core.Calculators.UnitsOfMeasurement;
-using H.Avalonia.ViewModels.SupportingViews.MeasurementUnits;
 
 namespace H.Avalonia
 {
@@ -146,8 +145,6 @@ namespace H.Avalonia
             containerRegistry.RegisterForNavigation<ChickenEggProductionComponentView, ChickenEggProductionComponentViewModel>();
             containerRegistry.RegisterForNavigation<ChickenMultiplierHatcheryComponentView,  ChickenMultiplierHatcheryComponentViewModel>();
             containerRegistry.RegisterForNavigation<StartView, StartViewModel>();
-            containerRegistry.RegisterForNavigation<UnitsOfMeasurementSelectionView, UnitsOfMeasurementSelectionViewModel>();
-            containerRegistry.RegisterForNavigation<OptionEvapotranspirationView, OptionEvapotranspirationViewModel>();
 
             // Blank Page
             containerRegistry.RegisterForNavigation<BlankView, BlankViewModel>();
@@ -175,6 +172,9 @@ namespace H.Avalonia
             containerRegistry.RegisterSingleton<ICountrySettings, CountrySettings>();
             containerRegistry.Register<ICountries, CountriesService>();
             containerRegistry.RegisterSingleton<IProvinces, ProvincesService>();
+
+            // Services
+            containerRegistry.RegisterSingleton<IFarmHelper, FarmHelper>();
 
             // Unit conversion
             containerRegistry.RegisterSingleton<IUnitsOfMeasurementCalculator, UnitsOfMeasurementCalculator>();

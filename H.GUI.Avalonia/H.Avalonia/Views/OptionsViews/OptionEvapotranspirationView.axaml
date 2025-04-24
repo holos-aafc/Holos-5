@@ -1,0 +1,83 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:OptionsViews="clr-namespace:H.Avalonia.ViewModels.OptionsViews"
+			 xmlns:lvc="using:LiveChartsCore.SkiaSharpView.Avalonia"
+			 xmlns:properties="clr-namespace:H.Core.Properties;assembly=H.Core"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="H.Avalonia.OptionEvapotranspirationView">
+
+	<Design.DataContext>
+		<OptionsViews:OptionEvapotranspirationViewModel/>
+	</Design.DataContext>
+	
+	<Grid RowDefinitions="Auto, *" ColumnDefinitions="Auto,*">
+		<TextBlock Padding="40, 15" Grid.Row="0" Grid.ColumnSpan="2" Background="#3C4DBB" Foreground="WhiteSmoke" Text="The monthly precipitation averages for the farm." />
+		<ScrollViewer Grid.Row="1" Grid.Column="0">
+			<StackPanel Spacing="5" Width="180" Margin="15">
+				<TextBlock Text="{x:Static properties:Resources.January}"/>
+				<Grid ColumnDefinitions="*, Auto">
+					<NumericUpDown Grid.Column="0" FormatString="{}{0:0.00}" Value="{Binding BindingEvapotranspirationData.January, Mode=TwoWay}" />
+					<TextBlock VerticalAlignment="Center" Margin="10,0,0,0" Grid.Column="1" Text="{x:Static properties:Resources.Millimeters}" />
+				</Grid>
+				<TextBlock Text="{x:Static properties:Resources.February}"  />
+				<Grid ColumnDefinitions="*, Auto">
+					<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding BindingEvapotranspirationData.February, Mode=TwoWay}" />
+					<TextBlock VerticalAlignment="Center" Margin="10,0,0,0" Grid.Column="1" Text="{x:Static properties:Resources.Millimeters}" />
+				</Grid>
+				<TextBlock Text="{x:Static properties:Resources.March}"  />
+				<Grid ColumnDefinitions="*, Auto">
+					<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding BindingEvapotranspirationData.March, Mode=TwoWay}" />
+					<TextBlock VerticalAlignment="Center" Margin="10,0,0,0" Grid.Column="1" Text="{x:Static properties:Resources.Millimeters}" />
+				</Grid>
+				<TextBlock Text="{x:Static properties:Resources.April}"  />
+				<Grid ColumnDefinitions="*, Auto">
+					<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding BindingEvapotranspirationData.April, Mode=TwoWay}" />
+					<TextBlock VerticalAlignment="Center" Margin="10,0,0,0" Grid.Column="1" Text="{x:Static properties:Resources.Millimeters}" />
+				</Grid>
+				<TextBlock Text="{x:Static properties:Resources.May}"  />
+				<Grid ColumnDefinitions="*, Auto">
+					<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding BindingEvapotranspirationData.May, Mode=TwoWay}" />
+					<TextBlock VerticalAlignment="Center" Margin="10,0,0,0" Grid.Column="1" Text="{x:Static properties:Resources.Millimeters}" />
+				</Grid>
+				<TextBlock Text="{x:Static properties:Resources.June}"  />
+				<Grid ColumnDefinitions="*, Auto">
+					<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding BindingEvapotranspirationData.June, Mode=TwoWay}" />
+					<TextBlock VerticalAlignment="Center" Margin="10,0,0,0" Grid.Column="1" Text="{x:Static properties:Resources.Millimeters}" />
+				</Grid>
+				<TextBlock Text="{x:Static properties:Resources.July}"  />
+				<Grid ColumnDefinitions="*, Auto">
+					<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding BindingEvapotranspirationData.July, Mode=TwoWay}" />
+					<TextBlock VerticalAlignment="Center" Margin="10,0,0,0" Grid.Column="1" Text="{x:Static properties:Resources.Millimeters}" />
+				</Grid>
+				<TextBlock Text="{x:Static properties:Resources.August}"  />
+				<Grid ColumnDefinitions="*, Auto">
+					<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding BindingEvapotranspirationData.August, Mode=TwoWay}" />
+					<TextBlock VerticalAlignment="Center" Margin="10,0,0,0" Grid.Column="1" Text="{x:Static properties:Resources.Millimeters}" />
+				</Grid>
+				<TextBlock Text="{x:Static properties:Resources.September}"  />
+				<Grid ColumnDefinitions="*, Auto">
+					<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding BindingEvapotranspirationData.September, Mode=TwoWay}" />
+					<TextBlock VerticalAlignment="Center" Margin="10,0,0,0" Grid.Column="1" Text="{x:Static properties:Resources.Millimeters}" />
+				</Grid>
+				<TextBlock Text="{x:Static properties:Resources.October}"  />
+				<Grid ColumnDefinitions="*, Auto">
+					<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding BindingEvapotranspirationData.October, Mode=TwoWay}" />
+					<TextBlock VerticalAlignment="Center" Margin="10,0,0,0" Grid.Column="1" Text="{x:Static properties:Resources.Millimeters}" />
+				</Grid>
+				<TextBlock Text="{x:Static properties:Resources.November}"  />
+				<Grid ColumnDefinitions="*, Auto">
+					<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding BindingEvapotranspirationData.November, Mode=TwoWay}" />
+					<TextBlock VerticalAlignment="Center" Margin="10,0,0,0" Grid.Column="1" Text="{x:Static properties:Resources.Millimeters}" />
+				</Grid>
+				<TextBlock Text="{x:Static properties:Resources.December}"  />
+				<Grid ColumnDefinitions="*, Auto">
+					<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding BindingEvapotranspirationData.December, Mode=TwoWay}" />
+					<TextBlock VerticalAlignment="Center" Margin="10,0,0,0" Grid.Column="1" Text="{x:Static properties:Resources.Millimeters}" />
+				</Grid>
+			</StackPanel>
+		</ScrollViewer>
+		<lvc:CartesianChart Name="EvotranspirationChart" Grid.Row="1" Grid.Column="1" Margin="15" />
+	</Grid>
+</UserControl>

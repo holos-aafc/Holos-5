@@ -39,6 +39,9 @@ namespace H.Core.Providers.Animals
         /// </summary>
         public double TotalCarbonKilogramsDryMatter { get; set; }
 
+        /// <summary>
+        /// Unit of Measurement: (kg P/kg DM)
+        /// </summary>
         public double TotalPhosphorusKilogramsDryMatter { get; set; }
 
         /// <summary>

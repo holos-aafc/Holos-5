@@ -2,12 +2,12 @@
 
 #endregion
 
+using System.ComponentModel;
 using H.Core.Enumerations;
-using H.Core.Properties;
+using H.Core.Models;
+using H.Core.Services.StorageService;
 using H.Infrastructure;
 using Prism.Mvvm;
-using System;
-using System.Diagnostics;
 
 namespace H.Core.Calculators.UnitsOfMeasurement
 {
@@ -18,14 +18,29 @@ namespace H.Core.Calculators.UnitsOfMeasurement
     /// https://www.rayglen.com/crop-bushel-weights/
     /// </summary>
     public class UnitsOfMeasurementCalculator : BindableBase, IUnitsOfMeasurementCalculator
-    {
+    {  
         #region Constructors
 
+        //TODO update the calls to this constructor, need to use the one that takes in an IStorageService
         public UnitsOfMeasurementCalculator()
         {
-            _isMetric = Settings.Default.MeasurementSystem == MeasurementSystemType.Metric;
+        }
 
-            this.SetUnits();
+        public UnitsOfMeasurementCalculator(IStorageService storageService)
+        {
+            if (storageService != null)
+            {
+                _storageService = storageService;
+                _isMetric = _storageService.GetActiveFarm().MeasurementSystemType == MeasurementSystemType.Metric;
+                this.SetUnits();
+
+                _storageService.GetActiveFarm().PropertyChanged -= MeasurementSystemChangedHandler;
+                _storageService.GetActiveFarm().PropertyChanged += MeasurementSystemChangedHandler;
+            }
+            else
+            {
+                throw (new ArgumentNullException(nameof(storageService)));
+            }
         }
 
         #endregion
@@ -34,7 +49,8 @@ namespace H.Core.Calculators.UnitsOfMeasurement
 
         public bool IsMetric
         {
-            get { return _isMetric; }
+            get => _isMetric;
+            set => SetProperty(ref _isMetric, value); 
         }
         public string KilogramsPerHectareString
         {
@@ -45,8 +61,10 @@ namespace H.Core.Calculators.UnitsOfMeasurement
         #endregion
 
         #region Fields
-        private int roundingDigits = 4;
-        private readonly bool _isMetric;
+        private readonly IStorageService _storageService;
+        private const int roundingDigits = 4;
+        private const int roundingSixDigits = 6;
+        private bool _isMetric;
         private string _kilogramsPerHectareString;
         private const double YardsToMetersFactor = 0.9144;
         private const double KgToLbsFactor = 2.205;
@@ -195,6 +213,38 @@ namespace H.Core.Calculators.UnitsOfMeasurement
                         //we are being called from the CLI and therefore nee to be converted appropriatedly
                         return Math.Round(ConvertValueToImperialFromMetric(unitsOfMeasurement, value), roundingDigits);
                     }
+                default:
+                    return Math.Round(value, roundingDigits);
+            }
+        }
+
+        /// <summary>
+        /// Converts input from metric to imperial units
+        /// </summary>
+        public double GetUnitsOfMeasurementValue(MeasurementSystemType measurementSystemType, MetricUnitsOfMeasurement metricUnits, double value)
+        {
+            switch (measurementSystemType)
+            {
+                case MeasurementSystemType.Imperial:
+                    return Math.Round(ConvertValueToImperialFromMetric(metricUnits, value), roundingDigits);
+                case MeasurementSystemType.Metric:
+                    throw (new ArgumentException("Incorrect MeasurementSystemType used, attempting to convert from units from Metric to Metric."));
+                default:
+                    return Math.Round(value, roundingDigits);
+            }
+        }
+
+        /// <summary>
+        /// Converts input from imperial to metric units
+        /// </summary>
+        public double GetUnitsOfMeasurementValue(MeasurementSystemType measurementSystemType, ImperialUnitsOfMeasurement imperialUnits, double value)
+        {
+            switch (measurementSystemType)
+            {
+                case MeasurementSystemType.Metric:
+                    return Math.Round(ConvertValueToMetricFromImperial(imperialUnits, value), roundingSixDigits);
+                case MeasurementSystemType.Imperial:
+                    throw (new ArgumentException("Incorrect MeasurementSystemType used, attempting to convert from units from Imperial to Imperial."));
                 default:
                     return Math.Round(value, roundingDigits);
             }
@@ -1194,7 +1244,7 @@ namespace H.Core.Calculators.UnitsOfMeasurement
 
         private void SetUnits()
         {
-            if (_isMetric)
+            if (IsMetric)
             {
                 this.KilogramsPerHectareString = " kg ha⁻¹";
             }
@@ -1207,6 +1257,14 @@ namespace H.Core.Calculators.UnitsOfMeasurement
         private string WrapString(string unitsOfMeasurement)
         {
             return " (" + unitsOfMeasurement + ")";
+        }
+
+        private void MeasurementSystemChangedHandler(object? sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(Farm.MeasurementSystemType))
+            {
+                IsMetric = _storageService.GetActiveFarm().MeasurementSystemType == MeasurementSystemType.Metric;
+            }
         }
 
         #endregion

@@ -1,12 +1,14 @@
-﻿using H.Core.Enumerations;
+﻿using System.ComponentModel;
+using H.Core.Enumerations;
+using Prism.Mvvm;
 
 namespace H.Core.Calculators.UnitsOfMeasurement
 {
-    public interface IUnitsOfMeasurementCalculator
+    public interface IUnitsOfMeasurementCalculator : INotifyPropertyChanged
     {
         string KilogramsPerHectareString { get; set; }
 
-        bool IsMetric { get; }
+        bool IsMetric { get; set; }
 
         string GetUnitsOfMeasurementString(MeasurementSystemType measurementSystemType,
                                            MetricUnitsOfMeasurement unitsOfMeasurement);
@@ -20,5 +22,15 @@ namespace H.Core.Calculators.UnitsOfMeasurement
         /// </summary>
         double GetUnitsOfMeasurementValue(MeasurementSystemType measurementSystemType,
             MetricUnitsOfMeasurement unitsOfMeasurement, double value, bool exportedFromFarm);
+
+        /// <summary>
+        /// Converts input from Metric to Imperial units
+        /// </summary>
+        double GetUnitsOfMeasurementValue(MeasurementSystemType measurementSystemType, MetricUnitsOfMeasurement metricUnits, double value);
+        
+        /// <summary>
+        /// Converts input from Imperial to Metric units
+        /// </summary>
+        double GetUnitsOfMeasurementValue(MeasurementSystemType measurementSystemType, ImperialUnitsOfMeasurement imperialUnits, double value);
     }
 }

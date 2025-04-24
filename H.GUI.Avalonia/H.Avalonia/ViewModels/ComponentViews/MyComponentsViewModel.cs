@@ -120,10 +120,17 @@ public class MyComponentsViewModel : ViewModelBase
         base.ActiveFarm.SelectedComponent = instance;
     }
 
+    public void OnOptionsExecute()
+    {  
+        base.RegionManager.RequestNavigate(UiRegions.SidebarRegion, nameof(OptionsView));
+        base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(SelectOptionView));
+    }
+
     private void OnPropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
     {
         if (e.PropertyName.Equals(nameof(this.SelectedComponent)))
         {
+            System.Diagnostics.Debug.WriteLine(SelectedComponent);
             var isInEditMode = this.RegionManager.Regions[UiRegions.ContentRegion].ActiveViews.Any(x => x.GetType() == typeof(ChooseComponentsView));
             if (!isInEditMode)
             {

@@ -520,15 +520,6 @@ namespace H.Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string BTUPerStandardCubicFoot {
-            get {
-                return ResourceManager.GetString("BTUPerStandardCubicFoot", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Buckwheat.
         /// </summary>
         public static string Buckwheat {
@@ -1119,6 +1110,24 @@ namespace H.Core.Properties {
         public static string DegreesFahrenheit {
             get {
                 return ResourceManager.GetString("DegreesFahrenheit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The monthly emissions distribution for the year. This distribution can be adjusted based on your farm&apos;s results. Please note that the addition of all montly percentages.
+        /// </summary>
+        public static string DescriptionOptionSoilN2OBreakdown {
+            get {
+                return ResourceManager.GetString("DescriptionOptionSoilN2OBreakdown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The Soil tab can be used to change the soil properties for the entire farm. The default values are shown for the current soil type. The soil for the farm can be customized by changing individual soil properties. In order to change the soil type for the specific field only, go to the specific field and select &apos;soil&apos; tab within the field..
+        /// </summary>
+        public static string DescriptionOptionSoilView {
+            get {
+                return ResourceManager.GetString("DescriptionOptionSoilView", resourceCulture);
             }
         }
         
@@ -6190,11 +6199,38 @@ namespace H.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Must be a valid Year.
+        /// </summary>
+        public static string ErrorMustbeAValidYear {
+            get {
+                return ResourceManager.GetString("ErrorMustbeAValidYear", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Must be between 0 and 100.
+        /// </summary>
+        public static string ErrorMustBeBetween0And100 {
+            get {
+                return ResourceManager.GetString("ErrorMustBeBetween0And100", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Must be greater than 0..
         /// </summary>
         public static string ErrorMustBeGreaterThan0 {
             get {
                 return ResourceManager.GetString("ErrorMustBeGreaterThan0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Must be greater than or equal to 0..
+        /// </summary>
+        public static string ErrorMustBeNonNegative {
+            get {
+                return ResourceManager.GetString("ErrorMustBeNonNegative", resourceCulture);
             }
         }
         
@@ -8674,6 +8710,15 @@ namespace H.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bedding type.
+        /// </summary>
+        public static string LabelBeddingTypeColumn {
+            get {
+                return ResourceManager.GetString("LabelBeddingTypeColumn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Below Ground Carbon Input (i_bg).
         /// </summary>
         public static string LabelBelowGroundCarbonInput {
@@ -8706,6 +8751,15 @@ namespace H.Core.Properties {
         public static string LabelBelowGroundResiduePool_BGresidueN {
             get {
                 return ResourceManager.GetString("LabelBelowGroundResiduePool_BGresidueN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Biomass.
+        /// </summary>
+        public static string LabelBiomass {
+            get {
+                return ResourceManager.GetString("LabelBiomass", resourceCulture);
             }
         }
         
@@ -9025,6 +9079,15 @@ namespace H.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Carbon concentration.
+        /// </summary>
+        public static string LabelCarbonConcentration {
+            get {
+                return ResourceManager.GetString("LabelCarbonConcentration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Carbon content of manure.
         /// </summary>
         public static string LabelCarbonContentOfManure {
@@ -9070,6 +9133,24 @@ namespace H.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Carbon Modelling.
+        /// </summary>
+        public static string LabelCarbonModelling {
+            get {
+                return ResourceManager.GetString("LabelCarbonModelling", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Carbon modelling equilibrium.
+        /// </summary>
+        public static string LabelCarbonModellingEquilibrium {
+            get {
+                return ResourceManager.GetString("LabelCarbonModellingEquilibrium", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Carbon modelling strategy.
         /// </summary>
         public static string LabelCarbonModellingStrategy {
@@ -9093,6 +9174,15 @@ namespace H.Core.Properties {
         public static string LabelCarbonPerHeadPerMonth {
             get {
                 return ResourceManager.GetString("LabelCarbonPerHeadPerMonth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to C:N.
+        /// </summary>
+        public static string LabelCarbonToNitrogen {
+            get {
+                return ResourceManager.GetString("LabelCarbonToNitrogen", resourceCulture);
             }
         }
         
@@ -9183,6 +9273,24 @@ namespace H.Core.Properties {
         public static string LabelComments {
             get {
                 return ResourceManager.GetString("LabelComments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Component category.
+        /// </summary>
+        public static string LabelComponentCategory {
+            get {
+                return ResourceManager.GetString("LabelComponentCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Coordinates.
+        /// </summary>
+        public static string LabelCoordinates {
+            get {
+                return ResourceManager.GetString("LabelCoordinates", resourceCulture);
             }
         }
         
@@ -9637,6 +9745,15 @@ namespace H.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Equilibrium year yield calculation strategy.
+        /// </summary>
+        public static string LabelEquilibriumCalculationStrategy {
+            get {
+                return ResourceManager.GetString("LabelEquilibriumCalculationStrategy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Evapotranspiration.
         /// </summary>
         public static string LabelEvapotranspiration {
@@ -10087,11 +10204,38 @@ namespace H.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Growing Season Evapotranspiration (mm).
+        /// </summary>
+        public static string LabelGrowingSeasonEvapotranspirationmm {
+            get {
+                return ResourceManager.GetString("LabelGrowingSeasonEvapotranspirationmm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Growing season precipitation.
         /// </summary>
         public static string LabelGrowingSeasonPrecipitation {
             get {
                 return ResourceManager.GetString("LabelGrowingSeasonPrecipitation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Growing Season Precipitation (mm).
+        /// </summary>
+        public static string LabelGrowingSeasonPrecipitationmm {
+            get {
+                return ResourceManager.GetString("LabelGrowingSeasonPrecipitationmm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hardiness Zone.
+        /// </summary>
+        public static string LabelHardinessZone {
+            get {
+                return ResourceManager.GetString("LabelHardinessZone", resourceCulture);
             }
         }
         
@@ -10699,6 +10843,15 @@ namespace H.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Manure handling system.
+        /// </summary>
+        public static string LabelManureHandlingSystemColumn {
+            get {
+                return ResourceManager.GetString("LabelManureHandlingSystemColumn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Manure Management.
         /// </summary>
         public static string LabelManureManagement {
@@ -10951,11 +11104,29 @@ namespace H.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to N₂O.
+        /// </summary>
+        public static string LabelN2O {
+            get {
+                return ResourceManager.GetString("LabelN2O", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to N₂O emission factor.
         /// </summary>
         public static string LabelN2OEmissionFactor {
             get {
                 return ResourceManager.GetString("LabelN2OEmissionFactor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        public static string LabelName {
+            get {
+                return ResourceManager.GetString("LabelName", resourceCulture);
             }
         }
         
@@ -11239,6 +11410,15 @@ namespace H.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Percentage of soil organic carbon.
+        /// </summary>
+        public static string LabelPercentageOfSoilOrganicCarbon {
+            get {
+                return ResourceManager.GetString("LabelPercentageOfSoilOrganicCarbon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Perennial establishment growth.
         /// </summary>
         public static string LabelPerennialEstablishmentGrowth {
@@ -11311,6 +11491,15 @@ namespace H.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Polygon.
+        /// </summary>
+        public static string LabelPolygon {
+            get {
+                return ResourceManager.GetString("LabelPolygon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Polyunsaturated Fatty Acids.
         /// </summary>
         public static string LabelPolyunsaturatedFattyAcids {
@@ -11370,6 +11559,42 @@ namespace H.Core.Properties {
         public static string LabelProductionStage {
             get {
                 return ResourceManager.GetString("LabelProductionStage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Product returned to soil for annuals.
+        /// </summary>
+        public static string LabelProductReturnedToSoilForAnnuals {
+            get {
+                return ResourceManager.GetString("LabelProductReturnedToSoilForAnnuals", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Product returned to soil for fodder corn.
+        /// </summary>
+        public static string LabelProductReturnedToSoilForFodderCorn {
+            get {
+                return ResourceManager.GetString("LabelProductReturnedToSoilForFodderCorn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Product returned to soil for perennials.
+        /// </summary>
+        public static string LabelProductReturnedToSoilForPerennials {
+            get {
+                return ResourceManager.GetString("LabelProductReturnedToSoilForPerennials", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Product returned to soil for root crops.
+        /// </summary>
+        public static string LabelProductReturnedToSoilForRootCrops {
+            get {
+                return ResourceManager.GetString("LabelProductReturnedToSoilForRootCrops", resourceCulture);
             }
         }
         
@@ -11505,6 +11730,33 @@ namespace H.Core.Properties {
         public static string LabelResetToDefaults {
             get {
                 return ResourceManager.GetString("LabelResetToDefaults", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Roots returned to soil for annuals.
+        /// </summary>
+        public static string LabelRootsReturnedToSoilForAnnuals {
+            get {
+                return ResourceManager.GetString("LabelRootsReturnedToSoilForAnnuals", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Roots returned to soil for fodder corn.
+        /// </summary>
+        public static string LabelRootsReturnedToSoilForFodderCorn {
+            get {
+                return ResourceManager.GetString("LabelRootsReturnedToSoilForFodderCorn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Roots returned to soil for perennials.
+        /// </summary>
+        public static string LabelRootsReturnedToSoilForPerennials {
+            get {
+                return ResourceManager.GetString("LabelRootsReturnedToSoilForPerennials", resourceCulture);
             }
         }
         
@@ -11851,6 +12103,15 @@ namespace H.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Soil great group.
+        /// </summary>
+        public static string LabelSoilGreatGroup {
+            get {
+                return ResourceManager.GetString("LabelSoilGreatGroup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
         public static string LabelSoilPh {
@@ -12013,6 +12274,24 @@ namespace H.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Straw returned to soil for annuals.
+        /// </summary>
+        public static string LabelStrawReturnedToSoilForAnnuals {
+            get {
+                return ResourceManager.GetString("LabelStrawReturnedToSoilForAnnuals", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Straw returned to soil for root crops.
+        /// </summary>
+        public static string LabelStrawReturnedToSoilForRootCrops {
+            get {
+                return ResourceManager.GetString("LabelStrawReturnedToSoilForRootCrops", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Standardized Total Tract Digestibility of Phosphorus.
         /// </summary>
         public static string LabelSTTDPhosphorus {
@@ -12072,6 +12351,15 @@ namespace H.Core.Properties {
         public static string LabelSumOfMineralAndMicrobialPools {
             get {
                 return ResourceManager.GetString("LabelSumOfMineralAndMicrobialPools", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Supplemental feeding loss.
+        /// </summary>
+        public static string LabelSupplementalFeedingLoss {
+            get {
+                return ResourceManager.GetString("LabelSupplementalFeedingLoss", resourceCulture);
             }
         }
         
@@ -12364,7 +12652,7 @@ namespace H.Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Total Nitrogen.
+        ///   Looks up a localized string similar to Total nitrogen.
         /// </summary>
         public static string LabelTotalNitrogen {
             get {
@@ -12396,6 +12684,15 @@ namespace H.Core.Properties {
         public static string LabelTotalNitrogenOutputs {
             get {
                 return ResourceManager.GetString("LabelTotalNitrogenOutputs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total phosphorus.
+        /// </summary>
+        public static string LabelTotalPhosphorus {
+            get {
+                return ResourceManager.GetString("LabelTotalPhosphorus", resourceCulture);
             }
         }
         
@@ -12508,6 +12805,15 @@ namespace H.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Use custom equilibrium carbon value.
+        /// </summary>
+        public static string LabelUseCustomEquilibriumCarbonValue {
+            get {
+                return ResourceManager.GetString("LabelUseCustomEquilibriumCarbonValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Use custom methane conversion factor.
         /// </summary>
         public static string LabelUseCustomMethaneConversionFactor {
@@ -12558,6 +12864,15 @@ namespace H.Core.Properties {
         public static string LabelUseCustomPotassiumConversionFactor {
             get {
                 return ResourceManager.GetString("LabelUseCustomPotassiumConversionFactor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use custom run-in period tillage.
+        /// </summary>
+        public static string LabelUseCustomRuninPeriodTillage {
+            get {
+                return ResourceManager.GetString("LabelUseCustomRuninPeriodTillage", resourceCulture);
             }
         }
         
@@ -12648,6 +12963,15 @@ namespace H.Core.Properties {
         public static string LabelVolatileSolidsPercentage {
             get {
                 return ResourceManager.GetString("LabelVolatileSolidsPercentage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Volatilization emission factor.
+        /// </summary>
+        public static string LabelVolatilizationEmissionFactor {
+            get {
+                return ResourceManager.GetString("LabelVolatilizationEmissionFactor", resourceCulture);
             }
         }
         
@@ -13365,11 +13689,29 @@ namespace H.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Default composition of bedding materials for beef and dairy cattle, swine, and poultry.
+        /// </summary>
+        public static string MessageDefaultBeddingComposition {
+            get {
+                return ResourceManager.GetString("MessageDefaultBeddingComposition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to A summary of the manure application of all fields in the farm.
         /// </summary>
         public static string MessageDefaultManureApplicationSummaryHeader {
             get {
                 return ResourceManager.GetString("MessageDefaultManureApplicationSummaryHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Manure types and default composition.
+        /// </summary>
+        public static string MessageDefaultManureComposition {
+            get {
+                return ResourceManager.GetString("MessageDefaultManureComposition", resourceCulture);
             }
         }
         
@@ -13442,6 +13784,15 @@ namespace H.Core.Properties {
         public static string MessageManureFromGrazingPeriodsAccountedFor {
             get {
                 return ResourceManager.GetString("MessageManureFromGrazingPeriodsAccountedFor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Indoor temperatures for dairy barns on the farm.
+        /// </summary>
+        public static string MessageMonthlyBarnTemperatureBreakdownHeader {
+            get {
+                return ResourceManager.GetString("MessageMonthlyBarnTemperatureBreakdownHeader", resourceCulture);
             }
         }
         
@@ -17758,6 +18109,33 @@ namespace H.Core.Properties {
         public static string UndersownBarley {
             get {
                 return ResourceManager.GetString("UndersownBarley", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to (mEq 100g^-1).
+        /// </summary>
+        public static string UnitMiliEquivalentsPer100g {
+            get {
+                return ResourceManager.GetString("UnitMiliEquivalentsPer100g", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to (mm).
+        /// </summary>
+        public static string UnitMm {
+            get {
+                return ResourceManager.GetString("UnitMm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to (%).
+        /// </summary>
+        public static string UnitPercentage {
+            get {
+                return ResourceManager.GetString("UnitPercentage", resourceCulture);
             }
         }
         

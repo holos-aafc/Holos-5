@@ -71,13 +71,13 @@ namespace H.Avalonia.ViewModels
         /// <summary>
         /// A bool that indicates if the grid has any climate view items currently added to it. Returns true if Any view items exist, returns false otherwise.
         /// </summary>
-        public bool HasViewItems => Storage?.ClimateViewItems != null && Storage.ClimateViewItems.Any();
+        public bool HasViewItems => StoragePlaceholder?.ClimateViewItems != null && StoragePlaceholder.ClimateViewItems.Any();
 
         /// <summary>
         /// A bool that indicates if any climate view items are selected or not. Returns true if at least one view item is selected, returns false if none are selected.
         /// </summary>
-        public bool AnyViewItemsSelected => Storage?.ClimateViewItems != null &&
-                                                   Storage.ClimateViewItems.Any(item => item.IsSelected);
+        public bool AnyViewItemsSelected => StoragePlaceholder?.ClimateViewItems != null &&
+                                                   StoragePlaceholder.ClimateViewItems.Any(item => item.IsSelected);
 
         public ClimateDataViewModel()
         {
@@ -168,9 +168,9 @@ namespace H.Avalonia.ViewModels
         {
             // When we navigate to this view, we instantiate the journal property. This allows us to do navigation through journaling.
             _navigationJournal = navigationContext.NavigationService.Journal;
-            if (Storage?.ClimateViewItems != null)
+            if (StoragePlaceholder?.ClimateViewItems != null)
             {
-                Storage.ClimateViewItems.CollectionChanged += OnClimateViewItemsCollectionChanged;
+                StoragePlaceholder.ClimateViewItems.CollectionChanged += OnClimateViewItemsCollectionChanged;
             }
         }
 
@@ -187,7 +187,7 @@ namespace H.Avalonia.ViewModels
         /// </summary>
         private void OnAddRow()
         {
-            Storage?.ClimateViewItems?.Add(new ClimateViewItem());
+            StoragePlaceholder?.ClimateViewItems?.Add(new ClimateViewItem());
         }
 
         /// <summary>
@@ -203,7 +203,7 @@ namespace H.Avalonia.ViewModels
             {
                 if (r.Result == ButtonResult.OK)
                 {
-                    Storage?.ClimateViewItems?.Remove(viewItem);
+                    StoragePlaceholder?.ClimateViewItems?.Remove(viewItem);
                 }
             });
         }
@@ -213,15 +213,15 @@ namespace H.Avalonia.ViewModels
         /// </summary>
         private void OnDeleteSelectedRows()
         {
-            if (!Storage.ClimateViewItems.Any()) return;
+            if (!StoragePlaceholder.ClimateViewItems.Any()) return;
             var message = Core.Properties.Resources.RowDeleteMessage;
             _dialogService.ShowMessageDialog(nameof(DeleteRowDialog), message, r =>
             {
                 if (r.Result != ButtonResult.OK) return;
-                var currentItems = Storage.ClimateViewItems.ToList();
+                var currentItems = StoragePlaceholder.ClimateViewItems.ToList();
                 foreach (var item in currentItems.Where(item => item.IsSelected))
                 {
-                    Storage?.ClimateViewItems?.Remove(item);
+                    StoragePlaceholder?.ClimateViewItems?.Remove(item);
                 }
 
                 if (!HasViewItems)
@@ -246,7 +246,7 @@ namespace H.Avalonia.ViewModels
             _importHelper.ImportPath = file.Path.AbsolutePath;
             try
             {
-                Storage?.ClimateViewItems.AddRange(_importHelper.ImportFromCsv(_climateViewItemMap));
+                StoragePlaceholder?.ClimateViewItems.AddRange(_importHelper.ImportFromCsv(_climateViewItemMap));
 
             }
             catch (HeaderValidationException e)
@@ -280,10 +280,10 @@ namespace H.Avalonia.ViewModels
         /// </summary>
         private void OnToggleSelectAllRows()
         {
-            if (Storage?.ClimateViewItems == null) return;
+            if (StoragePlaceholder?.ClimateViewItems == null) return;
             if (AllViewItemsSelected)
             {
-                foreach (var item in Storage.ClimateViewItems)
+                foreach (var item in StoragePlaceholder.ClimateViewItems)
                 {
                     item.IsSelected = false;
                 }
@@ -292,7 +292,7 @@ namespace H.Avalonia.ViewModels
             }
             else
             {
-                foreach (var item in Storage.ClimateViewItems)
+                foreach (var item in StoragePlaceholder.ClimateViewItems)
                 {
                     item.IsSelected = true;
                 }

@@ -1,0 +1,56 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			xmlns:OptionsViews="clr-namespace:H.Avalonia.ViewModels.OptionsViews"
+			 xmlns:properties="clr-namespace:H.Core.Properties;assembly=H.Core"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="H.Avalonia.OptionSoilView">
+
+	<Design.DataContext>
+		<OptionsViews:OptionSoilViewModel />
+	</Design.DataContext>
+
+
+  <Grid RowDefinitions="Auto,*">
+	  <TextBlock  Background="#3C4DBB" Foreground="WhiteSmoke" TextWrapping="Wrap" Grid.Row="0" Padding="40, 15" Text="{x:Static properties:Resources.DescriptionOptionSoilView}"  />
+	  <ScrollViewer Grid.Row="1">
+		  <StackPanel Margin="20" Spacing="10" Width="350" VerticalAlignment="Center" HorizontalAlignment="Center">
+			  <TextBlock Text="{x:Static properties:Resources.LabelEcodistrict}"/>
+			  <TextBox IsReadOnly="True" IsEnabled="False" Text="{Binding ActiveFarm.DefaultSoilData.EcodistrictName, Mode=TwoWay}"  />
+			  <TextBlock Text="{x:Static properties:Resources.SoilFunctionalCategory}"/>
+			  <TextBox IsReadOnly="True" IsEnabled="False" TextChanged="" Text="{Binding ActiveFarm.DefaultSoilData.SoilFunctionalCategoryString, Mode=TwoWay}"  />
+			  <TextBlock Text="{x:Static properties:Resources.LabelSoilGreatGroup}"/>
+			  <TextBox IsReadOnly="True" IsEnabled="False" TextChanged="" Text="{Binding ActiveFarm.DefaultSoilData.SoilGreatGroupString, Mode=TwoWay}"  />
+			  <TextBlock Text="{x:Static properties:Resources.SoilTexture}"/>
+			  <ComboBox HorizontalAlignment="Stretch" ItemsSource="{Binding Data.SoilTextures}" SelectedItem="{Binding ActiveFarm.DefaultSoilData.SoilTexture, Mode=TwoWay}"  />
+			  <TextBlock Text="{x:Static properties:Resources.TopLayerThickness}">
+				  <Run Text=" "></Run>
+				  <Run Text="{x:Static properties:Resources.UnitMm}"></Run>
+			  </TextBlock>
+			  <NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.TopLayerThickness, Mode=TwoWay}" />
+			  <TextBlock Text="{x:Static properties:Resources.BulkDensity}"/>
+			  <NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.BulkDensity, Mode=TwoWay}" />
+			  <TextBlock Text="{x:Static properties:Resources.ProportionOfClayInSoil}"/>
+			  <NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.ProportionOfClayInSoil, Mode=TwoWay}" />
+			  <TextBlock Text="{x:Static properties:Resources.ProportionOfSandInSoil}"/>
+			  <NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.ProportionOfSandInSoil, Mode=TwoWay}" />
+			  <TextBlock Text="{x:Static properties:Resources.LabelPercentageOfSoilOrganicCarbon}">
+				  <Run Text=" "></Run>
+				  <Run Text="{x:Static properties:Resources.UnitPercentage}"></Run>
+				  </TextBlock>
+			  <NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.ProportionOfSoilOrganicCarbon, Mode=TwoWay}" />
+			  <TextBlock Text="{x:Static properties:Resources.SoilPh}"/>
+			  <NumericUpDown FormatString="{}{0:0.0}" Value="{Binding Data.SoilPh, Mode=TwoWay}" />
+			  <TextBlock Text="{x:Static properties:Resources.LabelSoilCEC}">
+				  <Run Text=" "></Run>
+				  <Run Text="{x:Static properties:Resources.UnitMiliEquivalentsPer100g}"></Run>
+				  </TextBlock>
+			  <NumericUpDown FormatString="{}{0:0}" Value="{Binding Data.SoilCec, Mode=TwoWay}" />
+			  <TextBlock Text="{x:Static properties:Resources.LabelCarbonModellingEquilibrium}"/>
+			  <NumericUpDown FormatString="{}{0:0}" Value="{Binding Data.CarbonModellingEquilibriumYear, Mode=TwoWay}" />
+		  </StackPanel>
+	  </ScrollViewer>
+
+	</Grid>
+</UserControl>

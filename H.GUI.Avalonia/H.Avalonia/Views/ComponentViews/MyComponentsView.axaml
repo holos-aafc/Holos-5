@@ -37,10 +37,16 @@
 
 		<Grid Row="0">
 			<Border Classes="component-border">
-				<TextBlock 
-						   Classes="title-textblock"
-						   Text="{x:Static properties:Resources.MyComponents}">
-				</TextBlock>
+                <Grid>
+                    <TextBlock
+                           Classes="title-textblock"
+                           Text="{x:Static properties:Resources.MyComponents}">
+                    </TextBlock>
+                    <Button HorizontalAlignment="Right" Padding="5" Margin="10" Background="Transparent" Classes="back-button"  CornerRadius="50" Command="{Binding Path=OnOptionsExecute}">
+						
+						<Image Source="avares://H.Avalonia/Assets/Images/Icons/Gear-icon.png" Width="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
+					</Button>
+                </Grid>
 			</Border>
 		</Grid>
 

@@ -49,10 +49,10 @@ namespace H.Avalonia.ViewModels
         private const int DefaultErrorNotificationTime = 10;
         private const int DefaultInformationNotificationTime = 5;
 
-        public bool HasViewItems => Storage?.SoilViewItems != null && Storage.SoilViewItems.Any();
+        public bool HasViewItems => StoragePlaceholder?.SoilViewItems != null && StoragePlaceholder.SoilViewItems.Any();
 
-        public bool AnyViewItemsSelected => Storage?.SoilViewItems != null &&
-                                            Storage.SoilViewItems.Any(item => item.IsSelected);
+        public bool AnyViewItemsSelected => StoragePlaceholder?.SoilViewItems != null &&
+                                            StoragePlaceholder.SoilViewItems.Any(item => item.IsSelected);
         public bool AllViewItemsSelected { get; set; }
 
         private readonly KmlHelpers _kmlHelpers;
@@ -173,9 +173,9 @@ namespace H.Avalonia.ViewModels
         {
             // When we navigate to this view, we instantiate the journal property. This allows us to do navigation through journaling.
             _navigationJournal = navigationContext.NavigationService.Journal;
-            if (Storage?.SoilViewItems != null)
+            if (StoragePlaceholder?.SoilViewItems != null)
             {
-                Storage.SoilViewItems.CollectionChanged += OnSoilViewItemsCollectionChanged;
+                StoragePlaceholder.SoilViewItems.CollectionChanged += OnSoilViewItemsCollectionChanged;
             }
         }
 
@@ -301,10 +301,10 @@ namespace H.Avalonia.ViewModels
         /// </summary>
         private void OnToggleSelectAllRows()
         {
-            if (Storage?.SoilViewItems == null) return;
+            if (StoragePlaceholder?.SoilViewItems == null) return;
             if (AllViewItemsSelected)
             {
-                foreach (var item in Storage.SoilViewItems)
+                foreach (var item in StoragePlaceholder.SoilViewItems)
                 {
                     item.IsSelected = false;
                 }
@@ -312,7 +312,7 @@ namespace H.Avalonia.ViewModels
             }
             else
             {
-                foreach (var item in Storage.SoilViewItems)
+                foreach (var item in StoragePlaceholder.SoilViewItems)
                 {
                     item.IsSelected = true;
                 }
@@ -325,7 +325,7 @@ namespace H.Avalonia.ViewModels
         /// </summary>
         private void OnAddRow()
         {
-            Storage?.SoilViewItems?.Add(new SoilViewItem());
+            StoragePlaceholder?.SoilViewItems?.Add(new SoilViewItem());
         }
 
         /// <summary>
@@ -340,7 +340,7 @@ namespace H.Avalonia.ViewModels
             {
                 if (r.Result == ButtonResult.OK)
                 {
-                    Storage?.SoilViewItems?.Remove(viewItem);
+                    StoragePlaceholder?.SoilViewItems?.Remove(viewItem);
                 }
             });
         }
@@ -360,7 +360,7 @@ namespace H.Avalonia.ViewModels
             _importHelper.ImportPath = file.Path.AbsolutePath;
             try
             {
-                Storage?.SoilViewItems.AddRange(_importHelper.ImportFromCsv(_soilViewItemMap));
+                StoragePlaceholder?.SoilViewItems.AddRange(_importHelper.ImportFromCsv(_soilViewItemMap));
 
             }
             catch (HeaderValidationException e)
@@ -394,15 +394,15 @@ namespace H.Avalonia.ViewModels
         /// </summary>
         private void OnDeleteSelectedRows()
         {
-            if (!Storage.SoilViewItems.Any()) return;
+            if (!StoragePlaceholder.SoilViewItems.Any()) return;
             var message = Core.Properties.Resources.RowDeleteMessage;
             _dialogService.ShowMessageDialog(nameof(DeleteRowDialog), message, r =>
             {
                 if (r.Result != ButtonResult.OK) return;
-                var currentItems = Storage.SoilViewItems.ToList();
+                var currentItems = StoragePlaceholder.SoilViewItems.ToList();
                 foreach (var item in currentItems.Where(item => item.IsSelected))
                 {
-                    Storage?.SoilViewItems?.Remove(item);
+                    StoragePlaceholder?.SoilViewItems?.Remove(item);
                 }
 
                 if (!HasViewItems)
@@ -417,10 +417,10 @@ namespace H.Avalonia.ViewModels
         /// </summary>
         private void SwitchToSoilResultsViewFromSingleCoordinate()
         {
-            Storage.SingleSoilViewItem.Latitude = Latitude;
-            Storage.SingleSoilViewItem.Longitude = Longitude;
-            Storage.ShowSingleCoordinateResults = true;
-            Storage.ShowMultipleCoordinateResults = false;
+            StoragePlaceholder.SingleSoilViewItem.Latitude = Latitude;
+            StoragePlaceholder.SingleSoilViewItem.Longitude = Longitude;
+            StoragePlaceholder.ShowSingleCoordinateResults = true;
+            StoragePlaceholder.ShowMultipleCoordinateResults = false;
             _regionManager.RequestNavigate(UiRegions.ContentRegion, nameof(SoilResultsView));
         }
 
@@ -429,8 +429,8 @@ namespace H.Avalonia.ViewModels
         /// </summary>
         private void SwitchToSoilResultsViewFromMultiCoordinate()
         {
-            Storage.ShowMultipleCoordinateResults = true;
-            Storage.ShowSingleCoordinateResults = false;
+            StoragePlaceholder.ShowMultipleCoordinateResults = true;
+            StoragePlaceholder.ShowSingleCoordinateResults = false;
             _regionManager.RequestNavigate(UiRegions.ContentRegion, nameof(SoilResultsView));
         }
 

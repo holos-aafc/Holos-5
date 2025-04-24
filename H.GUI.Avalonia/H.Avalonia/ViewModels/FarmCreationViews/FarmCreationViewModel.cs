@@ -10,6 +10,7 @@ using System.ComponentModel;
 using System.Collections.Generic;
 using System.Linq;
 using System.Collections;
+using H.Core.Services;
 
 namespace H.Avalonia.ViewModels
 {
@@ -20,6 +21,7 @@ namespace H.Avalonia.ViewModels
 
         private string _farmName;
         private string _farmComments;
+        private readonly IFarmHelper _farmHelper;
 
         #endregion
 
@@ -29,8 +31,17 @@ namespace H.Avalonia.ViewModels
         {
         }
 
-        public FarmCreationViewModel(IRegionManager regionManager, IStorageService storageService) : base(regionManager, storageService)
+        public FarmCreationViewModel(IRegionManager regionManager, IStorageService storageService, IFarmHelper farmHelper) : base(regionManager, storageService)
         {
+            if (farmHelper != null)
+            {
+                _farmHelper = farmHelper;
+            }
+            else
+            {
+                throw new ArgumentNullException(nameof(farmHelper));
+            }
+
             NavigateToPreviousPage = new DelegateCommand(OnNavigateToPreviousPage);
         }
 
@@ -78,17 +89,15 @@ namespace H.Avalonia.ViewModels
                 return;
             }
 
-            var farm = new Farm()
-            {
-                Name = this.FarmName,
-                Comments = this.FarmComments,
-            };
+            var farm = _farmHelper.Create();
+            farm.Name = FarmName;
+            farm.Comments = FarmComments;
 
-            base.StorageService.AddFarm(farm);
             base.StorageService.SetActiveFarm(farm);
+            base.StorageService.Storage.ApplicationData.DisplayUnitStrings.SetStrings(farm.MeasurementSystemType);
 
-            base.RegionManager.RequestNavigate(UiRegions.SidebarRegion, nameof(MyComponentsView));
-            base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(ChooseComponentsView));
+            RegionManager.RequestNavigate(UiRegions.SidebarRegion, nameof(MyComponentsView));
+            RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(ChooseComponentsView));
         }
 
         #endregion

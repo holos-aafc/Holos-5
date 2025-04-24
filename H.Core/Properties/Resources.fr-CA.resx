@@ -5765,4 +5765,31 @@ Please note: emissions related to the deposition or application of livestock man
   <data name="MessageLoadingPleaseWait" xml:space="preserve">
     <value>Chargement, veuillez patienter...</value>
   </data>
+  <data name="LabelName" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="LabelPolygon" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="LabelCoordinates" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="LabelHardinessZone" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="UnitMm" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="LabelSoilGreatGroup" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="LabelPercentageOfSoilOrganicCarbon" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="UnitPercentage" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="UnitMiliEquivalentsPer100g" xml:space="preserve">
+    <value>(meq 100 g^-1)</value>
+  </data>
 </root>

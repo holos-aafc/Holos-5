@@ -4751,9 +4751,6 @@
   <data name="TitleAnaerobicDigestionComponent" xml:space="preserve">
     <value>Anaerobic Digestion</value>
   </data>
-  <data name="BTUPerStandardCubicFoot" xml:space="preserve">
-    <value />
-  </data>
   <data name="KilogramVolatileSolidsPerCubicMeterPerDay" xml:space="preserve">
     <value>Kg VS m^-3 d^-1</value>
   </data>
@@ -4836,7 +4833,7 @@
     <value>Substrate type</value>
   </data>
   <data name="LabelTotalNitrogen" xml:space="preserve">
-    <value>Total Nitrogen</value>
+    <value>Total nitrogen</value>
   </data>
   <data name="LabelTotalSolids" xml:space="preserve">
     <value>Total Solids</value>
@@ -6128,5 +6125,134 @@ Please note: emissions related to the deposition or application of livestock man
   </data>
   <data name="MessageLoadingPleaseWait" xml:space="preserve">
     <value>Loading please wait...</value>
+  </data>
+  <data name="LabelName" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="LabelPolygon" xml:space="preserve">
+    <value>Polygon</value>
+  </data>
+  <data name="LabelCoordinates" xml:space="preserve">
+    <value>Coordinates</value>
+  </data>
+  <data name="LabelHardinessZone" xml:space="preserve">
+    <value>Hardiness Zone</value>
+  </data>
+  <data name="LabelGrowingSeasonPrecipitationmm" xml:space="preserve">
+    <value>Growing Season Precipitation (mm)</value>
+  </data>
+  <data name="LabelGrowingSeasonEvapotranspirationmm" xml:space="preserve">
+    <value>Growing Season Evapotranspiration (mm)</value>
+  </data>
+  <data name="LabelManureHandlingSystemColumn" xml:space="preserve">
+    <value>Manure handling system</value>
+  </data>
+  <data name="LabelCarbonToNitrogen" xml:space="preserve">
+    <value>C:N</value>
+  </data>
+  <data name="MessageDefaultManureComposition" xml:space="preserve">
+    <value>Manure types and default composition</value>
+  </data>
+  <data name="MessageDefaultBeddingComposition" xml:space="preserve">
+    <value>Default composition of bedding materials for beef and dairy cattle, swine, and poultry</value>
+  </data>
+  <data name="LabelComponentCategory" xml:space="preserve">
+    <value>Component category</value>
+  </data>
+  <data name="LabelBeddingTypeColumn" xml:space="preserve">
+    <value>Bedding type</value>
+  </data>
+  <data name="LabelTotalPhosphorus" xml:space="preserve">
+    <value>Total phosphorus</value>
+  </data>
+  <data name="MessageMonthlyBarnTemperatureBreakdownHeader" xml:space="preserve">
+    <value>Indoor temperatures for dairy barns on the farm</value>
+  </data>
+  <data name="ErrorMustBeNonNegative" xml:space="preserve">
+    <value>Must be greater than or equal to 0.</value>
+  </data>
+  <data name="UnitMm" xml:space="preserve">
+    <value>(mm)</value>
+  </data>
+  <data name="LabelSoilGreatGroup" xml:space="preserve">
+    <value>Soil great group</value>
+  </data>
+  <data name="LabelPercentageOfSoilOrganicCarbon" xml:space="preserve">
+    <value>Percentage of soil organic carbon</value>
+  </data>
+  <data name="UnitPercentage" xml:space="preserve">
+    <value>(%)</value>
+  </data>
+  <data name="UnitMiliEquivalentsPer100g" xml:space="preserve">
+    <value>(mEq 100g^-1)</value>
+  </data>
+  <data name="LabelCarbonModellingEquilibrium" xml:space="preserve">
+    <value>Carbon modelling equilibrium</value>
+  </data>
+  <data name="DescriptionOptionSoilView" xml:space="preserve">
+    <value>The Soil tab can be used to change the soil properties for the entire farm. The default values are shown for the current soil type. The soil for the farm can be customized by changing individual soil properties. In order to change the soil type for the specific field only, go to the specific field and select 'soil' tab within the field.</value>
+  </data>
+  <data name="LabelCarbonModelling" xml:space="preserve">
+    <value>Carbon Modelling</value>
+  </data>
+  <data name="DescriptionOptionSoilN2OBreakdown" xml:space="preserve">
+    <value>The monthly emissions distribution for the year. This distribution can be adjusted based on your farm's results. Please note that the addition of all montly percentages</value>
+  </data>
+  <data name="LabelCarbonConcentration" xml:space="preserve">
+    <value>Carbon concentration</value>
+  </data>
+  <data name="LabelEquilibriumCalculationStrategy" xml:space="preserve">
+    <value>Equilibrium year yield calculation strategy</value>
+  </data>
+  <data name="LabelUseCustomEquilibriumCarbonValue" xml:space="preserve">
+    <value>Use custom equilibrium carbon value</value>
+  </data>
+  <data name="LabelUseCustomRuninPeriodTillage" xml:space="preserve">
+    <value>Use custom run-in period tillage</value>
+  </data>
+  <data name="LabelBiomass" xml:space="preserve">
+    <value>Biomass</value>
+  </data>
+  <data name="LabelProductReturnedToSoilForAnnuals" xml:space="preserve">
+    <value>Product returned to soil for annuals</value>
+  </data>
+  <data name="LabelStrawReturnedToSoilForAnnuals" xml:space="preserve">
+    <value>Straw returned to soil for annuals</value>
+  </data>
+  <data name="ErrorMustBeBetween0And100" xml:space="preserve">
+    <value>Must be between 0 and 100</value>
+  </data>
+  <data name="LabelRootsReturnedToSoilForAnnuals" xml:space="preserve">
+    <value>Roots returned to soil for annuals</value>
+  </data>
+  <data name="LabelProductReturnedToSoilForFodderCorn" xml:space="preserve">
+    <value>Product returned to soil for fodder corn</value>
+  </data>
+  <data name="LabelRootsReturnedToSoilForFodderCorn" xml:space="preserve">
+    <value>Roots returned to soil for fodder corn</value>
+  </data>
+  <data name="LabelProductReturnedToSoilForPerennials" xml:space="preserve">
+    <value>Product returned to soil for perennials</value>
+  </data>
+  <data name="LabelRootsReturnedToSoilForPerennials" xml:space="preserve">
+    <value>Roots returned to soil for perennials</value>
+  </data>
+  <data name="LabelProductReturnedToSoilForRootCrops" xml:space="preserve">
+    <value>Product returned to soil for root crops</value>
+  </data>
+  <data name="LabelStrawReturnedToSoilForRootCrops" xml:space="preserve">
+    <value>Straw returned to soil for root crops</value>
+  </data>
+  <data name="LabelSupplementalFeedingLoss" xml:space="preserve">
+    <value>Supplemental feeding loss</value>
+  </data>
+  <data name="LabelN2O" xml:space="preserve">
+    <value>N₂O</value>
+  </data>
+  <data name="LabelVolatilizationEmissionFactor" xml:space="preserve">
+    <value>Volatilization emission factor</value>
+  </data>
+  <data name="ErrorMustbeAValidYear" xml:space="preserve">
+    <value>Must be a valid Year</value>
   </data>
 </root>

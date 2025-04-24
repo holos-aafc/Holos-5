@@ -4,9 +4,8 @@ namespace H.Core.Services.StorageService;
 
 public class DefaultStorageService : IStorageService
 {
+    
     #region Fields
-
-    private readonly IStorage _storage;
 
     #endregion
 
@@ -14,12 +13,21 @@ public class DefaultStorageService : IStorageService
 
     public DefaultStorageService(IStorage storage)
     {
-        _storage = storage;
+        if (storage != null)
+        {
+            this.Storage = storage;
+        }
+        else
+        {
+            throw new ArgumentNullException(nameof(storage));
+        }
     }
 
-    #region Public Methods
-
     #endregion
+
+    #region Properties
+
+    public IStorage Storage { get;  set; }
 
     #endregion
 
@@ -27,19 +35,30 @@ public class DefaultStorageService : IStorageService
 
     public Farm GetActiveFarm()
     {
-        return _storage.ApplicationData.GlobalSettings.ActiveFarm;
+        return Storage.ApplicationData.GlobalSettings.ActiveFarm;
     }
 
     public List<Farm> GetAllFarms()
     {
-        return _storage.ApplicationData.Farms.ToList();
+        return Storage.ApplicationData.Farms.ToList();
     }
 
     public bool SetActiveFarm(Farm farm)
     {
         if (farm != null)
         {
-            _storage.ApplicationData.GlobalSettings.ActiveFarm = farm;
+            Storage.ApplicationData.GlobalSettings.ActiveFarm = farm;
+
+            var index = Storage.ApplicationData.Farms.IndexOf(farm);
+
+            if (index != -1)
+            {
+                Storage.ApplicationData.Farms.RemoveAt(index);
+            }
+
+            // Ensuring the Farms List<Farm> contains the same instance as the ActiveFarm
+            // This prevents multiple references to different instances of the same farm
+            AddFarm(GetActiveFarm());
 
             return true;
         }
@@ -51,7 +70,7 @@ public class DefaultStorageService : IStorageService
     {
         if (farm != null)
         {
-            _storage.ApplicationData.Farms.Add(farm);
+            Storage.ApplicationData.Farms.Add(farm);
         }
     }
 

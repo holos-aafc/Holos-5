@@ -47,6 +47,7 @@
     <PackageReference Include="Avalonia.Themes.Fluent" Version="11.0.2" />
     <PackageReference Include="Avalonia.Xaml.Interactivity" Version="11.0.2" />
     <PackageReference Include="Deadpikle.AvaloniaProgressRing" Version="0.10.0" />
+    <PackageReference Include="LiveChartsCore.SkiaSharpView.Avalonia" Version="2.0.0-rc1" />
     <PackageReference Include="Mapsui.Avalonia" Version="4.0.0" />
     <PackageReference Include="Mapsui.Extensions" Version="4.0.0" />
     <PackageReference Include="Moq" Version="4.20.72" />
@@ -82,6 +83,21 @@
     </Compile>
     <Compile Update="Views\ComponentViews\MyComponentsView.axaml.cs">
       <DependentUpon>MyComponentsView.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\OptionsViews\OptionFarmView.axaml.cs">
+      <DependentUpon>OptionFarmView.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\OptionsViews\OptionSoilN2OBreakdownView.axaml.cs">
+      <DependentUpon>OptionSoilN2OBreakdownView.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\OptionsViews\OptionBarnTemperatureView.axaml.cs">
+      <DependentUpon>OptionBarnTemperatureView.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\OptionsViews\OptionFarmView.axaml.cs">
+      <DependentUpon>OptionFarmView.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\OptionsViews\OptionSoilView.axaml.cs">
+      <DependentUpon>OptionSoilView.axaml</DependentUpon>
     </Compile>
     <Compile Update="Views\ResultViews\ClimateResultsView.axaml.cs">
       <DependentUpon>ClimateResultsView.axaml</DependentUpon>

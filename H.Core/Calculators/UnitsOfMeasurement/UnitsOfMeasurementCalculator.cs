@@ -62,8 +62,8 @@ namespace H.Core.Calculators.UnitsOfMeasurement
 
         #region Fields
         private readonly IStorageService _storageService;
-        private int roundingDigits = 4;
-        private int roundingSixDigits = 6;
+        private const int roundingDigits = 4;
+        private const int roundingSixDigits = 6;
         private bool _isMetric;
         private string _kilogramsPerHectareString;
         private const double YardsToMetersFactor = 0.9144;

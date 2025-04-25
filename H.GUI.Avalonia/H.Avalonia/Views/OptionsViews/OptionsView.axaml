@@ -35,7 +35,7 @@
 						<ListBoxItem Margin="-5, 0" IsEnabled="False" >
 							<TextBlock Foreground="Black" FontWeight="Bold" Text="File"/>
 						</ListBoxItem>
-						<ListBoxItem Content="Placeholder"/>
+						<ListBoxItem Content="New Farm"/>
 						<ListBoxItem Content="Placeholder"/>
 					<ListBoxItem Margin="-5, 0" IsEnabled="False" >
 						<TextBlock Foreground="Black" FontWeight="Bold" Text="Settings"/>

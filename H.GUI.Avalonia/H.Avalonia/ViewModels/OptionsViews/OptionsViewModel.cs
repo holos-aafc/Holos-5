@@ -44,7 +44,10 @@ namespace H.Avalonia.ViewModels.OptionsViews
                     case "New Farm":
                         base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(FarmCreationView));
                         break;
-                    
+                    case "Close Farm":
+                        base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(FarmOptionsView));
+                        break;
+
                     // Settings Menu
                     case "Farm":
                         base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(OptionFarmView));

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using H.Avalonia.Events;
 using H.Avalonia.Models;
@@ -38,6 +39,10 @@ public class MyComponentsViewModel : ViewModelBase
 
         base.EventAggregator.GetEvent<ComponentAddedEvent>().Subscribe(OnComponentAddedEvent);
         base.EventAggregator.GetEvent<EditingComponentsCompletedEvent>().Subscribe(OnEditingComponentsCompletedEvent);
+
+        var globalSettings = this.StorageService.Storage.ApplicationData.GlobalSettings;
+        globalSettings.PropertyChanged -= ActiveFarmChanged;
+        globalSettings.PropertyChanged += ActiveFarmChanged;
     }
 
     #endregion
@@ -75,7 +80,7 @@ public class MyComponentsViewModel : ViewModelBase
     {
         if (!base.IsInitialized)
         {
-
+            MyComponents.Clear();
             foreach (var component in base.ActiveFarm.Components)
             {
                 this.MyComponents.Add(component);
@@ -163,6 +168,14 @@ public class MyComponentsViewModel : ViewModelBase
         {
             var viewName = ComponentTypeToViewTypeMapper.GetViewName(this.SelectedComponent);
             this.RegionManager.RequestNavigate(UiRegions.ContentRegion, viewName);
+        }
+    }
+
+    private void ActiveFarmChanged(object? sender, PropertyChangedEventArgs e)
+    {
+        if (e.PropertyName == nameof(GlobalSettings.ActiveFarm))
+        {
+            base.IsInitialized = false;
         }
     }
     #endregion

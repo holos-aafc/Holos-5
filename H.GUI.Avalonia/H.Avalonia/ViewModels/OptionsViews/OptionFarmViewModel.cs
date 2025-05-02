@@ -2,6 +2,8 @@
 using System.Collections.ObjectModel;
 using H.Core.Services.StorageService;
 using Prism.Regions;
+using H.Core.Models;
+using System.ComponentModel;
 
 namespace H.Avalonia.ViewModels.OptionsViews
 {
@@ -11,6 +13,7 @@ namespace H.Avalonia.ViewModels.OptionsViews
 
         private ObservableCollection<MeasurementSystemType> _measurementSystemTypes;
         private MeasurementSystemType _selectedMeasurementType;
+        private FarmDisplayViewModel _data;
 
         #endregion
 
@@ -18,31 +21,36 @@ namespace H.Avalonia.ViewModels.OptionsViews
         public OptionFarmViewModel() { }
         public OptionFarmViewModel(IStorageService storageService) : base(storageService)
         {
-            Data = new FarmDisplayViewModel(storageService);
-
             _measurementSystemTypes = new ObservableCollection<MeasurementSystemType>() { MeasurementSystemType.Metric, MeasurementSystemType.Imperial };
-            _selectedMeasurementType = StorageService.GetActiveFarm().MeasurementSystemType;
+            
+            var globalSettings = this.StorageService.Storage.ApplicationData.GlobalSettings;
+            globalSettings.PropertyChanged -= ActiveFarmChanged;
+            globalSettings.PropertyChanged += ActiveFarmChanged;
         }
 
         #endregion
 
         #region Properties
 
-        public FarmDisplayViewModel Data { get; set; }
+        public FarmDisplayViewModel Data
+        {
+            get => _data;
+            set => SetProperty(ref _data, value);
+        }
 
         public ObservableCollection<MeasurementSystemType> MeasurementSystemTypes
         {
-            get { return _measurementSystemTypes; }
+            get => _measurementSystemTypes; 
         }
 
         public MeasurementSystemType SelectedMeasurementSystem
         {
-            get { return _selectedMeasurementType; }
+            get => _selectedMeasurementType; 
             set
             {
                 if (SetProperty(ref _selectedMeasurementType, value))
                 {
-                    if (value == MeasurementSystemType.Metric || value == MeasurementSystemType.Imperial)
+                    if (IsInitialized && MeasurementSystemTypes.Contains(value)) 
                     {
                         var activeFarm = StorageService.GetActiveFarm();
                         activeFarm.MeasurementSystemType = value;
@@ -50,6 +58,32 @@ namespace H.Avalonia.ViewModels.OptionsViews
                         StorageService.Storage.ApplicationData.DisplayUnitStrings.SetStrings(StorageService.GetActiveFarm().MeasurementSystemType);
                     }
                 }
+            }
+        }
+
+        #endregion
+
+        #region Public Methods
+
+        public override void OnNavigatedTo(NavigationContext navigationContext)
+        {
+            if (!IsInitialized)
+            {
+                Data = new FarmDisplayViewModel(StorageService);
+                SelectedMeasurementSystem = StorageService.GetActiveFarm().MeasurementSystemType;
+                IsInitialized = true;
+            }
+        }
+
+        #endregion
+
+        #region Event Handlers
+
+        private void ActiveFarmChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(GlobalSettings.ActiveFarm))
+            {
+                base.IsInitialized = false;
             }
         }
 

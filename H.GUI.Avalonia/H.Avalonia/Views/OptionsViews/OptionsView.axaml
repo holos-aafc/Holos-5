@@ -36,6 +36,7 @@
 							<TextBlock Foreground="Black" FontWeight="Bold" Text="File"/>
 						</ListBoxItem>
 						<ListBoxItem Content="New Farm"/>
+						<ListBoxItem Content="Open Farm"/>
 						<ListBoxItem Content="Close Farm"/>
 					<ListBoxItem Margin="-5, 0" IsEnabled="False" >
 						<TextBlock Foreground="Black" FontWeight="Bold" Text="Settings"/>

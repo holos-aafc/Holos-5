@@ -15,15 +15,13 @@ using Avalonia;
 using Avalonia.Threading;
 using System;
 using System.Threading.Tasks;
-using H.Core;
+using System.Diagnostics.Tracing;
 
 namespace H.Avalonia.ViewModels
 {
     public abstract class ViewModelBase : BindableBase, INavigationAware, INotifyDataErrorInfo
     {
         #region Fields
-
-        //private Farm _activeFarm;
 
         protected bool IsInitialized;
 
@@ -52,7 +50,6 @@ namespace H.Avalonia.ViewModels
             {
                 throw new ArgumentNullException(nameof(storageService));
             }
-            //this.SetActiveFarm(this.StorageService);
         }
 
         protected ViewModelBase(IEventAggregator eventAggregator)
@@ -130,7 +127,6 @@ namespace H.Avalonia.ViewModels
             {
                 throw new ArgumentNullException(nameof(eventAggregator));
             }
-            //this.SetActiveFarm(this.StorageService);
         }
 
         protected ViewModelBase(IRegionManager regionManager, IEventAggregator eventAggregator, Storage storage) : this(regionManager, storage)
@@ -269,13 +265,19 @@ namespace H.Avalonia.ViewModels
 
         #region Private Methods
 
-        //private void SetActiveFarm(IStorageService storageService)
-        //{
-        //    if (storageService != null)
-        //    {
-        //        this.ActiveFarm = storageService.GetActiveFarm();
-        //    }
-        //}
+        private void SetActiveFarm(IStorageService storageService)
+        {
+            if (storageService != null)
+            {
+                //this.ActiveFarm = storageService.GetActiveFarm();
+            }
+        }
+
+        #endregion
+
+        #region Event Listeners
+
+
 
         #endregion
     }

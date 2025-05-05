@@ -34,15 +34,14 @@ public class MyComponentsViewModel : ViewModelBase
     {
         base.PropertyChanged += OnPropertyChanged;
 
+        var globalSettings = this.StorageService.Storage.ApplicationData.GlobalSettings;
+        globalSettings.PropertyChanged += ActiveFarmChanged;
+
         this.MyComponents = new ObservableCollection<ComponentBase>();
         
 
         base.EventAggregator.GetEvent<ComponentAddedEvent>().Subscribe(OnComponentAddedEvent);
         base.EventAggregator.GetEvent<EditingComponentsCompletedEvent>().Subscribe(OnEditingComponentsCompletedEvent);
-
-        var globalSettings = this.StorageService.Storage.ApplicationData.GlobalSettings;
-        globalSettings.PropertyChanged -= ActiveFarmChanged;
-        globalSettings.PropertyChanged += ActiveFarmChanged;
     }
 
     #endregion
@@ -171,12 +170,18 @@ public class MyComponentsViewModel : ViewModelBase
         }
     }
 
+    #endregion
+
+    #region
+
     private void ActiveFarmChanged(object? sender, PropertyChangedEventArgs e)
     {
-        if (e.PropertyName == nameof(GlobalSettings.ActiveFarm))
+        if (e.PropertyName == nameof(StorageService.Storage.ApplicationData.GlobalSettings.ActiveFarm))
         {
-            base.IsInitialized = false;
+            this.IsInitialized = false;
         }
     }
+
     #endregion
+
 }

@@ -4419,7 +4419,7 @@
     <value>The monthly emissions distribution for the year. This distribution can be adjusted based on your farm's results. Please note that the addition of all montly percentages should add up to 100%.</value>
   </data>
   <data name="MessageMonthlyTemperatureBreakdownHeader" xml:space="preserve">
-    <value>The montly temperature averages for the farm.</value>
+    <value>The monthly temperature averages for the farm.</value>
   </data>
   <data name="TitleCNRatio" xml:space="preserve">
     <value>C:N</value>

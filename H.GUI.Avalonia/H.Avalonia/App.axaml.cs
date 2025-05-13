@@ -107,6 +107,7 @@ namespace H.Avalonia
 
 
             // New development work
+            containerRegistry.RegisterForNavigation<OptionEvapotranspirationView, OptionEvapotranspirationViewModel>();
             containerRegistry.RegisterForNavigation<OptionTemperatureView, OptionTemperatureViewModel>();
             containerRegistry.RegisterForNavigation<OptionBarnTemperatureView, OptionBarnTemperatureViewModel>();
             containerRegistry.RegisterForNavigation<DisclaimerView, DisclaimerViewModel>();

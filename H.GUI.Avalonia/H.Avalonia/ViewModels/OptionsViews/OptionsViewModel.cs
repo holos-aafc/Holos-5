@@ -71,15 +71,16 @@ namespace H.Avalonia.ViewModels.OptionsViews
                     case "Precipitation":
                         base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(OptionPrecipitationView));
                         break;
+                    case "Evapotranspiration":
+                        base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(OptionEvapotranspirationView));
+                        break;
                     case "Default Bedding Composition":
                         base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(DefaultBeddingCompositionView));
                         break;
                     case "Default Manure Composition":
                         base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(DefaultManureCompositionView));
                         break;
-                    case "Evapotranspiration":
-                        base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(OptionEvapotranspirationView));
-                        break;
+
                     case "User Settings":
                         base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(OptionUserSettingsView));
                         break;

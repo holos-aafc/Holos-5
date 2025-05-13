@@ -12,7 +12,7 @@ namespace H.Avalonia.ViewModels.Styles
     public class BarChartStyles
     {
         //Sets the styles of the bars
-        public static readonly ColumnSeries<double> ColumnSeriesStyles = new ColumnSeries<double>
+        public readonly ColumnSeries<double> ColumnSeriesStyles = new ColumnSeries<double>
         {
             Fill = new LinearGradientPaint(
             new SKColor(155, 212, 106), new SKColor(83, 123, 58),

@@ -63,9 +63,11 @@ namespace H.Avalonia.ViewModels
 
         public void OnOpenFarmExecute()
         {
-            var testFarm = base.StorageService.GetActiveFarm();
+            if (this.SelectedFarm == null)
+            {
+                return;
+            }
             base.StorageService.SetActiveFarm(this.SelectedFarm);
-            var testFarm2 = base.StorageService.GetActiveFarm();
             // Line below ensures that the proper unit strings are used for the MeasurementSystemType of the existing farm being opened
             base.StorageService.Storage.ApplicationData.DisplayUnitStrings.SetStrings(this.SelectedFarm.MeasurementSystemType);
 

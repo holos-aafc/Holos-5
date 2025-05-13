@@ -29,17 +29,24 @@ namespace H.Avalonia.ViewModels
             _regionManager = regionManager ?? throw new System.ArgumentNullException(nameof(regionManager));
             NavigateToPreviousPage = new DelegateCommand(OnNavigateToPreviousPage);
             Farms = new ObservableCollection<Farm>();
+            NavigateToNextPage = new DelegateCommand(OnOpenFarmExecute, NextCanExecute);
         }
         #endregion
 
         #region Properties
-        public ICommand NavigateToPreviousPage { get; }
+        public DelegateCommand NavigateToPreviousPage { get; }
+        public DelegateCommand NavigateToNextPage { get; }
         public ObservableCollection<Farm> Farms { get; set; }
         public Farm SelectedFarm
         {
             get => _selectedFarm;
-            set => SetProperty(ref _selectedFarm, value);
+            set
+            {
+                SetProperty(ref _selectedFarm, value);
+                NavigateToNextPage.RaiseCanExecuteChanged();
+            }
         }
+
         #endregion
 
         #region Public Methods
@@ -61,12 +68,8 @@ namespace H.Avalonia.ViewModels
             _regionManager.RequestNavigate(UiRegions.ContentRegion, nameof(FarmOptionsView));
         }
 
-        public void OnOpenFarmExecute()
+        private void OnOpenFarmExecute()
         {
-            if (this.SelectedFarm == null)
-            {
-                return;
-            }
             base.StorageService.SetActiveFarm(this.SelectedFarm);
             // Line below ensures that the proper unit strings are used for the MeasurementSystemType of the existing farm being opened
             base.StorageService.Storage.ApplicationData.DisplayUnitStrings.SetStrings(this.SelectedFarm.MeasurementSystemType);
@@ -75,6 +78,15 @@ namespace H.Avalonia.ViewModels
             var view = this.RegionManager.Regions[UiRegions.ContentRegion].ActiveViews.Single();
             this.RegionManager.Regions[UiRegions.ContentRegion].Deactivate(view);
             this.RegionManager.Regions[UiRegions.ContentRegion].Remove(view);
+        }
+
+        #endregion
+
+        #region Event Handler
+
+        private bool NextCanExecute()
+        {
+            return this.SelectedFarm != null;
         }
 
         #endregion

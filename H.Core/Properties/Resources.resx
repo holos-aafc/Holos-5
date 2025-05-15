@@ -6255,4 +6255,7 @@ Please note: emissions related to the deposition or application of livestock man
   <data name="ErrorMustbeAValidYear" xml:space="preserve">
     <value>Must be a valid Year</value>
   </data>
+  <data name="EnumSelectProvince" xml:space="preserve">
+    <value>Select Province</value>
+  </data>
 </root>

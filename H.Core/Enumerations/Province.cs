@@ -7,6 +7,7 @@ namespace H.Core.Enumerations
     {
         [LocalizedDescription("EnumSelectProvince", typeof(Resources))]
         SelectProvince,
+
         /// <summary>
         /// The names of Ireland's 26 counties 
         /// We are now dividing Ireland into 26 traditional counties

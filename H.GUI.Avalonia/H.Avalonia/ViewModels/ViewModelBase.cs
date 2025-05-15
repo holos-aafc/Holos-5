@@ -278,5 +278,13 @@ namespace H.Avalonia.ViewModels
         }
 
         #endregion
+
+        #region Protected Methods
+
+        protected virtual void InitializeViewModel()
+        {
+        }
+
+        #endregion
     }
 }

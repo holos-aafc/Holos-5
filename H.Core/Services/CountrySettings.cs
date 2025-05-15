@@ -29,6 +29,7 @@ public class CountrySettings : ICountrySettings
             {
                 return new List<Province>()
                 {
+                    Province.SelectProvince,
                     Province.Alberta,
                     Province.BritishColumbia,
                     Province.Manitoba,

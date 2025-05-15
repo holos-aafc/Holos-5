@@ -30,6 +30,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using H.Avalonia.Views.ResultViews;
+using H.Core.Services;
 using SoilResultsView = H.Avalonia.Views.ResultViews.SoilResultsView;
 
 namespace H.Avalonia.ViewModels
@@ -49,6 +50,8 @@ namespace H.Avalonia.ViewModels
         private const int DefaultErrorNotificationTime = 10;
         private const int DefaultInformationNotificationTime = 5;
 
+        private ObservableCollection<Province> _provinces;
+
         public bool HasViewItems => StoragePlaceholder?.SoilViewItems != null && StoragePlaceholder.SoilViewItems.Any();
 
         public bool AnyViewItemsSelected => StoragePlaceholder?.SoilViewItems != null &&
@@ -60,7 +63,8 @@ namespace H.Avalonia.ViewModels
         public readonly Dictionary<Province, List<Polygon>> WktPolygonMap = new();
         private bool _isDataProcessing;
         private bool _showPolygonsOnMap;
-        private Province _selectedProvince = Province.SelectProvince;
+        private Province _selectedProvince;
+        private ICountrySettings _countrySettings;
 
         /// <summary>
         /// The longitude value of a coordinate
@@ -120,9 +124,11 @@ namespace H.Avalonia.ViewModels
         /// <summary>
         /// A collection of provinces for which SLC polygon data is available.
         /// </summary>
-        public ObservableCollection<Province> Provinces { get; set; } = new(Enum.GetValues(typeof(Province))
-            .Cast<Province>()
-            .Except(new[] { Province.NorthwestTerritories, Province.Nunavut, Province.Yukon }));
+        public ObservableCollection<Province> Provinces 
+        {
+            get => _provinces;
+            set => SetProperty(ref _provinces, value);
+        }
 
         public SoilDataViewModel() { }
 
@@ -133,9 +139,19 @@ namespace H.Avalonia.ViewModels
         /// <param name="storage">The storage object contains various items that are passed between different viewmodels</param>
         /// <param name="importHelper">A set of methods that help with importing data from an external file.</param>
         /// <param name="kmlHelpers">A set of methods that help us process .kml files.</param>
-        /// <param name="dialogService">An Prism dialogService object that helps us display dialogs to the user.</param>
-        public SoilDataViewModel(IRegionManager regionManager, Storage storage, ImportHelpers importHelper, KmlHelpers kmlHelpers, IDialogService dialogService) : base(regionManager, storage)
+        /// <param name="dialogService">A Prism dialogService object that helps us display dialogs to the user.</param>
+        /// <param name="countrySettings"></param>
+        public SoilDataViewModel(IRegionManager regionManager, Storage storage, ImportHelpers importHelper, KmlHelpers kmlHelpers, IDialogService dialogService, ICountrySettings countrySettings) : base(regionManager, storage)
         {
+            if (countrySettings != null)
+            {
+                _countrySettings = countrySettings; 
+            }
+            else
+            {
+                throw new ArgumentNullException(nameof(countrySettings));
+            }
+            
             _regionManager = regionManager;
             _importHelper = importHelper;
             _dialogService = dialogService;
@@ -144,6 +160,15 @@ namespace H.Avalonia.ViewModels
             _soilViewItemMap = new SoilViewItemMap();
             InitializeCommands();
             CreateWktPolygons();
+        }
+
+        protected override void InitializeViewModel()
+        {
+            base.InitializeViewModel();
+
+            this.Provinces = new ObservableCollection<Province>(_countrySettings.GetProvinces());
+            this.SelectedProvince = Province.SelectProvince;
+            base.RaisePropertyChanged(nameof(this.SelectedProvince));
         }
 
         /// <summary>
@@ -177,6 +202,8 @@ namespace H.Avalonia.ViewModels
             {
                 StoragePlaceholder.SoilViewItems.CollectionChanged += OnSoilViewItemsCollectionChanged;
             }
+
+            this.InitializeViewModel();
         }
 
         /// <summary>

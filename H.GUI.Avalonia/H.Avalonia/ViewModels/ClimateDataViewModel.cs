@@ -23,7 +23,6 @@ using ClimateResultsView = H.Avalonia.Views.ResultViews.ClimateResultsView;
 namespace H.Avalonia.ViewModels
 {
     public class ClimateDataViewModel : ViewModelBase, IDataGridFeatures
-
     {
         private readonly IRegionManager _regionManager;
         private IRegionNavigationJournal? _navigationJournal;

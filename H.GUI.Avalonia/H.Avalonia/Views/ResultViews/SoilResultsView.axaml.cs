@@ -12,19 +12,39 @@ namespace H.Avalonia.Views.ResultViews
 {
     public partial class SoilResultsView : UserControl
     {
-        private SoilResultsViewModel? ViewModel => DataContext as SoilResultsViewModel;
-        private TopLevel GetTopLevel() => TopLevel.GetTopLevel(this) ?? throw new NullReferenceException("Invalid Owner");
-
-
+        #region Constructors
+        
         public SoilResultsView()
         {
             InitializeComponent();
         }
 
+        #endregion
+
+        #region Properties
+
+        private SoilResultsViewModel? ViewModel
+        {
+            get { return DataContext as SoilResultsViewModel; }
+        }
+
+        #endregion
+
+        #region Private Methods
+
         private void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
         }
+
+        private TopLevel GetTopLevel()
+        {
+            return TopLevel.GetTopLevel(this) ?? throw new NullReferenceException("Invalid Owner");
+        }
+
+        #endregion
+
+        #region Event Handlers
 
         protected override void OnAttachedToVisualTree(VisualTreeAttachmentEventArgs e)
         {
@@ -53,10 +73,18 @@ namespace H.Avalonia.Views.ResultViews
                 DefaultExtension = "csv",
                 ShowOverwritePrompt = true,
             });
+
             if (file is not null && ViewModel.ExportToCsvCommand.CanExecute(file))
             {
                 ViewModel.ExportToCsvCommand.Execute(file);
             }
+        }
+        
+        #endregion
+
+        private void ChooseSelectedSoilButton_OnClick(object? sender, RoutedEventArgs e)
+        {
+            this.ViewModel?.ChooseSelectedSoilCommand.Execute();
         }
     }
 }

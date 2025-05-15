@@ -8,6 +8,8 @@ using DynamicData;
 using System.Linq;
 using H.Avalonia.Views.ComponentViews;
 using H.Core.Models;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace H.Avalonia.ViewModels
 {
@@ -16,6 +18,8 @@ namespace H.Avalonia.ViewModels
         #region Fields
         private readonly IRegionManager _regionManager;
         private Farm _selectedFarm;
+        private string _searchText;
+        private ObservableCollection<Farm> _farms;
 
         #endregion
 
@@ -28,22 +32,49 @@ namespace H.Avalonia.ViewModels
         {
             _regionManager = regionManager ?? throw new System.ArgumentNullException(nameof(regionManager));
             NavigateToPreviousPage = new DelegateCommand(OnNavigateToPreviousPage);
-            Farms = new ObservableCollection<Farm>();
             NavigateToNextPage = new DelegateCommand(OnOpenFarmExecute, NextCanExecute);
+            Farms = new ObservableCollection<Farm>();
         }
         #endregion
 
         #region Properties
-        public DelegateCommand NavigateToPreviousPage { get; }
-        public DelegateCommand NavigateToNextPage { get; }
-        public ObservableCollection<Farm> Farms { get; set; }
-        public Farm SelectedFarm
+        private DelegateCommand NavigateToPreviousPage { get; }
+        private DelegateCommand NavigateToNextPage { get; }
+        private ObservableCollection<Farm> Farms
+        {
+            get => _farms;
+            set
+            {
+                SetProperty(ref _farms, value);
+            }
+        }
+        private Farm SelectedFarm
         {
             get => _selectedFarm;
             set
             {
                 SetProperty(ref _selectedFarm, value);
                 NavigateToNextPage.RaiseCanExecuteChanged();
+            }
+        }
+        private string SearchText
+        {
+            get => _searchText;
+            set
+            {
+                SetProperty(ref _searchText, value);
+                if (string.IsNullOrEmpty(value))
+                {
+                    Farms.Clear();
+                    var farms = base.StorageService.GetAllFarms();
+                    Farms.Add(farms);
+                }
+                else
+                {
+                    Farms.Clear();
+                    var farms = base.StorageService.GetAllFarms().Where(f => f.Name.ToLower().Contains(value.ToLower()) || f.DefaultSoilData.EcodistrictName.ToLower().Contains(value.ToLower()) || f.Province.ToString().ToLower().Contains(value.ToLower()));
+                    Farms.Add(farms);
+                }
             }
         }
 

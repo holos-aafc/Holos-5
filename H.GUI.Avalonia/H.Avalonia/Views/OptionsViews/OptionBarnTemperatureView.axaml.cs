@@ -19,8 +19,8 @@ public partial class OptionBarnTemperatureView : UserControl
     #region Fields
 
     private OptionBarnTemperatureViewModel _viewModel;
-
-    public OptionBarnTemperatureView? ViewModel => DataContext as OptionBarnTemperatureView;
+    private ISeries[] _seriesTest = { new ColumnSeries<double> { } };
+    private BarChartStyles _barChartsStyles = new BarChartStyles();
 
     #endregion
 
@@ -28,6 +28,7 @@ public partial class OptionBarnTemperatureView : UserControl
     public OptionBarnTemperatureView(OptionBarnTemperatureViewModel viewModel)
     {
         InitializeComponent();
+        this.Series[0] = _barChartsStyles.ColumnSeriesStyles;
         this._viewModel = viewModel;
         this._viewModel.BindingTemperatureData.PropertyChanged += ViewModel_PropertyChanged;
         BuildChart();
@@ -37,12 +38,13 @@ public partial class OptionBarnTemperatureView : UserControl
 
     #region Properties
 
-    public ISeries[] Series { get; set; } =
-        {
-            BarChartStyles.ColumnSeriesStyles,
-        };
+    private ISeries[] Series
+    {
+        get { return _seriesTest; }
+        set { _seriesTest = value; }
+    }
 
-    public Axis[] XAxes { get; set; }
+    private Axis[] XAxes { get; set; }
          = new Axis[]
         {
              BarChartStyles.BarAxisStyles
@@ -51,7 +53,6 @@ public partial class OptionBarnTemperatureView : UserControl
     #endregion
 
     #region Private Methods
-
     private void BuildChart()
     {
         TemperatureChart.Series = Series;

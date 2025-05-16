@@ -20,8 +20,8 @@ public partial class OptionPrecipitationView : UserControl
     #region Fields
 
     private OptionPrecipitationViewModel _viewModel;
-
-    public OptionPrecipitationView? ViewModel => DataContext as OptionPrecipitationView;
+    private ISeries[] _seriesTest = { new ColumnSeries<double> { } };
+    private BarChartStyles _barChartsStyles = new BarChartStyles();
 
     #endregion
 
@@ -29,14 +29,31 @@ public partial class OptionPrecipitationView : UserControl
     public OptionPrecipitationView(OptionPrecipitationViewModel viewModel)
     {
         InitializeComponent();
+        this.Series[0] = _barChartsStyles.ColumnSeriesStyles;
         this._viewModel = viewModel;
         viewModel.Data.BindingPrecipitationData.PropertyChanged += ViewModel_PropertyChanged;
-        //viewModel.Data.PropertyChanged += OnDummyPChanged;
         BuildChart();
     }
     #endregion
 
-    #region Methods
+    #region Properties
+
+    private ISeries[] Series
+    {
+        get { return _seriesTest; }
+        set { _seriesTest = value; }
+    }
+
+    private Axis[] XAxes { get; set; }
+         = new Axis[]
+        {
+            BarChartStyles.BarAxisStyles,
+        };
+
+    #endregion
+
+    #region Private Methods
+
     private void BuildChart()
     {
         PrecipitationChart.Series = Series;
@@ -53,31 +70,16 @@ public partial class OptionPrecipitationView : UserControl
         XAxes[0].Labels = Enum.GetNames(typeof(Months));
         XAxes[0].Name = H.Core.Properties.Resources.Months;
     }
-    #endregion
 
-    #region Properties
-    public ISeries[] Series { get; set; } =
-    {
-        BarChartStyles.ColumnSeriesStyles,
-    };
-
-    public Axis[] XAxes { get; set; }
-        = new Axis[]
-    {
-        BarChartStyles.BarAxisStyles,
-    };
     #endregion
 
     #region Event Handlers
+
     private void ViewModel_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
     {
         BuildChart();
     }
 
-    //private void OnDummyPChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
-    //{
-    //    BuildChart();
-    //}
     #endregion
 
 }

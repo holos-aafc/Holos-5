@@ -16,30 +16,45 @@ namespace H.Avalonia;
 public partial class OptionEvapotranspirationView : UserControl
 {
     #region Fields
+
     private OptionEvapotranspirationViewModel _viewModel;
+    private ISeries[] _seriesTest = { new ColumnSeries<double> { } };
+    private BarChartStyles _barChartsStyles = new BarChartStyles();
+
     #endregion
+
     #region Constructors
+
     public OptionEvapotranspirationView(OptionEvapotranspirationViewModel viewModel)
     {
         InitializeComponent();
+        this.Series[0] = _barChartsStyles.ColumnSeriesStyles;
         this._viewModel = viewModel;
         viewModel.BindingEvapotranspirationData.PropertyChanged += ViewModel_PropertyChanged;
         BuildChart();
     }
-    #endregion
-    #region Properties
-    public ISeries[] Series { get; set; } =
-    {
-        BarChartStyles.ColumnSeriesStyles,
-    };
 
-    public Axis[] XAxes { get; set; }
+    #endregion
+
+
+    #region Properties
+
+    private ISeries[] Series
+    {
+        get { return _seriesTest; }
+        set { _seriesTest = value; }
+    }
+
+    private Axis[] XAxes { get; set; }
         = new Axis[]
     {
         BarChartStyles.BarAxisStyles
     };
+
     #endregion
-    #region Methods
+
+    #region Private Methods
+
     private void BuildChart()
     {
         EvotranspirationChart.Series = Series;
@@ -56,11 +71,15 @@ public partial class OptionEvapotranspirationView : UserControl
         XAxes[0].Labels = Enum.GetNames(typeof(Months));
         XAxes[0].Name = H.Core.Properties.Resources.Months;
     }
+
     #endregion
+
     #region Event Handlers
+
     private void ViewModel_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
     {
         BuildChart();
     }
+
     #endregion
 }

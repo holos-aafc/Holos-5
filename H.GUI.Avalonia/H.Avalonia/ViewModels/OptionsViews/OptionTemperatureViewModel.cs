@@ -25,8 +25,6 @@ namespace H.Avalonia.ViewModels.OptionsViews
 
         private TemperatureData _bindingTemperatureData = new TemperatureData();
 
-        private Province _province = new Province();
-
         #endregion
 
         #region Constructors
@@ -38,9 +36,6 @@ namespace H.Avalonia.ViewModels.OptionsViews
 
         public OptionTemperatureViewModel(IRegionManager regionManager, IEventAggregator eventAggregator, IStorageService storageService) : base(regionManager, eventAggregator, storageService)
         {
-            // Active farm currently will not have a selected province. Temp set to Alberta for testing purposes.
-            _province = Province.Alberta;
-
             InitializeBindingTemperatureData();
 
             BindingTemperatureData.PropertyChanged -= BindingTemperatureOnPropertyChanged;
@@ -56,10 +51,7 @@ namespace H.Avalonia.ViewModels.OptionsViews
             get => _bindingTemperatureData;
             set
             {
-                if (_bindingTemperatureData != value)
-                {
-                    _bindingTemperatureData = value;
-                }
+                 _bindingTemperatureData = value;
             }
         }
 
@@ -67,7 +59,7 @@ namespace H.Avalonia.ViewModels.OptionsViews
 
         #region Public Methods
 
-        public void InitializeBindingTemperatureData()
+        private void InitializeBindingTemperatureData()
         {
             if (ActiveFarm.ClimateData.TemperatureData != null)
             {
@@ -75,15 +67,7 @@ namespace H.Avalonia.ViewModels.OptionsViews
             }
             else
             {
-                var values = new TemperatureData();
-                foreach (Months month in Enum.GetValues(typeof(Months)))
-                {
-                    {
-                        values.GetValueByMonth(month);
-                    };
-                }
-                BindingTemperatureData = values;
-                BindingTemperatureData.IsInitialized = true;
+                // Call initializationSerice?
             }
         }
 

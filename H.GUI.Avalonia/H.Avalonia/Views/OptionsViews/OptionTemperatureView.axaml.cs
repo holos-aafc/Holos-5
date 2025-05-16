@@ -11,6 +11,7 @@ using H.Core.Enumerations;
 using System.Collections.ObjectModel;
 using System;
 using H.Avalonia.ViewModels.Styles;
+using Prism.Regions;
 
 namespace H.Avalonia;
 
@@ -19,15 +20,17 @@ public partial class OptionTemperatureView : UserControl
     #region Fields
 
     private OptionTemperatureViewModel _viewModel;
-
-    public OptionTemperatureView? ViewModel => DataContext as OptionTemperatureView;
+    private ISeries[] _seriesTest = { new ColumnSeries<double> { } };
+    private BarChartStyles _barChartsStyles = new BarChartStyles();
 
     #endregion
 
     #region Constructors
+
     public OptionTemperatureView(OptionTemperatureViewModel viewModel)
     {
         InitializeComponent();
+        this.Series[0] = _barChartsStyles.ColumnSeriesStyles;
         this._viewModel = viewModel;
         this._viewModel.BindingTemperatureData.PropertyChanged += ViewModel_PropertyChanged;
         BuildChart();
@@ -37,15 +40,16 @@ public partial class OptionTemperatureView : UserControl
 
     #region Properties
 
-    public ISeries[] Series { get; set; } =
+    private ISeries[] Series
         {
-            BarChartStyles.ColumnSeriesStyles,
-        };
-
-    public Axis[] XAxes { get; set; }
+            get { return _seriesTest; }
+            set { _seriesTest = value; }
+        }
+     
+    private Axis[] XAxes { get; set; }
          = new Axis[]
         {
-            BarChartStyles.BarAxisStyles
+            BarChartStyles.BarAxisStyles,
         };
 
     #endregion

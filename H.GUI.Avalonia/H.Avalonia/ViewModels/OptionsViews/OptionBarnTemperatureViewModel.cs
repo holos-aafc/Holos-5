@@ -68,7 +68,7 @@ namespace H.Avalonia.ViewModels.OptionsViews
 
         #region Public Methods
 
-        public void InitializeBindingBarnTemperatureData()
+        private void InitializeBindingBarnTemperatureData()
         {
             if (ActiveFarm.ClimateData.BarnTemperatureData != null)
             {

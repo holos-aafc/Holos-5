@@ -9,10 +9,10 @@ namespace H.Avalonia.ViewModels.Results
         
         protected ResultsViewModelBase() { }
 
-        protected ResultsViewModelBase(IRegionManager regionManager, Storage storage) : base(regionManager, storage)
+        protected ResultsViewModelBase(IRegionManager regionManager) : base(regionManager)
         {
         }
-        
+
         /// <summary>
         /// A command that triggers when a user clicks the back button on the page.
         /// </summary>

@@ -36,8 +36,10 @@ namespace H.Avalonia.ViewModels.Results
 
         #region Constructors
 
-        public SoilResultsViewModel(IRegionManager regionManager, Storage storage, ExportHelpers exportHelpers, KmlHelpers kmlHelpers, GeographicDataProvider geographicDataProvider) : base(regionManager, storage)
+        public SoilResultsViewModel(IRegionManager regionManager, ExportHelpers exportHelpers, KmlHelpers kmlHelpers, GeographicDataProvider geographicDataProvider, Storage storage) : base(regionManager)
         {
+            this.StoragePlaceholder = storage;
+
             _regionManager = regionManager;
             _exportHelpers = exportHelpers;
             _geographicDataProvider = geographicDataProvider;
@@ -64,6 +66,9 @@ namespace H.Avalonia.ViewModels.Results
         /// </summary>
         public ObservableCollection<SoilResultsViewItem> SingleSoilResultsViewItems { get; set; } = new();
 
+        /// <summary>
+        /// Allows the user to select which soil they want to use as a <see cref="Farm"/>-level default
+        /// </summary>
         public DelegateCommand ChooseSelectedSoilCommand { get; set; }
 
         #endregion
@@ -148,10 +153,12 @@ namespace H.Avalonia.ViewModels.Results
             {
                 if (StoragePlaceholder.ShowSingleCoordinateResults)
                 {
-                    var sourceCollection = new ObservableCollection<SoilViewItem>
-                {
-                    StoragePlaceholder.SingleSoilViewItem
-                };
+                    var sourceCollection = new ObservableCollection<SoilViewItem> 
+                    {
+                        StoragePlaceholder.SingleSoilViewItem
+
+                    }; 
+                    
                     await AddViewItemsToCollection(cancellationToken, sourceCollection, SingleSoilResultsViewItems);
                 }
                 else
@@ -197,6 +204,10 @@ namespace H.Avalonia.ViewModels.Results
             IsProcessingData = false;
         }
 
+        /// <summary>
+        /// Once the user has selected a soil type (one must be selected as the default for the <see cref="Farm"/>>), navigate to
+        /// the <see cref="MyComponentsView"/>.
+        /// </summary>
         private void OnChooseSelectedSoilExecute()
         {
             base.RegionManager.RequestNavigate(UiRegions.SidebarRegion, nameof(MyComponentsView));

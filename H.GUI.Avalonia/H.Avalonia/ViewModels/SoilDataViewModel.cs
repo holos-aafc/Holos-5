@@ -31,6 +31,7 @@ using System.Text;
 using System.Threading.Tasks;
 using H.Avalonia.Views.ResultViews;
 using H.Core.Services;
+using H.Core.Services.StorageService;
 using SoilResultsView = H.Avalonia.Views.ResultViews.SoilResultsView;
 
 namespace H.Avalonia.ViewModels
@@ -141,7 +142,14 @@ namespace H.Avalonia.ViewModels
         /// <param name="kmlHelpers">A set of methods that help us process .kml files.</param>
         /// <param name="dialogService">A Prism dialogService object that helps us display dialogs to the user.</param>
         /// <param name="countrySettings"></param>
-        public SoilDataViewModel(IRegionManager regionManager, Storage storage, ImportHelpers importHelper, KmlHelpers kmlHelpers, IDialogService dialogService, ICountrySettings countrySettings) : base(regionManager, storage)
+        public SoilDataViewModel(
+            IRegionManager regionManager, 
+            ImportHelpers importHelper, 
+            KmlHelpers kmlHelpers, 
+            IDialogService dialogService, 
+            ICountrySettings countrySettings,
+            IStorageService storageService,
+            Storage storage) : base(regionManager, storageService)
         {
             if (countrySettings != null)
             {
@@ -152,6 +160,8 @@ namespace H.Avalonia.ViewModels
                 throw new ArgumentNullException(nameof(countrySettings));
             }
             
+            this.StoragePlaceholder = storage;
+
             _regionManager = regionManager;
             _importHelper = importHelper;
             _dialogService = dialogService;

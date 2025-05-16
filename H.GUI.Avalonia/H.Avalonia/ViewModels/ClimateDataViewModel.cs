@@ -82,14 +82,19 @@ namespace H.Avalonia.ViewModels
         {
         }
 
-        public ClimateDataViewModel(IRegionManager regionManager, Storage storage, ImportHelpers importHelper,
-            IDialogService dialogService) : base(regionManager, storage)
+        public ClimateDataViewModel(
+            IRegionManager regionManager, 
+            ImportHelpers importHelper,
+            IDialogService dialogService,
+            Storage storage) : base(regionManager)
         {
             _regionManager = regionManager;
             _importHelper = importHelper;
             _dialogService = dialogService;
             InitializeCommands();
             _climateViewItemMap = new ClimateViewItemMap();
+
+            base.StoragePlaceholder = storage;
         }
         
         /// <summary>

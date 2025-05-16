@@ -79,12 +79,12 @@ namespace H.Avalonia.Views.ResultViews
                 ViewModel.ExportToCsvCommand.Execute(file);
             }
         }
-        
-        #endregion
 
         private void ChooseSelectedSoilButton_OnClick(object? sender, RoutedEventArgs e)
         {
             this.ViewModel?.ChooseSelectedSoilCommand.Execute();
         }
+
+        #endregion
     }
 }

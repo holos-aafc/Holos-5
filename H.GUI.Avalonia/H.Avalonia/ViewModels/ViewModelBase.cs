@@ -66,7 +66,7 @@ namespace H.Avalonia.ViewModels
             }
         }
 
-        protected ViewModelBase(IRegionManager regionManager)
+        protected ViewModelBase(IRegionManager regionManager, IEventAggregator eventAggregator) : this(eventAggregator)
         {
             if (regionManager != null)
             {
@@ -99,22 +99,10 @@ namespace H.Avalonia.ViewModels
             }
         }
 
-        protected ViewModelBase(IRegionManager regionManager, Storage storage) : this(regionManager)
-        {
-            if (storage != null)
-            {
-                StoragePlaceholder = storage;
-            }
-            else
-            {
-                throw new ArgumentNullException(nameof(storage));
-            }
-        }
-
         protected ViewModelBase(
             IRegionManager regionManager, 
             IEventAggregator eventAggregator,
-            IStorageService storageService) : this(regionManager)
+            IStorageService storageService) : this(regionManager, storageService)
         {
             if (storageService != null)
             {
@@ -133,15 +121,15 @@ namespace H.Avalonia.ViewModels
             this.SetActiveFarm(this.StorageService);
         }
 
-        protected ViewModelBase(IRegionManager regionManager, IEventAggregator eventAggregator, Storage storage) : this(regionManager, storage)
+        protected ViewModelBase(IRegionManager regionManager)
         {
-            if (eventAggregator != null)
+            if (regionManager != null)
             {
-                this.EventAggregator = eventAggregator;
+                this.RegionManager = regionManager;
             }
             else
             {
-                throw new ArgumentNullException(nameof(eventAggregator));
+                throw new ArgumentNullException(nameof(regionManager));
             }
         }
 

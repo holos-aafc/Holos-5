@@ -47,8 +47,7 @@ namespace H.Avalonia.ViewModels.SupportingViews.Disclaimer
 
         public DisclaimerViewModel(IRegionManager regionManager,
                                    IEventAggregator eventAggregator,
-                                   Storage storage,
-                                   ICountrySettings countrySettings) : base(regionManager, eventAggregator, storage)
+                                   ICountrySettings countrySettings) : base(regionManager, eventAggregator)
         {
             if (countrySettings != null)
             {

@@ -42,10 +42,10 @@ namespace H.Avalonia.ViewModels.OptionsViews
                 {
                     // File Menu
                     case "New Farm":
-                        base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(FarmCreationView));
+                        base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(FileNewFarmView));
                         break;
                     case "Open Farm":
-                        base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(FarmOpenExistingView));
+                        base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(FileOpenFarmView));
                         break;
 
                     case "Close Farm":

@@ -35,6 +35,7 @@ public class MyComponentsViewModel : ViewModelBase
         base.PropertyChanged += OnPropertyChanged;
 
         var globalSettings = this.StorageService.Storage.ApplicationData.GlobalSettings;
+        globalSettings.PropertyChanged -= ActiveFarmChanged;
         globalSettings.PropertyChanged += ActiveFarmChanged;
 
         this.MyComponents = new ObservableCollection<ComponentBase>();

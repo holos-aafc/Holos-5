@@ -38,9 +38,10 @@ namespace H.Avalonia.ViewModels
         #endregion
 
         #region Properties
-        private DelegateCommand NavigateToPreviousPage { get; }
-        private DelegateCommand NavigateToNextPage { get; }
-        private ObservableCollection<Farm> Farms
+
+        public DelegateCommand NavigateToPreviousPage { get; }
+        public DelegateCommand NavigateToNextPage { get; }
+        public ObservableCollection<Farm> Farms
         {
             get => _farms;
             set
@@ -48,7 +49,8 @@ namespace H.Avalonia.ViewModels
                 SetProperty(ref _farms, value);
             }
         }
-        private Farm SelectedFarm
+
+        public Farm SelectedFarm
         {
             get => _selectedFarm;
             set
@@ -57,7 +59,8 @@ namespace H.Avalonia.ViewModels
                 NavigateToNextPage.RaiseCanExecuteChanged();
             }
         }
-        private string SearchText
+
+        public string SearchText
         {
             get => _searchText;
             set

@@ -144,7 +144,7 @@ namespace H.Avalonia.ViewModels.OptionsViews
 
             if (property < 0.0)
             {
-                AddError(propertyName, H.Core.Properties.Resources.ErrorMustBeGreaterThan0);
+                AddError(propertyName, H.Core.Properties.Resources.ErrorMustBeNonNegative);
                 return false;
             }
 

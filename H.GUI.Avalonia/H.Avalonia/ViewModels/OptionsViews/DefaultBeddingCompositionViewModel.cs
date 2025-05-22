@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using H.Core.Calculators.UnitsOfMeasurement;
+using H.Core.Models;
 using H.Core.Services.StorageService;
 using Prism.Events;
 using Prism.Regions;
@@ -33,17 +34,9 @@ namespace H.Avalonia.ViewModels.OptionsViews
 
             BeddingCompositionDataViewModels = new ObservableCollection<DefaultBeddingCompositionDataViewModel>();
 
-            foreach (var dataClassInstance in base.ActiveFarm.DefaultsCompositionOfBeddingMaterials)
-            {
-                var dataClassViewModel = new DefaultBeddingCompositionDataViewModel(dataClassInstance, _unitsCalculator);
-                dataClassViewModel.SetInitializationFlag(true);
-                dataClassViewModel.TotalNitrogenKilogramsDryMatter = dataClassInstance.TotalNitrogenKilogramsDryMatter;
-                dataClassViewModel.TotalPhosphorusKilogramsDryMatter = dataClassInstance.TotalPhosphorusKilogramsDryMatter;
-                dataClassViewModel.TotalCarbonKilogramsDryMatter = dataClassInstance.TotalCarbonKilogramsDryMatter;
-                dataClassViewModel.CarbonToNitrogenRatio = dataClassInstance.CarbonToNitrogenRatio;
-                dataClassViewModel.SetInitializationFlag(false);
-                BeddingCompositionDataViewModels.Add(dataClassViewModel);
-            }
+            var globalSettings = this.StorageService.Storage.ApplicationData.GlobalSettings;
+            globalSettings.PropertyChanged -= ActiveFarmChanged;
+            globalSettings.PropertyChanged += ActiveFarmChanged;
         }
 
         #endregion
@@ -80,23 +73,30 @@ namespace H.Avalonia.ViewModels.OptionsViews
 
         public override void OnNavigatedTo(NavigationContext navigationContext)
         {
-            SetStrings(); 
+            SetStrings();
+
+            if (!IsInitialized)
+            {
+                BeddingCompositionDataViewModels.Clear();
+                foreach (var dataClassInstance in base.ActiveFarm.DefaultsCompositionOfBeddingMaterials)
+                {
+                    var dataClassViewModel = new DefaultBeddingCompositionDataViewModel(dataClassInstance, _unitsCalculator);
+                    dataClassViewModel.SetInitializationFlag(true);
+                    dataClassViewModel.TotalNitrogenKilogramsDryMatter = dataClassInstance.TotalNitrogenKilogramsDryMatter;
+                    dataClassViewModel.TotalPhosphorusKilogramsDryMatter = dataClassInstance.TotalPhosphorusKilogramsDryMatter;
+                    dataClassViewModel.TotalCarbonKilogramsDryMatter = dataClassInstance.TotalCarbonKilogramsDryMatter;
+                    dataClassViewModel.CarbonToNitrogenRatio = dataClassInstance.CarbonToNitrogenRatio;
+                    dataClassViewModel.SetInitializationFlag(false);
+                    BeddingCompositionDataViewModels.Add(dataClassViewModel);
+                }
+                IsInitialized = true;
+            }
+
         }
 
         #endregion
 
         #region Private Methods
-
-        private void UnitsOfMeasurementChangeListener(object? sender, PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == nameof(IUnitsOfMeasurementCalculator.IsMetric))
-            {
-                foreach (var viewModel in  BeddingCompositionDataViewModels)
-                {
-                    viewModel.UpdateUnitsOfMeasurementDependentProperties();
-                }
-            }
-        }
 
         private void SetStrings()
         {
@@ -104,6 +104,29 @@ namespace H.Avalonia.ViewModels.OptionsViews
             NitrogenConcentrationHeader = H.Core.Properties.Resources.LabelTotalNitrogen + " " + displayUnits.KilogramsNitrogenPerKilogramDryMatter;
             PhosphorusConcentrationHeader = H.Core.Properties.Resources.LabelTotalPhosphorus + " " + displayUnits.KilogramsPhosphorusPerKilogramDryMatter;
             CarbonConcentrationHeader = H.Core.Properties.Resources.LabelTotalCarbon + " " + displayUnits.KilogramsCarbonPerKilogramDryMatter;
+        }
+
+        #endregion
+
+        #region Event Handlers
+
+        private void UnitsOfMeasurementChangeListener(object? sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(IUnitsOfMeasurementCalculator.IsMetric))
+            {
+                foreach (var viewModel in BeddingCompositionDataViewModels)
+                {
+                    viewModel.UpdateUnitsOfMeasurementDependentProperties();
+                }
+            }
+        }
+
+        private void ActiveFarmChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(GlobalSettings.ActiveFarm))
+            {
+                base.IsInitialized = false;
+            }
         }
 
         #endregion

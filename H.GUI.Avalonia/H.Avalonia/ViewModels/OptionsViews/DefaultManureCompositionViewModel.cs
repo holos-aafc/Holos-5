@@ -1,5 +1,7 @@
 ﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
 using H.Core;
+using H.Core.Models;
 using H.Core.Services.StorageService;
 using Prism.Events;
 using Prism.Regions;
@@ -27,18 +29,9 @@ namespace H.Avalonia.ViewModels.OptionsViews
         {
             DefaultManureCompositionDataViewModels = new ObservableCollection<DefaultManureCompositionDataViewModel>();
 
-            foreach(var dataClassInstance in base.ActiveFarm.DefaultManureCompositionData)
-            {
-                var dataClassViewModel = new DefaultManureCompositionDataViewModel(dataClassInstance);
-                dataClassViewModel.SetSuppressValidationFlag(true);
-                dataClassViewModel.MoistureContent = dataClassInstance.MoistureContent;
-                dataClassViewModel.NitrogenFraction = dataClassInstance.NitrogenFraction;
-                dataClassViewModel.CarbonFraction = dataClassInstance.CarbonFraction;
-                dataClassViewModel.PhosphorusFraction = dataClassInstance.PhosphorusFraction;
-                dataClassViewModel.CarbonToNitrogenRatio = dataClassInstance.CarbonToNitrogenRatio;
-                dataClassViewModel.SetSuppressValidationFlag(false);
-                DefaultManureCompositionDataViewModels.Add(dataClassViewModel);
-            }
+            var globalSettings = this.StorageService.Storage.ApplicationData.GlobalSettings;
+            globalSettings.PropertyChanged -= ActiveFarmChanged;
+            globalSettings.PropertyChanged += ActiveFarmChanged;
         }
          
         #endregion
@@ -82,6 +75,24 @@ namespace H.Avalonia.ViewModels.OptionsViews
         public override void OnNavigatedTo(NavigationContext navigationContext)
         {
             SetStrings();
+
+            if (!IsInitialized)
+            {
+                DefaultManureCompositionDataViewModels.Clear();
+                foreach (var dataClassInstance in base.ActiveFarm.DefaultManureCompositionData)
+                {
+                    var dataClassViewModel = new DefaultManureCompositionDataViewModel(dataClassInstance);
+                    dataClassViewModel.SetSuppressValidationFlag(true);
+                    dataClassViewModel.MoistureContent = dataClassInstance.MoistureContent;
+                    dataClassViewModel.NitrogenFraction = dataClassInstance.NitrogenFraction;
+                    dataClassViewModel.CarbonFraction = dataClassInstance.CarbonFraction;
+                    dataClassViewModel.PhosphorusFraction = dataClassInstance.PhosphorusFraction;
+                    dataClassViewModel.CarbonToNitrogenRatio = dataClassInstance.CarbonToNitrogenRatio;
+                    dataClassViewModel.SetSuppressValidationFlag(false);
+                    DefaultManureCompositionDataViewModels.Add(dataClassViewModel);
+                }
+                IsInitialized = true;
+            }
         }
 
         #endregion
@@ -95,6 +106,18 @@ namespace H.Avalonia.ViewModels.OptionsViews
             CarbonFractionHeader = H.Core.Properties.Resources.LabelTotalCarbon + " " + displayUnits.PercentageWetWeight;
             PhosphorusFractionHeader = H.Core.Properties.Resources.LabelTotalPhosphorus + " " + displayUnits.PercentageWetWeight;
             MoistureContentHeader = H.Core.Properties.Resources.LabelMoistureContent + " " + displayUnits.PercentageString;
+        }
+
+        #endregion
+
+        #region Event Handlers
+
+        private void ActiveFarmChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(GlobalSettings.ActiveFarm))
+            {
+                base.IsInitialized = false;
+            }
         }
 
         #endregion

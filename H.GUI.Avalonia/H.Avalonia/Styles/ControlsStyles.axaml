@@ -9,7 +9,7 @@
     <!-- Button Styles -->
     <Style Selector="Button">
         <Setter Property="Cursor" Value="Hand"/>
-        <Setter Property="Background" Value="DarkGreen" />
+        <Setter Property="Background" Value="#3399fe" />
 		<Setter Property="Foreground" Value="White" />
 		<Setter Property="FontWeight" Value="SemiBold" />
         <Setter Property="Padding" Value="50, 10"/>

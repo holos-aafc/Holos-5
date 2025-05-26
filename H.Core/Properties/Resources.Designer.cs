@@ -2248,6 +2248,15 @@ namespace H.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Crop.
+        /// </summary>
+        public static string EnumCrop {
+            get {
+                return ResourceManager.GetString("EnumCrop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Choose crop.
         /// </summary>
         public static string EnumCropNotSelected {
@@ -3144,6 +3153,15 @@ namespace H.Core.Properties {
         public static string EnumGrassCloverMixtures {
             get {
                 return ResourceManager.GetString("EnumGrassCloverMixtures", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Grassland.
+        /// </summary>
+        public static string EnumGrassland {
+            get {
+                return ResourceManager.GetString("EnumGrassland", resourceCulture);
             }
         }
         

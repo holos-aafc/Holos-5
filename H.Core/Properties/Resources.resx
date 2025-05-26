@@ -6258,4 +6258,10 @@ Please note: emissions related to the deposition or application of livestock man
   <data name="EnumSelectProvince" xml:space="preserve">
     <value>Select Province</value>
   </data>
+  <data name="EnumCrop" xml:space="preserve">
+    <value>Crop</value>
+  </data>
+  <data name="EnumGrassland" xml:space="preserve">
+    <value>Grassland</value>
+  </data>
 </root>

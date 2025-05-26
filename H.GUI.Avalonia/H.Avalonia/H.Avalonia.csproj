@@ -81,6 +81,9 @@
     <Compile Update="Views\ClimateDataView.axaml.cs">
       <DependentUpon>ClimateDataView.axaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\ComponentViews\Crop\CropComponentView.axaml.cs">
+      <DependentUpon>CropComponentView.axaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\ComponentViews\MyComponentsView.axaml.cs">
       <DependentUpon>MyComponentsView.axaml</DependentUpon>
     </Compile>

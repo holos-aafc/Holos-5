@@ -74,6 +74,7 @@ namespace H.Core.Enumerations
         [LocalizedDescription("EnumDairy", typeof(Resources))]
         Dairy,
 
+
         [LocalizedDescription("EnumDairyBulls", typeof(Resources))]
         DairyBulls,
 

@@ -47,6 +47,7 @@ using System.Threading;
 using H.Core.Enumerations;
 using H.Avalonia.ViewModels.SupportingViews.Start;
 using H.Core.Calculators.UnitsOfMeasurement;
+using H.Avalonia.ViewModels.ComponentViews.Crop;
 
 namespace H.Avalonia
 {
@@ -124,6 +125,7 @@ namespace H.Avalonia
             containerRegistry.RegisterForNavigation<BackgroundingComponentView, BackgroundingComponentViewModel>();
             containerRegistry.RegisterForNavigation<FinishingComponentView, FinishingComponentViewModel>();
             containerRegistry.RegisterForNavigation<DairyComponentView, DairyComponentViewModel>();
+            containerRegistry.RegisterForNavigation<CropComponentView, CropComponentViewModel>();
             containerRegistry.RegisterForNavigation<RamsComponentView, RamsComponentViewModel>();
             containerRegistry.RegisterForNavigation<LambsAndEwesComponentView, LambsAndEwesComponentViewModel>();
             containerRegistry.RegisterForNavigation<GoatsComponentView, GoatsComponentViewModel>();

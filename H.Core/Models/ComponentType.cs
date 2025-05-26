@@ -34,6 +34,9 @@ namespace H.Core.Models
         [LocalizedDescription("EnumDairy", typeof(Properties.Resources))]
         Dairy,
 
+        [LocalizedDescription("EnumCrop", typeof(Properties.Resources))]
+        Crop,
+
         [LocalizedDescription("EnumDairyLactating", typeof(Properties.Resources))]
         DairyLactating,
 
@@ -162,5 +165,6 @@ namespace H.Core.Models
 
         [LocalizedDescription("EnumAnaerobicDigestion", typeof(Properties.Resources))]
         AnaerobicDigestion,
+
     }
 }

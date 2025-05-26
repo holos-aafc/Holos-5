@@ -28,6 +28,7 @@ using H.Core.Services.StorageService;
 using H.Infrastructure;
 using ReactiveUI;
 using H.Core.Models.LandManagement.Grassland;
+using H.Core.Models.LandManagement.Crop;
 
 namespace H.Avalonia.ViewModels.ComponentViews
 {

@@ -50,14 +50,27 @@ public class ComponentTypeToViewTypeMapper
             return nameof(DairyComponentView);
          }
 
-         if (component.ComponentType == ComponentType.Crop)
+        /*
+         * Crop
+        */
+
+        if (component.ComponentType == ComponentType.Crop)
          {
             return nameof(CropComponentView);
          }
 
-         /*
-          * Swine
-          */
+        /*
+         * Grassland
+        */
+
+        if (component.ComponentType == ComponentType.Grassland)
+        {
+            return nameof(GrasslandComponentView);
+        }
+
+        /*
+         * Swine
+         */
 
         if (component.ComponentType == ComponentType.SwineGrowers)
         {

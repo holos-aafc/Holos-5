@@ -27,7 +27,7 @@ using H.Core.Models.Animals.Poultry.Turkey;
 using H.Core.Services.StorageService;
 using H.Infrastructure;
 using ReactiveUI;
-using H.Core.Models.LandManagement.Crops;
+using H.Core.Models.LandManagement.Grassland;
 
 namespace H.Avalonia.ViewModels.ComponentViews
 {
@@ -122,6 +122,13 @@ namespace H.Avalonia.ViewModels.ComponentViews
 
             _availableComponents.Add(new CropComponent());
 
+
+
+            /*
+             * Grassland Component
+             */
+
+            _availableComponents.Add(new GrasslandComponent());
 
             /*
              * Land Management

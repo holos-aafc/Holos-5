@@ -6,7 +6,7 @@ using H.Infrastructure;
 
 #endregion
 
-namespace H.Core.Models.LandManagement.Grassland
+namespace H.Core.Models.LandManagement.Crop
 {
     public class CropComponent : ComponentBase
     {

@@ -83,7 +83,7 @@ namespace H.Avalonia.ViewModels.OptionsViews
         {
             if (e.PropertyName == nameof(GlobalSettings.ActiveFarm))
             {
-                base.IsInitialized = false;
+                IsInitialized = false;
             }
         }
 

@@ -17,13 +17,13 @@
 	  <ScrollViewer Grid.Row="1">
 		  <StackPanel Margin="20" Spacing="10" Width="350" VerticalAlignment="Center" HorizontalAlignment="Center">
 			  <TextBlock Text="{x:Static properties:Resources.LabelEcodistrict}"/>
-			  <TextBox IsReadOnly="True" IsEnabled="False" Text="{Binding ActiveFarm.DefaultSoilData.EcodistrictName, Mode=TwoWay}"  />
+			  <TextBox IsReadOnly="True" IsEnabled="False" Text="{Binding Data.BindingSoilData.EcodistrictName, Mode=TwoWay}"  />
 			  <TextBlock Text="{x:Static properties:Resources.SoilFunctionalCategory}"/>
-			  <TextBox IsReadOnly="True" IsEnabled="False" TextChanged="" Text="{Binding ActiveFarm.DefaultSoilData.SoilFunctionalCategoryString, Mode=TwoWay}"  />
+			  <TextBox IsReadOnly="True" IsEnabled="False" TextChanged="" Text="{Binding Data.BindingSoilData.SoilFunctionalCategoryString, Mode=TwoWay}"  />
 			  <TextBlock Text="{x:Static properties:Resources.LabelSoilGreatGroup}"/>
-			  <TextBox IsReadOnly="True" IsEnabled="False" TextChanged="" Text="{Binding ActiveFarm.DefaultSoilData.SoilGreatGroupString, Mode=TwoWay}"  />
+			  <TextBox IsReadOnly="True" IsEnabled="False" TextChanged="" Text="{Binding Data.BindingSoilData.SoilGreatGroupString, Mode=TwoWay}"  />
 			  <TextBlock Text="{x:Static properties:Resources.SoilTexture}"/>
-			  <ComboBox HorizontalAlignment="Stretch" ItemsSource="{Binding Data.SoilTextures}" SelectedItem="{Binding ActiveFarm.DefaultSoilData.SoilTexture, Mode=TwoWay}"  />
+			  <ComboBox HorizontalAlignment="Stretch" ItemsSource="{Binding Data.SoilTextures}"  SelectedItem="{Binding Data.BindingSoilData.SoilTexture}" /> <!--SelectedItem="{Binding ActiveFarm.DefaultSoilData.SoilTexture, Mode=TwoWay}"-->
 			  <TextBlock Text="{x:Static properties:Resources.TopLayerThickness}">
 				  <Run Text=" "></Run>
 				  <Run Text="{x:Static properties:Resources.UnitMm}"></Run>

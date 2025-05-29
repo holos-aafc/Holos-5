@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ExCSS;
+using H.Core.Enumerations;
 using H.Core.Services.StorageService;
 using Mapsui.Extensions;
 
@@ -13,12 +14,17 @@ namespace H.Avalonia.ViewModels.OptionsViews
     {
         #region Fields
         private string _coordinates;
+        private int _polygonId;
+        private Province _province;
+        private string _hardinessZoneString;
+        private bool _isBasicMode;
         #endregion
 
         #region Constructors
         public FarmDisplayViewModel(IStorageService storageService) : base(storageService)
         {
             Coordinates = $"{ActiveFarm.Latitude}, {ActiveFarm.Longitude}";
+            _isBasicMode = ActiveFarm.IsBasicMode;
         }
         #endregion
 
@@ -85,6 +91,33 @@ namespace H.Avalonia.ViewModels.OptionsViews
                     ActiveFarm.ClimateData.EvapotranspirationData.GrowingSeasonEvapotranspiration = value;
                     RaisePropertyChanged(nameof(GrowingSeasonEvapotranspiration));
             }
+        }
+        public int PolygonId
+        {
+            get => ActiveFarm.PolygonId;
+        }
+        public Province Province
+        {
+            get => ActiveFarm.Province;
+        }
+        public string HardinessZoneString
+        {
+            get => ActiveFarm.GeographicData.HardinessZoneString;
+        }
+        public bool IsBasicMode
+        {
+            get => _isBasicMode;
+            set
+            {
+                if(SetProperty(ref _isBasicMode, value))
+                {
+                    ActiveFarm.IsBasicMode = value;
+                }
+            }
+        }
+        public bool IsAdvancedMode
+        {
+            get => this.IsBasicMode == false;
         }
         #endregion
 

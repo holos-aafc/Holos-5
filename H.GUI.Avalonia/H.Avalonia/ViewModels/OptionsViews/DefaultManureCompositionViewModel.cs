@@ -29,7 +29,7 @@ namespace H.Avalonia.ViewModels.OptionsViews
         {
             DefaultManureCompositionDataViewModels = new ObservableCollection<DefaultManureCompositionDataViewModel>();
 
-            var globalSettings = this.StorageService.Storage.ApplicationData.GlobalSettings;
+            var globalSettings = StorageService.Storage.ApplicationData.GlobalSettings;
             globalSettings.PropertyChanged -= ActiveFarmChanged;
             globalSettings.PropertyChanged += ActiveFarmChanged;
         }
@@ -116,7 +116,7 @@ namespace H.Avalonia.ViewModels.OptionsViews
         {
             if (e.PropertyName == nameof(GlobalSettings.ActiveFarm))
             {
-                base.IsInitialized = false;
+                IsInitialized = false;
             }
         }
 

@@ -109,7 +109,7 @@ namespace H.Avalonia.ViewModels
             base.StorageService.Storage.ApplicationData.DisplayUnitStrings.SetStrings(this.SelectedFarm.MeasurementSystemType);
 
             base.RegionManager.RequestNavigate(UiRegions.SidebarRegion, nameof(MyComponentsView));
-            var view = this.RegionManager.Regions[UiRegions.ContentRegion].ActiveViews.Single();
+            var view = this.RegionManager.Regions[UiRegions.ContentRegion].ActiveViews.Single(); // there is a bug with this line, hard to reproduce -> System.InvalidOperationException: 'Sequence contains no elements'
             this.RegionManager.Regions[UiRegions.ContentRegion].Deactivate(view);
             this.RegionManager.Regions[UiRegions.ContentRegion].Remove(view);
         }

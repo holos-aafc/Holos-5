@@ -23,6 +23,7 @@ namespace H.Core.Models
 
         private TimePeriodCategory _timePeriodCategory;
         private ComponentCategory _componentCategory;
+        private IrishComponentCategory _irishComponentCategory;
 
         private bool _resultsCalculated;
         private bool _applyChangesToOtherGroups;
@@ -56,6 +57,8 @@ namespace H.Core.Models
         public ObservableCollection<ComponentBase> HistoricalComponents { get; set; } = new ObservableCollection<ComponentBase>();
         public ObservableCollection<ComponentBase> ProjectedComponents { get; set; } = new ObservableCollection<ComponentBase>();
 
+        public IrishComponentType IrishComponentType { get; set; }
+
         public ComponentType ComponentType { get; set; }
 
         public ComponentCategory ComponentCategory
@@ -64,6 +67,15 @@ namespace H.Core.Models
             set
             {
                 SetProperty(ref _componentCategory, value, () => { base.RaisePropertyChanged(nameof(this.ComponentCategoryDisplayString)); });
+            }
+        }
+
+        public IrishComponentCategory IrishComponentCategory
+        {
+            get { return _irishComponentCategory; }
+            set
+            {
+                SetProperty(ref _irishComponentCategory, value, () => { base.RaisePropertyChanged(nameof(this.IrishComponentCategoryDisplayString)); });
             }
         }
 
@@ -96,6 +108,12 @@ namespace H.Core.Models
         public string ComponentCategoryDisplayString
         {
             get { return this.ComponentCategory.GetDescription(); }
+        }
+
+
+        public string IrishComponentCategoryDisplayString
+        {
+            get { return this.IrishComponentCategory.GetDescription(); }
         }
 
         /// <summary>

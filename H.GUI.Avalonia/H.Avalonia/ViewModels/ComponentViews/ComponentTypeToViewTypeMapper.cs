@@ -1,4 +1,5 @@
 using H.Core.Models;
+using H.Core.Models.LandManagement.Rotation.Crops;
 
 namespace H.Avalonia.ViewModels.ComponentViews;
 
@@ -17,6 +18,17 @@ public class ComponentTypeToViewTypeMapper
 
         if (component.ComponentType == ComponentType.Rotation)
         {
+
+            if(component.IrishComponentType == IrishComponentType.Crops)
+            {
+                return nameof(CropComponentView);
+            }
+
+            if (component.IrishComponentType == IrishComponentType.Grasses)
+            {
+                return nameof(GrasslandComponentView);
+            }
+
             return nameof(RotationComponentView);
         }
         if (component.ComponentType == ComponentType.Shelterbelt)
@@ -50,23 +62,7 @@ public class ComponentTypeToViewTypeMapper
             return nameof(DairyComponentView);
          }
 
-        /*
-         * Crop
-        */
-
-        if (component.ComponentType == ComponentType.Crop)
-         {
-            return nameof(CropComponentView);
-         }
-
-        /*
-         * Grassland
-        */
-
-        if (component.ComponentType == ComponentType.Grassland)
-        {
-            return nameof(GrasslandComponentView);
-        }
+     
 
         /*
          * Swine

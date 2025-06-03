@@ -16,7 +16,6 @@ namespace H.Avalonia.Views
         {
             InitializeComponent();
             InitializeFooterImage();
-
         }
         public void InitializeFooterImage()
         {   

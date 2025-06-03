@@ -6264,4 +6264,16 @@ Please note: emissions related to the deposition or application of livestock man
   <data name="EnumGrassland" xml:space="preserve">
     <value>Grassland</value>
   </data>
+  <data name="TitleRotationGrassesComponent" xml:space="preserve">
+    <value>Grasses</value>
+  </data>
+  <data name="TooltipRotationGrassesComponent" xml:space="preserve">
+    <value>A component to create a crop rotation. A single grass rotation component can be used instead of multiple field components.</value>
+  </data>
+  <data name="TitleRotationCropsComponent" xml:space="preserve">
+    <value>Crops</value>
+  </data>
+  <data name="TooltipRotationCropsComponent" xml:space="preserve">
+    <value>A component to create a crop rotation. A single crop rotation component can be used instead of multiple field components.</value>
+  </data>
 </root>

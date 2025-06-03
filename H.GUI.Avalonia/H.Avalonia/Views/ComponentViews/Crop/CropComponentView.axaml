@@ -2,7 +2,137 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="H.Avalonia.CropComponentView">
-  This is a crop component
+             mc:Ignorable="d"
+             x:Class="H.Avalonia.CropComponentView"
+             d:DesignWidth="1000" d:DesignHeight="800">
+
+	<Border>
+		<ScrollViewer>
+			<StackPanel Spacing="20">
+				<TextBlock Text="Crops" FontSize="24" FontWeight="Bold"/>
+				<!-- Step 1 -->
+				<TextBlock Text="Step 1: Field Details" FontSize="20" FontWeight="Bold"/>
+				<Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto" >
+
+					<!-- Start Year -->
+					<TextBlock Grid.Row="0" Text="Start Year" Margin="0 0 0 4"/>
+					<NumericUpDown	Grid.Row="1"
+									Width="200"
+									Watermark="e.g. 2020"
+									HorizontalAlignment="Left"
+									Margin="0 0 0 12"
+									Increment="1"
+
+					/>
+
+					<!-- End Year -->
+					<TextBlock Grid.Row="2" Text="End Year" Margin="0 0 0 4"/>
+					<NumericUpDown	Grid.Row="3"
+									Width="200"
+									Watermark="e.g. 2025"
+									HorizontalAlignment="Left"
+									Margin="0 0 0 12"
+									Increment="1"
+
+					/>
+
+					<!-- Total Area -->
+					<TextBlock Grid.Row="4" Text="Total Area (ha)" Margin="0 0 0 4"/>
+					<NumericUpDown	Grid.Row="5"
+									Width="200"
+									Watermark="e.g. 15.5"
+									HorizontalAlignment="Left"
+									Margin="0 0 0 12"
+									Increment="0.25"
+					/>
+					
+
+				</Grid>
+
+
+				<!-- Step 2 -->
+				<TextBlock Text="Step 2: Crop Planning" FontSize="20" FontWeight="Bold"/>
+				<Button Content="Add Crop"/>
+
+				<DataGrid AutoGenerateColumns="False" Height="200"
+							ItemsSource="{Binding Crops}">
+					<DataGrid.Columns>
+						<DataGridTextColumn Header="Year" Binding="{Binding Year}" Width="100"/>
+						<DataGridTemplateColumn Header="Crop" Width="200">
+							<DataGridTemplateColumn.CellTemplate>
+								<DataTemplate>
+									<ComboBox Width="180" SelectedItem="{Binding Crop}">
+										<ComboBoxItem>Wheat</ComboBoxItem>
+										<ComboBoxItem>Barley</ComboBoxItem>
+										<ComboBoxItem>Oats</ComboBoxItem>
+										<ComboBoxItem>Rye</ComboBoxItem>
+										<ComboBoxItem>Corn</ComboBoxItem>
+									</ComboBox>
+								</DataTemplate>
+							</DataGridTemplateColumn.CellTemplate>
+						</DataGridTemplateColumn>
+						<DataGridTemplateColumn Header="Winter/Cover/Undersown Crop" Width="300">
+							<DataGridTemplateColumn.CellTemplate>
+								<DataTemplate>
+									<ComboBox Width="180" SelectedItem="{Binding CropType}">
+										<ComboBoxItem>Winter</ComboBoxItem>
+										<ComboBoxItem>Cover</ComboBoxItem>
+										<ComboBoxItem>Undersown</ComboBoxItem>
+									</ComboBox>
+								</DataTemplate>
+							</DataGridTemplateColumn.CellTemplate>
+						</DataGridTemplateColumn>
+					</DataGrid.Columns>
+				</DataGrid>
+
+
+				<!-- Step 3 -->
+				<TextBlock Text="Step 3: Crop Details" FontSize="20" FontWeight="Bold"/>
+				<TabControl>
+					<TabItem Header="General">
+						<StackPanel Margin="10" Spacing="8">
+							<!-- Yield (wet weight) -->
+							<StackPanel Orientation="Horizontal">
+								<TextBlock Text="Yield (wet weight):" VerticalAlignment="Center" Width="180"/>
+								<TextBox Width="100" Watermark="e.g. 6000" Margin="5,0"/>
+								<TextBlock Text="(kg ha^-1)" VerticalAlignment="Center" Margin="5,0"/>
+							</StackPanel>
+
+							<!-- Yield (dry weight) -->
+							<StackPanel Orientation="Horizontal">
+								<TextBlock Text="Yield (dry weight):" VerticalAlignment="Center" Width="180"/>
+								<TextBox Width="100" Watermark="e.g. 4500" Margin="5,0"/>
+								<TextBlock Text="(kg ha^-1)" VerticalAlignment="Center" Margin="5,0"/>
+							</StackPanel>
+
+							<!-- Moisture content -->
+							<StackPanel Orientation="Horizontal">
+								<TextBlock Text="Moisture content:" VerticalAlignment="Center" Width="180"/>
+								<TextBox Width="100" Watermark="e.g. 25" Margin="5,0"/>
+								<TextBlock Text="%" VerticalAlignment="Center" Margin="5,0"/>
+							</StackPanel>
+
+							<!-- Tillage -->
+							<StackPanel Orientation="Horizontal">
+								<TextBlock Text="Tillage:" VerticalAlignment="Center" Width="180"/>
+								<ComboBox Width="160" Margin="5,0">
+									<ComboBoxItem Content="Reduced Tillage"/>
+									<ComboBoxItem Content="No Tillage"/>
+								</ComboBox>
+							</StackPanel>
+						</StackPanel>
+
+					</TabItem>
+
+					<TabItem Header="Fertilizer"/>
+					<TabItem Header="Manure"/>
+					<TabItem Header="Winter and Cover Crops"/>
+					<TabItem Header="Soil"/>
+					<TabItem Header="Residue"/>
+					<TabItem Header="Economics"/>
+				</TabControl>
+
+			</StackPanel>
+		</ScrollViewer>
+	</Border>
 </UserControl>

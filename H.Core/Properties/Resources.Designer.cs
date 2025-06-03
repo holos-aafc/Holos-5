@@ -16553,6 +16553,24 @@ namespace H.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Crops.
+        /// </summary>
+        public static string TitleRotationCropsComponent {
+            get {
+                return ResourceManager.GetString("TitleRotationCropsComponent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Grasses.
+        /// </summary>
+        public static string TitleRotationGrassesComponent {
+            get {
+                return ResourceManager.GetString("TitleRotationGrassesComponent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Select farms to export climate data.
         /// </summary>
         public static string TitleSelectFarmClimateToExport {
@@ -17693,6 +17711,24 @@ namespace H.Core.Properties {
         public static string TooltipRotationComponent {
             get {
                 return ResourceManager.GetString("TooltipRotationComponent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A component to create a crop rotation. A single crop rotation component can be used instead of multiple field components..
+        /// </summary>
+        public static string TooltipRotationCropsComponent {
+            get {
+                return ResourceManager.GetString("TooltipRotationCropsComponent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A component to create a crop rotation. A single grass rotation component can be used instead of multiple field components..
+        /// </summary>
+        public static string TooltipRotationGrassesComponent {
+            get {
+                return ResourceManager.GetString("TooltipRotationGrassesComponent", resourceCulture);
             }
         }
         

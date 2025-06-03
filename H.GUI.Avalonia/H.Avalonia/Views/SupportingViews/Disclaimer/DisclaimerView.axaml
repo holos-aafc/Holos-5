@@ -45,7 +45,7 @@
 
 				<Grid Name="DisclaimerGrid" Margin="0,20,0,0">
 					<StackPanel Orientation="Vertical">
-                        <TextBox BorderThickness="0" FontSize="14" Text="{Binding Path=DisclaimerWordString}" FontWeight="Bold" Margin="0,0,0,10"/>
+                        <TextBox BorderThickness="0" FontSize="14" Text="{Binding Path=DisclaimerWordString}" FontWeight="Bold" Margin="0,0,0,10" IsReadOnly="True"/>
 						<TextBox Height="200" TextWrapping="Wrap" IsReadOnly="True"  Text="{Binding Path=DisclaimerRtfString}"/>
 					</StackPanel>
 				</Grid>

@@ -4,7 +4,7 @@ namespace H.Core.Factories;
 
 public abstract class DtoBase : BindableBase
 {
-    protected string _name;
+    private string _name;
 
     public string Name
     {

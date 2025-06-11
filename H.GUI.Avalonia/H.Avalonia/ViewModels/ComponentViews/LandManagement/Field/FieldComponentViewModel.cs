@@ -6,6 +6,7 @@ using H.Core.Models;
 using H.Core.Models.LandManagement.Fields;
 using H.Core.Providers.Plants;
 using H.Core.Services.StorageService;
+using Prism.Commands;
 using Prism.Events;
 using Prism.Regions;
 
@@ -21,12 +22,16 @@ public class FieldComponentViewModel : ViewModelBase
     private ICropDto _selectedCropDto;
     private ObservableCollection<ICropDto> _cropDtoModels;
 
-    private IFieldComponentDtoFactory _fieldComponentDtoFactory;
+    private readonly IFieldComponentDtoFactory _fieldComponentDtoFactory;
     private readonly ICropDtoFactory _cropDtoFactory;
 
     #endregion
 
     #region Constructors
+
+    public FieldComponentViewModel()
+    {
+    }
 
     public FieldComponentViewModel(
         IRegionManager regionManager, 
@@ -54,11 +59,15 @@ public class FieldComponentViewModel : ViewModelBase
         }
         
         this.CropDtos = new ObservableCollection<ICropDto>();
+
+        this.AddCropCommand = new DelegateCommand<object>(OnAddCropExecute, AddCropCanExecute);
     }
 
     #endregion
 
     #region Properties
+
+    public DelegateCommand<object> AddCropCommand { get; set; }
 
     /// <summary>
     /// The selected <see cref="SelectedFieldSystemComponentDto"/>
@@ -94,8 +103,8 @@ public class FieldComponentViewModel : ViewModelBase
         {
             _selectedFieldSystemComponent = fieldSystemComponent;
 
+            this.SelectedFieldSystemComponentDto =  this.InitializeFieldComponentDto(_selectedFieldSystemComponent);
             this.BuildCropDtoCollection(_selectedFieldSystemComponent);
-            this.BuildFieldComponentDto(_selectedFieldSystemComponent);
         }
     }
 
@@ -115,11 +124,21 @@ public class FieldComponentViewModel : ViewModelBase
 
     #region Private Methods
 
-    private void BuildFieldComponentDto(FieldSystemComponent fieldSystemComponent)
+    private IFieldComponentDto InitializeFieldComponentDto(FieldSystemComponent fieldSystemComponent)
     {
-        var fieldDto = _fieldComponentDtoFactory.Create(template: fieldSystemComponent);
+        IFieldComponentDto fieldDto;
 
-        this.SelectedFieldSystemComponentDto = fieldDto;
+        if (fieldSystemComponent.IsInitialized)
+        {
+            fieldDto = _fieldComponentDtoFactory.Create(template: fieldSystemComponent);
+        }
+        else
+        {
+            fieldDto = _fieldComponentDtoFactory.Create();
+            fieldSystemComponent.IsInitialized = true;
+        }
+
+        return fieldDto;
     }
 
     private void BuildCropDtoCollection(FieldSystemComponent fieldSystemComponent)
@@ -132,6 +151,18 @@ public class FieldComponentViewModel : ViewModelBase
 
             this.CropDtos.Add(dto);
         }
+    }
+
+    private bool AddCropCanExecute(object arg)
+    {
+        return true;
+    }
+
+    private void OnAddCropExecute(object obj)
+    {
+        var dto = _cropDtoFactory.Create();
+
+        this.CropDtos.Add(dto);
     }
 
     #endregion

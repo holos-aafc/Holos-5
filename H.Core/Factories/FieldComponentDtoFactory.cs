@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Avalonia.Markup.Xaml.Templates;
 using H.Core.Models.LandManagement.Fields;
 
 namespace H.Core.Factories;
@@ -15,7 +16,7 @@ public class FieldComponentDtoFactory : IFieldComponentDtoFactory
 
     public FieldComponentDtoFactory()
     {
-        var fieldComponentDtoMapperConfiguration = new MapperConfiguration(configuration => { configuration.CreateMap<FieldSystemComponentDto, FieldSystemComponent>(); });
+        var fieldComponentDtoMapperConfiguration = new MapperConfiguration(configuration => { configuration.CreateMap<FieldSystemComponent, FieldSystemComponentDto>(); });
 
         _fieldComponentMapper = fieldComponentDtoMapperConfiguration.CreateMapper();
     }
@@ -26,7 +27,10 @@ public class FieldComponentDtoFactory : IFieldComponentDtoFactory
 
     public IFieldComponentDto Create()
     {
-        throw new NotImplementedException();
+        var fieldComponentDto = new FieldSystemComponentDto();
+        fieldComponentDto.Name = "Field_" + DateTime.Now;
+
+        return fieldComponentDto;
     }
 
     public IFieldComponentDto Create(FieldSystemComponent template)
@@ -37,6 +41,12 @@ public class FieldComponentDtoFactory : IFieldComponentDtoFactory
 
         return fieldComponentDto;
     }
+
+    #endregion
+
+    #region Private Methods
+
+    
 
     #endregion
 }

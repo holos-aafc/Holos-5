@@ -49,6 +49,7 @@ using H.Avalonia.ViewModels.SupportingViews.Start;
 using H.Core.Calculators.UnitsOfMeasurement;
 using H.Core.Factories;
 using H.Core.Services.Countries;
+using H.Core.Services.LandManagement.Fields;
 
 namespace H.Avalonia
 {
@@ -177,6 +178,8 @@ namespace H.Avalonia
 
             // Services
             containerRegistry.RegisterSingleton<IFarmHelper, FarmHelper>();
+            containerRegistry.RegisterSingleton<IComponentInitializationService, ComponentInitializationService>();
+            containerRegistry.RegisterSingleton<IFieldInitializationService, FieldInitializationService>();
 
             // Unit conversion
             containerRegistry.RegisterSingleton<IUnitsOfMeasurementCalculator, UnitsOfMeasurementCalculator>();

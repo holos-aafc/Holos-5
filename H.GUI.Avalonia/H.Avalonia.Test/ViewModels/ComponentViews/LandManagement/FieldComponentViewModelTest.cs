@@ -59,7 +59,7 @@ public class FieldComponentViewModelTest
     [TestMethod]
     public void InitializeViewModelSetFieldSystemComponentToNonNull()
     {
-        _mockFieldComponentDtoFactory.Setup(factory => factory.Create(It.IsAny<FieldSystemComponent>())).Returns(new FieldSystemComponentDto());
+        _mockFieldComponentDtoFactory.Setup(factory => factory.Create()).Returns(new FieldSystemComponentDto());
 
         _viewModel.InitializeViewModel(new FieldSystemComponent());
 

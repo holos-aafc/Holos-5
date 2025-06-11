@@ -36,6 +36,10 @@ namespace H.Avalonia.ViewModels.Results
 
         #region Constructors
 
+        public SoilResultsViewModel()
+        {
+        }
+
         public SoilResultsViewModel(IRegionManager regionManager, ExportHelpers exportHelpers, KmlHelpers kmlHelpers, GeographicDataProvider geographicDataProvider, Storage storage) : base(regionManager)
         {
             this.StoragePlaceholder = storage;

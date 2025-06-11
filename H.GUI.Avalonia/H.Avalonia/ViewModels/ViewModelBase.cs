@@ -31,6 +31,7 @@ namespace H.Avalonia.ViewModels
         private IRegionManager _regionManager;
         private IStorageService _storageService;
         private readonly Dictionary<string, List<string>> _errors = new Dictionary<string, List<string>>();
+        private string _viewName;
         public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
 
         #endregion
@@ -173,9 +174,33 @@ namespace H.Avalonia.ViewModels
             set => SetProperty(ref _activeFarm, value);
         }
 
+        /// <summary>
+        /// String used to refer to a particular other animals component, value set by child classes. Binded to the view(s), used as a title.
+        /// Can be changed by the user, if they happen to leave it empty, an error will be thrown.
+        /// </summary>
+        public string ViewName
+        {
+            get => _viewName;
+            set 
+            {
+                if (SetProperty(ref _viewName, value))
+                {
+                    ValidateViewName();
+                }
+            }
+        }
+
         #endregion
 
         #region Public Methods
+
+        public virtual void InitializeViewModel()
+        {
+        }
+
+        public virtual void InitializeViewModel(ComponentBase component)
+        {
+        }
 
         public bool IsNavigationTarget(NavigationContext navigationContext)
         {
@@ -198,6 +223,7 @@ namespace H.Avalonia.ViewModels
         {
             return true;
         }
+
         public IEnumerable GetErrors(string propertyName)
         {
             if (string.IsNullOrWhiteSpace(propertyName) || !_errors.ContainsKey(propertyName))
@@ -257,6 +283,20 @@ namespace H.Avalonia.ViewModels
 
         #region Private Methods
 
+        /// <summary>
+        /// Ensures that a user cannot leave the <see cref="ViewName"/> empty when editing it in the UI. Uses INotifyDataErrorInfo implementation in <see cref="ViewModelBase"/>.
+        /// </summary>
+        private void ValidateViewName()
+        {
+            RemoveError(nameof(ViewName));
+
+            if (string.IsNullOrEmpty(ViewName))
+            {
+                AddError(nameof(ViewName), H.Core.Properties.Resources.ErrorNameCannotBeEmpty);
+                return;
+            }
+        }
+
         private void SetActiveFarm(IStorageService storageService)
         {
             if (storageService != null)
@@ -268,10 +308,6 @@ namespace H.Avalonia.ViewModels
         #endregion
 
         #region Protected Methods
-
-        protected virtual void InitializeViewModel()
-        {
-        }
 
         #endregion
     }

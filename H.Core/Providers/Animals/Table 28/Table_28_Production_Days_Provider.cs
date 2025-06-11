@@ -9,6 +9,7 @@ using H.Core.Models;
 using H.Core.Models.Animals;
 using H.Core.Providers.Animals.Table_69;
 using H.Infrastructure;
+using CsvResourceNames = H.Content.CsvResourceNames;
 
 namespace H.Core.Providers.Animals.Table_28
 {

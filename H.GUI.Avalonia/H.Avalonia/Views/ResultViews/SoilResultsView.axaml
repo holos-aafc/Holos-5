@@ -60,7 +60,7 @@
                   ItemsSource="{Binding SingleSoilResultsViewItems}"
                   Margin="20,0,20,20"
                   IsReadOnly="True"
-                  IsVisible="{Binding Storage.ShowSingleCoordinateResults}">
+                  IsVisible="{Binding StoragePlaceholder.ShowSingleCoordinateResults}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="{x:Static properties:Resources.LabelLatitude}"
                                     Binding="{Binding Latitude, StringFormat={}{0:0.###}}"
@@ -93,7 +93,7 @@
                   ItemsSource="{Binding SoilResultsViewItems}"
                   Margin="20,0,20,20"
                   IsReadOnly="True"
-                  IsVisible="{Binding Storage.ShowMultipleCoordinateResults}">
+                  IsVisible="{Binding StoragePlaceholder.ShowMultipleCoordinateResults}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="{x:Static properties:Resources.LabelLatitude}"
                                     Binding="{Binding Latitude, StringFormat={}{0:0.##}}"

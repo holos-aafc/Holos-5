@@ -1,7 +1,7 @@
 ﻿using H.Core.Properties;
 using H.Infrastructure;
 
-namespace H.Core.Enumerations
+namespace H.Core.Enumerations.LocationEnumerationsRegions
 {
     public enum RegionNames
     {

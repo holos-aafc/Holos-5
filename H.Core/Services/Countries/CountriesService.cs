@@ -1,7 +1,8 @@
-﻿using H.Core.Enumerations;
-using H.Core.Enumerations.LocationEnumerationsCountries;
+﻿using H.Core.Enumerations.LocationEnumerationsCountries;
+using H.Core.Enumerations.LocationEnumerationsRegions;
+using H.Core.Services.Region;
 
-namespace H.Core.Services.RegionCountries
+namespace H.Core.Services.Countries
 {
     public class CountriesService : ICountries
     {

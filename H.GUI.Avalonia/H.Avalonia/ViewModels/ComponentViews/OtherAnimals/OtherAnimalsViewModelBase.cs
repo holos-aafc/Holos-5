@@ -12,7 +12,6 @@ namespace H.Avalonia.ViewModels.ComponentViews.OtherAnimals
     {
         #region Fields
 
-        private string _viewName;
         private AnimalType _otherAnimalType;
         private ObservableCollection<AnimalGroup> _animalGroups;
         private ObservableCollection<ManagementPeriodViewModel> _managementPeriodViewModels;
@@ -35,22 +34,6 @@ namespace H.Avalonia.ViewModels.ComponentViews.OtherAnimals
         #region Properties
 
         /// <summary>
-        /// String used to refer to a particular other animals component, value set by child classes. Binded to the view(s), used as a title.
-        /// Can be changed by the user, if they happen to leave it empty, an error will be thrown.
-        /// </summary>
-        public string ViewName
-        {
-            get => _viewName;
-            set 
-            {
-                if (SetProperty(ref _viewName, value))
-                {
-                    ValidateViewName();
-                }
-            }
-        }
-
-        /// <summary>
         ///  The <see cref="AnimalType"/> a respective component represents, used in the <see cref="Groups"/> collection / Groups data grid in the view(s), value set in child classes.
         /// </summary>
         public AnimalType OtherAnimalType
@@ -60,7 +43,7 @@ namespace H.Avalonia.ViewModels.ComponentViews.OtherAnimals
         }
 
         /// <summary>
-        /// An Observable Collection that holds <see cref="ManagementPeriodViewModel"/> objects, binded to a DataGrid in the view(s).
+        /// An Observable Collection that holds <see cref="ManagementPeriodViewModel"/> objects, bound to a DataGrid in the view(s).
         /// </summary>
         public ObservableCollection<ManagementPeriodViewModel> ManagementPeriodViewModels
         {
@@ -69,7 +52,7 @@ namespace H.Avalonia.ViewModels.ComponentViews.OtherAnimals
         }
 
         /// <summary>
-        /// An Observable Collection that holds <see cref="AnimalGroup"/> objects, binded to a DataGrid in the view(s).
+        /// An Observable Collection that holds <see cref="AnimalGroup"/> objects, bound to a DataGrid in the view(s).
         /// </summary>
         public ObservableCollection<AnimalGroup> Groups
         {
@@ -106,7 +89,7 @@ namespace H.Avalonia.ViewModels.ComponentViews.OtherAnimals
         }
 
         /// <summary>
-        ///  Binded to a button in the view, adds an item to the <see cref="Groups"/> collection / a row to the respective binded DataGrid. Seeded with <see cref="OtherAnimalType"/>.
+        ///  bound to a button in the view, adds an item to the <see cref="Groups"/> collection / a row to the respective bound DataGrid. Seeded with <see cref="OtherAnimalType"/>.
         /// </summary>
         public void HandleAddGroupEvent()
         {
@@ -114,7 +97,7 @@ namespace H.Avalonia.ViewModels.ComponentViews.OtherAnimals
         }
 
         /// <summary>
-        ///  Binded to a button in the view, adds an item to the <see cref="ManagementPeriodViewModels"/> collection / a row to the respective binded DataGrid. Seeded with some default values.
+        ///  bound to a button in the view, adds an item to the <see cref="ManagementPeriodViewModels"/> collection / a row to the respective bound DataGrid. Seeded with some default values.
         /// </summary>
         public void HandleAddManagementPeriodEvent()
         {
@@ -126,20 +109,6 @@ namespace H.Avalonia.ViewModels.ComponentViews.OtherAnimals
         #endregion
 
         #region Private Methods
-
-        /// <summary>
-        /// Ensures that a user cannot leave the <see cref="ViewName"/> empty when editing it in the UI. Uses INotifyDataErrorInfo implementation in <see cref="ViewModelBase"/>.
-        /// </summary>
-        private void ValidateViewName()
-        {
-            RemoveError(nameof(ViewName));
-
-            if (string.IsNullOrEmpty(ViewName))
-            {
-                AddError(nameof(ViewName), H.Core.Properties.Resources.ErrorNameCannotBeEmpty);
-                return;
-            }
-        }
 
         #endregion
     }

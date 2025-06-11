@@ -172,7 +172,7 @@ namespace H.Avalonia.ViewModels
             CreateWktPolygons();
         }
 
-        protected override void InitializeViewModel()
+        public override void InitializeViewModel()
         {
             base.InitializeViewModel();
 
@@ -353,6 +353,7 @@ namespace H.Avalonia.ViewModels
                 {
                     item.IsSelected = true;
                 }
+
                 AllViewItemsSelected = true;
             }
         }

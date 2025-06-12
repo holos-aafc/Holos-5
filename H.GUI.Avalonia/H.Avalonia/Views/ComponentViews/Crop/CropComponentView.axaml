@@ -213,13 +213,13 @@
 										<DataGridTemplateColumn Header="Amount Applied (kg/ha)" Width="200">
 											<DataGridTemplateColumn.CellTemplate>
 												<DataTemplate>
-													<NumericUpDown Value="{Binding AmountOfBlendedProductApplied}" Minimum="0" Increment="10" Width="80" />
+													<NumericUpDown Value="{Binding AmountOfManureAppliedPerHectare, Mode=TwoWay}" Minimum="0" Increment="100" />
 												</DataTemplate>
 											</DataGridTemplateColumn.CellTemplate>
 										</DataGridTemplateColumn>
 
 										<!-- Delete Button -->
-										<DataGridTemplateColumn Header="Delete" Width="200">
+										<DataGridTemplateColumn Header="" Width="200">
 											<DataGridTemplateColumn.CellTemplate>
 												<DataTemplate>
 													<Button Content="🗑"
@@ -237,7 +237,122 @@
 						</Grid>
 					</TabItem>
 		
-					<TabItem Header="Manure"/>
+					<TabItem Header="Manure">
+					<Grid RowDefinitions="*,Auto">
+						<!-- Header -->
+						<StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+							<TextBlock Text="{Binding SelectedViewItemTitle}" FontSize="18" FontWeight="Bold"/>
+						</StackPanel>
+						<Border Classes="HorizontalLineBorderStyle" Margin="0,0,0,10"/>
+
+						<Grid Grid.Row="0" ColumnDefinitions="*,Auto" >
+							<!-- Left: Applications List -->
+							<StackPanel>
+								<TextBlock Margin="0,10,0,0"
+										   Text="Multiple manure applications can be made to this field."
+										   FontStyle="Italic"
+										   Foreground="Gray"/>
+								<StackPanel Orientation="Horizontal" Margin="0,8,0,8">
+									<Button Content="Add Manure Application"
+											Command="{Binding AddManureApplicationCommand}" />
+								</StackPanel>
+								<DataGrid
+								  ItemsSource="{Binding SelectedViewItem.ManureApplicationViewItems}"
+								  SelectedItem="{Binding SelectedManureApplicationViewItem, Mode=TwoWay}"
+								  AutoGenerateColumns="False"
+								  Height="300"
+								  MaxHeight="500"
+								  IsVisible="{Binding SelectedViewItem.HasManureApplicationViewItems}">
+									<DataGrid.Columns>
+										<!-- Date of Application -->
+										<DataGridTemplateColumn Header="Date">
+											<DataGridTemplateColumn.CellTemplate>
+												<DataTemplate>
+													<DatePicker SelectedDate="{Binding DateOfApplication, Mode=TwoWay}" />
+												</DataTemplate>
+											</DataGridTemplateColumn.CellTemplate>
+										</DataGridTemplateColumn>
+										<!-- Origin of Manure -->
+										<DataGridTemplateColumn Header="Origin of Manure">
+											<DataGridTemplateColumn.CellTemplate>
+												<DataTemplate>
+													<ComboBox ItemsSource="{Binding DataContext.SelectedViewItem.ValidManureLocationSourceTypes, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+															  SelectedItem="{Binding ManureLocationSourceType}" />
+												</DataTemplate>
+											</DataGridTemplateColumn.CellTemplate>
+										</DataGridTemplateColumn>
+										<!-- Manure Type -->
+										<DataGridTemplateColumn Header="Manure Type">
+											<DataGridTemplateColumn.CellTemplate>
+												<DataTemplate>
+													<ComboBox ItemsSource="{Binding DataContext.SelectedViewItem.ValidAnimalManureTypes, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+															  SelectedItem="{Binding AnimalType}" />
+												</DataTemplate>
+											</DataGridTemplateColumn.CellTemplate>
+										</DataGridTemplateColumn>
+										<!-- Manure Handling System -->
+										<DataGridTemplateColumn Header="Manure Handling System">
+											<DataGridTemplateColumn.CellTemplate>
+												<DataTemplate>
+													<ComboBox ItemsSource="{Binding DataContext.SelectedViewItem.ValidManureStateTypesForSelectedTypeOfAnimalManure, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+															  SelectedItem="{Binding ManureStateType}" />
+												</DataTemplate>
+											</DataGridTemplateColumn.CellTemplate>
+										</DataGridTemplateColumn>
+										<!-- Application Method -->
+										<DataGridTemplateColumn Header="Application Method">
+											<DataGridTemplateColumn.CellTemplate>
+												<DataTemplate>
+													<ComboBox ItemsSource="{Binding DataContext.SelectedViewItem.AvailableManureApplicationTypes, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+															  SelectedItem="{Binding ManureApplicationMethod}" />
+												</DataTemplate>
+											</DataGridTemplateColumn.CellTemplate>
+										</DataGridTemplateColumn>
+										<!-- Amount of Manure Applied -->
+										<DataGridTemplateColumn Header="Amount (kg/ha)">
+											<DataGridTemplateColumn.CellTemplate>
+												<DataTemplate>
+													<NumericUpDown Value="{Binding AmountOfManureAppliedPerHectare, Mode=TwoWay}" Minimum="0" Increment="100"/>
+												</DataTemplate>
+											</DataGridTemplateColumn.CellTemplate>
+										</DataGridTemplateColumn>
+										<!-- Amount of Nitrogen Applied -->
+										<DataGridTemplateColumn Header="N Applied (kg/ha)">
+											<DataGridTemplateColumn.CellTemplate>
+												<DataTemplate>
+													<NumericUpDown Value="{Binding AmountOfNitrogenAppliedPerHectare, Mode=TwoWay}" Minimum="0" Increment="100" />
+												</DataTemplate>
+											</DataGridTemplateColumn.CellTemplate>
+										</DataGridTemplateColumn>
+										<!-- Nitrogen Fraction -->
+										<DataGridTemplateColumn Header="N Fraction">
+											<DataGridTemplateColumn.CellTemplate>
+												<DataTemplate>
+													<NumericUpDown Value="{Binding DefaultManureCompositionData.NitrogenContent, Mode=TwoWay}" Minimum="0" Maximum="1" Increment="0.0001" />
+												</DataTemplate>
+											</DataGridTemplateColumn.CellTemplate>
+										</DataGridTemplateColumn>
+										<!-- Delete -->
+										<DataGridTemplateColumn Header="">
+											<DataGridTemplateColumn.CellTemplate>
+												<DataTemplate>
+													<Button Content="🗑" Command="{Binding DataContext.DeleteManureApplicationCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+															CommandParameter="{Binding .}" Background="Transparent" BorderBrush="Transparent" />
+												</DataTemplate>
+											</DataGridTemplateColumn.CellTemplate>
+										</DataGridTemplateColumn>
+									</DataGrid.Columns>
+								</DataGrid>
+							</StackPanel>
+							<!-- Right: Details (placeholder for ManureApplicationDetailsView) -->
+							<ContentControl Grid.Column="1" Content="{Binding SelectedManureApplicationViewItem}" />
+						</Grid>
+						<!-- Messages -->
+						<ContentControl Grid.Row="1" Margin="0,20,0,0"
+										Content="{Binding ManureTabMessageContext}" />
+					</Grid>
+					</TabItem>
+					
 					<TabItem Header="Winter and Cover Crops"/>
 					<TabItem Header="Soil"/>
 					<TabItem Header="Residue"/>

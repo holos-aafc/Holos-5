@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using AutoMapper;
+using H.Core.Enumerations;
 using H.Core.Factories;
 using H.Core.Models;
 using H.Core.Models.LandManagement.Fields;
@@ -22,6 +23,7 @@ public class FieldComponentViewModel : ViewModelBase
     private IFieldComponentDto _selectedFieldSystemComponentDto;
     private ICropDto _selectedCropDto;
     private ObservableCollection<ICropDto> _cropDtoModels;
+    private ObservableCollection<CropType> _cropTypes;
 
     private readonly IFieldComponentDtoFactory _fieldComponentDtoFactory;
     private readonly ICropDtoFactory _cropDtoFactory;
@@ -60,6 +62,7 @@ public class FieldComponentViewModel : ViewModelBase
         }
         
         this.CropDtos = new ObservableCollection<ICropDto>();
+        this.CropTypes = new ObservableCollection<CropType>() { CropType.Wheat, CropType.Barley, CropType.Oats };
 
         this.AddCropCommand = new DelegateCommand<object>(OnAddCropExecute, AddCropCanExecute);
     }
@@ -92,6 +95,12 @@ public class FieldComponentViewModel : ViewModelBase
     {
         get => _cropDtoModels;
         set => SetProperty(ref _cropDtoModels, value);
+    }
+
+    public ObservableCollection<CropType> CropTypes
+    {
+        get => _cropTypes;
+        set => SetProperty(ref _cropTypes, value);
     }
 
     #endregion

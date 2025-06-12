@@ -38,7 +38,21 @@
                       GridLinesVisibility="All">
 
                 <DataGrid.Columns>
-                    <DataGridTextColumn Width="Auto" Header="Crop Type" Binding="{Binding Path=CropType}"/>
+                    <DataGridTextColumn Width="Auto" 
+                                        Header="Year" 
+                                        Binding="{Binding Path=Year}" 
+                                        IsReadOnly="True"/>
+
+					<DataGridTemplateColumn MinWidth="120"  Header="Crop" IsReadOnly="False">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <ComboBox x:Name="combo" 
+                                          MinWidth="200"
+                                          ItemsSource="{Binding Path=CropTypes}"
+                                          SelectedItem="{Binding Path=CropType}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>

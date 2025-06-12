@@ -48,6 +48,7 @@ using H.Core.Enumerations;
 using H.Avalonia.ViewModels.SupportingViews.Start;
 using H.Core.Calculators.UnitsOfMeasurement;
 using H.Avalonia.ViewModels.FarmCreationViews;
+using H.Avalonia.ViewModels.OptionsViews.FileMenuViews;
 
 namespace H.Avalonia
 {
@@ -149,6 +150,7 @@ namespace H.Avalonia
             containerRegistry.RegisterForNavigation<StartView, StartViewModel>();
             containerRegistry.RegisterForNavigation<FileNewFarmView, FileNewFarmViewModel>();
             containerRegistry.RegisterForNavigation<FileOpenFarmView, FileOpenFarmViewModel>();
+            containerRegistry.RegisterForNavigation<FarmManagementView, FarmManagementViewModel>();
 
             // Blank Page
             containerRegistry.RegisterForNavigation<BlankView, BlankViewModel>();

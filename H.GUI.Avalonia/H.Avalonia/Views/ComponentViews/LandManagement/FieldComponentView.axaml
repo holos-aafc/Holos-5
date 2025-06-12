@@ -27,9 +27,13 @@
         </StackPanel>
 
         <StackPanel Grid.Row="1">
-            <Button Command="{Binding AddCropCommand}" Classes="add-group" Content="Add Crop"></Button>
+            <StackPanel Orientation="Horizontal">
+                <Button Command="{Binding AddCropCommand}" Classes="add-group" Content="Add Crop"/>
+                <Button Command="{Binding RemoveCropCommand}" Classes="add-group" Content="Remove Crop"/>
+			</StackPanel>
 
-			<DataGrid ItemsSource="{Binding Path=CropDtos}" 
+			<DataGrid ItemsSource="{Binding Path= SelectedFieldSystemComponentDto.CropDtos}" 
+                      SelectedItem="{Binding Path=SelectedCropDto}"
                       AutoGenerateColumns="False" 
                       Margin="10,20,0,0" 
                       HorizontalAlignment="Left"

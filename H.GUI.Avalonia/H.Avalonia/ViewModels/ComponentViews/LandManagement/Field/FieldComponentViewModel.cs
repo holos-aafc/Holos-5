@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using AutoMapper;
 using H.Core.Enumerations;
 using H.Core.Factories;
 using H.Core.Models;
 using H.Core.Models.LandManagement.Fields;
 using H.Core.Providers.Plants;
+using H.Core.Services.LandManagement.Fields;
 using H.Core.Services.StorageService;
 using Prism.Commands;
 using Prism.Events;
@@ -22,11 +24,10 @@ public class FieldComponentViewModel : ViewModelBase
 
     private IFieldComponentDto _selectedFieldSystemComponentDto;
     private ICropDto _selectedCropDto;
-    private ObservableCollection<ICropDto> _cropDtoModels;
-    private ObservableCollection<CropType> _cropTypes;
 
     private readonly IFieldComponentDtoFactory _fieldComponentDtoFactory;
     private readonly ICropDtoFactory _cropDtoFactory;
+    private readonly IFieldComponentService _fieldComponentService;
 
     #endregion
 
@@ -40,31 +41,20 @@ public class FieldComponentViewModel : ViewModelBase
         IRegionManager regionManager, 
         IEventAggregator eventAggregator, 
         IStorageService storageService,
-        IFieldComponentDtoFactory fieldComponentDtoFactory,
-        ICropDtoFactory cropDtoFactory) : base(regionManager, eventAggregator, storageService)
-    {
-        if (cropDtoFactory != null)
-        {
-            _cropDtoFactory = cropDtoFactory; 
-        }
-        else
-        {
-            throw new ArgumentNullException(nameof(cropDtoFactory));
-        }
 
-        if (fieldComponentDtoFactory != null)
+        IFieldComponentService fieldComponentService) : base(regionManager, eventAggregator, storageService)
+    {
+        if (fieldComponentService != null)
         {
-            _fieldComponentDtoFactory = fieldComponentDtoFactory;
+            _fieldComponentService = fieldComponentService; 
         }
         else
         {
-            throw new ArgumentNullException(nameof(fieldComponentDtoFactory));
+            throw new ArgumentNullException(nameof(fieldComponentService));
         }
-        
-        this.CropDtos = new ObservableCollection<ICropDto>();
-        this.CropTypes = new ObservableCollection<CropType>() { CropType.Wheat, CropType.Barley, CropType.Oats };
 
         this.AddCropCommand = new DelegateCommand<object>(OnAddCropExecute, AddCropCanExecute);
+        this.RemoveCropCommand = new DelegateCommand<object>(OnRemoveCropExecute, RemoveCropCanExecute);
     }
 
     #endregion
@@ -72,6 +62,7 @@ public class FieldComponentViewModel : ViewModelBase
     #region Properties
 
     public DelegateCommand<object> AddCropCommand { get; set; }
+    public DelegateCommand<object> RemoveCropCommand { get; set; }
 
     /// <summary>
     /// The selected <see cref="SelectedFieldSystemComponentDto"/>
@@ -91,18 +82,6 @@ public class FieldComponentViewModel : ViewModelBase
         set => SetProperty(ref _selectedCropDto, value);
     }
 
-    public ObservableCollection<ICropDto> CropDtos
-    {
-        get => _cropDtoModels;
-        set => SetProperty(ref _cropDtoModels, value);
-    }
-
-    public ObservableCollection<CropType> CropTypes
-    {
-        get => _cropTypes;
-        set => SetProperty(ref _cropTypes, value);
-    }
-
     #endregion
 
     #region Public Methods
@@ -113,12 +92,10 @@ public class FieldComponentViewModel : ViewModelBase
         {
             _selectedFieldSystemComponent = fieldSystemComponent;
 
-            this.SelectedFieldSystemComponentDto =  this.InitializeFieldComponentDto(_selectedFieldSystemComponent);
+            this.SelectedFieldSystemComponentDto = _fieldComponentService.Create(_selectedFieldSystemComponent);
 
             this.SelectedFieldSystemComponentDto.PropertyChanged -= SelectedFieldSystemComponentDtoOnPropertyChanged;
             this.SelectedFieldSystemComponentDto.PropertyChanged += SelectedFieldSystemComponentDtoOnPropertyChanged;
-
-            this.BuildCropDtoCollection(_selectedFieldSystemComponent);
         }
     }
 
@@ -138,35 +115,6 @@ public class FieldComponentViewModel : ViewModelBase
 
     #region Private Methods
 
-    private IFieldComponentDto InitializeFieldComponentDto(FieldSystemComponent fieldSystemComponent)
-    {
-        IFieldComponentDto fieldDto;
-
-        if (fieldSystemComponent.IsInitialized)
-        {
-            fieldDto = _fieldComponentDtoFactory.Create(template: fieldSystemComponent);
-        }
-        else
-        {
-            fieldDto = _fieldComponentDtoFactory.Create();
-            fieldSystemComponent.IsInitialized = true;
-        }
-
-        return fieldDto;
-    }
-
-    private void BuildCropDtoCollection(FieldSystemComponent fieldSystemComponent)
-    {
-        this.CropDtos.Clear();
-
-        foreach (var cropViewItem in fieldSystemComponent.CropViewItems)
-        {
-            var dto = _cropDtoFactory.Create(template: cropViewItem);
-
-            this.CropDtos.Add(dto);
-        }
-    }
-
     private bool AddCropCanExecute(object arg)
     {
         return true;
@@ -176,7 +124,12 @@ public class FieldComponentViewModel : ViewModelBase
     {
         var dto = _cropDtoFactory.Create();
 
-        this.CropDtos.Add(dto);
+        _fieldComponentService.Initialize(this.SelectedFieldSystemComponentDto, dto);
+
+        this.SelectedFieldSystemComponentDto.CropDtos.Add(dto);
+        this.SelectedCropDto = dto;
+
+        this.RemoveCropCommand.RaiseCanExecuteChanged();
     }
 
     private void SelectedFieldSystemComponentDtoOnPropertyChanged(object? sender, PropertyChangedEventArgs e)
@@ -190,6 +143,23 @@ public class FieldComponentViewModel : ViewModelBase
                     _selectedFieldSystemComponent.Name = fieldSystemComponentDto.Name;
                 }
             }
+        }
+    }
+
+    private bool RemoveCropCanExecute(object arg)
+    {
+        return this.SelectedFieldSystemComponentDto != null && this.SelectedFieldSystemComponentDto.CropDtos.Any();
+    }
+
+    private void OnRemoveCropExecute(object obj)
+    {
+        if (this.SelectedCropDto != null)
+        {
+            this.SelectedFieldSystemComponentDto.CropDtos.Remove(this.SelectedCropDto);
+
+            _fieldComponentService.ResetAllYears(this.SelectedFieldSystemComponentDto.CropDtos);
+
+            this.RemoveCropCommand.RaiseCanExecuteChanged();
         }
     }
 

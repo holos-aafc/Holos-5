@@ -9,13 +9,23 @@ public class FieldComponentDtoFactory : IFieldComponentDtoFactory
     #region Fields
 
     private readonly IMapper _fieldComponentMapper;
+    private readonly ICropDtoFactory _cropDtoFactory;
 
     #endregion
 
     #region Constructors
 
-    public FieldComponentDtoFactory()
+    public FieldComponentDtoFactory(ICropDtoFactory cropDtoFactory)
     {
+        if (cropDtoFactory != null)
+        {
+            _cropDtoFactory = cropDtoFactory; 
+        }
+        else
+        {
+            throw new ArgumentNullException(nameof(cropDtoFactory));
+        }
+        
         var fieldComponentDtoMapperConfiguration = new MapperConfiguration(configuration => { configuration.CreateMap<FieldSystemComponent, FieldSystemComponentDto>(); });
 
         _fieldComponentMapper = fieldComponentDtoMapperConfiguration.CreateMapper();
@@ -33,11 +43,13 @@ public class FieldComponentDtoFactory : IFieldComponentDtoFactory
         return fieldComponentDto;
     }
 
-    public IFieldComponentDto Create(FieldSystemComponent template)
+    public IFieldComponentDto Create(FieldSystemComponent fieldSystemComponent)
     {
         var fieldComponentDto = new FieldSystemComponentDto();
 
-        _fieldComponentMapper.Map(template, fieldComponentDto);
+        _fieldComponentMapper.Map(fieldSystemComponent, fieldComponentDto);
+
+        this.BuildCropDtoCollection(fieldSystemComponent, fieldComponentDto);
 
         return fieldComponentDto;
     }
@@ -46,7 +58,17 @@ public class FieldComponentDtoFactory : IFieldComponentDtoFactory
 
     #region Private Methods
 
-    
+    private void BuildCropDtoCollection(FieldSystemComponent fieldSystemComponent, IFieldComponentDto fieldComponentDto)
+    {
+        fieldComponentDto.CropDtos.Clear();
+
+        foreach (var cropViewItem in fieldSystemComponent.CropViewItems)
+        {
+            var dto = _cropDtoFactory.Create(template: cropViewItem);
+
+            fieldComponentDto.CropDtos.Add(dto);
+        }
+    }
 
     #endregion
 }

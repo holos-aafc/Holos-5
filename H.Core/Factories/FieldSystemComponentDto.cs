@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 
 namespace H.Core.Factories;
@@ -7,18 +8,28 @@ public class FieldSystemComponentDto : DtoBase, IFieldComponentDto, INotifyDataE
 {
     #region Fields
 
+    private ObservableCollection<ICropDto> _cropDtoModels;
+
     #endregion
 
     #region Constructors
 
     public FieldSystemComponentDto()
     {
+        this.CropDtos = new ObservableCollection<ICropDto>();
+
         this.PropertyChanged += OnPropertyChanged;
     }
 
     #endregion
 
     #region Properties
+
+    public ObservableCollection<ICropDto> CropDtos
+    {
+        get => _cropDtoModels;
+        set => SetProperty(ref _cropDtoModels, value);
+    }
 
     #endregion
 

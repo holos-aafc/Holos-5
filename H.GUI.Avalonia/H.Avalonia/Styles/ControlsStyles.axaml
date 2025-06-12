@@ -63,7 +63,7 @@
 		<Setter Property="BorderBrush" Value="#D7D7D7"/>
 		<Setter Property="Background" Value="White"/>
 		<Setter Property="Foreground" Value="#605D5D"/>
-		<Setter Property="Width" Value="175"/>
+		<Setter Property="MinWidth" Value="175"/>
 		<Setter Property="Height" Value="40"/>
 	</Style>
 	<Style Selector="Button.back-button">

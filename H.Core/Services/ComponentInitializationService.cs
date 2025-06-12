@@ -9,14 +9,14 @@ public class ComponentInitializationService : IComponentInitializationService
 {
     #region Fields
 
-    private readonly IFieldInitializationService _fieldInitializationService;
+    private readonly IFieldComponentService _fieldComponentService;
     private readonly IStorageService _storageService;
 
     #endregion
 
     #region Constructors
 
-    public ComponentInitializationService(IStorageService storageService, IFieldInitializationService fieldInitializationService)
+    public ComponentInitializationService(IStorageService storageService, IFieldComponentService fieldComponentService)
     {
         if (storageService != null)
         {
@@ -27,13 +27,13 @@ public class ComponentInitializationService : IComponentInitializationService
             throw new ArgumentNullException(nameof(storageService));
         }
 
-        if (fieldInitializationService != null)
+        if (fieldComponentService != null)
         {
-            _fieldInitializationService = fieldInitializationService;
+            _fieldComponentService = fieldComponentService;
         }
         else
         {
-            throw new ArgumentNullException(nameof(fieldInitializationService));
+            throw new ArgumentNullException(nameof(fieldComponentService));
         }
     }
 
@@ -47,7 +47,7 @@ public class ComponentInitializationService : IComponentInitializationService
 
         if (componentBase.GetType() == typeof(FieldSystemComponent))
         {
-            _fieldInitializationService.Initialize(activeFarm, componentBase as FieldSystemComponent);
+            _fieldComponentService.Initialize(activeFarm, componentBase as FieldSystemComponent);
         }
     } 
 

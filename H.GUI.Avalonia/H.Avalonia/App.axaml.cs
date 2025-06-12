@@ -179,7 +179,7 @@ namespace H.Avalonia
             // Services
             containerRegistry.RegisterSingleton<IFarmHelper, FarmHelper>();
             containerRegistry.RegisterSingleton<IComponentInitializationService, ComponentInitializationService>();
-            containerRegistry.RegisterSingleton<IFieldInitializationService, FieldInitializationService>();
+            containerRegistry.RegisterSingleton<IFieldComponentService, FieldComponentService>();
 
             // Unit conversion
             containerRegistry.RegisterSingleton<IUnitsOfMeasurementCalculator, UnitsOfMeasurementCalculator>();

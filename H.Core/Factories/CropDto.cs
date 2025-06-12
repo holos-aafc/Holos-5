@@ -18,8 +18,8 @@ public class CropDto : DtoBase, ICropDto
 
     public CropDto()
     {
-        this.CropTypes = new ObservableCollection<CropType>() { CropType.NotSelected, CropType.Oats, CropType.Wheat, CropType.Barley };
-        this.CropType = this.CropTypes.ElementAt(0);
+        this.ValidCropTypes = new ObservableCollection<CropType>() { CropType.NotSelected, CropType.Oats, CropType.Wheat, CropType.Barley };
+        this.CropType = this.ValidCropTypes.ElementAt(0);
         this.Year = DateTime.Now.Year;
     }
 
@@ -33,7 +33,7 @@ public class CropDto : DtoBase, ICropDto
         set => SetProperty(ref _cropType, value);
     }
 
-    public ObservableCollection<CropType> CropTypes
+    public ObservableCollection<CropType> ValidCropTypes
     {
         get => _cropTypes;
         set => SetProperty(ref _cropTypes, value);

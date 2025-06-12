@@ -1,5 +1,8 @@
 ﻿using H.Core.Factories;
+using H.Core.Models.LandManagement.Fields;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
+using System.Collections.ObjectModel;
 
 namespace H.Core.Test.Factories;
 
@@ -27,12 +30,34 @@ public class FieldComponentDtoFactoryTest
     [TestInitialize]
     public void TestInitialize()
     {
-        _factory = new FieldComponentDtoFactory();
+        var mockCropDtoFactory = new Mock<ICropDtoFactory>();
+
+        _factory = new FieldComponentDtoFactory(mockCropDtoFactory.Object);
     }
 
     [TestCleanup]
     public void TestCleanup()
     {
+    }
+
+    #endregion
+
+    #region Tests
+
+    [TestMethod]
+    public void CreateSetCropDtoCollectionToNonEmpty()
+    {
+        var result = _factory.Create(new FieldSystemComponent() {CropViewItems = new ObservableCollection<CropViewItem>() { new CropViewItem() } });
+
+        Assert.IsTrue(result.CropDtos.Any());
+    }
+
+    [TestMethod]
+    public void CreateSetCropDtoCollectionToEmpty()
+    {
+        var result = _factory.Create(new FieldSystemComponent() { CropViewItems = new ObservableCollection<CropViewItem>() {} });
+
+        Assert.IsFalse(result.CropDtos.Any());
     }
 
     #endregion

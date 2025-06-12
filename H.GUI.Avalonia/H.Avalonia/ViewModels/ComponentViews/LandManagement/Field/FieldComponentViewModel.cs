@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using AutoMapper;
 using H.Core.Factories;
 using H.Core.Models;
@@ -104,6 +105,10 @@ public class FieldComponentViewModel : ViewModelBase
             _selectedFieldSystemComponent = fieldSystemComponent;
 
             this.SelectedFieldSystemComponentDto =  this.InitializeFieldComponentDto(_selectedFieldSystemComponent);
+
+            this.SelectedFieldSystemComponentDto.PropertyChanged -= SelectedFieldSystemComponentDtoOnPropertyChanged;
+            this.SelectedFieldSystemComponentDto.PropertyChanged += SelectedFieldSystemComponentDtoOnPropertyChanged;
+
             this.BuildCropDtoCollection(_selectedFieldSystemComponent);
         }
     }
@@ -163,6 +168,20 @@ public class FieldComponentViewModel : ViewModelBase
         var dto = _cropDtoFactory.Create();
 
         this.CropDtos.Add(dto);
+    }
+
+    private void SelectedFieldSystemComponentDtoOnPropertyChanged(object? sender, PropertyChangedEventArgs e)
+    {
+        if (sender is FieldSystemComponentDto fieldSystemComponentDto)
+        {
+            if (e.PropertyName.Equals(nameof(FieldSystemComponentDto.Name)))
+            {
+                if (!fieldSystemComponentDto.HasErrors)
+                {
+                    _selectedFieldSystemComponent.Name = fieldSystemComponentDto.Name;
+                }
+            }
+        }
     }
 
     #endregion

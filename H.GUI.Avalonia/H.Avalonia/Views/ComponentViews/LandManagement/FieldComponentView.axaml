@@ -10,5 +10,19 @@
         <field:FieldComponentViewModelDesign/>
     </Design.DataContext>
 
-    <TextBlock Text="{Binding Path=SelectedFieldSystemComponentDto.Name}"></TextBlock>
+    <Grid>
+        <Grid.RowDefinitions>
+            <!-- Title -->
+            <RowDefinition Height="Auto"/>
+            <!-- Content -->
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+
+        <StackPanel Grid.Row="0">
+            <!-- Title -->
+            <TextBox Classes="view-title" Text="{Binding Path=SelectedFieldSystemComponentDto.Name}"/>
+            <Border Classes="title-underline"/>
+        </StackPanel>
+	</Grid>
 </UserControl>

@@ -44,6 +44,9 @@ public class FieldComponentViewModelTest
 
         var mockCropDtoFactory = new Mock<ICropDtoFactory>();
 
+        _mockFieldComponentDtoFactory.Setup(x => x.Create()).Returns(new FieldSystemComponentDto());
+        _mockFieldComponentDtoFactory.Setup(x => x.Create(It.IsAny<FieldSystemComponent>())).Returns(new FieldSystemComponentDto());
+
         _viewModel = new FieldComponentViewModel(mockRegionManager.Object, mockEventAggregator.Object, mockStorageService.Object, _mockFieldComponentDtoFactory.Object, mockCropDtoFactory.Object);
     }
 

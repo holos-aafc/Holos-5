@@ -121,10 +121,122 @@
 								</ComboBox>
 							</StackPanel>
 						</StackPanel>
-
 					</TabItem>
 
-					<TabItem Header="Fertilizer"/>
+					<TabItem Header="Fertilizer">
+						<Grid>
+							<Grid.RowDefinitions>
+								<RowDefinition Height="Auto"/>
+								<RowDefinition Height="Auto"/>
+								<RowDefinition/>
+							</Grid.RowDefinitions>
+
+							<!-- Horizontal Line -->
+							<Border Classes="HorizontalLineBorderStyle" Margin="0,10,0,0" Grid.Row="0"/>
+
+							<!-- Instructions and Show Additional Information -->
+							<DockPanel Grid.Row="1" Margin="0,10,0,10">
+								<StackPanel Orientation="Horizontal" DockPanel.Dock="Left" VerticalAlignment="Center">
+									<TextBlock Classes="SubTitleTextBlockStyle"
+											   FontWeight="Normal"
+											   FontSize="14"
+											   TextWrapping="Wrap">
+										<Run FontWeight="Bold" Text="{Binding EnterCropDetailsStepNumberString}"/>
+										<Run Text="{Binding EnterCropDetailsStepString, Mode=TwoWay}"/>
+									</TextBlock>
+								</StackPanel>
+								<StackPanel Orientation="Horizontal"
+											DockPanel.Dock="Right"
+											VerticalAlignment="Center">
+									<TextBlock Classes="InputLabelStyle"
+											   VerticalAlignment="Center"
+											   Margin="0,0,8,0"
+											   Text="Show Additional Information" />
+									<RadioButton GroupName="ShowAdditionInformationGroup"
+												 Content="Yes"
+												 IsChecked="{Binding ShowAdditionalInformation, Mode=TwoWay}"
+												 Margin="0,0,8,0"/>
+									<RadioButton GroupName="ShowAdditionInformationGroup"
+												 Content="No"
+												 IsChecked="{Binding HideAdditionalInformation, Mode=TwoWay}"/>
+								</StackPanel>
+							</DockPanel>
+
+							<!-- Main Fertilizer Application Grid -->
+							<StackPanel Grid.Row="2">
+								<TextBlock Margin="0,10,0,0"
+										   Text="Multiple fertilizer applications can be made to this field."
+										   FontStyle="Italic"
+										   Foreground="Gray"/>
+
+								<StackPanel Orientation="Horizontal" Spacing="8" Margin="0,8,0,8">
+									<Button Content="Add Fertilizer Application"
+											Command="{Binding AddFertilizerApplication}" />
+								</StackPanel>
+
+								<DataGrid AutoGenerateColumns="False"
+										  ItemsSource="{Binding SelectedViewItem.FertilizerApplicationViewItems}"
+										  SelectedItem="{Binding SelectedFertilizerApplicationViewItem, Mode=TwoWay}"
+										  Height="250">
+									<DataGrid.Columns>
+										<!-- Season of Application -->
+										<DataGridTemplateColumn Header="Season of Application" Width="200">
+											<DataGridTemplateColumn.CellTemplate>
+												<DataTemplate>
+													<ComboBox ItemsSource="{Binding DataContext.SelectedViewItem.ValidSeasonsForFertilizerApplication, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+															  SelectedItem="{Binding SeasonOfApplication}" Width="120"/>
+												</DataTemplate>
+											</DataGridTemplateColumn.CellTemplate>
+										</DataGridTemplateColumn>
+
+										<!-- Fertilizer Blend -->
+										<DataGridTemplateColumn Header="Fertilizer Blend" Width="200">
+											<DataGridTemplateColumn.CellTemplate>
+												<DataTemplate>
+													<ComboBox ItemsSource="{Binding DataContext.SelectedViewItem.ValidFertilizerBlends, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+															  SelectedItem="{Binding FertilizerBlendData.FertilizerBlend}" Width="120"/>
+												</DataTemplate>
+											</DataGridTemplateColumn.CellTemplate>
+										</DataGridTemplateColumn>
+
+										<!-- Application Method -->
+										<DataGridTemplateColumn Header="Application Method" Width="200">
+											<DataGridTemplateColumn.CellTemplate>
+												<DataTemplate>
+													<ComboBox ItemsSource="{Binding DataContext.SelectedViewItem.ValidFertilizerApplicationMethods, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+															  SelectedItem="{Binding FertilizerApplicationMethodology}" Width="120"/>
+												</DataTemplate>
+											</DataGridTemplateColumn.CellTemplate>
+										</DataGridTemplateColumn>
+
+										<!-- Amount Applied -->
+										<DataGridTemplateColumn Header="Amount Applied (kg/ha)" Width="200">
+											<DataGridTemplateColumn.CellTemplate>
+												<DataTemplate>
+													<NumericUpDown Value="{Binding AmountOfBlendedProductApplied}" Minimum="0" Increment="10" Width="80" />
+												</DataTemplate>
+											</DataGridTemplateColumn.CellTemplate>
+										</DataGridTemplateColumn>
+
+										<!-- Delete Button -->
+										<DataGridTemplateColumn Header="Delete" Width="200">
+											<DataGridTemplateColumn.CellTemplate>
+												<DataTemplate>
+													<Button Content="🗑"
+															Command="{Binding DataContext.DeleteFertilizerApplicationCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+															CommandParameter="{Binding .}"
+															Background="Transparent"
+															Foreground="Red"
+															Width="32"/>
+												</DataTemplate>
+											</DataGridTemplateColumn.CellTemplate>
+										</DataGridTemplateColumn>
+									</DataGrid.Columns>
+								</DataGrid>
+							</StackPanel>
+						</Grid>
+					</TabItem>
+		
 					<TabItem Header="Manure"/>
 					<TabItem Header="Winter and Cover Crops"/>
 					<TabItem Header="Soil"/>

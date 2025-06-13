@@ -9,13 +9,13 @@
     <!-- Button Styles -->
     <Style Selector="Button">
         <Setter Property="Cursor" Value="Hand"/>
-        <Setter Property="Background" Value="DarkGreen" />
+        <Setter Property="Background" Value="#004178" />
 		<Setter Property="Foreground" Value="White" />
 		<Setter Property="FontWeight" Value="SemiBold" />
         <Setter Property="Padding" Value="50, 10"/>
     </Style>
     <Style Selector="Button:pointerover.user-prompt-button--confirm /template/ ContentPresenter">
-        <Setter Property="Background" Value="#e34234" />
+        <Setter Property="Background" Value="#002f57" />
     </Style>
     <Style Selector="Button.user-prompt-button--cancel">
         <Setter Property="Background" Value="#D3D3D3" />

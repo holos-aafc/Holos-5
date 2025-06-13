@@ -187,6 +187,15 @@ public class FieldComponentViewModel : ViewModelBase
                     _selectedFieldSystemComponent.Name = fieldSystemComponentDto.Name;
                 }
             }
+
+            if (e.PropertyName.Equals(nameof(FieldSystemComponentDto.FieldArea)))
+            {
+                if (!fieldSystemComponentDto.HasErrors)
+                {
+                    // The name has been validated and we can assign the user value to the domain object
+                    _selectedFieldSystemComponent.FieldArea = fieldSystemComponentDto.FieldArea;
+                }
+            }
         }
     }
 

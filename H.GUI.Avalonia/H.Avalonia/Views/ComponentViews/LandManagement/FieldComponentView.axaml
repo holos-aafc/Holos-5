@@ -27,6 +27,16 @@
         </StackPanel>
 
         <StackPanel Grid.Row="1">
+            <Grid HorizontalAlignment="Left">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Column="0" Content="Field size" VerticalContentAlignment="Center"/>
+                <NumericUpDown Grid.Column="1" Minimum="0" Value="{Binding Path=SelectedFieldSystemComponentDto.FieldArea}"></NumericUpDown>
+            </Grid>
+
             <StackPanel Orientation="Horizontal">
                 <Button Command="{Binding AddCropCommand}" Classes="add-group" Content="Add Crop"/>
                 <Button Command="{Binding RemoveCropCommand}" Classes="add-group" Content="Remove Crop"/>

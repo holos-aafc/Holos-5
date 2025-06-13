@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using H.Core.CustomAttributes;
+using H.Core.Enumerations;
 using H.Core.Models.LandManagement.Fields;
 
 namespace H.Core.Factories;
@@ -12,6 +14,8 @@ namespace H.Core.Factories;
 public class FieldSystemComponentDto : DtoBase, IFieldComponentDto
 {
     #region Fields
+
+    private double _fieldArea;
 
     private ObservableCollection<ICropDto> _cropDtoModels;
 
@@ -40,6 +44,16 @@ public class FieldSystemComponentDto : DtoBase, IFieldComponentDto
         set => SetProperty(ref _cropDtoModels, value);
     }
 
+    /// <summary>
+    /// The total size of the field
+    /// </summary>
+    [Units(MetricUnitsOfMeasurement.Hectares)]
+    public double FieldArea
+    {
+        get => _fieldArea;
+        set => SetProperty(ref _fieldArea, value);
+    }
+
     #endregion
 
     #region Event Handlers
@@ -60,12 +74,33 @@ public class FieldSystemComponentDto : DtoBase, IFieldComponentDto
         }
     }
 
+    /// <summary>
+    /// Ensure that the area of the field is a valid number
+    /// </summary>
+    private void ValidateFieldArea()
+    {
+        var key = nameof(FieldArea);
+        if (this.FieldArea <= 0)
+        {
+            AddError(key, "Field size cannot be less than or equal to zero");
+        }
+        else
+        {
+            RemoveError(key);
+        }
+    }
+
     private void OnPropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
         if (e.PropertyName.Equals(nameof(Name)))
         {
             // Ensure the field name is valid
            ValidateFieldName();
+        }
+        else if (e.PropertyName.Equals(nameof(FieldArea)))
+        {
+            // Ensure the area of the field is valid
+            ValidateFieldArea();
         }
     }
 

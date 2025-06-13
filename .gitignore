@@ -405,3 +405,4 @@ H.CLI/sync.ffs_db
 
 # JetBrains Rider files
 *.idea
+*.ffs_db

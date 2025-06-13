@@ -151,7 +151,7 @@ namespace H.Avalonia.ViewModels.SupportingViews.Disclaimer
             {
                 if(_countrySettings.Language == Languages.English)
                 {
-                    this.AboutHolosString = "HOLOS-EU - a tool to estimate and reduce greenhouse gas emissions from farms in Europe";
+                    this.AboutHolosString = "HOLOSEU: A Digital Platform for Guiding Climate-Smart Farming";
                     this.ToBeKeptInformedString = "To be kept informed about  future versions, please send your contact information (including email address) to ibrahim.khalil1@ucd.ie";
                     this.DisclaimerRtfString = Resources.Disclaimer_English_IE_TXT;
 
@@ -160,7 +160,7 @@ namespace H.Avalonia.ViewModels.SupportingViews.Disclaimer
                 }
                 else
                 {
-                    this.AboutHolosString = "HOLOS-EU - a tool to estimate and reduce greenhouse gas emissions from farms in Europe";
+                    this.AboutHolosString = "HOLOSEU: Une plateforme numérique pour guider l’agriculture intelligente face au climat";
                     this.ToBeKeptInformedString = "To be kept informed about  future versions, please send your contact information (including email address) to ibrahim.khalil1@ucd.ie";
                     /// TODO: MAKE FRENCH IE VERSION
                     this.DisclaimerRtfString = Resources.Disclaimer_English_IE_TXT;

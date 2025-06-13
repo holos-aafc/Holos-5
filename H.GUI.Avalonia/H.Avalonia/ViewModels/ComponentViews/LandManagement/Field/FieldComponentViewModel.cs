@@ -204,6 +204,7 @@ public class FieldComponentViewModel : ViewModelBase
         {
             this.SelectedFieldSystemComponentDto.CropDtos.Remove(this.SelectedCropDto);
 
+            // Ensure consecutive ordering (by year) of all crops now that one has been removed
             _fieldComponentService.ResetAllYears(this.SelectedFieldSystemComponentDto.CropDtos);
 
             this.RemoveCropCommand.RaiseCanExecuteChanged();

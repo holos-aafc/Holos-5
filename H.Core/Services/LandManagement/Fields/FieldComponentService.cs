@@ -43,10 +43,11 @@ public class FieldComponentService : IFieldComponentService
 
     #region Public Methods
 
-    public void Initialize(Farm farm, FieldSystemComponent fieldSystemComponent)
+    public void InitializeFieldSystemComponent(Farm farm, FieldSystemComponent fieldSystemComponent)
     {
         if (fieldSystemComponent.IsInitialized)
         {
+            // The field has already been initialized - do not overwrite with default values
             return;
         }
 
@@ -62,11 +63,6 @@ public class FieldComponentService : IFieldComponentService
         fieldComponentDto.CropDtos.Add(cropDto);
     }
 
-    /// <summary>
-    /// Crates a unique component name when adding a field to the farm
-    /// </summary>
-    /// <param name="components"></param>
-    /// <returns></returns>
     public string GetUniqueFieldName(IEnumerable<FieldSystemComponent> components)
     {
         var i = 1;
@@ -83,11 +79,6 @@ public class FieldComponentService : IFieldComponentService
         return proposedName;
     }
 
-    /// <summary>
-    /// When adding a new crop to the field, the year must be the next in order so that all years of the field history are consecutive.
-    /// </summary>
-    /// <param name="fieldComponentDto">The field containing the crops</param>
-    /// <returns>The next consecutive year to should be used</returns>
     public int GetNextCropYear(IFieldComponentDto fieldComponentDto)
     {
         var result = DateTime.Now.Year;
@@ -100,10 +91,6 @@ public class FieldComponentService : IFieldComponentService
         return result;
     }
 
-    /// <summary>
-    /// All years in a collection of crops must be consecutive with no years missing. If a crop is removed, ensure all years are represented from start to finish of collection.
-    /// </summary>
-    /// <param name="cropDtos">The list of crops and associated years representing the history of the field</param>
     public void ResetAllYears(IEnumerable<ICropDto> cropDtos)
     {
         if (cropDtos.Any())

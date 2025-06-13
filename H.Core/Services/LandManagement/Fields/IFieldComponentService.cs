@@ -8,10 +8,30 @@ public interface IFieldComponentService :  IFieldComponentDtoFactory, ICropDtoFa
 {
     #region Public Methods
 
+    /// <summary>
+    /// When adding a new crop to the field, the year must be the next in order so that all years of the field history are consecutive.
+    /// </summary>
+    /// <param name="fieldComponentDto">The field containing the crops</param>
+    /// <returns>The next consecutive year to should be used</returns>
     int GetNextCropYear(IFieldComponentDto fieldComponentDto);
+
+    /// <summary>
+    /// Once we have new instance of a <see cref="CropDto"/>, we must initialize it so that a minimal set of properties
+    /// have sensible defaults
+    /// </summary>
     void InitializeCropDto(IFieldComponentDto fieldComponentDto, ICropDto cropDto);
-    void Initialize(Farm farm, FieldSystemComponent fieldSystemComponent);
+    void InitializeFieldSystemComponent(Farm farm, FieldSystemComponent fieldSystemComponent);
+
+    /// <summary>
+    /// All years in a collection of crops must be consecutive with no years missing. If a crop is removed, ensure all years are represented from start to finish of collection.
+    /// </summary>
+    /// <param name="cropDtos">The list of crops and associated years representing the history of the field</param>
     void ResetAllYears(IEnumerable<ICropDto> cropDtos);
+
+    /// <summary>
+    /// Crates a unique component name when adding a field to the farm
+    /// </summary>
+    string GetUniqueFieldName(IEnumerable<FieldSystemComponent> components);
 
     #endregion
 }

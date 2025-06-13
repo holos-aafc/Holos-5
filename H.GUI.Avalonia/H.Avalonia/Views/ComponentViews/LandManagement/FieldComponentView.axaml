@@ -52,7 +52,7 @@
                             <DataTemplate>
                                 <ComboBox x:Name="combo" 
                                           MinWidth="200"
-                                          ItemsSource="{Binding Path=CropTypes}"
+                                          ItemsSource="{Binding Path=ValidCropTypes}"
                                           SelectedItem="{Binding Path=CropType}"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>

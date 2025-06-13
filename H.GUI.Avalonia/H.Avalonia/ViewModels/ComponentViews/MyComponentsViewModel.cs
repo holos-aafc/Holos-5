@@ -147,7 +147,7 @@ public class MyComponentsViewModel : ViewModelBase
             var isInEditMode = this.RegionManager.Regions[UiRegions.ContentRegion].ActiveViews.Any(x => x.GetType() == typeof(ChooseComponentsView));
             if (!isInEditMode)
             {
-                this.ClearActiveView();
+                
                 this.NavigateToSelectedComponent();
             }
         }

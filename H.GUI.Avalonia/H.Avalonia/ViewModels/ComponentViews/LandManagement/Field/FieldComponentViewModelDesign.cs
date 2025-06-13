@@ -17,7 +17,9 @@ public class FieldComponentViewModelDesign : FieldComponentViewModel
 
         base.SelectedFieldSystemComponentDto.CropDtos = new ObservableCollection<ICropDto>()
         {
-            new CropDto() { CropType = CropType.Wheat },
+            new CropDto() { Year = 2021, CropType = CropType.Wheat },
+            new CropDto() { Year = 2022, CropType = CropType.Barley },
+            new CropDto() { Year = 2023, CropType = CropType.Oats },
         };
     }
 

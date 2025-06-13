@@ -4,6 +4,9 @@ using H.Core.Models.LandManagement.Fields;
 
 namespace H.Core.Factories;
 
+/// <summary>
+/// A class used to create new <see cref="FieldSystemComponentDto"/> isntances. The class will provide basic initialization of a new instance before returning the result to the caller.
+/// </summary>
 public class FieldComponentDtoFactory : IFieldComponentDtoFactory
 {
     #region Fields
@@ -35,21 +38,28 @@ public class FieldComponentDtoFactory : IFieldComponentDtoFactory
 
     #region Public Methods
 
+    /// <summary>
+    /// Create a new instance with no additional configuration to a default instance.
+    /// </summary>
     public IFieldComponentDto Create()
     {
-        var fieldComponentDto = new FieldSystemComponentDto();
-        fieldComponentDto.Name = "Field_" + DateTime.Now;
-
-        return fieldComponentDto;
+        return new FieldSystemComponentDto();
     }
 
-    public IFieldComponentDto Create(FieldSystemComponent fieldSystemComponent)
+    /// <summary>
+    /// Create a new instance that is based on the state of an existing <see cref="FieldSystemComponent"/>. This method is used to create a
+    /// new instance of a <see cref="FieldSystemComponentDto"/> that will be bound to a view.
+    /// </summary>
+    /// <param name="template">The <see cref="FieldSystemComponent"/> that will be used to provide default values for the new <see cref="FieldSystemComponentDto"/> instance</param>
+    /// <returns></returns>
+    public IFieldComponentDto Create(FieldSystemComponent template)
     {
         var fieldComponentDto = new FieldSystemComponentDto();
 
-        _fieldComponentMapper.Map(fieldSystemComponent, fieldComponentDto);
+        // Create a copy of the template
+        _fieldComponentMapper.Map(template, fieldComponentDto);
 
-        this.BuildCropDtoCollection(fieldSystemComponent, fieldComponentDto);
+        this.BuildCropDtoCollection(template, fieldComponentDto);
 
         return fieldComponentDto;
     }
@@ -58,6 +68,11 @@ public class FieldComponentDtoFactory : IFieldComponentDtoFactory
 
     #region Private Methods
 
+    /// <summary>
+    /// Create copies of all the <see cref="CropViewItem"/> in a <see cref="FieldSystemComponent"/> and add corresponding <see cref="CropDto"/> instances to the <see cref="FieldSystemComponentDto"/>
+    /// </summary>
+    /// <param name="fieldSystemComponent">The </param>
+    /// <param name="fieldComponentDto"></param>
     private void BuildCropDtoCollection(FieldSystemComponent fieldSystemComponent, IFieldComponentDto fieldComponentDto)
     {
         fieldComponentDto.CropDtos.Clear();

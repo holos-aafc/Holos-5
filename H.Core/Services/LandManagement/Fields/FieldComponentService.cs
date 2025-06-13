@@ -55,9 +55,11 @@ public class FieldComponentService : IFieldComponentService
         fieldSystemComponent.IsInitialized = true;
     }
 
-    public void Initialize(IFieldComponentDto fieldComponentDto, ICropDto cropDto)
+    public void InitializeCropDto(IFieldComponentDto fieldComponentDto, ICropDto cropDto)
     {
         cropDto.Year = this.GetNextCropYear(fieldComponentDto);
+
+        fieldComponentDto.CropDtos.Add(cropDto);
     }
 
     /// <summary>
@@ -122,18 +124,18 @@ public class FieldComponentService : IFieldComponentService
         return _fieldComponentDtoFactory.Create();
     }
 
-    public IFieldComponentDto Create(FieldSystemComponent fieldSystemComponent)
+    public IFieldComponentDto Create(FieldSystemComponent template)
     {
         IFieldComponentDto fieldDto;
 
-        if (fieldSystemComponent.IsInitialized)
+        if (template.IsInitialized)
         {
-            fieldDto = _fieldComponentDtoFactory.Create(fieldSystemComponent: fieldSystemComponent);
+            fieldDto = _fieldComponentDtoFactory.Create(template: template);
         }
         else
         {
             fieldDto = _fieldComponentDtoFactory.Create();
-            fieldSystemComponent.IsInitialized = true;
+            template.IsInitialized = true;
         }
 
         return fieldDto;
@@ -144,4 +146,14 @@ public class FieldComponentService : IFieldComponentService
     #region Private Methods
 
     #endregion
+
+    public ICropDto CreateCropDto()
+    {
+        return _cropDtoFactory.CreateCropDto();
+    }
+
+    public ICropDto Create(CropViewItem template)
+    {
+        return _cropDtoFactory.Create(template);
+    }
 }

@@ -25,8 +25,6 @@ public class FieldComponentViewModel : ViewModelBase
     private IFieldComponentDto _selectedFieldSystemComponentDto;
     private ICropDto _selectedCropDto;
 
-    private readonly IFieldComponentDtoFactory _fieldComponentDtoFactory;
-    private readonly ICropDtoFactory _cropDtoFactory;
     private readonly IFieldComponentService _fieldComponentService;
 
     #endregion
@@ -94,7 +92,6 @@ public class FieldComponentViewModel : ViewModelBase
 
             this.SelectedFieldSystemComponentDto = _fieldComponentService.Create(_selectedFieldSystemComponent);
 
-            this.SelectedFieldSystemComponentDto.PropertyChanged -= SelectedFieldSystemComponentDtoOnPropertyChanged;
             this.SelectedFieldSystemComponentDto.PropertyChanged += SelectedFieldSystemComponentDtoOnPropertyChanged;
         }
     }
@@ -111,6 +108,13 @@ public class FieldComponentViewModel : ViewModelBase
         }
     }
 
+    public override void OnNavigatedFrom(NavigationContext navigationContext)
+    {
+        base.OnNavigatedFrom(navigationContext);
+
+        this.SelectedFieldSystemComponentDto.PropertyChanged -= SelectedFieldSystemComponentDtoOnPropertyChanged;
+    }
+
     #endregion
 
     #region Private Methods
@@ -122,11 +126,8 @@ public class FieldComponentViewModel : ViewModelBase
 
     private void OnAddCropExecute(object obj)
     {
-        var dto = _cropDtoFactory.Create();
-
-        _fieldComponentService.Initialize(this.SelectedFieldSystemComponentDto, dto);
-
-        this.SelectedFieldSystemComponentDto.CropDtos.Add(dto);
+        var dto = _fieldComponentService.CreateCropDto();
+        _fieldComponentService.InitializeCropDto(this.SelectedFieldSystemComponentDto, dto);
         this.SelectedCropDto = dto;
 
         this.RemoveCropCommand.RaiseCanExecuteChanged();

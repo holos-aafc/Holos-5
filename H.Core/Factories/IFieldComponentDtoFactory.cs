@@ -5,5 +5,5 @@ namespace H.Core.Factories;
 public interface IFieldComponentDtoFactory
 {
     IFieldComponentDto Create();
-    IFieldComponentDto Create(FieldSystemComponent fieldSystemComponent);
+    IFieldComponentDto Create(FieldSystemComponent template);
 }

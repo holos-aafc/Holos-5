@@ -48,7 +48,7 @@ namespace H.Avalonia
             //{
             //    return VersionNumberString;
             //}
-            return "1.0.0";
+            return "5.0.0";
         }
 
         #endregion

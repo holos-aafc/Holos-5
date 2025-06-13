@@ -160,13 +160,13 @@ namespace H.Avalonia.ViewModels.SupportingViews.Disclaimer
                 }
                 else
                 {
-                    this.AboutHolosString = "HOLOSEU: Une plateforme numérique pour guider l’agriculture intelligente face au climat";
-                    this.ToBeKeptInformedString = "To be kept informed about  future versions, please send your contact information (including email address) to ibrahim.khalil1@ucd.ie";
+                    this.AboutHolosString = "HOLOSEU : une plateforme numérique pour guider l'agriculture intelligente face au climat";
+                    this.ToBeKeptInformedString = "Pour être informé des futures versions, veuillez envoyer vos coordonnées (y compris votre adresse e-mail) à ibrahim.khalil1@ucd.ie";
                     /// TODO: MAKE FRENCH IE VERSION
                     this.DisclaimerRtfString = Resources.Disclaimer_English_IE_TXT;
 
-                    this.DisclaimerWordString = "Avis de non-responsabilité";
-                    Settings.Default.DisplayLanguage = Languages.English.GetDescription();
+                    this.DisclaimerWordString = "Avertissementé";
+                    Settings.Default.DisplayLanguage = Languages.French.GetDescription();
                 }
                 
             }

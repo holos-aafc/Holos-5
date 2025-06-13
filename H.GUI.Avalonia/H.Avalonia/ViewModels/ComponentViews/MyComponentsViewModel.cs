@@ -143,7 +143,7 @@ public class MyComponentsViewModel : ViewModelBase
     {
         if (e.PropertyName.Equals(nameof(this.SelectedComponent)))
         {
-            System.Diagnostics.Debug.WriteLine($"{SelectedComponent} has been added to the farm");
+            System.Diagnostics.Debug.WriteLine($"{SelectedComponent} has been selected");
             var isInEditMode = this.RegionManager.Regions[UiRegions.ContentRegion].ActiveViews.Any(x => x.GetType() == typeof(ChooseComponentsView));
             if (!isInEditMode)
             {

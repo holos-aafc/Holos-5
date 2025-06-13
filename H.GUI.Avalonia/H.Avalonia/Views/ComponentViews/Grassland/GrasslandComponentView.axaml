@@ -4,5 +4,744 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="H.Avalonia.GrasslandComponentView">
-  This is a grassland component
+    <Border>
+		<ScrollViewer>
+			<StackPanel Spacing="20" Margin="10">
+				<TextBlock Text="Grass" FontSize="24" FontWeight="Bold"/>
+				<!-- Step 1 -->
+				<TextBlock Text="Step 1: Field Details" FontSize="20" FontWeight="Bold"/>
+				<Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto" >
+
+					<!-- Start Year -->
+					<TextBlock Grid.Row="0" Text="Start Year" Margin="0 0 0 4"/>
+					<NumericUpDown	Grid.Row="1"
+									Width="200"
+									Watermark="e.g. 2020"
+									HorizontalAlignment="Left"
+									Margin="0 0 0 12"
+									Increment="1"
+
+					/>
+
+					<!-- End Year -->
+					<TextBlock Grid.Row="2" Text="End Year" Margin="0 0 0 4"/>
+					<NumericUpDown	Grid.Row="3"
+									Width="200"
+									Watermark="e.g. 2025"
+									HorizontalAlignment="Left"
+									Margin="0 0 0 12"
+									Increment="1"
+
+					/>
+
+					<!-- Total Area -->
+					<TextBlock Grid.Row="4" Text="Total Area (ha)" Margin="0 0 0 4"/>
+					<NumericUpDown	Grid.Row="5"
+									Width="200"
+									Watermark="e.g. 15.5"
+									HorizontalAlignment="Left"
+									Margin="0 0 0 12"
+									Increment="0.25"
+					/>
+					
+
+				</Grid>
+				
+	
+
+				<TextBlock Text="Step 2: Grass Planning" FontSize="20" FontWeight="Bold"/>
+				<Button Content="Add Grass"/>
+			
+
+
+				<DataGrid AutoGenerateColumns="False" Height="200"
+							ItemsSource="{Binding Grass}">
+					<DataGrid.Columns>
+						<DataGridTextColumn Header="Year" Binding="{Binding Year}" Width="100"/>
+						<DataGridTemplateColumn Header="Grass" Width="200">
+							<DataGridTemplateColumn.CellTemplate>
+								<DataTemplate>
+									<ComboBox Width="180" SelectedItem="{Binding Grass}">
+										<ComboBoxItem>Wheat</ComboBoxItem>
+										<ComboBoxItem>Barley</ComboBoxItem>
+										<ComboBoxItem>Oats</ComboBoxItem>
+										<ComboBoxItem>Rye</ComboBoxItem>
+										<ComboBoxItem>Corn</ComboBoxItem>
+									</ComboBox>
+								</DataTemplate>
+							</DataGridTemplateColumn.CellTemplate>
+						</DataGridTemplateColumn>
+						<DataGridTemplateColumn Header="Winter/Cover/Undersown Grass" Width="300">
+							<DataGridTemplateColumn.CellTemplate>
+								<DataTemplate>
+									<ComboBox Width="180" SelectedItem="{Binding GrassType}">
+										<ComboBoxItem>Winter</ComboBoxItem>
+										<ComboBoxItem>Cover</ComboBoxItem>
+										<ComboBoxItem>Undersown</ComboBoxItem>
+									</ComboBox>
+								</DataTemplate>
+							</DataGridTemplateColumn.CellTemplate>
+						</DataGridTemplateColumn>
+					</DataGrid.Columns>
+				</DataGrid>
+
+
+				<!-- Step 3 -->
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="*" />
+						<ColumnDefinition Width="Auto" />
+					</Grid.ColumnDefinitions>
+					<Grid.RowDefinitions>
+						<RowDefinition Height="Auto"/>
+						<RowDefinition Height="Auto"/>
+					</Grid.RowDefinitions>
+
+					<StackPanel Spacing="5" Grid.Column="0">
+						<TextBlock Text="Step 3: Grass Details" FontSize="20" FontWeight="Bold"/>
+					</StackPanel>
+
+					<StackPanel Orientation="Horizontal" Spacing="5" Grid.Column="1" HorizontalAlignment="Right">
+						<CheckBox />
+						<TextBlock Text="Show Additional Information" VerticalAlignment="Center"/>
+					</StackPanel>
+
+				</Grid>
+				<TabControl>
+					<TabItem Header="General">
+
+						<StackPanel Margin="10" Spacing="8">
+
+							<TextBlock Text="General Management" FontSize="16" FontWeight="Bold" />
+							<Rectangle Height="1" Fill="Gray"/>
+							<TextBlock
+								Text="Set basic Grass management details like yield, irrigation, tillage, and harvest method. You can also add optional info such as fuel and herbicide use."
+								Foreground="Gray"
+								TextWrapping="Wrap"/>
+							
+							
+							<Grid>
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="*" />
+									<ColumnDefinition Width="10" />
+									<ColumnDefinition Width="*" />
+								</Grid.ColumnDefinitions>
+
+								<!-- Left column -->
+								<StackPanel Spacing="8" Grid.Column="0">
+									<TextBlock Text="General Properties" FontSize="16" FontWeight="Bold" />
+									<Rectangle Height="1" Fill="Gray"/>
+
+									<!-- Yield (wet weight) -->
+									<StackPanel Orientation="Horizontal">
+										<TextBlock Text="Yield (wet weight):" VerticalAlignment="Center" Width="180"/>
+										<NumericUpDown Width="180" Minimum="0" Watermark="e.g. 6000" Margin="5,0"/>
+										<TextBlock Text="(kg ha⁻¹)" VerticalAlignment="Center" Margin="5,0"/>
+									</StackPanel>
+
+									<!-- Yield (dry weight) -->
+									<StackPanel Orientation="Horizontal">
+										<TextBlock Text="Yield (dry weight):" VerticalAlignment="Center" Width="180"/>
+										<NumericUpDown Width="180" Minimum="0" Watermark="e.g. 4500" Margin="5,0"/>
+										<TextBlock Text="(kg ha⁻¹)" VerticalAlignment="Center" Margin="5,0"/>
+									</StackPanel>
+
+									<!-- Moisture content -->
+									<StackPanel Orientation="Horizontal">
+										<TextBlock Text="Moisture content:" VerticalAlignment="Center" Width="180"/>
+										<NumericUpDown Width="180" Minimum="0" Maximum="100" Watermark="e.g. 25" Margin="5,0"/>
+										<TextBlock Text="(%)" VerticalAlignment="Center" Margin="5,0"/>
+									</StackPanel>
+
+									<!-- Tillage -->
+									<StackPanel Orientation="Horizontal">
+										<TextBlock Text="Tillage:" VerticalAlignment="Center" Width="180"/>
+										<ComboBox Width="180" Margin="5,0" SelectedIndex="0">
+											<ComboBoxItem Content="Reduced Tillage"/>
+											<ComboBoxItem Content="No Tillage"/>
+										</ComboBox>
+									</StackPanel>
+
+									<!-- Harvest Method -->
+									<StackPanel Orientation="Horizontal">
+										<TextBlock Text="Harvest Method:" VerticalAlignment="Center" Width="180"/>
+										<ComboBox Width="180" Margin="5,0" SelectedIndex="0">
+											<ComboBoxItem Content="Cash Grass"/>
+											<ComboBoxItem Content="Other"/>
+										</ComboBox>
+									</StackPanel>
+
+									<!-- Amount of Irrigation -->
+									<StackPanel Orientation="Horizontal">
+										<TextBlock Text="Amount of Irrigation:" VerticalAlignment="Center" Width="180"/>
+										<NumericUpDown Width="180" Minimum="0" Watermark="e.g. 25" Margin="5,0"/>
+										<TextBlock Text="(mm ha⁻¹)" VerticalAlignment="Center" Margin="5,0"/>
+									</StackPanel>
+
+									<!-- Number of Pesticide Passes -->
+									<StackPanel Orientation="Horizontal">
+										<TextBlock Text="Number of Pesticide Passes:" VerticalAlignment="Center" Width="180"/>
+										<NumericUpDown Width="180" Minimum="0" Watermark="e.g. 2" Margin="5,0"/>
+									</StackPanel>
+								</StackPanel>
+
+								<!-- Right column -->
+								<StackPanel Spacing="8" Grid.Column="2">
+									<TextBlock Text="Additional Information" FontSize="16" FontWeight="Bold" />
+									<Rectangle Height="1" Fill="Gray"/>
+
+									<!-- Fuel Energy -->
+									<StackPanel Orientation="Horizontal">
+										<TextBlock Text="Fuel Energy:" VerticalAlignment="Center" Width="180"/>
+										<NumericUpDown Width="180" Minimum="0" Watermark="e.g. 1200" Margin="5,0"/>
+										<TextBlock Text="(GJ ha⁻¹)" VerticalAlignment="Center" Margin="5,0"/>
+									</StackPanel>
+
+									<!-- Herbicide Energy -->
+									<StackPanel Orientation="Horizontal">
+										<TextBlock Text="Herbicide Energy:" VerticalAlignment="Center" Width="180"/>
+										<NumericUpDown Width="180" Minimum="0" Watermark="e.g. 600" Margin="5,0"/>
+										<TextBlock Text="(GJ ha⁻¹)" VerticalAlignment="Center" Margin="5,0"/>
+									</StackPanel>
+								</StackPanel>
+							</Grid>
+							
+							
+						</StackPanel>
+						
+
+
+
+
+					</TabItem>
+
+					<TabItem Header="Fertilizer">
+						<StackPanel Margin="10" Spacing="8">
+							<TextBlock Text="Fertilizer Management" FontSize="16" FontWeight="Bold" />
+							<Rectangle Height="1" Fill="Gray"/>
+							<TextBlock
+									Text="The fertilizer management tab can be used to add/remove fertilizer applications."
+									Foreground="Gray"/>
+							
+							<Grid>
+								<Grid.RowDefinitions>
+									<RowDefinition Height="Auto"/>
+									<RowDefinition Height="Auto"/>
+									<RowDefinition/>
+								</Grid.RowDefinitions>
+
+								<!-- Horizontal Line -->
+								<Border Classes="HorizontalLineBorderStyle" Grid.Row="0"/>
+
+								<!-- Main Fertilizer Application Grid -->
+								<StackPanel Grid.Row="2">
+									<TextBlock Margin="0,10,0,0"
+											   Text="Multiple fertilizer applications can be made to this field."
+											   FontStyle="Italic"
+											   Foreground="Gray"/>
+
+									<StackPanel Orientation="Horizontal" Spacing="8" Margin="0,8,0,8">
+										<Button Content="Add Fertilizer Application"
+												Command="{Binding AddFertilizerApplication}" />
+									</StackPanel>
+
+									<DataGrid AutoGenerateColumns="False"
+											  ItemsSource="{Binding SelectedViewItem.FertilizerApplicationViewItems}"
+											  SelectedItem="{Binding SelectedFertilizerApplicationViewItem, Mode=TwoWay}"
+											  Height="250">
+										<DataGrid.Columns>
+											<!-- Season of Application -->
+											<DataGridTemplateColumn Header="Season of Application" Width="200">
+												<DataGridTemplateColumn.CellTemplate>
+													<DataTemplate>
+														<ComboBox ItemsSource="{Binding DataContext.SelectedViewItem.ValidSeasonsForFertilizerApplication, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+																  SelectedItem="{Binding SeasonOfApplication}" Width="120"/>
+													</DataTemplate>
+												</DataGridTemplateColumn.CellTemplate>
+											</DataGridTemplateColumn>
+
+											<!-- Fertilizer Blend -->
+											<DataGridTemplateColumn Header="Fertilizer Blend" Width="200">
+												<DataGridTemplateColumn.CellTemplate>
+													<DataTemplate>
+														<ComboBox ItemsSource="{Binding DataContext.SelectedViewItem.ValidFertilizerBlends, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+																  SelectedItem="{Binding FertilizerBlendData.FertilizerBlend}" Width="120"/>
+													</DataTemplate>
+												</DataGridTemplateColumn.CellTemplate>
+											</DataGridTemplateColumn>
+
+											<!-- Application Method -->
+											<DataGridTemplateColumn Header="Application Method" Width="200">
+												<DataGridTemplateColumn.CellTemplate>
+													<DataTemplate>
+														<ComboBox ItemsSource="{Binding DataContext.SelectedViewItem.ValidFertilizerApplicationMethods, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+																  SelectedItem="{Binding FertilizerApplicationMethodology}" Width="120"/>
+													</DataTemplate>
+												</DataGridTemplateColumn.CellTemplate>
+											</DataGridTemplateColumn>
+
+											<!-- Amount Applied -->
+											<DataGridTemplateColumn Header="Amount Applied (kg/ha)" Width="200">
+												<DataGridTemplateColumn.CellTemplate>
+													<DataTemplate>
+														<NumericUpDown Value="{Binding AmountOfManureAppliedPerHectare, Mode=TwoWay}" Minimum="0" Increment="100" />
+													</DataTemplate>
+												</DataGridTemplateColumn.CellTemplate>
+											</DataGridTemplateColumn>
+
+											<!-- Delete Button -->
+											<DataGridTemplateColumn Header="" Width="200">
+												<DataGridTemplateColumn.CellTemplate>
+													<DataTemplate>
+														<Button Content="🗑"
+																Command="{Binding DataContext.DeleteFertilizerApplicationCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+																CommandParameter="{Binding .}"
+																Background="Transparent"
+																Foreground="Red"
+																Width="32"/>
+													</DataTemplate>
+												</DataGridTemplateColumn.CellTemplate>
+											</DataGridTemplateColumn>
+										</DataGrid.Columns>
+									</DataGrid>
+								</StackPanel>
+							</Grid></StackPanel>
+						
+					</TabItem>
+		
+					<TabItem Header="Manure">
+
+						<StackPanel Margin="10" Spacing="8">
+							<TextBlock Text="Manure Management" FontSize="16" FontWeight="Bold" />
+							<Rectangle Height="1" Fill="Gray"/>
+							<TextBlock
+									Text="The manure management tab can be used to add/remove manure applications."  
+									Foreground="Gray"/>
+							<Grid RowDefinitions="*,Auto">
+								<!-- Header -->
+								<StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+									<TextBlock Text="{Binding SelectedViewItemTitle}" FontSize="18" FontWeight="Bold"/>
+								</StackPanel>
+								<Border Classes="HorizontalLineBorderStyle" Margin="0,0,0,10"/>
+
+								<Grid Grid.Row="0" ColumnDefinitions="*,Auto" >
+									<!-- Left: Applications List -->
+									<StackPanel>
+										<TextBlock Margin="0,10,0,0"
+												   Text="Multiple manure applications can be made to this field."
+												   FontStyle="Italic"
+												   Foreground="Gray"/>
+										<StackPanel Orientation="Horizontal" Margin="0,8,0,8">
+											<Button Content="Add Manure Application"
+													Command="{Binding AddManureApplicationCommand}" />
+										</StackPanel>
+										<DataGrid
+										  ItemsSource="{Binding SelectedViewItem.ManureApplicationViewItems}"
+										  SelectedItem="{Binding SelectedManureApplicationViewItem, Mode=TwoWay}"
+										  AutoGenerateColumns="False"
+										  Height="300"
+										  MaxHeight="500"
+										  IsVisible="{Binding SelectedViewItem.HasManureApplicationViewItems}">
+											<DataGrid.Columns>
+												<!-- Date of Application -->
+												<DataGridTemplateColumn Header="Date">
+													<DataGridTemplateColumn.CellTemplate>
+														<DataTemplate>
+															<DatePicker SelectedDate="{Binding DateOfApplication, Mode=TwoWay}" />
+														</DataTemplate>
+													</DataGridTemplateColumn.CellTemplate>
+												</DataGridTemplateColumn>
+												<!-- Origin of Manure -->
+												<DataGridTemplateColumn Header="Origin of Manure">
+													<DataGridTemplateColumn.CellTemplate>
+														<DataTemplate>
+															<ComboBox ItemsSource="{Binding DataContext.SelectedViewItem.ValidManureLocationSourceTypes, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+																	  SelectedItem="{Binding ManureLocationSourceType}" />
+														</DataTemplate>
+													</DataGridTemplateColumn.CellTemplate>
+												</DataGridTemplateColumn>
+												<!-- Manure Type -->
+												<DataGridTemplateColumn Header="Manure Type">
+													<DataGridTemplateColumn.CellTemplate>
+														<DataTemplate>
+															<ComboBox ItemsSource="{Binding DataContext.SelectedViewItem.ValidAnimalManureTypes, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+																	  SelectedItem="{Binding AnimalType}" />
+														</DataTemplate>
+													</DataGridTemplateColumn.CellTemplate>
+												</DataGridTemplateColumn>
+												<!-- Manure Handling System -->
+												<DataGridTemplateColumn Header="Manure Handling System">
+													<DataGridTemplateColumn.CellTemplate>
+														<DataTemplate>
+															<ComboBox ItemsSource="{Binding DataContext.SelectedViewItem.ValidManureStateTypesForSelectedTypeOfAnimalManure, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+																	  SelectedItem="{Binding ManureStateType}" />
+														</DataTemplate>
+													</DataGridTemplateColumn.CellTemplate>
+												</DataGridTemplateColumn>
+												<!-- Application Method -->
+												<DataGridTemplateColumn Header="Application Method">
+													<DataGridTemplateColumn.CellTemplate>
+														<DataTemplate>
+															<ComboBox ItemsSource="{Binding DataContext.SelectedViewItem.AvailableManureApplicationTypes, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+																	  SelectedItem="{Binding ManureApplicationMethod}" />
+														</DataTemplate>
+													</DataGridTemplateColumn.CellTemplate>
+												</DataGridTemplateColumn>
+												<!-- Amount of Manure Applied -->
+												<DataGridTemplateColumn Header="Amount (kg/ha)">
+													<DataGridTemplateColumn.CellTemplate>
+														<DataTemplate>
+															<NumericUpDown Value="{Binding AmountOfManureAppliedPerHectare, Mode=TwoWay}" Minimum="0" Increment="100"/>
+														</DataTemplate>
+													</DataGridTemplateColumn.CellTemplate>
+												</DataGridTemplateColumn>
+												<!-- Amount of Nitrogen Applied -->
+												<DataGridTemplateColumn Header="N Applied (kg/ha)">
+													<DataGridTemplateColumn.CellTemplate>
+														<DataTemplate>
+															<NumericUpDown Value="{Binding AmountOfNitrogenAppliedPerHectare, Mode=TwoWay}" Minimum="0" Increment="100" />
+														</DataTemplate>
+													</DataGridTemplateColumn.CellTemplate>
+												</DataGridTemplateColumn>
+												<!-- Nitrogen Fraction -->
+												<DataGridTemplateColumn Header="N Fraction">
+													<DataGridTemplateColumn.CellTemplate>
+														<DataTemplate>
+															<NumericUpDown Value="{Binding DefaultManureCompositionData.NitrogenContent, Mode=TwoWay}" Minimum="0" Maximum="1" Increment="0.0001" />
+														</DataTemplate>
+													</DataGridTemplateColumn.CellTemplate>
+												</DataGridTemplateColumn>
+												<!-- Delete -->
+												<DataGridTemplateColumn Header="">
+													<DataGridTemplateColumn.CellTemplate>
+														<DataTemplate>
+															<Button Content="🗑" Command="{Binding DataContext.DeleteManureApplicationCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+																	CommandParameter="{Binding .}" Background="Transparent" BorderBrush="Transparent" />
+														</DataTemplate>
+													</DataGridTemplateColumn.CellTemplate>
+												</DataGridTemplateColumn>
+											</DataGrid.Columns>
+										</DataGrid>
+									</StackPanel>
+									<!-- Right: Details (placeholder for ManureApplicationDetailsView) -->
+									<ContentControl Grid.Column="1" Content="{Binding SelectedManureApplicationViewItem}" />
+								</Grid>
+								<!-- Messages -->
+								<ContentControl Grid.Row="1" Margin="0,20,0,0"
+												Content="{Binding ManureTabMessageContext}" />
+							</Grid>
+						</StackPanel>
+						
+					</TabItem>
+					
+					<TabItem Header="Soil">
+						<StackPanel Margin="10" Spacing="8">
+							<TextBlock Text="Soil Management" FontSize="16" FontWeight="Bold" />
+							<Rectangle Height="1" Fill="Gray"/>
+
+							<TextBlock 
+										   Text="The soil tab can be used to change the soil type for the specific field. The table shows the properties of the soil in this field."
+										  
+										   Foreground="Gray"/>
+
+							<DataGrid AutoGenerateColumns="False"
+          Height="250">
+								<DataGrid.Columns>
+									<!-- Proportion of Clay in Soil -->
+									<DataGridTemplateColumn Header="Proportion of Clay in Soil (%)" Width="200">
+										<DataGridTemplateColumn.CellTemplate>
+											<DataTemplate>
+												<NumericUpDown Minimum="0" Maximum="100" Watermark="e.g. 30" Width="120"/>
+											</DataTemplate>
+										</DataGridTemplateColumn.CellTemplate>
+									</DataGridTemplateColumn>
+
+									<!-- Proportion of Sand in Soil -->
+									<DataGridTemplateColumn Header="Proportion of Sand in Soil (%)" Width="200">
+										<DataGridTemplateColumn.CellTemplate>
+											<DataTemplate>
+												<NumericUpDown Minimum="0" Maximum="100" Watermark="e.g. 50" Width="120"/>
+											</DataTemplate>
+										</DataGridTemplateColumn.CellTemplate>
+									</DataGridTemplateColumn>
+
+									<!-- Soil pH -->
+									<DataGridTemplateColumn Header="Soil pH" Width="150">
+										<DataGridTemplateColumn.CellTemplate>
+											<DataTemplate>
+												<NumericUpDown Minimum="3" Maximum="10" Increment="0.1" Watermark="e.g. 6.5" Width="100"/>
+											</DataTemplate>
+										</DataGridTemplateColumn.CellTemplate>
+									</DataGridTemplateColumn>
+
+									<!-- Drainage Class -->
+									<DataGridTemplateColumn Header="Drainage Class" Width="180">
+										<DataGridTemplateColumn.CellTemplate>
+											<DataTemplate>
+												<ComboBox Width="140"
+														  ItemsSource="{Binding DrainageClassOptions}"
+														  SelectedItem="{Binding DrainageClass}"/>
+											</DataTemplate>
+										</DataGridTemplateColumn.CellTemplate>
+									</DataGridTemplateColumn>
+
+									<!-- Soil Great Group Type -->
+									<DataGridTemplateColumn Header="Soil Great Group Type" Width="200">
+										<DataGridTemplateColumn.CellTemplate>
+											<DataTemplate>
+												<ComboBox Width="160"
+														  ItemsSource="{Binding SoilGreatGroupOptions}"
+														  SelectedItem="{Binding SoilGreatGroup}"/>
+											</DataTemplate>
+										</DataGridTemplateColumn.CellTemplate>
+									</DataGridTemplateColumn>
+
+									<!-- Soil Texture -->
+									<DataGridTemplateColumn Header="Soil Texture" Width="180">
+										<DataGridTemplateColumn.CellTemplate>
+											<DataTemplate>
+												<ComboBox Width="140"
+														  ItemsSource="{Binding SoilTextureOptions}"
+														  SelectedItem="{Binding SoilTexture}"/>
+											</DataTemplate>
+										</DataGridTemplateColumn.CellTemplate>
+									</DataGridTemplateColumn>
+								</DataGrid.Columns>
+							</DataGrid>
+
+
+
+						</StackPanel>
+					</TabItem>
+					
+					<TabItem Header="Residue">
+						<StackPanel Margin="10" Spacing="8">
+							<TextBlock Text="Residue Management" FontSize="16" FontWeight="Bold" />
+							<Rectangle Height="1" Fill="Gray"/>
+							<TextBlock
+								Text="The residue management tab can be used to change the default carbon coefficients for the main Grass. Additional details such as nitrogen concentrations and percentages of the plant returned to the soil can be entered here. Default values have been provided that the model will use unless custom values are entered here."
+								Foreground="Gray"
+								TextWrapping="Wrap"/>
+
+							<Grid>
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="*" />
+									<ColumnDefinition Width="10" />
+									<ColumnDefinition Width="*" />
+								</Grid.ColumnDefinitions>
+
+								<!-- Left Column -->
+								<StackPanel Spacing="8" Grid.Column="0">
+									<TextBlock Text="Carbon Coefficients" FontSize="14" FontWeight="Bold" />
+									<Rectangle Height="1" Fill="Gray"/>
+
+									<StackPanel Orientation="Horizontal">
+										<TextBlock Text="In Product:" Width="180" VerticalAlignment="Center"/>
+										<NumericUpDown Width="180" Watermark="e.g. 0.45" Margin="5,0"/>
+									</StackPanel>
+									<StackPanel Orientation="Horizontal">
+										<TextBlock Text="In Straw:" Width="180" VerticalAlignment="Center"/>
+										<NumericUpDown Width="180" Watermark="e.g. 0.38" Margin="5,0"/>
+									</StackPanel>
+									<StackPanel Orientation="Horizontal">
+										<TextBlock Text="In Roots:" Width="180" VerticalAlignment="Center"/>
+										<NumericUpDown Width="180" Watermark="e.g. 0.30" Margin="5,0"/>
+									</StackPanel>
+									<StackPanel Orientation="Horizontal">
+										<TextBlock Text="In Extra-roots:" Width="180" VerticalAlignment="Center"/>
+										<NumericUpDown Width="180" Watermark="e.g. 0.25" Margin="5,0"/>
+									</StackPanel>
+
+									<TextBlock Text="Lignin Content" FontSize="14" FontWeight="Bold" />
+									<Rectangle Height="1" Fill="Gray"/>
+
+									<StackPanel Orientation="Horizontal">
+										<TextBlock Text="Lignin Content:" Width="180" VerticalAlignment="Center"/>
+										<NumericUpDown Width="180" Watermark="e.g. 10" Margin="5,0" Minimum="0" Maximum="100"/>
+										<TextBlock Text="(%)" VerticalAlignment="Center" Margin="5,0" />
+									</StackPanel>
+
+									<TextBlock Text="Return Percentages" FontSize="14" FontWeight="Bold" />
+									<Rectangle Height="1" Fill="Gray"/>
+																	
+									<StackPanel Orientation="Horizontal">
+										<TextBlock Text="Product Returned:" Width="180" VerticalAlignment="Center"/>
+										<NumericUpDown Width="180" Watermark="e.g. 90" Margin="5,0" Minimum="0" Maximum="100"/>
+										<TextBlock Text="(%)" VerticalAlignment="Center" Margin="5,0" />
+									</StackPanel>
+									<StackPanel Orientation="Horizontal">
+										<TextBlock Text="Straw Returned:" Width="180" VerticalAlignment="Center"/>
+										<NumericUpDown Width="180" Watermark="e.g. 85" Margin="5,0" Minimum="0" Maximum="100"/>
+										<TextBlock Text="(%)" VerticalAlignment="Center" Margin="5,0" />
+									</StackPanel>
+									<StackPanel Orientation="Horizontal">
+										<TextBlock Text="Roots Returned:" Width="180" VerticalAlignment="Center"/>
+										<NumericUpDown Width="180" Watermark="e.g. 100" Margin="5,0" Minimum="0" Maximum="100"/>
+										<TextBlock Text="(%)" VerticalAlignment="Center" Margin="5,0" />
+									</StackPanel>
+								</StackPanel>
+
+								<!-- Right Column -->
+								<StackPanel Spacing="8" Grid.Column="2">
+									<TextBlock Text="Nitrogen Content" FontSize="14" FontWeight="Bold" />
+									<Rectangle Height="1" Fill="Gray"/>
+
+									<StackPanel Orientation="Horizontal">
+										<TextBlock Text="In Product:" Width="180" VerticalAlignment="Center"/>
+										<NumericUpDown Width="180" Watermark="e.g. 0.012" Margin="5,0"/>
+										<TextBlock Text="(kg N kg^-1)" VerticalAlignment="Center" Margin="5,0" />
+									</StackPanel>
+									<StackPanel Orientation="Horizontal">
+										<TextBlock Text="In Straw:" Width="180" VerticalAlignment="Center"/>
+										<NumericUpDown Width="180" Watermark="e.g. 0.008" Margin="5,0"/>
+										<TextBlock Text="(kg N kg^-1)" VerticalAlignment="Center" Margin="5,0" />
+									</StackPanel>
+									<StackPanel Orientation="Horizontal">
+										<TextBlock Text="In Roots:" Width="180" VerticalAlignment="Center"/>
+										<NumericUpDown Width="180" Watermark="e.g. 0.006" Margin="5,0"/>
+										<TextBlock Text="(kg N kg^-1)" VerticalAlignment="Center" Margin="5,0" />
+									</StackPanel>
+									<StackPanel Orientation="Horizontal">
+										<TextBlock Text="In Extra-roots (kg/kg):" Width="180" VerticalAlignment="Center"/>
+										<NumericUpDown Width="180" Watermark="e.g. 0.005" Margin="5,0"/>
+										<TextBlock Text="(kg N kg^-1)" VerticalAlignment="Center" Margin="5,0" />
+									</StackPanel>
+								</StackPanel>
+							</Grid>
+						</StackPanel>
+					</TabItem>
+
+					<TabItem Header="Economics">
+						<StackPanel Margin="10" Spacing="8">
+							<TextBlock Text="Economics Management" FontSize="16" FontWeight="Bold" />
+							<Rectangle Height="1" Fill="Gray"/>
+							<TextBlock
+								Text="The economics management tab can be used to alter the costs and prices of various aspects of the farm for this component."
+								Foreground="Gray"
+								TextWrapping="Wrap"/>
+
+							<Grid>
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="*" />
+									<ColumnDefinition Width="10" />
+									<ColumnDefinition Width="*" />
+								</Grid.ColumnDefinitions>
+
+								<!-- Left column -->
+								<StackPanel Spacing="8" Grid.Column="0">
+									<!-- Grass Price -->
+									<TextBlock Text="Grass Price" FontSize="16" FontWeight="Bold" />
+									<Rectangle Height="1" Fill="Gray" />
+
+									<StackPanel Orientation="Horizontal">
+										<TextBlock Text="Regional Average Price:" VerticalAlignment="Center" Width="180" />
+										<NumericUpDown Width="180" Minimum="0" Watermark="e.g. 0.50" Margin="5,0" />
+										<TextBlock Text="(€ per kg)" VerticalAlignment="Center" Margin="5,0" />
+									</StackPanel>
+
+									<!-- Direct Costs -->
+									<TextBlock Text="Direct Costs" FontSize="16" FontWeight="Bold" />
+									<Rectangle Height="1" Fill="Gray" />
+
+									<StackPanel Orientation="Horizontal">
+										<TextBlock Text="Seed, cleaning and treatment:" VerticalAlignment="Center" Width="180" />
+										<NumericUpDown Width="180" Minimum="0" Watermark="e.g. 0.10" Margin="5,0" />
+										<TextBlock Text="(€ per kg)" VerticalAlignment="Center" Margin="5,0" />
+									</StackPanel>
+
+									<StackPanel Orientation="Horizontal">
+										<TextBlock Text="Fertilizer:" VerticalAlignment="Center" Width="180" />
+										<NumericUpDown Width="180" Minimum="0" Watermark="e.g. 0.20" Margin="5,0" />
+										<TextBlock Text="(€ per kg)" VerticalAlignment="Center" Margin="5,0" />
+									</StackPanel>
+
+									<StackPanel Orientation="Horizontal">
+										<TextBlock Text="Chemical:" VerticalAlignment="Center" Width="180" />
+										<NumericUpDown Width="180" Minimum="0" Watermark="e.g. 0.15" Margin="5,0" />
+										<TextBlock Text="(€ per kg)" VerticalAlignment="Center" Margin="5,0" />
+									</StackPanel>
+
+									<StackPanel Orientation="Horizontal">
+										<TextBlock Text="Trucking and marketing:" VerticalAlignment="Center" Width="180" />
+										<NumericUpDown Width="180" Minimum="0" Watermark="e.g. 0.05" Margin="5,0" />
+										<TextBlock Text="(€ per kg)" VerticalAlignment="Center" Margin="5,0" />
+									</StackPanel>
+
+									<StackPanel Orientation="Horizontal">
+										<TextBlock Text="Fuel, oil and lube:" VerticalAlignment="Center" Width="180" />
+										<NumericUpDown Width="180" Minimum="0" Watermark="e.g. 0.10" Margin="5,0" />
+										<TextBlock Text="(€ per kg)" VerticalAlignment="Center" Margin="5,0" />
+									</StackPanel>
+
+									<StackPanel Orientation="Horizontal">
+										<TextBlock Text="Machinery repairs:" VerticalAlignment="Center" Width="180" />
+										<NumericUpDown Width="180" Minimum="0" Watermark="e.g. 0.08" Margin="5,0" />
+										<TextBlock Text="(€ per kg)" VerticalAlignment="Center" Margin="5,0" />
+									</StackPanel>
+
+									<StackPanel Orientation="Horizontal">
+										<TextBlock Text="Grass insurance:" VerticalAlignment="Center" Width="180" />
+										<NumericUpDown Width="180" Minimum="0" Watermark="e.g. 0.03" Margin="5,0" />
+										<TextBlock Text="(€ per kg)" VerticalAlignment="Center" Margin="5,0" />
+									</StackPanel>
+
+									<StackPanel Orientation="Horizontal">
+										<TextBlock Text="Building repairs:" VerticalAlignment="Center" Width="180" />
+										<NumericUpDown Width="180" Minimum="0" Watermark="e.g. 0.02" Margin="5,0" />
+										<TextBlock Text="(€ per kg)" VerticalAlignment="Center" Margin="5,0" />
+									</StackPanel>
+
+									<StackPanel Orientation="Horizontal">
+										<TextBlock Text="Custom work:" VerticalAlignment="Center" Width="180" />
+										<NumericUpDown Width="180" Minimum="0" Watermark="e.g. 0.07" Margin="5,0" />
+										<TextBlock Text="(€ per kg)" VerticalAlignment="Center" Margin="5,0" />
+									</StackPanel>
+
+									<StackPanel Orientation="Horizontal">
+										<TextBlock Text="Labour (paid and unpaid):" VerticalAlignment="Center" Width="180" />
+										<NumericUpDown Width="180" Minimum="0" Watermark="e.g. 0.12" Margin="5,0" />
+										<TextBlock Text="(€ per kg)" VerticalAlignment="Center" Margin="5,0" />
+									</StackPanel>
+
+									<StackPanel Orientation="Horizontal">
+										<TextBlock Text="Utilities:" VerticalAlignment="Center" Width="180" />
+										<NumericUpDown Width="180" Minimum="0" Watermark="e.g. 0.04" Margin="5,0" />
+										<TextBlock Text="(€ per kg)" VerticalAlignment="Center" Margin="5,0" />
+									</StackPanel>
+
+									<StackPanel Orientation="Horizontal">
+										<TextBlock Text="Operating interest:" VerticalAlignment="Center" Width="180" />
+										<NumericUpDown Width="180" Minimum="0" Maximum="100" Watermark="e.g. 5" Margin="5,0" />
+										<TextBlock Text="(% € per kg)" VerticalAlignment="Center" Margin="5,0" />
+									</StackPanel>
+								</StackPanel>
+
+								<!-- Right column -->
+								<StackPanel Spacing="8" Grid.Column="2">
+									<TextBlock Text="Total Costs" FontSize="16" FontWeight="Bold" />
+									<Rectangle Height="1" Fill="Gray" />
+
+									<StackPanel Orientation="Horizontal">
+										<TextBlock Text="Total Fixed Cost:" VerticalAlignment="Center" Width="180" />
+										<NumericUpDown Width="180" Minimum="0" Watermark="e.g. 1.20" Margin="5,0" />
+										<TextBlock Text="(€ per kg)" VerticalAlignment="Center" Margin="5,0" />
+									</StackPanel>
+
+									<StackPanel Orientation="Horizontal">
+										<TextBlock Text="Total Variable Cost:" VerticalAlignment="Center" Width="180" />
+										<NumericUpDown Width="180" Minimum="0" Watermark="e.g. 2.50" Margin="5,0" />
+										<TextBlock Text="(€ per kg)" VerticalAlignment="Center" Margin="5,0" />
+									</StackPanel>
+								</StackPanel>
+							</Grid>
+						</StackPanel>
+						
+					
+
+					</TabItem>
+				</TabControl>
+
+			</StackPanel>
+		</ScrollViewer>
+	</Border>
 </UserControl>

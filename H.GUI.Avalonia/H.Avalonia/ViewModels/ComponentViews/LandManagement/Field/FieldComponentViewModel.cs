@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using AutoMapper;
 using H.Avalonia.Views.ComponentViews;
+using H.Core.Calculators.UnitsOfMeasurement;
 using H.Core.Enumerations;
 using H.Core.Factories;
 using H.Core.Models;
@@ -30,6 +31,7 @@ public class FieldComponentViewModel : ViewModelBase
     private ICropDto _selectedCropDto;
 
     private readonly IFieldComponentService _fieldComponentService;
+    private readonly IUnitsOfMeasurementCalculator _unitsOfMeasurementCalculator;
 
     #endregion
 
@@ -43,12 +45,21 @@ public class FieldComponentViewModel : ViewModelBase
         IRegionManager regionManager, 
         IEventAggregator eventAggregator, 
         IStorageService storageService,
-
-        IFieldComponentService fieldComponentService) : base(regionManager, eventAggregator, storageService)
+        IFieldComponentService fieldComponentService,
+        IUnitsOfMeasurementCalculator unitsOfMeasurementCalculator) : base(regionManager, eventAggregator, storageService)
     {
+        if (unitsOfMeasurementCalculator != null)
+        {
+            _unitsOfMeasurementCalculator = unitsOfMeasurementCalculator; 
+        }
+        else
+        {
+            throw new ArgumentNullException(nameof(unitsOfMeasurementCalculator));
+        }
+
         if (fieldComponentService != null)
         {
-            _fieldComponentService = fieldComponentService; 
+            _fieldComponentService = fieldComponentService;
         }
         else
         {
@@ -192,8 +203,24 @@ public class FieldComponentViewModel : ViewModelBase
             {
                 if (!fieldSystemComponentDto.HasErrors)
                 {
-                    // The name has been validated and we can assign the user value to the domain object
-                    _selectedFieldSystemComponent.FieldArea = fieldSystemComponentDto.FieldArea;
+                    var area = fieldSystemComponentDto.FieldArea;
+
+                    // The area has been validated and we can now assign the user value to the domain object
+                    if (_unitsOfMeasurementCalculator.IsMetric)
+                    {
+                        _selectedFieldSystemComponent.FieldArea = area;
+                    }
+                    else
+                    {
+                        /*
+                         * User has selected Imperial as the units of measurement system. All internal calculation work with metric units so we convert from imperial to metric before
+                         * assigning to the domain object
+                         */
+                        
+                        area = _unitsOfMeasurementCalculator.GetUnitsOfMeasurementValue(MeasurementSystemType.Metric, ImperialUnitsOfMeasurement.Acres, area);
+
+                        _selectedFieldSystemComponent.FieldArea = area;
+                    }
                 }
             }
         }

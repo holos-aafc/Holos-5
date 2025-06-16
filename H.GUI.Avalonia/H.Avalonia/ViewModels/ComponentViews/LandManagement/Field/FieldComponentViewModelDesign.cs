@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using H.Core.Calculators.UnitsOfMeasurement;
 using H.Core.Enumerations;
 using H.Core.Factories;
 using H.Core.Services.LandManagement.Fields;
@@ -23,7 +24,7 @@ public class FieldComponentViewModelDesign : FieldComponentViewModel
         };
     }
 
-    public FieldComponentViewModelDesign(IRegionManager regionManager, IEventAggregator eventAggregator, IStorageService storageService, IFieldComponentDtoFactory fieldComponentDtoFactory, ICropDtoFactory cropDtoFactory, IFieldComponentService fieldComponentService) : base(regionManager, eventAggregator, storageService, fieldComponentService)
+    public FieldComponentViewModelDesign(IRegionManager regionManager, IEventAggregator eventAggregator, IStorageService storageService, IFieldComponentDtoFactory fieldComponentDtoFactory, ICropDtoFactory cropDtoFactory, IFieldComponentService fieldComponentService, IUnitsOfMeasurementCalculator unitsOfMeasurementCalculator) : base(regionManager, eventAggregator, storageService, fieldComponentService, unitsOfMeasurementCalculator)
     {
     }
 }

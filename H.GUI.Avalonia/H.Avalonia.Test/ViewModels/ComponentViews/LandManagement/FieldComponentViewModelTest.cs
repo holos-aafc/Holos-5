@@ -48,7 +48,7 @@ public class FieldComponentViewModelTest
         var mockUnitsOfMeasurementCalculator = new Mock<IUnitsOfMeasurementCalculator>();
 
         _mockFieldComponentService.Setup(x => x.Create()).Returns(new FieldSystemComponentDto());
-        _mockFieldComponentService.Setup(x => x.Create(It.IsAny<FieldSystemComponent>())).Returns(new FieldSystemComponentDto());
+        _mockFieldComponentService.Setup(x => x.TransferToFieldComponentDto(It.IsAny<FieldSystemComponent>())).Returns(new FieldSystemComponentDto());
 
         _viewModel = new FieldComponentViewModel(mockRegionManager.Object, mockEventAggregator.Object, mockStorageService.Object, _mockFieldComponentService.Object, mockUnitsOfMeasurementCalculator.Object);
     }

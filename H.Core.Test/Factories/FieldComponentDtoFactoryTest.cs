@@ -46,21 +46,7 @@ public class FieldComponentDtoFactoryTest
 
     #region Tests
 
-    [TestMethod]
-    public void CreateSetCropDtoCollectionToNonEmpty()
-    {
-        var result = _factory.Create(new FieldSystemComponent() {CropViewItems = new ObservableCollection<CropViewItem>() { new CropViewItem() } });
 
-        Assert.IsTrue(result.CropDtos.Any());
-    }
-
-    [TestMethod]
-    public void CreateSetCropDtoCollectionToEmpty()
-    {
-        var result = _factory.Create(new FieldSystemComponent() { CropViewItems = new ObservableCollection<CropViewItem>() {} });
-
-        Assert.IsFalse(result.CropDtos.Any());
-    }
 
     #endregion
 }

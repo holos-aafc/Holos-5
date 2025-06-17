@@ -1,3 +1,4 @@
+using System.Collections.ObjectModel;
 using H.Core.Calculators.UnitsOfMeasurement;
 using H.Core.Enumerations;
 using H.Core.Factories;
@@ -71,7 +72,7 @@ public class FieldComponentServiceTest
         // We need to ensure the DTO value of 20 acres gets converted to hectares and assigned to the system/domain object
         var result = _fieldComponentService.TransferToSystem(dto, fieldComponent);
 
-        var expected = 2.4711 * areaInAcres;
+        var expected = areaInAcres / 2.4711;
 
         Assert.AreEqual(expected, result.FieldArea);
     }
@@ -99,6 +100,22 @@ public class FieldComponentServiceTest
         var expected = areaInHectares;
 
         Assert.AreEqual(expected, result.FieldArea);
+    }
+
+    [TestMethod]
+    public void CreateSetCropDtoCollectionToNonEmpty()
+    {
+        var result = _fieldComponentService.TransferToFieldComponentDto(new FieldSystemComponent() { CropViewItems = new ObservableCollection<CropViewItem>() { new CropViewItem() } });
+
+        Assert.IsTrue(result.CropDtos.Any());
+    }
+
+    [TestMethod]
+    public void CreateSetCropDtoCollectionToEmpty()
+    {
+        var result = _fieldComponentService.TransferToFieldComponentDto(new FieldSystemComponent() { CropViewItems = new ObservableCollection<CropViewItem>() { } });
+
+        Assert.IsFalse(result.CropDtos.Any());
     }
 
     #endregion

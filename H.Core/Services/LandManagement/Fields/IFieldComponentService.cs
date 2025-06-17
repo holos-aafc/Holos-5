@@ -37,4 +37,12 @@ public interface IFieldComponentService :  IFieldComponentDtoFactory, ICropDtoFa
 
     FieldSystemComponent TransferToSystem(IFieldComponentDto fieldComponentDto,
         FieldSystemComponent fieldSystemComponent);
+
+    /// <summary>
+    /// Create a new instance that is based on the state of an existing <see cref="FieldSystemComponent"/>. This method is used to create a
+    /// new instance of a <see cref="FieldSystemComponentDto"/> that will be bound to a view.
+    /// </summary>
+    /// <param name="template">The <see cref="FieldSystemComponent"/> that will be used to provide default values for the new <see cref="FieldSystemComponentDto"/> instance</param>
+    /// <returns></returns>
+    IFieldComponentDto TransferToFieldComponentDto(FieldSystemComponent template);
 }

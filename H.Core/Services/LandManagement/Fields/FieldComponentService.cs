@@ -18,6 +18,7 @@ public class FieldComponentService : IFieldComponentService
     private readonly ICropDtoFactory _cropDtoFactory;
     private readonly IUnitsOfMeasurementCalculator _unitsOfMeasurementCalculator;
     private readonly IMapper _fieldDtoToComponentMapper;
+    private readonly IMapper _fieldComponentToDtoMapper;
 
     #endregion
 
@@ -53,8 +54,10 @@ public class FieldComponentService : IFieldComponentService
         }
 
         var fieldDtoToComponentMapperConfiguration = new MapperConfiguration(configuration => { configuration.CreateMap<FieldSystemComponentDto, FieldSystemComponent>(); });
+        var fieldComponentDtoMapperConfiguration = new MapperConfiguration(configuration => { configuration.CreateMap<FieldSystemComponent, FieldSystemComponentDto>(); });
 
         _fieldDtoToComponentMapper = fieldDtoToComponentMapperConfiguration.CreateMapper();
+        _fieldComponentToDtoMapper = fieldComponentDtoMapperConfiguration.CreateMapper();
     }
 
     #endregion
@@ -135,7 +138,7 @@ public class FieldComponentService : IFieldComponentService
 
         if (template.IsInitialized)
         {
-            fieldDto = _fieldComponentDtoFactory.Create(template: template);
+            fieldDto = TransferToFieldComponentDto(template: template);
         }
         else
         {
@@ -192,9 +195,57 @@ public class FieldComponentService : IFieldComponentService
         return fieldSystemComponent;
     }
 
+    /// <summary>
+    /// Create a new instance that is based on the state of an existing <see cref="FieldSystemComponent"/>. This method is used to create a
+    /// new instance of a <see cref="FieldSystemComponentDto"/> that will be bound to a view.
+    /// </summary>
+    /// <param name="template">The <see cref="FieldSystemComponent"/> that will be used to provide default values for the new <see cref="FieldSystemComponentDto"/> instance</param>
+    /// <returns></returns>
+    public IFieldComponentDto TransferToFieldComponentDto(FieldSystemComponent template)
+    {
+        var fieldComponentDto = new FieldSystemComponentDto();
+
+        // Create a copy of the field component by copying all properties into the DTO
+        _fieldComponentToDtoMapper.Map(template, fieldComponentDto);
+
+        // All numerical values are stored internally as metric values
+        var fieldComponentDtoPropertyConverter = new PropertyConverter<IFieldComponentDto>(fieldComponentDto);
+
+        // Get all properties that might need to be converted to imperial units before being shown to the user
+        foreach (var property in fieldComponentDtoPropertyConverter.PropertyInfos)
+        {
+            // Convert the value from metric to imperial as needed. Note the converter won't convert anything if the display is in metric units
+            var bindingValue = fieldComponentDtoPropertyConverter.GetBindingValueFromSystem(property, _unitsOfMeasurementCalculator.GetUnitsOfMeasurement());
+
+            // Set the value of the property before displaying to the user
+            property.SetValue(fieldComponentDto, bindingValue);
+        }
+
+        this.BuildCropDtoCollection(template, fieldComponentDto);
+
+        return fieldComponentDto;
+    }
+
     #endregion
 
     #region Private Methods
+
+    /// <summary>
+    /// Create copies of all the <see cref="CropViewItem"/> in a <see cref="FieldSystemComponent"/> and add corresponding <see cref="CropDto"/> instances to the <see cref="FieldSystemComponentDto"/>
+    /// </summary>
+    /// <param name="fieldSystemComponent">The </param>
+    /// <param name="fieldComponentDto"></param>
+    private void BuildCropDtoCollection(FieldSystemComponent fieldSystemComponent, IFieldComponentDto fieldComponentDto)
+    {
+        fieldComponentDto.CropDtos.Clear();
+
+        foreach (var cropViewItem in fieldSystemComponent.CropViewItems)
+        {
+            var dto = _cropDtoFactory.Create(template: cropViewItem);
+
+            fieldComponentDto.CropDtos.Add(dto);
+        }
+    }
 
     #endregion
 

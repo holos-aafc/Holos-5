@@ -119,7 +119,7 @@ public class FieldComponentViewModel : ViewModelBase
             _selectedFieldSystemComponent = fieldSystemComponent;
 
             // Build a DTO to represent the model/domain object
-            this.SelectedFieldSystemComponentDto = _fieldComponentService.Create(_selectedFieldSystemComponent);
+            this.SelectedFieldSystemComponentDto = _fieldComponentService.TransferToFieldComponentDto(_selectedFieldSystemComponent);
 
             // Listen for changes on the DTO
             this.SelectedFieldSystemComponentDto.PropertyChanged += SelectedFieldSystemComponentDtoOnPropertyChanged;

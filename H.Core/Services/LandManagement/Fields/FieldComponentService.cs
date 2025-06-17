@@ -1,4 +1,7 @@
-﻿using H.Core.Factories;
+﻿using AutoMapper;
+using H.Core.Calculators.UnitsOfMeasurement;
+using H.Core.Converters;
+using H.Core.Factories;
 using H.Core.Models;
 using H.Core.Models.LandManagement.Fields;
 
@@ -12,17 +15,28 @@ public class FieldComponentService : IFieldComponentService
     #region Fields
     
     private readonly IFieldComponentDtoFactory _fieldComponentDtoFactory;
-    private readonly ICropDtoFactory _cropDtoFactory; 
+    private readonly ICropDtoFactory _cropDtoFactory;
+    private readonly IUnitsOfMeasurementCalculator _unitsOfMeasurementCalculator;
+    private readonly IMapper _fieldDtoToComponentMapper;
 
     #endregion
 
     #region Constructors
 
-    public FieldComponentService(IFieldComponentDtoFactory fieldComponentDtoFactory, ICropDtoFactory cropDtoFactory)
+    public FieldComponentService(IFieldComponentDtoFactory fieldComponentDtoFactory, ICropDtoFactory cropDtoFactory, IUnitsOfMeasurementCalculator unitsOfMeasurementCalculator)
     {
+        if (unitsOfMeasurementCalculator != null)
+        {
+            _unitsOfMeasurementCalculator = unitsOfMeasurementCalculator; 
+        }
+        else
+        {
+            throw new ArgumentNullException(nameof(unitsOfMeasurementCalculator));
+        }
+
         if (cropDtoFactory != null)
         {
-            _cropDtoFactory = cropDtoFactory; 
+            _cropDtoFactory = cropDtoFactory;
         }
         else
         {
@@ -37,6 +51,10 @@ public class FieldComponentService : IFieldComponentService
         {
             throw new ArgumentNullException(nameof(fieldComponentDtoFactory));
         }
+
+        var fieldDtoToComponentMapperConfiguration = new MapperConfiguration(configuration => { configuration.CreateMap<FieldSystemComponentDto, FieldSystemComponent>(); });
+
+        _fieldDtoToComponentMapper = fieldDtoToComponentMapperConfiguration.CreateMapper();
     }
 
     #endregion
@@ -128,11 +146,10 @@ public class FieldComponentService : IFieldComponentService
         return fieldDto;
     }
 
-    #endregion
-
-    #region Private Methods
-
-    #endregion
+    public IFieldComponentDto Create(IFieldComponentDto template)
+    {
+        return _fieldComponentDtoFactory.Create(template);
+    }
 
     public ICropDto CreateCropDto()
     {
@@ -143,4 +160,43 @@ public class FieldComponentService : IFieldComponentService
     {
         return _cropDtoFactory.Create(template);
     }
+
+    /// <summary>
+    /// The view is always bound to a DTO object. Once to user enters values the DTO needs to have its values converted to metric since Holos stores all values in metric units
+    /// internally. This method takes in a DTO, converts values to the correct units of measurement, as assigns those converted values to the system/domain object.
+    /// </summary>
+    /// <param name="fieldComponentDto">The DTO that is bound to the GUI</param>
+    /// <param name="fieldSystemComponent">The internal system object</param>
+    /// <returns>The <see cref="FieldSystemComponent"/> once the converted values have been assigned</returns>
+    public FieldSystemComponent TransferToSystem(IFieldComponentDto fieldComponentDto, FieldSystemComponent fieldSystemComponent)
+    {
+        // Create a copy of the DTO since we don't want to change values on the original that is still bound to the GUI
+        var copy = _fieldComponentDtoFactory.Create(fieldComponentDto);
+
+        // All numerical values are stored internally as metric values
+        var fieldComponentDtoPropertyConverter = new PropertyConverter<IFieldComponentDto>(copy);
+
+        // Get all properties that might need to be converted to imperial units before being shown to the user
+        foreach (var property in fieldComponentDtoPropertyConverter.PropertyInfos)
+        {
+            // Convert the value from imperial to metric as needed (no conversion will occur if display is using metric)
+            var bindingValue = fieldComponentDtoPropertyConverter.GetSystemValueFromBinding(property, _unitsOfMeasurementCalculator.GetUnitsOfMeasurement());
+
+            // Set the value on the copy of the DTO
+            property.SetValue(copy, bindingValue);
+        }
+
+        // Map value from the copy of the DTO to the internal system object
+        _fieldDtoToComponentMapper.Map(copy, fieldSystemComponent);
+
+        return fieldSystemComponent;
+    }
+
+    #endregion
+
+    #region Private Methods
+
+    #endregion
+
+
 }

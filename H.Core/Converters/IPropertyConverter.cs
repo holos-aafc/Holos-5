@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Reflection;
+using H.Core.Enumerations;
 
 namespace H.Core.Converters
 {
@@ -35,5 +36,8 @@ namespace H.Core.Converters
         /// <param name="prop">property to get the value for</param>
         /// <returns>metric or imperial value</returns>
         double GetBindingValueFromSystem(PropertyInfo prop);
+
+        double GetBindingValueFromSystem(PropertyInfo prop, MeasurementSystemType measurementSystemType);
+        double GetSystemValueFromBinding(PropertyInfo prop, MeasurementSystemType measurementSystemType);
     }
 }

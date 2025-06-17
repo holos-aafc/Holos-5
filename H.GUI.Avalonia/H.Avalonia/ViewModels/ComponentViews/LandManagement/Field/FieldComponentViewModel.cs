@@ -190,38 +190,11 @@ public class FieldComponentViewModel : ViewModelBase
     {
         if (sender is FieldSystemComponentDto fieldSystemComponentDto)
         {
-            if (e.PropertyName.Equals(nameof(FieldSystemComponentDto.Name)))
+            // Before assign values from the bound DTOs, check for any validation errors
+            if (!fieldSystemComponentDto.HasErrors)
             {
-                if (!fieldSystemComponentDto.HasErrors)
-                {
-                    // The name has been validated and we can assign the user value to the domain object
-                    _selectedFieldSystemComponent.Name = fieldSystemComponentDto.Name;
-                }
-            }
-
-            if (e.PropertyName.Equals(nameof(FieldSystemComponentDto.FieldArea)))
-            {
-                if (!fieldSystemComponentDto.HasErrors)
-                {
-                    var area = fieldSystemComponentDto.FieldArea;
-
-                    // The area has been validated and we can now assign the user value to the domain object
-                    if (_unitsOfMeasurementCalculator.IsMetric)
-                    {
-                        _selectedFieldSystemComponent.FieldArea = area;
-                    }
-                    else
-                    {
-                        /*
-                         * User has selected Imperial as the units of measurement system. All internal calculation work with metric units so we convert from imperial to metric before
-                         * assigning to the domain object
-                         */
-                        
-                        area = _unitsOfMeasurementCalculator.GetUnitsOfMeasurementValue(MeasurementSystemType.Metric, ImperialUnitsOfMeasurement.Acres, area);
-
-                        _selectedFieldSystemComponent.FieldArea = area;
-                    }
-                }
+                // A property on the DTO has been changed by the user, assign the new value to the system object after any unit conversion (if necessary)
+                _fieldComponentService.TransferToSystem(fieldSystemComponentDto, _selectedFieldSystemComponent);
             }
         }
     }

@@ -3,6 +3,8 @@
 #endregion
 
 using System.ComponentModel;
+using System.Reflection;
+using H.Core.CustomAttributes;
 using H.Core.Enumerations;
 using H.Core.Models;
 using H.Core.Services.StorageService;
@@ -1238,6 +1240,19 @@ namespace H.Core.Calculators.UnitsOfMeasurement
             }
 
         }
+
+        public MeasurementSystemType GetUnitsOfMeasurement()
+        {
+            if (this.IsMetric)
+            {
+                return MeasurementSystemType.Metric;
+            }
+            else
+            {
+                return MeasurementSystemType.Imperial;
+            }
+        }
+
         #endregion
 
         #region Private Methods

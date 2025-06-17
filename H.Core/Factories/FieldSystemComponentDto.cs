@@ -46,6 +46,8 @@ public class FieldSystemComponentDto : DtoBase, IFieldComponentDto
 
     /// <summary>
     /// The total size of the field
+    ///
+    /// (ha)
     /// </summary>
     [Units(MetricUnitsOfMeasurement.Hectares)]
     public double FieldArea

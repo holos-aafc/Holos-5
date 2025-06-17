@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using Avalonia.Markup.Xaml.Templates;
+using H.Core.Calculators.UnitsOfMeasurement;
+using H.Core.Converters;
 using H.Core.Models.LandManagement.Fields;
 
 namespace H.Core.Factories;
@@ -11,27 +13,42 @@ public class FieldComponentDtoFactory : IFieldComponentDtoFactory
 {
     #region Fields
 
-    private readonly IMapper _fieldComponentMapper;
+    private readonly IMapper _fieldComponentToDtoMapper;
+    private readonly IMapper _fieldDtoToDtoMapper;
+
     private readonly ICropDtoFactory _cropDtoFactory;
+    private PropertyConverter<IFieldComponentDto> _fieldComponentDtoPropertyConverter;
+    private readonly IUnitsOfMeasurementCalculator _unitsOfMeasurementCalculator;
 
     #endregion
 
     #region Constructors
 
-    public FieldComponentDtoFactory(ICropDtoFactory cropDtoFactory)
+    public FieldComponentDtoFactory(ICropDtoFactory cropDtoFactory, IUnitsOfMeasurementCalculator unitsOfMeasurementCalculator)
     {
+        if (unitsOfMeasurementCalculator != null)
+        {
+            _unitsOfMeasurementCalculator = unitsOfMeasurementCalculator;
+        }
+        else
+        {
+            throw new ArgumentNullException(nameof(unitsOfMeasurementCalculator));
+        }
+
         if (cropDtoFactory != null)
         {
-            _cropDtoFactory = cropDtoFactory; 
+            _cropDtoFactory = cropDtoFactory;
         }
         else
         {
             throw new ArgumentNullException(nameof(cropDtoFactory));
         }
-        
-        var fieldComponentDtoMapperConfiguration = new MapperConfiguration(configuration => { configuration.CreateMap<FieldSystemComponent, FieldSystemComponentDto>(); });
 
-        _fieldComponentMapper = fieldComponentDtoMapperConfiguration.CreateMapper();
+        var fieldComponentDtoMapperConfiguration = new MapperConfiguration(configuration => { configuration.CreateMap<FieldSystemComponent, FieldSystemComponentDto>(); });
+        var fieldDtoToDtoMapperConfiguration = new MapperConfiguration(configuration => { configuration.CreateMap<FieldSystemComponentDto, FieldSystemComponentDto>(); });
+
+        _fieldComponentToDtoMapper = fieldComponentDtoMapperConfiguration.CreateMapper();
+        _fieldDtoToDtoMapper = fieldDtoToDtoMapperConfiguration.CreateMapper();
     }
 
     #endregion
@@ -46,6 +63,15 @@ public class FieldComponentDtoFactory : IFieldComponentDtoFactory
         return new FieldSystemComponentDto();
     }
 
+    public IFieldComponentDto Create(IFieldComponentDto template)
+    {
+        var fieldComponentDto = new FieldSystemComponentDto();
+
+        _fieldDtoToDtoMapper.Map(template, fieldComponentDto);
+
+        return fieldComponentDto;
+    }
+
     /// <summary>
     /// Create a new instance that is based on the state of an existing <see cref="FieldSystemComponent"/>. This method is used to create a
     /// new instance of a <see cref="FieldSystemComponentDto"/> that will be bound to a view.
@@ -57,7 +83,20 @@ public class FieldComponentDtoFactory : IFieldComponentDtoFactory
         var fieldComponentDto = new FieldSystemComponentDto();
 
         // Create a copy of the template
-        _fieldComponentMapper.Map(template, fieldComponentDto);
+        _fieldComponentToDtoMapper.Map(template, fieldComponentDto);
+
+        // All numerical values are stored internally as metric values
+        var fieldComponentDtoPropertyConverter = new PropertyConverter<IFieldComponentDto>(fieldComponentDto);
+
+        // Get all properties that might need to be converted to imperial units before being shown to the user
+        foreach (var property in fieldComponentDtoPropertyConverter.PropertyInfos)
+        {
+            // Convert the value from metric to imperial as needed
+            var bindingValue = fieldComponentDtoPropertyConverter.GetBindingValueFromSystem(property, _unitsOfMeasurementCalculator.GetUnitsOfMeasurement());
+
+            // Set the value of the property before displaying to the user
+            property.SetValue(fieldComponentDto, bindingValue);
+        }
 
         this.BuildCropDtoCollection(template, fieldComponentDto);
 

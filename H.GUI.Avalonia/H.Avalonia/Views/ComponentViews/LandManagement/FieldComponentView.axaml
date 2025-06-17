@@ -29,12 +29,12 @@
         <StackPanel Grid.Row="1">
             <Grid HorizontalAlignment="Left">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
+                    <ColumnDefinition MinWidth="120"/>
+                    <ColumnDefinition MinWidth="120"/>
+                    <ColumnDefinition MinWidth="100"/>
                 </Grid.ColumnDefinitions>
 
-                <Label Grid.Column="0" Content="Field size" VerticalContentAlignment="Center"/>
+                <Label Grid.Column="0" Content="Field size:" VerticalContentAlignment="Center"/>
                 <NumericUpDown Grid.Column="1" Minimum="0" Value="{Binding Path=SelectedFieldSystemComponentDto.FieldArea}"></NumericUpDown>
                 <Label Grid.Column="2" Content="{Binding Path=StorageService.Storage.ApplicationData.DisplayUnitStrings.HectaresString}" VerticalContentAlignment="Center"/>
             </Grid>

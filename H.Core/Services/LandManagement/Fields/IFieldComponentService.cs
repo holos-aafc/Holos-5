@@ -34,4 +34,7 @@ public interface IFieldComponentService :  IFieldComponentDtoFactory, ICropDtoFa
     string GetUniqueFieldName(IEnumerable<FieldSystemComponent> components);
 
     #endregion
+
+    FieldSystemComponent TransferToSystem(IFieldComponentDto fieldComponentDto,
+        FieldSystemComponent fieldSystemComponent);
 }

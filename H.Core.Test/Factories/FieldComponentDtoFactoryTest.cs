@@ -3,6 +3,7 @@ using H.Core.Models.LandManagement.Fields;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System.Collections.ObjectModel;
+using H.Core.Calculators.UnitsOfMeasurement;
 
 namespace H.Core.Test.Factories;
 
@@ -31,8 +32,9 @@ public class FieldComponentDtoFactoryTest
     public void TestInitialize()
     {
         var mockCropDtoFactory = new Mock<ICropDtoFactory>();
+        var mockUnitsOfMeasurementCalculator = new Mock<IUnitsOfMeasurementCalculator>();
 
-        _factory = new FieldComponentDtoFactory(mockCropDtoFactory.Object);
+        _factory = new FieldComponentDtoFactory(mockCropDtoFactory.Object, mockUnitsOfMeasurementCalculator.Object);
     }
 
     [TestCleanup]

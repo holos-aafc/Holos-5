@@ -194,7 +194,7 @@ public class FieldComponentViewModel : ViewModelBase
             if (!fieldSystemComponentDto.HasErrors)
             {
                 // A property on the DTO has been changed by the user, assign the new value to the system object after any unit conversion (if necessary)
-                _fieldComponentService.TransferToSystem(fieldSystemComponentDto, _selectedFieldSystemComponent);
+                _fieldComponentService.TransferFieldDtoToSystem(fieldSystemComponentDto, _selectedFieldSystemComponent);
             }
         }
     }

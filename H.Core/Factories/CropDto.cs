@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
+using H.Core.CustomAttributes;
 using H.Core.Enumerations;
 using H.Core.Models;
 using H.Core.Models.LandManagement.Fields;
@@ -15,6 +16,7 @@ public class CropDto : DtoBase, ICropDto
 {
     #region Fields
 
+    private double _amountOfIrrigation;
     private int _year;
     private CropType _cropType;
     private ObservableCollection<CropType> _cropTypes;
@@ -63,6 +65,18 @@ public class CropDto : DtoBase, ICropDto
         set => SetProperty(ref _year, value);
     }
 
+    /// <summary>
+    /// The total amount of annual irrigation
+    ///
+    /// (mm)
+    /// </summary>
+    [Units(MetricUnitsOfMeasurement.Millimeters)]
+    public double AmountOfIrrigation
+    {
+        get => _amountOfIrrigation;
+        set => SetProperty(ref _amountOfIrrigation, value);
+    }
+
     #endregion
 
     #region Event Handlers
@@ -83,12 +97,29 @@ public class CropDto : DtoBase, ICropDto
         }
     }
 
+    private void ValidateAmountOfIrrigation()
+    {
+        var key = nameof(AmountOfIrrigation);
+        if (this.AmountOfIrrigation < 0)
+        {
+            AddError(key, "Amount of irrigation cannot be negative");
+        }
+        else
+        {
+            RemoveError(key);
+        }
+    }
+
     private void OnPropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
         if (e.PropertyName.Equals(nameof(CropType)))
         {
             // Ensure the crop type is valid
             this.ValidateCropType();
+        }
+        else if (e.PropertyName.Equals(nameof(AmountOfIrrigation)))
+        {
+            this.ValidateAmountOfIrrigation();
         }
     }
 

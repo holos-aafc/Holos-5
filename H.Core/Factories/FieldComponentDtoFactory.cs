@@ -63,7 +63,7 @@ public class FieldComponentDtoFactory : IFieldComponentDtoFactory
         return new FieldSystemComponentDto();
     }
 
-    public IFieldComponentDto Create(IFieldComponentDto template)
+    public IFieldComponentDto CreateFieldDto(IFieldComponentDto template)
     {
         var fieldComponentDto = new FieldSystemComponentDto();
 
@@ -72,13 +72,9 @@ public class FieldComponentDtoFactory : IFieldComponentDtoFactory
         return fieldComponentDto;
     }
 
-
-
     #endregion
 
     #region Private Methods
-
-
 
     #endregion
 }

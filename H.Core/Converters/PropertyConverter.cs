@@ -13,7 +13,7 @@ using H.Core.Properties;
 namespace H.Core.Converters
 {
     /// <summary>
-    /// A clsss used to convert properties of a class from one units of measurement system to another
+    /// A class used to convert properties of a class from one unit of measurement system to another
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public class PropertyConverter<T> : IPropertyConverter

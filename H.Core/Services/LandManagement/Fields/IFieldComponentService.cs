@@ -35,7 +35,7 @@ public interface IFieldComponentService :  IFieldComponentDtoFactory, ICropDtoFa
 
     #endregion
 
-    FieldSystemComponent TransferToSystem(IFieldComponentDto fieldComponentDto,
+    FieldSystemComponent TransferFieldDtoToSystem(IFieldComponentDto fieldComponentDto,
         FieldSystemComponent fieldSystemComponent);
 
     /// <summary>
@@ -45,4 +45,6 @@ public interface IFieldComponentService :  IFieldComponentDtoFactory, ICropDtoFa
     /// <param name="template">The <see cref="FieldSystemComponent"/> that will be used to provide default values for the new <see cref="FieldSystemComponentDto"/> instance</param>
     /// <returns></returns>
     IFieldComponentDto TransferToFieldComponentDto(FieldSystemComponent template);
+
+    CropViewItem TransferCropDtoToSystem(ICropDto cropDto, CropViewItem cropViewItem);
 }

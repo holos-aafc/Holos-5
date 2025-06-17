@@ -16,7 +16,9 @@ public class FieldComponentServiceTest
     #region Fields
 
     private IFieldComponentService _fieldComponentService;
+    
     private Mock<IFieldComponentDtoFactory> _mockFieldComponentDtoFactory;
+    private Mock<ICropDtoFactory> _mockCropDtoFactory;
     private Mock<IUnitsOfMeasurementCalculator> _mockUnitsOfMeasurementCalculator;
 
     #endregion
@@ -37,10 +39,10 @@ public class FieldComponentServiceTest
     public void TestInitialize()
     {
         _mockFieldComponentDtoFactory = new Mock<IFieldComponentDtoFactory>();
-        var mockCropDtoFactory = new Mock<ICropDtoFactory>();
+        _mockCropDtoFactory = new Mock<ICropDtoFactory>();
         _mockUnitsOfMeasurementCalculator = new Mock<IUnitsOfMeasurementCalculator>();
 
-        _fieldComponentService = new FieldComponentService(_mockFieldComponentDtoFactory.Object, mockCropDtoFactory.Object, _mockUnitsOfMeasurementCalculator.Object);
+        _fieldComponentService = new FieldComponentService(_mockFieldComponentDtoFactory.Object, _mockCropDtoFactory.Object, _mockUnitsOfMeasurementCalculator.Object);
     }
 
     [TestCleanup]
@@ -53,7 +55,30 @@ public class FieldComponentServiceTest
     #region Tests
 
     [TestMethod]
-    public void TransferToSystemConvertsImperialValueToMetric()
+    public void TransferCropDtoToSystemConvertsImperialValueToMetric()
+    {
+        // Display units are imperial
+        _mockUnitsOfMeasurementCalculator.Setup(x => x.GetUnitsOfMeasurement()).Returns(MeasurementSystemType.Imperial);
+
+        var dto = new CropDto();
+
+        // User sets total annual irrigation to 50 inches
+        dto.AmountOfIrrigation = 50;
+
+        _mockCropDtoFactory.Setup(x => x.CreateCropDto(It.IsAny<ICropDto>())).Returns(dto);
+
+        var cropViewItem = new CropViewItem();
+
+        // We need to ensure the DTO value of 50 inches gets converted to millimeters and assigned to the system/domain object
+        var result = _fieldComponentService.TransferCropDtoToSystem(dto, cropViewItem);
+
+        var expected = 50 / 0.0394;
+
+        Assert.AreEqual(expected, result.AmountOfIrrigation);
+    }
+
+    [TestMethod]
+    public void TransferFieldDtoToSystemConvertsImperialValueToMetric()
     {
         // Display units are imperial
         _mockUnitsOfMeasurementCalculator.Setup(x => x.GetUnitsOfMeasurement()).Returns(MeasurementSystemType.Imperial);
@@ -65,12 +90,12 @@ public class FieldComponentServiceTest
         // User sets field area to 20 acres
         dto.FieldArea = areaInAcres;
 
-        _mockFieldComponentDtoFactory.Setup(x => x.Create(It.IsAny<IFieldComponentDto>())).Returns(dto);
+        _mockFieldComponentDtoFactory.Setup(x => x.CreateFieldDto(It.IsAny<IFieldComponentDto>())).Returns(dto);
 
         var fieldComponent = new FieldSystemComponent();
 
         // We need to ensure the DTO value of 20 acres gets converted to hectares and assigned to the system/domain object
-        var result = _fieldComponentService.TransferToSystem(dto, fieldComponent);
+        var result = _fieldComponentService.TransferFieldDtoToSystem(dto, fieldComponent);
 
         var expected = areaInAcres / 2.4711;
 
@@ -78,7 +103,7 @@ public class FieldComponentServiceTest
     }
 
     [TestMethod]
-    public void TransferToSystemConvertsToMetric()
+    public void TransferFieldDtoToSystemConvertsToMetric()
     {
         // Display units are metric
         _mockUnitsOfMeasurementCalculator.Setup(x => x.GetUnitsOfMeasurement()).Returns(MeasurementSystemType.Metric);
@@ -90,12 +115,12 @@ public class FieldComponentServiceTest
         // User sets field area to 20 hectares
         dto.FieldArea = areaInHectares;
 
-        _mockFieldComponentDtoFactory.Setup(x => x.Create(It.IsAny<IFieldComponentDto>())).Returns(dto);
+        _mockFieldComponentDtoFactory.Setup(x => x.CreateFieldDto(It.IsAny<IFieldComponentDto>())).Returns(dto);
 
         var fieldComponent = new FieldSystemComponent();
 
         // We need to ensure the DTO value of 20 hectares gets converted to hectares (this is the complementary test to the one above) and assigned to the system/domain object
-        var result = _fieldComponentService.TransferToSystem(dto, fieldComponent);
+        var result = _fieldComponentService.TransferFieldDtoToSystem(dto, fieldComponent);
 
         var expected = areaInHectares;
 

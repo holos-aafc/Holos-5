@@ -24,4 +24,6 @@ public interface ICropDto : INotifyPropertyChanged
     /// The year in which the crop was grown
     /// </summary>
     int Year { get; set; }
+
+    double AmountOfIrrigation { get; set; }
 }

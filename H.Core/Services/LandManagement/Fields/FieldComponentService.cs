@@ -17,8 +17,11 @@ public class FieldComponentService : IFieldComponentService
     private readonly IFieldComponentDtoFactory _fieldComponentDtoFactory;
     private readonly ICropDtoFactory _cropDtoFactory;
     private readonly IUnitsOfMeasurementCalculator _unitsOfMeasurementCalculator;
+
     private readonly IMapper _fieldDtoToComponentMapper;
     private readonly IMapper _fieldComponentToDtoMapper;
+
+    private readonly IMapper _cropDtoToCropViewItemMapper;
 
     #endregion
 
@@ -56,8 +59,12 @@ public class FieldComponentService : IFieldComponentService
         var fieldDtoToComponentMapperConfiguration = new MapperConfiguration(configuration => { configuration.CreateMap<FieldSystemComponentDto, FieldSystemComponent>(); });
         var fieldComponentDtoMapperConfiguration = new MapperConfiguration(configuration => { configuration.CreateMap<FieldSystemComponent, FieldSystemComponentDto>(); });
 
+        var cropDtoToCropViewItemMapperConfiguration = new MapperConfiguration(configuration => { configuration.CreateMap<ICropDto, CropViewItem>(); });
+
         _fieldDtoToComponentMapper = fieldDtoToComponentMapperConfiguration.CreateMapper();
         _fieldComponentToDtoMapper = fieldComponentDtoMapperConfiguration.CreateMapper();
+
+        _cropDtoToCropViewItemMapper = cropDtoToCropViewItemMapperConfiguration.CreateMapper();
     }
 
     #endregion
@@ -149,9 +156,9 @@ public class FieldComponentService : IFieldComponentService
         return fieldDto;
     }
 
-    public IFieldComponentDto Create(IFieldComponentDto template)
+    public IFieldComponentDto CreateFieldDto(IFieldComponentDto template)
     {
-        return _fieldComponentDtoFactory.Create(template);
+        return _fieldComponentDtoFactory.CreateFieldDto(template);
     }
 
     public ICropDto CreateCropDto()
@@ -159,9 +166,38 @@ public class FieldComponentService : IFieldComponentService
         return _cropDtoFactory.CreateCropDto();
     }
 
-    public ICropDto Create(CropViewItem template)
+    public ICropDto CreateCropDto(CropViewItem template)
     {
-        return _cropDtoFactory.Create(template);
+        return _cropDtoFactory.CreateCropDto(template);
+    }
+
+    public ICropDto CreateCropDto(ICropDto template)
+    {
+        return _cropDtoFactory.CreateCropDto(template);
+    }
+
+    public CropViewItem TransferCropDtoToSystem(ICropDto cropDto, CropViewItem cropViewItem)
+    {
+        // Create a copy of the DTO since we don't want to change values on the original that is still bound to the GUI
+        var copy = _cropDtoFactory.CreateCropDto(cropDto);
+
+        // All numerical values are stored internally as metric values
+        var cropViewItemPropertyConverter = new PropertyConverter<ICropDto>(copy);
+
+        // Get all properties that might need to be converted to imperial units before being shown to the user
+        foreach (var property in cropViewItemPropertyConverter.PropertyInfos)
+        {
+            // Convert the value from imperial to metric as needed (no conversion will occur if display is using metric)
+            var bindingValue = cropViewItemPropertyConverter.GetSystemValueFromBinding(property, _unitsOfMeasurementCalculator.GetUnitsOfMeasurement());
+
+            // Set the value on the copy of the DTO
+            property.SetValue(copy, bindingValue);
+        }
+
+        // Map values from the copy of the DTO to the internal system object
+        _cropDtoToCropViewItemMapper.Map(copy, cropViewItem);
+
+        return cropViewItem;
     }
 
     /// <summary>
@@ -171,15 +207,15 @@ public class FieldComponentService : IFieldComponentService
     /// <param name="fieldComponentDto">The DTO that is bound to the GUI</param>
     /// <param name="fieldSystemComponent">The internal system object</param>
     /// <returns>The <see cref="FieldSystemComponent"/> once the converted values have been assigned</returns>
-    public FieldSystemComponent TransferToSystem(IFieldComponentDto fieldComponentDto, FieldSystemComponent fieldSystemComponent)
+    public FieldSystemComponent TransferFieldDtoToSystem(IFieldComponentDto fieldComponentDto, FieldSystemComponent fieldSystemComponent)
     {
         // Create a copy of the DTO since we don't want to change values on the original that is still bound to the GUI
-        var copy = _fieldComponentDtoFactory.Create(fieldComponentDto);
+        var copy = _fieldComponentDtoFactory.CreateFieldDto(fieldComponentDto);
 
         // All numerical values are stored internally as metric values
         var fieldComponentDtoPropertyConverter = new PropertyConverter<IFieldComponentDto>(copy);
 
-        // Get all properties that might need to be converted to imperial units before being shown to the user
+        // Get all properties that might need to be converted
         foreach (var property in fieldComponentDtoPropertyConverter.PropertyInfos)
         {
             // Convert the value from imperial to metric as needed (no conversion will occur if display is using metric)
@@ -189,7 +225,7 @@ public class FieldComponentService : IFieldComponentService
             property.SetValue(copy, bindingValue);
         }
 
-        // Map value from the copy of the DTO to the internal system object
+        // Map values from the copy of the DTO to the internal system object
         _fieldDtoToComponentMapper.Map(copy, fieldSystemComponent);
 
         return fieldSystemComponent;
@@ -241,7 +277,7 @@ public class FieldComponentService : IFieldComponentService
 
         foreach (var cropViewItem in fieldSystemComponent.CropViewItems)
         {
-            var dto = _cropDtoFactory.Create(template: cropViewItem);
+            var dto = _cropDtoFactory.CreateCropDto(template: cropViewItem);
 
             fieldComponentDto.CropDtos.Add(dto);
         }

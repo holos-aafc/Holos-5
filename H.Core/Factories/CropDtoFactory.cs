@@ -12,7 +12,8 @@ public class CropDtoFactory : ICropDtoFactory
 {
     #region Fields
 
-    private readonly IMapper _cropDtoMapper;
+    private readonly IMapper _cropViewItemToDtoMapper;
+    private readonly IMapper _cropDtoToDtoMapper;
 
     #endregion
 
@@ -20,9 +21,11 @@ public class CropDtoFactory : ICropDtoFactory
 
     public CropDtoFactory()
     {
-        var cropDtoMapperConfiguration = new MapperConfiguration(configuration => { configuration.CreateMap<CropViewItem, CropDto>(); });
+        var cropViewItemToDtoMapperConfiguration = new MapperConfiguration(configuration => { configuration.CreateMap<CropViewItem, CropDto>(); });
+        var cropDtoToDtoMapperConfiguration = new MapperConfiguration(configuration => { configuration.CreateMap<CropDto, CropDto>(); });
 
-        _cropDtoMapper = cropDtoMapperConfiguration.CreateMapper();
+        _cropViewItemToDtoMapper = cropViewItemToDtoMapperConfiguration.CreateMapper();
+        _cropDtoToDtoMapper = cropDtoToDtoMapperConfiguration.CreateMapper();
     } 
 
     #endregion
@@ -37,32 +40,27 @@ public class CropDtoFactory : ICropDtoFactory
         return new CropDto();
     }
 
+    public ICropDto CreateCropDto(ICropDto template)
+    {
+        var cropDto = new CropDto();
+
+        _cropDtoToDtoMapper.Map(template, cropDto);
+
+        return cropDto;
+    }
+
     /// <summary>
     /// Create a new instance that is based on the state of an existing <see cref="CropViewItem"/>. This method is used to create a
     /// new instance of a <see cref="CropDto"/> that will be bound to a view.
     /// </summary>
     /// <param name="template">The <see cref="CropViewItem"/> that will be used to provide default values for the new <see cref="CropDto"/> instance</param>
-    public ICropDto Create(CropViewItem template)
+    public ICropDto CreateCropDto(CropViewItem template)
     {
         var cropDto = new CropDto();
 
-        _cropDtoMapper.Map(template, cropDto);
+        _cropViewItemToDtoMapper.Map(template, cropDto);
 
         return cropDto;
-    }
-
-    public string GetPrintFriendy(MetricUnitsOfMeasurement metricUnitsOfMeasurement)
-    {
-        if (metricUnitsOfMeasurement == MetricUnitsOfMeasurement.KilogramsMethane)
-        {
-            // This contains a subscript 4.
-
-            return "kg CH4";
-        }
-        else
-        {
-            return metricUnitsOfMeasurement.GetDescription();
-        }
     }
 
     #endregion

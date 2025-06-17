@@ -6,5 +6,5 @@ public interface IFieldComponentDtoFactory
 {
     IFieldComponentDto Create();
     
-    IFieldComponentDto Create(IFieldComponentDto template);
+    IFieldComponentDto CreateFieldDto(IFieldComponentDto template);
 }

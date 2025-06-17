@@ -7,7 +7,9 @@ public interface ICropDtoFactory
     #region Public Methods
 
     ICropDto CreateCropDto();
-    ICropDto Create(CropViewItem template);
+    ICropDto CreateCropDto(CropViewItem template);
 
     #endregion
+
+    ICropDto CreateCropDto(ICropDto template);
 }

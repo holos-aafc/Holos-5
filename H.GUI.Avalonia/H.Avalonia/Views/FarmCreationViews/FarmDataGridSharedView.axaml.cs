@@ -4,9 +4,9 @@ using Avalonia.Markup.Xaml;
 
 namespace H.Avalonia;
 
-public partial class FarmOpenSharedView : UserControl
+public partial class FarmDataGridSharedView : UserControl
 {
-    public FarmOpenSharedView()
+    public FarmDataGridSharedView()
     {
         InitializeComponent();
     }

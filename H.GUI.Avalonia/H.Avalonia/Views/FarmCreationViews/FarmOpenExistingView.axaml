@@ -13,9 +13,13 @@
 	</Design.DataContext>
 
 	<StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-		<viewSections:FarmOpenSharedView/>
+		<TextBlock Text="{x:Static properties:Resources.LabelOpenAnExistingFarm}"
+                   HorizontalAlignment="Center" Margin="0,0,0,30" FontWeight="Bold" FontSize="20" Foreground="#696969" />
+
+		<viewSections:FarmDataGridSharedView/>
 		
 		<StackPanel Orientation="Vertical" Width="160">
+			<Button Content="{x:Static properties:Resources.ButtonOpen}" HorizontalContentAlignment="Center" HorizontalAlignment="Stretch" Command="{Binding NavigateToNextPage}" Margin="0 120 0 0" />
 			<Border BorderBrush="#EDEDED" BorderThickness="0,0,0,1" Margin="0,20" Width="450" />
 			<Button Classes="back-button" Content="{x:Static properties:Resources.ButtonGoBack}"  HorizontalAlignment="Center" Command="{Binding NavigateToPreviousPage}"/>
 		</StackPanel>

@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using System.Configuration;
 using H.Core.Calculators.UnitsOfMeasurement;
 using H.Core.Enumerations;
 using H.Core.Factories;
@@ -53,6 +54,42 @@ public class FieldComponentServiceTest
     #endregion
 
     #region Tests
+
+    [TestMethod]
+    public void TransferCropDtoToSystemUsingMetricSetsCorrectValue()
+    {
+        // Display units are metric
+        _mockUnitsOfMeasurementCalculator.Setup(x => x.GetUnitsOfMeasurement()).Returns(MeasurementSystemType.Metric);
+
+        var cropViewItem = new CropViewItem()
+        {
+            AmountOfIrrigation = 100,
+        };
+
+
+        var result = _fieldComponentService.TransferCropViewItemToCropDto(cropViewItem);
+
+        Assert.AreEqual(100, result.AmountOfIrrigation);
+    }
+
+    [TestMethod]
+    public void TransferCropDtoToSystemUsingImperialSetsCorrectValue()
+    {
+        // Display units are imperial
+        _mockUnitsOfMeasurementCalculator.Setup(x => x.GetUnitsOfMeasurement()).Returns(MeasurementSystemType.Imperial);
+
+        var cropViewItem = new CropViewItem()
+        {
+            AmountOfIrrigation = 100,
+        };
+
+        var result = _fieldComponentService.TransferCropViewItemToCropDto(cropViewItem);
+
+        // Convert 100 millimeters to inches
+        var expected = 100 / 25.4;
+
+        Assert.AreEqual(expected, result.AmountOfIrrigation, 0.01);
+    }
 
     [TestMethod]
     public void TransferCropDtoToSystemConvertsImperialValueToMetric()
@@ -141,6 +178,37 @@ public class FieldComponentServiceTest
         var result = _fieldComponentService.TransferToFieldComponentDto(new FieldSystemComponent() { CropViewItems = new ObservableCollection<CropViewItem>() { } });
 
         Assert.IsFalse(result.CropDtos.Any());
+    }
+
+    [TestMethod]
+    public void BuildCropDtoCollectionDoesNotCreateAnyItems()
+    {
+        var fieldComponentDto = new FieldSystemComponentDto();
+        var fieldComponent = new FieldSystemComponent();
+
+        _fieldComponentService.BuildCropDtoCollection(fieldComponent, fieldComponentDto);
+
+        Assert.IsFalse(fieldComponentDto.CropDtos.Any());
+    }
+
+    [TestMethod]
+    public void BuildCropDtoCollectionDoesNotCreatesItems()
+    {
+        var fieldComponentDto = new FieldSystemComponentDto();
+        var fieldComponent = new FieldSystemComponent() {CropViewItems = new ObservableCollection<CropViewItem>() {new CropViewItem()}};
+
+        _fieldComponentService.BuildCropDtoCollection(fieldComponent, fieldComponentDto);
+
+        Assert.AreEqual(1, fieldComponentDto.CropDtos.Count);
+
+        fieldComponent.CropViewItems.Clear();
+        fieldComponent.CropViewItems.Add(new CropViewItem());
+        fieldComponent.CropViewItems.Add(new CropViewItem());
+        fieldComponent.CropViewItems.Add(new CropViewItem());
+
+        _fieldComponentService.BuildCropDtoCollection(fieldComponent, fieldComponentDto);
+
+        Assert.AreEqual(3, fieldComponentDto.CropDtos.Count);
     }
 
     #endregion

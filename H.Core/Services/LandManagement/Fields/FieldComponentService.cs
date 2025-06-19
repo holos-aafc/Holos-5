@@ -22,6 +22,7 @@ public class FieldComponentService : IFieldComponentService
     private readonly IMapper _fieldComponentToDtoMapper;
 
     private readonly IMapper _cropDtoToCropViewItemMapper;
+    private readonly IMapper _cropViewItemToCropDtoMapper;
 
     #endregion
 
@@ -60,11 +61,13 @@ public class FieldComponentService : IFieldComponentService
         var fieldComponentDtoMapperConfiguration = new MapperConfiguration(configuration => { configuration.CreateMap<FieldSystemComponent, FieldSystemComponentDto>(); });
 
         var cropDtoToCropViewItemMapperConfiguration = new MapperConfiguration(configuration => { configuration.CreateMap<ICropDto, CropViewItem>(); });
+        var cropViewItemToCropDtoMapperConfiguration = new MapperConfiguration(configuration => { configuration.CreateMap<CropViewItem, ICropDto>(); });
 
         _fieldDtoToComponentMapper = fieldDtoToComponentMapperConfiguration.CreateMapper();
         _fieldComponentToDtoMapper = fieldComponentDtoMapperConfiguration.CreateMapper();
 
         _cropDtoToCropViewItemMapper = cropDtoToCropViewItemMapperConfiguration.CreateMapper();
+        _cropViewItemToCropDtoMapper = cropViewItemToCropDtoMapperConfiguration.CreateMapper();
     }
 
     #endregion
@@ -176,6 +179,29 @@ public class FieldComponentService : IFieldComponentService
         return _cropDtoFactory.CreateCropDto(template);
     }
 
+    public ICropDto TransferCropViewItemToCropDto(CropViewItem cropViewItem)
+    {
+        var dto = new CropDto();
+
+        // Create a copy of the view item by copying all properties into the DTO
+        _cropViewItemToCropDtoMapper.Map(cropViewItem, dto);
+
+        // All numerical values are stored internally as metric values
+        var cropDtoPropertyConverter = new PropertyConverter<ICropDto>(dto);
+
+        // Get all properties that might be converted to imperial units before being shown to the user
+        foreach (var propertyInfo in cropDtoPropertyConverter.PropertyInfos)
+        {
+            // Convert the value from metric to imperial as needed. Note the converter won't convert anything if the display is in metric units
+            var bindingValue = cropDtoPropertyConverter.GetBindingValueFromSystem(propertyInfo, _unitsOfMeasurementCalculator.GetUnitsOfMeasurement());
+
+            // Set the value of the property before displaying to the user
+            propertyInfo.SetValue(dto, bindingValue);
+        }
+
+        return dto;
+    }
+
     public CropViewItem TransferCropDtoToSystem(ICropDto cropDto, CropViewItem cropViewItem)
     {
         // Create a copy of the DTO since we don't want to change values on the original that is still bound to the GUI
@@ -262,16 +288,12 @@ public class FieldComponentService : IFieldComponentService
         return fieldComponentDto;
     }
 
-    #endregion
-
-    #region Private Methods
-
     /// <summary>
     /// Create copies of all the <see cref="CropViewItem"/> in a <see cref="FieldSystemComponent"/> and add corresponding <see cref="CropDto"/> instances to the <see cref="FieldSystemComponentDto"/>
     /// </summary>
     /// <param name="fieldSystemComponent">The </param>
     /// <param name="fieldComponentDto"></param>
-    private void BuildCropDtoCollection(FieldSystemComponent fieldSystemComponent, IFieldComponentDto fieldComponentDto)
+    public void BuildCropDtoCollection(FieldSystemComponent fieldSystemComponent, IFieldComponentDto fieldComponentDto)
     {
         fieldComponentDto.CropDtos.Clear();
 
@@ -285,5 +307,7 @@ public class FieldComponentService : IFieldComponentService
 
     #endregion
 
+    #region Private Methods
 
+    #endregion
 }

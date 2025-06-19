@@ -189,7 +189,7 @@ public class FieldComponentService : IFieldComponentService
         // All numerical values are stored internally as metric values
         var cropDtoPropertyConverter = new PropertyConverter<ICropDto>(dto);
 
-        // Get all properties that might be converted to imperial units before being shown to the user
+        // Get all properties that might need to be converted to imperial units before being shown to the user
         foreach (var propertyInfo in cropDtoPropertyConverter.PropertyInfos)
         {
             // Convert the value from metric to imperial as needed. Note the converter won't convert anything if the display is in metric units
@@ -226,13 +226,6 @@ public class FieldComponentService : IFieldComponentService
         return cropViewItem;
     }
 
-    /// <summary>
-    /// The view is always bound to a DTO object. Once to user enters values the DTO needs to have its values converted to metric since Holos stores all values in metric units
-    /// internally. This method takes in a DTO, converts values to the correct units of measurement, as assigns those converted values to the system/domain object.
-    /// </summary>
-    /// <param name="fieldComponentDto">The DTO that is bound to the GUI</param>
-    /// <param name="fieldSystemComponent">The internal system object</param>
-    /// <returns>The <see cref="FieldSystemComponent"/> once the converted values have been assigned</returns>
     public FieldSystemComponent TransferFieldDtoToSystem(IFieldComponentDto fieldComponentDto, FieldSystemComponent fieldSystemComponent)
     {
         // Create a copy of the DTO since we don't want to change values on the original that is still bound to the GUI
@@ -257,12 +250,6 @@ public class FieldComponentService : IFieldComponentService
         return fieldSystemComponent;
     }
 
-    /// <summary>
-    /// Create a new instance that is based on the state of an existing <see cref="FieldSystemComponent"/>. This method is used to create a
-    /// new instance of a <see cref="FieldSystemComponentDto"/> that will be bound to a view.
-    /// </summary>
-    /// <param name="template">The <see cref="FieldSystemComponent"/> that will be used to provide default values for the new <see cref="FieldSystemComponentDto"/> instance</param>
-    /// <returns></returns>
     public IFieldComponentDto TransferToFieldComponentDto(FieldSystemComponent template)
     {
         var fieldComponentDto = new FieldSystemComponentDto();
@@ -288,11 +275,6 @@ public class FieldComponentService : IFieldComponentService
         return fieldComponentDto;
     }
 
-    /// <summary>
-    /// Create copies of all the <see cref="CropViewItem"/> in a <see cref="FieldSystemComponent"/> and add corresponding <see cref="CropDto"/> instances to the <see cref="FieldSystemComponentDto"/>
-    /// </summary>
-    /// <param name="fieldSystemComponent">The </param>
-    /// <param name="fieldComponentDto"></param>
     public void BuildCropDtoCollection(FieldSystemComponent fieldSystemComponent, IFieldComponentDto fieldComponentDto)
     {
         fieldComponentDto.CropDtos.Clear();

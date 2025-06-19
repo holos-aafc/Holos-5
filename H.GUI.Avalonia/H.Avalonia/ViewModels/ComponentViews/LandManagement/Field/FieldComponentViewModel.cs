@@ -190,7 +190,10 @@ public class FieldComponentViewModel : ViewModelBase
     {
         if (sender is FieldSystemComponentDto fieldSystemComponentDto)
         {
-            // Before assign values from the bound DTOs, check for any validation errors
+            /*
+             * Before assigning values from the bound DTOs, check for any validation errors. If there are any validation errors
+             * we should not proceed with the transfer of user input from the DTO to the model until the validation errors are fixed
+             */
             if (!fieldSystemComponentDto.HasErrors)
             {
                 // A property on the DTO has been changed by the user, assign the new value to the system object after any unit conversion (if necessary)

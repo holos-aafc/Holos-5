@@ -25,12 +25,34 @@ public class FieldComponentViewModel : ViewModelBase
 {
     #region Fields
 
+    /// <summary>
+    /// The selected field
+    /// </summary>
     private FieldSystemComponent _selectedFieldSystemComponent;
 
+    /// <summary>
+    /// The selected crop
+    /// </summary>
+    private CropViewItem _selectedCropViewItem;
+
+    /// <summary>
+    /// The field DTO that is bound to the view and is based on the values from the <see cref="_selectedFieldSystemComponent"/> model object
+    /// </summary>
     private IFieldComponentDto _selectedFieldSystemComponentDto;
+
+    /// <summary>
+    /// The crop DTO that is bound to the view and is based on the values from the <see cref="_selectedCropViewItem"/>
+    /// </summary>
     private ICropDto _selectedCropDto;
 
+    /// <summary>
+    /// A service class to perform domain/business logic on field and crop DTOs/objects
+    /// </summary>
     private readonly IFieldComponentService _fieldComponentService;
+
+    /// <summary>
+    /// A helper class to convert user input from one units of measurement system to another
+    /// </summary>
     private readonly IUnitsOfMeasurementCalculator _unitsOfMeasurementCalculator;
 
     #endregion
@@ -194,6 +216,7 @@ public class FieldComponentViewModel : ViewModelBase
              * Before assigning values from the bound DTOs, check for any validation errors. If there are any validation errors
              * we should not proceed with the transfer of user input from the DTO to the model until the validation errors are fixed
              */
+
             if (!fieldSystemComponentDto.HasErrors)
             {
                 // A property on the DTO has been changed by the user, assign the new value to the system object after any unit conversion (if necessary)

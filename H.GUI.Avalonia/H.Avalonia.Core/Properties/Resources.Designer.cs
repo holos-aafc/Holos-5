@@ -70,7 +70,7 @@ namespace H.Avalonia.Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Holos Data Extraction Tool.
+        ///   Looks up a localized string similar to HOLOS EU.
         /// </summary>
         public static string ApplicationTitle {
             get {
@@ -539,7 +539,7 @@ namespace H.Avalonia.Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ok.
+        ///   Looks up a localized string similar to OK.
         /// </summary>
         public static string LabelOk {
             get {

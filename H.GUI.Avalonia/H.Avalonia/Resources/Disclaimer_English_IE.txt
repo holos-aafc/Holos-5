@@ -1,3 +1,25 @@
 Important Notices
 
-Disclaimer Content For Europe Version
+This software (HOLOS-EU, V5.0.0) has been primarily designed to encourage various stakeholders, including farmers, to explore existing and alternative methods for improving production, mitigating greenhouse gas emissions, and addressing environmental pollution. Additionally, it facilitates the accounting of carbon balance and cost-benefit analysis at a farm-to-national level. The provided estimates are approximate and may change significantly as new scientific findings emerge. University College Dublin (UCD) and the collaborative institutes do not warrant the reliability of this tool for uses at this stage other than research and education, specifically for exploring practices related to farm configuration.
+
+Copyright/Permission to Reproduce
+The content in the HOLOS-EU software was adapted from Holos V 4.0, originally developed by Agriculture and Agri-Food Canada. This adaptation was undertaken with the aim of creating an Irish version, leading to EU application, for use in European agricultural farms, including agroforestry.
+
+The material in this software is protected by the provisions of the Copyright Act, adhering to both Irish/EU and Canadian laws, policies, regulations, and international agreements. These provisions are in place to identify the information source and, in specific instances, to prohibit the reproduction of materials without written permission.
+
+Non-commercial Reproduction
+
+The information in this software has been provided with the intention of making it readily available for personal and public non-commercial use. It may be reproduced, either in part or in whole, and by any means, without charge or the need for further permission from UCD. We only request that:
+Users exercise due diligence in ensuring the accuracy of the reproduced materials.
+UCD is identified as the source department.
+
+The reproduction is not presented as an official version of the materials, nor as having been created in affiliation with or endorsed by UCD.
+
+Commercial Reproduction
+
+The reproduction of multiple copies of material in this HOLOS-EU software, either in whole or in part, for the purpose of commercial redistribution is prohibited unless written permission is obtained from the UCD/Irish/EU's copyright administrator. Permission is granted to provide advisory/consultancy services with fees. The UCD Copyright Administrator, through the permission-granting process, assists in ensuring that individuals/organisations seeking to reproduce for commercial purposes have access to the most accurate and up-to-date versions.
+ 
+To be available soon.
+ 
+If our response to your privacy concern is unsatisfactory, you may consider reaching out to the Office of the Copyright and Data Privacy Commissioner.
+

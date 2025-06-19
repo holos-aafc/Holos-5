@@ -63,7 +63,7 @@ namespace H.Avalonia {
         /// <summary>
         ///   Looks up a localized string similar to Important Notices
         ///
-        ///Disclaimer Content For Europe Version.
+        ///This software (HOLOS-IE, V1.0) has been primarily designed to encourage various stakeholders, including farmers, to explore existing and alternative methods for improving production, mitigating greenhouse gas emissions, and addressing environmental pollution. Additionally, it facilitates the accounting of carbon balance and cost-benefit analysis at a farm-to-national level. The provided estimates are approximate and may change significantly as new scientific findings emerge. University  [rest of string was truncated]&quot;;.
         /// </summary>
         public static string Disclaimer_English_IE_TXT {
             get {

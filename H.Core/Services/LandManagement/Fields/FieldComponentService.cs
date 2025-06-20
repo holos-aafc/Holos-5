@@ -15,7 +15,7 @@ public class FieldComponentService : IFieldComponentService
     #region Fields
     
     private readonly IFieldComponentDtoFactory _fieldComponentDtoFactory;
-    private readonly ICropDtoFactory _cropDtoFactory;
+    private readonly ICropFactory _cropFactory;
     private readonly IUnitsOfMeasurementCalculator _unitsOfMeasurementCalculator;
 
     private readonly IMapper _fieldDtoToComponentMapper;
@@ -28,7 +28,7 @@ public class FieldComponentService : IFieldComponentService
 
     #region Constructors
 
-    public FieldComponentService(IFieldComponentDtoFactory fieldComponentDtoFactory, ICropDtoFactory cropDtoFactory, IUnitsOfMeasurementCalculator unitsOfMeasurementCalculator)
+    public FieldComponentService(IFieldComponentDtoFactory fieldComponentDtoFactory, ICropFactory cropFactory, IUnitsOfMeasurementCalculator unitsOfMeasurementCalculator)
     {
         if (unitsOfMeasurementCalculator != null)
         {
@@ -39,13 +39,13 @@ public class FieldComponentService : IFieldComponentService
             throw new ArgumentNullException(nameof(unitsOfMeasurementCalculator));
         }
 
-        if (cropDtoFactory != null)
+        if (cropFactory != null)
         {
-            _cropDtoFactory = cropDtoFactory;
+            _cropFactory = cropFactory;
         }
         else
         {
-            throw new ArgumentNullException(nameof(cropDtoFactory));
+            throw new ArgumentNullException(nameof(cropFactory));
         }
 
         if (fieldComponentDtoFactory != null)
@@ -166,17 +166,22 @@ public class FieldComponentService : IFieldComponentService
 
     public ICropDto CreateCropDto()
     {
-        return _cropDtoFactory.CreateCropDto();
+        return _cropFactory.CreateCropDto();
     }
 
     public ICropDto CreateCropDto(CropViewItem template)
     {
-        return _cropDtoFactory.CreateCropDto(template);
+        return _cropFactory.CreateCropDto(template);
     }
 
     public ICropDto CreateCropDto(ICropDto template)
     {
-        return _cropDtoFactory.CreateCropDto(template);
+        return _cropFactory.CreateCropDto(template);
+    }
+
+    public CropViewItem CreateCropViewItem(ICropDto cropDto)
+    {
+        return _cropFactory.CreateCropViewItem(cropDto);
     }
 
     public ICropDto TransferCropViewItemToCropDto(CropViewItem cropViewItem)
@@ -205,7 +210,7 @@ public class FieldComponentService : IFieldComponentService
     public CropViewItem TransferCropDtoToSystem(ICropDto cropDto, CropViewItem cropViewItem)
     {
         // Create a copy of the DTO since we don't want to change values on the original that is still bound to the GUI
-        var copy = _cropDtoFactory.CreateCropDto(cropDto);
+        var copy = _cropFactory.CreateCropDto(cropDto);
 
         // All numerical values are stored internally as metric values
         var cropViewItemPropertyConverter = new PropertyConverter<ICropDto>(copy);
@@ -281,7 +286,7 @@ public class FieldComponentService : IFieldComponentService
 
         foreach (var cropViewItem in fieldSystemComponent.CropViewItems)
         {
-            var dto = _cropDtoFactory.CreateCropDto(template: cropViewItem);
+            var dto = _cropFactory.CreateCropDto(template: cropViewItem);
 
             fieldComponentDto.CropDtos.Add(dto);
         }
@@ -296,6 +301,23 @@ public class FieldComponentService : IFieldComponentService
             {
                 this.TransferCropDtoToSystem(cropDto, viewItem);
             }
+        }
+    }
+
+    public void AddCropDtoToSystem(FieldSystemComponent fieldSystemComponent, ICropDto cropDto)
+    {
+        var cropViewItem = _cropFactory.CreateCropViewItem(cropDto);
+
+        fieldSystemComponent.CropViewItems.Add(cropViewItem);
+    }
+
+    public void RemoveCropFromSystem(FieldSystemComponent fieldSystemComponent, ICropDto cropDto)
+    {
+        // By default, all DTO objects will have their GUID property set to be equal to the GUID of the associated domain object
+        var cropViewItem = fieldSystemComponent.CropViewItems.SingleOrDefault(x => x.Guid.Equals(cropDto.Guid));
+        if (cropViewItem != null)
+        {
+            fieldSystemComponent.CropViewItems.Remove(cropViewItem);
         }
     }
 

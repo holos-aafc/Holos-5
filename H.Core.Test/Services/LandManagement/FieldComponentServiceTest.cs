@@ -19,7 +19,7 @@ public class FieldComponentServiceTest
     private IFieldComponentService _fieldComponentService;
     
     private Mock<IFieldComponentDtoFactory> _mockFieldComponentDtoFactory;
-    private Mock<ICropDtoFactory> _mockCropDtoFactory;
+    private Mock<ICropFactory> _mockCropFactory;
     private Mock<IUnitsOfMeasurementCalculator> _mockUnitsOfMeasurementCalculator;
 
     #endregion
@@ -40,10 +40,10 @@ public class FieldComponentServiceTest
     public void TestInitialize()
     {
         _mockFieldComponentDtoFactory = new Mock<IFieldComponentDtoFactory>();
-        _mockCropDtoFactory = new Mock<ICropDtoFactory>();
+        _mockCropFactory = new Mock<ICropFactory>();
         _mockUnitsOfMeasurementCalculator = new Mock<IUnitsOfMeasurementCalculator>();
 
-        _fieldComponentService = new FieldComponentService(_mockFieldComponentDtoFactory.Object, _mockCropDtoFactory.Object, _mockUnitsOfMeasurementCalculator.Object);
+        _fieldComponentService = new FieldComponentService(_mockFieldComponentDtoFactory.Object, _mockCropFactory.Object, _mockUnitsOfMeasurementCalculator.Object);
     }
 
     [TestCleanup]
@@ -102,7 +102,7 @@ public class FieldComponentServiceTest
         // User sets total annual irrigation to 50 inches
         dto.AmountOfIrrigation = 50;
 
-        _mockCropDtoFactory.Setup(x => x.CreateCropDto(It.IsAny<ICropDto>())).Returns(dto);
+        _mockCropFactory.Setup(x => x.CreateCropDto(It.IsAny<ICropDto>())).Returns(dto);
 
         var cropViewItem = new CropViewItem();
 
@@ -218,7 +218,7 @@ public class FieldComponentServiceTest
 
         var dto = new CropDto() {Guid = guid, AmountOfIrrigation = 200};
 
-        _mockCropDtoFactory.Setup(x => x.CreateCropDto(It.IsAny<ICropDto>())).Returns(dto);
+        _mockCropFactory.Setup(x => x.CreateCropDto(It.IsAny<ICropDto>())).Returns(dto);
 
         var fieldComponent = new FieldSystemComponent() {CropViewItems = new ObservableCollection<CropViewItem>() {new CropViewItem() {Guid = guid}}};
         var fieldComponentDto = new FieldSystemComponentDto() {CropDtos = new ObservableCollection<ICropDto>(){dto}};
@@ -226,6 +226,45 @@ public class FieldComponentServiceTest
         _fieldComponentService.ConvertCropDtoCollectionToCropViewItemCollection(fieldComponent, fieldComponentDto);
 
         Assert.AreEqual(200, fieldComponent.CropViewItems[0].AmountOfIrrigation);
+    }
+
+    [TestMethod]
+    public void AddCropDtoToSystem()
+    {
+        var fieldComponent = new FieldSystemComponent();
+        var cropDto = new CropDto();
+
+        _mockCropFactory.Setup(x => x.CreateCropViewItem(It.IsAny<ICropDto>())).Returns(new CropViewItem());
+
+        _fieldComponentService.AddCropDtoToSystem(fieldComponent, cropDto);
+
+        Assert.AreEqual(1, fieldComponent.CropViewItems.Count);
+
+        fieldComponent.CropViewItems.Clear();
+
+        _fieldComponentService.AddCropDtoToSystem(fieldComponent, cropDto);
+        _fieldComponentService.AddCropDtoToSystem(fieldComponent, cropDto);
+
+        Assert.AreEqual(2, fieldComponent.CropViewItems.Count);
+    }
+
+    [TestMethod]
+    public void RemoveCropDtoFromSystem()
+    {
+        var guid = Guid.NewGuid();
+        var fieldComponent = new FieldSystemComponent();
+        var cropDto = new CropDto() {Guid = guid};
+        var viewItem = new CropViewItem() {Guid = guid};
+
+        _mockCropFactory.Setup(x => x.CreateCropViewItem(It.IsAny<ICropDto>())).Returns(viewItem);
+
+        _fieldComponentService.AddCropDtoToSystem(fieldComponent, cropDto);
+
+        Assert.AreEqual(1, fieldComponent.CropViewItems.Count);
+
+        _fieldComponentService.RemoveCropFromSystem(fieldComponent, cropDto);
+
+        Assert.IsFalse(fieldComponent.CropViewItems.Any());
     }
 
     #endregion

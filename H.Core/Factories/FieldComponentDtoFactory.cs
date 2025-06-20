@@ -16,7 +16,7 @@ public class FieldComponentDtoFactory : IFieldComponentDtoFactory
     private readonly IMapper _fieldComponentToDtoMapper;
     private readonly IMapper _fieldDtoToDtoMapper;
 
-    private readonly ICropDtoFactory _cropDtoFactory;
+    private readonly ICropFactory _cropFactory;
     private PropertyConverter<IFieldComponentDto> _fieldComponentDtoPropertyConverter;
     private readonly IUnitsOfMeasurementCalculator _unitsOfMeasurementCalculator;
 
@@ -24,7 +24,7 @@ public class FieldComponentDtoFactory : IFieldComponentDtoFactory
 
     #region Constructors
 
-    public FieldComponentDtoFactory(ICropDtoFactory cropDtoFactory, IUnitsOfMeasurementCalculator unitsOfMeasurementCalculator)
+    public FieldComponentDtoFactory(ICropFactory cropFactory, IUnitsOfMeasurementCalculator unitsOfMeasurementCalculator)
     {
         if (unitsOfMeasurementCalculator != null)
         {
@@ -35,13 +35,13 @@ public class FieldComponentDtoFactory : IFieldComponentDtoFactory
             throw new ArgumentNullException(nameof(unitsOfMeasurementCalculator));
         }
 
-        if (cropDtoFactory != null)
+        if (cropFactory != null)
         {
-            _cropDtoFactory = cropDtoFactory;
+            _cropFactory = cropFactory;
         }
         else
         {
-            throw new ArgumentNullException(nameof(cropDtoFactory));
+            throw new ArgumentNullException(nameof(cropFactory));
         }
 
         var fieldComponentDtoMapperConfiguration = new MapperConfiguration(configuration => { configuration.CreateMap<FieldSystemComponent, FieldSystemComponentDto>(); });

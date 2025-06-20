@@ -175,6 +175,11 @@ public class FieldComponentViewModel : ViewModelBase
 
         // Release any property change handlers
         this.SelectedFieldSystemComponentDto.PropertyChanged -= SelectedFieldSystemComponentDtoOnPropertyChanged;
+
+        foreach (var cropDto in this.SelectedFieldSystemComponentDto.CropDtos)
+        {
+            cropDto.PropertyChanged -= CropDtoOnPropertyChanged;
+        }
     }
 
     #endregion
@@ -202,8 +207,12 @@ public class FieldComponentViewModel : ViewModelBase
 
         // If disabled before, enable this command now so that the user can remove a DTO
         this.RemoveCropCommand.RaiseCanExecuteChanged();
+
+        dto.PropertyChanged += CropDtoOnPropertyChanged;
+
+        _fieldComponentService.AddCropDtoToSystem(_selectedFieldSystemComponent, dto);
     }
-    
+
     /// <summary>
     /// Some property on the <see cref="SelectedFieldSystemComponentDto"/> has changed. Check if we need to validate any user
     /// input before assigning the value on to the associated <see cref="FieldSystemComponent"/>
@@ -243,7 +252,13 @@ public class FieldComponentViewModel : ViewModelBase
             _fieldComponentService.ResetAllYears(this.SelectedFieldSystemComponentDto.CropDtos);
 
             this.RemoveCropCommand.RaiseCanExecuteChanged();
+
+            _fieldComponentService.RemoveCropFromSystem(_selectedFieldSystemComponent, this.SelectedCropDto);
         }
+    }
+
+    private void CropDtoOnPropertyChanged(object? sender, PropertyChangedEventArgs e)
+    {
     }
 
     #endregion

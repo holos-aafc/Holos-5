@@ -31,7 +31,7 @@ public class FieldComponentDtoFactoryTest
     [TestInitialize]
     public void TestInitialize()
     {
-        var mockCropDtoFactory = new Mock<ICropDtoFactory>();
+        var mockCropDtoFactory = new Mock<ICropFactory>();
         var mockUnitsOfMeasurementCalculator = new Mock<IUnitsOfMeasurementCalculator>();
 
         _factory = new FieldComponentDtoFactory(mockCropDtoFactory.Object, mockUnitsOfMeasurementCalculator.Object);

@@ -10,7 +10,7 @@ public class CropDtoFactoryTest
 {
     #region Fields
 
-    private ICropDtoFactory _factory;
+    private ICropFactory _factory;
 
     #endregion
 
@@ -29,7 +29,7 @@ public class CropDtoFactoryTest
     [TestInitialize]
     public void TestInitialize()
     {
-        _factory = new CropDtoFactory();
+        _factory = new CropFactory();
     }
 
     [TestCleanup]

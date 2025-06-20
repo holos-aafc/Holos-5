@@ -35,7 +35,7 @@ public class FieldComponentViewModelDesign : FieldComponentViewModel
         };
     }
 
-    public FieldComponentViewModelDesign(IRegionManager regionManager, IEventAggregator eventAggregator, IStorageService storageService, IFieldComponentDtoFactory fieldComponentDtoFactory, ICropDtoFactory cropDtoFactory, IFieldComponentService fieldComponentService, IUnitsOfMeasurementCalculator unitsOfMeasurementCalculator) : base(regionManager, eventAggregator, storageService, fieldComponentService, unitsOfMeasurementCalculator)
+    public FieldComponentViewModelDesign(IRegionManager regionManager, IEventAggregator eventAggregator, IStorageService storageService, IFieldComponentDtoFactory fieldComponentDtoFactory, ICropFactory cropFactory, IFieldComponentService fieldComponentService, IUnitsOfMeasurementCalculator unitsOfMeasurementCalculator) : base(regionManager, eventAggregator, storageService, fieldComponentService, unitsOfMeasurementCalculator)
     {
     }
 }

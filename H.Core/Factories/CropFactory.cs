@@ -6,35 +6,35 @@ using H.Infrastructure;
 namespace H.Core.Factories;
 
 /// <summary>
-/// A class used to create new <see cref="CropDto"/> instances. The class will provide basic initialization of a new instance before returning the result to the caller.
+/// A class used to create new <see cref="CropDto"/> and <see cref="CropViewItem"/> instances. The class will provide basic initialization of a new instance before returning the result to the caller.
 /// </summary>
-public class CropDtoFactory : ICropDtoFactory
+public class CropFactory : ICropFactory
 {
     #region Fields
 
     private readonly IMapper _cropViewItemToDtoMapper;
     private readonly IMapper _cropDtoToDtoMapper;
+    private readonly IMapper _cropDtoToViewItemMapper;
 
     #endregion
 
     #region Constructors
 
-    public CropDtoFactory()
+    public CropFactory()
     {
         var cropViewItemToDtoMapperConfiguration = new MapperConfiguration(configuration => { configuration.CreateMap<CropViewItem, CropDto>(); });
         var cropDtoToDtoMapperConfiguration = new MapperConfiguration(configuration => { configuration.CreateMap<CropDto, CropDto>(); });
+        var cropDtoToViewItemMapperConfiguration = new MapperConfiguration(configuration => { configuration.CreateMap<CropDto, CropViewItem>(); });
 
         _cropViewItemToDtoMapper = cropViewItemToDtoMapperConfiguration.CreateMapper();
         _cropDtoToDtoMapper = cropDtoToDtoMapperConfiguration.CreateMapper();
+        _cropDtoToViewItemMapper = cropDtoToViewItemMapperConfiguration.CreateMapper();
     } 
 
     #endregion
 
     #region Public Methods
 
-    /// <summary>
-    /// Create a new instance with no additional configuration to a default instance.
-    /// </summary>
     public ICropDto CreateCropDto()
     {
         return new CropDto();
@@ -49,11 +49,6 @@ public class CropDtoFactory : ICropDtoFactory
         return cropDto;
     }
 
-    /// <summary>
-    /// Create a new instance that is based on the state of an existing <see cref="CropViewItem"/>. This method is used to create a
-    /// new instance of a <see cref="CropDto"/> that will be bound to a view.
-    /// </summary>
-    /// <param name="template">The <see cref="CropViewItem"/> that will be used to provide default values for the new <see cref="CropDto"/> instance</param>
     public ICropDto CreateCropDto(CropViewItem template)
     {
         var cropDto = new CropDto();
@@ -61,6 +56,15 @@ public class CropDtoFactory : ICropDtoFactory
         _cropViewItemToDtoMapper.Map(template, cropDto);
 
         return cropDto;
+    }
+
+    public CropViewItem CreateCropViewItem(ICropDto  cropDto)
+    {
+        var viewItem = new CropViewItem();
+
+        _cropDtoToViewItemMapper.Map(cropDto, viewItem);
+
+        return viewItem;
     }
 
     #endregion

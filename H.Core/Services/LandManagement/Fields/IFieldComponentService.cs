@@ -4,7 +4,7 @@ using H.Core.Models.LandManagement.Fields;
 
 namespace H.Core.Services.LandManagement.Fields;
 
-public interface IFieldComponentService :  IFieldComponentDtoFactory, ICropDtoFactory
+public interface IFieldComponentService :  IFieldComponentDtoFactory, ICropFactory
 {
 
     /// <summary>
@@ -81,4 +81,18 @@ public interface IFieldComponentService :  IFieldComponentDtoFactory, ICropDtoFa
     ICropDto TransferCropViewItemToCropDto(CropViewItem cropViewItem);
 
     void ConvertCropDtoCollectionToCropViewItemCollection(FieldSystemComponent fieldSystemComponent, IFieldComponentDto fieldComponentDto);
+
+    /// <summary>
+    /// Adds a new <see cref="CropViewItem"/> to the <see cref="FieldSystemComponent"/> when the user creates a new <see cref="CropDto"/> in the view
+    /// </summary>
+    /// <param name="fieldSystemComponent">The associated <see cref="FieldSystemComponent"/> that will contain the new <see cref="CropViewItem"/></param>
+    /// <param name="cropDto">The <see cref="CropDto"/> that will be associated with the <see cref="CropViewItem"/></param>
+    void AddCropDtoToSystem(FieldSystemComponent fieldSystemComponent, ICropDto cropDto);
+
+    /// <summary>
+    /// Removes the <see cref="CropViewItem"/> associated with the <see cref="CropDto"/> that the user has choose to remove
+    /// </summary>
+    /// <param name="fieldSystemComponent">The associated <see cref="FieldSystemComponent"/> that contains the <see cref="CropViewItem"/> to be removed</param>
+    /// <param name="cropDto">The <see cref="CropDto"/> that identifies which <see cref="CropViewItem"/> to remove</param>
+    void RemoveCropFromSystem(FieldSystemComponent fieldSystemComponent, ICropDto cropDto);
 }

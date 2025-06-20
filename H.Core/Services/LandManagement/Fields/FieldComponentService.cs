@@ -313,11 +313,14 @@ public class FieldComponentService : IFieldComponentService
 
     public void RemoveCropFromSystem(FieldSystemComponent fieldSystemComponent, ICropDto cropDto)
     {
-        // By default, all DTO objects will have their GUID property set to be equal to the GUID of the associated domain object
-        var cropViewItem = fieldSystemComponent.CropViewItems.SingleOrDefault(x => x.Guid.Equals(cropDto.Guid));
-        if (cropViewItem != null)
+        if (cropDto != null)
         {
-            fieldSystemComponent.CropViewItems.Remove(cropViewItem);
+            // By default, all DTO objects will have their GUID property set to be equal to the GUID of the associated domain object
+            var cropViewItem = fieldSystemComponent.CropViewItems.SingleOrDefault(x => x.Guid.Equals(cropDto.Guid));
+            if (cropViewItem != null)
+            {
+                fieldSystemComponent.CropViewItems.Remove(cropViewItem);
+            }
         }
     }
 

@@ -25,5 +25,10 @@ public interface ICropDto : INotifyPropertyChanged, IDto
     /// </summary>
     int Year { get; set; }
 
+    /// <summary>
+    /// The total amount of annual irrigation
+    ///
+    /// (mm)
+    /// </summary>
     double AmountOfIrrigation { get; set; }
 }

@@ -38,38 +38,25 @@ public class CropDto : DtoBase, ICropDto
 
     #region Properties
 
-    /// <summary>
-    /// The type of crop being grown on the field
-    /// </summary>
     public CropType CropType
     {
         get => _cropType;
         set => SetProperty(ref _cropType, value);
     }
 
-    /// <summary>
-    /// The collection of valid crop types that the user can choose from
-    /// </summary>
     public ObservableCollection<CropType> ValidCropTypes
     {
         get => _cropTypes;
         set => SetProperty(ref _cropTypes, value);
     }
 
-    /// <summary>
-    /// The year the crop was grown on the field
-    /// </summary>
     public int Year
     {
         get => _year;
         set => SetProperty(ref _year, value);
     }
 
-    /// <summary>
-    /// The total amount of annual irrigation
-    ///
-    /// (mm)
-    /// </summary>
+
     [Units(MetricUnitsOfMeasurement.Millimeters)]
     public double AmountOfIrrigation
     {

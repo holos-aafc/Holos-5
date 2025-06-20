@@ -121,7 +121,20 @@ public class FieldComponentViewModel : ViewModelBase
     public ICropDto SelectedCropDto
     {
         get => _selectedCropDto;
-        set => SetProperty(ref _selectedCropDto, value);
+        set
+        {
+            if (_selectedCropDto != null)
+            {
+                /*
+                 * When the reference changes, detach the event handler since DTOs won't be GC'ed once the selection changes. If we don't
+                 * remove the event handler when this property changes, then multiple instances of the same event handler will be added.
+                 */
+
+                _selectedCropDto.PropertyChanged -= SelectedCropDtoOnPropertyChanged;
+            }
+
+            SetProperty(ref _selectedCropDto, value);
+        }
     }
 
     #endregion
@@ -145,6 +158,18 @@ public class FieldComponentViewModel : ViewModelBase
 
             // Listen for changes on the DTO
             this.SelectedFieldSystemComponentDto.PropertyChanged += SelectedFieldSystemComponentDtoOnPropertyChanged;
+
+            if (this.SelectedCropDto == null)
+            {
+                this.SelectedCropDto = this.SelectedFieldSystemComponentDto.CropDtos.FirstOrDefault();
+            }
+
+            if (this.SelectedCropDto != null)
+            {
+                this.SelectedCropDto.PropertyChanged += SelectedCropDtoOnPropertyChanged;
+            }
+
+            this.PropertyChanged += OnPropertyChanged;
         }
     }
 
@@ -175,11 +200,9 @@ public class FieldComponentViewModel : ViewModelBase
 
         // Release any property change handlers
         this.SelectedFieldSystemComponentDto.PropertyChanged -= SelectedFieldSystemComponentDtoOnPropertyChanged;
+        this.SelectedCropDto.PropertyChanged -= SelectedCropDtoOnPropertyChanged;
 
-        foreach (var cropDto in this.SelectedFieldSystemComponentDto.CropDtos)
-        {
-            cropDto.PropertyChanged -= CropDtoOnPropertyChanged;
-        }
+        this.PropertyChanged -= OnPropertyChanged;
     }
 
     #endregion
@@ -207,8 +230,6 @@ public class FieldComponentViewModel : ViewModelBase
 
         // If disabled before, enable this command now so that the user can remove a DTO
         this.RemoveCropCommand.RaiseCanExecuteChanged();
-
-        dto.PropertyChanged += CropDtoOnPropertyChanged;
 
         _fieldComponentService.AddCropDtoToSystem(_selectedFieldSystemComponent, dto);
     }
@@ -257,8 +278,17 @@ public class FieldComponentViewModel : ViewModelBase
         }
     }
 
-    private void CropDtoOnPropertyChanged(object? sender, PropertyChangedEventArgs e)
+    private void SelectedCropDtoOnPropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
+        // Persist the changes to the system
+    }
+
+    private void OnPropertyChanged(object? sender, PropertyChangedEventArgs e)
+    {
+        if (e.PropertyName.Equals(nameof(this.SelectedCropDto)))
+        {
+            this.SelectedCropDto.PropertyChanged += SelectedCropDtoOnPropertyChanged;
+        }
     }
 
     #endregion

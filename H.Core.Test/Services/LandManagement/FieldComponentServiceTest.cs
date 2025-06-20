@@ -186,7 +186,7 @@ public class FieldComponentServiceTest
         var fieldComponentDto = new FieldSystemComponentDto();
         var fieldComponent = new FieldSystemComponent();
 
-        _fieldComponentService.BuildCropDtoCollection(fieldComponent, fieldComponentDto);
+        _fieldComponentService.ConvertCropViewItemsToDtoCollection(fieldComponent, fieldComponentDto);
 
         Assert.IsFalse(fieldComponentDto.CropDtos.Any());
     }
@@ -197,7 +197,7 @@ public class FieldComponentServiceTest
         var fieldComponentDto = new FieldSystemComponentDto();
         var fieldComponent = new FieldSystemComponent() {CropViewItems = new ObservableCollection<CropViewItem>() {new CropViewItem()}};
 
-        _fieldComponentService.BuildCropDtoCollection(fieldComponent, fieldComponentDto);
+        _fieldComponentService.ConvertCropViewItemsToDtoCollection(fieldComponent, fieldComponentDto);
 
         Assert.AreEqual(1, fieldComponentDto.CropDtos.Count);
 
@@ -206,9 +206,26 @@ public class FieldComponentServiceTest
         fieldComponent.CropViewItems.Add(new CropViewItem());
         fieldComponent.CropViewItems.Add(new CropViewItem());
 
-        _fieldComponentService.BuildCropDtoCollection(fieldComponent, fieldComponentDto);
+        _fieldComponentService.ConvertCropViewItemsToDtoCollection(fieldComponent, fieldComponentDto);
 
         Assert.AreEqual(3, fieldComponentDto.CropDtos.Count);
+    }
+
+    [TestMethod]
+    public void ConvertCropDtoCollectionToCropViewItemCollection()
+    {
+        var guid = Guid.NewGuid();
+
+        var dto = new CropDto() {Guid = guid, AmountOfIrrigation = 200};
+
+        _mockCropDtoFactory.Setup(x => x.CreateCropDto(It.IsAny<ICropDto>())).Returns(dto);
+
+        var fieldComponent = new FieldSystemComponent() {CropViewItems = new ObservableCollection<CropViewItem>() {new CropViewItem() {Guid = guid}}};
+        var fieldComponentDto = new FieldSystemComponentDto() {CropDtos = new ObservableCollection<ICropDto>(){dto}};
+
+        _fieldComponentService.ConvertCropDtoCollectionToCropViewItemCollection(fieldComponent, fieldComponentDto);
+
+        Assert.AreEqual(200, fieldComponent.CropViewItems[0].AmountOfIrrigation);
     }
 
     #endregion

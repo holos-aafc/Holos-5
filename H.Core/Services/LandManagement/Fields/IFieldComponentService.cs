@@ -70,7 +70,7 @@ public interface IFieldComponentService :  IFieldComponentDtoFactory, ICropDtoFa
     /// </summary>
     /// <param name="fieldSystemComponent">The <see cref="FieldSystemComponent"/> used to provide the basis/values needed to instantiate a <see cref="FieldSystemComponentDto"/></param>
     /// <param name="fieldComponentDto">An instance of <see cref="IFieldComponentDto"/> that can be bound to the view</param>
-    void BuildCropDtoCollection(FieldSystemComponent fieldSystemComponent, IFieldComponentDto fieldComponentDto);
+    void ConvertCropViewItemsToDtoCollection(FieldSystemComponent fieldSystemComponent, IFieldComponentDto fieldComponentDto);
 
     /// <summary>
     /// Create a new instance that is based on the state of an existing <see cref="CropViewItem"/>. This method is used to create a
@@ -79,4 +79,6 @@ public interface IFieldComponentService :  IFieldComponentDtoFactory, ICropDtoFa
     /// <param name="cropViewItem">The <see cref="CropViewItem"/> that will be used to provide the basis/values needed to instantiate a <see cref="ICropDto"/></param>
     /// <returns>An instance of <see cref="ICropDto"/> that can be bound to the view</returns>
     ICropDto TransferCropViewItemToCropDto(CropViewItem cropViewItem);
+
+    void ConvertCropDtoCollectionToCropViewItemCollection(FieldSystemComponent fieldSystemComponent, IFieldComponentDto fieldComponentDto);
 }

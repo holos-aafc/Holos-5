@@ -270,12 +270,12 @@ public class FieldComponentService : IFieldComponentService
             property.SetValue(fieldComponentDto, bindingValue);
         }
 
-        this.BuildCropDtoCollection(template, fieldComponentDto);
+        this.ConvertCropViewItemsToDtoCollection(template, fieldComponentDto);
 
         return fieldComponentDto;
     }
 
-    public void BuildCropDtoCollection(FieldSystemComponent fieldSystemComponent, IFieldComponentDto fieldComponentDto)
+    public void ConvertCropViewItemsToDtoCollection(FieldSystemComponent fieldSystemComponent, IFieldComponentDto fieldComponentDto)
     {
         fieldComponentDto.CropDtos.Clear();
 
@@ -284,6 +284,18 @@ public class FieldComponentService : IFieldComponentService
             var dto = _cropDtoFactory.CreateCropDto(template: cropViewItem);
 
             fieldComponentDto.CropDtos.Add(dto);
+        }
+    }
+
+    public void ConvertCropDtoCollectionToCropViewItemCollection(FieldSystemComponent fieldSystemComponent, IFieldComponentDto fieldComponentDto)
+    {
+        foreach (var cropDto in fieldComponentDto.CropDtos)
+        {
+            var viewItem = fieldSystemComponent.CropViewItems.SingleOrDefault(viewItem => viewItem.Guid.Equals(cropDto.Guid));
+            if (viewItem != null)
+            {
+                this.TransferCropDtoToSystem(cropDto, viewItem);
+            }
         }
     }
 

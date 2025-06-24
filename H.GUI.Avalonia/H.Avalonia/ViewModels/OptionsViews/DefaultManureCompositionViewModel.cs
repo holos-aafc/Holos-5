@@ -28,10 +28,6 @@ namespace H.Avalonia.ViewModels.OptionsViews
             IStorageService storageService) : base(regionManager, eventAggregator, storageService)
         {
             DefaultManureCompositionDataViewModels = new ObservableCollection<DefaultManureCompositionDataViewModel>();
-
-            var globalSettings = StorageService.Storage.ApplicationData.GlobalSettings;
-            globalSettings.PropertyChanged -= ActiveFarmChanged;
-            globalSettings.PropertyChanged += ActiveFarmChanged;
         }
          
         #endregion
@@ -111,14 +107,6 @@ namespace H.Avalonia.ViewModels.OptionsViews
         #endregion
 
         #region Event Handlers
-
-        private void ActiveFarmChanged(object? sender, PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == nameof(GlobalSettings.ActiveFarm))
-            {
-                IsInitialized = false;
-            }
-        }
 
         #endregion
     }

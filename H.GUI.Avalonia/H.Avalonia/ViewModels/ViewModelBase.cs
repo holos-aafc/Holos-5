@@ -45,6 +45,7 @@ namespace H.Avalonia.ViewModels
             if (storageService != null)
             {
                 this.StorageService = storageService;
+                this.StorageService.Storage.ApplicationData.GlobalSettings.PropertyChanged += GlobalSettingsPropertyChanged;
             }
             else
             {
@@ -117,6 +118,11 @@ namespace H.Avalonia.ViewModels
             if (storageService != null)
             {
                 this.StorageService = storageService;
+                this.StorageService.Storage.ApplicationData.GlobalSettings.PropertyChanged += GlobalSettingsPropertyChanged;
+            }
+            else
+            {
+                throw new ArgumentNullException(nameof(storageService));
             }
 
             if(eventAggregator != null)
@@ -277,7 +283,13 @@ namespace H.Avalonia.ViewModels
 
         #region Event Listeners
 
-
+        private void GlobalSettingsPropertyChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(GlobalSettings.ActiveFarm))
+            {
+                this.IsInitialized = false;
+            }
+        }
 
         #endregion
     }

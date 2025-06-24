@@ -22,10 +22,6 @@ namespace H.Avalonia.ViewModels.OptionsViews
         public OptionFarmViewModel(IStorageService storageService) : base(storageService)
         {
             _measurementSystemTypes = new ObservableCollection<MeasurementSystemType>() { MeasurementSystemType.Metric, MeasurementSystemType.Imperial };
-            
-            var globalSettings = this.StorageService.Storage.ApplicationData.GlobalSettings;
-            globalSettings.PropertyChanged -= ActiveFarmChanged;
-            globalSettings.PropertyChanged += ActiveFarmChanged;
         }
 
         #endregion
@@ -78,14 +74,6 @@ namespace H.Avalonia.ViewModels.OptionsViews
         #endregion
 
         #region Event Handlers
-
-        private void ActiveFarmChanged(object? sender, PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == nameof(GlobalSettings.ActiveFarm))
-            {
-                IsInitialized = false;
-            }
-        }
 
         #endregion
     }

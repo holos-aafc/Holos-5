@@ -20,14 +20,12 @@ namespace H.Avalonia.ViewModels.OptionsViews
         public OptionSoilViewModel() { }
         public OptionSoilViewModel(IStorageService storageService) : base(storageService)
         {
-            var globalSettings = StorageService.Storage.ApplicationData.GlobalSettings;
-            globalSettings.PropertyChanged -= ActiveFarmChanged;
-            globalSettings.PropertyChanged += ActiveFarmChanged;
+
         }
         #endregion
 
         #region Properties
-        public SoilDisplayViewModel Data //{ get; set; }
+        public SoilDisplayViewModel Data 
         {
             get => _data;
             set => SetProperty(ref _data, value);
@@ -48,14 +46,6 @@ namespace H.Avalonia.ViewModels.OptionsViews
         #endregion
 
         #region Event Handlers
-
-        private void ActiveFarmChanged(object? sender, PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == nameof(GlobalSettings.ActiveFarm))
-            {
-                IsInitialized = false;
-            }
-        }
 
         #endregion
     }

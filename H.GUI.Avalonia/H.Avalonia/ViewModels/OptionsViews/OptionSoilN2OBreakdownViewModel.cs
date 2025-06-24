@@ -15,12 +15,10 @@ namespace H.Avalonia.ViewModels.OptionsViews
         public OptionSoilN2OBreakdownViewModel() { }
         public OptionSoilN2OBreakdownViewModel(IStorageService storageService) : base(storageService)
         {
-            //Data = new SoilN2OBreakdownDisplayViewModel(storageService);
-            var globalSettings = StorageService.Storage.ApplicationData.GlobalSettings;
-            globalSettings.PropertyChanged -= ActiveFarmChanged;
-            globalSettings.PropertyChanged += ActiveFarmChanged;
+
         }
         #endregion
+
         #region Properties
         public SoilN2OBreakdownDisplayViewModel Data
         {
@@ -43,14 +41,6 @@ namespace H.Avalonia.ViewModels.OptionsViews
         #endregion
 
         #region Event Handlers
-
-        private void ActiveFarmChanged(object? sender, PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == nameof(GlobalSettings.ActiveFarm))
-            {
-                IsInitialized = false;
-            }
-        }
 
         #endregion
     }

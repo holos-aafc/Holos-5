@@ -195,7 +195,7 @@ namespace H.Avalonia
             containerRegistry.RegisterDialog<DeleteRowDialog, DeleteRowDialogViewModel>();
 
             // Factories
-            containerRegistry.RegisterSingleton<ICropDtoFactory, CropDtoFactory>();
+            containerRegistry.RegisterSingleton<ICropFactory, CropFactory>();
             containerRegistry.RegisterSingleton<IFieldComponentDtoFactory, FieldComponentDtoFactory>();
         }
 

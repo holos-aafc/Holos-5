@@ -27,6 +27,18 @@
         </StackPanel>
 
         <StackPanel Grid.Row="1">
+            <Grid HorizontalAlignment="Left">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition MinWidth="120"/>
+                    <ColumnDefinition MinWidth="120"/>
+                    <ColumnDefinition MinWidth="100"/>
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Column="0" Content="Field size:" VerticalContentAlignment="Center"/>
+                <NumericUpDown Grid.Column="1" Minimum="0" Value="{Binding Path=SelectedFieldSystemComponentDto.FieldArea}"></NumericUpDown>
+                <Label Grid.Column="2" Content="{Binding Path=StorageService.Storage.ApplicationData.DisplayUnitStrings.HectaresString}" VerticalContentAlignment="Center"/>
+            </Grid>
+
             <StackPanel Orientation="Horizontal">
                 <Button Command="{Binding AddCropCommand}" Classes="add-group" Content="Add Crop"/>
                 <Button Command="{Binding RemoveCropCommand}" Classes="add-group" Content="Remove Crop"/>
@@ -52,7 +64,7 @@
                             <DataTemplate>
                                 <ComboBox x:Name="combo" 
                                           MinWidth="200"
-                                          ItemsSource="{Binding Path=CropTypes}"
+                                          ItemsSource="{Binding Path=ValidCropTypes}"
                                           SelectedItem="{Binding Path=CropType}"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>

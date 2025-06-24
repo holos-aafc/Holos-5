@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using H.Avalonia.ViewModels.ComponentViews.LandManagement;
 using H.Avalonia.ViewModels.ComponentViews.LandManagement.Field;
+using H.Core.Calculators.UnitsOfMeasurement;
 using H.Core.Factories;
 using H.Core.Models.Animals.Beef;
 using H.Core.Models.LandManagement.Fields;
@@ -44,12 +45,12 @@ public class FieldComponentViewModelTest
         var mockStorageService = new Mock<IStorageService>();
         _mockFieldComponentDtoFactory = new Mock<IFieldComponentDtoFactory>();
         _mockFieldComponentService = new Mock<IFieldComponentService>();
-        var mockCropDtoFactory = new Mock<ICropDtoFactory>();
+        var mockUnitsOfMeasurementCalculator = new Mock<IUnitsOfMeasurementCalculator>();
 
         _mockFieldComponentService.Setup(x => x.Create()).Returns(new FieldSystemComponentDto());
-        _mockFieldComponentService.Setup(x => x.Create(It.IsAny<FieldSystemComponent>())).Returns(new FieldSystemComponentDto());
+        _mockFieldComponentService.Setup(x => x.TransferToFieldComponentDto(It.IsAny<FieldSystemComponent>())).Returns(new FieldSystemComponentDto());
 
-        _viewModel = new FieldComponentViewModel(mockRegionManager.Object, mockEventAggregator.Object, mockStorageService.Object, _mockFieldComponentService.Object);
+        _viewModel = new FieldComponentViewModel(mockRegionManager.Object, mockEventAggregator.Object, mockStorageService.Object, _mockFieldComponentService.Object, mockUnitsOfMeasurementCalculator.Object);
     }
 
     [TestCleanup]

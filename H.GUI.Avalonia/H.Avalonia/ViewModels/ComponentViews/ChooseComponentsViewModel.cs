@@ -99,6 +99,11 @@ namespace H.Avalonia.ViewModels.ComponentViews
             this.InitializeViewModel();
         }
 
+        public override void OnNavigatedFrom(NavigationContext navigationContext)
+        {
+            base.OnNavigatedFrom(navigationContext);
+        }
+
         public void InitializeViewModel()
         {
             this.SelectedComponent = this.AvailableComponents.First();

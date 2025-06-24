@@ -1,4 +1,7 @@
-﻿using H.Core.Factories;
+﻿using AutoMapper;
+using H.Core.Calculators.UnitsOfMeasurement;
+using H.Core.Converters;
+using H.Core.Factories;
 using H.Core.Models;
 using H.Core.Models.LandManagement.Fields;
 
@@ -12,21 +15,37 @@ public class FieldComponentService : IFieldComponentService
     #region Fields
     
     private readonly IFieldComponentDtoFactory _fieldComponentDtoFactory;
-    private readonly ICropDtoFactory _cropDtoFactory; 
+    private readonly ICropFactory _cropFactory;
+    private readonly IUnitsOfMeasurementCalculator _unitsOfMeasurementCalculator;
+
+    private readonly IMapper _fieldDtoToComponentMapper;
+    private readonly IMapper _fieldComponentToDtoMapper;
+
+    private readonly IMapper _cropDtoToCropViewItemMapper;
+    private readonly IMapper _cropViewItemToCropDtoMapper;
 
     #endregion
 
     #region Constructors
 
-    public FieldComponentService(IFieldComponentDtoFactory fieldComponentDtoFactory, ICropDtoFactory cropDtoFactory)
+    public FieldComponentService(IFieldComponentDtoFactory fieldComponentDtoFactory, ICropFactory cropFactory, IUnitsOfMeasurementCalculator unitsOfMeasurementCalculator)
     {
-        if (cropDtoFactory != null)
+        if (unitsOfMeasurementCalculator != null)
         {
-            _cropDtoFactory = cropDtoFactory; 
+            _unitsOfMeasurementCalculator = unitsOfMeasurementCalculator; 
         }
         else
         {
-            throw new ArgumentNullException(nameof(cropDtoFactory));
+            throw new ArgumentNullException(nameof(unitsOfMeasurementCalculator));
+        }
+
+        if (cropFactory != null)
+        {
+            _cropFactory = cropFactory;
+        }
+        else
+        {
+            throw new ArgumentNullException(nameof(cropFactory));
         }
 
         if (fieldComponentDtoFactory != null)
@@ -37,16 +56,29 @@ public class FieldComponentService : IFieldComponentService
         {
             throw new ArgumentNullException(nameof(fieldComponentDtoFactory));
         }
+
+        var fieldDtoToComponentMapperConfiguration = new MapperConfiguration(configuration => { configuration.CreateMap<FieldSystemComponentDto, FieldSystemComponent>(); });
+        var fieldComponentDtoMapperConfiguration = new MapperConfiguration(configuration => { configuration.CreateMap<FieldSystemComponent, FieldSystemComponentDto>(); });
+
+        var cropDtoToCropViewItemMapperConfiguration = new MapperConfiguration(configuration => { configuration.CreateMap<ICropDto, CropViewItem>(); });
+        var cropViewItemToCropDtoMapperConfiguration = new MapperConfiguration(configuration => { configuration.CreateMap<CropViewItem, ICropDto>(); });
+
+        _fieldDtoToComponentMapper = fieldDtoToComponentMapperConfiguration.CreateMapper();
+        _fieldComponentToDtoMapper = fieldComponentDtoMapperConfiguration.CreateMapper();
+
+        _cropDtoToCropViewItemMapper = cropDtoToCropViewItemMapperConfiguration.CreateMapper();
+        _cropViewItemToCropDtoMapper = cropViewItemToCropDtoMapperConfiguration.CreateMapper();
     }
 
     #endregion
 
     #region Public Methods
 
-    public void Initialize(Farm farm, FieldSystemComponent fieldSystemComponent)
+    public void InitializeFieldSystemComponent(Farm farm, FieldSystemComponent fieldSystemComponent)
     {
         if (fieldSystemComponent.IsInitialized)
         {
+            // The field has already been initialized - do not overwrite with default values
             return;
         }
 
@@ -55,16 +87,13 @@ public class FieldComponentService : IFieldComponentService
         fieldSystemComponent.IsInitialized = true;
     }
 
-    public void Initialize(IFieldComponentDto fieldComponentDto, ICropDto cropDto)
+    public void InitializeCropDto(IFieldComponentDto fieldComponentDto, ICropDto cropDto)
     {
         cropDto.Year = this.GetNextCropYear(fieldComponentDto);
+
+        fieldComponentDto.CropDtos.Add(cropDto);
     }
 
-    /// <summary>
-    /// Crates a unique component name when adding a field to the farm
-    /// </summary>
-    /// <param name="components"></param>
-    /// <returns></returns>
     public string GetUniqueFieldName(IEnumerable<FieldSystemComponent> components)
     {
         var i = 1;
@@ -81,11 +110,6 @@ public class FieldComponentService : IFieldComponentService
         return proposedName;
     }
 
-    /// <summary>
-    /// When adding a new crop to the field, the year must be the next in order so that all years of the field history are consecutive.
-    /// </summary>
-    /// <param name="fieldComponentDto">The field containing the crops</param>
-    /// <returns>The next consecutive year to should be used</returns>
     public int GetNextCropYear(IFieldComponentDto fieldComponentDto)
     {
         var result = DateTime.Now.Year;
@@ -98,10 +122,6 @@ public class FieldComponentService : IFieldComponentService
         return result;
     }
 
-    /// <summary>
-    /// All years in a collection of crops must be consecutive with no years missing. If a crop is removed, ensure all years are represented from start to finish of collection.
-    /// </summary>
-    /// <param name="cropDtos">The list of crops and associated years representing the history of the field</param>
     public void ResetAllYears(IEnumerable<ICropDto> cropDtos)
     {
         if (cropDtos.Any())
@@ -122,21 +142,186 @@ public class FieldComponentService : IFieldComponentService
         return _fieldComponentDtoFactory.Create();
     }
 
-    public IFieldComponentDto Create(FieldSystemComponent fieldSystemComponent)
+    public IFieldComponentDto Create(FieldSystemComponent template)
     {
         IFieldComponentDto fieldDto;
 
-        if (fieldSystemComponent.IsInitialized)
+        if (template.IsInitialized)
         {
-            fieldDto = _fieldComponentDtoFactory.Create(fieldSystemComponent: fieldSystemComponent);
+            fieldDto = TransferToFieldComponentDto(template: template);
         }
         else
         {
             fieldDto = _fieldComponentDtoFactory.Create();
-            fieldSystemComponent.IsInitialized = true;
+            template.IsInitialized = true;
         }
 
         return fieldDto;
+    }
+
+    public IFieldComponentDto CreateFieldDto(IFieldComponentDto template)
+    {
+        return _fieldComponentDtoFactory.CreateFieldDto(template);
+    }
+
+    public ICropDto CreateCropDto()
+    {
+        return _cropFactory.CreateCropDto();
+    }
+
+    public ICropDto CreateCropDto(CropViewItem template)
+    {
+        return _cropFactory.CreateCropDto(template);
+    }
+
+    public ICropDto CreateCropDto(ICropDto template)
+    {
+        return _cropFactory.CreateCropDto(template);
+    }
+
+    public CropViewItem CreateCropViewItem(ICropDto cropDto)
+    {
+        return _cropFactory.CreateCropViewItem(cropDto);
+    }
+
+    public ICropDto TransferCropViewItemToCropDto(CropViewItem cropViewItem)
+    {
+        var dto = new CropDto();
+
+        // Create a copy of the view item by copying all properties into the DTO
+        _cropViewItemToCropDtoMapper.Map(cropViewItem, dto);
+
+        // All numerical values are stored internally as metric values
+        var cropDtoPropertyConverter = new PropertyConverter<ICropDto>(dto);
+
+        // Get all properties that might need to be converted to imperial units before being shown to the user
+        foreach (var propertyInfo in cropDtoPropertyConverter.PropertyInfos)
+        {
+            // Convert the value from metric to imperial as needed. Note the converter won't convert anything if the display is in metric units
+            var bindingValue = cropDtoPropertyConverter.GetBindingValueFromSystem(propertyInfo, _unitsOfMeasurementCalculator.GetUnitsOfMeasurement());
+
+            // Set the value of the property before displaying to the user
+            propertyInfo.SetValue(dto, bindingValue);
+        }
+
+        return dto;
+    }
+
+    public CropViewItem TransferCropDtoToSystem(ICropDto cropDto, CropViewItem cropViewItem)
+    {
+        // Create a copy of the DTO since we don't want to change values on the original that is still bound to the GUI
+        var copy = _cropFactory.CreateCropDto(cropDto);
+
+        // All numerical values are stored internally as metric values
+        var cropViewItemPropertyConverter = new PropertyConverter<ICropDto>(copy);
+
+        // Get all properties that might need to be converted to imperial units before being shown to the user
+        foreach (var property in cropViewItemPropertyConverter.PropertyInfos)
+        {
+            // Convert the value from imperial to metric as needed (no conversion will occur if display is using metric)
+            var bindingValue = cropViewItemPropertyConverter.GetSystemValueFromBinding(property, _unitsOfMeasurementCalculator.GetUnitsOfMeasurement());
+
+            // Set the value on the copy of the DTO
+            property.SetValue(copy, bindingValue);
+        }
+
+        // Map values from the copy of the DTO to the internal system object
+        _cropDtoToCropViewItemMapper.Map(copy, cropViewItem);
+
+        return cropViewItem;
+    }
+
+    public FieldSystemComponent TransferFieldDtoToSystem(IFieldComponentDto fieldComponentDto, FieldSystemComponent fieldSystemComponent)
+    {
+        // Create a copy of the DTO since we don't want to change values on the original that is still bound to the GUI
+        var copy = _fieldComponentDtoFactory.CreateFieldDto(fieldComponentDto);
+
+        // All numerical values are stored internally as metric values
+        var fieldComponentDtoPropertyConverter = new PropertyConverter<IFieldComponentDto>(copy);
+
+        // Get all properties that might need to be converted
+        foreach (var property in fieldComponentDtoPropertyConverter.PropertyInfos)
+        {
+            // Convert the value from imperial to metric as needed (no conversion will occur if display is using metric)
+            var bindingValue = fieldComponentDtoPropertyConverter.GetSystemValueFromBinding(property, _unitsOfMeasurementCalculator.GetUnitsOfMeasurement());
+
+            // Set the value on the copy of the DTO
+            property.SetValue(copy, bindingValue);
+        }
+
+        // Map values from the copy of the DTO to the internal system object
+        _fieldDtoToComponentMapper.Map(copy, fieldSystemComponent);
+
+        return fieldSystemComponent;
+    }
+
+    public IFieldComponentDto TransferToFieldComponentDto(FieldSystemComponent template)
+    {
+        var fieldComponentDto = new FieldSystemComponentDto();
+
+        // Create a copy of the field component by copying all properties into the DTO
+        _fieldComponentToDtoMapper.Map(template, fieldComponentDto);
+
+        // All numerical values are stored internally as metric values
+        var fieldComponentDtoPropertyConverter = new PropertyConverter<IFieldComponentDto>(fieldComponentDto);
+
+        // Get all properties that might need to be converted to imperial units before being shown to the user
+        foreach (var property in fieldComponentDtoPropertyConverter.PropertyInfos)
+        {
+            // Convert the value from metric to imperial as needed. Note the converter won't convert anything if the display is in metric units
+            var bindingValue = fieldComponentDtoPropertyConverter.GetBindingValueFromSystem(property, _unitsOfMeasurementCalculator.GetUnitsOfMeasurement());
+
+            // Set the value of the property before displaying to the user
+            property.SetValue(fieldComponentDto, bindingValue);
+        }
+
+        this.ConvertCropViewItemsToDtoCollection(template, fieldComponentDto);
+
+        return fieldComponentDto;
+    }
+
+    public void ConvertCropViewItemsToDtoCollection(FieldSystemComponent fieldSystemComponent, IFieldComponentDto fieldComponentDto)
+    {
+        fieldComponentDto.CropDtos.Clear();
+
+        foreach (var cropViewItem in fieldSystemComponent.CropViewItems)
+        {
+            var dto = _cropFactory.CreateCropDto(template: cropViewItem);
+
+            fieldComponentDto.CropDtos.Add(dto);
+        }
+    }
+
+    public void ConvertCropDtoCollectionToCropViewItemCollection(FieldSystemComponent fieldSystemComponent, IFieldComponentDto fieldComponentDto)
+    {
+        foreach (var cropDto in fieldComponentDto.CropDtos)
+        {
+            var viewItem = fieldSystemComponent.CropViewItems.SingleOrDefault(viewItem => viewItem.Guid.Equals(cropDto.Guid));
+            if (viewItem != null)
+            {
+                this.TransferCropDtoToSystem(cropDto, viewItem);
+            }
+        }
+    }
+
+    public void AddCropDtoToSystem(FieldSystemComponent fieldSystemComponent, ICropDto cropDto)
+    {
+        var cropViewItem = _cropFactory.CreateCropViewItem(cropDto);
+
+        fieldSystemComponent.CropViewItems.Add(cropViewItem);
+    }
+
+    public void RemoveCropFromSystem(FieldSystemComponent fieldSystemComponent, ICropDto cropDto)
+    {
+        if (cropDto != null)
+        {
+            // By default, all DTO objects will have their GUID property set to be equal to the GUID of the associated domain object
+            var cropViewItem = fieldSystemComponent.CropViewItems.SingleOrDefault(x => x.Guid.Equals(cropDto.Guid));
+            if (cropViewItem != null)
+            {
+                fieldSystemComponent.CropViewItems.Remove(cropViewItem);
+            }
+        }
     }
 
     #endregion

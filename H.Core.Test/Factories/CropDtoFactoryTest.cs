@@ -10,7 +10,7 @@ public class CropDtoFactoryTest
 {
     #region Fields
 
-    private ICropDtoFactory _factory;
+    private ICropFactory _factory;
 
     #endregion
 
@@ -29,7 +29,7 @@ public class CropDtoFactoryTest
     [TestInitialize]
     public void TestInitialize()
     {
-        _factory = new CropDtoFactory();
+        _factory = new CropFactory();
     }
 
     [TestCleanup]
@@ -42,7 +42,7 @@ public class CropDtoFactoryTest
     [TestMethod]
     public void CreateReturnsNonNull()
     {
-        var result = _factory.Create();
+        var result = _factory.CreateCropDto();
 
         Assert.IsNotNull(result);
     }

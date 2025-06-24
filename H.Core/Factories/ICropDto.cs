@@ -8,7 +8,7 @@ namespace H.Core.Factories;
 /// <summary>
 /// A data transfer object used to validate and collection information about a <see cref="CropViewItem"/>
 /// </summary>
-public interface ICropDto : INotifyPropertyChanged
+public interface ICropDto : INotifyPropertyChanged, IDto
 {
     /// <summary>
     /// The crop type being grown
@@ -24,4 +24,11 @@ public interface ICropDto : INotifyPropertyChanged
     /// The year in which the crop was grown
     /// </summary>
     int Year { get; set; }
+
+    /// <summary>
+    /// The total amount of annual irrigation
+    ///
+    /// (mm)
+    /// </summary>
+    double AmountOfIrrigation { get; set; }
 }

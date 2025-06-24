@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Reflection;
+using H.Core.Enumerations;
 
 namespace H.Core.Converters
 {
@@ -35,5 +36,15 @@ namespace H.Core.Converters
         /// <param name="prop">property to get the value for</param>
         /// <returns>metric or imperial value</returns>
         double GetBindingValueFromSystem(PropertyInfo prop);
+
+        double GetBindingValueFromSystem(PropertyInfo prop, MeasurementSystemType measurementSystemType);
+
+        /// <summary>
+        /// Convert the value of a property from a DTO and convert it to metric units
+        /// </summary>
+        /// <param name="prop">The property that was bound to the view</param>
+        /// <param name="measurementSystemType">The units of measurement being used by the view/system</param>
+        /// <returns>The property value converted from one unit of measurement to another</returns>
+        double GetSystemValueFromBinding(PropertyInfo prop, MeasurementSystemType measurementSystemType);
     }
 }

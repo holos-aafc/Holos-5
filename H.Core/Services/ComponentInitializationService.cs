@@ -47,7 +47,7 @@ public class ComponentInitializationService : IComponentInitializationService
 
         if (componentBase.GetType() == typeof(FieldSystemComponent))
         {
-            _fieldComponentService.Initialize(activeFarm, componentBase as FieldSystemComponent);
+            _fieldComponentService.InitializeFieldSystemComponent(activeFarm, componentBase as FieldSystemComponent);
         }
     } 
 

@@ -10,6 +10,7 @@ using System.ComponentModel;
 using System.Collections.Generic;
 using System.Linq;
 using System.Collections;
+using H.Avalonia.Views;
 using H.Core.Services;
 
 namespace H.Avalonia.ViewModels
@@ -96,8 +97,11 @@ namespace H.Avalonia.ViewModels
             base.StorageService.SetActiveFarm(farm);
             base.StorageService.Storage.ApplicationData.DisplayUnitStrings.SetStrings(farm.MeasurementSystemType);
 
-            RegionManager.RequestNavigate(UiRegions.SidebarRegion, nameof(MyComponentsView));
-            RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(ChooseComponentsView));
+            //base.RegionManager.RequestNavigate(UiRegions.SidebarRegion, nameof(MyComponentsView));
+            //base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(ChooseComponentsView));
+
+            // Navigate to next view
+            base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(SoilDataView));
         }
 
         #endregion

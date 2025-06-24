@@ -43,7 +43,7 @@ public class CountrySettingsTest
     {
         _countrySettings.Version = CountryVersion.Canada;
 
-        var result = _countrySettings.GetProvinces();
+        var result = _countrySettings.GetProvinces().Where(x => x != Province.SelectProvince).ToList();
 
         Assert.AreEqual(10, result.Count);
 

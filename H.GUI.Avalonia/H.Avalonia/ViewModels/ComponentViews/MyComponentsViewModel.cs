@@ -6,6 +6,8 @@ using H.Avalonia.Events;
 using H.Avalonia.Models;
 using H.Avalonia.Views.ComponentViews;
 using H.Core.Models;
+using H.Core.Services;
+using H.Core.Services.LandManagement.Fields;
 using H.Core.Services.StorageService;
 using Prism.Events;
 using Prism.Regions;
@@ -20,6 +22,8 @@ public class MyComponentsViewModel : ViewModelBase
     private ObservableCollection<ComponentBase> _myComponents;
     private H.Core.Models.Farm _selectedFarm;
 
+    private IComponentInitializationService _componentInitializationService;
+
     #endregion
 
     #region Constructors
@@ -29,13 +33,21 @@ public class MyComponentsViewModel : ViewModelBase
         this.MyComponents = new ObservableCollection<ComponentBase>();
     }
 
-
-    public MyComponentsViewModel(IRegionManager regionManager, IEventAggregator eventAggregator, IStorageService storageService) : base(regionManager, eventAggregator, storageService)
+    public MyComponentsViewModel(IRegionManager regionManager, IEventAggregator eventAggregator, IStorageService storageService, IComponentInitializationService componentInitializationService) : base(regionManager, eventAggregator, storageService)
     {
+        if (componentInitializationService != null)
+        {
+            _componentInitializationService = componentInitializationService; 
+        }
+        else
+        {
+            throw new ArgumentNullException(nameof(componentInitializationService));
+        }
+        
         base.PropertyChanged += OnPropertyChanged;
 
         this.MyComponents = new ObservableCollection<ComponentBase>();
-
+        
         base.EventAggregator.GetEvent<ComponentAddedEvent>().Subscribe(OnComponentAddedEvent);
         base.EventAggregator.GetEvent<EditingComponentsCompletedEvent>().Subscribe(OnEditingComponentsCompletedEvent);
     }
@@ -113,6 +125,8 @@ public class MyComponentsViewModel : ViewModelBase
         var instanceType = componentBase.GetType();
         var instance = Activator.CreateInstance(instanceType) as ComponentBase;
 
+        _componentInitializationService.Initialize(instance);
+
         this.MyComponents.Add(instance);
         this.SelectedComponent = instance;
 
@@ -162,7 +176,9 @@ public class MyComponentsViewModel : ViewModelBase
         if (this.SelectedComponent != null)
         {
             var viewName = ComponentTypeToViewTypeMapper.GetViewName(this.SelectedComponent);
-            this.RegionManager.RequestNavigate(UiRegions.ContentRegion, viewName);
+
+            var navigationParameters = new NavigationParameters { { GuiConstants.ComponentKey, this.SelectedComponent } };
+            this.RegionManager.RequestNavigate(UiRegions.ContentRegion, viewName, navigationParameters);
         }
     }
 

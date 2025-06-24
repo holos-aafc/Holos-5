@@ -34,20 +34,33 @@
                                VerticalAlignment="Top"
                                Foreground="Green"
                                Margin="0,-10,0,20"/>
-        <Button Name="ExportDataButton"
-                Grid.Row="2"
-                Content="{x:Static properties:Resources.LabelExportToCSV}"
-                IsEnabled="{Binding !IsProcessingData, Mode=TwoWay}"
-                Click="ExportDataButton_OnClick"
-                HorizontalAlignment="Right"
-                Background="MediumAquamarine"
-                Margin="20, 10"
-                Cursor="Hand"/>
+
+        <StackPanel Grid.Row="2" 
+                    Orientation="Horizontal">
+            <Button Name="ChooseSelectedSoilButton"
+                    Content="Choose Selected Soil"
+                    IsEnabled="{Binding !IsProcessingData, Mode=TwoWay}"
+                    Click="ChooseSelectedSoilButton_OnClick"
+                    HorizontalAlignment="Left"
+                    Background="MediumAquamarine"
+                    Margin="20, 10"
+                    Cursor="Hand"/>
+
+			<Button Name="ExportDataButton"
+                    Content="{x:Static properties:Resources.LabelExportToCSV}"
+                    IsEnabled="{Binding !IsProcessingData, Mode=TwoWay}"
+                    Click="ExportDataButton_OnClick"
+                    HorizontalAlignment="Right"
+                    Background="MediumAquamarine"
+                    Margin="20, 10"
+                    Cursor="Hand"/>
+		</StackPanel>
+
         <DataGrid Grid.Row="3"
                   ItemsSource="{Binding SingleSoilResultsViewItems}"
                   Margin="20,0,20,20"
                   IsReadOnly="True"
-                  IsVisible="{Binding Storage.ShowSingleCoordinateResults}">
+                  IsVisible="{Binding StoragePlaceholder.ShowSingleCoordinateResults}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="{x:Static properties:Resources.LabelLatitude}"
                                     Binding="{Binding Latitude, StringFormat={}{0:0.###}}"
@@ -76,11 +89,11 @@
             </DataGrid.Columns>
         </DataGrid>
         
-                <DataGrid Grid.Row="3"
+        <DataGrid Grid.Row="3"
                   ItemsSource="{Binding SoilResultsViewItems}"
                   Margin="20,0,20,20"
                   IsReadOnly="True"
-                  IsVisible="{Binding Storage.ShowMultipleCoordinateResults}">
+                  IsVisible="{Binding StoragePlaceholder.ShowMultipleCoordinateResults}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="{x:Static properties:Resources.LabelLatitude}"
                                     Binding="{Binding Latitude, StringFormat={}{0:0.##}}"

@@ -4948,6 +4948,15 @@ namespace H.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Select Province.
+        /// </summary>
+        public static string EnumSelectProvince {
+            get {
+                return ResourceManager.GetString("EnumSelectProvince", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Separated manure solid.
         /// </summary>
         public static string EnumSeparatedManureSolid {

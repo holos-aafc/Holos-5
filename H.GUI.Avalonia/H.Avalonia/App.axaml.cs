@@ -36,7 +36,6 @@ using H.Core.Services;
 using H.Core.Services.Provinces;
 using H.Avalonia.Views.SupportingViews.CountrySelection;
 using H.Avalonia.ViewModels.SupportingViews.CountrySelection;
-using H.Core.Services.RegionCountries;
 using H.Avalonia.Views.FarmCreationViews;
 using H.Core;
 using H.Core.Services.StorageService;
@@ -44,9 +43,13 @@ using H.Infrastructure;
 using KmlHelpers = H.Avalonia.Infrastructure.KmlHelpers;
 using System.Text.RegularExpressions;
 using System.Threading;
+using H.Avalonia.ViewModels.ComponentViews.LandManagement.Field;
 using H.Core.Enumerations;
 using H.Avalonia.ViewModels.SupportingViews.Start;
 using H.Core.Calculators.UnitsOfMeasurement;
+using H.Core.Factories;
+using H.Core.Services.Countries;
+using H.Core.Services.LandManagement.Fields;
 using H.Avalonia.ViewModels.FarmCreationViews;
 using H.Avalonia.ViewModels.OptionsViews.FileMenuViews;
 
@@ -182,12 +185,18 @@ namespace H.Avalonia
 
             // Services
             containerRegistry.RegisterSingleton<IFarmHelper, FarmHelper>();
+            containerRegistry.RegisterSingleton<IComponentInitializationService, ComponentInitializationService>();
+            containerRegistry.RegisterSingleton<IFieldComponentService, FieldComponentService>();
 
             // Unit conversion
             containerRegistry.RegisterSingleton<IUnitsOfMeasurementCalculator, UnitsOfMeasurementCalculator>();
             
             // Dialogs
             containerRegistry.RegisterDialog<DeleteRowDialog, DeleteRowDialogViewModel>();
+
+            // Factories
+            containerRegistry.RegisterSingleton<ICropDtoFactory, CropDtoFactory>();
+            containerRegistry.RegisterSingleton<IFieldComponentDtoFactory, FieldComponentDtoFactory>();
         }
 
         protected override AvaloniaObject CreateShell()

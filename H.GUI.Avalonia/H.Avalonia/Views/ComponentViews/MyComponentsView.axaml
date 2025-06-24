@@ -60,7 +60,7 @@
 
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding Path=ComponentType, Converter={StaticResource EnumDescriptionConverter}}"></TextBlock>
+                    <TextBlock Text="{Binding Path=Name}"></TextBlock>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>

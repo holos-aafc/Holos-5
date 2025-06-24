@@ -68,7 +68,7 @@
                         </StackPanel>
                         
                         <ComboBox ItemsSource="{Binding Provinces}"
-                                  SelectedItem="{Binding SelectedProvince}"
+                                  SelectedItem="{Binding SelectedProvince, Mode=TwoWay}"
                                   IsVisible="{Binding ShowPolygonsOnMap}">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
@@ -152,7 +152,7 @@
 
                 <DataGrid Name="SoilDataGrid"
                         Grid.Row="2" 
-                        ItemsSource="{Binding Storage.SoilViewItems, Mode=TwoWay}"
+                        ItemsSource="{Binding StoragePlaceholder.SoilViewItems, Mode=TwoWay}"
                         CanUserSortColumns="False"
                         GridLinesVisibility="None"
                         Margin="20, 10"

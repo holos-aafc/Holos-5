@@ -7,6 +7,7 @@
   <ItemGroup>
     <ProjectReference Include="..\H.Content\H.Content.csproj" />
     <ProjectReference Include="..\H.Core\H.Core.csproj" />
+    <ProjectReference Include="..\H.GUI.Avalonia\H.Avalonia\H.Avalonia.csproj" />
     <ProjectReference Include="..\H.Infrastructure\H.Infrastructure.csproj" />
   </ItemGroup>
 
@@ -14,7 +15,7 @@
     <PackageReference Include="Castle.Core" Version="5.1.1" />
     <PackageReference Include="CommonServiceLocator" Version="2.0.7" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.9.0" />
-    <PackageReference Include="Moq" Version="4.20.69" />
+    <PackageReference Include="Moq" Version="4.20.72" />
     <PackageReference Include="MSTest.TestAdapter" Version="3.1.1" />
     <PackageReference Include="MSTest.TestFramework" Version="3.1.1" />
   </ItemGroup>

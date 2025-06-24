@@ -1,8 +1,6 @@
-﻿using H.Core.Enumerations;
-using System;
-using System.Linq;
+﻿using H.Core.Enumerations.LocationEnumerationsRegions;
 
-namespace H.Core.Services
+namespace H.Core.Services.Region
 {
     public static class RegionSelectionService
     {

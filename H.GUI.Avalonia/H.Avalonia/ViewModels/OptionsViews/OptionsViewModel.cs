@@ -61,6 +61,10 @@ namespace H.Avalonia.ViewModels.OptionsViews
                         base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(FileSaveView));
                         break;
 
+                    case "Save As":
+                        base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(FileSaveAsView));
+                        break;
+
                     // Settings Menu
                     case "Farm":
                         base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(OptionFarmView));

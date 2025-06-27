@@ -20,7 +20,7 @@ namespace H.Avalonia.ViewModels.OptionsViews.FileMenuViews
 
         #region Constructors
 
-        public FileSaveViewModel(IRegionManager regionManager, IEventAggregator eventAggregator, IStorageService storageService) : base(regionManager, eventAggregator, storageService)
+        public FileSaveViewModel(IStorageService storageService) : base(storageService)
         {
             this.SaveCommand = new DelegateCommand(OnSaveExecute, CanExecuteSave);
         }
@@ -30,8 +30,6 @@ namespace H.Avalonia.ViewModels.OptionsViews.FileMenuViews
         #region Properties
 
         public ICommand SaveCommand { get; set; }
-
-        public ICommand SaveAsCommand { get; set; }
 
         #endregion
 

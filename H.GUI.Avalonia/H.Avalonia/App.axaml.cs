@@ -155,6 +155,7 @@ namespace H.Avalonia
             containerRegistry.RegisterForNavigation<FileOpenFarmView, FileOpenFarmViewModel>();
             containerRegistry.RegisterForNavigation<FarmManagementView, FarmManagementViewModel>();
             containerRegistry.RegisterForNavigation<FileSaveView, FileSaveViewModel>();
+            containerRegistry.RegisterForNavigation<FileSaveAsView, FileSaveAsViewModel>();
 
             // Blank Page
             containerRegistry.RegisterForNavigation<BlankView, BlankViewModel>();
@@ -187,6 +188,7 @@ namespace H.Avalonia
             containerRegistry.RegisterSingleton<IFarmHelper, FarmHelper>();
             containerRegistry.RegisterSingleton<IComponentInitializationService, ComponentInitializationService>();
             containerRegistry.RegisterSingleton<IFieldComponentService, FieldComponentService>();
+            containerRegistry.RegisterSingleton<IFarmResultsService_NEW, FarmResultsService_NEW>();
 
             // Unit conversion
             containerRegistry.RegisterSingleton<IUnitsOfMeasurementCalculator, UnitsOfMeasurementCalculator>();

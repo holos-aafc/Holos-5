@@ -7,9 +7,9 @@ using H.Avalonia.ViewModels.OptionsViews.FileMenuViews;
 
 namespace H.Avalonia;
 
-public partial class FileSaveView : UserControl
+public partial class FileSaveOptionsView : UserControl
 {
-    public FileSaveView()
+    public FileSaveOptionsView()
     {
         InitializeComponent();
     }
@@ -35,5 +35,5 @@ public partial class FileSaveView : UserControl
     /// <summary>
     /// Get the viewmodel associated with the view.
     /// </summary>
-    private FileSaveViewModel? ViewModel => DataContext as FileSaveViewModel;
+    private FileSaveOptionsViewModel? ViewModel => DataContext as FileSaveOptionsViewModel;
 }

@@ -154,8 +154,7 @@ namespace H.Avalonia
             containerRegistry.RegisterForNavigation<FileNewFarmView, FileNewFarmViewModel>();
             containerRegistry.RegisterForNavigation<FileOpenFarmView, FileOpenFarmViewModel>();
             containerRegistry.RegisterForNavigation<FarmManagementView, FarmManagementViewModel>();
-            containerRegistry.RegisterForNavigation<FileSaveView, FileSaveViewModel>();
-            containerRegistry.RegisterForNavigation<FileSaveAsView, FileSaveAsViewModel>();
+            containerRegistry.RegisterForNavigation<FileSaveOptionsView, FileSaveOptionsViewModel>();
 
             // Blank Page
             containerRegistry.RegisterForNavigation<BlankView, BlankViewModel>();

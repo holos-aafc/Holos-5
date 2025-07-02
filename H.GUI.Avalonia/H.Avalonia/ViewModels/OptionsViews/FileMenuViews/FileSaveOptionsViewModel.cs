@@ -1,30 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Avalonia.Controls.Notifications;
-using H.Core.Models;
 using H.Core.Services;
 using H.Core.Services.StorageService;
 using Prism.Commands;
 
 namespace H.Avalonia.ViewModels.OptionsViews.FileMenuViews
 {
-    public class FileSaveAsViewModel : ViewModelBase
+    public class FileSaveOptionsViewModel : ViewModelBase
     {
         #region Fields
 
         private string _newFarmName;
         private IFarmResultsService_NEW _farmResultsService;
+        private bool _runValidationFlag;
 
         #endregion
 
         #region Constructors
 
-        public FileSaveAsViewModel(IStorageService storageService, IFarmResultsService_NEW farmResultsService) : base(storageService) 
+        public FileSaveOptionsViewModel(IStorageService storageService, IFarmResultsService_NEW farmResultsService) : base(storageService)
         {
             if (farmResultsService != null)
             {
@@ -35,26 +34,30 @@ namespace H.Avalonia.ViewModels.OptionsViews.FileMenuViews
                 throw new ArgumentNullException(nameof(farmResultsService));
             }
 
+            this.SaveCommand = new DelegateCommand(OnSaveExecute, CanExecuteSave);
             this.SaveAsCommand = new DelegateCommand(OnSaveAsExecute);
+            _runValidationFlag = true;
         }
 
         #endregion
 
         #region Properties
 
+        public ICommand SaveCommand { get; set; }
+
+        public ICommand SaveAsCommand { get; set; }
+
         public string NewFarmName
         {
             get => _newFarmName;
             set
             {
-                if (SetProperty(ref _newFarmName, value))
+                if (SetProperty(ref _newFarmName, value) && _runValidationFlag)
                 {
                     ValidateNewFarmName(nameof(NewFarmName), value);
                 }
             }
         }
-
-        public ICommand SaveAsCommand { get; set; }
 
         #endregion
 
@@ -63,7 +66,7 @@ namespace H.Avalonia.ViewModels.OptionsViews.FileMenuViews
         #endregion
 
         #region Private Methods
-        
+
         private void ValidateNewFarmName(string propertyName, string farmName)
         {
             base.RemoveError(propertyName);
@@ -74,7 +77,7 @@ namespace H.Avalonia.ViewModels.OptionsViews.FileMenuViews
             }
             else if (base.StorageService.Storage.ApplicationData.Farms.Any(x => x.Name == farmName))
             {
-                base.AddError(propertyName, "Cannot have a farm with the same name as an existing one.");
+                base.AddError(propertyName, "Farm name already in use.");
             }
         }
 
@@ -82,16 +85,36 @@ namespace H.Avalonia.ViewModels.OptionsViews.FileMenuViews
 
         #region Event Handlers
 
+        private async void OnSaveExecute()
+        {
+            await base.StorageService.Storage.SaveAsync();
+            NotificationManager?.Show(new Notification(
+                title: "Save Success",
+                message: "Holos saved successfully.",
+                type: NotificationType.Success,
+                expiration: TimeSpan.FromSeconds(10))
+            );
+        }
+
+        private bool CanExecuteSave()
+        {
+            if (base.StorageService.Storage.SaveTask != null && base.StorageService.Storage.SaveTask.Status.Equals(TaskStatus.Running)) return false;
+
+            return true;
+        }
+
         private void OnSaveAsExecute()
         {
-            if (base.HasErrors)
+            if (string.IsNullOrEmpty(this.NewFarmName) || this.HasErrors)
             {
                 return;
             }
-
             var replicatedFarm = _farmResultsService.ReplicateFarm(base.ActiveFarm);
             replicatedFarm.Name = this.NewFarmName;
             base.StorageService.Storage.ApplicationData.Farms.Add(replicatedFarm);
+            _runValidationFlag = false;
+            this.NewFarmName = string.Empty;
+            _runValidationFlag = true;
             NotificationManager?.Show(new Notification(
                 title: "Save Success",
                 message: "Holos saved successfully.",

@@ -108,10 +108,19 @@ namespace H.Avalonia.ViewModels
             // Line below ensures that the proper unit strings are used for the MeasurementSystemType of the existing farm being opened
             base.StorageService.Storage.ApplicationData.DisplayUnitStrings.SetStrings(this.SelectedFarm.MeasurementSystemType);
 
+            this.ClearActiveView(); // likely solves the bug: System.InvalidOperationException: 'Sequence contains no elements'
             base.RegionManager.RequestNavigate(UiRegions.SidebarRegion, nameof(MyComponentsView));
-            var view = this.RegionManager.Regions[UiRegions.ContentRegion].ActiveViews.Single();
-            this.RegionManager.Regions[UiRegions.ContentRegion].Deactivate(view);
-            this.RegionManager.Regions[UiRegions.ContentRegion].Remove(view);
+        }
+
+        private void ClearActiveView()
+        {
+            // Clear content region
+            var contentView = this.RegionManager.Regions[UiRegions.ContentRegion].ActiveViews.SingleOrDefault();
+            if (contentView != null)
+            {
+                this.RegionManager.Regions[UiRegions.ContentRegion].Deactivate(contentView);
+                this.RegionManager.Regions[UiRegions.ContentRegion].Remove(contentView);
+            }
         }
 
         #endregion

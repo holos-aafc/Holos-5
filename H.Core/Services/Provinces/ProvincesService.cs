@@ -1,10 +1,8 @@
 ﻿using H.Core.Enumerations;
 using H.Core.Enumerations.LocationEnumerationsProvinces;
 using H.Core.Helpers;
-using H.Core.Services.Provinces;
 
-
-namespace H.Core.Services
+namespace H.Core.Services.Provinces
 {
     public class ProvincesService : IProvinces
     {

@@ -15,7 +15,32 @@ namespace H.Avalonia.ViewModels.OptionsViews
         #region Fields
         private bool _showCustomEquilibriumCarbonInput;
         private bool _showCustomRunInPeriodTillage;
-        private bool _showCustomN2OEmissionFactor; 
+        private bool _showCustomN2OEmissionFactor;
+        private double _customN2OEmissionFactor;
+        private double _emissionFactorForLeachingAndRunoff;
+        private double _emissionFactorForVolatilization;
+        private double _defaultSupplementalFeedingLossPercentage;
+        private double _percentageOfStrawReturnedToSoilForRootCrops;
+        private double _percentageOfProductReturnedToSoilForRootCrops;
+        private double _percentageOfRootsReturnedToSoilForPerennials;
+        private double _percentageOfProductReturnedToSoilForPerennials;
+        private double _percentageOfRootsReturnedToSoilForFodderCorn;
+        private double _percentageOfProductReturnedToSoilForFodderCorn;
+        private double _percentageOfRootsReturnedToSoilForAnnuals;
+        private int _defaultRunInPeriod;
+        private double _percentageOfProductReturnedToSoilForAnnuals;
+        private double _percentageOfStrawReturnedToSoilForAnnuals;
+        private double _customEquilibriumCarbonValue;
+        private double _carbonConcentration;
+        private CarbonModellingStrategies _carbonModellingStrategy;
+        private EquilibriumCalculationStrategies _equilibriumCalculationStrategy;
+        private TillageType _runInPeriodTillageType;
+        private PumpType _defaultPumpType;
+        private ObservableCollection<CarbonModellingStrategies> _carbonModellingStrategiesList;
+        private ObservableCollection<EquilibriumCalculationStrategies> _equilibriumCalculationStrategiesList;
+        private ObservableCollection<TillageType> _runInPeriodTillageList;
+        private ObservableCollection<PumpType> _pumpTypeList;
+
         #endregion
 
         #region Constructors
@@ -30,213 +55,290 @@ namespace H.Avalonia.ViewModels.OptionsViews
         //Wrapper properties for validation before setting the values
         public double CustomN2OEmissionFactor
         {
-            get => ActiveFarm.Defaults.CustomN2OEmissionFactor;
+            get => _customN2OEmissionFactor;
             set
             {
-                ValidateNonNegative(nameof(CustomN2OEmissionFactor), value);
-                if (HasErrors)
+                if (SetProperty(ref _customN2OEmissionFactor, value))
                 {
-                    return;
+                    if (ValidateNonNegative(nameof(CustomN2OEmissionFactor), value))
+                    {
+                        ActiveFarm.Defaults.CustomN2OEmissionFactor = value;
+                    }
                 }
-                ActiveFarm.Defaults.CustomN2OEmissionFactor = value;
-                RaisePropertyChanged(nameof(CustomN2OEmissionFactor));
             }
         }
+
         public double EmissionFactorForLeachingAndRunoff
         {
-            get => ActiveFarm.Defaults.EmissionFactorForLeachingAndRunoff;
+            get => _emissionFactorForLeachingAndRunoff;
             set
             {
-                ValidateNonNegative(nameof(EmissionFactorForLeachingAndRunoff), value);
-                if (HasErrors)
+                if (SetProperty(ref _emissionFactorForLeachingAndRunoff, value))
                 {
-                    return;
+                    if (ValidateNonNegative(nameof(EmissionFactorForLeachingAndRunoff), value))
+                    {
+                        ActiveFarm.Defaults.EmissionFactorForLeachingAndRunoff = value;
+                    }
                 }
-                ActiveFarm.Defaults.EmissionFactorForLeachingAndRunoff = value;
-                RaisePropertyChanged(nameof(EmissionFactorForLeachingAndRunoff));
             }
         }
+
         public double EmissionFactorForVolatilization
         {
-            get => ActiveFarm.Defaults.EmissionFactorForVolatilization;
+            get => _emissionFactorForVolatilization;
             set
             {
-                ValidateNonNegative(nameof(EmissionFactorForVolatilization), value);
-                if (HasErrors)
+                if (SetProperty(ref _emissionFactorForVolatilization, value))
                 {
-                    return;
+                    if (ValidateNonNegative(nameof(EmissionFactorForVolatilization), value))
+                    {
+                        ActiveFarm.Defaults.EmissionFactorForVolatilization = value;
+                    }
                 }
-                ActiveFarm.Defaults.EmissionFactorForVolatilization = value;
-                RaisePropertyChanged(nameof(EmissionFactorForVolatilization));
             }
         }
+
         public double DefaultSupplementalFeedingLossPercentage
         {
-            get => ActiveFarm.Defaults.DefaultSupplementalFeedingLossPercentage;
+            get => _defaultSupplementalFeedingLossPercentage;
             set
             {
-                ValidateNonNegative(nameof(DefaultSupplementalFeedingLossPercentage), value);
-                if (HasErrors)
+                if (SetProperty(ref _defaultSupplementalFeedingLossPercentage, value))
                 {
-                    return;
+                    if (ValidateNonNegative(nameof(DefaultSupplementalFeedingLossPercentage), value))
+                    {
+                        ActiveFarm.Defaults.DefaultSupplementalFeedingLossPercentage = value;
+                    }
                 }
-                ActiveFarm.Defaults.DefaultSupplementalFeedingLossPercentage = value;
-                RaisePropertyChanged(nameof(DefaultSupplementalFeedingLossPercentage));
             }
         }
+
         public double PercentageOfStrawReturnedToSoilForRootCrops
         {
-            get => ActiveFarm.Defaults.PercentageOfStrawReturnedToSoilForRootCrops;
+            get => _percentageOfStrawReturnedToSoilForRootCrops;
             set
             {
-                ValidatePercentage(nameof(PercentageOfStrawReturnedToSoilForRootCrops), value);
-                if (HasErrors)
+                if (SetProperty(ref _percentageOfStrawReturnedToSoilForRootCrops, value))
                 {
-                    return;
+                    if (ValidatePercentage(nameof(PercentageOfStrawReturnedToSoilForRootCrops), value))
+                    {
+                        ActiveFarm.Defaults.PercentageOfStrawReturnedToSoilForRootCrops = value;
+                    }
                 }
-                ActiveFarm.Defaults.PercentageOfStrawReturnedToSoilForRootCrops = value;
-                RaisePropertyChanged(nameof(PercentageOfStrawReturnedToSoilForRootCrops));
             }
         }
+
         public double PercentageOfProductReturnedToSoilForRootCrops
         {
-            get => ActiveFarm.Defaults.PercentageOfProductReturnedToSoilForRootCrops;
+            get => _percentageOfProductReturnedToSoilForRootCrops;
             set
             {
-                ValidatePercentage(nameof(PercentageOfProductReturnedToSoilForRootCrops), value);
-                if (HasErrors)
+                if (SetProperty(ref _percentageOfProductReturnedToSoilForRootCrops, value))
                 {
-                    return;
+                    if (ValidatePercentage(nameof(PercentageOfProductReturnedToSoilForRootCrops), value))
+                    {
+                        ActiveFarm.Defaults.PercentageOfProductReturnedToSoilForRootCrops = value;
+                    }
                 }
-                ActiveFarm.Defaults.PercentageOfProductReturnedToSoilForRootCrops = value;
-                RaisePropertyChanged(nameof(PercentageOfProductReturnedToSoilForRootCrops));
             }
         }
+
         public double PercentageOfRootsReturnedToSoilForPerennials
         {
-            get => ActiveFarm.Defaults.PercentageOfRootsReturnedToSoilForPerennials;
+            get => _percentageOfRootsReturnedToSoilForPerennials;
             set
             {
-                ValidatePercentage(nameof(PercentageOfRootsReturnedToSoilForPerennials), value);
-                if (HasErrors)
+                if (SetProperty(ref _percentageOfRootsReturnedToSoilForPerennials, value))
                 {
-                    return;
+                    if (ValidatePercentage(nameof(PercentageOfRootsReturnedToSoilForPerennials), value))
+                    {
+                        ActiveFarm.Defaults.PercentageOfRootsReturnedToSoilForPerennials = value;
+                    }
                 }
-                ActiveFarm.Defaults.PercentageOfRootsReturnedToSoilForPerennials = value;
-                RaisePropertyChanged(nameof(PercentageOfRootsReturnedToSoilForPerennials));
             }
         }
+
         public double PercentageOfProductReturnedToSoilForPerennials
         {
-            get => ActiveFarm.Defaults.PercentageOfProductReturnedToSoilForPerennials;
+            get => _percentageOfProductReturnedToSoilForPerennials;
             set
             {
-                ValidatePercentage(nameof(PercentageOfProductReturnedToSoilForPerennials), value);
-                if (HasErrors)
+                if (SetProperty(ref _percentageOfProductReturnedToSoilForPerennials, value))
                 {
-                    return;
+                    if (ValidatePercentage(nameof(PercentageOfProductReturnedToSoilForPerennials), value))
+                    {
+                        ActiveFarm.Defaults.PercentageOfProductReturnedToSoilForPerennials = value;
+                    }
                 }
-                ActiveFarm.Defaults.PercentageOfProductReturnedToSoilForPerennials = value;
-                RaisePropertyChanged(nameof(PercentageOfProductReturnedToSoilForPerennials));
             }
         }
+
         public double PercentageOfRootsReturnedToSoilForFodderCorn
         {
-            get => ActiveFarm.Defaults.PercentageOfRootsReturnedToSoilForFodderCorn;
+            get => _percentageOfRootsReturnedToSoilForFodderCorn;
             set
             {
-                ValidatePercentage(nameof(PercentageOfRootsReturnedToSoilForFodderCorn), value);
-                if (HasErrors)
+                if (SetProperty(ref _percentageOfRootsReturnedToSoilForFodderCorn, value))
                 {
-                    return;
+                    if (ValidatePercentage(nameof(PercentageOfRootsReturnedToSoilForFodderCorn), value))
+                    {
+                        ActiveFarm.Defaults.PercentageOfRootsReturnedToSoilForFodderCorn = value;
+                    }
                 }
-                ActiveFarm.Defaults.PercentageOfRootsReturnedToSoilForFodderCorn = value;
-                RaisePropertyChanged(nameof(PercentageOfRootsReturnedToSoilForFodderCorn));
             }
         }
+
         public double PercentageOfProductReturnedToSoilForFodderCorn
         {
-            get => ActiveFarm.Defaults.PercentageOfProductReturnedToSoilForFodderCorn;
+            get => _percentageOfProductReturnedToSoilForFodderCorn;
             set
             {
-                ValidatePercentage(nameof(PercentageOfProductReturnedToSoilForFodderCorn), value);
-                if (HasErrors)
+                if (SetProperty(ref _percentageOfProductReturnedToSoilForFodderCorn, value))
                 {
-                    return;
+                    if (ValidatePercentage(nameof(PercentageOfProductReturnedToSoilForFodderCorn), value))
+                    {
+                        ActiveFarm.Defaults.PercentageOfProductReturnedToSoilForFodderCorn = value;
+                    }
                 }
-                ActiveFarm.Defaults.PercentageOfProductReturnedToSoilForFodderCorn = value;
-                RaisePropertyChanged(nameof(PercentageOfProductReturnedToSoilForFodderCorn));
             }
         }
+
         public double PercentageOfRootsReturnedToSoilForAnnuals
         {
-            get => ActiveFarm.Defaults.PercentageOfRootsReturnedToSoilForAnnuals;
+            get => _percentageOfRootsReturnedToSoilForAnnuals;
             set
             {
-                ValidatePercentage(nameof(PercentageOfRootsReturnedToSoilForAnnuals), value);
-                if (HasErrors)
+                if (SetProperty(ref _percentageOfRootsReturnedToSoilForAnnuals, value))
                 {
-                    return;
+                    if (ValidatePercentage(nameof(PercentageOfRootsReturnedToSoilForAnnuals), value))
+                    {
+                        ActiveFarm.Defaults.PercentageOfRootsReturnedToSoilForAnnuals = value;
+                    }
                 }
-                ActiveFarm.Defaults.PercentageOfRootsReturnedToSoilForAnnuals = value;
-                RaisePropertyChanged(nameof(PercentageOfRootsReturnedToSoilForAnnuals));
             }
         }
+
         public int DefaultRunInPeriod
         {
-            get => ActiveFarm.Defaults.DefaultRunInPeriod;
+            get => _defaultRunInPeriod;
             set
             {
-                ValidateNonNegative(nameof(DefaultRunInPeriod), value);
-                if (HasErrors)
+                if (SetProperty(ref _defaultRunInPeriod, value))
                 {
-                    return;
+                    if (ValidateNonNegative(nameof(DefaultRunInPeriod), value))
+                    {
+                        ActiveFarm.Defaults.DefaultRunInPeriod = value;
+                    }
                 }
-                ActiveFarm.Defaults.DefaultRunInPeriod = value;
-                RaisePropertyChanged(nameof(DefaultRunInPeriod));
             }
         }
+
         public double PercentageOfProductReturnedToSoilForAnnuals
         {
-            get => ActiveFarm.Defaults.PercentageOfProductReturnedToSoilForAnnuals;
+            get => _percentageOfProductReturnedToSoilForAnnuals;
             set
             {
-                ValidatePercentage(nameof(PercentageOfProductReturnedToSoilForAnnuals), value);
-                if (HasErrors)
+                if (SetProperty(ref _percentageOfProductReturnedToSoilForAnnuals, value))
                 {
-                    return;
+                    if (ValidatePercentage(nameof(PercentageOfProductReturnedToSoilForAnnuals), value))
+                    {
+                        ActiveFarm.Defaults.PercentageOfProductReturnedToSoilForAnnuals = value;
+                    }
                 }
-                ActiveFarm.Defaults.PercentageOfProductReturnedToSoilForAnnuals = value;
-                RaisePropertyChanged(nameof(PercentageOfProductReturnedToSoilForAnnuals));
             }
         }
+
         public double PercentageOfStrawReturnedToSoilForAnnuals
         {
-            get => ActiveFarm.Defaults.PercentageOfStrawReturnedToSoilForAnnuals;
+            get => _percentageOfStrawReturnedToSoilForAnnuals;
             set
             {
-                ValidatePercentage(nameof(PercentageOfStrawReturnedToSoilForAnnuals), value);
-                if (HasErrors)
+                if (SetProperty(ref _percentageOfStrawReturnedToSoilForAnnuals, value))
                 {
-                    return;
+                    if (ValidatePercentage(nameof(PercentageOfStrawReturnedToSoilForAnnuals), value))
+                    {
+                        ActiveFarm.Defaults.PercentageOfStrawReturnedToSoilForAnnuals = value;
+                    }
                 }
-                ActiveFarm.Defaults.PercentageOfStrawReturnedToSoilForAnnuals = value;
-                RaisePropertyChanged(nameof(PercentageOfStrawReturnedToSoilForAnnuals));
             }
         }
+
         public double CustomEquilibriumCarbonValue
         {
-            get => ActiveFarm.StartingSoilOrganicCarbon;
+            get => _customEquilibriumCarbonValue;
             set
             {
-                ValidateNonNegative(nameof(CustomEquilibriumCarbonValue), value);
-                if (HasErrors)
+                if (SetProperty(ref _customEquilibriumCarbonValue, value))
                 {
-                    return;
+                    if (ValidateNonNegative(nameof(CustomEquilibriumCarbonValue), value))
+                    {
+                        ActiveFarm.StartingSoilOrganicCarbon = value;
+                    }
                 }
-                ActiveFarm.StartingSoilOrganicCarbon = value;
-                RaisePropertyChanged(nameof(CustomEquilibriumCarbonValue));
+            }
+        }
+
+        public double CarbonConcentration
+        {
+            get => _carbonConcentration;
+            set
+            {
+                if (SetProperty(ref _carbonConcentration, value))
+                {
+                    if (ValidateNonNegative(nameof(CarbonConcentration), value))
+                    {
+                        ActiveFarm.Defaults.CarbonConcentration = value;
+                    }
+                }
+            }
+        }
+
+        public CarbonModellingStrategies CarbonModellingStrategy
+        {
+            get => _carbonModellingStrategy;
+            set
+            {
+                if (SetProperty(ref _carbonModellingStrategy, value))
+                {
+                    ActiveFarm.Defaults.CarbonModellingStrategy = value;
+                }
             } 
+        }
+
+        public EquilibriumCalculationStrategies EquilibriumCalculationStrategy
+        {
+            get => _equilibriumCalculationStrategy;
+            set
+            {
+                if (SetProperty(ref _equilibriumCalculationStrategy, value))
+                {
+                    ActiveFarm.Defaults.EquilibriumCalculationStrategy = value;
+                }
+            }
+        }
+
+        public TillageType RunInPeriodTillageType
+        {
+            get => _runInPeriodTillageType;
+            set
+            {
+                if (SetProperty(ref _runInPeriodTillageType, value))
+                {
+                    ActiveFarm.Defaults.RunInPeriodTillageType = value;
+                }
+            }
+        }
+
+        public PumpType DefaultPumpType
+        {
+            get => _defaultPumpType;
+            set
+            {
+                if (SetProperty(ref _defaultPumpType, value))
+                {
+                    ActiveFarm.Defaults.DefaultPumpType = value;
+                }
+            }
         }
 
         //Display the custom equilibrium carbon input field if the user selects the custom option
@@ -261,11 +363,32 @@ namespace H.Avalonia.ViewModels.OptionsViews
         }
 
         //Collections for ComboBox
-        public ObservableCollection<CarbonModellingStrategies> CarbonModellingStrategiesList { get; set; }
-        public ObservableCollection<EquilibriumCalculationStrategies> EquilibriumCalculationStrategiesList { get; set; }
-        public ObservableCollection<TillageType> RunInPeriodTillageList { get; set; }
-        public ObservableCollection<PumpType> PumpTypeList { get; set; }
+        public ObservableCollection<CarbonModellingStrategies> CarbonModellingStrategiesList
+        {
+            get => _carbonModellingStrategiesList;
+            set => SetProperty(ref _carbonModellingStrategiesList, value);
+        }
+
+        public ObservableCollection<EquilibriumCalculationStrategies> EquilibriumCalculationStrategiesList
+        {
+            get => _equilibriumCalculationStrategiesList;
+            set => SetProperty(ref _equilibriumCalculationStrategiesList, value);
+        }
+
+        public ObservableCollection<TillageType> RunInPeriodTillageList
+        {
+            get => _runInPeriodTillageList;
+            set => SetProperty(ref _runInPeriodTillageList, value);
+        }
+
+        public ObservableCollection<PumpType> PumpTypeList
+        {
+            get => _pumpTypeList;
+            set => SetProperty(ref _pumpTypeList, value);
+        }
+
         #endregion
+
         #region Methods
         public void ManageData()
         {
@@ -312,31 +435,57 @@ namespace H.Avalonia.ViewModels.OptionsViews
                     PumpTypeList.Add(pumpType);
                 }
             }
+
+            // Initialize properties to values from the ActiveFarm
+            this.CustomN2OEmissionFactor = base.ActiveFarm.Defaults.CustomN2OEmissionFactor;
+            this.EmissionFactorForLeachingAndRunoff = base.ActiveFarm.Defaults.EmissionFactorForLeachingAndRunoff;
+            this.EmissionFactorForVolatilization = base.ActiveFarm.Defaults.EmissionFactorForVolatilization;
+            this.DefaultSupplementalFeedingLossPercentage = base.ActiveFarm.Defaults.DefaultSupplementalFeedingLossPercentage;
+            this.PercentageOfStrawReturnedToSoilForRootCrops = base.ActiveFarm.Defaults.PercentageOfStrawReturnedToSoilForRootCrops;
+            this.PercentageOfProductReturnedToSoilForRootCrops = base.ActiveFarm.Defaults.PercentageOfProductReturnedToSoilForRootCrops;
+            this.PercentageOfRootsReturnedToSoilForPerennials = base.ActiveFarm.Defaults.PercentageOfRootsReturnedToSoilForPerennials;
+            this.PercentageOfProductReturnedToSoilForPerennials = base.ActiveFarm.Defaults.PercentageOfProductReturnedToSoilForPerennials;
+            this.PercentageOfRootsReturnedToSoilForFodderCorn = base.ActiveFarm.Defaults.PercentageOfRootsReturnedToSoilForFodderCorn;
+            this.PercentageOfProductReturnedToSoilForFodderCorn = base.ActiveFarm.Defaults.PercentageOfProductReturnedToSoilForFodderCorn;
+            this.PercentageOfRootsReturnedToSoilForAnnuals = base.ActiveFarm.Defaults.PercentageOfRootsReturnedToSoilForAnnuals;
+            this.DefaultRunInPeriod = base.ActiveFarm.Defaults.DefaultRunInPeriod;
+            this.PercentageOfProductReturnedToSoilForAnnuals = base.ActiveFarm.Defaults.PercentageOfProductReturnedToSoilForAnnuals;
+            this.PercentageOfStrawReturnedToSoilForAnnuals = base.ActiveFarm.Defaults.PercentageOfStrawReturnedToSoilForAnnuals;
+            this.CustomEquilibriumCarbonValue = base.ActiveFarm.StartingSoilOrganicCarbon;
+            this.CarbonConcentration = base.ActiveFarm.Defaults.CarbonConcentration;
+            this.CarbonModellingStrategy = base.ActiveFarm.Defaults.CarbonModellingStrategy;
+            this.EquilibriumCalculationStrategy = base.ActiveFarm.Defaults.EquilibriumCalculationStrategy;
+            this.RunInPeriodTillageType = base.ActiveFarm.Defaults.RunInPeriodTillageType;
+            this.DefaultPumpType = base.ActiveFarm.Defaults.DefaultPumpType;
         }
 
         //Validates the value if it is negative
-        public void ValidateNonNegative(string propertyName, double value)
+        public bool ValidateNonNegative(string propertyName, double value)
         {
             if (value < 0)
             {
                 AddError(propertyName, H.Core.Properties.Resources.ErrorMustBeGreaterThan0);
+                return false;
             }
             else
             {
                 RemoveError(propertyName);
+                return true;
             }
         }
 
         //Validates the value if it is not between 0 and 100
-        public void ValidatePercentage(string propertyName, double value)
+        public bool ValidatePercentage(string propertyName, double value)
         {
             if (value < 0 || value > 100)
             {
                 AddError(propertyName, H.Core.Properties.Resources.ErrorMustBeBetween0And100);
+                return false;
             }
             else
             {
                 RemoveError(propertyName);
+                return true;
             }
         }
         #endregion

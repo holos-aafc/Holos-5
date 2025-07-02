@@ -32,5 +32,7 @@ namespace H.Core.Calculators.UnitsOfMeasurement
         /// Converts input from Imperial to Metric units
         /// </summary>
         double GetUnitsOfMeasurementValue(MeasurementSystemType measurementSystemType, ImperialUnitsOfMeasurement imperialUnits, double value);
+
+        MeasurementSystemType GetUnitsOfMeasurement();
     }
 }

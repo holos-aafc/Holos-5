@@ -17,7 +17,7 @@
 			<TextBlock Background="#3C4DBB" Foreground="WhiteSmoke"  Grid.Row="0" Padding="40, 15" Text="{x:Static properties:Resources.LabelCarbonModelling}" />
 			<StackPanel Spacing="10" Grid.Row="1" Margin="20, 10" VerticalAlignment="Center" Width="380" >
 				<TextBlock Text="{x:Static properties:Resources.LabelCarbonModellingStrategy}"/>
-				<ComboBox ItemsSource="{Binding Data.CarbonModellingStrategiesList}" SelectedItem="{Binding ActiveFarm.Defaults.CarbonModellingStrategy}" HorizontalAlignment="Stretch" />
+				<ComboBox ItemsSource="{Binding Data.CarbonModellingStrategiesList}" SelectedItem="{Binding Data.CarbonModellingStrategy}" HorizontalAlignment="Stretch" />
 				<TextBlock>
 					<Run Text="{x:Static properties:Resources.LabelRunInPeriod}" />
 					<Run Text="("/><Run FontStyle="Italic" Text="{x:Static properties:Resources.Years}"/><Run Text=")"/>
@@ -27,9 +27,9 @@
 					<Run Text="{x:Static properties:Resources.LabelCarbonConcentration}"/>
 					<Run Text="("/><Run FontStyle="Italic" Text="{x:Static properties:Resources.KilogramPerKilogram}"/><Run Text=")"/>
 				</TextBlock>
-				<NumericUpDown Increment="0.01" FormatString="{}{0:0.00}" Value="{Binding ActiveFarm.Defaults.CarbonConcentration, Mode=TwoWay}" />
+				<NumericUpDown Increment="0.01" FormatString="{}{0:0.00}" Value="{Binding Data.CarbonConcentration, Mode=TwoWay}" />
 				<TextBlock Text="{x:Static properties:Resources.LabelEquilibriumCalculationStrategy}"/>
-				<ComboBox ItemsSource="{Binding Data.EquilibriumCalculationStrategiesList}" SelectedItem="{Binding ActiveFarm.Defaults.EquilibriumCalculationStrategy}" HorizontalAlignment="Stretch" />
+				<ComboBox ItemsSource="{Binding Data.EquilibriumCalculationStrategiesList}" SelectedItem="{Binding Data.EquilibriumCalculationStrategy}" HorizontalAlignment="Stretch" />
 				<Grid ColumnDefinitions="*, Auto">
 					<TextBlock VerticalAlignment="Center" Grid.Column="0">
 						<Run Text="{x:Static properties:Resources.LabelUseCustomEquilibriumCarbonValue}" />
@@ -45,7 +45,7 @@
 				</TextBlock>
 				<CheckBox Padding="1" Grid.Column="1" IsChecked="{Binding Data.ShowCustomRunInPeriodTillage, Mode=TwoWay}" />
 				</Grid>
-				<ComboBox ItemsSource="{Binding Data.RunInPeriodTillageList}" SelectedItem="{Binding ActiveFarm.Defaults.RunInPeriodTillageType}" HorizontalAlignment="Stretch"
+				<ComboBox ItemsSource="{Binding Data.RunInPeriodTillageList}" SelectedItem="{Binding Data.RunInPeriodTillageType}" HorizontalAlignment="Stretch"
 						  IsEnabled="{Binding Data.ShowCustomRunInPeriodTillage}" IsVisible="{Binding Data.ShowCustomRunInPeriodTillage}" />
 			</StackPanel>
 			
@@ -129,7 +129,7 @@
 				<TextBlock VerticalAlignment="Center" Grid.Column="0">
 					<Run Text="{x:Static properties:Resources.LabelPumpType}" />
 				</TextBlock>
-				<ComboBox  ItemsSource="{Binding Data.PumpTypeList}" SelectedItem="{Binding ActiveFarm.Defaults.DefaultPumpType}" HorizontalAlignment="Stretch" />
+				<ComboBox  ItemsSource="{Binding Data.PumpTypeList}" SelectedItem="{Binding Data.DefaultPumpType}" HorizontalAlignment="Stretch" />
 			</StackPanel>
 		</Grid>
 			</ScrollViewer>

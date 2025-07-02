@@ -318,9 +318,9 @@ namespace H.Core.Models.LandManagement.Fields
         }
 
         /// <summary>
-        /// Since this component supports multi year and single year modes (ICBM vs non-ICBM) this method returns the correct view (the most recent item) item when farm is in single-year mode.
+        /// Since this component supports multi-year and single year modes (ICBM vs non-ICBM) this method returns the correct view (the most recent item) item when farm is in single-year mode.
         /// </summary>
-        /// <returns>The most recent view items for the field, or null if there are not items define for the field</returns>
+        /// <returns>The most recent view items for the field, or null if there are no items defined for the field</returns>
         public CropViewItem GetSingleYearViewItem()
         {
             var mostRecentViewItem = this.CropViewItems.OrderByDescending(viewItem => viewItem.Year).FirstOrDefault();

@@ -1,4 +1,4 @@
-﻿namespace H.Core.Services.RegionCountries
+﻿namespace H.Core.Services.Countries
 {
     public interface ICountries
     {

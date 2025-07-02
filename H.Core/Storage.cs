@@ -63,6 +63,9 @@ namespace H.Core
         #endregion
 
         #region Properties
+
+
+
         public ApplicationData ApplicationData
         {
             get { return _applicationData; }

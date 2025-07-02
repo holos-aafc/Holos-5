@@ -1,6 +1,6 @@
 ﻿namespace H.Data.Core.Enumerations
 {
-    public enum CsvResourceNames
+    public enum CsvResourceNamesCansis
     {
         EcodistrictToEcozoneMapping,
         CanSisEcodistrictNamesTable, 

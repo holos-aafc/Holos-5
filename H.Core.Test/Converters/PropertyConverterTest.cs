@@ -29,6 +29,7 @@ namespace H.Core.Test.Converters
         }
 
         [TestMethod]
+        [Ignore("Old test using old method of storing measurement system in settings file")]
         public void TestGetSystemValueFromBinding()
         {
             Settings.Default.MeasurementSystem = MeasurementSystemType.Metric;
@@ -51,6 +52,7 @@ namespace H.Core.Test.Converters
         }
 
         [TestMethod]
+        [Ignore("Old test using old method of storing measurement system in settings file")]
         public void TestGetBindingValueFromSystem()
         {
             Settings.Default.MeasurementSystem = MeasurementSystemType.Metric;

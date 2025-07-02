@@ -6,6 +6,8 @@ using H.Avalonia.Events;
 using H.Avalonia.Models;
 using H.Avalonia.Views.ComponentViews;
 using H.Core.Models;
+using H.Core.Services;
+using H.Core.Services.LandManagement.Fields;
 using H.Core.Services.StorageService;
 using Prism.Events;
 using Prism.Regions;
@@ -20,6 +22,8 @@ public class MyComponentsViewModel : ViewModelBase
     private ObservableCollection<ComponentBase> _myComponents;
     private H.Core.Models.Farm _selectedFarm;
 
+    private IComponentInitializationService _componentInitializationService;
+
     #endregion
 
     #region Constructors
@@ -29,18 +33,21 @@ public class MyComponentsViewModel : ViewModelBase
         this.MyComponents = new ObservableCollection<ComponentBase>();
     }
 
-
-    public MyComponentsViewModel(IRegionManager regionManager, IEventAggregator eventAggregator, IStorageService storageService) : base(regionManager, eventAggregator, storageService)
+    public MyComponentsViewModel(IRegionManager regionManager, IEventAggregator eventAggregator, IStorageService storageService, IComponentInitializationService componentInitializationService) : base(regionManager, eventAggregator, storageService)
     {
+        if (componentInitializationService != null)
+        {
+            _componentInitializationService = componentInitializationService; 
+        }
+        else
+        {
+            throw new ArgumentNullException(nameof(componentInitializationService));
+        }
+        
         base.PropertyChanged += OnPropertyChanged;
-
-        var globalSettings = this.StorageService.Storage.ApplicationData.GlobalSettings;
-        globalSettings.PropertyChanged -= ActiveFarmChanged;
-        globalSettings.PropertyChanged += ActiveFarmChanged;
 
         this.MyComponents = new ObservableCollection<ComponentBase>();
         
-
         base.EventAggregator.GetEvent<ComponentAddedEvent>().Subscribe(OnComponentAddedEvent);
         base.EventAggregator.GetEvent<EditingComponentsCompletedEvent>().Subscribe(OnEditingComponentsCompletedEvent);
     }
@@ -118,6 +125,8 @@ public class MyComponentsViewModel : ViewModelBase
         var instanceType = componentBase.GetType();
         var instance = Activator.CreateInstance(instanceType) as ComponentBase;
 
+        _componentInitializationService.Initialize(instance);
+
         this.MyComponents.Add(instance);
         this.SelectedComponent = instance;
 
@@ -135,11 +144,11 @@ public class MyComponentsViewModel : ViewModelBase
     {
         if (e.PropertyName.Equals(nameof(this.SelectedComponent)))
         {
-            System.Diagnostics.Debug.WriteLine(SelectedComponent);
+            System.Diagnostics.Debug.WriteLine($"{SelectedComponent} has been selected");
             var isInEditMode = this.RegionManager.Regions[UiRegions.ContentRegion].ActiveViews.Any(x => x.GetType() == typeof(ChooseComponentsView));
             if (!isInEditMode)
             {
-                this.ClearActiveView();
+                
                 this.NavigateToSelectedComponent();
             }
         }
@@ -167,19 +176,9 @@ public class MyComponentsViewModel : ViewModelBase
         if (this.SelectedComponent != null)
         {
             var viewName = ComponentTypeToViewTypeMapper.GetViewName(this.SelectedComponent);
-            this.RegionManager.RequestNavigate(UiRegions.ContentRegion, viewName);
-        }
-    }
 
-    #endregion
-
-    #region
-
-    private void ActiveFarmChanged(object? sender, PropertyChangedEventArgs e)
-    {
-        if (e.PropertyName == nameof(StorageService.Storage.ApplicationData.GlobalSettings.ActiveFarm))
-        {
-            this.IsInitialized = false;
+            var navigationParameters = new NavigationParameters { { GuiConstants.ComponentKey, this.SelectedComponent } };
+            this.RegionManager.RequestNavigate(UiRegions.ContentRegion, viewName, navigationParameters);
         }
     }
 

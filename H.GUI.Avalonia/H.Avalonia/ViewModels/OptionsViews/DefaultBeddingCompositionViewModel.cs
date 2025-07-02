@@ -33,10 +33,6 @@ namespace H.Avalonia.ViewModels.OptionsViews
             _unitsCalculator.PropertyChanged += UnitsOfMeasurementChangeListener;
 
             BeddingCompositionDataViewModels = new ObservableCollection<DefaultBeddingCompositionDataViewModel>();
-
-            var globalSettings = this.StorageService.Storage.ApplicationData.GlobalSettings;
-            globalSettings.PropertyChanged -= ActiveFarmChanged;
-            globalSettings.PropertyChanged += ActiveFarmChanged;
         }
 
         #endregion
@@ -118,14 +114,6 @@ namespace H.Avalonia.ViewModels.OptionsViews
                 {
                     viewModel.UpdateUnitsOfMeasurementDependentProperties();
                 }
-            }
-        }
-
-        private void ActiveFarmChanged(object? sender, PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == nameof(GlobalSettings.ActiveFarm))
-            {
-                base.IsInitialized = false;
             }
         }
 

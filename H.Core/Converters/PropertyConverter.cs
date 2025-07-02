@@ -12,6 +12,10 @@ using H.Core.Properties;
 
 namespace H.Core.Converters
 {
+    /// <summary>
+    /// A class used to convert properties of a class from one unit of measurement system to another
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class PropertyConverter<T> : IPropertyConverter
     {
         #region Fields
@@ -89,6 +93,36 @@ namespace H.Core.Converters
         }
 
 
+        public double GetBindingValueFromSystem(PropertyInfo prop, MeasurementSystemType measurementSystemType)
+        {
+            // Get the list of attributes adorned on the property
+            var attrs = prop.GetCustomAttributes(typeof(UnitsAttribute), false);
+
+            if (measurementSystemType == MeasurementSystemType.Metric)
+            {
+                // The GUI is in metric so just return system value
+                return (double)prop.GetValue(this.Instance);
+            }
+            // Convert for imperial
+            if (this.Instance != null && attrs.Length > 0)
+            {
+                // We now have the metric unit of the property from the system
+                var metricUnit = ((UnitsAttribute)attrs[0]).SourceUnit;
+
+                // Now we need to get the value of the property
+                var propValue = (double)prop.GetValue(this.Instance);
+
+                // Convert to an imperial value for the binding
+                var imperialValue = _unitsCalculator.ConvertValueToImperialFromMetric(metricUnit, propValue);
+
+                return imperialValue;
+            }
+
+            Trace.TraceError($"{nameof(PropertyConverter<T>)}.{nameof(GetSystemValueFromBinding)}: unable to convert {prop.Name} value, returning 0.");
+
+            return 0;
+        }
+
         public double GetBindingValueFromSystem(PropertyInfo prop)
         {
             //the list of attributes
@@ -144,6 +178,37 @@ namespace H.Core.Converters
                 return convertedValue;
             }
             Trace.TraceError($"{nameof(PropertyConverter<T>)}.{nameof(GetSystemValueFromBinding)}: unable to convert {prop.Name} value, returning 0.");
+            return 0;
+        }
+
+        public double GetSystemValueFromBinding(PropertyInfo prop, MeasurementSystemType measurementSystemType)
+        {
+            // All values are stored internally as metric so we have nothing to convert
+            if (measurementSystemType == MeasurementSystemType.Metric)
+            {
+                return (double)prop.GetValue(this.Instance);
+            }
+
+            // Get the units of measurement attribute on the property so we know which conversion to perform
+            var attrs = prop.GetCustomAttributes(typeof(UnitsAttribute), false);
+            if (this.Instance != null && attrs.Length > 0)
+            {
+                // We now have the metric unit of the property
+                var metricUnit = ((UnitsAttribute)attrs[0]).SourceUnit;
+
+                // Get the complementary imperial unit to convert from (i.e. lbs -> kg)
+                var imperialUnit = _unitsCalculator.GetImperialUnitsOfMeasurement(metricUnit);
+
+                // Get the value of the property
+                var propValue = (double)prop.GetValue(this.Instance);
+
+                // Convert the value entered from imperial to metric
+                var convertedValue = _unitsCalculator.ConvertValueToMetricFromImperial(imperialUnit, propValue, metricUnit);
+            
+                return convertedValue;
+            }
+            Trace.TraceError($"{nameof(PropertyConverter<T>)}.{nameof(GetSystemValueFromBinding)}: unable to convert {prop.Name} value, returning 0.");
+
             return 0;
         }
 

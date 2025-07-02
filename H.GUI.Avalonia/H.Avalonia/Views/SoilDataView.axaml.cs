@@ -29,14 +29,27 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Threading.Tasks;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Point = NetTopologySuite.Geometries.Point;
 
 namespace H.Avalonia.Views
 {
-    public partial class SoilDataView : UserControl
+    public partial class SoilDataView : UserControl, INotifyPropertyChanged
     {
+        #region Fields
 
-        private SoilDataViewModel? ViewModel => DataContext as SoilDataViewModel;
+        /// <summary>
+        /// A RasterizingTileLayer that goes on top of the map to display the polygons for a specific province.
+        /// </summary>
+        private RasterizingTileLayer? _polygonLayer;
+
+        #endregion
+
+        #region Properties
+
+        public SoilDataViewModel? _viewModel => DataContext as SoilDataViewModel;
+
+        #endregion
 
         private TopLevel GetTopLevel() => TopLevel.GetTopLevel(this) ?? throw new NullReferenceException("Invalid Owner");
 
@@ -48,16 +61,17 @@ namespace H.Avalonia.Views
             Style = SymbolStyles.CreatePinStyle()
         };
 
-        /// <summary>
-        /// A RasterizingTileLayer that goes on top of the map to display the polygons for a specific province.
-        /// </summary>
-        private RasterizingTileLayer? _polygonLayer;
+        #region Constructors
 
         public SoilDataView()
         {
             InitializeComponent();
             InitializeMap();
         }
+
+        #endregion
+
+        #region Protected Methods
 
         /// <summary>
         /// Is used to attach the windows manager for displaying notifications.
@@ -66,9 +80,13 @@ namespace H.Avalonia.Views
         protected override void OnAttachedToVisualTree(VisualTreeAttachmentEventArgs e)
         {
             base.OnAttachedToVisualTree(e);
-            ViewModel.NotificationManager = new WindowNotificationManager(GetTopLevel());
-            ViewModel.PropertyChanged += OnViewModelPropertyChanged;
+            _viewModel.NotificationManager = new WindowNotificationManager(GetTopLevel());
+            _viewModel.PropertyChanged += OnViewModelPropertyChanged;
         }
+
+        #endregion
+
+        #region Private Methods
 
         /// <summary>
         /// Handles certain behaviour related to the map and how it is affected based on user interaction.
@@ -79,7 +97,7 @@ namespace H.Avalonia.Views
         {
             switch (args?.PropertyName)
             {
-                case nameof(ViewModel.NavigationPoint):
+                case nameof(_viewModel.NavigationPoint):
                     {
                         // Navigate to the specific point on the map based on longitude and lat values.
                         NavigateToPoint();
@@ -88,30 +106,36 @@ namespace H.Avalonia.Views
                         AddPointToMap();
                         break;
                     }
-                case nameof(ViewModel.ShowPolygonsOnMap):
+                case nameof(_viewModel.ShowPolygonsOnMap):
                     {
-                        ViewModel.SelectedProvince = Province.SelectProvince;
+                        _viewModel.SelectedProvince = Province.SelectProvince;
+                        
                         break;
                     }
-                case nameof(ViewModel.SelectedProvince):
+                case nameof(_viewModel.SelectedProvince):
                     {
-                        if (ViewModel.ShowPolygonsOnMap)
+                        if (_viewModel.ShowPolygonsOnMap)
                         {
                             if (_polygonLayer != null) SoilTabMap.Map.Layers.Remove(_polygonLayer);
-                            if (ViewModel.SelectedProvince != Province.SelectProvince)
+                            if (_viewModel.SelectedProvince != Province.SelectProvince)
                             {
-                                _polygonLayer = new RasterizingTileLayer(CreateLayer(ViewModel.SelectedProvince), minTiles: 400, maxTiles: 800, renderFormat: RenderFormat.WebP);
+                                _polygonLayer = new RasterizingTileLayer(CreateLayer(_viewModel.SelectedProvince), minTiles: 400, maxTiles: 800, renderFormat: RenderFormat.WebP);
                                 SoilTabMap.Map.Layers.Add(_polygonLayer);
                             }
                         }
                         else
                         {
-                            SoilTabMap.Map.Layers.Remove(_polygonLayer);
+                            if (_polygonLayer != null)
+                            {
+                                SoilTabMap.Map.Layers.Remove(_polygonLayer);
+                            }
                         }
                         break;
                     }
             }
         }
+
+        #endregion
 
         /// <summary>
         /// Initialize the map displayed on the <see cref="SoilDataView"/>'s single coordinate tab.
@@ -137,7 +161,7 @@ namespace H.Avalonia.Views
         /// </summary>
         private void NavigateToPoint()
         {
-            SoilTabMap.Map.Navigator.CenterOnAndZoomTo(ViewModel.NavigationPoint, resolution: 9);
+            SoilTabMap.Map.Navigator.CenterOnAndZoomTo(_viewModel.NavigationPoint, resolution: 9);
         }
 
         /// <summary>
@@ -153,7 +177,7 @@ namespace H.Avalonia.Views
             // Add a new point to the map as a GeometryFeature
             _pointsLayer?.Features.Add(new GeometryFeature
             {
-                Geometry = new Point(ViewModel.NavigationPoint.X, ViewModel.NavigationPoint.Y)
+                Geometry = new Point(_viewModel.NavigationPoint.X, _viewModel.NavigationPoint.Y)
             });
             // To notify the map that a redraw is needed.
             _pointsLayer?.DataHasChanged();
@@ -175,14 +199,14 @@ namespace H.Avalonia.Views
             var worldPosition = SoilTabMap.Map.Navigator.Viewport.ScreenToWorld(screenPosition.X, screenPosition.Y);
 
             // Update the navigation point based on the new world position
-            ViewModel?.UpdateNavigationPointCommand.Execute(worldPosition);
+            _viewModel?.UpdateNavigationPointCommand.Execute(worldPosition);
 
             // Navigate to point and create marker for point
             NavigateToPoint();
             AddPointToMap();
 
             // Update the Address and Long/Lat values shown to user in the UI
-            ViewModel?.UpdateInformationFromNavigationPointCommand.Execute();
+            _viewModel?.UpdateInformationFromNavigationPointCommand.Execute();
         }
 
         /// <summary>
@@ -192,16 +216,16 @@ namespace H.Avalonia.Views
         /// <param name="e"></param>
         private async void ImportDataButton_OnClick(object? sender, RoutedEventArgs e)
         {
-            if (ViewModel is null) return;
+            if (_viewModel is null) return;
             var storageProvider = GetTopLevel().StorageProvider;
             var item = await storageProvider.OpenFilePickerAsync(new FilePickerOpenOptions()
             {
                 Title = Core.Properties.Resources.ImportDefaultName,
                 AllowMultiple = false,
             });
-            if (ViewModel.ImportFromCsvCommand.CanExecute(item))
+            if (_viewModel.ImportFromCsvCommand.CanExecute(item))
             {
-                ViewModel.ImportFromCsvCommand.Execute(item);
+                _viewModel.ImportFromCsvCommand.Execute(item);
             }
         }
 
@@ -212,7 +236,7 @@ namespace H.Avalonia.Views
         /// <returns></returns>
         private ILayer CreateLayer(Province province)
         {
-            var polygons = ViewModel.WktPolygonMap[province];
+            var polygons = _viewModel.WktPolygonMap[province];
             return new Layer("Polygons")
             {
                 DataSource = new MemoryProvider(polygons.ToFeatures()),

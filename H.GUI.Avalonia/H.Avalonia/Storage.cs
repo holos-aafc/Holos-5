@@ -15,18 +15,15 @@ namespace H.Avalonia
     {
         #region Fields
 
-        private Farm _farm;
-
         private bool _showSingleCoordinateResults;
         private bool _showMultipleCoordinateResults;
 
         #endregion
 
         #region Constructors
+
         public Storage()
         {
-            this.Farm = new Farm();
-
             ClimateViewItems = new ObservableCollection<ClimateViewItem>();
             SoilViewItems = new ObservableCollection<SoilViewItem>();
             SingleSoilViewItem = new SoilViewItem();
@@ -65,12 +62,6 @@ namespace H.Avalonia
         {
             get => _showMultipleCoordinateResults;
             set => SetProperty(ref _showMultipleCoordinateResults, value);
-        }
-
-        public Farm Farm
-        {
-            get => _farm;
-            set => SetProperty(ref _farm, value);
         }
     }
 }

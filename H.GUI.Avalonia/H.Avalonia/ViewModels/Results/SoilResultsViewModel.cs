@@ -14,11 +14,15 @@ using System.Diagnostics;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
+using H.Avalonia.Views.ComponentViews;
+using System.Linq;
 
 namespace H.Avalonia.ViewModels.Results
 {
     public class SoilResultsViewModel : ResultsViewModelBase
     {
+        #region Fields
+        
         private readonly IRegionManager? _regionManager;
         private IRegionNavigationJournal? _navigationJournal;
         private readonly ExportHelpers _exportHelpers;
@@ -26,8 +30,34 @@ namespace H.Avalonia.ViewModels.Results
         private readonly GeographicDataProvider _geographicDataProvider;
         private readonly SoilResultsViewItemMap _soilResultsViewItemMap;
         private CancellationTokenSource _cancellationTokenSource;
-        private const double DefaultErrorNotificationTime = 10;
-        
+        private const double DefaultErrorNotificationTime = 10; 
+
+        #endregion
+
+        #region Constructors
+
+        public SoilResultsViewModel()
+        {
+        }
+
+        public SoilResultsViewModel(IRegionManager regionManager, ExportHelpers exportHelpers, KmlHelpers kmlHelpers, GeographicDataProvider geographicDataProvider, Storage storage) : base(regionManager)
+        {
+            this.StoragePlaceholder = storage;
+
+            _regionManager = regionManager;
+            _exportHelpers = exportHelpers;
+            _geographicDataProvider = geographicDataProvider;
+            _kmlHelpers = kmlHelpers;
+            GoBackCommand = new DelegateCommand(OnGoBack);
+            ExportToCsvCommand = new DelegateCommand<object>(OnExportToCsv);
+            _soilResultsViewItemMap = new SoilResultsViewItemMap();
+            this.ChooseSelectedSoilCommand = new DelegateCommand(OnChooseSelectedSoilExecute);
+        }
+
+        #endregion
+
+        #region Properties
+
         /// <summary>
         /// A collection of <see cref="SoilResultsViewItem"/> that are attached to the climate results page. Each viewitem denotes a row in the grid. This collection
         /// is populated using the coordinates entered in the multi-coordinate page.
@@ -39,18 +69,15 @@ namespace H.Avalonia.ViewModels.Results
         /// is populated using the coordinates entered in the single-coordinate page.
         /// </summary>
         public ObservableCollection<SoilResultsViewItem> SingleSoilResultsViewItems { get; set; } = new();
-        
 
-        public SoilResultsViewModel(IRegionManager regionManager, Storage storage, ExportHelpers exportHelpers, KmlHelpers kmlHelpers, GeographicDataProvider geographicDataProvider) : base(regionManager, storage)
-        {
-            _regionManager = regionManager;
-            _exportHelpers = exportHelpers;
-            _geographicDataProvider = geographicDataProvider;
-            _kmlHelpers = kmlHelpers;
-            GoBackCommand = new DelegateCommand(OnGoBack);
-            ExportToCsvCommand = new DelegateCommand<object>(OnExportToCsv);
-            _soilResultsViewItemMap = new SoilResultsViewItemMap();
-        }
+        /// <summary>
+        /// Allows the user to select which soil they want to use as a <see cref="Farm"/>-level default
+        /// </summary>
+        public DelegateCommand ChooseSelectedSoilCommand { get; set; }
+
+        #endregion
+
+        #region Methods
 
         /// <summary>
         /// Triggered when a user navigates to this page.
@@ -72,6 +99,10 @@ namespace H.Avalonia.ViewModels.Results
             SoilResultsViewItems.Clear();
             SingleSoilResultsViewItems.Clear();
         }
+
+        #endregion
+
+        #region Event Handlers
 
         /// <summary>
         /// Called when the user goes back to the previous page.
@@ -126,10 +157,12 @@ namespace H.Avalonia.ViewModels.Results
             {
                 if (StoragePlaceholder.ShowSingleCoordinateResults)
                 {
-                    var sourceCollection = new ObservableCollection<SoilViewItem>
-                {
-                    StoragePlaceholder.SingleSoilViewItem
-                };
+                    var sourceCollection = new ObservableCollection<SoilViewItem> 
+                    {
+                        StoragePlaceholder.SingleSoilViewItem
+
+                    }; 
+                    
                     await AddViewItemsToCollection(cancellationToken, sourceCollection, SingleSoilResultsViewItems);
                 }
                 else
@@ -174,5 +207,19 @@ namespace H.Avalonia.ViewModels.Results
 
             IsProcessingData = false;
         }
+
+        /// <summary>
+        /// Once the user has selected a soil type (one must be selected as the default for the <see cref="Farm"/>>), navigate to
+        /// the <see cref="MyComponentsView"/>.
+        /// </summary>
+        private void OnChooseSelectedSoilExecute()
+        {
+            base.RegionManager.RequestNavigate(UiRegions.SidebarRegion, nameof(MyComponentsView));
+            var view = this.RegionManager.Regions[UiRegions.ContentRegion].ActiveViews.Single();
+            this.RegionManager.Regions[UiRegions.ContentRegion].Deactivate(view);
+            this.RegionManager.Regions[UiRegions.ContentRegion].Remove(view);
+        }
+
+        #endregion
     }
 }

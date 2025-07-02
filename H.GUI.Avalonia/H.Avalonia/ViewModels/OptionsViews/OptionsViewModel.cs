@@ -49,7 +49,20 @@ namespace H.Avalonia.ViewModels.OptionsViews
                         break;
 
                     case "Close Farm":
+                        this.ClearActiveView();
                         base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(FarmOptionsView));
+                        break;
+
+                    case "Farms":
+                        base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(FarmManagementView));
+                        break;
+
+                    case "Save":
+                        base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(FileSaveView));
+                        break;
+
+                    case "Save As":
+                        base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(FileSaveAsView));
                         break;
 
                     case "Export Farm(s)":
@@ -102,6 +115,28 @@ namespace H.Avalonia.ViewModels.OptionsViews
                 SelectedItem = null; // need to set this to null because the option in the combo box stays selected otherwise
             }
         }
+
+        #region Private Methods
+        private void ClearActiveView()
+        {
+            // Clear content region
+            var contentView = this.RegionManager.Regions[UiRegions.ContentRegion].ActiveViews.SingleOrDefault();
+            if (contentView != null)
+            {
+                this.RegionManager.Regions[UiRegions.ContentRegion].Deactivate(contentView);
+                this.RegionManager.Regions[UiRegions.ContentRegion].Remove(contentView);
+            }
+
+            // Clear sidebar region
+            var sidebarView = this.RegionManager.Regions[UiRegions.SidebarRegion].ActiveViews.SingleOrDefault();
+            if (sidebarView != null)
+            {
+                this.RegionManager.Regions[UiRegions.SidebarRegion].Deactivate(sidebarView);
+                this.RegionManager.Regions[UiRegions.SidebarRegion].Remove(sidebarView);
+            }
+        }
+
+        #endregion
 
     }
 }

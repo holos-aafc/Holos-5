@@ -15,11 +15,11 @@ using Avalonia;
 using Avalonia.Threading;
 using System;
 using System.Threading.Tasks;
-using System.Diagnostics.Tracing;
+using H.Core.Helpers;
 
 namespace H.Avalonia.ViewModels
 {
-    public abstract class ViewModelBase : BindableBase, INavigationAware, INotifyDataErrorInfo
+    public abstract class ViewModelBase : ErrorValidationBase, INavigationAware, INotifyDataErrorInfo
     {
         #region Fields
 
@@ -29,8 +29,7 @@ namespace H.Avalonia.ViewModels
         private IEventAggregator _eventAggregator;
         private IRegionManager _regionManager;
         private IStorageService _storageService;
-        private readonly Dictionary<string, List<string>> _errors = new Dictionary<string, List<string>>();
-        public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
+        private string _viewName;
 
         #endregion
 
@@ -45,6 +44,7 @@ namespace H.Avalonia.ViewModels
             if (storageService != null)
             {
                 this.StorageService = storageService;
+                this.StorageService.Storage.ApplicationData.GlobalSettings.PropertyChanged += GlobalSettingsPropertyChanged;
             }
             else
             {
@@ -64,7 +64,7 @@ namespace H.Avalonia.ViewModels
             }
         }
 
-        protected ViewModelBase(IRegionManager regionManager)
+        protected ViewModelBase(IRegionManager regionManager, IEventAggregator eventAggregator) : this(eventAggregator)
         {
             if (regionManager != null)
             {
@@ -97,26 +97,19 @@ namespace H.Avalonia.ViewModels
             }
         }
 
-        protected ViewModelBase(IRegionManager regionManager, Storage storage) : this(regionManager)
-        {
-            if (storage != null)
-            {
-                StoragePlaceholder = storage;
-            }
-            else
-            {
-                throw new ArgumentNullException(nameof(storage));
-            }
-        }
-
         protected ViewModelBase(
             IRegionManager regionManager, 
             IEventAggregator eventAggregator,
-            IStorageService storageService) : this(regionManager)
+            IStorageService storageService) : this(regionManager, storageService)
         {
             if (storageService != null)
             {
                 this.StorageService = storageService;
+                this.StorageService.Storage.ApplicationData.GlobalSettings.PropertyChanged += GlobalSettingsPropertyChanged;
+            }
+            else
+            {
+                throw new ArgumentNullException(nameof(storageService));
             }
 
             if(eventAggregator != null)
@@ -129,15 +122,15 @@ namespace H.Avalonia.ViewModels
             }
         }
 
-        protected ViewModelBase(IRegionManager regionManager, IEventAggregator eventAggregator, Storage storage) : this(regionManager, storage)
+        protected ViewModelBase(IRegionManager regionManager)
         {
-            if (eventAggregator != null)
+            if (regionManager != null)
             {
-                this.EventAggregator = eventAggregator;
+                this.RegionManager = regionManager;
             }
             else
             {
-                throw new ArgumentNullException(nameof(eventAggregator));
+                throw new ArgumentNullException(nameof(regionManager));
             }
         }
 
@@ -173,7 +166,6 @@ namespace H.Avalonia.ViewModels
             get => _storageService;
             set => SetProperty(ref _storageService, value);
         }
-        public bool HasErrors => _errors.Any();
 
         public Farm ActiveFarm
         {
@@ -181,9 +173,33 @@ namespace H.Avalonia.ViewModels
             //set => SetProperty(ref _activeFarm, value);
         }
 
+        /// <summary>
+        /// String used to refer to a particular other animals component, value set by child classes. Bound to the view(s), used as a title.
+        /// Can be changed by the user, if they happen to leave it empty, an error will be thrown.
+        /// </summary>
+        public string ViewName
+        {
+            get => _viewName;
+            set 
+            {
+                if (SetProperty(ref _viewName, value))
+                {
+                    ValidateViewName();
+                }
+            }
+        }
+
         #endregion
 
         #region Public Methods
+
+        public virtual void InitializeViewModel()
+        {
+        }
+
+        public virtual void InitializeViewModel(ComponentBase component)
+        {
+        }
 
         public bool IsNavigationTarget(NavigationContext navigationContext)
         {
@@ -206,48 +222,6 @@ namespace H.Avalonia.ViewModels
         {
             return true;
         }
-        public IEnumerable GetErrors(string propertyName)
-        {
-            if (string.IsNullOrWhiteSpace(propertyName) || !_errors.ContainsKey(propertyName))
-            {
-                return null;
-            }
-            return _errors[propertyName];
-        }
-        public void AddError(string propertyName, string error)
-        {
-            if (!_errors.ContainsKey(propertyName))
-            {
-                _errors[propertyName] = new List<string>();
-            }
-
-            if (!_errors[propertyName].Contains(error))
-            {
-                _errors[propertyName].Add(error);
-                OnErrorsChanged(propertyName);
-                this.RaisePropertyChanged(nameof(HasErrors));
-            }
-        }
-        public void RemoveError(string propertyName)
-        {
-            if (_errors.ContainsKey(propertyName))
-            {
-                _errors[propertyName].Clear();
-                _errors.Remove(propertyName);
-                OnErrorsChanged(propertyName);
-                this.RaisePropertyChanged(nameof(HasErrors));
-            }
-        }
-
-        public void OnErrorsChanged(string propertyName)
-        {
-            ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(propertyName));
-        }
-
-        IEnumerable INotifyDataErrorInfo.GetErrors(string? propertyName)
-        {
-            return GetErrors(propertyName);
-        }
 
         public void InvokeOnUiThread(Action action)
         {
@@ -265,6 +239,20 @@ namespace H.Avalonia.ViewModels
 
         #region Private Methods
 
+        /// <summary>
+        /// Ensures that a user cannot leave the <see cref="ViewName"/> empty when editing it in the UI. Uses INotifyDataErrorInfo implementation in <see cref="ViewModelBase"/>.
+        /// </summary>
+        private void ValidateViewName()
+        {
+            RemoveError(nameof(ViewName));
+
+            if (string.IsNullOrEmpty(ViewName))
+            {
+                AddError(nameof(ViewName), H.Core.Properties.Resources.ErrorNameCannotBeEmpty);
+                return;
+            }
+        }
+
         private void SetActiveFarm(IStorageService storageService)
         {
             if (storageService != null)
@@ -277,7 +265,17 @@ namespace H.Avalonia.ViewModels
 
         #region Event Listeners
 
+        private void GlobalSettingsPropertyChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(GlobalSettings.ActiveFarm))
+            {
+                this.IsInitialized = false;
+            }
+        }
 
+        #endregion
+
+        #region Protected Methods
 
         #endregion
     }

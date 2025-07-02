@@ -52,6 +52,10 @@ namespace H.Avalonia.ViewModels.OptionsViews
                         base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(FarmOptionsView));
                         break;
 
+                    case "Export Farm(s)":
+                        base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(FileExportFarmView));
+                        break;
+
                     // Settings Menu
                     case "Farm":
                         base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(OptionFarmView));

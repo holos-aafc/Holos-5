@@ -9763,6 +9763,15 @@ namespace H.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Export.
+        /// </summary>
+        public static string LabelExport {
+            get {
+                return ResourceManager.GetString("LabelExport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Fallow area change.
         /// </summary>
         public static string LabelFallowAreaChange {
@@ -13835,7 +13844,7 @@ namespace H.Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The montly temperature averages for the farm..
+        ///   Looks up a localized string similar to The monthly temperature averages for the farm..
         /// </summary>
         public static string MessageMonthlyTemperatureBreakdownHeader {
             get {

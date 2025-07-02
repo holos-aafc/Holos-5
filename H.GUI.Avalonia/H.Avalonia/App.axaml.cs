@@ -31,6 +31,7 @@ using H.Avalonia.Views.SupportingViews.MeasurementProvince;
 using H.Avalonia.Views.SupportingViews.RegionSelection;
 using H.Avalonia.ViewModels.SupportingViews.RegionSelection;
 using H.Avalonia.ViewModels.OptionsViews;
+using H.Avalonia.ViewModels.OptionsViews.FileMenuViews;
 
 using H.Core.Services;
 using H.Core.Services.Provinces;
@@ -149,6 +150,7 @@ namespace H.Avalonia
             containerRegistry.RegisterForNavigation<StartView, StartViewModel>();
             containerRegistry.RegisterForNavigation<FileNewFarmView, FileNewFarmViewModel>();
             containerRegistry.RegisterForNavigation<FileOpenFarmView, FileOpenFarmViewModel>();
+            containerRegistry.RegisterForNavigation<FileExportFarmView, FileExportFarmViewModel>();
 
             // Blank Page
             containerRegistry.RegisterForNavigation<BlankView, BlankViewModel>();

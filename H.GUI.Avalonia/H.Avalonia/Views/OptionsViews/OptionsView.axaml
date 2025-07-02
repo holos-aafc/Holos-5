@@ -38,6 +38,7 @@
 						<ListBoxItem Content="New Farm"/>
 						<ListBoxItem Content="Open Farm"/>
 						<ListBoxItem Content="Close Farm"/>
+						<ListBoxItem Content="Export Farm(s)"/>
 					<ListBoxItem Margin="-5, 0" IsEnabled="False" >
 						<TextBlock Foreground="Black" FontWeight="Bold" Text="Settings"/>
 					</ListBoxItem>

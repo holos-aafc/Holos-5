@@ -161,7 +161,17 @@ public class FieldComponentViewModel : ViewModelBase
 
             if (this.SelectedCropDto == null)
             {
-                this.SelectedCropDto = this.SelectedFieldSystemComponentDto.CropDtos.FirstOrDefault();
+                if (this.SelectedFieldSystemComponentDto.CropDtos.Any())
+                {
+                    this.SelectedCropDto = this.SelectedFieldSystemComponentDto.CropDtos.First();
+                }
+                else
+                {
+                    var cropDto = _fieldComponentService.CreateCropDto();
+                    _fieldComponentService.InitializeCropDto(this.SelectedFieldSystemComponentDto, cropDto);
+                    _fieldComponentService.AddCropDtoToSystem(_selectedFieldSystemComponent, cropDto);
+                    this.SelectedCropDto = cropDto;
+                }
             }
 
             if (this.SelectedCropDto != null)
@@ -200,8 +210,12 @@ public class FieldComponentViewModel : ViewModelBase
 
         // Release any property change handlers
         this.SelectedFieldSystemComponentDto.PropertyChanged -= SelectedFieldSystemComponentDtoOnPropertyChanged;
-        this.SelectedCropDto.PropertyChanged -= SelectedCropDtoOnPropertyChanged;
 
+        if (this.SelectedCropDto != null)
+        {
+            this.SelectedCropDto.PropertyChanged -= SelectedCropDtoOnPropertyChanged;
+        }
+        
         this.PropertyChanged -= OnPropertyChanged;
     }
 
@@ -285,7 +299,7 @@ public class FieldComponentViewModel : ViewModelBase
 
     private void OnPropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
-        if (e.PropertyName.Equals(nameof(this.SelectedCropDto)))
+        if (e.PropertyName.Equals(nameof(this.SelectedCropDto)) && this.SelectedCropDto != null)
         {
             this.SelectedCropDto.PropertyChanged += SelectedCropDtoOnPropertyChanged;
         }

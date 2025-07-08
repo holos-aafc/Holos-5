@@ -167,10 +167,7 @@ public class FieldComponentViewModel : ViewModelBase
                 }
                 else
                 {
-                    var cropDto = _fieldComponentService.CreateCropDto();
-                    _fieldComponentService.InitializeCropDto(this.SelectedFieldSystemComponentDto, cropDto);
-                    _fieldComponentService.AddCropDtoToSystem(_selectedFieldSystemComponent, cropDto);
-                    this.SelectedCropDto = cropDto;
+                    this.AddCropDto();
                 }
             }
 
@@ -236,16 +233,7 @@ public class FieldComponentViewModel : ViewModelBase
     /// </summary>
     private void OnAddCropExecute(object obj)
     {
-        var dto = _fieldComponentService.CreateCropDto();
-        _fieldComponentService.InitializeCropDto(this.SelectedFieldSystemComponentDto, dto);
-
-        // Use this as the new selected instance
-        this.SelectedCropDto = dto;
-
-        // If disabled before, enable this command now so that the user can remove a DTO
-        this.RemoveCropCommand.RaiseCanExecuteChanged();
-
-        _fieldComponentService.AddCropDtoToSystem(_selectedFieldSystemComponent, dto);
+        this.AddCropDto();
     }
 
     /// <summary>
@@ -303,6 +291,25 @@ public class FieldComponentViewModel : ViewModelBase
         {
             this.SelectedCropDto.PropertyChanged += SelectedCropDtoOnPropertyChanged;
         }
+    }
+
+
+    /// <summary>
+    /// Adds a new <see cref="CropDto"/> to the <see cref="SelectedFieldSystemComponentDto"/> property
+    /// Used in both the <see cref="OnAddCropExecute(object)"/> and in the <see cref="InitializeViewModel(ComponentBase)"/> methods
+    /// </summary>
+    private void AddCropDto()
+    {
+        var dto = _fieldComponentService.CreateCropDto();
+        _fieldComponentService.InitializeCropDto(this.SelectedFieldSystemComponentDto, dto);
+
+        // Use this as the new selected instance
+        this.SelectedCropDto = dto;
+
+        // If disabled before, enable this command now so that the user can remove a DTO
+        this.RemoveCropCommand.RaiseCanExecuteChanged();
+
+        _fieldComponentService.AddCropDtoToSystem(_selectedFieldSystemComponent, dto);
     }
 
     #endregion

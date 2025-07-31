@@ -1,0 +1,21 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="H.Avalonia.FileSaveOptionsView">
+
+	<StackPanel VerticalAlignment="Center">
+		<StackPanel HorizontalAlignment="Center">
+			<TextBlock Text="Save Holos" Margin="0,0,0,10" HorizontalAlignment="Center" FontWeight="Bold" FontSize="20" Foreground="#696969"/>
+			<Button Command="{Binding Path=SaveCommand}" HorizontalAlignment="Center" Margin="0,10,0,20" Content="Save"></Button>
+			<Border BorderBrush="#EDEDED" BorderThickness="0,0,0,2" Margin="0,15,0,15" Width="450" />
+		</StackPanel>
+		
+		<StackPanel HorizontalAlignment="Center">
+			<TextBlock Text="Save As" HorizontalAlignment="Center" Margin="0,20,0,10" FontWeight="Bold" FontSize="20" Foreground="#696969"/>
+			<TextBox Text="{Binding Path=NewFarmName}" Watermark="New farm name" Margin="0 10 0 0" Foreground="#696969" BorderBrush="#EDEDED" BorderThickness="2" FontWeight="SemiBold"/>
+			<Button Command="{Binding Path=SaveAsCommand}" Margin="0,10,0,10" Content="Save"></Button>
+		</StackPanel>
+	</StackPanel>
+</UserControl>

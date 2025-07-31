@@ -161,7 +161,14 @@ public class FieldComponentViewModel : ViewModelBase
 
             if (this.SelectedCropDto == null)
             {
-                this.SelectedCropDto = this.SelectedFieldSystemComponentDto.CropDtos.FirstOrDefault();
+                if (this.SelectedFieldSystemComponentDto.CropDtos.Any())
+                {
+                    this.SelectedCropDto = this.SelectedFieldSystemComponentDto.CropDtos.First();
+                }
+                else
+                {
+                    this.AddCropDto();
+                }
             }
 
             if (this.SelectedCropDto != null)
@@ -200,8 +207,12 @@ public class FieldComponentViewModel : ViewModelBase
 
         // Release any property change handlers
         this.SelectedFieldSystemComponentDto.PropertyChanged -= SelectedFieldSystemComponentDtoOnPropertyChanged;
-        this.SelectedCropDto.PropertyChanged -= SelectedCropDtoOnPropertyChanged;
 
+        if (this.SelectedCropDto != null)
+        {
+            this.SelectedCropDto.PropertyChanged -= SelectedCropDtoOnPropertyChanged;
+        }
+        
         this.PropertyChanged -= OnPropertyChanged;
     }
 
@@ -222,16 +233,7 @@ public class FieldComponentViewModel : ViewModelBase
     /// </summary>
     private void OnAddCropExecute(object obj)
     {
-        var dto = _fieldComponentService.CreateCropDto();
-        _fieldComponentService.InitializeCropDto(this.SelectedFieldSystemComponentDto, dto);
-
-        // Use this as the new selected instance
-        this.SelectedCropDto = dto;
-
-        // If disabled before, enable this command now so that the user can remove a DTO
-        this.RemoveCropCommand.RaiseCanExecuteChanged();
-
-        _fieldComponentService.AddCropDtoToSystem(_selectedFieldSystemComponent, dto);
+        this.AddCropDto();
     }
 
     /// <summary>
@@ -285,10 +287,29 @@ public class FieldComponentViewModel : ViewModelBase
 
     private void OnPropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
-        if (e.PropertyName.Equals(nameof(this.SelectedCropDto)))
+        if (e.PropertyName.Equals(nameof(this.SelectedCropDto)) && this.SelectedCropDto != null)
         {
             this.SelectedCropDto.PropertyChanged += SelectedCropDtoOnPropertyChanged;
         }
+    }
+
+
+    /// <summary>
+    /// Adds a new <see cref="CropDto"/> to the <see cref="SelectedFieldSystemComponentDto"/> property
+    /// Used in both the <see cref="OnAddCropExecute(object)"/> and in the <see cref="InitializeViewModel(ComponentBase)"/> methods
+    /// </summary>
+    private void AddCropDto()
+    {
+        var dto = _fieldComponentService.CreateCropDto();
+        _fieldComponentService.InitializeCropDto(this.SelectedFieldSystemComponentDto, dto);
+
+        // Use this as the new selected instance
+        this.SelectedCropDto = dto;
+
+        // If disabled before, enable this command now so that the user can remove a DTO
+        this.RemoveCropCommand.RaiseCanExecuteChanged();
+
+        _fieldComponentService.AddCropDtoToSystem(_selectedFieldSystemComponent, dto);
     }
 
     #endregion

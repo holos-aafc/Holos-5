@@ -25,7 +25,7 @@ namespace H.Avalonia.ViewModels.OptionsViews
         }
         public OptionsViewModel(IRegionManager regionManager) : base(regionManager)
         {
-            base.PropertyChanged += OnSelectedOptionChanged;
+            this.PropertyChanged += OnSelectedOptionChanged;
         }
 
         public object SelectedItem
@@ -67,6 +67,18 @@ namespace H.Avalonia.ViewModels.OptionsViews
 
                     case "Export Farm(s)":
                         base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(FileExportFarmView));
+                        break;
+
+                    case "Import Farm":
+                        base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(FileImportFarmView));
+                        break;
+
+                    case "Export Climate":
+                        base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(FileExportClimateView));
+                        break;
+
+                    case "Export Manure":
+                        base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(FileExportManureView));
                         break;
 
                     // Settings Menu

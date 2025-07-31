@@ -33,27 +33,31 @@ namespace H.Avalonia.ViewModels.OptionsViews.FileMenuViews
         public FileExportFarmViewModel(IRegionManager regionManager, IStorageService storageService) : base(regionManager, storageService)
         {
             ExportFarms = new DelegateCommand<IStorageFile>(OnExport);
+
         }
         #endregion
 
         #region Public Methods
-        public async void OnExport(IStorageFile file)
+        public async Task ExportAsync(IStorageFile file)
         {
             try
             {
-                // Open writing stream from the file.
-                await using var stream = await file.OpenWriteAsync();
-                using var streamWriter = new StreamWriter(stream);
-
-                JsonSerializer serializer = new()
+                await Task.Run(async() =>
                 {
-                    // Serializer and de-serializer must both have this set to Auto
-                    TypeNameHandling = TypeNameHandling.Auto,
-                };
-                serializer.Serialize(streamWriter, SelectedFarms, typeof(H.Core.Models.Farm));
+                    // Open writing stream from the file.
+                    await using var stream = await file.OpenWriteAsync();
+                    using var streamWriter = new StreamWriter(stream);
 
-                NotificationManager?.Show(new Notification("Success",
-                    "Farm(s) has successfully exported",
+                    JsonSerializer serializer = new()
+                    {
+                        // Serializer and de-serializer must both have this set to Auto
+                        TypeNameHandling = TypeNameHandling.Auto,
+                    };
+                    serializer.Serialize(streamWriter, SelectedFarms, typeof(H.Core.Models.Farm));
+                });
+
+                NotificationManager?.Show(new Notification(H.Core.Properties.Resources.LabelSuccess,
+                    H.Core.Properties.Resources.LabelFarmExportSuccess,
                     type: NotificationType.Success,
                     expiration: TimeSpan.FromSeconds(10))
                 );
@@ -61,13 +65,25 @@ namespace H.Avalonia.ViewModels.OptionsViews.FileMenuViews
             catch (Exception ex)
             {
                 Debug.WriteLine($"Error exporting farms: {ex.Message}");
-                NotificationManager?.Show(new Notification("Error",
+                NotificationManager?.Show(new Notification(H.Core.Properties.Resources.ErrorError,
                     ex.Message,
                     type: NotificationType.Error,
                     expiration: TimeSpan.FromSeconds(10))
                 );
             }
-
+        }
+        private async void OnExport(IStorageFile file)
+        {
+            if(file == null)
+            {
+                NotificationManager?.Show(new Notification(H.Core.Properties.Resources.ErrorError,
+                    H.Core.Properties.Resources.ErrorNoFileSelected,
+                    type: NotificationType.Error,
+                    expiration: TimeSpan.FromSeconds(10))
+                );
+                return;
+            }
+            await this.ExportAsync(file);
         }
         #endregion
 

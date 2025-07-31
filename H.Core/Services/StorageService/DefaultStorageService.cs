@@ -70,6 +70,13 @@ public class DefaultStorageService : IStorageService
     {
         if (farm != null)
         {
+            var importedFarmName = farm.Name;
+            if (Storage.ApplicationData.Farms.Any(x => x.Name.Equals(importedFarmName)))
+            {
+                farm.Name = farm.Name + $"_Imported_{DateTime.Now.ToShortDateString()}";
+            }
+            // Assign a unique GUID since a user might export then import that same farm in which case the GUID would be the same - prevent this situation.
+            farm.Guid = Guid.NewGuid();
             Storage.ApplicationData.Farms.Add(farm);
         }
     }

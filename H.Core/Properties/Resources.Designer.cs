@@ -664,6 +664,15 @@ namespace H.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Next.
+        /// </summary>
+        public static string ButtonNext {
+            get {
+                return ResourceManager.GetString("ButtonNext", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Open.
         /// </summary>
         public static string ButtonOpen {
@@ -6199,6 +6208,15 @@ namespace H.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        public static string ErrorError {
+            get {
+                return ResourceManager.GetString("ErrorError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Field area cannot be 0.
         /// </summary>
         public static string ErrorFieldAreaCannotBeZero {
@@ -6249,6 +6267,24 @@ namespace H.Core.Properties {
         public static string ErrorNameCannotBeEmpty {
             get {
                 return ResourceManager.GetString("ErrorNameCannotBeEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No data for export..
+        /// </summary>
+        public static string ErrorNoDataForExport {
+            get {
+                return ResourceManager.GetString("ErrorNoDataForExport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No file selected for export..
+        /// </summary>
+        public static string ErrorNoFileSelected {
+            get {
+                return ResourceManager.GetString("ErrorNoFileSelected", resourceCulture);
             }
         }
         
@@ -9781,6 +9817,15 @@ namespace H.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Exported files can only be imported in v5. Files exported from v5 are not compatable in v4.
+        /// </summary>
+        public static string LabelExportFileWarning {
+            get {
+                return ResourceManager.GetString("LabelExportFileWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Fallow area change.
         /// </summary>
         public static string LabelFallowAreaChange {
@@ -9795,6 +9840,24 @@ namespace H.Core.Properties {
         public static string LabelFarm {
             get {
                 return ResourceManager.GetString("LabelFarm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Farm(s) has successfully exported.
+        /// </summary>
+        public static string LabelFarmExportSuccess {
+            get {
+                return ResourceManager.GetString("LabelFarmExportSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Farm(s) has successfully imported.
+        /// </summary>
+        public static string LabelFarmImportSuccess {
+            get {
+                return ResourceManager.GetString("LabelFarmImportSuccess", resourceCulture);
             }
         }
         
@@ -10245,6 +10308,15 @@ namespace H.Core.Properties {
         public static string LabelGrowingSeasonPrecipitationmm {
             get {
                 return ResourceManager.GetString("LabelGrowingSeasonPrecipitationmm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Guid.
+        /// </summary>
+        public static string LabelGuid {
+            get {
+                return ResourceManager.GetString("LabelGuid", resourceCulture);
             }
         }
         
@@ -11109,6 +11181,15 @@ namespace H.Core.Properties {
         public static string LabelMultipleHarvestsCanBeMadeToThisField {
             get {
                 return ResourceManager.GetString("LabelMultipleHarvestsCanBeMadeToThisField", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Press CTRl+Click or SHIFT+Click for multiple selection.
+        /// </summary>
+        public static string LabelMultipleSelection {
+            get {
+                return ResourceManager.GetString("LabelMultipleSelection", resourceCulture);
             }
         }
         
@@ -12324,6 +12405,15 @@ namespace H.Core.Properties {
         public static string LabelSubstrateType {
             get {
                 return ResourceManager.GetString("LabelSubstrateType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Success.
+        /// </summary>
+        public static string LabelSuccess {
+            get {
+                return ResourceManager.GetString("LabelSuccess", resourceCulture);
             }
         }
         

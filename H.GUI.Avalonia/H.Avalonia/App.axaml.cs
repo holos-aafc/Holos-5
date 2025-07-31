@@ -52,7 +52,6 @@ using H.Core.Factories;
 using H.Core.Services.Countries;
 using H.Core.Services.LandManagement.Fields;
 using H.Avalonia.ViewModels.FarmCreationViews;
-using H.Avalonia.ViewModels.OptionsViews.FileMenuViews;
 
 namespace H.Avalonia
 {
@@ -158,6 +157,10 @@ namespace H.Avalonia
             containerRegistry.RegisterForNavigation<FileSaveView, FileSaveViewModel>();
             containerRegistry.RegisterForNavigation<FileSaveAsView, FileSaveAsViewModel>();
             containerRegistry.RegisterForNavigation<FileExportFarmView, FileExportFarmViewModel>();
+            containerRegistry.RegisterForNavigation<FileImportFarmView, FileImportFarmViewModel>();
+            containerRegistry.RegisterForNavigation<FarmImportFileView, FarmImportFileViewModel>();
+            containerRegistry.RegisterForNavigation<FileExportClimateView, FileExportClimateViewModel>();
+            containerRegistry.RegisterForNavigation<FileExportManureView, FileExportManureViewModel>();
 
             // Blank Page
             containerRegistry.RegisterForNavigation<BlankView, BlankViewModel>();

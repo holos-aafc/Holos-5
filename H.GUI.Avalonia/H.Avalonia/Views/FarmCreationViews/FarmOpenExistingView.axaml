@@ -2,7 +2,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="650"
 			 xmlns:properties="clr-namespace:H.Core.Properties;assembly=H.Core"
 			 xmlns:FarmCreationViews="clr-namespace:H.Avalonia.ViewModels"
 			 xmlns:viewSections="clr-namespace:H.Avalonia"
@@ -18,11 +18,10 @@
 
 		<viewSections:FarmDataGridSharedView/>
 		
-		<StackPanel Orientation="Vertical" Width="160">
-			<Button Content="{x:Static properties:Resources.ButtonOpen}" HorizontalContentAlignment="Center" HorizontalAlignment="Stretch" Command="{Binding NavigateToNextPage}" Margin="0 120 0 0" />
-			<Border BorderBrush="#EDEDED" BorderThickness="0,0,0,1" Margin="0,20" Width="450" />
+		
+			<Button Content="{x:Static properties:Resources.ButtonOpen}" HorizontalContentAlignment="Center" Width="155" HorizontalAlignment="Center" Command="{Binding NavigateToNextPage}" Margin="0 20" />
+			<!--<Border BorderBrush="#EDEDED" Width="455" BorderThickness="0,0,0,1" Margin="0,20" />-->
 			<Button Classes="back-button" Content="{x:Static properties:Resources.ButtonGoBack}"  HorizontalAlignment="Center" Command="{Binding NavigateToPreviousPage}"/>
-		</StackPanel>
 	</StackPanel>
 
 </UserControl>

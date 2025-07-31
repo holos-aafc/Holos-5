@@ -6261,4 +6261,34 @@ Please note: emissions related to the deposition or application of livestock man
   <data name="LabelExport" xml:space="preserve">
     <value>Export</value>
   </data>
+  <data name="LabelExportFileWarning" xml:space="preserve">
+    <value>Exported files can only be imported in v5. Files exported from v5 are not compatable in v4</value>
+  </data>
+  <data name="LabelMultipleSelection" xml:space="preserve">
+    <value>Press CTRl+Click or SHIFT+Click for multiple selection</value>
+  </data>
+  <data name="LabelGuid" xml:space="preserve">
+    <value>Guid</value>
+  </data>
+  <data name="ButtonNext" xml:space="preserve">
+    <value>Next</value>
+  </data>
+  <data name="LabelSuccess" xml:space="preserve">
+    <value>Success</value>
+  </data>
+  <data name="LabelFarmExportSuccess" xml:space="preserve">
+    <value>Farm(s) has successfully exported</value>
+  </data>
+  <data name="ErrorError" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="ErrorNoFileSelected" xml:space="preserve">
+    <value>No file selected for export.</value>
+  </data>
+  <data name="LabelFarmImportSuccess" xml:space="preserve">
+    <value>Farm(s) has successfully imported</value>
+  </data>
+  <data name="ErrorNoDataForExport" xml:space="preserve">
+    <value>No data for export.</value>
+  </data>
 </root>

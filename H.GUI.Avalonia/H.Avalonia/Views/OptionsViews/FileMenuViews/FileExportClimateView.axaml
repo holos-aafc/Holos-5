@@ -4,22 +4,16 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
 			 xmlns:properties="clr-namespace:H.Core.Properties;assembly=H.Core"
-			 xmlns:FileMenuViews="clr-namespace:H.Avalonia.ViewModels.OptionsViews.FileMenuViews"
-			 xmlns:viewSections="clr-namespace:H.Avalonia"
-             x:Class="H.Avalonia.FileExportFarmView">
+			          xmlns:viewSections="clr-namespace:H.Avalonia"
+             x:Class="H.Avalonia.FileExportClimateView">
 
-
-	
-	
-	
 	<StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-		<TextBlock Text="Export Farm"  HorizontalAlignment="Center" Margin="0,0,0,30" FontWeight="Bold" FontSize="20" Foreground="#696969"/>
-		<TextBlock FontWeight="DemiBold" FontStyle="Italic" Text="{x:Static properties:Resources.LabelExportFileWarning}" />
-		<TextBlock FontStyle="Italic" Text="{x:Static properties:Resources.LabelMultipleSelection}" >
+		<TextBlock Text="Export Climate"  HorizontalAlignment="Center" Margin="0,0,0,30" FontWeight="Bold" FontSize="20" Foreground="#696969"/>
+		<TextBlock IsVisible="{Binding ShowGrid}" FontStyle="Italic" Text="{x:Static properties:Resources.LabelMultipleSelection}" >
 		</TextBlock>
-
-		<Border BorderThickness="2" Margin="0 20 0 0" BorderBrush="#EDEDED" CornerRadius="10" >
-		<DataGrid Name="FarmsDataGrid" SelectionChanged="FarmsDataGrid_SelectionChanged" SelectedItem="{Binding Path=SelectedFarm}" SelectionMode="Extended" ItemsSource="{Binding Farms}"  AutoGenerateColumns="False" Margin="0 0 0 0" Padding="20" GridLinesVisibility="All" Background="#f5f5f5" IsReadOnly="True" Height="250" >
+		
+		<DataGrid Name="FarmsDataGrid" SelectionChanged="FarmsDataGrid_SelectionChanged" IsVisible="{Binding ShowGrid}" SelectedItem="{Binding Path=SelectedFarm}" ItemsSource="{Binding Farms}"  AutoGenerateColumns="False" SelectionMode="Extended" Margin="0 10 0 0" Padding="20" GridLinesVisibility="All" IsReadOnly="True" Height="250"
+				  BorderThickness="2"  BorderBrush="#EDEDED" CornerRadius="10" Background="#f5f5f5">
 			<DataGrid.Styles>
 				<Style Selector="DataGridColumnHeader">
 					<Setter Property="FontWeight" Value="Bold" />
@@ -35,13 +29,10 @@
 				<DataGridTextColumn Header="{x:Static properties:Resources.LabelModifiedOn}" Binding="{Binding DateModified}"  />
 			</DataGrid.Columns>
 		</DataGrid>
-		</Border>
 
 		<StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-			<Button Margin="0 20 0 0" IsEnabled="{Binding CanExportExecute}" Content="{x:Static properties:Resources.LabelExport}" Click="SaveFileButton_Clicked" />
+			<Button Margin="0 20 0 0" IsEnabled="{Binding CanExportExecute}" Content="{x:Static properties:Resources.LabelExport}" Click="ExportButton_OnClick" />
 		</StackPanel>
-		
 	</StackPanel>
-	
 	
 </UserControl>

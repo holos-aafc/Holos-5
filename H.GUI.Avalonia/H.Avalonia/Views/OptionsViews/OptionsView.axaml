@@ -43,7 +43,7 @@
 						<ListBoxItem Content="Export Farm(s)"/>
 						<ListBoxItem Content="Import Farm"/>
 						<ListBoxItem Content="Export Climate"/>
-						<!--<ListBoxItem Content="Export Manure"/>-->
+						<ListBoxItem Content="Export Manure"/>
 					<ListBoxItem Margin="-5, 0" IsEnabled="False" >
 						<TextBlock Foreground="Black" FontWeight="Bold" Text="Settings"/>
 					</ListBoxItem>

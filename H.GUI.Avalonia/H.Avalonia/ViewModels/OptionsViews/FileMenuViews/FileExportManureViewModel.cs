@@ -20,6 +20,9 @@ namespace H.Avalonia.ViewModels.OptionsViews.FileMenuViews
         #endregion
 
         #region Constructor
+        public FileExportManureViewModel() 
+        {
+        }
         public FileExportManureViewModel(IManureService manureService, IFarmResultsService farmResultsService, IStorage storage) 
         {
             if (farmResultsService != null)

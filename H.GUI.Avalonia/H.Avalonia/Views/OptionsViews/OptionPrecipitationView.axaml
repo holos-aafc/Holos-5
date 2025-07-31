@@ -77,6 +77,6 @@
 			</Grid>
 			</StackPanel>
 		</ScrollViewer>
-		<lvc:CartesianChart Name="PrecipitationChart" Grid.Row="1" Grid.Column="1" Margin="15" />
+		<lvc:CartesianChart Series="{Binding Series}"  XAxes="{Binding XAxes}" Grid.Row="1" Grid.Column="1" Margin="15" />
 	</Grid>
 </UserControl>

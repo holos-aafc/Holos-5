@@ -33,7 +33,7 @@
 						<ColumnDefinition Width="140"/>
 						<ColumnDefinition Width="*"/>
 					</Grid.ColumnDefinitions>
-					<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding BindingTemperatureData.January, Mode=TwoWay}" Grid.Column="0"/>
+					<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.January, Mode=TwoWay}" Grid.Column="0"/>
 					<TextBlock VerticalAlignment="Center" Text=" (°C)" Grid.Column="1"/>
 				</Grid>
 
@@ -43,7 +43,7 @@
 						<ColumnDefinition Width="140"/>
 						<ColumnDefinition Width="*"/>
 					</Grid.ColumnDefinitions>
-					<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding BindingTemperatureData.February, Mode=TwoWay}" />
+					<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.February, Mode=TwoWay}" />
 					<TextBlock VerticalAlignment="Center" Text=" (°C)" Grid.Column="1"/>
 				</Grid>
 				
@@ -53,7 +53,7 @@
 						<ColumnDefinition Width="140"/>
 						<ColumnDefinition Width="*"/>
 					</Grid.ColumnDefinitions>
-					<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding BindingTemperatureData.March, Mode=TwoWay}" />
+					<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.March, Mode=TwoWay}" />
 					<TextBlock VerticalAlignment="Center" Text=" (°C)" Grid.Column="1"/>
 				</Grid>
 				
@@ -63,7 +63,7 @@
 						<ColumnDefinition Width="140"/>
 						<ColumnDefinition Width="*"/>
 					</Grid.ColumnDefinitions>
-					<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding BindingTemperatureData.April, Mode=TwoWay}" />
+					<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.April, Mode=TwoWay}" />
 					<TextBlock VerticalAlignment="Center" Text=" (°C)" Grid.Column="1"/>
 				</Grid>
 	
@@ -73,7 +73,7 @@
 						<ColumnDefinition Width="140"/>
 						<ColumnDefinition Width="*"/>
 					</Grid.ColumnDefinitions>
-					<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding BindingTemperatureData.May, Mode=TwoWay}" />
+					<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.May, Mode=TwoWay}" />
 					<TextBlock VerticalAlignment="Center" Text=" (°C)" Grid.Column="1"/>
 				</Grid>
 				
@@ -83,7 +83,7 @@
 						<ColumnDefinition Width="140"/>
 						<ColumnDefinition Width="*"/>
 					</Grid.ColumnDefinitions>
-					<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding BindingTemperatureData.June, Mode=TwoWay}" />
+					<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.June, Mode=TwoWay}" />
 					<TextBlock VerticalAlignment="Center" Text=" (°C)" Grid.Column="1"/>
 				</Grid>
 				
@@ -93,7 +93,7 @@
 						<ColumnDefinition Width="140"/>
 						<ColumnDefinition Width="*"/>
 					</Grid.ColumnDefinitions>
-					<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding BindingTemperatureData.July, Mode=TwoWay}" />
+					<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.July, Mode=TwoWay}" />
 					<TextBlock VerticalAlignment="Center" Text=" (°C)" Grid.Column="1"/>
 				</Grid>
 				
@@ -103,7 +103,7 @@
 						<ColumnDefinition Width="140"/>
 						<ColumnDefinition Width="*"/>
 					</Grid.ColumnDefinitions>
-					<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding BindingTemperatureData.August, Mode=TwoWay}" />
+					<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.August, Mode=TwoWay}" />
 					<TextBlock VerticalAlignment="Center" Text=" (°C)" Grid.Column="1"/>
 				</Grid>
 				
@@ -113,7 +113,7 @@
 						<ColumnDefinition Width="140"/>
 						<ColumnDefinition Width="*"/>
 					</Grid.ColumnDefinitions>
-					<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding BindingTemperatureData.September, Mode=TwoWay}" />
+					<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.September, Mode=TwoWay}" />
 					<TextBlock VerticalAlignment="Center" Text=" (°C)" Grid.Column="1"/>
 				</Grid>
 				
@@ -124,7 +124,7 @@
 						<ColumnDefinition Width="140"/>
 						<ColumnDefinition Width="*"/>
 					</Grid.ColumnDefinitions>
-					<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding BindingTemperatureData.October, Mode=TwoWay}" />
+					<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.October, Mode=TwoWay}" />
 					<TextBlock VerticalAlignment="Center" Text=" (°C)" Grid.Column="1"/>
 				</Grid>
 				
@@ -134,7 +134,7 @@
 						<ColumnDefinition Width="140"/>
 						<ColumnDefinition Width="*"/>
 					</Grid.ColumnDefinitions>
-					<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding BindingTemperatureData.November, Mode=TwoWay}" />
+					<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.November, Mode=TwoWay}" />
 					<TextBlock VerticalAlignment="Center" Text=" (°C)" Grid.Column="1"/>
 				</Grid>
 				
@@ -144,14 +144,13 @@
 						<ColumnDefinition Width="140"/>
 						<ColumnDefinition Width="*"/>
 					</Grid.ColumnDefinitions>
-					<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding BindingTemperatureData.December, Mode=TwoWay}" />
+					<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.December, Mode=TwoWay}"/>
 					<TextBlock VerticalAlignment="Center" Text=" (°C)" Grid.Column="1"/>
 				</Grid>
 				
 			</StackPanel>
 		</ScrollViewer>
-		<lvc:CartesianChart Name="TemperatureChart" Grid.Row="1" Grid.Column="1" Margin="20 20 20 20" />
-		
+		<lvc:CartesianChart Series="{Binding Series}" XAxes="{Binding XAxes}" Grid.Row="1" Grid.Column="1" Margin="20 20 20 20"/>
 	</Grid>
 
 </UserControl>

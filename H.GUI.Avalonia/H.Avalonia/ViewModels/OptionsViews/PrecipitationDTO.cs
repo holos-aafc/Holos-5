@@ -11,41 +11,31 @@ using Prism.Events;
 
 namespace H.Avalonia.ViewModels.OptionsViews
 {
-    public class PrecipitationDisplayViewModel : ViewModelBase
+    public class PrecipitationDTO : ViewModelBase
     {
         #region Fields
-        private double _testValue;
-        private PrecipitationData _bindingPrecipitationData = new PrecipitationData();
+
+        private PrecipitationData _precipitationData = new PrecipitationData();
+
         #endregion
+
         #region Constructors
-        public PrecipitationDisplayViewModel(IStorageService storageService) : base(storageService)
+        public PrecipitationDTO(IStorageService storageService) : base(storageService)
         {
-            ManageData();
+            this.InitializePrecipitationData();
         }
 
         #endregion
         #region Properties
-        public PrecipitationData BindingPrecipitationData
+        public PrecipitationData PrecipitationData
         {
-            get => _bindingPrecipitationData;
-            set => SetProperty(ref _bindingPrecipitationData, value);
+            get => _precipitationData;
+            set => SetProperty(ref _precipitationData, value);
         }
-
-        /// <summary>
-        /// dummy property to bind to the view for testing
-        /// </summary>
-        public double TestValue 
-        { 
-            get =>_testValue;
-            set => SetProperty(ref _testValue, value);
-        }
-        /// <summary>
-        /// end dummy property
-        /// </summary>
 
         public double January
         {
-            get => BindingPrecipitationData.January;
+            get => this.PrecipitationData.January;
             set
             {
                 ValidateValue(value, nameof(January));
@@ -53,13 +43,14 @@ namespace H.Avalonia.ViewModels.OptionsViews
                 {
                     return;
                 }
-                BindingPrecipitationData.January = value;
+                this.PrecipitationData.January = value;
                 RaisePropertyChanged(nameof(January));
             }
         }
+
         public double February
         {
-            get => BindingPrecipitationData.February;
+            get => this.PrecipitationData.February;
             set
             {
                 ValidateValue(value, nameof(February));
@@ -67,13 +58,13 @@ namespace H.Avalonia.ViewModels.OptionsViews
                 {
                     return;
                 }
-                BindingPrecipitationData.February = value;
+                this.PrecipitationData.February = value;
                 RaisePropertyChanged(nameof(February));
             }
         }
         public double March
         {
-            get => BindingPrecipitationData.March;
+            get => this.PrecipitationData.March;
             set
             {
                 ValidateValue(value, nameof(March));
@@ -81,13 +72,13 @@ namespace H.Avalonia.ViewModels.OptionsViews
                 {
                     return;
                 }
-                BindingPrecipitationData.March = value;
+                this.PrecipitationData.March = value;
                 RaisePropertyChanged(nameof(March));
             }
         }
         public double April
         {
-            get => BindingPrecipitationData.April;
+            get => this.PrecipitationData.April;
             set
             {
                 ValidateValue(value, nameof(April));
@@ -95,13 +86,13 @@ namespace H.Avalonia.ViewModels.OptionsViews
                 {
                     return;
                 }
-                BindingPrecipitationData.April = value;
+                this.PrecipitationData.April = value;
                 RaisePropertyChanged(nameof(April));
             }
         }
         public double May
         {
-            get => BindingPrecipitationData.May;
+            get => this.PrecipitationData.May;
             set
             {
                 ValidateValue(value, nameof(May));
@@ -109,13 +100,13 @@ namespace H.Avalonia.ViewModels.OptionsViews
                 {
                     return;
                 }
-                BindingPrecipitationData.May = value;
+                this.PrecipitationData.May = value;
                 RaisePropertyChanged(nameof(May));
             }
         }
         public double June
         {
-            get => BindingPrecipitationData.June;
+            get => this.PrecipitationData.June;
             set
             {
                 ValidateValue(value, nameof(June));
@@ -123,13 +114,13 @@ namespace H.Avalonia.ViewModels.OptionsViews
                 {
                     return;
                 }
-                BindingPrecipitationData.June = value;
+                this.PrecipitationData.June = value;
                 RaisePropertyChanged(nameof(June));
             }
         }
         public double July
         {
-            get => BindingPrecipitationData.July;
+            get => this.PrecipitationData.July;
             set
             {
                 ValidateValue(value, nameof(July));
@@ -137,13 +128,13 @@ namespace H.Avalonia.ViewModels.OptionsViews
                 {
                     return;
                 }
-                BindingPrecipitationData.July = value;
+                this.PrecipitationData.July = value;
                 RaisePropertyChanged(nameof(July));
             }
         }
         public double August
         {
-            get => BindingPrecipitationData.August;
+            get => this.PrecipitationData.August;
             set
             {
                 ValidateValue(value, nameof(August));
@@ -151,13 +142,13 @@ namespace H.Avalonia.ViewModels.OptionsViews
                 {
                     return;
                 }
-                BindingPrecipitationData.August = value;
+                this.PrecipitationData.August = value;
                 RaisePropertyChanged(nameof(August));
             }
         }
         public double September
         {
-            get => BindingPrecipitationData.September;
+            get => this.PrecipitationData.September;
             set
             {
                 ValidateValue(value, nameof(September));
@@ -165,13 +156,13 @@ namespace H.Avalonia.ViewModels.OptionsViews
                 {
                     return;
                 }
-                BindingPrecipitationData.September = value;
+                this.PrecipitationData.September = value;
                 RaisePropertyChanged(nameof(September));
             }
         }
         public double October
         {
-            get => BindingPrecipitationData.October;
+            get => this.PrecipitationData.October;
             set
             {
                 ValidateValue(value, nameof(October));
@@ -179,13 +170,13 @@ namespace H.Avalonia.ViewModels.OptionsViews
                 {
                     return;
                 }
-                BindingPrecipitationData.October = value;
+                this.PrecipitationData.October = value;
                 RaisePropertyChanged(nameof(October));
             }
         }
         public double November
         {
-            get => BindingPrecipitationData.November;
+            get => this.PrecipitationData.November;
             set
             {
                 ValidateValue(value, nameof(November));
@@ -193,13 +184,13 @@ namespace H.Avalonia.ViewModels.OptionsViews
                 {
                     return;
                 }
-                BindingPrecipitationData.November = value;
+                this.PrecipitationData.November = value;
                 RaisePropertyChanged(nameof(November));
             }
         }
         public double December
         {
-            get => BindingPrecipitationData.December;
+            get => this.PrecipitationData.December;
             set
             {
                 ValidateValue(value, nameof(December));
@@ -207,36 +198,43 @@ namespace H.Avalonia.ViewModels.OptionsViews
                 {
                     return;
                 }
-                BindingPrecipitationData.December = value;
+                this.PrecipitationData.December = value;
                 RaisePropertyChanged(nameof(December));
             }
         }
+
         #endregion
-        #region Methods
-        public void ValidateValue(double value, string propertyName)
+
+        #region Public Methods
+
+        public void InitializePrecipitationData()
+        {
+            if (base.ActiveFarm.ClimateData.PrecipitationData != null)
+            {
+                this.PrecipitationData = ActiveFarm.ClimateData.PrecipitationData;
+            }
+            else
+            {
+                throw new ArgumentNullException(nameof(base.ActiveFarm.ClimateData.PrecipitationData));
+            }
+        }
+
+        #endregion
+
+        #region Private Methods
+
+        private void ValidateValue(double value, string propertyName)
         {
             if (value < 0)
             {
-                AddError(propertyName, "Value cannot be below 0");
+                AddError(propertyName, H.Core.Properties.Resources.ErrorMustBeNonNegative);
             }
             else
             {
                 RemoveError(propertyName);
             }
         }
-        public void ManageData()
-        {
-            BindingPrecipitationData = ActiveFarm.ClimateData.PrecipitationData;
-            BindingPrecipitationData.PropertyChanged -= OnDataPropertyChanged;
-            BindingPrecipitationData.PropertyChanged += OnDataPropertyChanged;
-        }
-        private void OnDataPropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
-        {
-            if (sender is PrecipitationData)
-            {
-                ActiveFarm.ClimateData.PrecipitationData = BindingPrecipitationData;
-            }
-        }
+
         #endregion
     }
 }

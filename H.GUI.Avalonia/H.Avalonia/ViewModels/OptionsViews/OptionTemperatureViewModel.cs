@@ -14,6 +14,8 @@ using SkiaSharp;
 using System.ComponentModel;
 using Prism.Events;
 using H.Core.Services;
+using H.Avalonia.ViewModels.Styles;
+using Avalonia.Metadata;
 
 namespace H.Avalonia.ViewModels.OptionsViews
 {
@@ -21,9 +23,10 @@ namespace H.Avalonia.ViewModels.OptionsViews
     {
         #region Fields
 
-        private IInitializationService _initializationService = new InitializationService();
-
-        private TemperatureData _bindingTemperatureData = new TemperatureData();
+        private ISeries[] _series;
+        private Axis[] _xAxes;
+        private BarChartStyles _barChartsStyles = new BarChartStyles();
+        private TemperatureData _data = new TemperatureData();
 
         #endregion
 
@@ -36,23 +39,43 @@ namespace H.Avalonia.ViewModels.OptionsViews
 
         public OptionTemperatureViewModel(IRegionManager regionManager, IEventAggregator eventAggregator, IStorageService storageService) : base(regionManager, eventAggregator, storageService)
         {
-            InitializeBindingTemperatureData();
+            _series = new ISeries[]
+            {
+                new ColumnSeries<double>
+                {
+                    Fill = _barChartsStyles.SetColumnSeriesFill(), 
+                    Values = new ObservableCollection<double>()
+                }
+            };
 
-            BindingTemperatureData.PropertyChanged -= BindingTemperatureOnPropertyChanged;
-            BindingTemperatureData.PropertyChanged += BindingTemperatureOnPropertyChanged;
+            _xAxes = new Axis[]
+            {
+                _barChartsStyles.SetAxisStyling(name: H.Core.Properties.Resources.Months, labels: Enum.GetNames(typeof(Months)))
+            };
+
+            this.InitializeBindingTemperatureData();
+            base.IsInitialized = true;
         }
 
         #endregion
 
         #region Properties
 
-        public TemperatureData BindingTemperatureData
+        public TemperatureData Data
         {
-            get => _bindingTemperatureData;
-            set
-            {
-                 _bindingTemperatureData = value;
-            }
+            get => _data;
+            set => SetProperty(ref _data, value);
+        }
+        public ISeries[] Series
+        {
+            get => _series;
+            set => SetProperty(ref _series, value);
+        }
+
+        public Axis[] XAxes
+        {
+            get => _xAxes;
+            set => SetProperty(ref _xAxes, value);
         }
 
         #endregion
@@ -61,25 +84,58 @@ namespace H.Avalonia.ViewModels.OptionsViews
 
         private void InitializeBindingTemperatureData()
         {
-            if (ActiveFarm.ClimateData.TemperatureData != null)
+            if (base.ActiveFarm.ClimateData.TemperatureData != null)
             {
-                BindingTemperatureData = ActiveFarm.ClimateData.TemperatureData;
+                this.Data = base.ActiveFarm.ClimateData.TemperatureData; // sharing references here
+                this.Data.PropertyChanged -= DataOnPropertyChanged;
+                this.Data.PropertyChanged += DataOnPropertyChanged;
             }
             else
             {
-                // Call initializationSerice?
+                throw new ArgumentNullException(nameof(base.ActiveFarm.ClimateData.TemperatureData));
             }
+            this.BuildChart();
+        }
+
+        public override void OnNavigatedTo(NavigationContext navigationContext)
+        {
+            if (!base.IsInitialized)
+            {
+                this.InitializeBindingTemperatureData();
+                base.IsInitialized = true;
+            }
+        }
+
+        #endregion
+
+        #region Private Methods
+
+        private void BuildChart()
+        {
+            var values = new ObservableCollection<double>();
+            foreach (Months month in Enum.GetValues(typeof(Months)))
+            {
+                values.Add(Math.Round(this.Data.GetValueByMonth(month), 2));
+            }
+
+            var columnSeries = new ColumnSeries<double>
+            {
+                Fill = _barChartsStyles.SetColumnSeriesFill(),
+                Values = values,
+            }; 
+
+            this.Series = new ISeries[] { columnSeries };
         }
 
         #endregion
 
         #region Event Handlers
 
-        private void BindingTemperatureOnPropertyChanged(object sender, PropertyChangedEventArgs e)
+        private void DataOnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (sender is TemperatureData)
             {
-                ActiveFarm.ClimateData.TemperatureData = BindingTemperatureData;
+                this.BuildChart();
             }
         }
 

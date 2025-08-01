@@ -2,13 +2,14 @@
 using System.ComponentModel;
 using H.Core.Services.StorageService;
 using Prism.Regions;
+using H.Avalonia.ViewModels.OptionsViews.DataTransferObjects;
 
 namespace H.Avalonia.ViewModels.OptionsViews
 {
     public class OptionSoilN2OBreakdownViewModel : ViewModelBase
     {
         #region Fields
-        private SoilN2OBreakdownDisplayViewModel _data;
+        private SoilN2OBreakdownDTO _data;
         #endregion
 
         #region Constructors
@@ -20,7 +21,7 @@ namespace H.Avalonia.ViewModels.OptionsViews
         #endregion
 
         #region Properties
-        public SoilN2OBreakdownDisplayViewModel Data
+        public SoilN2OBreakdownDTO Data
         {
             get => _data;
             set => SetProperty(ref _data, value);
@@ -33,7 +34,7 @@ namespace H.Avalonia.ViewModels.OptionsViews
         {
             if (!IsInitialized)
             {
-                Data = Data = new SoilN2OBreakdownDisplayViewModel(StorageService);
+                Data = Data = new SoilN2OBreakdownDTO(StorageService);
                 IsInitialized = true;
             }
         }

@@ -10,7 +10,7 @@ using H.Core.Services.StorageService;
 
 namespace H.Avalonia.ViewModels.OptionsViews
 {
-    public class UserSettingsDisplayViewModel : ViewModelBase
+    public class UserSettingsDTO : ViewModelBase
     {
         #region Fields
         private bool _showCustomEquilibriumCarbonInput;
@@ -44,7 +44,7 @@ namespace H.Avalonia.ViewModels.OptionsViews
         #endregion
 
         #region Constructors
-        public UserSettingsDisplayViewModel(IStorageService storageService) : base(storageService)
+        public UserSettingsDTO(IStorageService storageService) : base(storageService)
         {
             ManageData();
             System.Diagnostics.Debug.WriteLine(ActiveFarm.Defaults.DefaultPumpType);

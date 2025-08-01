@@ -6,7 +6,7 @@ using System.Diagnostics;
 
 namespace H.Avalonia.ViewModels.OptionsViews
 {
-    public class DefaultBeddingCompositionDataViewModel : ViewModelBase
+    public class DefaultBeddingCompositionDTO : ViewModelBase
     {
         #region Fields
         
@@ -25,7 +25,7 @@ namespace H.Avalonia.ViewModels.OptionsViews
         /// This class is a view model wrapper over <see cref="Table_30_Default_Bedding_Material_Composition_Data"/> that provides data validation 
         /// </summary>
         /// <param name="dataClassInstance"></param>
-        public DefaultBeddingCompositionDataViewModel(Table_30_Default_Bedding_Material_Composition_Data dataClassInstance, IUnitsOfMeasurementCalculator unitsCalculator)
+        public DefaultBeddingCompositionDTO(Table_30_Default_Bedding_Material_Composition_Data dataClassInstance, IUnitsOfMeasurementCalculator unitsCalculator)
         {
             if (dataClassInstance != null)
             {

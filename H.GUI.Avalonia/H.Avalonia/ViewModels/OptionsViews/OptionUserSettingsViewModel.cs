@@ -11,7 +11,7 @@ namespace H.Avalonia.ViewModels.OptionsViews
     {
         #region Fields
 
-        private UserSettingsDisplayViewModel _data;
+        private UserSettingsDTO _data;
 
         #endregion
 
@@ -28,7 +28,7 @@ namespace H.Avalonia.ViewModels.OptionsViews
 
         #region Properties
 
-        public UserSettingsDisplayViewModel Data
+        public UserSettingsDTO Data
         {
             get => _data;
             set => SetProperty(ref _data, value);
@@ -42,7 +42,7 @@ namespace H.Avalonia.ViewModels.OptionsViews
         {
             if (!base.IsInitialized)
             {
-                Data = new UserSettingsDisplayViewModel(base.StorageService);
+                Data = new UserSettingsDTO(base.StorageService);
                 base.IsInitialized = true;
             }
         }

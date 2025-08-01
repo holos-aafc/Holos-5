@@ -10,7 +10,7 @@ using Mapsui.Extensions;
 
 namespace H.Avalonia.ViewModels.OptionsViews
 {
-    public class FarmDisplayViewModel : ViewModelBase
+    public class FarmDTO : ViewModelBase
     {
         #region Fields
         private string _coordinates;
@@ -21,7 +21,7 @@ namespace H.Avalonia.ViewModels.OptionsViews
         #endregion
 
         #region Constructors
-        public FarmDisplayViewModel(IStorageService storageService) : base(storageService)
+        public FarmDTO(IStorageService storageService) : base(storageService)
         {
             Coordinates = $"{ActiveFarm.Latitude}, {ActiveFarm.Longitude}";
             _isBasicMode = ActiveFarm.IsBasicMode;
@@ -137,7 +137,7 @@ namespace H.Avalonia.ViewModels.OptionsViews
         }
         private void ValidateNonNegative(double value, string propertyName)
         {
-            if (value.IsNanOrInfOrZero())
+            if (value < 0)
             {
                 AddError(propertyName, H.Core.Properties.Resources.ErrorMustBeGreaterThan0);
             }

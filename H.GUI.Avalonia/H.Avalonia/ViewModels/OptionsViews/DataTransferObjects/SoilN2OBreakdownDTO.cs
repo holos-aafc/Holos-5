@@ -7,13 +7,13 @@ using Mapsui.Extensions;
 using H.Core.Services.StorageService;
 using ExCSS;
 
-namespace H.Avalonia.ViewModels.OptionsViews
+namespace H.Avalonia.ViewModels.OptionsViews.DataTransferObjects
 {
-    public class SoilN2OBreakdownDisplayViewModel : ViewModelBase
+    public class SoilN2OBreakdownDTO : ViewModelBase
     {
  
         #region Constructors
-        public SoilN2OBreakdownDisplayViewModel(IStorageService storageService) : base(storageService)
+        public SoilN2OBreakdownDTO(IStorageService storageService) : base(storageService)
         {          
         }
         #endregion

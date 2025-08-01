@@ -12,7 +12,7 @@ namespace H.Avalonia.ViewModels.OptionsViews
     {
         #region Fields
 
-        private ObservableCollection<DefaultBeddingCompositionDataViewModel> _beddingCompositionDataViewModels;
+        private ObservableCollection<DefaultBeddingCompositionDTO> _beddingCompositionDataViewModels;
         private IUnitsOfMeasurementCalculator _unitsCalculator;
         private string _nitrogenConcentrationHeader;
         private string _phosphorusConcentrationHeader;
@@ -32,14 +32,14 @@ namespace H.Avalonia.ViewModels.OptionsViews
             _unitsCalculator.PropertyChanged -= UnitsOfMeasurementChangeListener;
             _unitsCalculator.PropertyChanged += UnitsOfMeasurementChangeListener;
 
-            BeddingCompositionDataViewModels = new ObservableCollection<DefaultBeddingCompositionDataViewModel>();
+            BeddingCompositionDataViewModels = new ObservableCollection<DefaultBeddingCompositionDTO>();
         }
 
         #endregion
 
         #region Properties
 
-        public ObservableCollection<DefaultBeddingCompositionDataViewModel> BeddingCompositionDataViewModels
+        public ObservableCollection<DefaultBeddingCompositionDTO> BeddingCompositionDataViewModels
         {
             get => _beddingCompositionDataViewModels;
             set => SetProperty(ref _beddingCompositionDataViewModels, value);
@@ -76,7 +76,7 @@ namespace H.Avalonia.ViewModels.OptionsViews
                 BeddingCompositionDataViewModels.Clear();
                 foreach (var dataClassInstance in base.ActiveFarm.DefaultsCompositionOfBeddingMaterials)
                 {
-                    var dataClassViewModel = new DefaultBeddingCompositionDataViewModel(dataClassInstance, _unitsCalculator);
+                    var dataClassViewModel = new DefaultBeddingCompositionDTO(dataClassInstance, _unitsCalculator);
                     dataClassViewModel.SetInitializationFlag(true);
                     dataClassViewModel.TotalNitrogenKilogramsDryMatter = dataClassInstance.TotalNitrogenKilogramsDryMatter;
                     dataClassViewModel.TotalPhosphorusKilogramsDryMatter = dataClassInstance.TotalPhosphorusKilogramsDryMatter;

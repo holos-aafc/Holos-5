@@ -26,6 +26,7 @@ namespace H.Avalonia.ViewModels.OptionsViews
         }
 
         #endregion
+
         #region Properties
         public PrecipitationData PrecipitationData
         {

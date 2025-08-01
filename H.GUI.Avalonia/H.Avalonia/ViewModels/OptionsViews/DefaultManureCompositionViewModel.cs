@@ -12,7 +12,7 @@ namespace H.Avalonia.ViewModels.OptionsViews
     {
         #region Fields
 
-        private ObservableCollection<DefaultManureCompositionDataViewModel> _defaultManureCompositionDataViewModels;
+        private ObservableCollection<DefaultManureCompositionDTO> _defaultManureCompositionDataViewModels;
         private string _nitrogenFractionHeader;
         private string _carbonFractionHeader;
         private string _phosphorusFractionHeader;
@@ -27,14 +27,14 @@ namespace H.Avalonia.ViewModels.OptionsViews
             IEventAggregator eventAggregator,
             IStorageService storageService) : base(regionManager, eventAggregator, storageService)
         {
-            DefaultManureCompositionDataViewModels = new ObservableCollection<DefaultManureCompositionDataViewModel>();
+            DefaultManureCompositionDataViewModels = new ObservableCollection<DefaultManureCompositionDTO>();
         }
          
         #endregion
 
         #region Properties
 
-        public ObservableCollection<DefaultManureCompositionDataViewModel> DefaultManureCompositionDataViewModels
+        public ObservableCollection<DefaultManureCompositionDTO> DefaultManureCompositionDataViewModels
         {
             get => _defaultManureCompositionDataViewModels;
             set => SetProperty(ref _defaultManureCompositionDataViewModels, value);
@@ -77,7 +77,7 @@ namespace H.Avalonia.ViewModels.OptionsViews
                 DefaultManureCompositionDataViewModels.Clear();
                 foreach (var dataClassInstance in base.ActiveFarm.DefaultManureCompositionData)
                 {
-                    var dataClassViewModel = new DefaultManureCompositionDataViewModel(dataClassInstance);
+                    var dataClassViewModel = new DefaultManureCompositionDTO(dataClassInstance);
                     dataClassViewModel.SetSuppressValidationFlag(true);
                     dataClassViewModel.MoistureContent = dataClassInstance.MoistureContent;
                     dataClassViewModel.NitrogenFraction = dataClassInstance.NitrogenFraction;

@@ -1,20 +1,21 @@
-﻿using H.Core.Enumerations;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Linq;
+using H.Avalonia.ViewModels.Styles;
+using H.Core.Enumerations;
 using H.Core.Providers.AnaerobicDigestion;
 using H.Core.Providers.Climate;
 using H.Core.Providers.Temperature;
+using H.Core.Services;
 using H.Core.Services.StorageService;
-using Prism.Regions;
-using System;
-using System.Collections.ObjectModel;
-using System.Linq;
+using ImTools;
 using LiveChartsCore;
 using LiveChartsCore.SkiaSharpView;
 using LiveChartsCore.SkiaSharpView.Painting;
-using SkiaSharp;
-using System.ComponentModel;
 using Prism.Events;
-using H.Core.Services;
-using H.Avalonia.ViewModels.Styles;
+using Prism.Regions;
+using SkiaSharp;
 
 namespace H.Avalonia.ViewModels.OptionsViews
 {
@@ -118,13 +119,22 @@ namespace H.Avalonia.ViewModels.OptionsViews
                 values.Add(Math.Round(this.Data.GetValueByMonth(month), 2));
             }
 
-            var columnSeries = new ColumnSeries<double>
+            if (base.IsInitialized && !this.Series.IsNullOrEmpty() && this.Series[0] is ColumnSeries<double> columnSeries)
             {
-                Fill = _barChartsStyles.SetColumnSeriesFill(),
-                Values = values,
-            };
+                columnSeries.Values = values;
+            }
 
-            this.Series = new ISeries[] { columnSeries };
+            else
+            {
+                this.Series = new ISeries[]
+                {
+                        new ColumnSeries<double>
+                        {
+                            Fill = _barChartsStyles.SetColumnSeriesFill(),
+                            Values = values,
+                        }
+                };
+            }
         }
 
         #endregion

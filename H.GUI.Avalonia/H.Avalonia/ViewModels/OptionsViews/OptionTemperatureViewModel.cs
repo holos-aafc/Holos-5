@@ -16,6 +16,7 @@ using Prism.Events;
 using H.Core.Services;
 using H.Avalonia.ViewModels.Styles;
 using Avalonia.Metadata;
+using ImTools;
 
 namespace H.Avalonia.ViewModels.OptionsViews
 {
@@ -118,13 +119,22 @@ namespace H.Avalonia.ViewModels.OptionsViews
                 values.Add(Math.Round(this.Data.GetValueByMonth(month), 2));
             }
 
-            var columnSeries = new ColumnSeries<double>
+            if (base.IsInitialized && !this.Series.IsNullOrEmpty() && this.Series[0] is ColumnSeries<double> columnSeries)
             {
-                Fill = _barChartsStyles.SetColumnSeriesFill(),
-                Values = values,
-            }; 
+                columnSeries.Values = values;
+            }
 
-            this.Series = new ISeries[] { columnSeries };
+            else
+            {
+                this.Series = new ISeries[]
+                {
+                        new ColumnSeries<double>
+                        {
+                            Fill = _barChartsStyles.SetColumnSeriesFill(),
+                            Values = values,
+                        }
+                };
+            }
         }
 
         #endregion

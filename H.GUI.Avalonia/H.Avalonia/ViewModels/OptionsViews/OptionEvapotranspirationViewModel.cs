@@ -8,6 +8,7 @@ using H.Avalonia.ViewModels.Styles;
 using H.Core.Enumerations;
 using H.Core.Providers.Evapotranspiration;
 using H.Core.Services.StorageService;
+using ImTools;
 using LiveChartsCore;
 using LiveChartsCore.SkiaSharpView;
 using Prism.Events;
@@ -115,13 +116,22 @@ namespace H.Avalonia.ViewModels.OptionsViews
                 };
             }
 
-            var columnSeries = new ColumnSeries<double>
+            if (base.IsInitialized && !this.Series.IsNullOrEmpty() && this.Series[0] is ColumnSeries<double> columnSeries)
             {
-                Fill = _barChartsStyles.SetColumnSeriesFill(),
-                Values = values,
-            };
+                columnSeries.Values = values;
+            }
 
-            this.Series = new ISeries[] { columnSeries };
+            else
+            {
+                this.Series = new ISeries[]
+                {
+                        new ColumnSeries<double>
+                        {
+                            Fill = _barChartsStyles.SetColumnSeriesFill(),
+                            Values = values,
+                        }
+                };
+            }
         }
 
         #endregion

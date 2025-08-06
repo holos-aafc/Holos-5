@@ -102,19 +102,19 @@ namespace H.Avalonia
             containerRegistry.RegisterForNavigation<FieldComponentView, FieldComponentViewModel>();
             containerRegistry.RegisterForNavigation<OptionsView, OptionsViewModel>();
             containerRegistry.RegisterForNavigation<SelectOptionView, SelectOptionViewModel>();
-            containerRegistry.RegisterForNavigation<OptionFarmView, OptionFarmViewModel>();
-            containerRegistry.RegisterForNavigation<OptionUserSettingsView, OptionUserSettingsViewModel>();
-            containerRegistry.RegisterForNavigation<OptionSoilView, OptionSoilViewModel>();
-            containerRegistry.RegisterForNavigation<OptionSoilN2OBreakdownView, OptionSoilN2OBreakdownViewModel>();
+            containerRegistry.RegisterForNavigation<OptionFarmView, FarmSettingsViewModel>();
+            containerRegistry.RegisterForNavigation<OptionUserSettingsView, UserSettingsViewModel>();
+            containerRegistry.RegisterForNavigation<OptionSoilView, SoilSettingsViewModel>();
+            containerRegistry.RegisterForNavigation<OptionSoilN2OBreakdownView, SoilN2OBreakdownSettingsViewModel>();
             containerRegistry.RegisterForNavigation<DefaultBeddingCompositionView, DefaultBeddingCompositionViewModel>();
             containerRegistry.RegisterForNavigation<DefaultManureCompositionView, DefaultManureCompositionViewModel>();
-            containerRegistry.RegisterForNavigation<OptionPrecipitationView, OptionPrecipitationViewModel>();
+            containerRegistry.RegisterForNavigation<OptionPrecipitationView, PrecipitationSettingsViewModel>();
 
 
             // New development work
-            containerRegistry.RegisterForNavigation<OptionEvapotranspirationView, OptionEvapotranspirationViewModel>();
-            containerRegistry.RegisterForNavigation<OptionTemperatureView, OptionTemperatureViewModel>();
-            containerRegistry.RegisterForNavigation<OptionBarnTemperatureView, OptionBarnTemperatureViewModel>();
+            containerRegistry.RegisterForNavigation<OptionEvapotranspirationView, EvapotranspirationSettingsViewModel>();
+            containerRegistry.RegisterForNavigation<OptionTemperatureView, TemperatureSettingsViewModel>();
+            containerRegistry.RegisterForNavigation<OptionBarnTemperatureView, BarnTemperatureSettingsViewModel>();
             containerRegistry.RegisterForNavigation<DisclaimerView, DisclaimerViewModel>();
             containerRegistry.RegisterForNavigation<RegionSelectionView, RegionSelectionViewModel>();
             containerRegistry.RegisterForNavigation<MeasurementProvinceView, MeasurementProvinceViewModel>();

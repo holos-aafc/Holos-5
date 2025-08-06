@@ -18,7 +18,7 @@ namespace H.Avalonia.ViewModels.OptionsViews.Tests
     [TestClass]
     public class OptionFarmViewModelTests
     {
-        private OptionFarmViewModel _viewModel;
+        private FarmSettingsViewModel _viewModel;
         private Mock<IRegionManager> _mockRegionManager;
         private IRegionManager _regionManagerMock;
         private Mock<IStorageService> _mockStorageService;
@@ -59,7 +59,7 @@ namespace H.Avalonia.ViewModels.OptionsViews.Tests
             var testMeasurementCollection = new ObservableCollection<MeasurementSystemType>() { MeasurementSystemType.Metric, MeasurementSystemType.Imperial };
             _mockStorageService.Setup(x => x.GetActiveFarm()).Returns(testFarm);
 
-            _viewModel = new OptionFarmViewModel(_storageServiceMock);
+            _viewModel = new FarmSettingsViewModel(_storageServiceMock);
 
             Assert.AreEqual(testFarm.Name, _viewModel.Data.FarmName);
             Assert.AreEqual(testFarm.Comments, _viewModel.Data.FarmComments);
@@ -82,7 +82,7 @@ namespace H.Avalonia.ViewModels.OptionsViews.Tests
             _mockStorage.Setup(x => x.ApplicationData).Returns(applicationDataInstance);
             _mockStorageService.Setup(x => x.Storage).Returns(_storageMock);
             _mockStorageService.Setup(x => x.GetActiveFarm()).Returns(testFarm);
-            _viewModel = new OptionFarmViewModel(_storageServiceMock);
+            _viewModel = new FarmSettingsViewModel(_storageServiceMock);
 
             _viewModel.SelectedMeasurementSystem = MeasurementSystemType.Imperial;
 
@@ -101,7 +101,7 @@ namespace H.Avalonia.ViewModels.OptionsViews.Tests
             _mockStorage.Setup(x => x.ApplicationData).Returns(applicationDataInstance);
             _mockStorageService.Setup(x => x.Storage).Returns(_storageMock);
             _mockStorageService.Setup(x => x.GetActiveFarm()).Returns(testFarm);
-            _viewModel = new OptionFarmViewModel(_storageServiceMock);
+            _viewModel = new FarmSettingsViewModel(_storageServiceMock);
 
             _viewModel.SelectedMeasurementSystem = MeasurementSystemType.Metric;
 

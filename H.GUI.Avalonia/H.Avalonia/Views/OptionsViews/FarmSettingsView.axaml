@@ -8,7 +8,7 @@
              x:Class="H.Avalonia.OptionFarmView">
 
 	<Design.DataContext>
-		<OptionsViews:OptionFarmViewModel />
+		<OptionsViews:FarmSettingsViewModel />
 	</Design.DataContext>
 	
 	<Grid>

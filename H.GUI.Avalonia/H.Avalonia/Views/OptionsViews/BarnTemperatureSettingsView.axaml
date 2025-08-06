@@ -6,12 +6,12 @@
 			 xmlns:lvc="using:LiveChartsCore.SkiaSharpView.Avalonia"
 			 xmlns:properties="clr-namespace:H.Core.Properties;assembly=H.Core"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="H.Avalonia.OptionTemperatureView">
+             x:Class="H.Avalonia.OptionBarnTemperatureView">
 
 	<Design.DataContext>
-		<OptionsViews:OptionTemperatureViewModel/>
+		<OptionsViews:BarnTemperatureSettingsViewModel/>
 	</Design.DataContext>
-
+	
 	<Grid Name="LayoutGrid">
 		<Grid.RowDefinitions>
 			<RowDefinition Height="Auto"/>
@@ -22,12 +22,11 @@
 			<ColumnDefinition Width="*"/>
 		</Grid.ColumnDefinitions>
 
-
-		<TextBlock Padding="40, 15" Grid.Row="0" Grid.ColumnSpan="2" Background="#3C4DBB" Foreground="WhiteSmoke" Text="{x:Static properties:Resources.MessageMonthlyTemperatureBreakdownHeader}" />
-
+		
+		<TextBlock Padding="40, 15" Grid.Row="0" Grid.ColumnSpan="2" Background="#3C4DBB" Foreground="WhiteSmoke" Text="{x:Static properties:Resources.MessageMonthlyBarnTemperatureBreakdownHeader}" />
 		<ScrollViewer Grid.Row="1" Grid.Column="0">
-			<StackPanel Spacing="5" Margin="15 15 15 15">
-
+			<StackPanel Spacing="5" Margin="15 15 15 15">	
+				
 				<TextBlock Text="{x:Static properties:Resources.January}"/>
 				<Grid>
 					<Grid.ColumnDefinitions>
@@ -47,7 +46,7 @@
 					<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.February, Mode=TwoWay}" />
 					<TextBlock VerticalAlignment="Center" Text=" (°C)" Grid.Column="1"/>
 				</Grid>
-
+				
 				<TextBlock Text="{x:Static properties:Resources.March}"  />
 				<Grid>
 					<Grid.ColumnDefinitions>
@@ -57,7 +56,7 @@
 					<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.March, Mode=TwoWay}" />
 					<TextBlock VerticalAlignment="Center" Text=" (°C)" Grid.Column="1"/>
 				</Grid>
-
+				
 				<TextBlock Text="{x:Static properties:Resources.April}"  />
 				<Grid>
 					<Grid.ColumnDefinitions>
@@ -67,7 +66,7 @@
 					<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.April, Mode=TwoWay}" />
 					<TextBlock VerticalAlignment="Center" Text=" (°C)" Grid.Column="1"/>
 				</Grid>
-
+	
 				<TextBlock Text="{x:Static properties:Resources.May}"  />
 				<Grid>
 					<Grid.ColumnDefinitions>
@@ -77,7 +76,7 @@
 					<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.May, Mode=TwoWay}" />
 					<TextBlock VerticalAlignment="Center" Text=" (°C)" Grid.Column="1"/>
 				</Grid>
-
+				
 				<TextBlock Text="{x:Static properties:Resources.June}"  />
 				<Grid>
 					<Grid.ColumnDefinitions>
@@ -87,7 +86,7 @@
 					<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.June, Mode=TwoWay}" />
 					<TextBlock VerticalAlignment="Center" Text=" (°C)" Grid.Column="1"/>
 				</Grid>
-
+				
 				<TextBlock Text="{x:Static properties:Resources.July}"  />
 				<Grid>
 					<Grid.ColumnDefinitions>
@@ -97,7 +96,7 @@
 					<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.July, Mode=TwoWay}" />
 					<TextBlock VerticalAlignment="Center" Text=" (°C)" Grid.Column="1"/>
 				</Grid>
-
+				
 				<TextBlock Text="{x:Static properties:Resources.August}"  />
 				<Grid>
 					<Grid.ColumnDefinitions>
@@ -107,7 +106,7 @@
 					<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.August, Mode=TwoWay}" />
 					<TextBlock VerticalAlignment="Center" Text=" (°C)" Grid.Column="1"/>
 				</Grid>
-
+				
 				<TextBlock Text="{x:Static properties:Resources.September}"  />
 				<Grid>
 					<Grid.ColumnDefinitions>
@@ -117,8 +116,8 @@
 					<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.September, Mode=TwoWay}" />
 					<TextBlock VerticalAlignment="Center" Text=" (°C)" Grid.Column="1"/>
 				</Grid>
-
-
+				
+				
 				<TextBlock Text="{x:Static properties:Resources.October}"  />
 				<Grid>
 					<Grid.ColumnDefinitions>
@@ -128,7 +127,7 @@
 					<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.October, Mode=TwoWay}" />
 					<TextBlock VerticalAlignment="Center" Text=" (°C)" Grid.Column="1"/>
 				</Grid>
-
+				
 				<TextBlock Text="{x:Static properties:Resources.November}"  />
 				<Grid>
 					<Grid.ColumnDefinitions>
@@ -138,21 +137,20 @@
 					<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.November, Mode=TwoWay}" />
 					<TextBlock VerticalAlignment="Center" Text=" (°C)" Grid.Column="1"/>
 				</Grid>
-
+				
 				<TextBlock Text="{x:Static properties:Resources.December}"  />
 				<Grid>
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition Width="140"/>
 						<ColumnDefinition Width="*"/>
 					</Grid.ColumnDefinitions>
-					<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.December, Mode=TwoWay}" />
+					<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.December, Mode=TwoWay}"/>
 					<TextBlock VerticalAlignment="Center" Text=" (°C)" Grid.Column="1"/>
 				</Grid>
-
+				
 			</StackPanel>
 		</ScrollViewer>
-		<lvc:CartesianChart Series="{Binding Series}"  XAxes="{Binding XAxes}" Grid.Row="1" Grid.Column="1" Margin="20 20 20 20"/> 
-
+		<lvc:CartesianChart Series="{Binding Series}" XAxes="{Binding XAxes}" Grid.Row="1" Grid.Column="1" Margin="20 20 20 20"/>
 	</Grid>
 
 </UserControl>

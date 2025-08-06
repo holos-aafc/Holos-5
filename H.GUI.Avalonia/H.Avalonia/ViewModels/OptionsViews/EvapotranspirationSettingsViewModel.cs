@@ -1,43 +1,37 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using H.Avalonia.ViewModels.Styles;
 using H.Core.Enumerations;
-using H.Core.Providers.AnaerobicDigestion;
-using H.Core.Providers.Climate;
-using H.Core.Providers.Temperature;
-using H.Core.Services;
+using H.Core.Providers.Evapotranspiration;
 using H.Core.Services.StorageService;
-using ImTools;
 using LiveChartsCore;
 using LiveChartsCore.SkiaSharpView;
-using LiveChartsCore.SkiaSharpView.Painting;
 using Prism.Events;
 using Prism.Regions;
-using SkiaSharp;
 
 namespace H.Avalonia.ViewModels.OptionsViews
 {
-    public class OptionBarnTemperatureViewModel : ViewModelBase
+    public class EvapotranspirationSettingsViewModel : ViewModelBase
     {
         #region Fields
 
+        private EvapotranspirationData _data = new EvapotranspirationData();
         private ISeries[] _series;
         private Axis[] _xAxes;
         private BarChartStyles _barChartsStyles = new BarChartStyles();
-        private TemperatureData _data = new TemperatureData();
 
         #endregion
 
         #region Constructors
 
-        public OptionBarnTemperatureViewModel()
+        public EvapotranspirationSettingsViewModel()
         {
-
         }
-
-        public OptionBarnTemperatureViewModel(IRegionManager regionManager, IEventAggregator eventAggregator, IStorageService storageService) : base(regionManager, eventAggregator, storageService)
+        public EvapotranspirationSettingsViewModel(IRegionManager regionManager, IEventAggregator eventAggregator, IStorageService storageService) : base(regionManager, eventAggregator, storageService)
         {
             _series = new ISeries[]
             {
@@ -53,7 +47,7 @@ namespace H.Avalonia.ViewModels.OptionsViews
                 _barChartsStyles.SetAxisStyling(name: H.Core.Properties.Resources.Months, labels: Enum.GetNames(typeof(Months)))
             };
 
-            this.InitializeBindingBarnTemperatureData();
+            this.InitializeBindingEvapotranspirationData();
             base.IsInitialized = true;
         }
 
@@ -61,7 +55,7 @@ namespace H.Avalonia.ViewModels.OptionsViews
 
         #region Properties
 
-        public TemperatureData Data
+        public EvapotranspirationData Data 
         {
             get => _data;
             set => SetProperty(ref _data, value);
@@ -83,17 +77,17 @@ namespace H.Avalonia.ViewModels.OptionsViews
 
         #region Public Methods
 
-        private void InitializeBindingBarnTemperatureData()
+        public void InitializeBindingEvapotranspirationData()
         {
-            if (ActiveFarm.ClimateData.BarnTemperatureData != null)
+            if (base.ActiveFarm.ClimateData.EvapotranspirationData != null)
             {
-                this.Data = base.ActiveFarm.ClimateData.BarnTemperatureData;
+                this.Data = base.ActiveFarm.ClimateData.EvapotranspirationData;
                 this.Data.PropertyChanged -= DataOnPropertyChanged;
                 this.Data.PropertyChanged += DataOnPropertyChanged;
             }
             else
             {
-                throw new ArgumentNullException(nameof(base.ActiveFarm.ClimateData.BarnTemperatureData));
+                throw new ArgumentNullException(nameof(base.ActiveFarm.ClimateData.EvapotranspirationData));
             }
             this.BuildChart();
         }
@@ -102,7 +96,7 @@ namespace H.Avalonia.ViewModels.OptionsViews
         {
             if (!base.IsInitialized)
             {
-                this.InitializeBindingBarnTemperatureData();
+                this.InitializeBindingEvapotranspirationData();
                 base.IsInitialized = true;
             }
         }
@@ -113,37 +107,30 @@ namespace H.Avalonia.ViewModels.OptionsViews
 
         private void BuildChart()
         {
-            var values = new ObservableCollection<double>();
+            var values = new ObservableCollection<double> { };
             foreach (Months month in Enum.GetValues(typeof(Months)))
             {
-                values.Add(Math.Round(this.Data.GetValueByMonth(month), 2));
-            }
-
-            if (base.IsInitialized && !this.Series.IsNullOrEmpty() && this.Series[0] is ColumnSeries<double> columnSeries)
-            {
-                columnSeries.Values = values;
-            }
-
-            else
-            {
-                this.Series = new ISeries[]
                 {
-                        new ColumnSeries<double>
-                        {
-                            Fill = _barChartsStyles.SetColumnSeriesFill(),
-                            Values = values,
-                        }
+                    values.Add(Math.Round(this.Data.GetValueByMonth(month), 2));
                 };
             }
+
+            var columnSeries = new ColumnSeries<double>
+            {
+                Fill = _barChartsStyles.SetColumnSeriesFill(),
+                Values = values,
+            };
+
+            this.Series = new ISeries[] { columnSeries };
         }
 
         #endregion
 
         #region Event Handlers
 
-        private void DataOnPropertyChanged(object sender, PropertyChangedEventArgs e)
+        private void DataOnPropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            if (sender is TemperatureData)
+            if (sender is EvapotranspirationData)
             {
                 this.BuildChart();
             }

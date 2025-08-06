@@ -4,18 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using H.Core.Services.StorageService;
-using H.Core.Services;
 using Prism.Regions;
 
-namespace H.Avalonia.ViewModels.FarmCreationViews
+namespace H.Avalonia.ViewModels.OptionsViews.FileMenuViews
 {
-    public class FileNewFarmViewModel : FarmCreationViewModel
+    public class FileOpenFarmViewModel : FarmOpenExistingViewmodel
     {
         #region Constructors
 
-        public FileNewFarmViewModel(IRegionManager regionManager, IStorageService storageService, IFarmHelper farmHelper) : base(regionManager, storageService, farmHelper)
-        { 
-        
+        public FileOpenFarmViewModel(IRegionManager regionManager, IStorageService storageService) : base(regionManager, storageService)
+        {
+
         }
 
         #endregion

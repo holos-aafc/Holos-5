@@ -6,12 +6,11 @@
 			 xmlns:lvc="using:LiveChartsCore.SkiaSharpView.Avalonia"
 			 xmlns:properties="clr-namespace:H.Core.Properties;assembly=H.Core"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="H.Avalonia.OptionEvapotranspirationView">
-
+             x:Class="H.Avalonia.OptionPrecipitationView">
 	<Design.DataContext>
-		<OptionsViews:OptionEvapotranspirationViewModel/>
+		<OptionsViews:PrecipitationSettingsViewModel/>
 	</Design.DataContext>
-	
+
 	<Grid RowDefinitions="Auto, *" ColumnDefinitions="Auto,*">
 		<TextBlock Padding="40, 15" Grid.Row="0" Grid.ColumnSpan="2" Background="#3C4DBB" Foreground="WhiteSmoke" Text="The monthly precipitation averages for the farm." />
 		<ScrollViewer Grid.Row="1" Grid.Column="0">
@@ -23,59 +22,59 @@
 				</Grid>
 				<TextBlock Text="{x:Static properties:Resources.February}"  />
 				<Grid ColumnDefinitions="*, Auto">
-					<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.February, Mode=TwoWay}" />
-					<TextBlock VerticalAlignment="Center" Margin="10,0,0,0" Grid.Column="1" Text="{x:Static properties:Resources.Millimeters}" />
+				<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.February, Mode=TwoWay}" />
+				<TextBlock VerticalAlignment="Center" Margin="10,0,0,0" Grid.Column="1" Text="{x:Static properties:Resources.Millimeters}" />
 				</Grid>
 				<TextBlock Text="{x:Static properties:Resources.March}"  />
 				<Grid ColumnDefinitions="*, Auto">
-					<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.March, Mode=TwoWay}" />
+				<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.March, Mode=TwoWay}" />
 					<TextBlock VerticalAlignment="Center" Margin="10,0,0,0" Grid.Column="1" Text="{x:Static properties:Resources.Millimeters}" />
 				</Grid>
 				<TextBlock Text="{x:Static properties:Resources.April}"  />
-				<Grid ColumnDefinitions="*, Auto">
-					<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.April, Mode=TwoWay}" />
-					<TextBlock VerticalAlignment="Center" Margin="10,0,0,0" Grid.Column="1" Text="{x:Static properties:Resources.Millimeters}" />
-				</Grid>
+					<Grid ColumnDefinitions="*, Auto">
+				<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.April, Mode=TwoWay}" />
+				<TextBlock VerticalAlignment="Center" Margin="10,0,0,0" Grid.Column="1" Text="{x:Static properties:Resources.Millimeters}" />
+			</Grid>
 				<TextBlock Text="{x:Static properties:Resources.May}"  />
 				<Grid ColumnDefinitions="*, Auto">
-					<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.May, Mode=TwoWay}" />
+				<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.May, Mode=TwoWay}" />
 					<TextBlock VerticalAlignment="Center" Margin="10,0,0,0" Grid.Column="1" Text="{x:Static properties:Resources.Millimeters}" />
 				</Grid>
 				<TextBlock Text="{x:Static properties:Resources.June}"  />
 				<Grid ColumnDefinitions="*, Auto">
-					<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.June, Mode=TwoWay}" />
-					<TextBlock VerticalAlignment="Center" Margin="10,0,0,0" Grid.Column="1" Text="{x:Static properties:Resources.Millimeters}" />
-				</Grid>
+				<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.June, Mode=TwoWay}" />
+				<TextBlock VerticalAlignment="Center" Margin="10,0,0,0" Grid.Column="1" Text="{x:Static properties:Resources.Millimeters}" />
+			</Grid>
 				<TextBlock Text="{x:Static properties:Resources.July}"  />
 				<Grid ColumnDefinitions="*, Auto">
-					<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.July, Mode=TwoWay}" />
+				<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.July, Mode=TwoWay}" />
 					<TextBlock VerticalAlignment="Center" Margin="10,0,0,0" Grid.Column="1" Text="{x:Static properties:Resources.Millimeters}" />
 				</Grid>
 				<TextBlock Text="{x:Static properties:Resources.August}"  />
 				<Grid ColumnDefinitions="*, Auto">
-					<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.August, Mode=TwoWay}" />
-					<TextBlock VerticalAlignment="Center" Margin="10,0,0,0" Grid.Column="1" Text="{x:Static properties:Resources.Millimeters}" />
-				</Grid>
+				<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.August, Mode=TwoWay}" />
+				<TextBlock VerticalAlignment="Center" Margin="10,0,0,0" Grid.Column="1" Text="{x:Static properties:Resources.Millimeters}" />
+			</Grid>
 				<TextBlock Text="{x:Static properties:Resources.September}"  />
 				<Grid ColumnDefinitions="*, Auto">
-					<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.September, Mode=TwoWay}" />
+				<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.September, Mode=TwoWay}" />
 					<TextBlock VerticalAlignment="Center" Margin="10,0,0,0" Grid.Column="1" Text="{x:Static properties:Resources.Millimeters}" />
 				</Grid>
 				<TextBlock Text="{x:Static properties:Resources.October}"  />
 				<Grid ColumnDefinitions="*, Auto">
-					<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.October, Mode=TwoWay}" />
-					<TextBlock VerticalAlignment="Center" Margin="10,0,0,0" Grid.Column="1" Text="{x:Static properties:Resources.Millimeters}" />
-				</Grid>
+				<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.October, Mode=TwoWay}" />
+				<TextBlock VerticalAlignment="Center" Margin="10,0,0,0" Grid.Column="1" Text="{x:Static properties:Resources.Millimeters}" />
+			</Grid>
 				<TextBlock Text="{x:Static properties:Resources.November}"  />
 				<Grid ColumnDefinitions="*, Auto">
-					<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.November, Mode=TwoWay}" />
+				<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.November, Mode=TwoWay}" />
 					<TextBlock VerticalAlignment="Center" Margin="10,0,0,0" Grid.Column="1" Text="{x:Static properties:Resources.Millimeters}" />
 				</Grid>
 				<TextBlock Text="{x:Static properties:Resources.December}"  />
 				<Grid ColumnDefinitions="*, Auto">
-					<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.December, Mode=TwoWay}" />
-					<TextBlock VerticalAlignment="Center" Margin="10,0,0,0" Grid.Column="1" Text="{x:Static properties:Resources.Millimeters}" />
-				</Grid>
+				<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.December, Mode=TwoWay}" />
+				<TextBlock VerticalAlignment="Center" Margin="10,0,0,0" Grid.Column="1" Text="{x:Static properties:Resources.Millimeters}" />
+			</Grid>
 			</StackPanel>
 		</ScrollViewer>
 		<lvc:CartesianChart Series="{Binding Series}"  XAxes="{Binding XAxes}" Grid.Row="1" Grid.Column="1" Margin="15" />

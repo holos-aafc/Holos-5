@@ -6,7 +6,6 @@ using H.Avalonia.ViewModels.Styles;
 using H.Core.Enumerations;
 using H.Core.Providers.Precipitation;
 using H.Core.Services.StorageService;
-using ImTools;
 using LiveChartsCore;
 using LiveChartsCore.SkiaSharpView;
 using Prism.Events;
@@ -14,7 +13,7 @@ using Prism.Regions;
 
 namespace H.Avalonia.ViewModels.OptionsViews
 {
-    public class OptionPrecipitationViewModel : ViewModelBase
+    public class PrecipitationSettingsViewModel : ViewModelBase
     {
         #region Fields
 
@@ -26,11 +25,11 @@ namespace H.Avalonia.ViewModels.OptionsViews
         #endregion
 
         #region Constructors
-        public OptionPrecipitationViewModel()
+        public PrecipitationSettingsViewModel()
         { 
 
         }
-        public OptionPrecipitationViewModel(IRegionManager regionManager, IEventAggregator eventAggregator, IStorageService storageService) : base(regionManager, eventAggregator, storageService)
+        public PrecipitationSettingsViewModel(IRegionManager regionManager, IEventAggregator eventAggregator, IStorageService storageService) : base(regionManager, eventAggregator, storageService)
         {
             _series = new ISeries[]
 {
@@ -105,22 +104,13 @@ namespace H.Avalonia.ViewModels.OptionsViews
                 values.Add(Math.Round(this.Data.PrecipitationData.GetValueByMonth(month), 2));
             }
 
-            if (base.IsInitialized && !this.Series.IsNullOrEmpty() && this.Series[0] is ColumnSeries<double> columnSeries)
+            var columnSeries = new ColumnSeries<double>
             {
-                columnSeries.Values = values;
-            }
+                Fill = _barChartsStyles.SetColumnSeriesFill(),
+                Values = values,
+            };
 
-            else
-            {
-                this.Series = new ISeries[]
-                {
-                        new ColumnSeries<double>
-                        {
-                            Fill = _barChartsStyles.SetColumnSeriesFill(),
-                            Values = values,
-                        }
-                };
-            }
+            this.Series = new ISeries[] { columnSeries };
         }
 
         #endregion

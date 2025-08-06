@@ -84,20 +84,32 @@
     <Compile Update="Views\ComponentViews\MyComponentsView.axaml.cs">
       <DependentUpon>MyComponentsView.axaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\OptionsViews\OptionFarmView.axaml.cs">
+    <Compile Update="Views\OptionsViews\EvapotranspirationSettingsView.axaml.cs">
+      <DependentUpon>EvapotranspirationSettingsView.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\OptionsViews\FarmSettingsView.axaml.cs">
       <DependentUpon>OptionFarmView.axaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\OptionsViews\OptionSoilN2OBreakdownView.axaml.cs">
-      <DependentUpon>OptionSoilN2OBreakdownView.axaml</DependentUpon>
+    <Compile Update="Views\OptionsViews\UserSettingsView.axaml.cs">
+      <DependentUpon>UserSettingsView.axaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\OptionsViews\OptionBarnTemperatureView.axaml.cs">
-      <DependentUpon>OptionBarnTemperatureView.axaml</DependentUpon>
+    <Compile Update="Views\OptionsViews\TemperatureSettingsView.axaml.cs">
+      <DependentUpon>TemperatureSettingsView.axaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\OptionsViews\OptionFarmView.axaml.cs">
-      <DependentUpon>OptionFarmView.axaml</DependentUpon>
+    <Compile Update="Views\OptionsViews\PrecipitationSettingsView.axaml.cs">
+      <DependentUpon>PrecipitationSettingsView.axaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\OptionsViews\OptionSoilView.axaml.cs">
-      <DependentUpon>OptionSoilView.axaml</DependentUpon>
+    <Compile Update="Views\OptionsViews\SoilN2OBreakdownSettingsView.axaml.cs">
+      <DependentUpon>SoilN2OBreakdownSettingsView.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\OptionsViews\BarnTemperatureSettingsView.axaml.cs">
+      <DependentUpon>BarnTemperatureSettingsView.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\OptionsViews\FarmSettingsView.axaml.cs">
+      <DependentUpon>FarmSettingsView.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\OptionsViews\SoilSettingsView.axaml.cs">
+      <DependentUpon>SoilSettingsView.axaml</DependentUpon>
     </Compile>
     <Compile Update="Views\ResultViews\ClimateResultsView.axaml.cs">
       <DependentUpon>ClimateResultsView.axaml</DependentUpon>

@@ -8,7 +8,7 @@ using Prism.Regions;
 
 namespace H.Avalonia.ViewModels.OptionsViews
 {
-    public class OptionSoilViewModel : ViewModelBase
+    public class SoilSettingsViewModel : ViewModelBase
     {
         #region Fields
 
@@ -17,8 +17,8 @@ namespace H.Avalonia.ViewModels.OptionsViews
         #endregion
 
         #region Constructors
-        public OptionSoilViewModel() { }
-        public OptionSoilViewModel(IStorageService storageService) : base(storageService)
+        public SoilSettingsViewModel() { }
+        public SoilSettingsViewModel(IStorageService storageService) : base(storageService)
         {
 
         }

@@ -1,41 +1,49 @@
-﻿using H.Core.Models;
+﻿
+using System;
 using System.ComponentModel;
+using H.Core.Models;
 using H.Core.Services.StorageService;
 using Prism.Regions;
-using H.Avalonia.ViewModels.OptionsViews.DataTransferObjects;
 
 namespace H.Avalonia.ViewModels.OptionsViews
 {
-    public class OptionSoilN2OBreakdownViewModel : ViewModelBase
+    public class UserSettingsViewModel : ViewModelBase
     {
         #region Fields
-        private SoilN2OBreakdownDTO _data;
+
+        private UserSettingsDTO _data;
+
         #endregion
 
         #region Constructors
-        public OptionSoilN2OBreakdownViewModel() { }
-        public OptionSoilN2OBreakdownViewModel(IStorageService storageService) : base(storageService)
+
+        public UserSettingsViewModel() { }
+
+        public UserSettingsViewModel(IStorageService storageService) : base(storageService)
         {
 
         }
+
         #endregion
 
         #region Properties
-        public SoilN2OBreakdownDTO Data
+
+        public UserSettingsDTO Data
         {
             get => _data;
             set => SetProperty(ref _data, value);
-        } 
+        }
+
         #endregion
 
-        #region Public Methods
+        #region Public Methods 
 
         public override void OnNavigatedTo(NavigationContext navigationContext)
         {
-            if (!IsInitialized)
+            if (!base.IsInitialized)
             {
-                Data = Data = new SoilN2OBreakdownDTO(StorageService);
-                IsInitialized = true;
+                Data = new UserSettingsDTO(base.StorageService);
+                base.IsInitialized = true;
             }
         }
 

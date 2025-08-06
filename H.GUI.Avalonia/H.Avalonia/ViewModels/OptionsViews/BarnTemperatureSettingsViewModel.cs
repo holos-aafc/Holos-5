@@ -15,12 +15,10 @@ using System.ComponentModel;
 using Prism.Events;
 using H.Core.Services;
 using H.Avalonia.ViewModels.Styles;
-using Avalonia.Metadata;
-using ImTools;
 
 namespace H.Avalonia.ViewModels.OptionsViews
 {
-    public class OptionTemperatureViewModel : ViewModelBase
+    public class BarnTemperatureSettingsViewModel : ViewModelBase
     {
         #region Fields
 
@@ -33,18 +31,18 @@ namespace H.Avalonia.ViewModels.OptionsViews
 
         #region Constructors
 
-        public OptionTemperatureViewModel()
+        public BarnTemperatureSettingsViewModel()
         {
 
         }
 
-        public OptionTemperatureViewModel(IRegionManager regionManager, IEventAggregator eventAggregator, IStorageService storageService) : base(regionManager, eventAggregator, storageService)
+        public BarnTemperatureSettingsViewModel(IRegionManager regionManager, IEventAggregator eventAggregator, IStorageService storageService) : base(regionManager, eventAggregator, storageService)
         {
             _series = new ISeries[]
             {
                 new ColumnSeries<double>
                 {
-                    Fill = _barChartsStyles.SetColumnSeriesFill(), 
+                    Fill = _barChartsStyles.SetColumnSeriesFill(),
                     Values = new ObservableCollection<double>()
                 }
             };
@@ -54,7 +52,7 @@ namespace H.Avalonia.ViewModels.OptionsViews
                 _barChartsStyles.SetAxisStyling(name: H.Core.Properties.Resources.Months, labels: Enum.GetNames(typeof(Months)))
             };
 
-            this.InitializeBindingTemperatureData();
+            this.InitializeBindingBarnTemperatureData();
             base.IsInitialized = true;
         }
 
@@ -67,6 +65,7 @@ namespace H.Avalonia.ViewModels.OptionsViews
             get => _data;
             set => SetProperty(ref _data, value);
         }
+
         public ISeries[] Series
         {
             get => _series;
@@ -83,17 +82,17 @@ namespace H.Avalonia.ViewModels.OptionsViews
 
         #region Public Methods
 
-        private void InitializeBindingTemperatureData()
+        private void InitializeBindingBarnTemperatureData()
         {
-            if (base.ActiveFarm.ClimateData.TemperatureData != null)
+            if (ActiveFarm.ClimateData.BarnTemperatureData != null)
             {
-                this.Data = base.ActiveFarm.ClimateData.TemperatureData; // sharing references here
+                this.Data = base.ActiveFarm.ClimateData.BarnTemperatureData;
                 this.Data.PropertyChanged -= DataOnPropertyChanged;
                 this.Data.PropertyChanged += DataOnPropertyChanged;
             }
             else
             {
-                throw new ArgumentNullException(nameof(base.ActiveFarm.ClimateData.TemperatureData));
+                throw new ArgumentNullException(nameof(base.ActiveFarm.ClimateData.BarnTemperatureData));
             }
             this.BuildChart();
         }
@@ -102,7 +101,7 @@ namespace H.Avalonia.ViewModels.OptionsViews
         {
             if (!base.IsInitialized)
             {
-                this.InitializeBindingTemperatureData();
+                this.InitializeBindingBarnTemperatureData();
                 base.IsInitialized = true;
             }
         }
@@ -119,22 +118,13 @@ namespace H.Avalonia.ViewModels.OptionsViews
                 values.Add(Math.Round(this.Data.GetValueByMonth(month), 2));
             }
 
-            if (base.IsInitialized && !this.Series.IsNullOrEmpty() && this.Series[0] is ColumnSeries<double> columnSeries)
+            var columnSeries = new ColumnSeries<double>
             {
-                columnSeries.Values = values;
-            }
+                Fill = _barChartsStyles.SetColumnSeriesFill(),
+                Values = values,
+            };
 
-            else
-            {
-                this.Series = new ISeries[]
-                {
-                        new ColumnSeries<double>
-                        {
-                            Fill = _barChartsStyles.SetColumnSeriesFill(),
-                            Values = values,
-                        }
-                };
-            }
+            this.Series = new ISeries[] { columnSeries };
         }
 
         #endregion

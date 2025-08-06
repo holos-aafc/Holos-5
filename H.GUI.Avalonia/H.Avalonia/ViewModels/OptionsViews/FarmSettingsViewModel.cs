@@ -7,7 +7,7 @@ using System.ComponentModel;
 
 namespace H.Avalonia.ViewModels.OptionsViews
 {
-    public class OptionFarmViewModel : ViewModelBase
+    public class FarmSettingsViewModel : ViewModelBase
     {
         #region Fields
 
@@ -18,8 +18,8 @@ namespace H.Avalonia.ViewModels.OptionsViews
         #endregion
 
         #region Constructors
-        public OptionFarmViewModel() { }
-        public OptionFarmViewModel(IStorageService storageService) : base(storageService)
+        public FarmSettingsViewModel() { }
+        public FarmSettingsViewModel(IStorageService storageService) : base(storageService)
         {
             _measurementSystemTypes = new ObservableCollection<MeasurementSystemType>() { MeasurementSystemType.Metric, MeasurementSystemType.Imperial };
         }

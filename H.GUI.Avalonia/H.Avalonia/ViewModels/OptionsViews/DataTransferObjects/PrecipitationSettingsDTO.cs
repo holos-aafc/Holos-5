@@ -11,7 +11,7 @@ using Prism.Events;
 
 namespace H.Avalonia.ViewModels.OptionsViews
 {
-    public class PrecipitationDTO : ViewModelBase
+    public class PrecipitationSettingsDTO : ViewModelBase
     {
         #region Fields
 
@@ -20,7 +20,7 @@ namespace H.Avalonia.ViewModels.OptionsViews
         #endregion
 
         #region Constructors
-        public PrecipitationDTO(IStorageService storageService) : base(storageService)
+        public PrecipitationSettingsDTO(IStorageService storageService) : base(storageService)
         {
             this.InitializePrecipitationData();
         }

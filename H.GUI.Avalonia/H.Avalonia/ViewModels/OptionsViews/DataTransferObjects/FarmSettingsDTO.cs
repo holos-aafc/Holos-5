@@ -10,7 +10,7 @@ using Mapsui.Extensions;
 
 namespace H.Avalonia.ViewModels.OptionsViews
 {
-    public class FarmDTO : ViewModelBase
+    public class FarmSettingsDTO : ViewModelBase
     {
         #region Fields
         private string _coordinates;
@@ -21,7 +21,7 @@ namespace H.Avalonia.ViewModels.OptionsViews
         #endregion
 
         #region Constructors
-        public FarmDTO(IStorageService storageService) : base(storageService)
+        public FarmSettingsDTO(IStorageService storageService) : base(storageService)
         {
             Coordinates = $"{ActiveFarm.Latitude}, {ActiveFarm.Longitude}";
             _isBasicMode = ActiveFarm.IsBasicMode;

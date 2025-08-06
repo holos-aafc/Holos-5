@@ -1,6 +1,7 @@
 
-﻿using System.Collections.ObjectModel;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
+using H.Avalonia.ViewModels.OptionsViews.DataTransferObjects;
 using H.Core.Enumerations;
 using H.Core.Models;
 using H.Core.Services.StorageService;
@@ -12,7 +13,7 @@ namespace H.Avalonia.ViewModels.OptionsViews
     {
         #region Fields
 
-        SoilDisplayViewModel _data;
+        SoilSettingsDTO _data;
 
         #endregion
 
@@ -25,7 +26,7 @@ namespace H.Avalonia.ViewModels.OptionsViews
         #endregion
 
         #region Properties
-        public SoilDisplayViewModel Data 
+        public SoilSettingsDTO Data 
         {
             get => _data;
             set => SetProperty(ref _data, value);
@@ -38,7 +39,7 @@ namespace H.Avalonia.ViewModels.OptionsViews
         {
             if (!IsInitialized)
             {
-                Data = new SoilDisplayViewModel(StorageService);
+                Data = new SoilSettingsDTO(StorageService);
                 IsInitialized = true;
             }
         }

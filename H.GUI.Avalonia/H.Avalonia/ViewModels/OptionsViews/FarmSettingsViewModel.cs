@@ -13,7 +13,7 @@ namespace H.Avalonia.ViewModels.OptionsViews
 
         private ObservableCollection<MeasurementSystemType> _measurementSystemTypes;
         private MeasurementSystemType _selectedMeasurementType;
-        private FarmDTO _data;
+        private FarmSettingsDTO _data;
 
         #endregion
 
@@ -28,7 +28,7 @@ namespace H.Avalonia.ViewModels.OptionsViews
 
         #region Properties
 
-        public FarmDTO Data
+        public FarmSettingsDTO Data
         {
             get => _data;
             set => SetProperty(ref _data, value);
@@ -65,7 +65,7 @@ namespace H.Avalonia.ViewModels.OptionsViews
         {
             if (!IsInitialized)
             {
-                Data = new FarmDTO(StorageService);
+                Data = new FarmSettingsDTO(StorageService);
                 SelectedMeasurementSystem = StorageService.GetActiveFarm().MeasurementSystemType;
                 IsInitialized = true;
             }

@@ -6,16 +6,16 @@ using H.Core.Providers.Soil;
 using H.Core.Services.StorageService;
 using Mapsui.Extensions;
 
-namespace H.Avalonia.ViewModels.OptionsViews
+namespace H.Avalonia.ViewModels.OptionsViews.DataTransferObjects
 {
-    public class SoilDisplayViewModel : ViewModelBase
+    public class SoilSettingsDTO : ViewModelBase
     {
         #region Fields        
         private SoilData _bindingSoilData = new SoilData();
         #endregion
 
         #region Constructors
-        public SoilDisplayViewModel(IStorageService storageService) : base(storageService) 
+        public SoilSettingsDTO(IStorageService storageService) : base(storageService)
         {
             ManageData();
         }
@@ -34,7 +34,7 @@ namespace H.Avalonia.ViewModels.OptionsViews
             get => BindingSoilData.BulkDensity;
             set
             {
-               ValidateNonNegative(value, nameof(BulkDensity));
+                ValidateNonNegative(value, nameof(BulkDensity));
                 if (HasErrors)
                 {
                     return;
@@ -150,7 +150,7 @@ namespace H.Avalonia.ViewModels.OptionsViews
         //Validate that the value is not negative
         public void ValidateNonNegative(double value, string propertyName)
         {
-            if(value < 0)
+            if (value < 0)
             {
                 AddError(propertyName, H.Core.Properties.Resources.ErrorMustBeGreaterThan0);
             }
@@ -179,7 +179,7 @@ namespace H.Avalonia.ViewModels.OptionsViews
 
             //Populate the soil texture collection
             SoilTextures = new ObservableCollection<SoilTexture>();
-            var soilTextures = SoilTexture.GetValues(typeof(SoilTexture));
+            var soilTextures = Enum.GetValues(typeof(SoilTexture));
             foreach (SoilTexture soilTexture in soilTextures)
             {
                 if (!SoilTextures.Contains(soilTexture))

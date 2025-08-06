@@ -20,7 +20,7 @@ namespace H.Avalonia.ViewModels.OptionsViews
         private ISeries[] _series;
         private Axis[] _xAxes;
         private BarChartStyles _barChartsStyles = new BarChartStyles();
-        private PrecipitationDTO _data;
+        private PrecipitationSettingsDTO _data;
 
         #endregion
 
@@ -52,7 +52,7 @@ namespace H.Avalonia.ViewModels.OptionsViews
 
         #region Properties
 
-        public PrecipitationDTO Data
+        public PrecipitationSettingsDTO Data
         {
             get => _data;
             set => SetProperty(ref  _data, value);
@@ -76,7 +76,7 @@ namespace H.Avalonia.ViewModels.OptionsViews
 
         public void InitializeData()
         {
-            this.Data = new PrecipitationDTO(base.StorageService);
+            this.Data = new PrecipitationSettingsDTO(base.StorageService);
             this.Data.PropertyChanged -= this.DataOnPropertyChanged;
             this.Data.PropertyChanged += this.DataOnPropertyChanged;
             this.BuildChart();

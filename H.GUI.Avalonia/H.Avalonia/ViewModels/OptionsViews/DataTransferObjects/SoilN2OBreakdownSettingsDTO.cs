@@ -9,11 +9,11 @@ using ExCSS;
 
 namespace H.Avalonia.ViewModels.OptionsViews.DataTransferObjects
 {
-    public class SoilN2OBreakdownDTO : ViewModelBase
+    public class SoilN2OBreakdownSettingsDTO : ViewModelBase
     {
  
         #region Constructors
-        public SoilN2OBreakdownDTO(IStorageService storageService) : base(storageService)
+        public SoilN2OBreakdownSettingsDTO(IStorageService storageService) : base(storageService)
         {          
         }
         #endregion

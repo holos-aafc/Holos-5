@@ -9,7 +9,7 @@ namespace H.Avalonia.ViewModels.OptionsViews
     public class SoilN2OBreakdownSettingsViewModel : ViewModelBase
     {
         #region Fields
-        private SoilN2OBreakdownDTO _data;
+        private SoilN2OBreakdownSettingsDTO _data;
         #endregion
 
         #region Constructors
@@ -21,7 +21,7 @@ namespace H.Avalonia.ViewModels.OptionsViews
         #endregion
 
         #region Properties
-        public SoilN2OBreakdownDTO Data
+        public SoilN2OBreakdownSettingsDTO Data
         {
             get => _data;
             set => SetProperty(ref _data, value);
@@ -34,7 +34,7 @@ namespace H.Avalonia.ViewModels.OptionsViews
         {
             if (!IsInitialized)
             {
-                Data = Data = new SoilN2OBreakdownDTO(StorageService);
+                Data = Data = new SoilN2OBreakdownSettingsDTO(StorageService);
                 IsInitialized = true;
             }
         }

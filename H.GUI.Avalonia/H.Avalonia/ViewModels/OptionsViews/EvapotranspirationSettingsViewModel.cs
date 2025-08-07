@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using H.Avalonia.ViewModels.Styles;
 using H.Core.Enumerations;
 using H.Core.Providers.Evapotranspiration;
+using H.Core.Providers.Temperature;
 using H.Core.Services.StorageService;
 using LiveChartsCore;
 using LiveChartsCore.SkiaSharpView;
@@ -15,39 +16,19 @@ using Prism.Regions;
 
 namespace H.Avalonia.ViewModels.OptionsViews
 {
-    public class EvapotranspirationSettingsViewModel : ViewModelBase
+    public class EvapotranspirationSettingsViewModel : ChartBaseViewModel<EvapotranspirationData>
     {
         #region Fields
 
         private EvapotranspirationData _data = new EvapotranspirationData();
-        private ISeries[] _series;
-        private Axis[] _xAxes;
-        private BarChartStyles _barChartsStyles = new BarChartStyles();
 
         #endregion
 
         #region Constructors
 
-        public EvapotranspirationSettingsViewModel()
-        {
-        }
         public EvapotranspirationSettingsViewModel(IRegionManager regionManager, IEventAggregator eventAggregator, IStorageService storageService) : base(regionManager, eventAggregator, storageService)
         {
-            _series = new ISeries[]
-            {
-                new ColumnSeries<double>
-                {
-                    Fill = _barChartsStyles.SetColumnSeriesFill(),
-                    Values = new ObservableCollection<double>()
-                }
-            };
-
-            _xAxes = new Axis[]
-            {
-                _barChartsStyles.SetAxisStyling(name: H.Core.Properties.Resources.Months, labels: Enum.GetNames(typeof(Months)))
-            };
-
-            this.InitializeBindingEvapotranspirationData();
+            this.InitializeData();
             base.IsInitialized = true;
         }
 
@@ -61,23 +42,26 @@ namespace H.Avalonia.ViewModels.OptionsViews
             set => SetProperty(ref _data, value);
         }
 
-        public ISeries[] Series
-        {
-            get => _series;
-            set => SetProperty(ref _series, value);
-        }
-
-        public Axis[] XAxes
-        {
-            get => _xAxes;
-            set => SetProperty(ref _xAxes, value);
-        }
+        protected override EvapotranspirationData ChartValuesSource => Data;
 
         #endregion
 
         #region Public Methods
 
-        public void InitializeBindingEvapotranspirationData()
+        public override void OnNavigatedTo(NavigationContext navigationContext)
+        {
+            if (!base.IsInitialized)
+            {
+                this.InitializeData();
+                base.IsInitialized = true;
+            }
+        }
+
+        #endregion
+
+        #region Protected Methods
+
+        protected override void InitializeData()
         {
             if (base.ActiveFarm.ClimateData.EvapotranspirationData != null)
             {
@@ -89,39 +73,7 @@ namespace H.Avalonia.ViewModels.OptionsViews
             {
                 throw new ArgumentNullException(nameof(base.ActiveFarm.ClimateData.EvapotranspirationData));
             }
-            this.BuildChart();
-        }
-
-        public override void OnNavigatedTo(NavigationContext navigationContext)
-        {
-            if (!base.IsInitialized)
-            {
-                this.InitializeBindingEvapotranspirationData();
-                base.IsInitialized = true;
-            }
-        }
-
-        #endregion
-
-        #region Private Methods
-
-        private void BuildChart()
-        {
-            var values = new ObservableCollection<double> { };
-            foreach (Months month in Enum.GetValues(typeof(Months)))
-            {
-                {
-                    values.Add(Math.Round(this.Data.GetValueByMonth(month), 2));
-                };
-            }
-
-            var columnSeries = new ColumnSeries<double>
-            {
-                Fill = _barChartsStyles.SetColumnSeriesFill(),
-                Values = values,
-            };
-
-            this.Series = new ISeries[] { columnSeries };
+            base.BuildChart();
         }
 
         #endregion
@@ -132,7 +84,7 @@ namespace H.Avalonia.ViewModels.OptionsViews
         {
             if (sender is EvapotranspirationData)
             {
-                this.BuildChart();
+                base.BuildChart();
             }
         }
 

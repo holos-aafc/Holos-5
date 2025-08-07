@@ -4,6 +4,7 @@ using System.ComponentModel;
 using DynamicData.Binding;
 using H.Avalonia.ViewModels.Styles;
 using H.Core.Enumerations;
+using H.Core.Providers.Evapotranspiration;
 using H.Core.Providers.Precipitation;
 using H.Core.Services.StorageService;
 using LiveChartsCore;
@@ -13,41 +14,22 @@ using Prism.Regions;
 
 namespace H.Avalonia.ViewModels.OptionsViews
 {
-    public class PrecipitationSettingsViewModel : ViewModelBase
+    public class PrecipitationSettingsViewModel : ChartBaseViewModel<PrecipitationData>
     {
         #region Fields
 
-        private ISeries[] _series;
-        private Axis[] _xAxes;
-        private BarChartStyles _barChartsStyles = new BarChartStyles();
         private PrecipitationSettingsDTO _data;
 
         #endregion
 
         #region Constructors
-        public PrecipitationSettingsViewModel()
-        { 
 
-        }
         public PrecipitationSettingsViewModel(IRegionManager regionManager, IEventAggregator eventAggregator, IStorageService storageService) : base(regionManager, eventAggregator, storageService)
         {
-            _series = new ISeries[]
-{
-                new ColumnSeries<double>
-                {
-                    Fill = _barChartsStyles.SetColumnSeriesFill(),
-                    Values = new ObservableCollection<double>()
-                }
-};
-
-            _xAxes = new Axis[]
-            {
-                _barChartsStyles.SetAxisStyling(name: H.Core.Properties.Resources.Months, labels: Enum.GetNames(typeof(Months)))
-            };
-
             this.InitializeData();     
             base.IsInitialized = true;
         }
+
         #endregion
 
         #region Properties
@@ -58,29 +40,11 @@ namespace H.Avalonia.ViewModels.OptionsViews
             set => SetProperty(ref  _data, value);
         }
 
-        public ISeries[] Series
-        {
-            get => _series;
-            set => SetProperty(ref _series, value);
-        }
-
-        public Axis[] XAxes
-        {
-            get => _xAxes;
-            set => SetProperty(ref _xAxes, value);
-        }
+        protected override PrecipitationData ChartValuesSource => Data.PrecipitationData;
 
         #endregion
 
         #region Public Methods
-
-        public void InitializeData()
-        {
-            this.Data = new PrecipitationSettingsDTO(base.StorageService);
-            this.Data.PropertyChanged -= this.DataOnPropertyChanged;
-            this.Data.PropertyChanged += this.DataOnPropertyChanged;
-            this.BuildChart();
-        }
 
         public override void OnNavigatedTo(NavigationContext navigationContext)
         {
@@ -93,24 +57,14 @@ namespace H.Avalonia.ViewModels.OptionsViews
 
         #endregion
 
+        #region Protected Methods
 
-        #region Private Methods
-
-        private void BuildChart()
+        protected override void InitializeData()
         {
-            var values = new ObservableCollection<double>();
-            foreach (Months month in Enum.GetValues(typeof(Months)))
-            {
-                values.Add(Math.Round(this.Data.PrecipitationData.GetValueByMonth(month), 2));
-            }
-
-            var columnSeries = new ColumnSeries<double>
-            {
-                Fill = _barChartsStyles.SetColumnSeriesFill(),
-                Values = values,
-            };
-
-            this.Series = new ISeries[] { columnSeries };
+            this.Data = new PrecipitationSettingsDTO(base.StorageService);
+            this.Data.PropertyChanged -= this.DataOnPropertyChanged;
+            this.Data.PropertyChanged += this.DataOnPropertyChanged;
+            base.BuildChart();
         }
 
         #endregion
@@ -119,7 +73,7 @@ namespace H.Avalonia.ViewModels.OptionsViews
 
         private void DataOnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            this.BuildChart();
+            base.BuildChart();
         }
 
         #endregion

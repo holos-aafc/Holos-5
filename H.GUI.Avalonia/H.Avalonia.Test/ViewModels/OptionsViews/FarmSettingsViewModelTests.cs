@@ -16,7 +16,7 @@ using H.Core;
 namespace H.Avalonia.ViewModels.OptionsViews.Tests
 {
     [TestClass]
-    public class OptionFarmViewModelTests
+    public class FarmSettingsViewModelTests
     {
         private FarmSettingsViewModel _viewModel;
         private Mock<IRegionManager> _mockRegionManager;
@@ -25,6 +25,7 @@ namespace H.Avalonia.ViewModels.OptionsViews.Tests
         private IStorageService _storageServiceMock;
         private Mock<IStorage> _mockStorage;
         private IStorage _storageMock;
+        private ApplicationData _applicationData;
 
         [ClassCleanup]
         public static void ClassCleanup()
@@ -38,6 +39,10 @@ namespace H.Avalonia.ViewModels.OptionsViews.Tests
             _storageServiceMock = _mockStorageService.Object;
             _mockStorage = new Mock<IStorage>();
             _storageMock = _mockStorage.Object;
+
+            _applicationData = new ApplicationData() { GlobalSettings = new GlobalSettings() };
+            _mockStorage.Setup(x => x.ApplicationData).Returns(_applicationData);
+            _mockStorageService.Setup(x => x.Storage).Returns(_storageMock);
         }
 
         [TestCleanup]
@@ -48,6 +53,7 @@ namespace H.Avalonia.ViewModels.OptionsViews.Tests
         [TestMethod]
         public void TestConstructorInitializingProperties()
         {
+            var testMeasurementCollection = new ObservableCollection<MeasurementSystemType>() { MeasurementSystemType.Metric, MeasurementSystemType.Imperial };
             var testFarm = new Farm();
             testFarm.Name = "TestFarm";
             testFarm.Comments = "Test Comments";
@@ -56,10 +62,9 @@ namespace H.Avalonia.ViewModels.OptionsViews.Tests
             testFarm.ClimateData.PrecipitationData.GrowingSeasonPrecipitation = 50.66;
             testFarm.ClimateData.EvapotranspirationData.GrowingSeasonEvapotranspiration = 125.27;
             testFarm.MeasurementSystemType = MeasurementSystemType.Metric;
-            var testMeasurementCollection = new ObservableCollection<MeasurementSystemType>() { MeasurementSystemType.Metric, MeasurementSystemType.Imperial };
             _mockStorageService.Setup(x => x.GetActiveFarm()).Returns(testFarm);
 
-            _viewModel = new FarmSettingsViewModel(_storageServiceMock);
+            _viewModel = new FarmSettingsViewModel(_storageServiceMock); 
 
             Assert.AreEqual(testFarm.Name, _viewModel.Data.FarmName);
             Assert.AreEqual(testFarm.Comments, _viewModel.Data.FarmComments);
@@ -77,13 +82,9 @@ namespace H.Avalonia.ViewModels.OptionsViews.Tests
             var testFarm = new Farm();
             testFarm.MeasurementSystemType = MeasurementSystemType.Metric;
             testFarm.MeasurementSystemSelected = true;
-            var applicationDataInstance = new ApplicationData() { DisplayUnitStrings = new DisplayUnitStrings() };
-            
-            _mockStorage.Setup(x => x.ApplicationData).Returns(applicationDataInstance);
-            _mockStorageService.Setup(x => x.Storage).Returns(_storageMock);
             _mockStorageService.Setup(x => x.GetActiveFarm()).Returns(testFarm);
-            _viewModel = new FarmSettingsViewModel(_storageServiceMock);
 
+            _viewModel = new FarmSettingsViewModel(_storageServiceMock);
             _viewModel.SelectedMeasurementSystem = MeasurementSystemType.Imperial;
 
             Assert.AreEqual(testFarm.MeasurementSystemType, MeasurementSystemType.Imperial);
@@ -96,13 +97,9 @@ namespace H.Avalonia.ViewModels.OptionsViews.Tests
             var testFarm = new Farm();
             testFarm.MeasurementSystemType = MeasurementSystemType.Imperial;
             testFarm.MeasurementSystemSelected = true;
-            var applicationDataInstance = new ApplicationData() { DisplayUnitStrings = new DisplayUnitStrings() };
-
-            _mockStorage.Setup(x => x.ApplicationData).Returns(applicationDataInstance);
-            _mockStorageService.Setup(x => x.Storage).Returns(_storageMock);
             _mockStorageService.Setup(x => x.GetActiveFarm()).Returns(testFarm);
-            _viewModel = new FarmSettingsViewModel(_storageServiceMock);
 
+            _viewModel = new FarmSettingsViewModel(_storageServiceMock);
             _viewModel.SelectedMeasurementSystem = MeasurementSystemType.Metric;
 
             Assert.AreEqual(testFarm.MeasurementSystemType, MeasurementSystemType.Metric);

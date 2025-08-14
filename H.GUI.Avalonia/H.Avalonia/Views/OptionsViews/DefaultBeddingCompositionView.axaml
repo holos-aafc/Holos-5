@@ -12,7 +12,7 @@
 		</Grid.RowDefinitions>
 		<TextBlock Text="{x:Static properties:Resources.MessageDefaultBeddingComposition}" Padding="40, 15" Margin="0 0 0 20" Background="#3C4DBB" Foreground="WhiteSmoke" Grid.Row="0"/>
 
-		<DataGrid ItemsSource="{Binding Path=BeddingCompositionDataViewModels}" AutoGenerateColumns="False" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Grid.Row="1">
+		<DataGrid ItemsSource="{Binding Path=BeddingCompositionDTOs}" AutoGenerateColumns="False" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Grid.Row="1">
 			<DataGrid.Columns>
 				<DataGridTextColumn Header="{x:Static properties:Resources.LabelComponentCategory}" Binding="{Binding Path=ComponentCategoryString}"/>
 				<DataGridTextColumn Header="{x:Static properties:Resources.LabelBeddingTypeColumn}" Binding="{Binding Path=BeddingMaterialString}"/>

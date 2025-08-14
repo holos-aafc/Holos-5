@@ -6,9 +6,9 @@ using H.Core.Enumerations;
 namespace H.Avalonia.ViewModels.OptionsViews.Tests
 {
     [TestClass]
-    public class DefaultBeddingCompositionDataViewModelTests
+    public class DefaultBeddingCompositionDTOTests
     {
-        private DefaultBeddingCompositionDataViewModel _viewModel;
+        private DefaultBeddingCompositionDTO _viewModel;
         private Mock<IUnitsOfMeasurementCalculator> _mockUnitsCalculator;
         private IUnitsOfMeasurementCalculator _unitsCalculatorMock;
 
@@ -39,7 +39,7 @@ namespace H.Avalonia.ViewModels.OptionsViews.Tests
         {
             _mockUnitsCalculator.Setup(x => x.IsMetric).Returns(true);
             var testDataClassInstance = new Table_30_Default_Bedding_Material_Composition_Data();
-            _viewModel = new DefaultBeddingCompositionDataViewModel(testDataClassInstance, _unitsCalculatorMock);
+            _viewModel = new DefaultBeddingCompositionDTO(testDataClassInstance, _unitsCalculatorMock);
             _viewModel.SetInitializationFlag(false);
 
             _viewModel.TotalNitrogenKilogramsDryMatter = 0.005;
@@ -57,7 +57,7 @@ namespace H.Avalonia.ViewModels.OptionsViews.Tests
             _mockUnitsCalculator.Setup(x => x.GetUnitsOfMeasurementValue(MeasurementSystemType.Metric, ImperialUnitsOfMeasurement.Pounds, 10)).Returns(4.535147);
             _mockUnitsCalculator.Setup(x => x.GetUnitsOfMeasurementValue(MeasurementSystemType.Imperial, MetricUnitsOfMeasurement.Kilograms, 4.535147)).Returns(10);
             var testDataClassInstance = new Table_30_Default_Bedding_Material_Composition_Data();
-            _viewModel = new DefaultBeddingCompositionDataViewModel(testDataClassInstance, _unitsCalculatorMock);
+            _viewModel = new DefaultBeddingCompositionDTO(testDataClassInstance, _unitsCalculatorMock);
             _viewModel.SetInitializationFlag(false);
 
             _viewModel.TotalNitrogenKilogramsDryMatter = 10;
@@ -73,7 +73,7 @@ namespace H.Avalonia.ViewModels.OptionsViews.Tests
         {
             _mockUnitsCalculator.Setup(x => x.IsMetric).Returns(true);
             var testDataClassInstance = new Table_30_Default_Bedding_Material_Composition_Data();
-            _viewModel = new DefaultBeddingCompositionDataViewModel(testDataClassInstance, _unitsCalculatorMock);
+            _viewModel = new DefaultBeddingCompositionDTO(testDataClassInstance, _unitsCalculatorMock);
             _viewModel.SetInitializationFlag(true);
 
             _viewModel.TotalNitrogenKilogramsDryMatter = 7.5;
@@ -89,7 +89,7 @@ namespace H.Avalonia.ViewModels.OptionsViews.Tests
             _mockUnitsCalculator.Setup(x => x.IsMetric).Returns(false);
             _mockUnitsCalculator.Setup(x => x.GetUnitsOfMeasurementValue(MeasurementSystemType.Imperial, MetricUnitsOfMeasurement.Kilograms, 0.375)).Returns(0.8269);
             var testDataClassInstance = new Table_30_Default_Bedding_Material_Composition_Data();
-            _viewModel = new DefaultBeddingCompositionDataViewModel(testDataClassInstance, _unitsCalculatorMock);
+            _viewModel = new DefaultBeddingCompositionDTO(testDataClassInstance, _unitsCalculatorMock);
             _viewModel.SetInitializationFlag(true);
 
             _viewModel.TotalNitrogenKilogramsDryMatter = 0.375;
@@ -107,7 +107,7 @@ namespace H.Avalonia.ViewModels.OptionsViews.Tests
         {
             _mockUnitsCalculator.Setup(x => x.IsMetric).Returns(true);
             var testDataClassInstance = new Table_30_Default_Bedding_Material_Composition_Data();
-            _viewModel = new DefaultBeddingCompositionDataViewModel(testDataClassInstance, _unitsCalculatorMock);
+            _viewModel = new DefaultBeddingCompositionDTO(testDataClassInstance, _unitsCalculatorMock);
             // Initially set a property to a valid value
             _viewModel.TotalPhosphorusKilogramsDryMatter = 2;
             Assert.IsTrue(!_viewModel.HasErrors);
@@ -127,7 +127,7 @@ namespace H.Avalonia.ViewModels.OptionsViews.Tests
         {
             _mockUnitsCalculator.Setup(x => x.IsMetric).Returns(true);
             var testDataClassInstance = new Table_30_Default_Bedding_Material_Composition_Data();
-            _viewModel = new DefaultBeddingCompositionDataViewModel(testDataClassInstance, _unitsCalculatorMock);
+            _viewModel = new DefaultBeddingCompositionDTO(testDataClassInstance, _unitsCalculatorMock);
 
             _viewModel.TotalPhosphorusKilogramsDryMatter = 0;
             Assert.IsTrue(!_viewModel.HasErrors);
@@ -141,7 +141,7 @@ namespace H.Avalonia.ViewModels.OptionsViews.Tests
         {
             _mockUnitsCalculator.Setup(x => x.IsMetric).Returns(true);
             var testDataClassInstance = new Table_30_Default_Bedding_Material_Composition_Data();
-            _viewModel = new DefaultBeddingCompositionDataViewModel(testDataClassInstance, _unitsCalculatorMock);
+            _viewModel = new DefaultBeddingCompositionDTO(testDataClassInstance, _unitsCalculatorMock);
 
             _viewModel.TotalPhosphorusKilogramsDryMatter = 12;
             Assert.IsTrue(!_viewModel.HasErrors);

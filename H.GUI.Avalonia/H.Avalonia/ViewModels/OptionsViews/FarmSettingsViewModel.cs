@@ -22,6 +22,8 @@ namespace H.Avalonia.ViewModels.OptionsViews
         public FarmSettingsViewModel(IStorageService storageService) : base(storageService)
         {
             _measurementSystemTypes = new ObservableCollection<MeasurementSystemType>() { MeasurementSystemType.Metric, MeasurementSystemType.Imperial };
+            this.Initialize();
+            base.IsInitialized = true;
         }
 
         #endregion
@@ -46,12 +48,11 @@ namespace H.Avalonia.ViewModels.OptionsViews
             {
                 if (SetProperty(ref _selectedMeasurementType, value))
                 {
-                    if (IsInitialized && MeasurementSystemTypes.Contains(value)) 
+                    if (base.IsInitialized && MeasurementSystemTypes.Contains(value)) 
                     {
-                        var activeFarm = StorageService.GetActiveFarm();
-                        activeFarm.MeasurementSystemType = value;
-                        activeFarm.MeasurementSystemSelected = true;
-                        StorageService.Storage.ApplicationData.DisplayUnitStrings.SetStrings(StorageService.GetActiveFarm().MeasurementSystemType);
+                        base.ActiveFarm.MeasurementSystemType = value;
+                        base.ActiveFarm.MeasurementSystemSelected = true;
+                        base.StorageService.Storage.ApplicationData.DisplayUnitStrings.SetStrings(base.ActiveFarm.MeasurementSystemType);
                     }
                 }
             }
@@ -61,13 +62,18 @@ namespace H.Avalonia.ViewModels.OptionsViews
 
         #region Public Methods
 
+        public void Initialize()
+        {
+            this.Data = new FarmSettingsDTO(StorageService);
+            this.SelectedMeasurementSystem = StorageService.GetActiveFarm().MeasurementSystemType;
+        }
+
         public override void OnNavigatedTo(NavigationContext navigationContext)
         {
             if (!IsInitialized)
             {
-                Data = new FarmSettingsDTO(StorageService);
-                SelectedMeasurementSystem = StorageService.GetActiveFarm().MeasurementSystemType;
-                IsInitialized = true;
+                this.Initialize();
+                base.IsInitialized = true;
             }
         }
 

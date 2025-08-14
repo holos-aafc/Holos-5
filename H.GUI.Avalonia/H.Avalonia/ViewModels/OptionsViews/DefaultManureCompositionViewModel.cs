@@ -12,7 +12,7 @@ namespace H.Avalonia.ViewModels.OptionsViews
     {
         #region Fields
 
-        private ObservableCollection<DefaultManureCompositionDTO> _defaultManureCompositionDataViewModels;
+        private ObservableCollection<DefaultManureCompositionDTO> _defaultManureDTOs;
         private string _nitrogenFractionHeader;
         private string _carbonFractionHeader;
         private string _phosphorusFractionHeader;
@@ -27,17 +27,19 @@ namespace H.Avalonia.ViewModels.OptionsViews
             IEventAggregator eventAggregator,
             IStorageService storageService) : base(regionManager, eventAggregator, storageService)
         {
-            DefaultManureCompositionDataViewModels = new ObservableCollection<DefaultManureCompositionDTO>();
+            this.DefaultManureDTOs = new ObservableCollection<DefaultManureCompositionDTO>();
+            this.Initialize();
+            base.IsInitialized = true;
         }
          
         #endregion
 
         #region Properties
 
-        public ObservableCollection<DefaultManureCompositionDTO> DefaultManureCompositionDataViewModels
+        public ObservableCollection<DefaultManureCompositionDTO> DefaultManureDTOs
         {
-            get => _defaultManureCompositionDataViewModels;
-            set => SetProperty(ref _defaultManureCompositionDataViewModels, value);
+            get => _defaultManureDTOs;
+            set => SetProperty(ref _defaultManureDTOs, value);
         }
 
         public string NitrogenFractionHeader
@@ -68,26 +70,31 @@ namespace H.Avalonia.ViewModels.OptionsViews
 
         #region Public Methods
 
+        public void Initialize()
+        {
+            foreach (var dataClassInstance in base.ActiveFarm.DefaultManureCompositionData)
+            {
+                var dto = new DefaultManureCompositionDTO(dataClassInstance);
+                dto.SetSuppressValidationFlag(true);
+                dto.MoistureContent = dataClassInstance.MoistureContent;
+                dto.NitrogenFraction = dataClassInstance.NitrogenFraction;
+                dto.CarbonFraction = dataClassInstance.CarbonFraction;
+                dto.PhosphorusFraction = dataClassInstance.PhosphorusFraction;
+                dto.CarbonToNitrogenRatio = dataClassInstance.CarbonToNitrogenRatio;
+                dto.SetSuppressValidationFlag(false);
+                this.DefaultManureDTOs.Add(dto);
+            }
+        }
+
         public override void OnNavigatedTo(NavigationContext navigationContext)
         {
             SetStrings();
 
             if (!IsInitialized)
             {
-                DefaultManureCompositionDataViewModels.Clear();
-                foreach (var dataClassInstance in base.ActiveFarm.DefaultManureCompositionData)
-                {
-                    var dataClassViewModel = new DefaultManureCompositionDTO(dataClassInstance);
-                    dataClassViewModel.SetSuppressValidationFlag(true);
-                    dataClassViewModel.MoistureContent = dataClassInstance.MoistureContent;
-                    dataClassViewModel.NitrogenFraction = dataClassInstance.NitrogenFraction;
-                    dataClassViewModel.CarbonFraction = dataClassInstance.CarbonFraction;
-                    dataClassViewModel.PhosphorusFraction = dataClassInstance.PhosphorusFraction;
-                    dataClassViewModel.CarbonToNitrogenRatio = dataClassInstance.CarbonToNitrogenRatio;
-                    dataClassViewModel.SetSuppressValidationFlag(false);
-                    DefaultManureCompositionDataViewModels.Add(dataClassViewModel);
-                }
-                IsInitialized = true;
+                DefaultManureDTOs.Clear();
+                this.Initialize();
+                base.IsInitialized = true;
             }
         }
 

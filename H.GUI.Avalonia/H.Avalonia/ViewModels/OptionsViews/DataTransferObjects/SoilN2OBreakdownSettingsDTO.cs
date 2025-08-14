@@ -1,197 +1,233 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Mapsui.Extensions;
 using H.Core.Services.StorageService;
 using ExCSS;
+using H.Core;
+using H.Core.Enumerations;
+using Avalonia.Controls.Notifications;
 
 namespace H.Avalonia.ViewModels.OptionsViews.DataTransferObjects
 {
     public class SoilN2OBreakdownSettingsDTO : ViewModelBase
     {
- 
+        #region Fields
+
+        private MonthlyValueBase<double> _monthlyValues = new MonthlyValueBase<double>();
+
+        #endregion
+
         #region Constructors
         public SoilN2OBreakdownSettingsDTO(IStorageService storageService) : base(storageService)
-        {          
+        {
+            this.InitializeSoilN2OBreakdownSettings();
+            MonthlyValues.PropertyChanged += ValidateTotalLessThan100;
         }
         #endregion
 
         #region Properties
+
         ///Wrapper properties for validating and setting values
+
+        public MonthlyValueBase<double> MonthlyValues
+        {
+            get => _monthlyValues;
+            set => SetProperty(ref _monthlyValues, value);
+        }
+
         public double January
         {
-            get => ActiveFarm.AnnualSoilN2OBreakdown.January;
+            get => this.MonthlyValues.January;
             set
             {
                 ValidatePercentage(value, nameof(January));
                 if (HasErrors)
-                    {
-                        return;
-                    }
-                     ActiveFarm.AnnualSoilN2OBreakdown.January = value;
-                    RaisePropertyChanged(nameof(January));
+                {
+                    return;
+                }
+                this.MonthlyValues.January = value;
+                RaisePropertyChanged(nameof(January));
             }
         }
         public double February
         {
-            get => ActiveFarm.AnnualSoilN2OBreakdown.February;
+            get => this.MonthlyValues.February;
             set
             {
                 ValidatePercentage(value, nameof(February));
                 if (HasErrors)
-                    {
-                        return;
-                    }
-                    ActiveFarm.AnnualSoilN2OBreakdown.February = value;
-                    RaisePropertyChanged(nameof(February));
+                {
+                    return;
+                }
+                this.MonthlyValues.February = value;
+                RaisePropertyChanged(nameof(February));
             }
         }
         public double March
         {
-            get => ActiveFarm.AnnualSoilN2OBreakdown.March;
+            get => this.MonthlyValues.March;
             set
             {
                 ValidatePercentage(value, nameof(March));
                 if (HasErrors)
-                    {
-                        return;
-                    }
-                    ActiveFarm.AnnualSoilN2OBreakdown.March = value;
-                    RaisePropertyChanged(nameof(March));
+                {
+                    return;
+                }
+                this.MonthlyValues.March = value;
+                RaisePropertyChanged(nameof(March));
             }
         }
         public double April
         {
-            get => ActiveFarm.AnnualSoilN2OBreakdown.April;
+            get => this.MonthlyValues.April;
             set
             {
 
                 ValidatePercentage(value, nameof(April));
                 if (HasErrors)
-                    {
-                        return;
-                    }
-                    ActiveFarm.AnnualSoilN2OBreakdown.April = value;
-                   RaisePropertyChanged(nameof(April));
+                {
+                    return;
+                }
+                this.MonthlyValues.April = value;
+                RaisePropertyChanged(nameof(April));
             }
         }
         public double May
         {
-            get => ActiveFarm.AnnualSoilN2OBreakdown.May;
+            get => this.MonthlyValues.May;
             set
             {
                 ValidatePercentage(value, nameof(May));
                 if (HasErrors)
-                    {
-                        return;
-                    }
-                    ActiveFarm.AnnualSoilN2OBreakdown.May = value;
-                    RaisePropertyChanged(nameof(May));
+                {
+                    return;
+                }
+                this.MonthlyValues.May = value;
+                RaisePropertyChanged(nameof(May));
             }
         }
         public double June
         {
-            get => ActiveFarm.AnnualSoilN2OBreakdown.June;
+            get => this.MonthlyValues.June;
             set
             {
                 ValidatePercentage(value, nameof(June));
                 if (HasErrors)
-                    {
-                        return;
-                    }
-                   ActiveFarm.AnnualSoilN2OBreakdown.June = value;
-                   RaisePropertyChanged(nameof(June));
+                {
+                    return;
+                }
+                this.MonthlyValues.June = value;
+                RaisePropertyChanged(nameof(June));
             }
         }
         public double July
         {
-            get => ActiveFarm.AnnualSoilN2OBreakdown.July;
+            get => this.MonthlyValues.July;
             set
             {
                 ValidatePercentage(value, nameof(July));
                 if (HasErrors)
-                    {
-                        return;
-                    }
-                    ActiveFarm.AnnualSoilN2OBreakdown.July = value;
+                {
+                    return;
+                }
+                this.MonthlyValues.July = value;
+                RaisePropertyChanged(nameof(July));
             }
         }
         public double August
         {
-            get => ActiveFarm.AnnualSoilN2OBreakdown.August;
+            get => this.MonthlyValues.August;
             set
             {
                 ValidatePercentage(value, nameof(August));
                 if (HasErrors)
-                    {
-                        return;
-                    }
-                    ActiveFarm.AnnualSoilN2OBreakdown.August = value;
-                    RaisePropertyChanged(nameof(August));
+                {
+                    return;
+                }
+                this.MonthlyValues.August = value;
+                RaisePropertyChanged(nameof(August));
 
             }
         }
         public double September
         {
-            get => ActiveFarm.AnnualSoilN2OBreakdown.September;
+            get => this.MonthlyValues.September;
             set
             {
                 ValidatePercentage(value, nameof(September));
                 if (HasErrors)
-                    {
-                        return;
-                    }
-                    ActiveFarm.AnnualSoilN2OBreakdown.September = value;
-                    RaisePropertyChanged(nameof(September));
+                {
+                    return;
+                }
+                this.MonthlyValues.September = value;
+                RaisePropertyChanged(nameof(September));
 
             }
         }
         public double October
         {
-            get => ActiveFarm.AnnualSoilN2OBreakdown.October;
+            get => this.MonthlyValues.October;
             set
             {
                 ValidatePercentage(value, nameof(October));
                 if (HasErrors)
-                    {
-                        return;
-                    }
-                     ActiveFarm.AnnualSoilN2OBreakdown.October = value;
-                    RaisePropertyChanged(nameof(October));
+                {
+                    return;
+                }
+                this.MonthlyValues.October = value;
+                RaisePropertyChanged(nameof(October));
 
             }
         }
         public double November
         {
-            get => ActiveFarm.AnnualSoilN2OBreakdown.November;
+            get => this.MonthlyValues.November;
             set
             {
                 ValidatePercentage(value, nameof(November));
                 if (HasErrors)
-                    {
-                        return;
-                    }
-                    ActiveFarm.AnnualSoilN2OBreakdown.November = value;
-                    RaisePropertyChanged(nameof(November));
+                {
+                    return;
+                }
+                this.MonthlyValues.November = value;
+                RaisePropertyChanged(nameof(November));
             }
         }
         public double December
         {
-            get => ActiveFarm.AnnualSoilN2OBreakdown.December;
+            get => this.MonthlyValues.December;
             set
             {
                 ValidatePercentage(value, nameof(December));
-                    if (HasErrors)
-                    {
-                        return;
-                    }
-                    ActiveFarm.AnnualSoilN2OBreakdown.December = value;
-                    RaisePropertyChanged(nameof(December));
+                if (HasErrors)
+                {
+                    return;
+                }
+                this.MonthlyValues.December = value;
+                RaisePropertyChanged(nameof(December));
 
             }
         }
+        #endregion
+
+        #region Private Methods
+
+        private void InitializeSoilN2OBreakdownSettings()
+        {
+            if (ActiveFarm.AnnualSoilN2OBreakdown != null)
+            {
+                this.MonthlyValues = ActiveFarm.AnnualSoilN2OBreakdown;
+            }
+            else
+            {
+                throw new ArgumentNullException(nameof(base.ActiveFarm.AnnualSoilN2OBreakdown));
+            }
+        }
+
         #endregion
 
         #region Methods
@@ -205,6 +241,34 @@ namespace H.Avalonia.ViewModels.OptionsViews.DataTransferObjects
             else
             {
                 RemoveError(propertyName);
+            }
+        }
+
+        private void ValidateTotalLessThan100(object sender, PropertyChangedEventArgs e)
+        {
+            double total = 0;
+
+            foreach (Months month in Enum.GetValues(typeof(Months)))
+            {
+                total = this.MonthlyValues.GetValueByMonth(month);
+            }
+            if (total > 100.00)
+            {
+                NotificationManager?.Show(new Notification(H.Core.Properties.Resources.ErrorError,
+                    "Total values cannot be greater than 100%",
+                    type: NotificationType.Warning,
+                    expiration: TimeSpan.FromSeconds(10)));
+            }
+            else if(total < 100)
+            {
+                NotificationManager?.Show(new Notification(H.Core.Properties.Resources.ErrorError,
+                    "Total values cannot be less than 100%",
+                    type: NotificationType.Error,
+                    expiration: TimeSpan.FromSeconds(10)));
+            }
+            else
+            {
+                RemoveError(e.PropertyName);
             }
         }
         #endregion

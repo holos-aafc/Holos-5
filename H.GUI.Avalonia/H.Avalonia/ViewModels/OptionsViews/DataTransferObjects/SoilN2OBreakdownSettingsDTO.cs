@@ -44,7 +44,6 @@ namespace H.Avalonia.ViewModels.OptionsViews.DataTransferObjects
             get => this.MonthlyValues.January;
             set
             {
-                ValidatePercentage(value, nameof(January));
                 if (HasErrors)
                 {
                     return;
@@ -58,7 +57,6 @@ namespace H.Avalonia.ViewModels.OptionsViews.DataTransferObjects
             get => this.MonthlyValues.February;
             set
             {
-                ValidatePercentage(value, nameof(February));
                 if (HasErrors)
                 {
                     return;
@@ -72,7 +70,6 @@ namespace H.Avalonia.ViewModels.OptionsViews.DataTransferObjects
             get => this.MonthlyValues.March;
             set
             {
-                ValidatePercentage(value, nameof(March));
                 if (HasErrors)
                 {
                     return;
@@ -86,8 +83,6 @@ namespace H.Avalonia.ViewModels.OptionsViews.DataTransferObjects
             get => this.MonthlyValues.April;
             set
             {
-
-                ValidatePercentage(value, nameof(April));
                 if (HasErrors)
                 {
                     return;
@@ -101,7 +96,6 @@ namespace H.Avalonia.ViewModels.OptionsViews.DataTransferObjects
             get => this.MonthlyValues.May;
             set
             {
-                ValidatePercentage(value, nameof(May));
                 if (HasErrors)
                 {
                     return;
@@ -115,7 +109,6 @@ namespace H.Avalonia.ViewModels.OptionsViews.DataTransferObjects
             get => this.MonthlyValues.June;
             set
             {
-                ValidatePercentage(value, nameof(June));
                 if (HasErrors)
                 {
                     return;
@@ -129,7 +122,6 @@ namespace H.Avalonia.ViewModels.OptionsViews.DataTransferObjects
             get => this.MonthlyValues.July;
             set
             {
-                ValidatePercentage(value, nameof(July));
                 if (HasErrors)
                 {
                     return;
@@ -143,7 +135,6 @@ namespace H.Avalonia.ViewModels.OptionsViews.DataTransferObjects
             get => this.MonthlyValues.August;
             set
             {
-                ValidatePercentage(value, nameof(August));
                 if (HasErrors)
                 {
                     return;
@@ -158,7 +149,6 @@ namespace H.Avalonia.ViewModels.OptionsViews.DataTransferObjects
             get => this.MonthlyValues.September;
             set
             {
-                ValidatePercentage(value, nameof(September));
                 if (HasErrors)
                 {
                     return;
@@ -173,7 +163,6 @@ namespace H.Avalonia.ViewModels.OptionsViews.DataTransferObjects
             get => this.MonthlyValues.October;
             set
             {
-                ValidatePercentage(value, nameof(October));
                 if (HasErrors)
                 {
                     return;
@@ -188,7 +177,6 @@ namespace H.Avalonia.ViewModels.OptionsViews.DataTransferObjects
             get => this.MonthlyValues.November;
             set
             {
-                ValidatePercentage(value, nameof(November));
                 if (HasErrors)
                 {
                     return;
@@ -202,7 +190,6 @@ namespace H.Avalonia.ViewModels.OptionsViews.DataTransferObjects
             get => this.MonthlyValues.December;
             set
             {
-                ValidatePercentage(value, nameof(December));
                 if (HasErrors)
                 {
                     return;
@@ -231,18 +218,6 @@ namespace H.Avalonia.ViewModels.OptionsViews.DataTransferObjects
         #endregion
 
         #region Methods
-        ///Validation methods
-        private void ValidatePercentage(double value, string propertyName)
-        {
-            if (value < 0.00 || value > 100.00)
-            {
-                AddError(propertyName, H.Core.Properties.Resources.ErrorMustBeBetween0And100);
-            }
-            else
-            {
-                RemoveError(propertyName);
-            }
-        }
 
         private void ValidateTotalLessThan100(object sender, PropertyChangedEventArgs e)
         {
@@ -250,7 +225,7 @@ namespace H.Avalonia.ViewModels.OptionsViews.DataTransferObjects
 
             foreach (Months month in Enum.GetValues(typeof(Months)))
             {
-                total = this.MonthlyValues.GetValueByMonth(month);
+                total += this.MonthlyValues.GetValueByMonth(month);
             }
             if (total > 100.00)
             {

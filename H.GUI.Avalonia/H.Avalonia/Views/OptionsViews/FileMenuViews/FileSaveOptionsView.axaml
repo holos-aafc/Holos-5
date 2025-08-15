@@ -5,17 +5,30 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="H.Avalonia.FileSaveOptionsView">
 
-	<StackPanel VerticalAlignment="Center">
-		<StackPanel HorizontalAlignment="Center">
-			<TextBlock Text="Save Holos" Margin="0,0,0,10" HorizontalAlignment="Center" FontWeight="Bold" FontSize="20" Foreground="#696969"/>
+	<Grid VerticalAlignment="Center" MaxWidth="450">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+		</Grid.RowDefinitions>
+		
+		<StackPanel Grid.Row="0" HorizontalAlignment="Center">
+			<TextBlock Text="Save Holos" Margin="0,0,0,10" HorizontalAlignment="Center" FontWeight="Bold" FontSize="24" Foreground="#696969"/>
+			<TextBlock Text="Save changes made to the current farm." FontStyle="Italic" FontWeight="SemiBold" TextWrapping="Wrap" HorizontalAlignment="Center" TextAlignment="Center" Margin="50,0,50,10" FontSize="14" Foreground="#696969"/>
 			<Button Command="{Binding Path=SaveCommand}" HorizontalAlignment="Center" Margin="0,10,0,20" Content="Save"></Button>
 			<Border BorderBrush="#EDEDED" BorderThickness="0,0,0,2" Margin="0,15,0,15" Width="450" />
 		</StackPanel>
 		
-		<StackPanel HorizontalAlignment="Center">
-			<TextBlock Text="Save As" HorizontalAlignment="Center" Margin="0,20,0,10" FontWeight="Bold" FontSize="20" Foreground="#696969"/>
-			<TextBox Text="{Binding Path=NewFarmName}" Watermark="New farm name" Margin="0 10 0 0" Foreground="#696969" BorderBrush="#EDEDED" BorderThickness="2" FontWeight="SemiBold"/>
-			<Button Command="{Binding Path=SaveAsCommand}" Margin="0,10,0,10" Content="Save"></Button>
+		<StackPanel Grid.Row="1" HorizontalAlignment="Center">
+			<TextBlock Text="Save As" HorizontalAlignment="Center" TextAlignment="Center" Margin="0,20,0,10" FontWeight="Bold" FontSize="24" Foreground="#696969"/>
+			<TextBlock Text="Create a copy of the current farm with a new name." FontStyle="Italic" FontWeight="SemiBold" TextWrapping="Wrap" TextAlignment="Center" Margin="50,0,50,10" FontSize="14" Foreground="#696969"/>
+			<Grid Margin="25 10 25 25" MaxWidth="400">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="*"/> 
+					<ColumnDefinition Width="Auto"/>
+				</Grid.ColumnDefinitions>
+				<TextBox Grid.Column="0" Text="{Binding Path=NewFarmName}" Margin="0 0 5 0" Watermark="New farm name" VerticalContentAlignment="Center" Foreground="#696969" BorderBrush="#EDEDED" BorderThickness="2" FontWeight="SemiBold"/>
+				<Button Grid.Column="1" Command="{Binding Path=SaveAsCommand}" Margin="5 0 0 0" HorizontalAlignment="Center" Content="Save"></Button>
+			</Grid>
 		</StackPanel>
-	</StackPanel>
+	</Grid>
 </UserControl>

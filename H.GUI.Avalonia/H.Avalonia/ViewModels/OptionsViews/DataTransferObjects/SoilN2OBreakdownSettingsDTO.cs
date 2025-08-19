@@ -10,6 +10,8 @@ using ExCSS;
 using H.Core;
 using H.Core.Enumerations;
 using Avalonia.Controls.Notifications;
+using Prism.Events;
+using Prism.Regions;
 
 namespace H.Avalonia.ViewModels.OptionsViews.DataTransferObjects
 {
@@ -236,10 +238,12 @@ namespace H.Avalonia.ViewModels.OptionsViews.DataTransferObjects
             }
             else if(total < 100)
             {
-                NotificationManager?.Show(new Notification(H.Core.Properties.Resources.ErrorError,
-                    "Total values cannot be less than 100%",
-                    type: NotificationType.Error,
-                    expiration: TimeSpan.FromSeconds(10)));
+                NotificationManager?.Show(new Notification(
+                    title: "N2O percentage total equals less than 100%.",
+                    message: "Holos is unable to delete the current farm when no other farms exist.",
+                    type: NotificationType.Warning,
+                    expiration: TimeSpan.FromSeconds(10))
+                    );
             }
             else
             {

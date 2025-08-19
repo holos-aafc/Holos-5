@@ -1,6 +1,7 @@
 
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
+using H.Core;
 using H.Core.Enumerations;
 using H.Core.Models;
 using H.Core.Services.StorageService;
@@ -20,7 +21,7 @@ namespace H.Avalonia.ViewModels.OptionsViews
         public OptionSoilViewModel() { }
         public OptionSoilViewModel(IStorageService storageService) : base(storageService)
         {
-
+            Data = new SoilDisplayViewModel(StorageService);
         }
         #endregion
 

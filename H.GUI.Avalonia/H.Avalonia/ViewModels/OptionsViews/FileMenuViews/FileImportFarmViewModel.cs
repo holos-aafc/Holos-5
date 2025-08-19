@@ -17,6 +17,10 @@ using Prism.Regions;
 
 namespace H.Avalonia.ViewModels.OptionsViews.FileMenuViews
 {
+    /// <summary>
+    /// ViewModel for importing farm data from exported JSON files.
+    /// Handles farm selection, validation, and importing multiple farms into the application.
+    /// </summary>
     public class FileImportFarmViewModel : ViewModelBase
     {
         #region Fields
@@ -28,6 +32,12 @@ namespace H.Avalonia.ViewModels.OptionsViews.FileMenuViews
         #endregion
 
         #region Constructors
+        /// <summary>
+        /// Initializes a new instance of the FileImportFarmViewModel.
+        /// Sets up the import command and initializes collections and properties.
+        /// </summary>
+        /// <param name="regionManager">Manager for handling navigation regions</param>
+        /// <param name="storageService">Service for farm data storage operations</param>
         public FileImportFarmViewModel(IRegionManager regionManager, IStorageService storageService) : base(regionManager, storageService)
         {
             ImportFarms = new DelegateCommand(OnImport);
@@ -38,13 +48,29 @@ namespace H.Avalonia.ViewModels.OptionsViews.FileMenuViews
         #endregion
 
         #region Properties
+        /// <summary>
+        /// Command to execute the farm import operation for selected farms.
+        /// </summary>
         public DelegateCommand ImportFarms { get; }
+
+        /// <summary>
+        /// Collection of farms loaded from export files that are available for import.
+        /// </summary>
         public ObservableCollection<H.Core.Models.Farm> Farms { get; set; }
+
+        /// <summary>
+        /// Gets or sets whether the farm selection grid should be displayed to the user.
+        /// </summary>
         public bool ShowGrid
         {
             get => _showGrid;
             set => SetProperty(ref _showGrid, value);
         }
+
+        /// <summary>
+        /// Gets or sets whether farms have been successfully imported.
+        /// Used to provide feedback to the user about the import status.
+        /// </summary>
         public bool IsFarmImported
         {
             get => _isFarmImported;
@@ -53,6 +79,11 @@ namespace H.Avalonia.ViewModels.OptionsViews.FileMenuViews
                 SetProperty(ref _isFarmImported, value);
             }
         }
+
+        /// <summary>
+        /// Gets or sets the list of farms selected by the user for import.
+        /// Automatically updates the CanImport property based on selection count.
+        /// </summary>
         public IList<H.Core.Models.Farm> SelectedFarms
         {
             get => _selectedFarms;
@@ -69,6 +100,11 @@ namespace H.Avalonia.ViewModels.OptionsViews.FileMenuViews
                 }
             }
         }
+
+        /// <summary>
+        /// Gets or sets whether the import operation can be performed.
+        /// Depends on having at least one farm selected.
+        /// </summary>
         public bool CanImport
         {
             get => _canImport;
@@ -77,6 +113,10 @@ namespace H.Avalonia.ViewModels.OptionsViews.FileMenuViews
         #endregion
 
         #region Event Handlers
+        /// <summary>
+        /// Handles the farm import operation when the ImportFarms command is executed.
+        /// Adds each selected farm to the storage service and displays success/error notifications.
+        /// </summary>
         private void OnImport()
         {
             try
@@ -108,6 +148,12 @@ namespace H.Avalonia.ViewModels.OptionsViews.FileMenuViews
             }
         }
 
+        /// <summary>
+        /// Asynchronously reads and deserializes farm data from a JSON export file.
+        /// Uses JSON.NET with TypeNameHandling.Auto to properly deserialize complex farm objects.
+        /// </summary>
+        /// <param name="filePath">Path to the JSON file containing exported farm data</param>
+        /// <returns>Collection of farms from the file, or empty collection if file is invalid or errors occur</returns>
         public async Task<IEnumerable<H.Core.Models.Farm>> GetFarmsFromExportFileAsync(string filePath)
         {
             if (string.IsNullOrWhiteSpace(filePath))
@@ -143,6 +189,13 @@ namespace H.Avalonia.ViewModels.OptionsViews.FileMenuViews
             }
         }
 
+        /// <summary>
+        /// Recursively scans a directory for JSON export files and extracts all farm data.
+        /// Searches for all .json files in the specified directory and subdirectories,
+        /// then processes each file to extract farm information.
+        /// </summary>
+        /// <param name="path">Root directory path to scan for export files</param>
+        /// <returns>Collection of all farms found in export files within the directory tree</returns>
         public async Task<IEnumerable<H.Core.Models.Farm>> GetExportedFarmsFromDirectoryRecursivelyAsync(string path)
         {
             var result = new List<H.Core.Models.Farm>();

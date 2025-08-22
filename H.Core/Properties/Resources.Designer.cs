@@ -14330,6 +14330,24 @@ namespace H.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to N2O percentage total equals more than 100%..
+        /// </summary>
+        public static string N2OPercentageGreaterThan100 {
+            get {
+                return ResourceManager.GetString("N2OPercentageGreaterThan100", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to N2O percentage total equals less than 100%..
+        /// </summary>
+        public static string N2OPercentageLessThan100 {
+            get {
+                return ResourceManager.GetString("N2OPercentageLessThan100", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Native Pasture.
         /// </summary>
         public static string NativePasture {
@@ -16126,6 +16144,15 @@ namespace H.Core.Properties {
         public static string SubhumidPrairies {
             get {
                 return ResourceManager.GetString("SubhumidPrairies", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Monthly N2O inputs currently add up to {0}%..
+        /// </summary>
+        public static string SumOfMonthlyN2OInputsPercent {
+            get {
+                return ResourceManager.GetString("SumOfMonthlyN2OInputsPercent", resourceCulture);
             }
         }
         

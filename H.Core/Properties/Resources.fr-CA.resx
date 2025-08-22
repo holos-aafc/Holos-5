@@ -5813,4 +5813,13 @@ Please note: emissions related to the deposition or application of livestock man
   <data name="ErrorNoDataForExport" xml:space="preserve">
     <value />
   </data>
+  <data name="N2OPercentageLessThan100" xml:space="preserve">
+    <value />
+  </data>
+  <data name="N2OPercentageGreaterThan100" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SumOfMonthlyN2OInputsPercent" xml:space="preserve">
+    <value />
+  </data>
 </root>

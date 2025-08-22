@@ -6291,4 +6291,13 @@ Please note: emissions related to the deposition or application of livestock man
   <data name="ErrorNoDataForExport" xml:space="preserve">
     <value>No data for export.</value>
   </data>
+  <data name="N2OPercentageLessThan100" xml:space="preserve">
+    <value>N2O percentage total equals less than 100%.</value>
+  </data>
+  <data name="N2OPercentageGreaterThan100" xml:space="preserve">
+    <value>N2O percentage total equals more than 100%.</value>
+  </data>
+  <data name="SumOfMonthlyN2OInputsPercent" xml:space="preserve">
+    <value>Monthly N2O inputs currently add up to {0}%.</value>
+  </data>
 </root>

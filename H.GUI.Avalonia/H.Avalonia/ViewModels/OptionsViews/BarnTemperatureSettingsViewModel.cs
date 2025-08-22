@@ -28,7 +28,7 @@ namespace H.Avalonia.ViewModels.OptionsViews
 
         #region Constructors
 
-        public BarnTemperatureSettingsViewModel(IRegionManager regionManager, IEventAggregator eventAggregator, IStorageService storageService) : base(regionManager, eventAggregator, storageService)
+        public BarnTemperatureSettingsViewModel(IStorageService storageService) : base(storageService)
         {
             this.InitializeData();
             base.IsInitialized = true;

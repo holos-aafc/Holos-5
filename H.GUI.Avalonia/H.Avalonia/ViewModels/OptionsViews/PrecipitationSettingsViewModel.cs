@@ -24,7 +24,7 @@ namespace H.Avalonia.ViewModels.OptionsViews
 
         #region Constructors
 
-        public PrecipitationSettingsViewModel(IRegionManager regionManager, IEventAggregator eventAggregator, IStorageService storageService) : base(regionManager, eventAggregator, storageService)
+        public PrecipitationSettingsViewModel(IStorageService storageService) : base(storageService)
         {
             this.InitializeData();     
             base.IsInitialized = true;

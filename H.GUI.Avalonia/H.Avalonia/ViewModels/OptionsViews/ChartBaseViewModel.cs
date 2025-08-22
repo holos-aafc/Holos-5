@@ -30,7 +30,7 @@ namespace H.Avalonia.ViewModels.OptionsViews
 
         #region Constructors
 
-        public ChartBaseViewModel(IRegionManager regionManager, IEventAggregator eventAggregator, IStorageService storageService) : base(regionManager, eventAggregator, storageService) 
+        public ChartBaseViewModel(IStorageService storageService) : base(storageService) 
         {
             _series = new ISeries[]
             {

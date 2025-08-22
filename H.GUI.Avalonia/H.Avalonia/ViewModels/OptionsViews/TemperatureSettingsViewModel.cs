@@ -30,7 +30,7 @@ namespace H.Avalonia.ViewModels.OptionsViews
 
         #region Constructors
 
-        public TemperatureSettingsViewModel(IRegionManager regionManager, IEventAggregator eventAggregator, IStorageService storageService) : base(regionManager, eventAggregator, storageService)
+        public TemperatureSettingsViewModel(IStorageService storageService) : base(storageService)
         {
             this.InitializeData();
             base.IsInitialized = true;

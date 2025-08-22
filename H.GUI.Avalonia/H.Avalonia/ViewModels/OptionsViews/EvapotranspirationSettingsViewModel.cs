@@ -26,7 +26,7 @@ namespace H.Avalonia.ViewModels.OptionsViews
 
         #region Constructors
 
-        public EvapotranspirationSettingsViewModel(IRegionManager regionManager, IEventAggregator eventAggregator, IStorageService storageService) : base(regionManager, eventAggregator, storageService)
+        public EvapotranspirationSettingsViewModel(IStorageService storageService) : base(storageService)
         {
             this.InitializeData();
             base.IsInitialized = true;

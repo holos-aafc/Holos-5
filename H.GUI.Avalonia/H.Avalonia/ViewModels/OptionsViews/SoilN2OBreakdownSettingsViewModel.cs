@@ -65,16 +65,16 @@ namespace H.Avalonia.ViewModels.OptionsViews
             }
             else if (total < 100)
             {
-                errorTitle = "N2O percentage total equals less than 100%.";
+                errorTitle = H.Core.Properties.Resources.N2OPercentageLessThan100;
 
             }
             else if (total > 100)
             {
-                errorTitle = "N2O percentage total equals more than 100%.";
+                errorTitle = H.Core.Properties.Resources.N2OPercentageGreaterThan100;
             }
             NotificationManager?.Show(new Notification(
                 title: errorTitle,
-                message: $"Values currently add up to {total}%.",
+                message: string.Format(H.Core.Properties.Resources.SumOfMonthlyN2OInputsPercent, total),
                 type: NotificationType.Warning,
                 expiration: TimeSpan.FromSeconds(10)));
         }

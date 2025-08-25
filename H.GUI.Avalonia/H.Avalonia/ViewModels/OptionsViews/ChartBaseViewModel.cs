@@ -66,7 +66,7 @@ namespace H.Avalonia.ViewModels.OptionsViews
         /// <summary>
         /// This property is used in <see cref="BuildChart()"/> it provides the underlying values for the Series.
         /// It is abstract so derived classes have to decide how to expose the correct data of type <see cref="MonthlyValueBase{Double}"/>.
-        /// This helps with compatibilty if a derived class's data comes from a DTO, instead of directly from a <see cref="MonthlyValueBase{Double}"/> subclass.
+        /// This helps with compatibility if a derived class's data comes from a DTO, instead of directly from a <see cref="MonthlyValueBase{Double}"/> subclass.
         /// </summary>
         protected abstract T ChartValuesSource { get; }
 

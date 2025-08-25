@@ -40,7 +40,7 @@ namespace H.Avalonia.ViewModels.OptionsViews.Tests
             _mockStorage = new Mock<IStorage>();
             _storageMock = _mockStorage.Object;
 
-            _applicationData = new ApplicationData() { GlobalSettings = new GlobalSettings() };
+            _applicationData = new ApplicationData();
             _mockStorage.Setup(x => x.ApplicationData).Returns(_applicationData);
             _mockStorageService.Setup(x => x.Storage).Returns(_storageMock);
         }

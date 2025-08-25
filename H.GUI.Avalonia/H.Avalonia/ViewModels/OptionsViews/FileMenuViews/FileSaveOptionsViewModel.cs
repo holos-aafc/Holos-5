@@ -73,11 +73,11 @@ namespace H.Avalonia.ViewModels.OptionsViews.FileMenuViews
 
             if (string.IsNullOrEmpty(farmName))
             {
-                base.AddError(propertyName, "Name cannot be empty.");
+                base.AddError(propertyName, H.Core.Properties.Resources.ErrorNameCannotBeEmpty);
             }
             else if (base.StorageService.Storage.ApplicationData.Farms.Any(x => x.Name == farmName))
             {
-                base.AddError(propertyName, "Farm name already in use.");
+                base.AddError(propertyName, H.Core.Properties.Resources.ErrorFarmNameInUse);
             }
         }
 
@@ -89,8 +89,8 @@ namespace H.Avalonia.ViewModels.OptionsViews.FileMenuViews
         {
             await base.StorageService.Storage.SaveAsync();
             NotificationManager?.Show(new Notification(
-                title: "Save Success",
-                message: "Holos saved successfully.",
+                title: H.Core.Properties.Resources.ToastTitleSaveSuccess,
+                message: H.Core.Properties.Resources.ToastMessageSavedSuccessfully,
                 type: NotificationType.Success,
                 expiration: TimeSpan.FromSeconds(10))
             );
@@ -116,8 +116,8 @@ namespace H.Avalonia.ViewModels.OptionsViews.FileMenuViews
             this.NewFarmName = string.Empty;
             _runValidationFlag = true;
             NotificationManager?.Show(new Notification(
-                title: "Save Success",
-                message: "Holos saved successfully.",
+                title: H.Core.Properties.Resources.ToastTitleSaveSuccess,
+                message: H.Core.Properties.Resources.ToastMessageSavedSuccessfully,
                 type: NotificationType.Success,
                 expiration: TimeSpan.FromSeconds(10))
             );

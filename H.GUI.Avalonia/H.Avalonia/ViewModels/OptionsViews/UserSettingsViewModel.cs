@@ -21,7 +21,8 @@ namespace H.Avalonia.ViewModels.OptionsViews
 
         public UserSettingsViewModel(IStorageService storageService) : base(storageService)
         {
-
+            this.Initialize();
+            base.IsInitialized = true;
         }
 
         #endregion
@@ -38,11 +39,16 @@ namespace H.Avalonia.ViewModels.OptionsViews
 
         #region Public Methods 
 
+        public void Initialize()
+        {
+            Data = new UserSettingsDTO(base.StorageService);
+        }
+
         public override void OnNavigatedTo(NavigationContext navigationContext)
         {
             if (!base.IsInitialized)
             {
-                Data = new UserSettingsDTO(base.StorageService);
+                this.Initialize();
                 base.IsInitialized = true;
             }
         }

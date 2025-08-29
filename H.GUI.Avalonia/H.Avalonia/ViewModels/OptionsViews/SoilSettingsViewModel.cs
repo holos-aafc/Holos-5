@@ -21,7 +21,7 @@ namespace H.Avalonia.ViewModels.OptionsViews
         public SoilSettingsViewModel() { }
         public SoilSettingsViewModel(IStorageService storageService) : base(storageService)
         {
-            Data = new SoilDisplayViewModel(StorageService);
+            Data = new SoilSettingsDTO(StorageService);
         }
         #endregion
 

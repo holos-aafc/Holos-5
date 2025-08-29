@@ -130,7 +130,6 @@ namespace H.Avalonia.ViewModels.OptionsViews.FileMenuViews
                    type: NotificationType.Error,
                    expiration: TimeSpan.FromSeconds(10))
                 );
-                return;
             }
         }
         #endregion

@@ -30,14 +30,14 @@ public partial class FileImportFarmView : UserControl
     }
     private async void OnSelectFarmOption_Clicked(object sender, RoutedEventArgs args)
     {
-        // Get top level from the current control. Alternatively, you can use Window reference instead.
+        // Get top level from the current control.
         var topLevel = TopLevel.GetTopLevel(this);
         if (topLevel != null)
         {
             // Start async operation to open the dialog.
             var files = await topLevel.StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
             {
-                Title = "Select Farm File",
+                Title = H.Core.Properties.Resources.TitleSelectFarmFile,
                 AllowMultiple = false,
                 SuggestedStartLocation = await topLevel.StorageProvider.TryGetWellKnownFolderAsync(WellKnownFolder.Documents),
                 FileTypeFilter = new FilePickerFileType[]
@@ -71,14 +71,14 @@ public partial class FileImportFarmView : UserControl
 
     private async void OnSelectFolderOption_Clicked(object sender, RoutedEventArgs args)
     {
-        // Get top level from the current control. Alternatively, you can use Window reference instead.
+        // Get top level from the current control.
         var topLevel = TopLevel.GetTopLevel(this);
         if (topLevel != null)
         {
             // Start async operation to open the dialog.
             var folder = await topLevel.StorageProvider.OpenFolderPickerAsync(new FolderPickerOpenOptions
             {
-                Title = "Select Farm Folder",
+                Title = H.Core.Properties.Resources.TitleSelectFarmFolder,
                 AllowMultiple = false,
                 SuggestedStartLocation = await topLevel.StorageProvider.TryGetWellKnownFolderAsync(WellKnownFolder.Documents)
             });

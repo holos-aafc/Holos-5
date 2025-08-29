@@ -42,7 +42,7 @@ public partial class FileExportFarmView : UserControl
                 string fileName = string.Join(",", vm.SelectedFarms.Select(farm => farm.Name));
                 var file = await topLevel.StorageProvider.SaveFilePickerAsync(new FilePickerSaveOptions
                 {
-                    Title = "Export Farm(s)",
+                    Title = H.Core.Properties.Resources.TitleExportFarm,
                     SuggestedStartLocation = await topLevel.StorageProvider.TryGetWellKnownFolderAsync(WellKnownFolder.Documents),
                     FileTypeChoices = new FilePickerFileType[]
                     {

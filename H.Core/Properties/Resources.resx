@@ -6291,4 +6291,16 @@ Please note: emissions related to the deposition or application of livestock man
   <data name="ErrorNoDataForExport" xml:space="preserve">
     <value>No data for export.</value>
   </data>
+  <data name="TitleExportFarm" xml:space="preserve">
+    <value>Export Farm(s)</value>
+  </data>
+  <data name="TitleSelectFarmFile" xml:space="preserve">
+    <value>Select Farm File</value>
+  </data>
+  <data name="TitleExportClimate" xml:space="preserve">
+    <value>Export Climate</value>
+  </data>
+  <data name="TitleSelectFarmFolder" xml:space="preserve">
+    <value>Select Farm Folder</value>
+  </data>
 </root>

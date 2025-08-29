@@ -35,13 +35,12 @@ public partial class FileExportClimateView : UserControl
             {
                 vm.NotificationManager = new WindowNotificationManager(topLevel);
                 vm.SelectedFarms = vm.SelectedFarms.OrderBy(obj => obj.Name).ToList();
-                //string fileName = string.Join(",", vm.SelectedFarms.Select(farm => farm.Name));
                 foreach (H.Core.Models.Farm farm in vm.SelectedFarms)
                 {
                     string fileName = $"{farm.Name} - Climate Data";
                     var file = await topLevel.StorageProvider.SaveFilePickerAsync(new FilePickerSaveOptions
                     {
-                        Title = "Export Climate",
+                        Title = H.Core.Properties.Resources.TitleExportClimate,
                         SuggestedStartLocation = await topLevel.StorageProvider.TryGetWellKnownFolderAsync(WellKnownFolder.Documents),
                         FileTypeChoices = new FilePickerFileType[]
                     {
@@ -63,24 +62,7 @@ public partial class FileExportClimateView : UserControl
                         vm.ExportClimate.Execute(data);
                     }
                 }
-                //var file = await topLevel.StorageProvider.SaveFilePickerAsync(new FilePickerSaveOptions
-                //{
-                //    Title = "Export Climate",
-                //    SuggestedStartLocation = await topLevel.StorageProvider.TryGetWellKnownFolderAsync(WellKnownFolder.Documents),
-                //    FileTypeChoices = new FilePickerFileType[]
-                //    {
-                //        new("Holos Climate Export | *.csv")
-                //        {
-                //            Patterns = new[] { "*.csv" }
-                //        }
-                //    },
-                //    SuggestedFileName = fileName,
-                //});
-
-                //if (file != null)
-                //{
-                //    vm.ExportClimate.Execute(file);
-                //}
+                
             }
         }
     }

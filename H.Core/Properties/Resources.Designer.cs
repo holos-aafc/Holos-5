@@ -16409,6 +16409,24 @@ namespace H.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Export Climate.
+        /// </summary>
+        public static string TitleExportClimate {
+            get {
+                return ResourceManager.GetString("TitleExportClimate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Export Farm(s).
+        /// </summary>
+        public static string TitleExportFarm {
+            get {
+                return ResourceManager.GetString("TitleExportFarm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Export Farm Produced Manure.
         /// </summary>
         public static string TitleExportManure {
@@ -16639,6 +16657,24 @@ namespace H.Core.Properties {
         public static string TitleSelectFarmClimateToExport {
             get {
                 return ResourceManager.GetString("TitleSelectFarmClimateToExport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select Farm File.
+        /// </summary>
+        public static string TitleSelectFarmFile {
+            get {
+                return ResourceManager.GetString("TitleSelectFarmFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select Farm Folder.
+        /// </summary>
+        public static string TitleSelectFarmFolder {
+            get {
+                return ResourceManager.GetString("TitleSelectFarmFolder", resourceCulture);
             }
         }
         

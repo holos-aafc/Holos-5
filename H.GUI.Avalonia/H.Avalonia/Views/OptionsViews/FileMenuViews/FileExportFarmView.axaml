@@ -15,7 +15,7 @@
 	<StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
 		<TextBlock Text="Export Farm"  HorizontalAlignment="Center" Margin="0,0,0,30" FontWeight="Bold" FontSize="20" Foreground="#696969"/>
 		<TextBlock FontWeight="DemiBold" FontStyle="Italic" Text="{x:Static properties:Resources.LabelExportFileWarning}" />
-		<TextBlock FontStyle="Italic" Text="{x:Static properties:Resources.LabelMultipleSelection}" >
+		<TextBlock Classes="disclaimer" Text="{x:Static properties:Resources.LabelMultipleSelection}" >
 		</TextBlock>
 
 		<Border BorderThickness="2" Margin="0 20 0 0" BorderBrush="#EDEDED" CornerRadius="10" >

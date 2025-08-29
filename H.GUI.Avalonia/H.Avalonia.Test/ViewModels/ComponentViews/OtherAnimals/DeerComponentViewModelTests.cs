@@ -1,4 +1,6 @@
-﻿using H.Core.Enumerations;
+﻿using H.Core;
+using H.Core.Enumerations;
+using H.Core.Models;
 using H.Core.Services.StorageService;
 using Moq;
 
@@ -8,8 +10,11 @@ namespace H.Avalonia.ViewModels.ComponentViews.OtherAnimals.Tests
     public class DeerComponentViewModelTests
     {
         private DeerComponentViewModel _viewModel;
-        private IStorageService _mockStorageService;
-        private Mock<IStorageService> _mock;
+        private Mock<IStorageService> _mockStorageService;
+        private IStorageService _storageServiceMock;
+        private Mock<IStorage> _mockStorage;
+        private IStorage _storageMock;
+        private ApplicationData _applicationData;
 
         [ClassInitialize]
         public static void ClassInitialize(TestContext context)
@@ -24,9 +29,15 @@ namespace H.Avalonia.ViewModels.ComponentViews.OtherAnimals.Tests
         [TestInitialize]
         public void TestInitialize()
         {
-            _mock = new Mock<IStorageService>();
-            _mockStorageService = _mock.Object;
-            _viewModel = new DeerComponentViewModel(_mockStorageService);
+            _mockStorageService = new Mock<IStorageService>();
+            _storageServiceMock = _mockStorageService.Object;
+            _mockStorage = new Mock<IStorage>();
+            _storageMock = _mockStorage.Object;
+            _applicationData = new ApplicationData();
+            _mockStorage.Setup(x => x.ApplicationData).Returns(_applicationData);
+            _mockStorageService.Setup(x => x.Storage).Returns(_storageMock);
+
+            _viewModel = new DeerComponentViewModel(_storageServiceMock);
         }
 
         [TestCleanup]

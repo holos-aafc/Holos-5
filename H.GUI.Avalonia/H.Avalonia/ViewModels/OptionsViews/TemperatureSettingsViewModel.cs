@@ -1,0 +1,97 @@
+﻿using H.Core.Enumerations;
+using H.Core.Providers.AnaerobicDigestion;
+using H.Core.Providers.Climate;
+using H.Core.Providers.Temperature;
+using H.Core.Services.StorageService;
+using Prism.Regions;
+using System;
+using System.Collections.ObjectModel;
+using System.Linq;
+using LiveChartsCore;
+using LiveChartsCore.SkiaSharpView;
+using LiveChartsCore.SkiaSharpView.Painting;
+using SkiaSharp;
+using System.ComponentModel;
+using Prism.Events;
+using H.Core.Services;
+using H.Avalonia.ViewModels.Styles;
+using Avalonia.Metadata;
+using ImTools;
+
+namespace H.Avalonia.ViewModels.OptionsViews
+{
+    public class TemperatureSettingsViewModel : ChartBaseViewModel<TemperatureData>
+    {
+        #region Fields
+
+        private TemperatureData _data = new TemperatureData();
+
+        #endregion
+
+        #region Constructors
+
+        public TemperatureSettingsViewModel(IStorageService storageService) : base(storageService)
+        {
+            this.InitializeData();
+            base.IsInitialized = true;
+        }
+
+        #endregion
+
+        #region Properties
+
+        public TemperatureData Data
+        {
+            get => _data;
+            set => SetProperty(ref _data, value);
+        }
+
+        protected override TemperatureData ChartValuesSource => Data;
+
+        #endregion
+
+        #region Public Methods
+
+        public override void OnNavigatedTo(NavigationContext navigationContext)
+        {
+            if (!base.IsInitialized)
+            {
+                this.InitializeData();
+                base.IsInitialized = true;
+            }
+        }
+
+        #endregion
+
+        #region Protected Methods
+
+        protected override void InitializeData()
+        {
+            if (base.ActiveFarm.ClimateData.TemperatureData != null)
+            {
+                this.Data = base.ActiveFarm.ClimateData.TemperatureData; // sharing references here
+                this.Data.PropertyChanged -= DataOnPropertyChanged;
+                this.Data.PropertyChanged += DataOnPropertyChanged;
+            }
+            else
+            {
+                throw new ArgumentNullException(nameof(base.ActiveFarm.ClimateData.TemperatureData));
+            }
+            base.BuildChart();
+        }
+
+        #endregion
+
+        #region Event Handlers
+
+        private void DataOnPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (sender is TemperatureData)
+            {
+                base.BuildChart();
+            }
+        }
+
+        #endregion
+    }
+}

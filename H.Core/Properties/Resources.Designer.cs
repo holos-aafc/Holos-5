@@ -1141,6 +1141,24 @@ namespace H.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create a copy of the current farm with a new name..
+        /// </summary>
+        public static string DescriptionSaveAs {
+            get {
+                return ResourceManager.GetString("DescriptionSaveAs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save changes made to the current farm..
+        /// </summary>
+        public static string DescriptionSaveHolos {
+            get {
+                return ResourceManager.GetString("DescriptionSaveHolos", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
         public static string DescriptorSoilTypeForFarm {
@@ -6213,6 +6231,15 @@ namespace H.Core.Properties {
         public static string ErrorError {
             get {
                 return ResourceManager.GetString("ErrorError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Farm name already in use..
+        /// </summary>
+        public static string ErrorFarmNameInUse {
+            get {
+                return ResourceManager.GetString("ErrorFarmNameInUse", resourceCulture);
             }
         }
         
@@ -11896,6 +11923,15 @@ namespace H.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Save.
+        /// </summary>
+        public static string LabelSave {
+            get {
+                return ResourceManager.GetString("LabelSave", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Search for farms....
         /// </summary>
         public static string LabelSearchforfarms {
@@ -14330,6 +14366,24 @@ namespace H.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to N2O percentage total equals more than 100%..
+        /// </summary>
+        public static string N2OPercentageGreaterThan100 {
+            get {
+                return ResourceManager.GetString("N2OPercentageGreaterThan100", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to N2O percentage total equals less than 100%..
+        /// </summary>
+        public static string N2OPercentageLessThan100 {
+            get {
+                return ResourceManager.GetString("N2OPercentageLessThan100", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Native Pasture.
         /// </summary>
         public static string NativePasture {
@@ -16130,6 +16184,15 @@ namespace H.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Monthly N2O inputs currently add up to {0}%..
+        /// </summary>
+        public static string SumOfMonthlyN2OInputsPercent {
+            get {
+                return ResourceManager.GetString("SumOfMonthlyN2OInputsPercent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sunflower.
         /// </summary>
         public static string Sunflower {
@@ -16652,6 +16715,24 @@ namespace H.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Save As.
+        /// </summary>
+        public static string TitleSaveAs {
+            get {
+                return ResourceManager.GetString("TitleSaveAs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save Holos.
+        /// </summary>
+        public static string TitleSaveHolos {
+            get {
+                return ResourceManager.GetString("TitleSaveHolos", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Select farms to export climate data.
         /// </summary>
         public static string TitleSelectFarmClimateToExport {
@@ -16738,6 +16819,24 @@ namespace H.Core.Properties {
         public static string TitleWinterCoverUndersownCrops {
             get {
                 return ResourceManager.GetString("TitleWinterCoverUndersownCrops", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Holos saved successfully..
+        /// </summary>
+        public static string ToastMessageSavedSuccessfully {
+            get {
+                return ResourceManager.GetString("ToastMessageSavedSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save Success.
+        /// </summary>
+        public static string ToastTitleSaveSuccess {
+            get {
+                return ResourceManager.GetString("ToastTitleSaveSuccess", resourceCulture);
             }
         }
         
@@ -18424,6 +18523,15 @@ namespace H.Core.Properties {
         public static string WatermarkComments {
             get {
                 return ResourceManager.GetString("WatermarkComments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New farm name.
+        /// </summary>
+        public static string WatermarkNewFarmName {
+            get {
+                return ResourceManager.GetString("WatermarkNewFarmName", resourceCulture);
             }
         }
         

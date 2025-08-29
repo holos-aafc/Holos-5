@@ -1,0 +1,78 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:OptionsViews="clr-namespace:H.Avalonia.ViewModels.OptionsViews"
+			 xmlns:properties="clr-namespace:H.Core.Properties;assembly=H.Core"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="H.Avalonia.OptionSoilN2OBreakdownView">
+
+  <Grid RowDefinitions="Auto,*">
+	  <TextBlock  Background="#3C4DBB" Foreground="WhiteSmoke" TextWrapping="Wrap" Grid.Row="0" Padding="40, 15" Text="{x:Static properties:Resources.DescriptionOptionSoilN2OBreakdown}"  />
+	  <ScrollViewer Grid.Row="1">
+		  <StackPanel Margin="20" Spacing="10" Width="350" VerticalAlignment="Center" HorizontalAlignment="Center">
+			  <TextBlock Text="{x:Static properties:Resources.January}"/>
+			  <Grid ColumnDefinitions="*, Auto">
+				  <NumericUpDown Grid.Column="0" FormatString="{}{0:0.00}" Value="{Binding Data.January, Mode=TwoWay}" Minimum="0" Maximum="100" />
+				  <TextBlock Margin="8" VerticalAlignment="Center" Grid.Column="1" Text="{x:Static properties:Resources.Percentage}"/>
+			  </Grid>
+			  
+			  <TextBlock Text="{x:Static properties:Resources.February}"/>
+			  <Grid ColumnDefinitions="*, Auto">
+				  <NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.February, Mode=TwoWay}" Minimum="0" Maximum="100" />
+				  <TextBlock Margin="8" VerticalAlignment="Center" Grid.Column="1" Text="{x:Static properties:Resources.Percentage}"/>
+			  </Grid>
+			  <TextBlock Text="{x:Static properties:Resources.March}"/>
+			  <Grid ColumnDefinitions="*, Auto">
+				  <NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.March, Mode=TwoWay}" Minimum="0" Maximum="100" />
+				  <TextBlock Margin="8" VerticalAlignment="Center" Grid.Column="1" Text="{x:Static properties:Resources.Percentage}"/>
+			  </Grid>
+			  <TextBlock Text="{x:Static properties:Resources.April}"/>
+			  <Grid ColumnDefinitions="*, Auto">
+			  <NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.April, Mode=TwoWay}" Minimum="0" Maximum="100" />
+				  <TextBlock Margin="8" VerticalAlignment="Center" Grid.Column="1" Text="{x:Static properties:Resources.Percentage}"/>
+			  </Grid>
+			  <TextBlock Text="{x:Static properties:Resources.May}"/>
+			  <Grid ColumnDefinitions="*, Auto">
+				<NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.May, Mode=TwoWay}" Minimum="0" Maximum="100" />
+				<TextBlock Margin="8" VerticalAlignment="Center" Grid.Column="1" Text="{x:Static properties:Resources.Percentage}"/>
+			  </Grid>
+			  <TextBlock Text="{x:Static properties:Resources.June}"/>
+			  <Grid ColumnDefinitions="*, Auto">
+			  <NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.June, Mode=TwoWay}" Minimum="0" Maximum="100" />
+				  <TextBlock Margin="8" VerticalAlignment="Center" Grid.Column="1" Text="{x:Static properties:Resources.Percentage}"/>
+			  </Grid>
+			  <TextBlock Text="{x:Static properties:Resources.July}"/>
+			  <Grid ColumnDefinitions="*, Auto">
+			  <NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.July, Mode=TwoWay}" Minimum="0" Maximum="100" />
+				  <TextBlock Margin="8" VerticalAlignment="Center" Grid.Column="1" Text="{x:Static properties:Resources.Percentage}"/>
+			  </Grid>
+			  <TextBlock Text="{x:Static properties:Resources.August}"/>
+			  <Grid ColumnDefinitions="*, Auto">
+			  <NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.August, Mode=TwoWay}" Minimum="0" Maximum="100" />
+				  <TextBlock Margin="8" VerticalAlignment="Center" Grid.Column="1" Text="{x:Static properties:Resources.Percentage}"/>
+			  </Grid>
+			  <TextBlock Text="{x:Static properties:Resources.September}"/>
+			  <Grid ColumnDefinitions="*, Auto">
+			  <NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.September, Mode=TwoWay}" Minimum="0" Maximum="100" />
+				  <TextBlock Margin="8" VerticalAlignment="Center" Grid.Column="1" Text="{x:Static properties:Resources.Percentage}"/>
+			  </Grid>
+			  <TextBlock Text="{x:Static properties:Resources.October}"/>
+				  <Grid ColumnDefinitions="*, Auto">					   
+			  <NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.October, Mode=TwoWay}" Minimum="0" Maximum="100" />
+					  <TextBlock Margin="8" VerticalAlignment="Center" Grid.Column="1" Text="{x:Static properties:Resources.Percentage}"/>
+				  </Grid>
+			  <TextBlock Text="{x:Static properties:Resources.November}"/>
+			  <Grid ColumnDefinitions="*, Auto">
+			  <NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.November, Mode=TwoWay}" Minimum="0" Maximum="100" />
+				  <TextBlock Margin="8" VerticalAlignment="Center" Grid.Column="1" Text="{x:Static properties:Resources.Percentage}"/>
+			  </Grid>
+			  <TextBlock Text="{x:Static properties:Resources.December}"/>
+			  <Grid ColumnDefinitions="*, Auto">
+			  <NumericUpDown FormatString="{}{0:0.00}" Value="{Binding Data.December, Mode=TwoWay}" Minimum="0" Maximum="100" />
+				  <TextBlock Margin="8" VerticalAlignment="Center" Grid.Column="1" Text="{x:Static properties:Resources.Percentage}"/>
+			  </Grid>
+		  </StackPanel>
+	  </ScrollViewer>
+	</Grid>
+</UserControl>

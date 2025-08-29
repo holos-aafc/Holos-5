@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using H.Core.Models;
 using H.Core.Models.Animals;
+using H.Core.Models.LandManagement.Fields;
 using H.Core.Providers;
 using H.Core.Providers.Animals;
 using H.Core.Providers.Climate;
@@ -20,6 +21,7 @@ namespace H.Core.Services
         private readonly IMapper _defaultsMapper;
         private readonly IMapper _climateDataMapper;
         private readonly IMapper _dailyClimateDataMapper;
+        private readonly IMapper _detailsScreenCropViewItemMapper;
         private readonly IMapper _geographicDataMapper;
         private readonly IMapper _soilDataMapper;
         private readonly IMapper _customYieldDataMapper;
@@ -73,6 +75,17 @@ namespace H.Core.Services
             var defaultMapperConfiguration = new MapperConfiguration(x => { x.CreateMap<Defaults, Defaults>(); });
 
             _defaultsMapper = defaultMapperConfiguration.CreateMapper();
+
+            #endregion
+
+            #region Details Screen Mapping
+
+            var detailsScreenCropViewItemMapperConfiguration = new MapperConfiguration(x =>
+            {
+                x.CreateMap<CropViewItem, CropViewItem>();
+            });
+
+            _detailsScreenCropViewItemMapper = detailsScreenCropViewItemMapperConfiguration.CreateMapper();
 
             #endregion
 
@@ -133,8 +146,7 @@ namespace H.Core.Services
 
         #region Public Methods
 
-        // TODO: Add support for copying over StageStates (See V4 implementation) and AD components
-        // Otherwise this method has been kept identical to what was in V4 (i.e. farm mappings, etc.)
+        // TODO: Add support for AD components
         public Farm ReplicateFarm(Farm farm)
         {
             var replicatedFarm = new Farm();
@@ -195,6 +207,25 @@ namespace H.Core.Services
                 var replicatedCustomYieldData = new CustomUserYieldData();
                 _customYieldDataMapper.Map(customYieldData, replicatedCustomYieldData);
                 replicatedFarm.GeographicData.CustomYieldData.Add(replicatedCustomYieldData);
+            }
+
+            #endregion
+
+            #region StageStates
+
+            foreach (var fieldSystemDetailsStageState in farm.StageStates.OfType<FieldSystemDetailsStageState>().ToList())
+            {
+                var stageState = new FieldSystemDetailsStageState();
+                replicatedFarm.StageStates.Add(stageState);
+
+                foreach (var detailsScreenViewCropViewItem in fieldSystemDetailsStageState.DetailsScreenViewCropViewItems)
+                {
+                    var viewItem = new CropViewItem();
+
+                    _detailsScreenCropViewItemMapper.Map(detailsScreenViewCropViewItem, viewItem);
+
+                    stageState.DetailsScreenViewCropViewItems.Add(viewItem);
+                }
             }
 
             #endregion

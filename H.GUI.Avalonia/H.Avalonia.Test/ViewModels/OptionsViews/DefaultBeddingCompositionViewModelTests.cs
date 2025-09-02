@@ -125,5 +125,11 @@ namespace H.Avalonia.ViewModels.OptionsViews.Tests
             Assert.AreEqual("Total phosphorus (lb P (lb DM)^-1)", _viewModel.PhosphorusConcentrationHeader);
             Assert.AreEqual("Total carbon (lb C (lb DM)^-1)", _viewModel.CarbonConcentrationHeader);
         }
+
+        [TestMethod]
+        public void TestConstructuroThrowsExceptionOnNullConstructorParameter()
+        {
+            Assert.ThrowsException<ArgumentNullException>(() => new DefaultBeddingCompositionViewModel(null, null, null, null));
+        }
     }
 }

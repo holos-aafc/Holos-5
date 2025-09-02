@@ -120,5 +120,11 @@ namespace H.Avalonia.ViewModels.OptionsViews.Tests
             Assert.AreEqual("Total carbon (% wet weight)", _viewModel.CarbonFractionHeader);
             Assert.AreEqual("Moisture content (%)", _viewModel.MoistureContentHeader);
         }
+
+        [TestMethod]
+        public void TestConstructuroThrowsExceptionOnNullConstructorParameter()
+        {
+            Assert.ThrowsException<ArgumentNullException>(() => new DefaultManureCompositionViewModel(null, null, null));
+        }
     }
 }

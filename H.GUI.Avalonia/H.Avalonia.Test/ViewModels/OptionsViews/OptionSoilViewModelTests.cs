@@ -15,7 +15,7 @@ namespace H.Avalonia.ViewModels.OptionsViews.Tests
     [TestClass]
     public class OptionSoilViewModelTests
     {
-        private OptionSoilViewModel _viewModel;
+        private SoilSettingsViewModel _viewModel;
         private Mock<IRegionManager> _mockRegionManager;
         private IRegionManager _regionManagerMock;
         private Mock<IStorageService> _mockStorageService;
@@ -63,16 +63,16 @@ namespace H.Avalonia.ViewModels.OptionsViews.Tests
             testFarm.ClimateData.PrecipitationData.GrowingSeasonPrecipitation = 50.66;
             testFarm.ClimateData.EvapotranspirationData.GrowingSeasonEvapotranspiration = 125.27;
             _mockStorageService.Setup(x => x.GetActiveFarm()).Returns(testFarm);
-            _viewModel = new OptionSoilViewModel(_storageServiceMock);
+            _viewModel = new SoilSettingsViewModel(_storageServiceMock);
             Assert.IsNotNull(_viewModel);
             Assert.IsNotNull(_viewModel.Data);
             Assert.IsNotNull(_viewModel.Data.BindingSoilData);
         }
 
         [TestMethod]
-        public void TestConstructorWithNullStorageServiceThrowsArgumentNullException()
+        public void TestConstructuroThrowsExceptionOnNullConstructorParameter()
         {
-            Assert.ThrowsException<ArgumentNullException>(() => new OptionSoilViewModel(null));
+            Assert.ThrowsException<ArgumentNullException>(() => new SoilSettingsViewModel(null));
         }
 
     }

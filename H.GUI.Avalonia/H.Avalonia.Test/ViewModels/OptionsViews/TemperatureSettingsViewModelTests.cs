@@ -86,5 +86,11 @@ namespace H.Avalonia.ViewModels.OptionsViews.Tests
             Assert.AreEqual(8.6, _viewModel.Data.November);
             Assert.AreEqual(-4.2, _viewModel.Data.December);
         }
+
+        [TestMethod]
+        public void TestConstructuroThrowsExceptionOnNullConstructorParameter()
+        {
+            Assert.ThrowsException<ArgumentNullException>(() => new TemperatureSettingsViewModel(null));
+        }
     }
 }

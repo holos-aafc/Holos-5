@@ -105,5 +105,11 @@ namespace H.Avalonia.ViewModels.OptionsViews.Tests
             Assert.AreEqual(testFarm.MeasurementSystemType, MeasurementSystemType.Metric);
             Assert.IsTrue(testFarm.MeasurementSystemSelected);
         }
+
+        [TestMethod]
+        public void TestConstructuroThrowsExceptionOnNullConstructorParameter()
+        {
+            Assert.ThrowsException<ArgumentNullException>(() => new FarmSettingsViewModel(null));
+        }
     }
 }

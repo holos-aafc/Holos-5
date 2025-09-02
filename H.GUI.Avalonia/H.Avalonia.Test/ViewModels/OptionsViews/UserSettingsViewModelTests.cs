@@ -69,5 +69,11 @@ namespace H.Avalonia.ViewModels.OptionsViews.Tests
             Assert.AreEqual(94.34, _userSettingsViewModel.Data.PercentageOfRootsReturnedToSoilForFodderCorn);
             Assert.AreEqual(H.Core.Enumerations.EquilibriumCalculationStrategies.CarSingleYear, _userSettingsViewModel.Data.EquilibriumCalculationStrategy);
         }
+
+        [TestMethod]
+        public void TestConstructuroThrowsExceptionOnNullConstructorParameter()
+        {
+            Assert.ThrowsException<ArgumentNullException>(() => new UserSettingsViewModel(null));
+        }
     }
 }

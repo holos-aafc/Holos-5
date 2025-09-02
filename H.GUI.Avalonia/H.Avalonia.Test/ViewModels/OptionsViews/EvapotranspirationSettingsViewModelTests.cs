@@ -86,5 +86,11 @@ namespace H.Avalonia.ViewModels.OptionsViews.Tests
             Assert.AreEqual(7.7, _viewModel.Data.November);
             Assert.AreEqual(9.4, _viewModel.Data.December);
         }
+
+        [TestMethod]
+        public void TestConstructuroThrowsExceptionOnNullConstructorParameter()
+        {
+            Assert.ThrowsException<ArgumentNullException>(() => new EvapotranspirationSettingsViewModel(null));
+        }
     }
 }

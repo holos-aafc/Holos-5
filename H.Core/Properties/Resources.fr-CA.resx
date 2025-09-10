@@ -5795,4 +5795,43 @@ Please note: emissions related to the deposition or application of livestock man
   <data name="EnumSelectProvince" xml:space="preserve">
     <value>Select Province</value>
   </data>
+  <data name="LabelSuccess" xml:space="preserve">
+    <value />
+  </data>
+  <data name="LabelFarmExportSuccess" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ErrorError" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ErrorNoFileSelected" xml:space="preserve">
+    <value />
+  </data>
+  <data name="LabelFarmImportSuccess" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ErrorNoDataForExport" xml:space="preserve">
+    <value />
+  </data>
+  <data name="N2OPercentageLessThan100" xml:space="preserve">
+    <value />
+  </data>
+  <data name="N2OPercentageGreaterThan100" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SumOfMonthlyN2OInputsPercent" xml:space="preserve">
+    <value />
+  </data>
+  <data name="TitleExportFarm" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="TitleSelectFarmFile" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="TitleExportClimate" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="TitleSelectFarmFolder" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
 </root>

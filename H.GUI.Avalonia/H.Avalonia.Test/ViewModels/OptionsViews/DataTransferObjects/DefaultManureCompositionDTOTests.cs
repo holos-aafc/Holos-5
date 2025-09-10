@@ -1,0 +1,66 @@
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using H.Avalonia.ViewModels.OptionsViews;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using H.Core.Models;
+using H.Core.Services.StorageService;
+using H.Core;
+using Moq;
+using H.Core.Providers.Animals;
+
+namespace H.Avalonia.ViewModels.OptionsViews.Tests
+{
+    [TestClass]
+    public class DefaultManureCompositionDTOTests
+    {
+        private DefaultManureCompositionData _dataClassInstance;
+        private DefaultManureCompositionDTO _manureCompositionDTO;
+
+        [ClassInitialize]
+        public static void ClassInitialize(TestContext context)
+        {
+        }
+
+        [ClassCleanup]
+        public static void ClassCleanup()
+        {
+        }
+
+        [TestInitialize]
+        public void TestInitialize()
+        {
+            _dataClassInstance = _dataClassInstance = new DefaultManureCompositionData();
+        }
+
+        [TestCleanup]
+        public void TestCleanup()
+        {
+        }
+
+        [TestMethod]
+        public void TestValidateNumericPropertyCorrectInput()
+        {
+            _manureCompositionDTO = new DefaultManureCompositionDTO(_dataClassInstance);
+
+            _manureCompositionDTO.CarbonFraction = 5.62;
+
+            Assert.IsTrue(!_manureCompositionDTO.HasErrors);
+        }
+
+        [TestMethod]
+        public void TestValidateNumericPropertyBadInput()
+        {
+            _manureCompositionDTO = new DefaultManureCompositionDTO(_dataClassInstance);
+            _manureCompositionDTO.CarbonFraction = 2.05;
+            Assert.AreEqual(_manureCompositionDTO.CarbonFraction, _dataClassInstance.CarbonFraction);
+
+            _manureCompositionDTO.CarbonFraction = -9.72;
+
+            Assert.IsTrue(_manureCompositionDTO.HasErrors);
+            Assert.AreEqual(2.05, _dataClassInstance.CarbonFraction);
+        }
+    }
+}

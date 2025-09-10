@@ -4419,7 +4419,7 @@
     <value>The monthly emissions distribution for the year. This distribution can be adjusted based on your farm's results. Please note that the addition of all montly percentages should add up to 100%.</value>
   </data>
   <data name="MessageMonthlyTemperatureBreakdownHeader" xml:space="preserve">
-    <value>The montly temperature averages for the farm.</value>
+    <value>The monthly temperature averages for the farm.</value>
   </data>
   <data name="TitleCNRatio" xml:space="preserve">
     <value>C:N</value>
@@ -6257,5 +6257,86 @@ Please note: emissions related to the deposition or application of livestock man
   </data>
   <data name="EnumSelectProvince" xml:space="preserve">
     <value>Select Province</value>
+  </data>
+  <data name="LabelExport" xml:space="preserve">
+    <value>Export</value>
+  </data>
+  <data name="LabelExportFileWarning" xml:space="preserve">
+    <value>Exported files can only be imported in v5. Files exported from v5 are not compatable in v4</value>
+  </data>
+  <data name="LabelMultipleSelection" xml:space="preserve">
+    <value>Press CTRl+Click or SHIFT+Click for multiple selection</value>
+  </data>
+  <data name="LabelGuid" xml:space="preserve">
+    <value>Guid</value>
+  </data>
+  <data name="ButtonNext" xml:space="preserve">
+    <value>Next</value>
+  </data>
+  <data name="LabelSuccess" xml:space="preserve">
+    <value>Success</value>
+  </data>
+  <data name="LabelFarmExportSuccess" xml:space="preserve">
+    <value>Farm(s) has successfully exported</value>
+  </data>
+  <data name="ErrorError" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="ErrorNoFileSelected" xml:space="preserve">
+    <value>No file selected for export.</value>
+  </data>
+  <data name="LabelFarmImportSuccess" xml:space="preserve">
+    <value>Farm(s) has successfully imported</value>
+  </data>
+  <data name="ErrorNoDataForExport" xml:space="preserve">
+    <value>No data for export.</value>
+  </data>
+  <data name="N2OPercentageLessThan100" xml:space="preserve">
+    <value>N2O percentage total equals less than 100%.</value>
+  </data>
+  <data name="N2OPercentageGreaterThan100" xml:space="preserve">
+    <value>N2O percentage total equals more than 100%.</value>
+  </data>
+  <data name="SumOfMonthlyN2OInputsPercent" xml:space="preserve">
+    <value>Monthly N2O inputs currently add up to {0}%.</value>
+  </data>
+  <data name="TitleSaveHolos" xml:space="preserve">
+    <value>Save Holos</value>
+  </data>
+  <data name="TitleSaveAs" xml:space="preserve">
+    <value>Save As</value>
+  </data>
+  <data name="DescriptionSaveHolos" xml:space="preserve">
+    <value>Save changes made to the current farm.</value>
+  </data>
+  <data name="DescriptionSaveAs" xml:space="preserve">
+    <value>Create a copy of the current farm with a new name.</value>
+  </data>
+  <data name="WatermarkNewFarmName" xml:space="preserve">
+    <value>New farm name</value>
+  </data>
+  <data name="ErrorFarmNameInUse" xml:space="preserve">
+    <value>Farm name already in use.</value>
+  </data>
+  <data name="ToastTitleSaveSuccess" xml:space="preserve">
+    <value>Save Success</value>
+  </data>
+  <data name="ToastMessageSavedSuccessfully" xml:space="preserve">
+    <value>Holos saved successfully.</value>
+  </data>
+  <data name="LabelSave" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="TitleExportFarm" xml:space="preserve">
+    <value>Export Farm(s)</value>
+  </data>
+  <data name="TitleSelectFarmFile" xml:space="preserve">
+    <value>Select Farm File</value>
+  </data>
+  <data name="TitleExportClimate" xml:space="preserve">
+    <value>Export Climate</value>
+  </data>
+  <data name="TitleSelectFarmFolder" xml:space="preserve">
+    <value>Select Farm Folder</value>
   </data>
 </root>

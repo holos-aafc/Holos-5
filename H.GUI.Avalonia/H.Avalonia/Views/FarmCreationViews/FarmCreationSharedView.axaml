@@ -1,0 +1,21 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 xmlns:properties="clr-namespace:H.Core.Properties;assembly=H.Core"
+             x:Class="H.Avalonia.FarmCreationSharedView">
+
+	<StackPanel>
+		<TextBlock Text="{x:Static properties:Resources.LabelCreateNewFarm}"
+		   HorizontalAlignment="Center" Margin="0,0,0,30" FontWeight="Bold" FontSize="20" Foreground="#696969" />
+		<StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 0 0 20">
+			<TextBox Text="{Binding Path=FarmName}" Watermark="{x:Static properties:Resources.WatermarkYourFarmName}" Margin="0 15 0 0" Foreground="#696969" BorderBrush="#EDEDED" BorderThickness="2" FontWeight="SemiBold"/>
+			<TextBox Text="{Binding Path=FarmComments}"  Watermark="{x:Static properties:Resources.WatermarkComments}" Margin="0 15 0 0" Foreground="#696969"  BorderBrush="#EDEDED" FontWeight="SemiBold" BorderThickness="2" AcceptsReturn="True" TextWrapping="Wrap"/>
+			<Button Content="{x:Static properties:Resources.ButtonCreateNewFarm}" Margin="0 15 0 0"
+                    Command="{Binding Path=OnCreateNewFarmExecute}">
+			</Button>
+		</StackPanel>
+	</StackPanel>
+	
+</UserControl>

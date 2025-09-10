@@ -23,8 +23,6 @@ namespace H.Avalonia.ViewModels
     {
         #region Fields
 
-        private Farm _activeFarm;
-
         protected bool IsInitialized;
 
         private Storage _storagePlaceholder;
@@ -46,12 +44,12 @@ namespace H.Avalonia.ViewModels
             if (storageService != null)
             {
                 this.StorageService = storageService;
+                this.StorageService.Storage.ApplicationData.GlobalSettings.PropertyChanged += GlobalSettingsPropertyChanged;
             }
             else
             {
                 throw new ArgumentNullException(nameof(storageService));
             }
-            this.SetActiveFarm(this.StorageService);
         }
 
         protected ViewModelBase(IEventAggregator eventAggregator)
@@ -107,6 +105,11 @@ namespace H.Avalonia.ViewModels
             if (storageService != null)
             {
                 this.StorageService = storageService;
+                this.StorageService.Storage.ApplicationData.GlobalSettings.PropertyChanged += GlobalSettingsPropertyChanged;
+            }
+            else
+            {
+                throw new ArgumentNullException(nameof(storageService));
             }
 
             if(eventAggregator != null)
@@ -117,8 +120,6 @@ namespace H.Avalonia.ViewModels
             {
                 throw new ArgumentNullException(nameof(eventAggregator));
             }
-
-            this.SetActiveFarm(this.StorageService);
         }
 
         protected ViewModelBase(IRegionManager regionManager)
@@ -168,8 +169,8 @@ namespace H.Avalonia.ViewModels
 
         public Farm ActiveFarm
         {
-            get => _activeFarm;
-            set => SetProperty(ref _activeFarm, value);
+            get => this.StorageService.GetActiveFarm();
+            //set => SetProperty(ref _activeFarm, value);
         }
 
         /// <summary>
@@ -256,7 +257,19 @@ namespace H.Avalonia.ViewModels
         {
             if (storageService != null)
             {
-                this.ActiveFarm = storageService.GetActiveFarm();
+                //this.ActiveFarm = storageService.GetActiveFarm();
+            }
+        }
+
+        #endregion
+
+        #region Event Listeners
+
+        private void GlobalSettingsPropertyChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(GlobalSettings.ActiveFarm))
+            {
+                this.IsInitialized = false;
             }
         }
 

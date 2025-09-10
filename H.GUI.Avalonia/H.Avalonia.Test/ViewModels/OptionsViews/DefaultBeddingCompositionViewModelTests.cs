@@ -24,6 +24,7 @@ namespace H.Avalonia.ViewModels.OptionsViews.Tests
         private IUnitsOfMeasurementCalculator _unitsCalculatorMock;
         private Mock<IStorage> _mockStorage;
         private IStorage _storageMock;
+        private ApplicationData _applicationData;
 
         [ClassInitialize]
         public static void ClassInitialize(TestContext context)
@@ -46,6 +47,9 @@ namespace H.Avalonia.ViewModels.OptionsViews.Tests
             _storageServiceMock = _mockStorageService.Object;
             _mockUnitsCalculator = new Mock<IUnitsOfMeasurementCalculator>();
             _unitsCalculatorMock = _mockUnitsCalculator.Object;
+            _mockStorage = new Mock<IStorage>();
+            _storageMock = _mockStorage.Object;
+            _applicationData = new ApplicationData();
         }
 
         [TestCleanup]
@@ -64,16 +68,18 @@ namespace H.Avalonia.ViewModels.OptionsViews.Tests
             testDataClassInstance.CarbonToNitrogenRatio = 50.0;
             testFarm.DefaultsCompositionOfBeddingMaterials.Add(testDataClassInstance);
 
+            _mockStorage.Setup(x => x.ApplicationData).Returns(_applicationData);
+            _mockStorageService.Setup(x => x.Storage).Returns(_storageMock);
             _mockStorageService.Setup(x => x.GetActiveFarm()).Returns(testFarm);
             _mockUnitsCalculator.Setup(x => x.IsMetric).Returns(true);
 
             _viewModel = new DefaultBeddingCompositionViewModel(_regionManagerMock, _eventAggregatorMock, _storageServiceMock, _unitsCalculatorMock);
 
-            Assert.AreEqual(1, _viewModel.BeddingCompositionDataViewModels.Count);
-            Assert.AreEqual(testDataClassInstance.TotalNitrogenKilogramsDryMatter, _viewModel.BeddingCompositionDataViewModels[0].TotalNitrogenKilogramsDryMatter);
-            Assert.AreEqual(testDataClassInstance.TotalPhosphorusKilogramsDryMatter, _viewModel.BeddingCompositionDataViewModels[0].TotalPhosphorusKilogramsDryMatter);
-            Assert.AreEqual(testDataClassInstance.TotalCarbonKilogramsDryMatter, _viewModel.BeddingCompositionDataViewModels[0].TotalCarbonKilogramsDryMatter);
-            Assert.AreEqual(testDataClassInstance.CarbonToNitrogenRatio, _viewModel.BeddingCompositionDataViewModels[0].CarbonToNitrogenRatio);
+            Assert.AreEqual(1, _viewModel.BeddingCompositionDTOs.Count);
+            Assert.AreEqual(testDataClassInstance.TotalNitrogenKilogramsDryMatter, _viewModel.BeddingCompositionDTOs[0].TotalNitrogenKilogramsDryMatter);
+            Assert.AreEqual(testDataClassInstance.TotalPhosphorusKilogramsDryMatter, _viewModel.BeddingCompositionDTOs[0].TotalPhosphorusKilogramsDryMatter);
+            Assert.AreEqual(testDataClassInstance.TotalCarbonKilogramsDryMatter, _viewModel.BeddingCompositionDTOs[0].TotalCarbonKilogramsDryMatter);
+            Assert.AreEqual(testDataClassInstance.CarbonToNitrogenRatio, _viewModel.BeddingCompositionDTOs[0].CarbonToNitrogenRatio);
         }
 
         [TestMethod]
@@ -83,12 +89,9 @@ namespace H.Avalonia.ViewModels.OptionsViews.Tests
             testFarm.MeasurementSystemType = MeasurementSystemType.Metric;
             var displayUnitsInstance = new DisplayUnitStrings();
             displayUnitsInstance.SetStrings(testFarm.MeasurementSystemType);
-            var applicationDataInstance = new ApplicationData();
-            applicationDataInstance.DisplayUnitStrings = displayUnitsInstance;
+            _applicationData.DisplayUnitStrings = displayUnitsInstance;
 
-            _mockStorage = new Mock<IStorage>();
-            _storageMock = _mockStorage.Object;
-            _mockStorage.Setup(x => x.ApplicationData).Returns(applicationDataInstance);
+            _mockStorage.Setup(x => x.ApplicationData).Returns(_applicationData);
             _mockStorageService.Setup(x => x.Storage).Returns(_storageMock);
             _mockStorageService.Setup(x => x.GetActiveFarm()).Returns(testFarm);
 
@@ -108,12 +111,9 @@ namespace H.Avalonia.ViewModels.OptionsViews.Tests
             testFarm.MeasurementSystemType = MeasurementSystemType.Imperial;
             var displayUnitsInstance = new DisplayUnitStrings();
             displayUnitsInstance.SetStrings(testFarm.MeasurementSystemType);
-            var applicationDataInstance = new ApplicationData();
-            applicationDataInstance.DisplayUnitStrings = displayUnitsInstance;
+            _applicationData.DisplayUnitStrings = displayUnitsInstance;
 
-            _mockStorage = new Mock<IStorage>();
-            _storageMock = _mockStorage.Object;
-            _mockStorage.Setup(x => x.ApplicationData).Returns(applicationDataInstance);
+            _mockStorage.Setup(x => x.ApplicationData).Returns(_applicationData);
             _mockStorageService.Setup(x => x.Storage).Returns(_storageMock);
             _mockStorageService.Setup(x => x.GetActiveFarm()).Returns(testFarm);
 
@@ -124,6 +124,12 @@ namespace H.Avalonia.ViewModels.OptionsViews.Tests
             Assert.AreEqual("Total nitrogen (lb N (lb DM)^-1)", _viewModel.NitrogenConcentrationHeader);
             Assert.AreEqual("Total phosphorus (lb P (lb DM)^-1)", _viewModel.PhosphorusConcentrationHeader);
             Assert.AreEqual("Total carbon (lb C (lb DM)^-1)", _viewModel.CarbonConcentrationHeader);
+        }
+
+        [TestMethod]
+        public void TestConstructuroThrowsExceptionOnNullConstructorParameter()
+        {
+            Assert.ThrowsException<ArgumentNullException>(() => new DefaultBeddingCompositionViewModel(null, null, null, null));
         }
     }
 }

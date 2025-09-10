@@ -8,6 +8,7 @@ using Avalonia;
 using Avalonia.Controls;
 using H.Avalonia.Events;
 using H.Avalonia.Views.ComponentViews;
+using H.Avalonia.Views.FarmCreationViews;
 using H.Core.Models;
 using H.Core.Services.StorageService;
 using Prism.Events;
@@ -24,7 +25,7 @@ namespace H.Avalonia.ViewModels.OptionsViews
         }
         public OptionsViewModel(IRegionManager regionManager) : base(regionManager)
         {
-            base.PropertyChanged += OnSelectedOptionChanged;
+            this.PropertyChanged += OnSelectedOptionChanged;
         }
 
         public object SelectedItem
@@ -39,6 +40,44 @@ namespace H.Avalonia.ViewModels.OptionsViews
                 string? selectedOption = item.Content.ToString();
                 switch (selectedOption)
                 {
+                    // File Menu
+                    case "New Farm":
+                        base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(FileNewFarmView));
+                        break;
+                    case "Open Farm":
+                        base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(FileOpenFarmView));
+                        break;
+
+                    case "Close Farm":
+                        this.ClearActiveView();
+                        base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(FarmOptionsView));
+                        break;
+
+                    case "Farms":
+                        base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(FarmManagementView));
+                        break;
+
+                    case "Save Options":
+                        base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(FileSaveOptionsView));
+                        break;
+
+                    case "Export Farm(s)":
+                        base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(FileExportFarmView));
+                        break;
+
+                    case "Import Farm":
+                        base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(FileImportFarmView));
+                        break;
+
+                    case "Export Climate":
+                        base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(FileExportClimateView));
+                        break;
+
+                    case "Export Manure":
+                        base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(FileExportManureView));
+                        break;
+
+                    // Settings Menu
                     case "Farm":
                         base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(OptionFarmView));
                         break;
@@ -57,15 +96,16 @@ namespace H.Avalonia.ViewModels.OptionsViews
                     case "Precipitation":
                         base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(OptionPrecipitationView));
                         break;
+                    case "Evapotranspiration":
+                        base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(OptionEvapotranspirationView));
+                        break;
                     case "Default Bedding Composition":
                         base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(DefaultBeddingCompositionView));
                         break;
                     case "Default Manure Composition":
                         base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(DefaultManureCompositionView));
                         break;
-                    case "Evapotranspiration":
-                        base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(OptionEvapotranspirationView));
-                        break;
+
                     case "User Settings":
                         base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(OptionUserSettingsView));
                         break;
@@ -83,6 +123,28 @@ namespace H.Avalonia.ViewModels.OptionsViews
                 SelectedItem = null; // need to set this to null because the option in the combo box stays selected otherwise
             }
         }
+
+        #region Private Methods
+        private void ClearActiveView()
+        {
+            // Clear content region
+            var contentView = this.RegionManager.Regions[UiRegions.ContentRegion].ActiveViews.SingleOrDefault();
+            if (contentView != null)
+            {
+                this.RegionManager.Regions[UiRegions.ContentRegion].Deactivate(contentView);
+                this.RegionManager.Regions[UiRegions.ContentRegion].Remove(contentView);
+            }
+
+            // Clear sidebar region
+            var sidebarView = this.RegionManager.Regions[UiRegions.SidebarRegion].ActiveViews.SingleOrDefault();
+            if (sidebarView != null)
+            {
+                this.RegionManager.Regions[UiRegions.SidebarRegion].Deactivate(sidebarView);
+                this.RegionManager.Regions[UiRegions.SidebarRegion].Remove(sidebarView);
+            }
+        }
+
+        #endregion
 
     }
 }

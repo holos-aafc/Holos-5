@@ -31,6 +31,7 @@ using H.Avalonia.Views.SupportingViews.MeasurementProvince;
 using H.Avalonia.Views.SupportingViews.RegionSelection;
 using H.Avalonia.ViewModels.SupportingViews.RegionSelection;
 using H.Avalonia.ViewModels.OptionsViews;
+using H.Avalonia.ViewModels.OptionsViews.FileMenuViews;
 
 using H.Core.Services;
 using H.Core.Services.Provinces;
@@ -50,6 +51,7 @@ using H.Core.Calculators.UnitsOfMeasurement;
 using H.Core.Factories;
 using H.Core.Services.Countries;
 using H.Core.Services.LandManagement.Fields;
+using H.Avalonia.ViewModels.FarmCreationViews;
 
 namespace H.Avalonia
 {
@@ -100,18 +102,19 @@ namespace H.Avalonia
             containerRegistry.RegisterForNavigation<FieldComponentView, FieldComponentViewModel>();
             containerRegistry.RegisterForNavigation<OptionsView, OptionsViewModel>();
             containerRegistry.RegisterForNavigation<SelectOptionView, SelectOptionViewModel>();
-            containerRegistry.RegisterForNavigation<OptionFarmView, OptionFarmViewModel>();
-            containerRegistry.RegisterForNavigation<OptionUserSettingsView, OptionUserSettingsViewModel>();
-            containerRegistry.RegisterForNavigation<OptionSoilView, OptionSoilViewModel>();
-            containerRegistry.RegisterForNavigation<OptionSoilN2OBreakdownView, OptionSoilN2OBreakdownViewModel>();
+            containerRegistry.RegisterForNavigation<OptionFarmView, FarmSettingsViewModel>();
+            containerRegistry.RegisterForNavigation<OptionUserSettingsView, UserSettingsViewModel>();
+            containerRegistry.RegisterForNavigation<OptionSoilView, SoilSettingsViewModel>();
+            containerRegistry.RegisterForNavigation<OptionSoilN2OBreakdownView, SoilN2OBreakdownSettingsViewModel>();
             containerRegistry.RegisterForNavigation<DefaultBeddingCompositionView, DefaultBeddingCompositionViewModel>();
             containerRegistry.RegisterForNavigation<DefaultManureCompositionView, DefaultManureCompositionViewModel>();
-            containerRegistry.RegisterForNavigation<OptionPrecipitationView, OptionPrecipitationViewModel>();
+            containerRegistry.RegisterForNavigation<OptionPrecipitationView, PrecipitationSettingsViewModel>();
 
 
             // New development work
-            containerRegistry.RegisterForNavigation<OptionTemperatureView, OptionTemperatureViewModel>();
-            containerRegistry.RegisterForNavigation<OptionBarnTemperatureView, OptionBarnTemperatureViewModel>();
+            containerRegistry.RegisterForNavigation<OptionEvapotranspirationView, EvapotranspirationSettingsViewModel>();
+            containerRegistry.RegisterForNavigation<OptionTemperatureView, TemperatureSettingsViewModel>();
+            containerRegistry.RegisterForNavigation<OptionBarnTemperatureView, BarnTemperatureSettingsViewModel>();
             containerRegistry.RegisterForNavigation<DisclaimerView, DisclaimerViewModel>();
             containerRegistry.RegisterForNavigation<RegionSelectionView, RegionSelectionViewModel>();
             containerRegistry.RegisterForNavigation<MeasurementProvinceView, MeasurementProvinceViewModel>();
@@ -148,6 +151,15 @@ namespace H.Avalonia
             containerRegistry.RegisterForNavigation<ChickenEggProductionComponentView, ChickenEggProductionComponentViewModel>();
             containerRegistry.RegisterForNavigation<ChickenMultiplierHatcheryComponentView,  ChickenMultiplierHatcheryComponentViewModel>();
             containerRegistry.RegisterForNavigation<StartView, StartViewModel>();
+            containerRegistry.RegisterForNavigation<FileNewFarmView, FileNewFarmViewModel>();
+            containerRegistry.RegisterForNavigation<FileOpenFarmView, FileOpenFarmViewModel>();
+            containerRegistry.RegisterForNavigation<FarmManagementView, FarmManagementViewModel>();
+            containerRegistry.RegisterForNavigation<FileSaveOptionsView, FileSaveOptionsViewModel>();
+            containerRegistry.RegisterForNavigation<FileExportFarmView, FileExportFarmViewModel>();
+            containerRegistry.RegisterForNavigation<FileImportFarmView, FileImportFarmViewModel>();
+            containerRegistry.RegisterForNavigation<FarmImportFileView, FarmImportFileViewModel>();
+            containerRegistry.RegisterForNavigation<FileExportClimateView, FileExportClimateViewModel>();
+            containerRegistry.RegisterForNavigation<FileExportManureView, FileExportManureViewModel>();
 
             // Blank Page
             containerRegistry.RegisterForNavigation<BlankView, BlankViewModel>();
@@ -180,6 +192,7 @@ namespace H.Avalonia
             containerRegistry.RegisterSingleton<IFarmHelper, FarmHelper>();
             containerRegistry.RegisterSingleton<IComponentInitializationService, ComponentInitializationService>();
             containerRegistry.RegisterSingleton<IFieldComponentService, FieldComponentService>();
+            containerRegistry.RegisterSingleton<IFarmResultsService_NEW, FarmResultsService_NEW>();
 
             // Unit conversion
             containerRegistry.RegisterSingleton<IUnitsOfMeasurementCalculator, UnitsOfMeasurementCalculator>();

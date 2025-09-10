@@ -38,6 +38,8 @@ namespace H.Core.Calculators.UnitsOfMeasurement
 
                 _storageService.GetActiveFarm().PropertyChanged -= MeasurementSystemChangedHandler;
                 _storageService.GetActiveFarm().PropertyChanged += MeasurementSystemChangedHandler;
+                _storageService.Storage.ApplicationData.GlobalSettings.PropertyChanged -= ActiveFarmChangedHandler;
+                _storageService.Storage.ApplicationData.GlobalSettings.PropertyChanged += ActiveFarmChangedHandler;
             }
             else
             {
@@ -1274,6 +1276,10 @@ namespace H.Core.Calculators.UnitsOfMeasurement
             return " (" + unitsOfMeasurement + ")";
         }
 
+        #endregion
+
+        #region Event Handlers
+
         private void MeasurementSystemChangedHandler(object? sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(Farm.MeasurementSystemType))
@@ -1282,9 +1288,15 @@ namespace H.Core.Calculators.UnitsOfMeasurement
             }
         }
 
-        #endregion
-
-        #region Event Handlers
+        private void ActiveFarmChangedHandler(object? sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(GlobalSettings.ActiveFarm))
+            {
+                IsMetric = _storageService.GetActiveFarm().MeasurementSystemType == MeasurementSystemType.Metric;
+                _storageService.GetActiveFarm().PropertyChanged -= MeasurementSystemChangedHandler;
+                _storageService.GetActiveFarm().PropertyChanged += MeasurementSystemChangedHandler;
+            }
+        }
 
         #endregion
     }

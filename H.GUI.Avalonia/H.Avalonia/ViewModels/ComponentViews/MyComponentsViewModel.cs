@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using H.Avalonia.Events;
 using H.Avalonia.Models;
@@ -86,7 +87,7 @@ public class MyComponentsViewModel : ViewModelBase
     {
         if (!base.IsInitialized)
         {
-
+            MyComponents.Clear();
             foreach (var component in base.ActiveFarm.Components)
             {
                 this.MyComponents.Add(component);
@@ -180,5 +181,7 @@ public class MyComponentsViewModel : ViewModelBase
             this.RegionManager.RequestNavigate(UiRegions.ContentRegion, viewName, navigationParameters);
         }
     }
+
     #endregion
+
 }

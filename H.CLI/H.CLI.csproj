@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<TargetFramework>net7.0-windows</TargetFramework>
+		<TargetFramework>net9.0-windows</TargetFramework>
 		<OutputType>Exe</OutputType>
 		<SccProjectName>%24/Holos 4/H/H.CLI</SccProjectName>
 		<SccLocalPath>.</SccLocalPath>
@@ -133,7 +133,7 @@
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="CommonServiceLocator">
-			<Version>2.0.5</Version>
+			<Version>2.0.7</Version>
 		</PackageReference>
 		<PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
 		<PackageReference Include="Moq">
@@ -142,7 +142,6 @@
 		<PackageReference Include="Prism.Wpf">
 			<Version>7.2.0.1422</Version>
 		</PackageReference>
-		<PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
-		<PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.0.0" />
+		<PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.1.2" />
 	</ItemGroup>
 </Project>

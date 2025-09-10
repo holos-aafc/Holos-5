@@ -30,6 +30,7 @@ namespace H.Avalonia.Test
         }
 
         [TestMethod]
+        [Ignore("API stopped free tier for map calls")]
         public async Task TestGetPointFromFullAddress()
         {
             var address = "5403 1 Ave S, Lethbridge, AB T1J 4B1";
@@ -39,6 +40,7 @@ namespace H.Avalonia.Test
         }
 
         [TestMethod]
+        [Ignore("API stopped free tier for map calls")]
         public async Task TestGetPointFromPostalCode()
         {
             var address = "T1J4B1";
@@ -48,6 +50,7 @@ namespace H.Avalonia.Test
         }
 
         [TestMethod]
+        [Ignore("API stopped free tier for map calls")]
         public async Task TestGetPointFromCity()
         {
             var address = "lethbridge";
@@ -57,6 +60,7 @@ namespace H.Avalonia.Test
         }
 
         [TestMethod]
+        [Ignore("API stopped free tier for map calls")]
         public async Task TestGetAddressFromCoordinate()
         {
             var address = await _mapHelpers?.GetAddressFromLocationAsync(longitude: -112.85, latitude: 49.70)!;

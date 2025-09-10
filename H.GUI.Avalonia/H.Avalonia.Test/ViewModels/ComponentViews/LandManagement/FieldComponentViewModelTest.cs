@@ -3,6 +3,7 @@ using H.Avalonia.ViewModels.ComponentViews.LandManagement;
 using H.Avalonia.ViewModels.ComponentViews.LandManagement.Field;
 using H.Core.Calculators.UnitsOfMeasurement;
 using H.Core.Factories;
+using H.Core.Models;
 using H.Core.Models.Animals.Beef;
 using H.Core.Models.LandManagement.Fields;
 using H.Core.Providers.Feed;
@@ -43,6 +44,8 @@ public class FieldComponentViewModelTest
         var mockRegionManager = new Mock<IRegionManager>();
         var mockEventAggregator = new Mock<IEventAggregator>();
         var mockStorageService = new Mock<IStorageService>();
+        mockStorageService.Setup(x => x.Storage).Returns(new H.Core.Storage() { ApplicationData = new ApplicationData() });
+
         _mockFieldComponentDtoFactory = new Mock<IFieldComponentDtoFactory>();
         _mockFieldComponentService = new Mock<IFieldComponentService>();
         var mockUnitsOfMeasurementCalculator = new Mock<IUnitsOfMeasurementCalculator>();

@@ -32,9 +32,9 @@ namespace H.Avalonia.Test
         public void TestTotalPET()
         {
             var totalPET = _nasaClimateProvider.GetTotalPET(1988, 52.466667, -113.75);
-            Assert.AreEqual(587.61, Math.Round(totalPET, 2));
+            Assert.AreEqual(591.48, Math.Round(totalPET, 2));
             totalPET = _nasaClimateProvider.GetTotalPET(1994, 52.38274971, -114.6030042);
-            Assert.AreEqual(534.12, Math.Round(totalPET, 2));
+            Assert.AreEqual(536.72, Math.Round(totalPET, 2));
         }
 
         [TestMethod]

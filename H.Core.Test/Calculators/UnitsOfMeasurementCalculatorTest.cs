@@ -4,6 +4,7 @@ using H.Core.Services.StorageService;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
+using H.Core.Models;
 
 namespace H.Core.Test.Calculators
 {
@@ -15,6 +16,7 @@ namespace H.Core.Test.Calculators
         [TestInitialize]
         public void TestInitialize()
         {
+
             _calculator = new UnitsOfMeasurementCalculator();
         }
 
@@ -552,7 +554,9 @@ namespace H.Core.Test.Calculators
         public void TestMeasurementSystemChangeImperial()
         {
             Mock<IStorageService> _mockStorageService = new Mock<IStorageService>();
+            _mockStorageService.Setup(x => x.Storage).Returns(new Storage() {ApplicationData = new ApplicationData()});
             IStorageService _storageServiceMoc = _mockStorageService.Object;
+
             var testFarm = new Core.Models.Farm();
             testFarm.MeasurementSystemType = MeasurementSystemType.Metric;
             _mockStorageService.Setup(x => x.GetActiveFarm()).Returns(testFarm);
@@ -568,6 +572,7 @@ namespace H.Core.Test.Calculators
         public void TestMeasurementSystemChangeMetric()
         {
             Mock<IStorageService> _mockStorageService = new Mock<IStorageService>();
+            _mockStorageService.Setup(x => x.Storage).Returns(new Storage() { ApplicationData = new ApplicationData() });
             IStorageService _storageServiceMoc = _mockStorageService.Object;
             var testFarm = new Core.Models.Farm();
             testFarm.MeasurementSystemType = MeasurementSystemType.Imperial;

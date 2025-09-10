@@ -52,6 +52,7 @@
     <PackageReference Include="Mapsui.Avalonia" Version="4.0.0" />
     <PackageReference Include="Mapsui.Extensions" Version="4.0.0" />
     <PackageReference Include="Moq" Version="4.20.72" />
+    <PackageReference Include="NLog.Extensions.Logging" Version="6.0.3" />
     <PackageReference Include="Prism.Avalonia" Version="8.1.97.11000" />
     <PackageReference Include="Prism.DryIoc.Avalonia" Version="8.1.97.11000" />
     <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.1.2" />
@@ -137,5 +138,11 @@
     <UpToDateCheckInput Remove="Views\SupportingViews\RegionSelectionView.axaml" />
     <UpToDateCheckInput Remove="Views\FarmCreationViews\FarmCreationView.axaml" />
     <UpToDateCheckInput Remove="Views\FarmCreationViews\FarmOpenExistingView.axaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="NLog.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 </Project>

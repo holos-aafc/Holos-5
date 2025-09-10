@@ -12,6 +12,7 @@ using H.Core.Models.LandManagement.Fields;
 using H.Core.Providers.Plants;
 using H.Core.Services.LandManagement.Fields;
 using H.Core.Services.StorageService;
+using Microsoft.Extensions.Logging;
 using Prism.Commands;
 using Prism.Events;
 using Prism.Regions;
@@ -55,6 +56,8 @@ public class FieldComponentViewModel : ViewModelBase
     /// </summary>
     private readonly IUnitsOfMeasurementCalculator _unitsOfMeasurementCalculator;
 
+    private ILogger _logger;
+
     #endregion
 
     #region Constructors
@@ -68,11 +71,21 @@ public class FieldComponentViewModel : ViewModelBase
         IEventAggregator eventAggregator, 
         IStorageService storageService,
         IFieldComponentService fieldComponentService,
-        IUnitsOfMeasurementCalculator unitsOfMeasurementCalculator) : base(regionManager, eventAggregator, storageService)
+        IUnitsOfMeasurementCalculator unitsOfMeasurementCalculator,
+        ILogger logger) : base(regionManager, eventAggregator, storageService)
     {
+        if (logger != null)
+        {
+            _logger = logger; 
+        }
+        else
+        {
+            throw new ArgumentNullException(nameof(logger));
+        }
+
         if (unitsOfMeasurementCalculator != null)
         {
-            _unitsOfMeasurementCalculator = unitsOfMeasurementCalculator; 
+            _unitsOfMeasurementCalculator = unitsOfMeasurementCalculator;
         }
         else
         {
@@ -148,6 +161,8 @@ public class FieldComponentViewModel : ViewModelBase
     /// <param name="component">The <see cref="FieldSystemComponent"/> to display to the user</param>
     public override void InitializeViewModel(ComponentBase component)
     {
+        _logger.LogDebug("Initializing " + component);
+
         if (component is FieldSystemComponent fieldSystemComponent)
         {
             // Keep a reference to the model/domain object

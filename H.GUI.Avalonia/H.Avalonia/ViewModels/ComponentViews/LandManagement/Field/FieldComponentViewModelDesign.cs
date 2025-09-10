@@ -5,6 +5,7 @@ using H.Core.Factories;
 using H.Core.Models;
 using H.Core.Services.LandManagement.Fields;
 using H.Core.Services.StorageService;
+using Microsoft.Extensions.Logging;
 using Prism.Events;
 using Prism.Regions;
 
@@ -35,7 +36,7 @@ public class FieldComponentViewModelDesign : FieldComponentViewModel
         };
     }
 
-    public FieldComponentViewModelDesign(IRegionManager regionManager, IEventAggregator eventAggregator, IStorageService storageService, IFieldComponentDtoFactory fieldComponentDtoFactory, ICropFactory cropFactory, IFieldComponentService fieldComponentService, IUnitsOfMeasurementCalculator unitsOfMeasurementCalculator) : base(regionManager, eventAggregator, storageService, fieldComponentService, unitsOfMeasurementCalculator)
+    public FieldComponentViewModelDesign(IRegionManager regionManager, IEventAggregator eventAggregator, IStorageService storageService, IFieldComponentDtoFactory fieldComponentDtoFactory, ICropFactory cropFactory, IFieldComponentService fieldComponentService, IUnitsOfMeasurementCalculator unitsOfMeasurementCalculator, ILogger logger) : base(regionManager, eventAggregator, storageService, fieldComponentService, unitsOfMeasurementCalculator, logger)
     {
     }
 }

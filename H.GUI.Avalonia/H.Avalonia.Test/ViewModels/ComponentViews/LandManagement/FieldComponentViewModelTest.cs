@@ -9,6 +9,7 @@ using H.Core.Models.LandManagement.Fields;
 using H.Core.Providers.Feed;
 using H.Core.Services.LandManagement.Fields;
 using H.Core.Services.StorageService;
+using Microsoft.Extensions.Logging;
 using Moq;
 using Prism.Events;
 using Prism.Regions;
@@ -44,6 +45,8 @@ public class FieldComponentViewModelTest
         var mockRegionManager = new Mock<IRegionManager>();
         var mockEventAggregator = new Mock<IEventAggregator>();
         var mockStorageService = new Mock<IStorageService>();
+        var mockLogger = new Mock<ILogger>();
+
         mockStorageService.Setup(x => x.Storage).Returns(new H.Core.Storage() { ApplicationData = new ApplicationData() });
 
         _mockFieldComponentDtoFactory = new Mock<IFieldComponentDtoFactory>();
@@ -53,7 +56,7 @@ public class FieldComponentViewModelTest
         _mockFieldComponentService.Setup(x => x.Create()).Returns(new FieldSystemComponentDto());
         _mockFieldComponentService.Setup(x => x.TransferToFieldComponentDto(It.IsAny<FieldSystemComponent>())).Returns(new FieldSystemComponentDto());
 
-        _viewModel = new FieldComponentViewModel(mockRegionManager.Object, mockEventAggregator.Object, mockStorageService.Object, _mockFieldComponentService.Object, mockUnitsOfMeasurementCalculator.Object);
+        _viewModel = new FieldComponentViewModel(mockRegionManager.Object, mockEventAggregator.Object, mockStorageService.Object, _mockFieldComponentService.Object, mockUnitsOfMeasurementCalculator.Object, mockLogger.Object);
     }
 
     [TestCleanup]

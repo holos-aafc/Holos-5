@@ -1,57 +1,58 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using H.Avalonia.Infrastructure;
 using H.Avalonia.Infrastructure.Dialogs;
 using H.Avalonia.ViewModels;
+using H.Avalonia.ViewModels.ComponentViews;
+using H.Avalonia.ViewModels.ComponentViews.Beef;
+using H.Avalonia.ViewModels.ComponentViews.Dairy;
+using H.Avalonia.ViewModels.ComponentViews.Infrastructure;
+using H.Avalonia.ViewModels.ComponentViews.LandManagement;
+using H.Avalonia.ViewModels.ComponentViews.LandManagement.Field;
+using H.Avalonia.ViewModels.ComponentViews.OtherAnimals;
+using H.Avalonia.ViewModels.ComponentViews.Poultry;
+using H.Avalonia.ViewModels.ComponentViews.Sheep;
+using H.Avalonia.ViewModels.ComponentViews.Swine;
+using H.Avalonia.ViewModels.FarmCreationViews;
+using H.Avalonia.ViewModels.OptionsViews;
+using H.Avalonia.ViewModels.OptionsViews.FileMenuViews;
 using H.Avalonia.ViewModels.Results;
+using H.Avalonia.ViewModels.SupportingViews.CountrySelection;
+using H.Avalonia.ViewModels.SupportingViews.Disclaimer;
+using H.Avalonia.ViewModels.SupportingViews.MeasurementProvince;
+using H.Avalonia.ViewModels.SupportingViews.RegionSelection;
+using H.Avalonia.ViewModels.SupportingViews.Start;
 using H.Avalonia.Views;
+using H.Avalonia.Views.ComponentViews;
+using H.Avalonia.Views.FarmCreationViews;
 using H.Avalonia.Views.ResultViews;
-using H.Avalonia.Infrastructure;
+using H.Avalonia.Views.SupportingViews.CountrySelection;
+using H.Avalonia.Views.SupportingViews.Disclaimer;
+using H.Avalonia.Views.SupportingViews.MeasurementProvince;
+using H.Avalonia.Views.SupportingViews.RegionSelection;
+using H.Core;
+using H.Core.Calculators.UnitsOfMeasurement;
+using H.Core.Enumerations;
+using H.Core.Factories;
 using H.Core.Providers;
+using H.Core.Services;
+using H.Core.Services.Countries;
+using H.Core.Services.LandManagement.Fields;
+using H.Core.Services.Provinces;
+using H.Core.Services.StorageService;
+using H.Infrastructure;
+using Microsoft.Extensions.Logging;
 using Prism.DryIoc;
 using Prism.Ioc;
 using Prism.Regions;
 using System;
-using ClimateResultsView = H.Avalonia.Views.ResultViews.ClimateResultsView;
-using SoilResultsView = H.Avalonia.Views.ResultViews.SoilResultsView;
-using H.Avalonia.ViewModels.SupportingViews.Disclaimer;
-using H.Avalonia.Views.SupportingViews.Disclaimer;
-using H.Avalonia.ViewModels.ComponentViews;
-using H.Avalonia.ViewModels.ComponentViews.LandManagement;
-using H.Avalonia.ViewModels.ComponentViews.Beef;
-using H.Avalonia.ViewModels.ComponentViews.Dairy;
-using H.Avalonia.ViewModels.ComponentViews.Sheep;
-using H.Avalonia.ViewModels.ComponentViews.OtherAnimals;
-using H.Avalonia.ViewModels.ComponentViews.Infrastructure;
-using H.Avalonia.ViewModels.ComponentViews.Swine;
-using H.Avalonia.ViewModels.ComponentViews.Poultry;
-using H.Avalonia.ViewModels.SupportingViews.MeasurementProvince;
-using H.Avalonia.Views.ComponentViews;
-using H.Avalonia.Views.SupportingViews.MeasurementProvince;
-using H.Avalonia.Views.SupportingViews.RegionSelection;
-using H.Avalonia.ViewModels.SupportingViews.RegionSelection;
-using H.Avalonia.ViewModels.OptionsViews;
-using H.Avalonia.ViewModels.OptionsViews.FileMenuViews;
-
-using H.Core.Services;
-using H.Core.Services.Provinces;
-using H.Avalonia.Views.SupportingViews.CountrySelection;
-using H.Avalonia.ViewModels.SupportingViews.CountrySelection;
-using H.Avalonia.Views.FarmCreationViews;
-using H.Core;
-using H.Core.Services.StorageService;
-using H.Infrastructure;
-using KmlHelpers = H.Avalonia.Infrastructure.KmlHelpers;
 using System.Text.RegularExpressions;
 using System.Threading;
-using H.Avalonia.ViewModels.ComponentViews.LandManagement.Field;
-using H.Core.Enumerations;
-using H.Avalonia.ViewModels.SupportingViews.Start;
-using H.Core.Calculators.UnitsOfMeasurement;
-using H.Core.Factories;
-using H.Core.Services.Countries;
-using H.Core.Services.LandManagement.Fields;
-using H.Avalonia.ViewModels.FarmCreationViews;
+using NLog.Extensions.Logging;
+using ClimateResultsView = H.Avalonia.Views.ResultViews.ClimateResultsView;
+using KmlHelpers = H.Avalonia.Infrastructure.KmlHelpers;
+using SoilResultsView = H.Avalonia.Views.ResultViews.SoilResultsView;
 
 namespace H.Avalonia
 {
@@ -88,6 +89,9 @@ namespace H.Avalonia
         /// <param name="containerRegistry"></param>
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
+            // Logging
+            this.SetUpLogging(containerRegistry);
+
             // Views - Region Navigation
             containerRegistry.RegisterForNavigation<ToolbarView, ToolbarViewModel>();
             containerRegistry.RegisterForNavigation<SidebarView, SidebarViewModel>();
@@ -234,6 +238,8 @@ namespace H.Avalonia
 
             var storage = Container.Resolve<IStorage>();
             storage.Load();
+
+            var logger = Container.Resolve<ILogger>();
         }
 
         private void SetLanguage()
@@ -246,6 +252,22 @@ namespace H.Avalonia
                 H.Avalonia.Resources.Culture = InfrastructureConstants.FrenchCultureInfo;
                 H.Core.Properties.Resources.Culture = InfrastructureConstants.FrenchCultureInfo;
             }
+        }
+
+        private void SetUpLogging(IContainerRegistry containerRegistry)
+        {
+            // Create a LoggerFactory and add NLog as the logging provider
+            var loggerFactory = LoggerFactory.Create(builder =>
+            {
+                builder.ClearProviders(); // Clear any default providers
+                builder.SetMinimumLevel(LogLevel.Trace); // Set your desired minimum log level
+                builder.AddNLog(); // Add NLog as the logging provider
+            });
+
+            var logger = loggerFactory.CreateLogger<App>();
+
+            // Register the ILogger instance as a singleton in the Prism container
+            containerRegistry.RegisterInstance(typeof(ILogger), logger);
         }
     }
 }

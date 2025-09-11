@@ -16,7 +16,7 @@ using Prism.Commands;
 using Prism.Regions;
 using Prism.Services.Dialogs;
 using System.Collections.ObjectModel;
-using static H.Avalonia.FileExportClimateView;
+using static H.Avalonia.Views.OptionsViews.FileMenuViews.FileExportClimateView;
 
 namespace H.Avalonia.ViewModels.OptionsViews.FileMenuViews
 {

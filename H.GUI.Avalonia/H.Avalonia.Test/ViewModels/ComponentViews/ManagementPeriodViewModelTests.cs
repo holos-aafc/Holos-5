@@ -1,4 +1,6 @@
-﻿namespace H.Avalonia.ViewModels.ComponentViews.Tests
+﻿using H.Avalonia.ViewModels.ComponentViews;
+
+namespace H.Avalonia.Test.ViewModels.ComponentViews
 {
     [TestClass]
     public class ManagementPeriodViewModelTests

@@ -1,18 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using H.Avalonia.ViewModels.OptionsViews.FileMenuViews;
+using H.Core.Models;
+using H.Core.Services.StorageService;
 using Moq;
 using Prism.Regions;
-using H.Core.Services.StorageService;
-using H.Avalonia.ViewModels.OptionsViews.FileMenuViews;
-using H.Core.Models;
-using System.Collections.ObjectModel;
-using System.IO;
 
-namespace H.Avalonia.Test.ViewModels.OptionsViews.FileMenuViews.Tests
+namespace H.Avalonia.Test.ViewModels.OptionsViews.FileMenuViews
 {
     [TestClass]
     public class FileImportFarmViewModelTest

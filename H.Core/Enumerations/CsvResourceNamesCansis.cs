@@ -1,4 +1,4 @@
-﻿namespace H.Data.Core.Enumerations
+﻿namespace H.Core.Enumerations
 {
     public enum CsvResourceNamesCansis
     {

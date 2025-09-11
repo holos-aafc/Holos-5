@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ExCSS;
+﻿using System.Collections.ObjectModel;
 using H.Core.Enumerations;
 using H.Core.Services.StorageService;
 
-namespace H.Avalonia.ViewModels.OptionsViews
+namespace H.Avalonia.ViewModels.OptionsViews.DataTransferObjects
 {
     public class UserSettingsDTO : ViewModelBase
     {

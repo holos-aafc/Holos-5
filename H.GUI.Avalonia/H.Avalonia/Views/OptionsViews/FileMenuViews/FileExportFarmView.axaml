@@ -6,7 +6,7 @@
 			 xmlns:properties="clr-namespace:H.Core.Properties;assembly=H.Core"
 			 xmlns:FileMenuViews="clr-namespace:H.Avalonia.ViewModels.OptionsViews.FileMenuViews"
 			 xmlns:viewSections="clr-namespace:H.Avalonia"
-             x:Class="H.Avalonia.FileExportFarmView">
+             x:Class="H.Avalonia.Views.OptionsViews.FileMenuViews.FileExportFarmView">
 
 
 	

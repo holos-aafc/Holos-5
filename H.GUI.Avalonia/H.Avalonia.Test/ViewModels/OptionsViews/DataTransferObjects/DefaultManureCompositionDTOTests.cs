@@ -1,17 +1,7 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using H.Avalonia.ViewModels.OptionsViews;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using H.Core.Models;
-using H.Core.Services.StorageService;
-using H.Core;
-using Moq;
+﻿using H.Avalonia.ViewModels.OptionsViews.DataTransferObjects;
 using H.Core.Providers.Animals;
 
-namespace H.Avalonia.ViewModels.OptionsViews.Tests
+namespace H.Avalonia.Test.ViewModels.OptionsViews.DataTransferObjects
 {
     [TestClass]
     public class DefaultManureCompositionDTOTests

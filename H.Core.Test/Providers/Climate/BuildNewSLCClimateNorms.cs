@@ -1,13 +1,8 @@
 ﻿using H.Core.Calculators.Climate;
 using H.Core.Enumerations;
 using H.Core.Providers.Climate;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 
-namespace H.Core.Test
+namespace H.Core.Test.Providers.Climate
 {
     [TestClass]
     public class BuildNewSLCClimateNorms

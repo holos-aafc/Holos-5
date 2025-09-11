@@ -1,4 +1,5 @@
-﻿using H.Core;
+﻿using H.Avalonia.ViewModels.OptionsViews;
+using H.Core;
 using H.Core.Enumerations;
 using H.Core.Models;
 using H.Core.Providers.Animals;
@@ -7,7 +8,7 @@ using Moq;
 using Prism.Events;
 using Prism.Regions;
 
-namespace H.Avalonia.ViewModels.OptionsViews.Tests
+namespace H.Avalonia.Test.ViewModels.OptionsViews
 {
     [TestClass]
     public class DefaultManureCompositionViewModelTests

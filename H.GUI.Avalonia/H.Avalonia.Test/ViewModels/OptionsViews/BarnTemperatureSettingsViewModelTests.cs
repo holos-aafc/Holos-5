@@ -1,17 +1,11 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using H.Avalonia.ViewModels.OptionsViews;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using H.Avalonia.ViewModels.OptionsViews;
+using H.Core;
 using H.Core.Models;
 using H.Core.Providers.Temperature;
 using H.Core.Services.StorageService;
-using H.Core;
 using Moq;
 
-namespace H.Avalonia.ViewModels.OptionsViews.Tests
+namespace H.Avalonia.Test.ViewModels.OptionsViews
 {
     [TestClass]
     public class BarnTemperatureSettingsViewModelTests

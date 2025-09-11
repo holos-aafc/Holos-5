@@ -42,10 +42,10 @@ namespace H.Avalonia.ViewModels.OptionsViews
                 {
                     // File Menu
                     case "New Farm":
-                        base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(FileNewFarmView));
+                        base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(Views.FarmCreationViews.FileNewFarmView));
                         break;
                     case "Open Farm":
-                        base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(FileOpenFarmView));
+                        base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(Views.FarmCreationViews.FileOpenFarmView));
                         break;
 
                     case "Close Farm":
@@ -54,60 +54,60 @@ namespace H.Avalonia.ViewModels.OptionsViews
                         break;
 
                     case "Farms":
-                        base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(FarmManagementView));
+                        base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(Views.OptionsViews.FileMenuViews.FarmManagementView));
                         break;
 
                     case "Save Options":
-                        base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(FileSaveOptionsView));
+                        base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(Views.OptionsViews.FileMenuViews.FileSaveOptionsView));
                         break;
 
                     case "Export Farm(s)":
-                        base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(FileExportFarmView));
+                        base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(Views.OptionsViews.FileMenuViews.FileExportFarmView));
                         break;
 
                     case "Import Farm":
-                        base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(FileImportFarmView));
+                        base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(Views.OptionsViews.FileMenuViews.FileImportFarmView));
                         break;
 
                     case "Export Climate":
-                        base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(FileExportClimateView));
+                        base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(Views.OptionsViews.FileMenuViews.FileExportClimateView));
                         break;
 
                     case "Export Manure":
-                        base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(FileExportManureView));
+                        base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(Views.OptionsViews.FileMenuViews.FileExportManureView));
                         break;
 
                     // Settings Menu
                     case "Farm":
-                        base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(OptionFarmView));
+                        base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(Views.OptionsViews.OptionFarmView));
                         break;
                     case "Soil":
-                        base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(OptionSoilView));
+                        base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(Views.OptionsViews.OptionSoilView));
                         break;
                     case "Soil N2O Breakdown":
-                        base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(OptionSoilN2OBreakdownView));
+                        base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(Views.OptionsViews.OptionSoilN2OBreakdownView));
                         break;
                     case "Barn Temperatures":
-                        base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(OptionBarnTemperatureView));
+                        base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(Views.OptionsViews.OptionBarnTemperatureView));
                         break;
                     case "Temperature":
-                        base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(OptionTemperatureView));
+                        base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(Views.OptionsViews.OptionTemperatureView));
                         break;
                     case "Precipitation":
-                        base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(OptionPrecipitationView));
+                        base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(Views.OptionsViews.OptionPrecipitationView));
                         break;
                     case "Evapotranspiration":
-                        base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(OptionEvapotranspirationView));
+                        base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(Views.OptionsViews.OptionEvapotranspirationView));
                         break;
                     case "Default Bedding Composition":
-                        base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(DefaultBeddingCompositionView));
+                        base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(Views.OptionsViews.DefaultBeddingCompositionView));
                         break;
                     case "Default Manure Composition":
-                        base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(DefaultManureCompositionView));
+                        base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(Views.OptionsViews.DefaultManureCompositionView));
                         break;
 
                     case "User Settings":
-                        base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(OptionUserSettingsView));
+                        base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(Views.OptionsViews.OptionUserSettingsView));
                         break;
                 }
             }

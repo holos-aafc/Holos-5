@@ -1,20 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using H.Avalonia.ViewModels.OptionsViews;
-using H.Core.Models;
-using H.Core.Services.StorageService;
+﻿using H.Avalonia.ViewModels.OptionsViews;
 using H.Core;
-using H.Core.Providers.Climate;
+using H.Core.Models;
 using H.Core.Providers.Precipitation;
+using H.Core.Services.StorageService;
 using Moq;
-using Prism.Regions;
-using Mapsui;
-using H.Core.Enumerations;
 
-namespace H.Avalonia.Test.ViewModels.OptionsViews.Tests
+namespace H.Avalonia.Test.ViewModels.OptionsViews
 {
     [TestClass]
     public class PrecipitationSettingsViewModelTests

@@ -1,8 +1,6 @@
-using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
 
-namespace H.Avalonia;
+namespace H.Avalonia.Views.ComponentViews.Dairy;
 
 public partial class DairyComponentView : UserControl
 {

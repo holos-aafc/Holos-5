@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ExCSS;
-using H.Core.Enumerations;
+﻿using H.Core.Enumerations;
 using H.Core.Services.StorageService;
-using Mapsui.Extensions;
 
-namespace H.Avalonia.ViewModels.OptionsViews
+namespace H.Avalonia.ViewModels.OptionsViews.DataTransferObjects
 {
     public class FarmSettingsDTO : ViewModelBase
     {

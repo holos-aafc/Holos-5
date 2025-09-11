@@ -5,7 +5,7 @@
 			 xmlns:OptionsViews="clr-namespace:H.Avalonia.ViewModels.OptionsViews"
 			 xmlns:properties="clr-namespace:H.Core.Properties;assembly=H.Core"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="800"
-             x:Class="H.Avalonia.OptionFarmView">
+             x:Class="H.Avalonia.Views.OptionsViews.OptionFarmView">
 
 	<Design.DataContext>
 		<OptionsViews:FarmSettingsViewModel />

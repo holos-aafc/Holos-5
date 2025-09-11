@@ -1,10 +1,10 @@
-﻿using Prism.Commands;
-using Prism.Regions;
+﻿using System;
 using System.Windows.Input;
-using System;
 using H.Avalonia.Views.FarmCreationViews;
+using Prism.Commands;
+using Prism.Regions;
 
-namespace H.Avalonia.ViewModels
+namespace H.Avalonia.ViewModels.FarmCreationViews
 {
     public class FarmOptionsViewModel : ViewModelBase
     {
@@ -48,7 +48,7 @@ namespace H.Avalonia.ViewModels
 
         private void OnNavigateToImportFarm()
         {
-            _regionManager.RequestNavigate(UiRegions.ContentRegion, nameof(FarmImportFileView));
+            _regionManager.RequestNavigate(UiRegions.ContentRegion, nameof(Views.FarmCreationViews.FarmImportFileView));
         }
         #endregion
     }

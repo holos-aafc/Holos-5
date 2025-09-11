@@ -12,16 +12,16 @@ public class ComponentTypeToViewTypeMapper
 
         if (component.ComponentType == ComponentType.Field)
         {
-            return nameof(FieldComponentView);
+            return nameof(Views.ComponentViews.LandManagement.FieldComponentView);
         }
 
         if (component.ComponentType == ComponentType.Rotation)
         {
-            return nameof(RotationComponentView);
+            return nameof(Views.ComponentViews.LandManagement.RotationComponentView);
         }
         if (component.ComponentType == ComponentType.Shelterbelt)
         {
-            return nameof(ShelterbeltComponentView);
+            return nameof(Views.ComponentViews.LandManagement.ShelterbeltComponentView);
         }
         
         /*
@@ -30,15 +30,15 @@ public class ComponentTypeToViewTypeMapper
 
         if (component.ComponentType == ComponentType.CowCalf)
         {
-            return nameof(CowCalfComponentView);
+            return nameof(Views.ComponentViews.Beef.CowCalfComponentView);
         }
         if (component.ComponentType == ComponentType.Backgrounding)
         {
-            return nameof(BackgroundingComponentView);
+            return nameof(Views.ComponentViews.Beef.BackgroundingComponentView);
         }
         if (component.ComponentType == ComponentType.Finishing)
         {
-            return nameof(FinishingComponentView);
+            return nameof(Views.ComponentViews.Beef.FinishingComponentView);
         }
 
         /*
@@ -46,7 +46,7 @@ public class ComponentTypeToViewTypeMapper
          */
 
          if (component.ComponentType == ComponentType.Dairy) {
-            return nameof(DairyComponentView);
+            return nameof(Views.ComponentViews.Dairy.DairyComponentView);
          }
 
          /*
@@ -55,22 +55,22 @@ public class ComponentTypeToViewTypeMapper
 
         if (component.ComponentType == ComponentType.SwineGrowers)
         {
-            return nameof(GrowerToFinishComponentView);
+            return nameof(Views.ComponentViews.Swine.GrowerToFinishComponentView);
         }
 
         if (component.ComponentType == ComponentType.FarrowToWean)
         {
-            return nameof(FarrowToWeanComponentView);
+            return nameof(Views.ComponentViews.Swine.FarrowToWeanComponentView);
         }
 
         if (component.ComponentType == ComponentType.IsoWean)
         {
-            return nameof(IsoWeanComponentView);
+            return nameof(Views.ComponentViews.Swine.IsoWeanComponentView);
         }
 
         if (component.ComponentType == ComponentType.FarrowToFinish)
         {
-            return nameof(FarrowToFinishComponentView);
+            return nameof(Views.ComponentViews.Swine.FarrowToFinishComponentView);
         }
 
         /*
@@ -79,22 +79,22 @@ public class ComponentTypeToViewTypeMapper
 
         if (component.ComponentType == ComponentType.Sheep)
         {
-            return nameof(SheepComponentView);
+            return nameof(Views.ComponentViews.LandManagement.SheepComponentView);
         }
 
         if (component.ComponentType == ComponentType.SheepFeedlot)
         {
-            return nameof(SheepFeedlotComponentView);
+            return nameof(Views.ComponentViews.Sheep.SheepFeedlotComponentView);
         }
 
         if(component.ComponentType == ComponentType.Rams)
         {
-            return nameof(RamsComponentView);
+            return nameof(Views.ComponentViews.Sheep.RamsComponentView);
         }
         
         if(component.ComponentType == ComponentType.LambsAndEwes)
         {
-            return nameof(LambsAndEwesComponentView);
+            return nameof(Views.ComponentViews.Sheep.LambsAndEwesComponentView);
         }
 
         /*
@@ -103,32 +103,32 @@ public class ComponentTypeToViewTypeMapper
 
         if(component.ComponentType == ComponentType.Goats)
         {
-            return nameof(GoatsComponentView);
+            return nameof(Views.ComponentViews.OtherAnimals.GoatsComponentView);
         }
 
         if (component.ComponentType == ComponentType.Deer)
         {
-            return nameof(DeerComponentView);
+            return nameof(Views.ComponentViews.OtherAnimals.DeerComponentView);
         }
         
         if (component.ComponentType == ComponentType.Horses)
         {
-            return nameof(HorsesComponentView);
+            return nameof(Views.ComponentViews.OtherAnimals.HorsesComponentView);
         }
         
         if (component.ComponentType == ComponentType.Mules)
         {
-            return nameof(MulesComponentView);
+            return nameof(Views.ComponentViews.OtherAnimals.MulesComponentView);
         }
         
         if (component.ComponentType == ComponentType.Bison)
         {
-            return nameof(BisonComponentView);
+            return nameof(Views.ComponentViews.OtherAnimals.BisonComponentView);
         }
 
         if (component.ComponentType == ComponentType.Llamas)
         {
-            return nameof(LlamaComponentView);
+            return nameof(Views.ComponentViews.OtherAnimals.LlamaComponentView);
         }
 
         /*
@@ -137,37 +137,37 @@ public class ComponentTypeToViewTypeMapper
 
         if (component.ComponentType == ComponentType.ChickenPulletFarm)
         {
-            return nameof(ChickenPulletsComponentView);
+            return nameof(Views.ComponentViews.Poultry.ChickenPulletsComponentView);
         }
 
         if (component.ComponentType == ComponentType.ChickenMultiplierBreeder)
         {
-            return nameof(ChickenMultiplierBreederComponentView);
+            return nameof(Views.ComponentViews.Poultry.ChickenMultiplierBreederComponentView);
         }
 
         if (component.ComponentType == ComponentType.ChickenMeatProduction)
         {
-            return nameof(ChickenMeatProductionComponentView);
+            return nameof(Views.ComponentViews.Poultry.ChickenMeatProductionComponentView);
         }
 
         if (component.ComponentType == ComponentType.TurkeyMultiplierBreeder)
         {
-            return nameof(TurkeyMultiplierBreederComponentView);
+            return nameof(Views.ComponentViews.Poultry.TurkeyMultiplierBreederComponentView);
         }
 
         if (component.ComponentType == ComponentType.TurkeyMeatProduction)
         {
-            return nameof(TurkeyMeatProductionComponentView);
+            return nameof(Views.ComponentViews.Poultry.TurkeyMeatProductionComponentView);
         }
 
         if (component.ComponentType == ComponentType.ChickenEggProduction)
         {
-            return nameof(ChickenEggProductionComponentView);
+            return nameof(Views.ComponentViews.Poultry.ChickenEggProductionComponentView);
         }
 
         if (component.ComponentType == ComponentType.ChickenMultiplierHatchery)
         {
-            return nameof(ChickenMultiplierHatcheryComponentView);
+            return nameof(Views.ComponentViews.Poultry.ChickenMultiplierHatcheryComponentView);
         }
 
         /*
@@ -176,7 +176,7 @@ public class ComponentTypeToViewTypeMapper
 
         if (component.ComponentType == ComponentType.AnaerobicDigestion)
         {
-            return nameof(AnaerobicDigestionComponentView);
+            return nameof(Views.ComponentViews.Infrastructure.AnaerobicDigestionComponentView);
         }
 
         return string.Empty;

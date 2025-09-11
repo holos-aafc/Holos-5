@@ -1,19 +1,13 @@
 ﻿using System;
+using System.Windows.Input;
+using H.Avalonia.Views;
 using H.Avalonia.Views.FarmCreationViews;
+using H.Core.Services;
+using H.Core.Services.StorageService;
 using Prism.Commands;
 using Prism.Regions;
-using System.Windows.Input;
-using H.Avalonia.Views.ComponentViews;
-using H.Core.Models;
-using H.Core.Services.StorageService;
-using System.ComponentModel;
-using System.Collections.Generic;
-using System.Linq;
-using System.Collections;
-using H.Avalonia.Views;
-using H.Core.Services;
 
-namespace H.Avalonia.ViewModels
+namespace H.Avalonia.ViewModels.FarmCreationViews
 {
     public class FarmCreationViewModel : ViewModelBase
     {

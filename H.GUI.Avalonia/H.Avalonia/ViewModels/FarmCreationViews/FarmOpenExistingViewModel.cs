@@ -1,17 +1,14 @@
-﻿using H.Avalonia.Views.FarmCreationViews;
+﻿using System.Collections.ObjectModel;
+using System.Linq;
+using DynamicData;
+using H.Avalonia.Views.ComponentViews;
+using H.Avalonia.Views.FarmCreationViews;
+using H.Core.Models;
+using H.Core.Services.StorageService;
 using Prism.Commands;
 using Prism.Regions;
-using System.Windows.Input;
-using H.Core.Services.StorageService;
-using System.Collections.ObjectModel;
-using DynamicData;
-using System.Linq;
-using H.Avalonia.Views.ComponentViews;
-using H.Core.Models;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 
-namespace H.Avalonia.ViewModels
+namespace H.Avalonia.ViewModels.FarmCreationViews
 {
     public class FarmOpenExistingViewmodel : ViewModelBase
     {

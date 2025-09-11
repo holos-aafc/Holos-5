@@ -4,6 +4,7 @@ using H.Core.Services.StorageService;
 using Prism.Regions;
 using H.Core.Models;
 using System.ComponentModel;
+using H.Avalonia.ViewModels.OptionsViews.DataTransferObjects;
 
 namespace H.Avalonia.ViewModels.OptionsViews
 {

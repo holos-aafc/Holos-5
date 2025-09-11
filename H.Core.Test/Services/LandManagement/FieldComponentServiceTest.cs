@@ -1,15 +1,12 @@
 using System.Collections.ObjectModel;
-using System.Configuration;
 using H.Core.Calculators.UnitsOfMeasurement;
 using H.Core.Enumerations;
 using H.Core.Factories;
 using H.Core.Models.LandManagement.Fields;
-using H.Core.Services.LandManagement;
 using H.Core.Services.LandManagement.Fields;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
-namespace H.Core.Test;
+namespace H.Core.Test.Services.LandManagement;
 
 [TestClass]
 public class FieldComponentServiceTest

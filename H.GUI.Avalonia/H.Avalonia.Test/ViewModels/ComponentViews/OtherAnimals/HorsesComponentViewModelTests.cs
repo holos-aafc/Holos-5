@@ -1,4 +1,5 @@
-﻿using H.Core;
+﻿using H.Avalonia.ViewModels.ComponentViews.OtherAnimals;
+using H.Core;
 using H.Core.Enumerations;
 using H.Core.Models;
 using H.Core.Models.Animals;
@@ -6,7 +7,7 @@ using H.Core.Models.Animals.OtherAnimals;
 using H.Core.Services.StorageService;
 using Moq;
 
-namespace H.Avalonia.ViewModels.ComponentViews.OtherAnimals.Tests
+namespace H.Avalonia.Test.ViewModels.ComponentViews.OtherAnimals
 {
     [TestClass]
     public class HorsesComponentViewModelTests

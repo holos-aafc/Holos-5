@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using AutoMapper;
 using H.Avalonia.Views.ComponentViews;
+using H.Avalonia.Views.ComponentViews.LandManagement;
 using H.Core.Calculators.UnitsOfMeasurement;
 using H.Core.Enumerations;
 using H.Core.Factories;
@@ -20,7 +21,7 @@ using Prism.Regions;
 namespace H.Avalonia.ViewModels.ComponentViews.LandManagement.Field;
 
 /// <summary>
-/// The view model that is used with a <see cref="FieldComponentView"/>.
+/// The view model that is used with a <see cref="Views.ComponentViews.LandManagement.FieldComponentView"/>.
 /// </summary>
 public class FieldComponentViewModel : ViewModelBase
 {

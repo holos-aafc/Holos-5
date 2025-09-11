@@ -76,7 +76,7 @@ namespace H.Avalonia.ViewModels.SupportingViews.MeasurementProvince
 
         private void OnNavigate()
         {               
-            _regionManager.RequestNavigate(UiRegions.ContentRegion, nameof(BlankView));                     
+            _regionManager.RequestNavigate(UiRegions.ContentRegion, nameof(Views.BlankView));                     
         }
 
         #endregion

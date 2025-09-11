@@ -1,9 +1,10 @@
-﻿using H.Core.Calculators.UnitsOfMeasurement;
-using Moq;
-using H.Core.Providers.Animals;
+﻿using H.Avalonia.ViewModels.OptionsViews.DataTransferObjects;
+using H.Core.Calculators.UnitsOfMeasurement;
 using H.Core.Enumerations;
+using H.Core.Providers.Animals;
+using Moq;
 
-namespace H.Avalonia.ViewModels.OptionsViews.Tests
+namespace H.Avalonia.Test.ViewModels.OptionsViews.DataTransferObjects
 {
     [TestClass]
     public class DefaultBeddingCompositionDTOTests

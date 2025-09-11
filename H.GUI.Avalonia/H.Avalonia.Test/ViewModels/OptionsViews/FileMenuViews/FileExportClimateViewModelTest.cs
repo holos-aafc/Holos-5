@@ -1,16 +1,12 @@
-﻿using System;
-using System.Threading.Tasks;
-using Avalonia.Controls.Notifications;
-using Avalonia.Platform.Storage;
+﻿using Avalonia.Platform.Storage;
 using H.Avalonia.ViewModels.OptionsViews.FileMenuViews;
 using H.Core.Models;
 using H.Core.Services.StorageService;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Prism.Regions;
-using static H.Avalonia.FileExportClimateView;
+using static H.Avalonia.Views.OptionsViews.FileMenuViews.FileExportClimateView;
 
-namespace H.Avalonia.Test.ViewModels.OptionsViews.FileMenuViews.Tests
+namespace H.Avalonia.Test.ViewModels.OptionsViews.FileMenuViews
 {
     [TestClass]
     public class FileExportClimateViewModelTest

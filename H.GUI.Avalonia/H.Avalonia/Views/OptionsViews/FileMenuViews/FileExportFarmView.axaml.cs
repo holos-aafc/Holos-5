@@ -1,17 +1,11 @@
-using System;
-using System.IO;
 using System.Linq;
-using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Notifications;
 using Avalonia.Interactivity;
-using Avalonia.Markup.Xaml;
 using Avalonia.Platform.Storage;
-using H.Avalonia.Models;
 using H.Avalonia.ViewModels.OptionsViews.FileMenuViews;
-using H.Core.Models;
 
-namespace H.Avalonia;
+namespace H.Avalonia.Views.OptionsViews.FileMenuViews;
 
 public partial class FileExportFarmView : UserControl
 {
@@ -25,7 +19,7 @@ public partial class FileExportFarmView : UserControl
     {
         if (DataContext is FileExportFarmViewModel vm)
         {
-            vm.SelectedFarms = FarmsDataGrid.SelectedItems.Cast<H.Core.Models.Farm>().ToList();
+            vm.SelectedFarms = Enumerable.Cast<H.Core.Models.Farm>(FarmsDataGrid.SelectedItems).ToList();
         }
     }
 

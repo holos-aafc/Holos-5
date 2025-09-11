@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using H.Core.Calculators.UnitsOfMeasurement;
+﻿using System.Collections.ObjectModel;
 using H.Core.Enumerations;
 using H.Core.Models;
 using H.Core.Models.Animals.Beef;
@@ -14,13 +8,9 @@ using H.Core.Providers;
 using H.Core.Providers.Climate;
 using H.Core.Providers.Soil;
 using H.Core.Services;
-using H.Core.Services.StorageService;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using Prism.Events;
-using Prism.Regions;
 
-namespace H.Core.Services.Tests
+namespace H.Core.Test.Services
 {
     [TestClass]
     public class FarmResultsService_NEWTests

@@ -2,7 +2,7 @@
 using H.Core.Services.StorageService;
 using Prism.Regions;
 
-namespace H.Avalonia.ViewModels;
+namespace H.Avalonia.ViewModels.FarmCreationViews;
 
 public class FarmCreationViewModelDesign : FarmCreationViewModel
 {

@@ -1,12 +1,10 @@
+using System;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Notifications;
-using Avalonia.Markup.Xaml;
 using H.Avalonia.ViewModels.OptionsViews;
-using H.Avalonia.ViewModels.OptionsViews.FileMenuViews;
-using System;
 
-namespace H.Avalonia;
+namespace H.Avalonia.Views.OptionsViews;
 
 public partial class OptionSoilN2OBreakdownView : UserControl
 {

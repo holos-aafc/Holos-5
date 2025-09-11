@@ -7,6 +7,5 @@ namespace H.Core.Providers.Feed
     {
         List<Diet> GetDiets();
         Diet GetNoDiet();
-        List<AnimalType> GetValidAnimalDietTypes(AnimalType animalType);
     }
 }

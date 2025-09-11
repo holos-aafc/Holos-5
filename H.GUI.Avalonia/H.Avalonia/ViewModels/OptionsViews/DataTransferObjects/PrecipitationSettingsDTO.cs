@@ -1,15 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using H.Core.Enumerations;
 using H.Core.Providers.Precipitation;
 using H.Core.Services.StorageService;
-using Prism.Events;
 
-namespace H.Avalonia.ViewModels.OptionsViews
+namespace H.Avalonia.ViewModels.OptionsViews.DataTransferObjects
 {
     public class PrecipitationSettingsDTO : ViewModelBase
     {

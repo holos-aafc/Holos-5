@@ -1,18 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 using Avalonia.Platform.Storage;
 using H.Avalonia.ViewModels.OptionsViews.FileMenuViews;
 using H.Core.Models;
 using H.Core.Services.StorageService;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Prism.Regions;
 
-namespace H.Avalonia.Test.ViewModels.OptionsViews.FileMenuViews.Tests
+namespace H.Avalonia.Test.ViewModels.OptionsViews.FileMenuViews
 {
     [TestClass]
     public class FileExportFarmViewModelTest

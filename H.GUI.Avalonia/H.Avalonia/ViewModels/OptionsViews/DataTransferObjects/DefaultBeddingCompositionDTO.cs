@@ -1,10 +1,9 @@
 ﻿using System;
-using H.Core.Providers.Animals;
 using H.Core.Calculators.UnitsOfMeasurement;
 using H.Core.Enumerations;
-using System.Diagnostics;
+using H.Core.Providers.Animals;
 
-namespace H.Avalonia.ViewModels.OptionsViews
+namespace H.Avalonia.ViewModels.OptionsViews.DataTransferObjects
 {
     public class DefaultBeddingCompositionDTO : ViewModelBase
     {

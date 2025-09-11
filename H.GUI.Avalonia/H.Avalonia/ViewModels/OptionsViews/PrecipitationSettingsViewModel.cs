@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using DynamicData.Binding;
+using H.Avalonia.ViewModels.OptionsViews.DataTransferObjects;
 using H.Avalonia.ViewModels.Styles;
 using H.Core.Enumerations;
 using H.Core.Providers.Evapotranspiration;

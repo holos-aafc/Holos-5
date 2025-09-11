@@ -48,7 +48,7 @@ namespace H.Core.Services.Animals
 
         protected ComponentCategory _animalComponentCategory;
         private readonly Table_29_Default_Manure_Excreted_Provider _manureExcretionAmountProvider = new Table_29_Default_Manure_Excreted_Provider();
-        private static List<Diet> _diets;
+        private static List<Providers.Feed.Diet> _diets;
 
         #endregion
 

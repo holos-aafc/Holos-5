@@ -6,7 +6,7 @@
 			 xmlns:lvc="using:LiveChartsCore.SkiaSharpView.Avalonia"
 			 xmlns:properties="clr-namespace:H.Core.Properties;assembly=H.Core"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="H.Avalonia.OptionBarnTemperatureView">
+             x:Class="H.Avalonia.Views.OptionsViews.OptionBarnTemperatureView">
 
 	<Design.DataContext>
 		<OptionsViews:BarnTemperatureSettingsViewModel/>

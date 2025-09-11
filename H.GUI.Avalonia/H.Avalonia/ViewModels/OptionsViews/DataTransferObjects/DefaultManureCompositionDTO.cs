@@ -2,7 +2,7 @@
 using H.Core.Enumerations;
 using H.Core.Providers.Animals;
 
-namespace H.Avalonia.ViewModels.OptionsViews
+namespace H.Avalonia.ViewModels.OptionsViews.DataTransferObjects
 {
     public class DefaultManureCompositionDTO : ViewModelBase
     {

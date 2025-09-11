@@ -1,19 +1,13 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System.Collections.ObjectModel;
 using H.Avalonia.ViewModels.OptionsViews;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using H.Core;
+using H.Core.Enumerations;
+using H.Core.Models;
 using H.Core.Services.StorageService;
 using Moq;
 using Prism.Regions;
-using H.Core.Enumerations;
-using System.Collections.ObjectModel;
-using H.Core.Models;
-using H.Core;
 
-namespace H.Avalonia.ViewModels.OptionsViews.Tests
+namespace H.Avalonia.Test.ViewModels.OptionsViews
 {
     [TestClass]
     public class FarmSettingsViewModelTests

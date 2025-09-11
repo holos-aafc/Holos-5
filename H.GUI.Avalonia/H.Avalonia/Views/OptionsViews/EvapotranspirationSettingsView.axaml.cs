@@ -1,6 +1,6 @@
 using Avalonia.Controls;
 
-namespace H.Avalonia;
+namespace H.Avalonia.Views.OptionsViews;
 
 public partial class OptionEvapotranspirationView : UserControl
 {

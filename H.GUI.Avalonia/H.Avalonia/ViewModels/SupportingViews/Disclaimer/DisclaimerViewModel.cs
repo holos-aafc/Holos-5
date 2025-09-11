@@ -162,7 +162,7 @@ namespace H.Avalonia.ViewModels.SupportingViews.Disclaimer
         private void OnOkExecute(object obj)
         {                                        
             // Navigate to next view
-            base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(StartView));
+            base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(Views.SupportingViews.Start.StartView));
         }
 
         private bool OkCanExecute(object arg)

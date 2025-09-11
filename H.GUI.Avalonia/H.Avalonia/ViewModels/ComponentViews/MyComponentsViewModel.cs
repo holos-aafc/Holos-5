@@ -136,8 +136,8 @@ public class MyComponentsViewModel : ViewModelBase
 
     public void OnOptionsExecute()
     {  
-        base.RegionManager.RequestNavigate(UiRegions.SidebarRegion, nameof(OptionsView));
-        base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(SelectOptionView));
+        base.RegionManager.RequestNavigate(UiRegions.SidebarRegion, nameof(Views.OptionsViews.OptionsView));
+        base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(Views.OptionsViews.SelectOptionView));
     }
 
     private void OnPropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)

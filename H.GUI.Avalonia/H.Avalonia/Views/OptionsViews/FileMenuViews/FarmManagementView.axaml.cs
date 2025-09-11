@@ -2,11 +2,9 @@ using System;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Notifications;
-using Avalonia.Markup.Xaml;
-using H.Avalonia.ViewModels;
 using H.Avalonia.ViewModels.OptionsViews.FileMenuViews;
 
-namespace H.Avalonia;
+namespace H.Avalonia.Views.OptionsViews.FileMenuViews;
 
 public partial class FarmManagementView : UserControl
 {

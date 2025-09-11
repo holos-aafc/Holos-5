@@ -1,5 +1,6 @@
 ﻿using H.Core.Enumerations;
 using H.Core.Providers.Feed;
+using H.Infrastructure.Services;
 using Microsoft.Extensions.Logging;
 
 namespace H.Core.Services.DietService
@@ -9,16 +10,26 @@ namespace H.Core.Services.DietService
         #region Fields
 
         private readonly ILogger _logger;
+        private ICacheService _cacheService;
 
         #endregion
 
         #region Constructors
 
-        public DietFactory(ILogger logger)
+        public DietFactory(ILogger logger, ICacheService cacheService)
         {
+            if (cacheService != null)
+            {
+                _cacheService = cacheService;
+            }
+            else
+            {
+                throw new ArgumentNullException(nameof(cacheService));
+            }
+
             if (logger != null)
             {
-                _logger = logger; 
+                _logger = logger;
             }
             else
             {

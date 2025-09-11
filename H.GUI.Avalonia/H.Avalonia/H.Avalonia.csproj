@@ -51,6 +51,7 @@
     <PackageReference Include="LiveChartsCore.SkiaSharpView.Avalonia" Version="2.0.0-rc1" />
     <PackageReference Include="Mapsui.Avalonia" Version="4.0.0" />
     <PackageReference Include="Mapsui.Extensions" Version="4.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="9.0.9" />
     <PackageReference Include="Moq" Version="4.20.72" />
     <PackageReference Include="NLog.Extensions.Logging" Version="6.0.3" />
     <PackageReference Include="Prism.Avalonia" Version="8.1.97.11000" />

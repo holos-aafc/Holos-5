@@ -1,6 +1,7 @@
 using H.Core.Enumerations;
 using H.Core.Providers.Feed;
 using H.Core.Services.DietService;
+using H.Infrastructure.Services;
 using Microsoft.Extensions.Logging;
 using Moq;
 
@@ -31,8 +32,9 @@ public class DietFactoryTest
     public void TestInitialize()
     {
         var mockLogger = new Mock<ILogger>();
+        var mockCacheService = new Mock<ICacheService>();
 
-        _sut = new DietFactory(mockLogger.Object);
+        _sut = new DietFactory(mockLogger.Object, mockCacheService.Object);
     }
 
     [TestCleanup]

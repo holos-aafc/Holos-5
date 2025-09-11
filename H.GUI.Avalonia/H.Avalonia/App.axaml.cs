@@ -54,6 +54,8 @@ using Prism.Regions;
 using System;
 using System.Text.RegularExpressions;
 using System.Threading;
+using H.Infrastructure.Services;
+using Microsoft.Extensions.Caching.Memory;
 using ClimateResultsView = H.Avalonia.Views.ResultViews.ClimateResultsView;
 using KmlHelpers = H.Avalonia.Infrastructure.KmlHelpers;
 using SoilResultsView = H.Avalonia.Views.ResultViews.SoilResultsView;
@@ -218,6 +220,8 @@ namespace H.Avalonia
 
             // Mappers
             this.SetupMappers(containerRegistry);
+
+            this.SetUpCaching(containerRegistry);
         }
 
         protected override AvaloniaObject CreateShell()
@@ -261,6 +265,17 @@ namespace H.Avalonia
                 H.Avalonia.Resources.Culture = InfrastructureConstants.FrenchCultureInfo;
                 H.Core.Properties.Resources.Culture = InfrastructureConstants.FrenchCultureInfo;
             }
+        }
+
+        private void SetUpCaching(IContainerRegistry containerRegistry)
+        {
+            var options = new MemoryCacheOptions()
+            {
+                //SizeLimit = long.MaxValue,
+            };
+
+            containerRegistry.RegisterSingleton<IMemoryCache>(() => new MemoryCache(options));
+            containerRegistry.RegisterSingleton<ICacheService, InMemoryCacheService>();
         }
 
         private void SetUpLogging(IContainerRegistry containerRegistry)

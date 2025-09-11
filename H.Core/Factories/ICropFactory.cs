@@ -20,7 +20,7 @@ public interface ICropFactory
 
     ICropDto CreateCropDto(ICropDto template);
 
-    #endregion
+    CropViewItem CreateCropViewItem(ICropDto cropDto);
 
-    CropViewItem CreateCropViewItem(ICropDto  cropDto);
+    #endregion
 }

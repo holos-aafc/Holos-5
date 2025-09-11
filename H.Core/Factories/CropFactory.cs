@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using H.Core.Enumerations;
+using H.Core.Mappers;
 using H.Core.Models.LandManagement.Fields;
 using H.Infrastructure;
+using Prism.Ioc;
 
 namespace H.Core.Factories;
 
@@ -20,15 +22,11 @@ public class CropFactory : ICropFactory
 
     #region Constructors
 
-    public CropFactory()
+    public CropFactory(IContainerProvider containerProvider)
     {
-        var cropViewItemToDtoMapperConfiguration = new MapperConfiguration(configuration => { configuration.CreateMap<CropViewItem, CropDto>(); });
-        var cropDtoToDtoMapperConfiguration = new MapperConfiguration(configuration => { configuration.CreateMap<CropDto, CropDto>(); });
-        var cropDtoToViewItemMapperConfiguration = new MapperConfiguration(configuration => { configuration.CreateMap<CropDto, CropViewItem>(); });
-
-        _cropViewItemToDtoMapper = cropViewItemToDtoMapperConfiguration.CreateMapper();
-        _cropDtoToDtoMapper = cropDtoToDtoMapperConfiguration.CreateMapper();
-        _cropDtoToViewItemMapper = cropDtoToViewItemMapperConfiguration.CreateMapper();
+        _cropViewItemToDtoMapper = containerProvider.Resolve<IMapper>(nameof(CropViewItemToCropDtoMapper));
+        _cropDtoToDtoMapper = containerProvider.Resolve<IMapper>(nameof(CropDtoCropDtoMapper));
+        _cropDtoToViewItemMapper = containerProvider.Resolve<IMapper>(nameof(CropDtoToCropViewItemMapper));
     } 
 
     #endregion

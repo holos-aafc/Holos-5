@@ -2,6 +2,8 @@ using H.Avalonia.ViewModels.ComponentViews.LandManagement.Field;
 using H.Core.Enumerations;
 using H.Core.Factories;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
+using Prism.Ioc;
 
 namespace H.Core.Test.Factories;
 
@@ -29,7 +31,9 @@ public class CropDtoFactoryTest
     [TestInitialize]
     public void TestInitialize()
     {
-        _factory = new CropFactory();
+        var mockContainerProvider = new Mock<IContainerProvider>();
+
+        _factory = new CropFactory(mockContainerProvider.Object);
     }
 
     [TestCleanup]

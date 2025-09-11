@@ -290,10 +290,22 @@ namespace H.Avalonia
                 expression.AddProfile<CropViewItemToCropDtoMapper>();
             });
 
+            var fieldComponentToFieldDtoConfiguration = new MapperConfiguration(expression =>
+            {
+                expression.AddProfile<FieldComponentToDtoMapper>();
+            });
+
+            var fieldDtoToFieldDtoConfiguration = new MapperConfiguration(expression =>
+            {
+                expression.AddProfile<FieldDtoToFieldDtoMapper>();
+            });
+
             // Register named mappers
             containerRegistry.RegisterInstance<IMapper>(cropDtoToCropDtoConfiguration.CreateMapper(), nameof(CropDtoCropDtoMapper));
             containerRegistry.RegisterInstance<IMapper>(cropDtoToCropVieItemConfiguration.CreateMapper(), nameof(CropDtoToCropViewItemMapper));
             containerRegistry.RegisterInstance<IMapper>(cropViewItemToCropVieItemConfiguration.CreateMapper(), nameof(CropViewItemToCropDtoMapper));
+            containerRegistry.RegisterInstance<IMapper>(fieldComponentToFieldDtoConfiguration.CreateMapper(), nameof(FieldComponentToDtoMapper));
+            containerRegistry.RegisterInstance<IMapper>(fieldDtoToFieldDtoConfiguration.CreateMapper(), nameof(FieldDtoToFieldDtoMapper));
         }
     }
 }

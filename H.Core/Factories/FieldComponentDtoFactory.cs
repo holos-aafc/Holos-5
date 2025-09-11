@@ -2,12 +2,14 @@
 using Avalonia.Markup.Xaml.Templates;
 using H.Core.Calculators.UnitsOfMeasurement;
 using H.Core.Converters;
+using H.Core.Mappers;
 using H.Core.Models.LandManagement.Fields;
+using Prism.Ioc;
 
 namespace H.Core.Factories;
 
 /// <summary>
-/// A class used to create new <see cref="FieldSystemComponentDto"/> isntances. The class will provide basic initialization of a new instance before returning the result to the caller.
+/// A class used to create new <see cref="FieldSystemComponentDto"/> instances. The class will provide basic initialization of a new instance before returning the result to the caller.
 /// </summary>
 public class FieldComponentDtoFactory : IFieldComponentDtoFactory
 {
@@ -24,8 +26,13 @@ public class FieldComponentDtoFactory : IFieldComponentDtoFactory
 
     #region Constructors
 
-    public FieldComponentDtoFactory(ICropFactory cropFactory, IUnitsOfMeasurementCalculator unitsOfMeasurementCalculator)
+    public FieldComponentDtoFactory(ICropFactory cropFactory, IUnitsOfMeasurementCalculator unitsOfMeasurementCalculator, IContainerProvider containerProvider)
     {
+        if (containerProvider == null)
+        {
+            throw new ArgumentNullException(nameof(containerProvider));
+        }
+
         if (unitsOfMeasurementCalculator != null)
         {
             _unitsOfMeasurementCalculator = unitsOfMeasurementCalculator;
@@ -44,11 +51,8 @@ public class FieldComponentDtoFactory : IFieldComponentDtoFactory
             throw new ArgumentNullException(nameof(cropFactory));
         }
 
-        var fieldComponentDtoMapperConfiguration = new MapperConfiguration(configuration => { configuration.CreateMap<FieldSystemComponent, FieldSystemComponentDto>(); });
-        var fieldDtoToDtoMapperConfiguration = new MapperConfiguration(configuration => { configuration.CreateMap<FieldSystemComponentDto, FieldSystemComponentDto>(); });
-
-        _fieldComponentToDtoMapper = fieldComponentDtoMapperConfiguration.CreateMapper();
-        _fieldDtoToDtoMapper = fieldDtoToDtoMapperConfiguration.CreateMapper();
+        _fieldComponentToDtoMapper = containerProvider.Resolve<IMapper>(nameof(FieldComponentToDtoMapper));
+        _fieldDtoToDtoMapper = containerProvider.Resolve<IMapper>(nameof(FieldDtoToFieldDtoMapper));
     }
 
     #endregion

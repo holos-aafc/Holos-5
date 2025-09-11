@@ -20,7 +20,6 @@ namespace H.Core.Providers.Feed
     {
         #region Fields
 
-        private Table_39_Crude_Protein_Content_Swine_Feed_Provider _swineCrudeProteinProvider;
         private readonly IFeedIngredientProvider _feedIngredientProvider;
 
         #endregion
@@ -30,7 +29,6 @@ namespace H.Core.Providers.Feed
         public DietProvider()
         {
             _feedIngredientProvider = new FeedIngredientProvider();
-            _swineCrudeProteinProvider = new Table_39_Crude_Protein_Content_Swine_Feed_Provider();
         }
 
         #endregion

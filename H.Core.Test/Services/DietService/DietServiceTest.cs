@@ -1,5 +1,8 @@
 using H.Core.Enumerations;
+using H.Core.Providers.Feed;
 using H.Core.Services.DietService;
+using Microsoft.Extensions.Logging;
+using Moq;
 
 namespace H.Core.Test.Services.DietService;
 
@@ -9,6 +12,7 @@ public class DietServiceTest
     #region Fields
 
     private IDietService _sut;
+    private Mock<IDietFactory> _mockDietFactory;
 
     #endregion
 
@@ -27,7 +31,12 @@ public class DietServiceTest
     [TestInitialize]
     public void TestInitialize()
     {
-        _sut = new DefaultDietService();
+        var mockDietProvider = new Mock<IDietProvider>();
+        var mockFeedIngredientProvider = new Mock<IFeedIngredientProvider>();
+        var mockLogger = new Mock<ILogger>();
+        _mockDietFactory = new Mock<IDietFactory>();
+
+        _sut = new DefaultDietService(mockDietProvider.Object, mockFeedIngredientProvider.Object,mockLogger.Object, _mockDietFactory.Object);
     }
 
     [TestCleanup]
@@ -45,6 +54,22 @@ public class DietServiceTest
         var result = _sut.GetValidAnimalDietTypes(AnimalType.Horses);
 
         Assert.IsFalse(result.Any());
+    }
+
+    [TestMethod]
+    public void GetDietsReturnsNonEmptyList()
+    {
+        _mockDietFactory.Setup(factory => factory.GetValidDiets()).Returns(
+            new List<Tuple<AnimalType, DietType>>()
+            {
+                new Tuple<AnimalType, DietType>(AnimalType.BeefCow, DietType.LowEnergyAndProtein)
+            });
+
+        _mockDietFactory.Setup(factory => factory.Create(It.IsAny<DietType>(), It.IsAny<AnimalType>())).Returns(new Diet());
+
+        var result = _sut.GetDiets();
+
+        Assert.IsTrue(result.Count > 0);
     }
 
     #endregion

@@ -17,7 +17,7 @@ namespace H.Core.Providers.Feed
     /// <summary>
     /// Do not hold a reference to a Diet object in a ManagementPeriod object since it causes too much complication in the GUI
     /// </summary>
-    public class Diet : ModelBase
+    public class Diet : ModelBase, IDiet
     {
         #region Fields                
 

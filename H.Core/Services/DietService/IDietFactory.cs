@@ -1,9 +1,13 @@
-﻿using H.Core.Providers.Feed;
+﻿using H.Core.Enumerations;
+using H.Core.Providers.Feed;
 
 namespace H.Core.Services.DietService
 {
     public interface IDietFactory
     {
-        Diet Create();
+        IDiet Create();
+        IDiet Create(DietType dietType, AnimalType animalType);
+        IReadOnlyList<Tuple<AnimalType, DietType>> GetValidDiets();
+        bool IsValidDietType(AnimalType animalType, DietType dietType);
     }
 }

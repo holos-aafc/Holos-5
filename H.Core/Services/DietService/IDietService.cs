@@ -1,8 +1,11 @@
 ﻿using H.Core.Enumerations;
+using H.Core.Providers.Feed;
 
 namespace H.Core.Services.DietService;
 
 public interface IDietService
 {
-    List<AnimalType> GetValidAnimalDietTypes(AnimalType animalType);
+    IReadOnlyList<AnimalType> GetValidAnimalDietTypes(AnimalType animalType);
+    IReadOnlyList<IDiet> GetDiets();
+    IDiet GetNoDiet();
 }

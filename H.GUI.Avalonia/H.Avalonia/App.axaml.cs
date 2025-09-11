@@ -1,3 +1,4 @@
+using AutoMapper;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
@@ -35,23 +36,24 @@ using H.Core;
 using H.Core.Calculators.UnitsOfMeasurement;
 using H.Core.Enumerations;
 using H.Core.Factories;
+using H.Core.Mappers;
 using H.Core.Providers;
+using H.Core.Providers.Feed;
 using H.Core.Services;
 using H.Core.Services.Countries;
+using H.Core.Services.DietService;
 using H.Core.Services.LandManagement.Fields;
 using H.Core.Services.Provinces;
 using H.Core.Services.StorageService;
 using H.Infrastructure;
 using Microsoft.Extensions.Logging;
+using NLog.Extensions.Logging;
 using Prism.DryIoc;
 using Prism.Ioc;
 using Prism.Regions;
 using System;
 using System.Text.RegularExpressions;
 using System.Threading;
-using AutoMapper;
-using H.Core.Mappers;
-using NLog.Extensions.Logging;
 using ClimateResultsView = H.Avalonia.Views.ResultViews.ClimateResultsView;
 using KmlHelpers = H.Avalonia.Infrastructure.KmlHelpers;
 using SoilResultsView = H.Avalonia.Views.ResultViews.SoilResultsView;
@@ -193,12 +195,15 @@ namespace H.Avalonia
             containerRegistry.RegisterSingleton<ICountrySettings, CountrySettings>();
             containerRegistry.Register<ICountries, CountriesService>();
             containerRegistry.RegisterSingleton<IProvinces, ProvincesService>();
+            containerRegistry.RegisterSingleton<IDietProvider, DietProvider>();
+            containerRegistry.RegisterSingleton<IFeedIngredientProvider, FeedIngredientProvider>();
 
             // Services
             containerRegistry.RegisterSingleton<IFarmHelper, FarmHelper>();
             containerRegistry.RegisterSingleton<IComponentInitializationService, ComponentInitializationService>();
             containerRegistry.RegisterSingleton<IFieldComponentService, FieldComponentService>();
             containerRegistry.RegisterSingleton<IFarmResultsService_NEW, FarmResultsService_NEW>();
+            containerRegistry.RegisterSingleton<IDietService, DefaultDietService>();
 
             // Unit conversion
             containerRegistry.RegisterSingleton<IUnitsOfMeasurementCalculator, UnitsOfMeasurementCalculator>();
@@ -209,6 +214,7 @@ namespace H.Avalonia
             // Factories
             containerRegistry.RegisterSingleton<ICropFactory, CropFactory>();
             containerRegistry.RegisterSingleton<IFieldComponentDtoFactory, FieldComponentDtoFactory>();
+            containerRegistry.RegisterSingleton<IDietFactory, DietFactory>();
 
             // Mappers
             this.SetupMappers(containerRegistry);

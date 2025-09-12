@@ -57,7 +57,7 @@ public class DietFactoryTest
     [TestMethod]
     public void GetValidDietsReturnsNonZeroCount()
     {
-        var result = _sut.GetValidDiets();
+        var result = _sut.GetValidDietKeys();
 
         Assert.IsTrue(result.Count > 0);
     }

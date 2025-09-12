@@ -59,7 +59,7 @@ public class DietServiceTest
     [TestMethod]
     public void GetDietsReturnsNonEmptyList()
     {
-        _mockDietFactory.Setup(factory => factory.GetValidDiets()).Returns(
+        _mockDietFactory.Setup(factory => factory.GetValidDietKeys()).Returns(
             new List<Tuple<AnimalType, DietType>>()
             {
                 new Tuple<AnimalType, DietType>(AnimalType.BeefCow, DietType.LowEnergyAndProtein)

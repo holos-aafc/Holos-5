@@ -10,13 +10,19 @@ namespace H.Core.Services.DietService
         #region Fields
 
         private readonly ILogger _logger;
-        private ICacheService _cacheService;
+        private readonly ICacheService _cacheService;
+        private readonly IReadOnlyList<Tuple<AnimalType, DietType>> _validDietKeys;
 
         #endregion
 
         #region Constructors
 
-        public DietFactory(ILogger logger, ICacheService cacheService)
+        public DietFactory()
+        {
+            _validDietKeys = this.CreateDietKeys();
+        }
+
+        public DietFactory(ILogger logger, ICacheService cacheService) : this()
         {
             if (cacheService != null)
             {
@@ -50,9 +56,21 @@ namespace H.Core.Services.DietService
         {
             if (this.IsValidDietType(animalType, dietType))
             {
-                _logger.LogInformation($"Creating diet for {dietType} and {animalType}");
+                var key = $"{nameof(DietFactory.Create)}_{dietType}_{animalType}";
+                var cachedDiet = _cacheService.Get<IDiet>(key);
+                if (cachedDiet != null)
+                {
+                    _logger.LogInformation($"Returning cached diet for {dietType} and {animalType}");
+                    return cachedDiet;
+                }
 
-                return new Diet() { Name = "Holos Diet" };
+                _logger.LogInformation($"Creating diet for {dietType} and {animalType}");
+                var diet = new Diet() { Name = "Holos Diet" };
+
+                // Add the newly created diet to the cache before returning
+                _cacheService.Set(key, diet);
+
+                return diet;
             }
             else
             {
@@ -65,7 +83,24 @@ namespace H.Core.Services.DietService
             }
         }
 
-        public IReadOnlyList<Tuple<AnimalType, DietType>> GetValidDiets()
+        public IReadOnlyList<Tuple<AnimalType, DietType>> GetValidDietKeys()
+        {
+            return _validDietKeys;
+        }
+
+        public bool IsValidDietType(AnimalType animalType, DietType dietType)
+        {
+            return this.GetValidDietKeys().Contains(new Tuple<AnimalType, DietType>(animalType, dietType));
+        }
+
+        #endregion
+
+        #region Private Methods
+
+        /// <summary>
+        /// These are the combinations of diet types and animal types for which we have data.
+        /// </summary>
+        private IReadOnlyList<Tuple<AnimalType, DietType>> CreateDietKeys()
         {
             var dietList = new List<Tuple<AnimalType, DietType>>()
             {
@@ -74,11 +109,6 @@ namespace H.Core.Services.DietService
             };
 
             return dietList;
-        }
-
-        public bool IsValidDietType(AnimalType animalType, DietType dietType)
-        {
-            return this.GetValidDiets().Contains(new Tuple<AnimalType, DietType>(animalType, dietType));
         }
 
         #endregion

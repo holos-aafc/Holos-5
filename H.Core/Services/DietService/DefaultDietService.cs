@@ -113,7 +113,7 @@ public class DefaultDietService : IDietService
 
     public IReadOnlyList<IDiet> GetDiets()
     {
-        var validDietTypes = _dietFactory.GetValidDiets();
+        var validDietTypes = _dietFactory.GetValidDietKeys();
         var result = new List<IDiet>();
 
         foreach (var validDietType in validDietTypes)
@@ -137,6 +137,11 @@ public class DefaultDietService : IDietService
         var diet = _dietProvider.GetNoDiet();
 
         throw new NotImplementedException();
+    }
+
+    public IDiet GetDiet(AnimalType animalType, DietType dietType)
+    {
+        return _dietFactory.Create(dietType, animalType);
     }
 
     #endregion

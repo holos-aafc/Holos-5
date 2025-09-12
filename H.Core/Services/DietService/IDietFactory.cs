@@ -7,7 +7,7 @@ namespace H.Core.Services.DietService
     {
         IDiet Create();
         IDiet Create(DietType dietType, AnimalType animalType);
-        IReadOnlyList<Tuple<AnimalType, DietType>> GetValidDiets();
+        IReadOnlyList<Tuple<AnimalType, DietType>> GetValidDietKeys();
         bool IsValidDietType(AnimalType animalType, DietType dietType);
     }
 }

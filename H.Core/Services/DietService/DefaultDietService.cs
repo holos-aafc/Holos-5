@@ -111,10 +111,10 @@ public class DefaultDietService : IDietService
         return new List<AnimalType>();
     }
 
-    public IReadOnlyList<IDiet> GetDiets()
+    public List<IDietDto> GetDiets()
     {
         var validDietTypes = _dietFactory.GetValidDietKeys();
-        var result = new List<IDiet>();
+        var result = new List<IDietDto>();
 
         foreach (var validDietType in validDietTypes)
         {
@@ -132,14 +132,14 @@ public class DefaultDietService : IDietService
     /// <summary>
     /// Some animal groups will not have a diet (poultry, other livestock, suckling pigs, etc.). In these cases, a non-null diet must still be set.
     /// </summary>
-    public IDiet GetNoDiet()
+    public IDietDto GetNoDiet()
     {
+        // You may need to implement a conversion from Diet to DietDto if necessary
         var diet = _dietProvider.GetNoDiet();
-
         throw new NotImplementedException();
     }
 
-    public IDiet GetDiet(AnimalType animalType, DietType dietType)
+    public IDietDto GetDiet(AnimalType animalType, DietType dietType)
     {
         return _dietFactory.Create(dietType, animalType);
     }

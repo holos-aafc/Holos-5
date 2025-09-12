@@ -52,7 +52,7 @@ public class DietFactoryTest
     {
         var result = _sut.Create(DietType.LowEnergyAndProtein, AnimalType.BeefCow);
 
-        Assert.AreEqual("Holos Diet", result.Name);
+        Assert.AreEqual("Low Energy and Protein Diet for Beef Cow", result.Name);
     }
 
     [TestMethod]

@@ -321,12 +321,18 @@ namespace H.Avalonia
                 expression.AddProfile<FieldDtoToFieldDtoMapper>();
             });
 
+            var feedIngredientToFeedIngredientConfiguration = new MapperConfiguration(expression =>
+            {
+                expression.AddProfile<FeedIngredientToFeedIngredientMapper>();
+            });
+
             // Register named mappers
             containerRegistry.RegisterInstance<IMapper>(cropDtoToCropDtoConfiguration.CreateMapper(), nameof(CropDtoCropDtoMapper));
             containerRegistry.RegisterInstance<IMapper>(cropDtoToCropVieItemConfiguration.CreateMapper(), nameof(CropDtoToCropViewItemMapper));
             containerRegistry.RegisterInstance<IMapper>(cropViewItemToCropVieItemConfiguration.CreateMapper(), nameof(CropViewItemToCropDtoMapper));
             containerRegistry.RegisterInstance<IMapper>(fieldComponentToFieldDtoConfiguration.CreateMapper(), nameof(FieldComponentToDtoMapper));
             containerRegistry.RegisterInstance<IMapper>(fieldDtoToFieldDtoConfiguration.CreateMapper(), nameof(FieldDtoToFieldDtoMapper));
+            containerRegistry.RegisterInstance<IMapper>(feedIngredientToFeedIngredientConfiguration.CreateMapper(), nameof(FeedIngredientToFeedIngredientMapper));
         }
     }
 }

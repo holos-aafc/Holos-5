@@ -71,7 +71,7 @@ public class DietServiceTest
                 new Tuple<AnimalType, DietType>(AnimalType.BeefCow, DietType.LowEnergyAndProtein)
             });
 
-        _mockDietFactory.Setup(factory => factory.Create(It.IsAny<DietType>(), It.IsAny<AnimalType>())).Returns(new Diet());
+        _mockDietFactory.Setup(factory => factory.Create(It.IsAny<DietType>(), It.IsAny<AnimalType>())).Returns(new DietDto());
 
         var result = _sut.GetDiets();
 

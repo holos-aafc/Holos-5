@@ -9,7 +9,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace H.Core.Test.Providers.Feed {
     [TestClass]
-    public class FeedDataProviderTest {
+    public class FeedIngredientProviderTest {
 
         #region Fields
 
@@ -175,6 +175,7 @@ namespace H.Core.Test.Providers.Feed {
             var data = _sut.GetSwineFeedIngredients();
             Assert.AreEqual(123, data.Count());
         }
+
         #endregion
     }
 }

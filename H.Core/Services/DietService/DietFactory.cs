@@ -6,14 +6,14 @@ using Microsoft.Extensions.Logging;
 namespace H.Core.Services.DietService
 {
     /// <summary>
-    /// Provides a factory implementation for creating diet objects based on animal and diet type combinations.
-    /// This factory supports caching of created diets and validates diet-animal type compatibility before creation.
+    /// Provides a factory implementation for creating diet DTO objects based on animal and diet type combinations.
+    /// This factory supports caching of created diet DTOs and validates diet-animal type compatibility before creation.
     /// </summary>
     /// <remarks>
     /// <para>
-    /// The <see cref="DietFactory"/> class implements the factory pattern to create <see cref="IDiet"/> instances
+    /// The <see cref="DietFactory"/> class implements the factory pattern to create <see cref="IDietDto"/> instances
     /// for specific combinations of <see cref="AnimalType"/> and <see cref="DietType"/>. The factory maintains
-    /// a predefined list of valid diet-animal combinations and only creates diets for supported pairings.
+    /// a predefined list of valid diet-animal combinations and only creates diet DTOs for supported pairings.
     /// </para>
     /// <para>
     /// Key features include:
@@ -21,7 +21,7 @@ namespace H.Core.Services.DietService
     /// <item><description>Validation of diet-animal type combinations before creation</description></item>
     /// <item><description>Caching support to improve performance for repeated requests</description></item>
     /// <item><description>Comprehensive logging of creation and validation operations</description></item>
-    /// <item><description>Fallback diet creation for invalid combinations</description></item>
+    /// <item><description>Fallback diet DTO creation for invalid combinations</description></item>
     /// </list>
     /// </para>
     /// <para>
@@ -33,22 +33,22 @@ namespace H.Core.Services.DietService
     /// <para>Basic usage without dependencies:</para>
     /// <code>
     /// var factory = new DietFactory();
-    /// var diet = factory.Create(DietType.LowEnergyAndProtein, AnimalType.BeefCow);
+    /// var dietDto = factory.Create(DietType.LowEnergyAndProtein, AnimalType.BeefCow);
     /// </code>
     /// <para>Usage with dependency injection:</para>
     /// <code>
-    /// var factory = new DietFactory(logger, cacheService);
-    /// var diet = factory.Create(DietType.MediumEnergyAndProtein, AnimalType.BeefCow);
+    /// var factory = new DietFactory(logger, cacheService, feedIngredientProvider);
+    /// var dietDto = factory.Create(DietType.MediumEnergyAndProtein, AnimalType.BeefCow);
     /// 
     /// // Check if a combination is valid before creating
     /// if (factory.IsValidDietType(AnimalType.BeefCow, DietType.LowEnergyAndProtein))
     /// {
-    ///     var validDiet = factory.Create(DietType.LowEnergyAndProtein, AnimalType.BeefCow);
+    ///     var validDietDto = factory.Create(DietType.LowEnergyAndProtein, AnimalType.BeefCow);
     /// }
     /// </code>
     /// </example>
     /// <seealso cref="IDietFactory"/>
-    /// <seealso cref="IDiet"/>
+    /// <seealso cref="IDietDto"/>
     /// <seealso cref="AnimalType"/>
     /// <seealso cref="DietType"/>
     public class DietFactory : IDietFactory
@@ -59,7 +59,7 @@ namespace H.Core.Services.DietService
         private readonly ICacheService _cacheService;
         private readonly IReadOnlyList<Tuple<AnimalType, DietType>> _validDietKeys;
         private readonly IFeedIngredientProvider _feedIngredientProvider;
-        
+
         #endregion
 
         #region Constructors
@@ -106,10 +106,10 @@ namespace H.Core.Services.DietService
         #region Public Methods
 
         /// <summary>
-        /// Creates a default <see cref="IDiet"/> instance without specifying diet type or animal type.
+        /// Creates a default <see cref="IDietDto"/> instance without specifying diet type or animal type.
         /// </summary>
         /// <returns>
-        /// An <see cref="IDiet"/> instance representing a generic or placeholder diet. The default implementation
+        /// An <see cref="IDietDto"/> instance representing a generic or placeholder diet. The default implementation
         /// throws a <see cref="NotImplementedException"/> unless overridden in a derived class.
         /// </returns>
         /// <remarks>
@@ -125,11 +125,11 @@ namespace H.Core.Services.DietService
         /// <example>
         /// <code>
         /// var factory = new DietFactory();
-        /// var diet = factory.Create(); // May throw NotImplementedException
+        /// var dietDto = factory.Create(); // May throw NotImplementedException
         /// </code>
         /// </example>
         /// <seealso cref="Create(DietType, AnimalType)"/>
-        public IDiet Create()
+        public IDietDto Create()
         {
             throw new NotImplementedException();
         }
@@ -140,7 +140,7 @@ namespace H.Core.Services.DietService
         /// <param name="dietType">The type of diet to create (e.g., low energy, medium energy).</param>
         /// <param name="animalType">The animal type for which the diet is intended (e.g., beef cow, dairy cow).</param>
         /// <returns>
-        /// An <see cref="IDiet"/> instance configured for the specified combination. If the combination is valid,
+        /// An <see cref="IDietDto"/> instance configured for the specified combination. If the combination is valid,
         /// returns a properly configured diet; otherwise, returns a fallback diet with the name "Unknown diet".
         /// </returns>
         /// <remarks>
@@ -167,49 +167,56 @@ namespace H.Core.Services.DietService
         /// <para>Creating a diet for a valid combination:</para>
         /// <code>
         /// var factory = new DietFactory(logger, cacheService);
-        /// var diet = factory.Create(DietType.LowEnergyAndProtein, AnimalType.BeefCow);
+        /// var dietDto = factory.Create(DietType.LowEnergyAndProtein, AnimalType.BeefCow);
         /// // Returns a properly configured diet instance
         /// </code>
         /// <para>Attempting to create a diet for an invalid combination:</para>
         /// <code>
-        /// var diet = factory.Create(DietType.HighEnergyAndProtein, AnimalType.Sheep);
+        /// var dietDto = factory.Create(DietType.HighEnergyAndProtein, AnimalType.Sheep);
         /// // Returns a fallback diet with Name = "Unknown diet"
         /// // Logs an error message about the invalid combination
         /// </code>
         /// </example>
         /// <seealso cref="IsValidDietType(AnimalType, DietType)"/>
         /// <seealso cref="GetValidDietKeys()"/>
-        /// <seealso cref="IDiet"/>
+        /// <seealso cref="IDietDto"/>
         /// <seealso cref="DietType"/>
         /// <seealso cref="AnimalType"/>
-        public IDiet Create(DietType dietType, AnimalType animalType)
+        public IDietDto Create(DietType dietType, AnimalType animalType)
         {
             if (this.IsValidDietType(animalType, dietType))
             {
                 var key = $"{nameof(DietFactory.Create)}_{dietType}_{animalType}";
-                var cachedDiet = _cacheService.Get<IDiet>(key);
+                var cachedDiet = _cacheService.Get<IDietDto>(key);
                 if (cachedDiet != null)
                 {
                     _logger.LogInformation($"Returning cached diet for {dietType} and {animalType}");
-
                     return cachedDiet;
                 }
 
                 _logger.LogInformation($"Creating diet for {dietType} and {animalType}");
-                var diet = new Diet() { Name = "Holos Diet" };
+                var dietDto = BuildDietDto(animalType, dietType) ?? new DietDto()
+                {
+                    Name = "Holos Diet",
+                    IsDefaultDiet = true,
+                    DietType = dietType,
+                    AnimalType = animalType,
+                    Ingredients = _feedIngredientProvider.GetIngredientsForDiet(animalType, dietType),
+                };
 
-                // Add the newly created diet to the cache before returning
-                _cacheService.Set(key, diet);
-
-                return diet;
+                _cacheService.Set(key, dietDto);
+                return dietDto;
             }
             else
             {
                 _logger.LogError($"Cannot create {dietType} for {animalType}");
-
-                return new Diet()
+                return new DietDto()
                 {
-                    Name = "Unknown diet"
+                    Name = "Unknown diet",
+                    IsDefaultDiet = false,
+                    DietType = dietType,
+                    AnimalType = animalType,
+                    Ingredients = Array.Empty<IFeedIngredient>(),
                 };
             }
         }
@@ -288,7 +295,7 @@ namespace H.Core.Services.DietService
         /// <code>
         /// if (factory.IsValidDietType(animalType, dietType))
         /// {
-        ///     var diet = factory.Create(dietType, animalType);
+        ///     var dietDto = factory.Create(dietType, animalType);
         ///     // Guaranteed to receive a properly configured diet
         /// }
         /// else
@@ -347,7 +354,7 @@ namespace H.Core.Services.DietService
         /// 
         /// foreach (var (animalType, dietType) in validKeys)
         /// {
-        ///     var diet = factory.Create(dietType, animalType);
+        ///     var dietDto = factory.Create(dietType, animalType);
         ///     Console.WriteLine($"Created diet for {animalType} with {dietType}");
         /// }
         /// </code>
@@ -368,9 +375,55 @@ namespace H.Core.Services.DietService
             return dietList;
         }
 
-        private void BuildDiet(AnimalType animalType)
+        private IDietDto BuildDietDto(AnimalType animalType, DietType dietType)
         {
+            IDietDto result = null;
+            switch (animalType)
+            {
+                /*
+                 * Beef cow diets
+                 */
 
+                case AnimalType.BeefCow:
+                    switch (dietType)
+                    {
+                        case DietType.LowEnergyAndProtein:
+                            {
+                                result = new DietDto()
+                                {
+                                    /*
+                                     * This is the breakdown of the diet if ingredients are not added:
+                                     *
+                                     * TotalDigestibleNutrient = 47
+                                     * CrudeProtein = 6
+                                     * Forage = 100
+                                     * Starch = 5.5
+                                     * Fat = 1.4
+                                     * MetabolizableEnergy = 1.73
+                                     * Ndf = 71.4
+                                     */
+
+                                    IsDefaultDiet = true,
+                                    Name = "Low Energy and Protein Diet for Beef Cow",
+                                    DietType = DietType.LowEnergyAndProtein,
+                                    AnimalType = AnimalType.BeefCow,
+                                    MethaneConversionFactor = 0.07,
+                                    DietaryNetEnergyConcentration = 4.5,
+                                    Ingredients = _feedIngredientProvider.GetIngredientsForDiet(animalType, dietType),
+                                };
+                            }
+                            break;
+
+
+                        case DietType.MediumEnergyAndProtein:
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException(nameof(dietType), dietType, null);
+                    }
+                    break;
+            }
+
+            return result;
         }
 
         #endregion

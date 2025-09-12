@@ -9,6 +9,9 @@ using H.Infrastructure;
 using System.Linq;
 using AutoMapper;
 using H.Core.Enumerations;
+using H.Core.Mappers;
+using Microsoft.Extensions.Logging;
+using Prism.Ioc;
 
 #endregion
 
@@ -19,7 +22,6 @@ namespace H.Core.Providers.Feed
     /// </summary>
     public class FeedIngredientProvider : IFeedIngredientProvider 
     {
-        
         #region Fields
 
         private readonly IList<FeedIngredient> _beefFeedIngredients;
@@ -27,7 +29,7 @@ namespace H.Core.Providers.Feed
         private readonly IList<FeedIngredient> _swineFeedIngredients;
         
         private readonly IMapper _feedIngredientMapper;
-
+        private ILogger _logger;
 
         #endregion
 
@@ -39,12 +41,21 @@ namespace H.Core.Providers.Feed
             _dairyIngredients = this.ReadDairyFile().ToList();
             _swineFeedIngredients = this.ReadSwineFile().ToList();
 
-            var feedIngredientMapper = new MapperConfiguration(x =>
-            {
-                x.CreateMap<FeedIngredient, FeedIngredient>();
-            });
+            _feedIngredientMapper = new Mapper(new MapperConfiguration(expression => { }));
+        }
 
-            _feedIngredientMapper = feedIngredientMapper.CreateMapper();
+        public FeedIngredientProvider(ILogger logger, IContainerProvider containerProvider) : this()
+        {
+            if (logger != null)
+            {
+                _logger = logger; 
+            }
+            else
+            {
+                throw new ArgumentNullException(nameof(logger));
+            }
+
+            _feedIngredientMapper = containerProvider.Resolve<IMapper>(nameof(FeedIngredientToFeedIngredientMapper));
         }
 
         #endregion
@@ -55,6 +66,14 @@ namespace H.Core.Providers.Feed
         #endregion
 
         #region Public Methods
+
+        public IReadOnlyCollection<IFeedIngredient> GetIngredientsForDiet(AnimalType animalType, DietType dietType)
+        {
+            return new List<IFeedIngredient>()
+            {
+                this.CopyIngredient(_beefFeedIngredients.Single(x => x.IngredientType == IngredientType.NativePrairieHay), 100),
+            };
+        }
 
         public FeedIngredient CopyIngredient(FeedIngredient ingredient, double defaultPercentageInDiet)
         {

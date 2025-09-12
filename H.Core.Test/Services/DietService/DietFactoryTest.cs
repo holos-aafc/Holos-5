@@ -33,8 +33,9 @@ public class DietFactoryTest
     {
         var mockLogger = new Mock<ILogger>();
         var mockCacheService = new Mock<ICacheService>();
+        var mockFeedIngredientProvider = new Mock<IFeedIngredientProvider>();
 
-        _sut = new DietFactory(mockLogger.Object, mockCacheService.Object);
+        _sut = new DietFactory(mockLogger.Object, mockCacheService.Object, mockFeedIngredientProvider.Object);
     }
 
     [TestCleanup]
@@ -60,6 +61,33 @@ public class DietFactoryTest
         var result = _sut.GetValidDietKeys();
 
         Assert.IsTrue(result.Count > 0);
+    }
+
+    [TestMethod]
+    public void Create_Parameterless_ThrowsNotImplementedException()
+    {
+        Assert.ThrowsException<NotImplementedException>(() => _sut.Create());
+    }
+
+    [TestMethod]
+    public void IsValidDietType_ReturnsTrue_ForValidCombination()
+    {
+        var isValid = _sut.IsValidDietType(AnimalType.BeefCow, DietType.LowEnergyAndProtein);
+        Assert.IsTrue(isValid);
+    }
+
+    [TestMethod]
+    public void IsValidDietType_ReturnsFalse_ForInvalidCombination()
+    {
+        var isValid = _sut.IsValidDietType(AnimalType.Sheep, DietType.HighEnergyAndProtein);
+        Assert.IsFalse(isValid);
+    }
+
+    [TestMethod]
+    public void Create_ReturnsUnknownDiet_ForInvalidCombination()
+    {
+        var result = _sut.Create(DietType.HighEnergyAndProtein, AnimalType.Sheep);
+        Assert.AreEqual("Unknown diet", result.Name);
     }
 
     #endregion

@@ -368,6 +368,11 @@ namespace H.Core.Services.DietService
             return dietList;
         }
 
+        private void BuildDiet(AnimalType animalType)
+        {
+
+        }
+
         #endregion
     }
 }

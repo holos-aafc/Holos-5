@@ -3,6 +3,8 @@ using H.Core.Providers.Feed;
 using H.Core.Services.DietService;
 using Microsoft.Extensions.Logging;
 using Moq;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Linq;
 
 namespace H.Core.Test.Services.DietService;
 
@@ -36,7 +38,11 @@ public class DietServiceTest
         var mockLogger = new Mock<ILogger>();
         _mockDietFactory = new Mock<IDietFactory>();
 
-        _sut = new DefaultDietService(mockDietProvider.Object, mockFeedIngredientProvider.Object,mockLogger.Object, _mockDietFactory.Object);
+        _sut = new DefaultDietService(
+            mockDietProvider.Object,
+            mockFeedIngredientProvider.Object,
+            mockLogger.Object,
+            _mockDietFactory.Object);
     }
 
     [TestCleanup]
@@ -70,6 +76,73 @@ public class DietServiceTest
         var result = _sut.GetDiets();
 
         Assert.IsTrue(result.Count > 0);
+    }
+
+    [TestMethod]
+    public void GetValidAnimalDietTypes_BeefCattle_ReturnsBeefTypes()
+    {
+        var result = _sut.GetValidAnimalDietTypes(AnimalType.BeefCow);
+        CollectionAssert.AreEquivalent(
+            new[]
+            {
+                AnimalType.BeefBackgrounder,
+                AnimalType.BeefFinisher,
+                AnimalType.BeefCow,
+                AnimalType.BeefBulls,
+                AnimalType.Stockers
+            },
+            result.ToArray());
+    }
+
+    [TestMethod]
+    public void GetValidAnimalDietTypes_DairyCattle_ReturnsDairyTypes()
+    {
+        var result = _sut.GetValidAnimalDietTypes(AnimalType.DairyLactatingCow);
+        CollectionAssert.AreEquivalent(
+            new[]
+            {
+                AnimalType.DairyDryCow,
+                AnimalType.DairyHeifers,
+                AnimalType.DairyLactatingCow
+            },
+            result.ToArray());
+    }
+
+    [TestMethod]
+    public void GetValidAnimalDietTypes_Sheep_ReturnsSheepType()
+    {
+        var result = _sut.GetValidAnimalDietTypes(AnimalType.Sheep);
+        CollectionAssert.AreEquivalent(
+            new[]
+            {
+                AnimalType.Sheep
+            },
+            result.ToArray());
+    }
+
+    [TestMethod]
+    public void GetValidAnimalDietTypes_Swine_ReturnsSwineTypes()
+    {
+        var result = _sut.GetValidAnimalDietTypes(AnimalType.Swine);
+        CollectionAssert.AreEquivalent(
+            new[]
+            {
+                AnimalType.Swine,
+                AnimalType.SwineBoar,
+                AnimalType.SwineDrySow,
+                AnimalType.SwineFinisher,
+                AnimalType.SwineGrower,
+                AnimalType.SwineLactatingSow,
+                AnimalType.SwineStarter
+            },
+            result.ToArray());
+    }
+
+    [TestMethod]
+    public void GetValidAnimalDietTypes_Other_ReturnsEmpty()
+    {
+        var result = _sut.GetValidAnimalDietTypes(AnimalType.Horses);
+        Assert.AreEqual(0, result.Count);
     }
 
     #endregion

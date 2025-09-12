@@ -99,11 +99,53 @@ namespace H.Core.Services.DietService
         }
 
         /// <summary>
-        /// Creates a diet based on the given input parameters
+        /// Creates a diet instance based on the specified diet type and animal type combination.
         /// </summary>
-        /// <param name="dietType">The type of diet that should be created</param>
-        /// <param name="animalType">The animal type this diet is designed for</param>
-        /// <returns>A diet specific for this combination of inputs</returns>
+        /// <param name="dietType">The type of diet to create (e.g., low energy, medium energy).</param>
+        /// <param name="animalType">The animal type for which the diet is intended (e.g., beef cow, dairy cow).</param>
+        /// <returns>
+        /// An <see cref="IDiet"/> instance configured for the specified combination. If the combination is valid,
+        /// returns a properly configured diet; otherwise, returns a fallback diet with the name "Unknown diet".
+        /// </returns>
+        /// <remarks>
+        /// <para>
+        /// This method implements a caching strategy to improve performance for repeated requests. When a valid
+        /// diet-animal combination is requested, the method first checks the cache for an existing instance before
+        /// creating a new one. Newly created diets are automatically cached for future requests.
+        /// </para>
+        /// <para>
+        /// The method validates the input combination using <see cref="IsValidDietType(AnimalType, DietType)"/>
+        /// before attempting to create the diet. Invalid combinations will result in a fallback diet being returned
+        /// rather than throwing an exception.
+        /// </para>
+        /// <para>
+        /// All operations are logged through the configured <see cref="ILogger"/> instance, including:
+        /// <list type="bullet">
+        /// <item><description>Cache hits when returning cached diets</description></item>
+        /// <item><description>New diet creation events</description></item>
+        /// <item><description>Error events for invalid combinations</description></item>
+        /// </list>
+        /// </para>
+        /// </remarks>
+        /// <example>
+        /// <para>Creating a diet for a valid combination:</para>
+        /// <code>
+        /// var factory = new DietFactory(logger, cacheService);
+        /// var diet = factory.Create(DietType.LowEnergyAndProtein, AnimalType.BeefCow);
+        /// // Returns a properly configured diet instance
+        /// </code>
+        /// <para>Attempting to create a diet for an invalid combination:</para>
+        /// <code>
+        /// var diet = factory.Create(DietType.HighEnergyAndProtein, AnimalType.Sheep);
+        /// // Returns a fallback diet with Name = "Unknown diet"
+        /// // Logs an error message about the invalid combination
+        /// </code>
+        /// </example>
+        /// <seealso cref="IsValidDietType(AnimalType, DietType)"/>
+        /// <seealso cref="GetValidDietKeys()"/>
+        /// <seealso cref="IDiet"/>
+        /// <seealso cref="DietType"/>
+        /// <seealso cref="AnimalType"/>
         public IDiet Create(DietType dietType, AnimalType animalType)
         {
             if (this.IsValidDietType(animalType, dietType))
@@ -140,13 +182,57 @@ namespace H.Core.Services.DietService
             return _validDietKeys;
         }
 
+
         /// <summary>
-        /// Determines if the combination of <see cref="AnimalType"/> and <see cref="DietType"/> is valid and has a corresponding <see cref="Diet"/> that
-        /// can be created by the factory
+        /// Determines whether the specified combination of animal type and diet type is valid and supported by this factory.
         /// </summary>
-        /// <param name="animalType">The <see cref="AnimalType"/> to use for the lookup</param>
-        /// <param name="dietType">The <see cref="DietType"/> to use for the lookup</param>
-        /// <returns><see langword="true"/> if the diet can be created, <see langword="false"/> otherwise</returns>
+        /// <param name="animalType">The animal type to validate against the available diet combinations.</param>
+        /// <param name="dietType">The diet type to validate against the available animal combinations.</param>
+        /// <returns>
+        /// <see langword="true"/> if the factory can create a diet for the specified combination; 
+        /// otherwise, <see langword="false"/>.
+        /// </returns>
+        /// <remarks>
+        /// <para>
+        /// This method performs a lookup against the predefined list of valid diet-animal combinations
+        /// maintained by the factory. The validation is based on a whitelist approach where only
+        /// explicitly supported combinations will return <see langword="true"/>.
+        /// </para>
+        /// <para>
+        /// The method uses <see cref="GetValidDietKeys()"/> to retrieve the current list of supported
+        /// combinations and performs an exact match lookup. Both the animal type and diet type must
+        /// match exactly for the combination to be considered valid.
+        /// </para>
+        /// <para>
+        /// It is recommended to call this method before attempting to create a diet using 
+        /// <see cref="Create(DietType, AnimalType)"/> to avoid receiving fallback "Unknown diet" instances.
+        /// </para>
+        /// </remarks>
+        /// <example>
+        /// <para>Validating a supported combination:</para>
+        /// <code>
+        /// var factory = new DietFactory();
+        /// bool isValid = factory.IsValidDietType(AnimalType.BeefCow, DietType.LowEnergyAndProtein);
+        /// // Returns true if this combination is supported
+        /// </code>
+        /// <para>Using validation before diet creation:</para>
+        /// <code>
+        /// if (factory.IsValidDietType(animalType, dietType))
+        /// {
+        ///     var diet = factory.Create(dietType, animalType);
+        ///     // Guaranteed to receive a properly configured diet
+        /// }
+        /// else
+        /// {
+        ///     // Handle unsupported combination
+        ///     Console.WriteLine($"Diet combination {dietType} for {animalType} is not supported");
+        /// }
+        /// </code>
+        /// </example>
+        /// <seealso cref="GetValidDietKeys()"/>
+        /// <seealso cref="Create(DietType, AnimalType)"/>
+        /// <seealso cref="AnimalType"/>
+        /// <seealso cref="DietType"/>
         public bool IsValidDietType(AnimalType animalType, DietType dietType)
         {
             return this.GetValidDietKeys().Contains(new Tuple<AnimalType, DietType>(animalType, dietType));

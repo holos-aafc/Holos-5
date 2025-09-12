@@ -1,4 +1,4 @@
-﻿#region Imports
+﻿        #region Imports
 
 using System.Linq;
 using H.Core.Enumerations;
@@ -169,11 +169,39 @@ namespace H.Core.Test.Providers.Feed {
             Assert.AreEqual(0, item.Lactose);
             Assert.AreEqual(0, item.IVP);
         }
+
         [TestMethod]
         public void GetSwineDataReturnsCorrectNumberOfRows()
         {
             var data = _sut.GetSwineFeedIngredients();
             Assert.AreEqual(123, data.Count());
+        }
+
+        [TestMethod]
+        public void GetIngredientsForDiet_BeefCowLowEnergyAndProtein_ReturnsNativePrairieHay()
+        {
+            var result = _sut.GetIngredientsForDiet(AnimalType.BeefCow, DietType.LowEnergyAndProtein);
+            Assert.AreEqual(1, result.Count);
+            Assert.AreEqual(IngredientType.NativePrairieHay, ((FeedIngredient)result.First()).IngredientType);
+        }
+
+        [TestMethod]
+        public void GetIngredientsForDiet_InvalidAnimalType_ThrowsArgumentOutOfRangeException()
+        {
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() =>
+                _sut.GetIngredientsForDiet(AnimalType.Sheep, DietType.Barley));
+        }
+
+        [TestMethod]
+        public void CopyIngredient_CopiesValuesAndSetsPercentage()
+        {
+            var original = _sut.GetBeefFeedIngredients().First();
+            var percentage = 42.5;
+            var copy = _sut.CopyIngredient(original, percentage);
+
+            Assert.AreEqual(original.IngredientType, copy.IngredientType);
+            Assert.AreEqual(percentage, copy.PercentageInDiet);
+            Assert.AreNotSame(original, copy);
         }
 
         #endregion

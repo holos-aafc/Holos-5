@@ -58,7 +58,8 @@ namespace H.Core.Services.DietService
         private readonly ILogger _logger;
         private readonly ICacheService _cacheService;
         private readonly IReadOnlyList<Tuple<AnimalType, DietType>> _validDietKeys;
-
+        private readonly IFeedIngredientProvider _feedIngredientProvider;
+        
         #endregion
 
         #region Constructors
@@ -68,8 +69,17 @@ namespace H.Core.Services.DietService
             _validDietKeys = this.CreateDietKeys();
         }
 
-        public DietFactory(ILogger logger, ICacheService cacheService) : this()
+        public DietFactory(ILogger logger, ICacheService cacheService, IFeedIngredientProvider feedIngredientProvider) : this()
         {
+            if (feedIngredientProvider != null)
+            {
+                _feedIngredientProvider = feedIngredientProvider;
+            }
+            else
+            {
+                throw new ArgumentNullException(nameof(feedIngredientProvider));
+            }
+
             if (cacheService != null)
             {
                 _cacheService = cacheService;
@@ -87,12 +97,38 @@ namespace H.Core.Services.DietService
             {
                 throw new ArgumentNullException(nameof(logger));
             }
+
+            _feedIngredientProvider = feedIngredientProvider;
         }
 
         #endregion
 
         #region Public Methods
 
+        /// <summary>
+        /// Creates a default <see cref="IDiet"/> instance without specifying diet type or animal type.
+        /// </summary>
+        /// <returns>
+        /// An <see cref="IDiet"/> instance representing a generic or placeholder diet. The default implementation
+        /// throws a <see cref="NotImplementedException"/> unless overridden in a derived class.
+        /// </returns>
+        /// <remarks>
+        /// <para>
+        /// This parameterless method is intended for scenarios where a specific diet type and animal type are not known
+        /// at creation time. By default, it is not implemented and will throw an exception. Implementations may choose
+        /// to return a generic diet, a placeholder, or use application-specific logic.
+        /// </para>
+        /// <para>
+        /// For most use cases, prefer using <see cref="Create(DietType, AnimalType)"/> to ensure a properly configured diet.
+        /// </para>
+        /// </remarks>
+        /// <example>
+        /// <code>
+        /// var factory = new DietFactory();
+        /// var diet = factory.Create(); // May throw NotImplementedException
+        /// </code>
+        /// </example>
+        /// <seealso cref="Create(DietType, AnimalType)"/>
         public IDiet Create()
         {
             throw new NotImplementedException();
@@ -155,6 +191,7 @@ namespace H.Core.Services.DietService
                 if (cachedDiet != null)
                 {
                     _logger.LogInformation($"Returning cached diet for {dietType} and {animalType}");
+
                     return cachedDiet;
                 }
 
@@ -177,11 +214,43 @@ namespace H.Core.Services.DietService
             }
         }
 
+        /// <summary>
+        /// Retrieves the list of valid animal type and diet type combinations supported by this factory.
+        /// </summary>
+        /// <returns>
+        /// A read-only list of <see cref="Tuple{AnimalType, DietType}"/> representing all valid combinations
+        /// for which diets can be created.
+        /// </returns>
+        /// <remarks>
+        /// <para>
+        /// The returned list acts as the authoritative source for supported diet-animal pairings. Only combinations
+        /// present in this list will be considered valid by <see cref="IsValidDietType(AnimalType, DietType)"/> and
+        /// will result in proper diet creation through <see cref="Create(DietType, AnimalType)"/>.
+        /// </para>
+        /// <para>
+        /// This method is useful for clients that need to enumerate or validate available diet options before attempting
+        /// to create a diet. The list is initialized during factory construction and remains constant for the lifetime
+        /// of the factory instance.
+        /// </para>
+        /// </remarks>
+        /// <example>
+        /// <code>
+        /// var factory = new DietFactory();
+        /// var validKeys = factory.GetValidDietKeys();
+        /// foreach (var (animalType, dietType) in validKeys)
+        /// {
+        ///     Console.WriteLine($"Supported: {animalType} with {dietType}");
+        /// }
+        /// </code>
+        /// </example>
+        /// <seealso cref="IsValidDietType(AnimalType, DietType)"/>
+        /// <seealso cref="Create(DietType, AnimalType)"/>
+        /// <seealso cref="AnimalType"/>
+        /// <seealso cref="DietType"/>
         public IReadOnlyList<Tuple<AnimalType, DietType>> GetValidDietKeys()
         {
             return _validDietKeys;
         }
-
 
         /// <summary>
         /// Determines whether the specified combination of animal type and diet type is valid and supported by this factory.
@@ -243,8 +312,51 @@ namespace H.Core.Services.DietService
         #region Private Methods
 
         /// <summary>
-        /// These are the combinations of diet types and animal types for which we have data.
+        /// Creates and returns the predefined list of valid animal type and diet type combinations 
+        /// supported by this factory.
         /// </summary>
+        /// <returns>
+        /// A read-only list of <see cref="Tuple{T1, T2}"/> where T1 is <see cref="AnimalType"/> 
+        /// and T2 is <see cref="DietType"/>, representing all valid combinations for diet creation.
+        /// </returns>
+        /// <remarks>
+        /// <para>
+        /// This method defines the authoritative whitelist of supported diet-animal combinations.
+        /// Only combinations returned by this method will be considered valid by 
+        /// <see cref="IsValidDietType(AnimalType, DietType)"/> and will result in proper diet
+        /// creation through <see cref="Create(DietType, AnimalType)"/>.
+        /// </para>
+        /// <para>
+        /// Currently supported combinations include:
+        /// <list type="bullet">
+        /// <item><description><see cref="AnimalType.BeefCow"/> with <see cref="DietType.LowEnergyAndProtein"/></description></item>
+        /// <item><description><see cref="AnimalType.BeefCow"/> with <see cref="DietType.MediumEnergyAndProtein"/></description></item>
+        /// </list>
+        /// </para>
+        /// <para>
+        /// This method is called during factory initialization and the result is cached for the
+        /// lifetime of the factory instance. To add support for new combinations, modify the
+        /// list returned by this method.
+        /// </para>
+        /// </remarks>
+        /// <example>
+        /// <para>The method returns combinations that can be used like this:</para>
+        /// <code>
+        /// var factory = new DietFactory();
+        /// var validKeys = factory.GetValidDietKeys(); // Calls this method internally
+        /// 
+        /// foreach (var (animalType, dietType) in validKeys)
+        /// {
+        ///     var diet = factory.Create(dietType, animalType);
+        ///     Console.WriteLine($"Created diet for {animalType} with {dietType}");
+        /// }
+        /// </code>
+        /// </example>
+        /// <seealso cref="GetValidDietKeys()"/>
+        /// <seealso cref="IsValidDietType(AnimalType, DietType)"/>
+        /// <seealso cref="Create(DietType, AnimalType)"/>
+        /// <seealso cref="AnimalType"/>
+        /// <seealso cref="DietType"/>
         private IReadOnlyList<Tuple<AnimalType, DietType>> CreateDietKeys()
         {
             var dietList = new List<Tuple<AnimalType, DietType>>()

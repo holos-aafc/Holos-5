@@ -195,14 +195,7 @@ namespace H.Core.Services.DietService
                 }
 
                 _logger.LogInformation($"Creating diet for {dietType} and {animalType}");
-                var dietDto = BuildDietDto(animalType, dietType) ?? new DietDto()
-                {
-                    Name = "Holos Diet",
-                    IsDefaultDiet = true,
-                    DietType = dietType,
-                    AnimalType = animalType,
-                    Ingredients = _feedIngredientProvider.GetIngredientsForDiet(animalType, dietType),
-                };
+                var dietDto = BuildDietDto(animalType, dietType);
 
                 _cacheService.Set(key, dietDto);
                 return dietDto;

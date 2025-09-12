@@ -7,27 +7,29 @@ using H.Content;
 using H.Core.Converters;
 using H.Infrastructure;
 using System.Linq;
+using System.Security.Principal;
 using AutoMapper;
 using H.Core.Enumerations;
 using H.Core.Mappers;
+using H.Core.Models;
 using Microsoft.Extensions.Logging;
 using Prism.Ioc;
 
 #endregion
 
-namespace H.Core.Providers.Feed 
+namespace H.Core.Providers.Feed
 {
-    
+
     /// <summary>
     /// </summary>
-    public class FeedIngredientProvider : IFeedIngredientProvider 
+    public class FeedIngredientProvider : IFeedIngredientProvider
     {
         #region Fields
 
         private readonly IList<FeedIngredient> _beefFeedIngredients;
         private readonly IList<FeedIngredient> _dairyIngredients;
         private readonly IList<FeedIngredient> _swineFeedIngredients;
-        
+
         private readonly IMapper _feedIngredientMapper;
         private ILogger _logger;
 
@@ -48,7 +50,7 @@ namespace H.Core.Providers.Feed
         {
             if (logger != null)
             {
-                _logger = logger; 
+                _logger = logger;
             }
             else
             {
@@ -67,12 +69,54 @@ namespace H.Core.Providers.Feed
 
         #region Public Methods
 
+        private IFeedIngredient Get(IngredientType ingredientType)
+        {
+            // Make cache call
+            throw new NotImplementedException();
+        }
+
+        private IFeedIngredient GetIngredient(IngredientType ingredientType, double percentageInDiet, ComponentCategory componentCategory)
+        {
+            switch (componentCategory)
+            {
+                case ComponentCategory.BeefProduction:
+                {
+                    var ingredient = _beefFeedIngredients.Single(x => x.IngredientType == ingredientType);
+                    var copy = this.CopyIngredient(ingredient, percentageInDiet);
+
+                    return copy;
+                }
+
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(componentCategory), componentCategory, null);
+            }
+        }
+
         public IReadOnlyCollection<IFeedIngredient> GetIngredientsForDiet(AnimalType animalType, DietType dietType)
         {
-            return new List<IFeedIngredient>()
+            switch (animalType)
             {
-                this.CopyIngredient(_beefFeedIngredients.Single(x => x.IngredientType == IngredientType.NativePrairieHay), 100),
-            };
+                case AnimalType.BeefCow:
+                    {
+                        switch (dietType)
+                        {
+                            case DietType.LowEnergyAndProtein:
+                            {
+                                return new List<IFeedIngredient>()
+                                {
+                                    this.GetIngredient(IngredientType.NativePrairieHay, 100, ComponentCategory.BeefProduction),
+                                };
+                            }
+
+                            default:
+                                throw new ArgumentOutOfRangeException(nameof(dietType), dietType, null);
+                        }
+                    }
+                    break;
+
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(animalType), animalType, null);
+            }
         }
 
         public FeedIngredient CopyIngredient(FeedIngredient ingredient, double defaultPercentageInDiet)

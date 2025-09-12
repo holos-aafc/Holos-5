@@ -182,14 +182,49 @@ namespace H.Core.Test.Providers.Feed {
         {
             var result = _sut.GetIngredientsForDiet(AnimalType.BeefCow, DietType.LowEnergyAndProtein);
             Assert.AreEqual(1, result.Count);
-            Assert.AreEqual(IngredientType.NativePrairieHay, ((FeedIngredient)result.First()).IngredientType);
+            var ingredient = result.First();
+            Assert.AreEqual(IngredientType.NativePrairieHay, ((FeedIngredient)ingredient).IngredientType);
+            Assert.AreEqual(100, ingredient.PercentageInDiet);
+        }
+
+        [TestMethod]
+        public void GetIngredientsForDiet_BeefCowMediumEnergyAndProtein_ReturnsExpectedIngredients()
+        {
+            var result = _sut.GetIngredientsForDiet(AnimalType.BeefCow, DietType.MediumEnergyAndProtein).ToList();
+            Assert.AreEqual(3, result.Count);
+            Assert.AreEqual(IngredientType.AlfalfaHay, ((FeedIngredient)result[0]).IngredientType);
+            Assert.AreEqual(22, result[0].PercentageInDiet);
+            Assert.AreEqual(IngredientType.MeadowHay, ((FeedIngredient)result[1]).IngredientType);
+            Assert.AreEqual(65, result[1].PercentageInDiet);
+            Assert.AreEqual(IngredientType.BarleyGrain, ((FeedIngredient)result[2]).IngredientType);
+            Assert.AreEqual(3, result[2].PercentageInDiet);
+        }
+
+        [TestMethod]
+        public void GetIngredientsForDiet_BeefCowHighEnergyAndProtein_ReturnsExpectedIngredients()
+        {
+            var result = _sut.GetIngredientsForDiet(AnimalType.BeefCow, DietType.HighEnergyAndProtein).ToList();
+            Assert.AreEqual(3, result.Count);
+            Assert.AreEqual(IngredientType.OrchardgrassHay, ((FeedIngredient)result[0]).IngredientType);
+            Assert.AreEqual(60, result[0].PercentageInDiet);
+            Assert.AreEqual(IngredientType.AlfalfaHay, ((FeedIngredient)result[1]).IngredientType);
+            Assert.AreEqual(20, result[1].PercentageInDiet);
+            Assert.AreEqual(IngredientType.BarleyGrain, ((FeedIngredient)result[2]).IngredientType);
+            Assert.AreEqual(20, result[2].PercentageInDiet);
         }
 
         [TestMethod]
         public void GetIngredientsForDiet_InvalidAnimalType_ThrowsArgumentOutOfRangeException()
         {
             Assert.ThrowsException<ArgumentOutOfRangeException>(() =>
-                _sut.GetIngredientsForDiet(AnimalType.Sheep, DietType.Barley));
+                _sut.GetIngredientsForDiet(AnimalType.Sheep, DietType.LowEnergyAndProtein));
+        }
+
+        [TestMethod]
+        public void GetIngredientsForDiet_InvalidDietType_ThrowsArgumentOutOfRangeException()
+        {
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() =>
+                _sut.GetIngredientsForDiet(AnimalType.BeefCow, (DietType)999));
         }
 
         [TestMethod]

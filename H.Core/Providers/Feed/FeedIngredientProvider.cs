@@ -31,8 +31,8 @@ namespace H.Core.Providers.Feed
         private ILogger _logger;
         private ICacheService _cacheService;
 
-        private Dictionary<ComponentCategory, IReadOnlyList<IFeedIngredient>> _ingredientsByAnimalCategory;
-        private Dictionary<Tuple<ComponentCategory, IngredientType>, IFeedIngredient> _ingredientDictionary;
+        private readonly Dictionary<ComponentCategory, IReadOnlyList<IFeedIngredient>> _ingredientsByAnimalCategory;
+        private readonly Dictionary<Tuple<ComponentCategory, IngredientType>, IFeedIngredient> _ingredientDictionary;
 
         #endregion
 
@@ -111,6 +111,24 @@ namespace H.Core.Providers.Feed
                                 return new List<IFeedIngredient>()
                                 {
                                     this.GetIngredient(IngredientType.NativePrairieHay, 100, ComponentCategory.BeefProduction),
+                                };
+                            }
+                            case DietType.MediumEnergyAndProtein:
+                            {
+                                return new List<IFeedIngredient>()
+                                {
+                                    this.GetIngredient(IngredientType.AlfalfaHay, 22, ComponentCategory.BeefProduction),
+                                    this.GetIngredient(IngredientType.MeadowHay, 65, ComponentCategory.BeefProduction),
+                                    this.GetIngredient(IngredientType.BarleyGrain, 3, ComponentCategory.BeefProduction),
+                                };
+                            }
+                            case DietType.HighEnergyAndProtein:
+                            {
+                                return new List<IFeedIngredient>()
+                                {
+                                    this.GetIngredient(IngredientType.OrchardgrassHay, 60, ComponentCategory.BeefProduction),
+                                    this.GetIngredient(IngredientType.AlfalfaHay, 20, ComponentCategory.BeefProduction),
+                                    this.GetIngredient(IngredientType.BarleyGrain, 20, ComponentCategory.BeefProduction),
                                 };
                             }
 

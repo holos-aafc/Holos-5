@@ -385,7 +385,6 @@ namespace H.Core.Providers.Feed
                can be calculated from the default feed tables built into Holos. The values are included in the default 
                table as NEma and NEga (Mcal kg-1); therefore, NEmf can be calculated as: NEmf (MJ kg-1 DM)=[NEma+NEga]*4.184 (conversion factor for Mcal to MJ).
              */
-            var beefIngredients = _feedIngredientProvider.GetBeefFeedIngredients().ToList();
 
             var diets = new List<Diet>();
 
@@ -405,10 +404,8 @@ namespace H.Core.Providers.Feed
                 //MetabolizableEnergy = 1.73,
                 //Ndf = 71.4,                
 
-                Ingredients = new ObservableCollection<FeedIngredient>()
-                {
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)beefIngredients.Single(x => x.IngredientType == IngredientType.NativePrairieHay), 100),
-                },
+                
+                Ingredients = new ObservableCollection<FeedIngredient>(_feedIngredientProvider.GetIngredientsForDiet(AnimalType.BeefCow, DietType.LowEnergyAndProtein).Select(x => (FeedIngredient)x)),
 
                 MethaneConversionFactor = 0.07,
                 DietaryNetEnergyConcentration = 4.5,
@@ -430,12 +427,7 @@ namespace H.Core.Providers.Feed
                 //MetabolizableEnergy = 1.98,
                 //Ndf = 53.5,                
 
-                Ingredients = new ObservableCollection<FeedIngredient>()
-                {
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)beefIngredients.Single(x => x.IngredientType == IngredientType.AlfalfaHay), 32),
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)beefIngredients.Single(x => x.IngredientType == IngredientType.MeadowHay), 65),
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)beefIngredients.Single(x => x.IngredientType == IngredientType.BarleyGrain), 3)
-                },
+                Ingredients = new ObservableCollection<FeedIngredient>(_feedIngredientProvider.GetIngredientsForDiet(AnimalType.BeefCow, DietType.MediumEnergyAndProtein).Select(x => (FeedIngredient)x)),
 
                 MethaneConversionFactor = 0.070,
                 DietaryNetEnergyConcentration = 6,
@@ -457,12 +449,7 @@ namespace H.Core.Providers.Feed
                 //MetabolizableEnergy = 2.14,
                 //Ndf = 45.1,                
 
-                Ingredients = new ObservableCollection<FeedIngredient>()
-                {
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)beefIngredients.Single(x => x.IngredientType == IngredientType.OrchardgrassHay), 60),
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)beefIngredients.Single(x => x.IngredientType == IngredientType.AlfalfaHay), 20),
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)beefIngredients.Single(x => x.IngredientType == IngredientType.BarleyGrain), 20),
-                },
+                Ingredients = new ObservableCollection<FeedIngredient>(_feedIngredientProvider.GetIngredientsForDiet(AnimalType.BeefCow, DietType.HighEnergyAndProtein).Select(x => (FeedIngredient)x)),
 
                 MethaneConversionFactor = 0.070,
                 DietaryNetEnergyConcentration = 7.0,

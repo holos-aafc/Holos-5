@@ -270,6 +270,250 @@ namespace H.Core.Providers.Feed
                 },
 
                 #endregion
+
+                #region Dairy lactating cow
+
+                new(DietType.LegumeForageBased, AnimalType.DairyLactatingCow)
+                {
+                    Recipes =
+                    [
+                        new IngredientBreakdown(IngredientType.LegumesForageHayMature, 22),
+                        new IngredientBreakdown(IngredientType.LegumesForageSilageAllSamples, 22),
+                        new IngredientBreakdown(IngredientType.BarleyGrainRolled, 45),
+                        new IngredientBreakdown(IngredientType.CanolaMealMechExtracted, 2),
+                        new IngredientBreakdown(IngredientType.SoybeanHulls, 5),
+                        new IngredientBreakdown(IngredientType.MolassesBeetSugar, 1),
+                        new IngredientBreakdown(IngredientType.CornYellowGlutenFeedDried, 3),
+                    ]
+                },
+
+                new(DietType.BarleySilageBased, AnimalType.DairyLactatingCow)
+                {
+                    Recipes =
+                    [
+                        new IngredientBreakdown(IngredientType.BarleySilageHeaded, 49),
+                        new IngredientBreakdown(IngredientType.LegumesForageHayMidMaturity, 5),
+                        new IngredientBreakdown(IngredientType.BarleyGrainRolled, 17),
+                        new IngredientBreakdown(IngredientType.CornYellowGrainRolledHighMoisture, 13),
+                        new IngredientBreakdown(IngredientType.CanolaMealMechExtracted, 5),
+                        new IngredientBreakdown(IngredientType.SoybeanMealExpellers, 4),
+                        new IngredientBreakdown(IngredientType.BeetSugarPulpDried, 2),
+                        new IngredientBreakdown(IngredientType.MolassesSugarCane, 1),
+                    ]
+                },
+
+                new(DietType.CornSilageBased, AnimalType.DairyLactatingCow)
+                {
+                    Recipes =
+                    [
+                        new IngredientBreakdown(IngredientType.CornYellowSilageNormal, 55),
+                        new IngredientBreakdown(IngredientType.GrassesCoolHayMidMaturity, 6),
+                        new IngredientBreakdown(IngredientType.CornYellowGrainGraundDry, 11),
+                        new IngredientBreakdown(IngredientType.SoybeanMealSolvent48, 12),
+                        new IngredientBreakdown(IngredientType.SoybeanHulls, 5),
+                        new IngredientBreakdown(IngredientType.CornYellowGlutenFeedDried, 11),
+                    ]
+                },
+
+                #endregion
+
+                #region Dairy dry cow
+
+                new(DietType.CloseUp, AnimalType.DairyDryCow)
+                {
+                    Recipes =
+                    [
+                        new IngredientBreakdown(IngredientType.CornYellowSilageNormal, 48),
+                        new IngredientBreakdown(IngredientType.GrassLegumeMixturesPredomLegumesSilageMidMaturity, 23),
+                        new IngredientBreakdown(IngredientType.CornYellowGrainCrackedDry, 12),
+                        new IngredientBreakdown(IngredientType.CanolaMealMechExtracted, 9),
+                        new IngredientBreakdown(IngredientType.CornYellowGlutenMealDried, 8),
+                    ]
+                },
+
+                new(DietType.FarOff, AnimalType.DairyDryCow)
+                {
+                    Recipes =
+                    [
+                        new IngredientBreakdown(IngredientType.GrassLegumeMixturesPredomLegumesHayMidMaturity, 57),
+                        new IngredientBreakdown(IngredientType.BarleyGrainRolled, 38),
+                        new IngredientBreakdown(IngredientType.SoybeanMealExpellers, 5),
+                    ]
+                },
+
+                #endregion
+
+                #region Dairy heifer
+
+                new(DietType.HighFiber, AnimalType.DairyHeifers)
+                {
+                    Recipes =
+                    [
+                        new IngredientBreakdown(IngredientType.GrassesCoolHayMature, 50),
+                        new IngredientBreakdown(IngredientType.BarleyGrainRolled, 45),
+                        new IngredientBreakdown(IngredientType.SoybeanMealExpellers, 5),
+                    ]
+                },
+
+                new(DietType.LowFiber, AnimalType.DairyHeifers)
+                {
+                    Recipes =
+                    [
+                        new IngredientBreakdown(IngredientType.CornYellowSilageNormal, 50),
+                        new IngredientBreakdown(IngredientType.BarleyGrainRolled, 42),
+                        new IngredientBreakdown(IngredientType.CanolaMealMechExtracted, 8),
+                    ]
+                },
+
+                #endregion
+
+                #region Swine
+
+                new(DietType.Gestation, AnimalType.Swine)
+                {
+                    Recipes =
+                    [
+                        new IngredientBreakdown(IngredientType.WheatBran, 14),
+                        new IngredientBreakdown(IngredientType.WheatShorts, 3),
+                        new IngredientBreakdown(IngredientType.Barley, 62.2),
+                        new IngredientBreakdown(IngredientType.SoybeanMealDehulledExpelled, 4),
+                        new IngredientBreakdown(IngredientType.CanolaMealExpelled, 3),
+                        new IngredientBreakdown(IngredientType.FieldPeas, 6),
+                        new IngredientBreakdown(IngredientType.SugarBeetPulp, 5.6),
+                        new IngredientBreakdown(IngredientType.CanolaFullFat, 0.4),
+                    ]
+                },
+
+                new(DietType.Lactation, AnimalType.Swine)
+                {
+                    Recipes =
+                    [
+                        new IngredientBreakdown(IngredientType.WheatBran, 41),
+                        new IngredientBreakdown(IngredientType.Barley, 21.8),
+                        new IngredientBreakdown(IngredientType.CornDistillersDriedGrainsSolublesGreaterThanSixAndLessThanNinePercentOil, 9),
+                        new IngredientBreakdown(IngredientType.SoybeanMealDehulledExpelled, 9),
+                        new IngredientBreakdown(IngredientType.CanolaMealExpelled, 5),
+                        new IngredientBreakdown(IngredientType.FieldPeas, 10),
+                        new IngredientBreakdown(IngredientType.CanolaFullFat, 1.8),
+                    ]
+                },
+
+                new(DietType.NurseryWeanersStarter1, AnimalType.Swine)
+                {
+                    Recipes =
+                    [
+                        new IngredientBreakdown(IngredientType.WheatBran, 39),
+                        new IngredientBreakdown(IngredientType.CornDistillersDriedGrainsSolublesGreaterThanSixAndLessThanNinePercentOil, 11.38),
+                        new IngredientBreakdown(IngredientType.SoybeanMealDehulledExpelled, 20),
+                        new IngredientBreakdown(IngredientType.FieldPeas, 11),
+                        new IngredientBreakdown(IngredientType.CanolaFullFat, 1.2),
+                        new IngredientBreakdown(IngredientType.WheyPermeateLactose80, 10),
+                        new IngredientBreakdown(IngredientType.FishMealCombined, 5),
+                    ]
+                },
+
+                new(DietType.NurseryWeanersStarter2, AnimalType.Swine)
+                {
+                    Recipes =
+                    [
+                        new IngredientBreakdown(IngredientType.WheatBran, 33.76),
+                        new IngredientBreakdown(IngredientType.Barley, 20),
+                        new IngredientBreakdown(IngredientType.CornDistillersDriedGrainsSolublesGreaterThanSixAndLessThanNinePercentOil, 10),
+                        new IngredientBreakdown(IngredientType.SoybeanMealDehulledExpelled, 14),
+                        new IngredientBreakdown(IngredientType.CanolaMealExpelled, 7),
+                        new IngredientBreakdown(IngredientType.FieldPeas, 10),
+                        new IngredientBreakdown(IngredientType.CanolaFullFat, 2.5),
+                    ]
+                },
+
+                new(DietType.GrowerFinisherDiet1, AnimalType.Swine)
+                {
+                    Recipes =
+                    [
+                        new IngredientBreakdown(IngredientType.WheatBran, 32.53),
+                        new IngredientBreakdown(IngredientType.Barley, 24),
+                        new IngredientBreakdown(IngredientType.CornDistillersDriedGrainsSolublesGreaterThanSixAndLessThanNinePercentOil, 12),
+                        new IngredientBreakdown(IngredientType.SoybeanMealDehulledExpelled, 10),
+                        new IngredientBreakdown(IngredientType.CanolaMealExpelled, 6),
+                        new IngredientBreakdown(IngredientType.FieldPeas, 12),
+                        new IngredientBreakdown(IngredientType.CanolaFullFat, 1.2),
+                    ]
+                },
+
+                new(DietType.GrowerFinisherDiet2, AnimalType.Swine)
+                {
+                    Recipes =
+                    [
+                        new IngredientBreakdown(IngredientType.WheatBran, 32.2),
+                        new IngredientBreakdown(IngredientType.Barley, 26.79),
+                        new IngredientBreakdown(IngredientType.CornDistillersDriedGrainsSolublesGreaterThanSixAndLessThanNinePercentOil, 12),
+                        new IngredientBreakdown(IngredientType.SoybeanMealDehulledExpelled, 8),
+                        new IngredientBreakdown(IngredientType.CanolaMealExpelled, 8),
+                        new IngredientBreakdown(IngredientType.FieldPeas, 10),
+                        new IngredientBreakdown(IngredientType.CanolaFullFat, 1.1),
+                    ]
+                },
+
+                new(DietType.GrowerFinisherDiet3, AnimalType.Swine)
+                {
+                    Recipes =
+                    [
+                        new IngredientBreakdown(IngredientType.WheatBran, 25.2),
+                        new IngredientBreakdown(IngredientType.WheatShorts, 6.3),
+                        new IngredientBreakdown(IngredientType.Barley, 28),
+                        new IngredientBreakdown(IngredientType.CornDistillersDriedGrainsSolublesGreaterThanSixAndLessThanNinePercentOil, 12),
+                        new IngredientBreakdown(IngredientType.SoybeanMealDehulledExpelled, 8),
+                        new IngredientBreakdown(IngredientType.CanolaMealExpelled, 8),
+                        new IngredientBreakdown(IngredientType.FieldPeas, 10),
+                        new IngredientBreakdown(IngredientType.CanolaFullFat, 0.8),
+                    ]
+                },
+
+                new(DietType.GrowerFinisherDiet4, AnimalType.Swine)
+                {
+                    Recipes =
+                    [
+                        new IngredientBreakdown(IngredientType.WheatBran, 19.1),
+                        new IngredientBreakdown(IngredientType.WheatShorts, 11.8),
+                        new IngredientBreakdown(IngredientType.Barley, 30),
+                        new IngredientBreakdown(IngredientType.CornDistillersDriedGrainsSolublesGreaterThanSixAndLessThanNinePercentOil, 15),
+                        new IngredientBreakdown(IngredientType.SoybeanMealDehulledExpelled, 6),
+                        new IngredientBreakdown(IngredientType.CanolaMealExpelled, 8),
+                        new IngredientBreakdown(IngredientType.FieldPeas, 8),
+                        new IngredientBreakdown(IngredientType.CanolaFullFat, 0.8),
+                    ]
+                },
+
+                new(DietType.GiltDeveloperDiet, AnimalType.Swine)
+                {
+                    Recipes =
+                    [
+                        new IngredientBreakdown(IngredientType.WheatBran, 35),
+                        new IngredientBreakdown(IngredientType.WheatShorts, 10.1),
+                        new IngredientBreakdown(IngredientType.Barley, 20),
+                        new IngredientBreakdown(IngredientType.CornDistillersDriedGrainsSolublesGreaterThanSixAndLessThanNinePercentOil, 12.1),
+                        new IngredientBreakdown(IngredientType.CanolaMealExpelled, 15),
+                        new IngredientBreakdown(IngredientType.FieldPeas, 5),
+                        new IngredientBreakdown(IngredientType.CanolaFullFat, 0.5),
+                    ]
+                },
+
+                new(DietType.Boars, AnimalType.Swine)
+                {
+                    Recipes =
+                    [
+                        new IngredientBreakdown(IngredientType.WheatBran, 38),
+                        new IngredientBreakdown(IngredientType.WheatShorts, 2),
+                        new IngredientBreakdown(IngredientType.Barley, 20),
+                        new IngredientBreakdown(IngredientType.CornDistillersDriedGrainsSolublesGreaterThanSixAndLessThanNinePercentOil, 10.6),
+                        new IngredientBreakdown(IngredientType.SoybeanMealDehulledExpelled, 7.1),
+                        new IngredientBreakdown(IngredientType.CanolaMealExpelled, 15),
+                        new IngredientBreakdown(IngredientType.FieldPeas, 5),
+                        new IngredientBreakdown(IngredientType.CanolaFullFat, 0.5),
+                    ]
+                },
+
+                #endregion
             };
         }
 

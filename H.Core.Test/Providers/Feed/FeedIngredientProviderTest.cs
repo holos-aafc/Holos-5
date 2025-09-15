@@ -402,5 +402,129 @@ namespace H.Core.Test.Providers.Feed {
         }
 
         #endregion
+        
+        #region Swine Diet Unit Tests
+
+        [TestMethod]
+        public void GetIngredientsForDiet_Swine_Gestation_ReturnsCorrectIngredients()
+        {
+            var result = _sut.GetIngredientsForDiet(AnimalType.Swine, DietType.Gestation).ToList();
+            Assert.AreEqual(8, result.Count);
+            Assert.AreEqual(IngredientType.WheatBran, result[0].IngredientType);
+            Assert.AreEqual(14, result[0].PercentageInDiet);
+            Assert.AreEqual(IngredientType.WheatShorts, result[1].IngredientType);
+            Assert.AreEqual(3, result[1].PercentageInDiet);
+            Assert.AreEqual(IngredientType.Barley, result[2].IngredientType);
+            Assert.AreEqual(62.2, result[2].PercentageInDiet);
+            Assert.AreEqual(IngredientType.SoybeanMealDehulledExpelled, result[3].IngredientType);
+            Assert.AreEqual(4, result[3].PercentageInDiet);
+            Assert.AreEqual(IngredientType.CanolaMealExpelled, result[4].IngredientType);
+            Assert.AreEqual(3, result[4].PercentageInDiet);
+            Assert.AreEqual(IngredientType.FieldPeas, result[5].IngredientType);
+            Assert.AreEqual(6, result[5].PercentageInDiet);
+            Assert.AreEqual(IngredientType.SugarBeetPulp, result[6].IngredientType);
+            Assert.AreEqual(5.6, result[6].PercentageInDiet);
+            Assert.AreEqual(IngredientType.CanolaFullFat, result[7].IngredientType);
+            Assert.AreEqual(0.4, result[7].PercentageInDiet);
+        }
+
+        [TestMethod]
+        public void GetIngredientsForDiet_Swine_Lactation_ReturnsCorrectIngredients()
+        {
+            var result = _sut.GetIngredientsForDiet(AnimalType.Swine, DietType.Lactation).ToList();
+            Assert.AreEqual(7, result.Count);
+            Assert.AreEqual(IngredientType.WheatBran, result[0].IngredientType);
+            Assert.AreEqual(41, result[0].PercentageInDiet);
+            Assert.AreEqual(IngredientType.Barley, result[1].IngredientType);
+            Assert.AreEqual(21.8, result[1].PercentageInDiet);
+            Assert.AreEqual(IngredientType.CornDistillersDriedGrainsSolublesGreaterThanSixAndLessThanNinePercentOil, result[2].IngredientType);
+            Assert.AreEqual(9, result[2].PercentageInDiet);
+            Assert.AreEqual(IngredientType.SoybeanMealDehulledExpelled, result[3].IngredientType);
+            Assert.AreEqual(9, result[3].PercentageInDiet);
+            Assert.AreEqual(IngredientType.CanolaMealExpelled, result[4].IngredientType);
+            Assert.AreEqual(5, result[4].PercentageInDiet);
+            Assert.AreEqual(IngredientType.FieldPeas, result[5].IngredientType);
+            Assert.AreEqual(10, result[5].PercentageInDiet);
+            Assert.AreEqual(IngredientType.CanolaFullFat, result[6].IngredientType);
+            Assert.AreEqual(1.8, result[6].PercentageInDiet);
+        }
+
+        [TestMethod]
+        public void GetIngredientsForDiet_Swine_NurseryWeanersStarter1_ReturnsCorrectIngredients()
+        {
+            var result = _sut.GetIngredientsForDiet(AnimalType.Swine, DietType.NurseryWeanersStarter1).ToList();
+            Assert.AreEqual(7, result.Count);
+            Assert.AreEqual(IngredientType.WheatBran, result[0].IngredientType);
+            Assert.AreEqual(39, result[0].PercentageInDiet);
+            Assert.AreEqual(IngredientType.CornDistillersDriedGrainsSolublesGreaterThanSixAndLessThanNinePercentOil, result[1].IngredientType);
+            Assert.AreEqual(11.38, result[1].PercentageInDiet);
+            Assert.AreEqual(IngredientType.SoybeanMealDehulledExpelled, result[2].IngredientType);
+            Assert.AreEqual(20, result[2].PercentageInDiet);
+            Assert.AreEqual(IngredientType.FieldPeas, result[3].IngredientType);
+            Assert.AreEqual(11, result[3].PercentageInDiet);
+            Assert.AreEqual(IngredientType.CanolaFullFat, result[4].IngredientType);
+            Assert.AreEqual(1.2, result[4].PercentageInDiet);
+            Assert.AreEqual(IngredientType.WheyPermeateLactose80, result[5].IngredientType);
+            Assert.AreEqual(10, result[5].PercentageInDiet);
+            Assert.AreEqual(IngredientType.FishMealCombined, result[6].IngredientType);
+            Assert.AreEqual(5, result[6].PercentageInDiet);
+        }
+
+        [TestMethod]
+        public void GetIngredientsForDiet_Swine_GrowerFinisherDiet1_ReturnsCorrectIngredients()
+        {
+            var result = _sut.GetIngredientsForDiet(AnimalType.Swine, DietType.GrowerFinisherDiet1).ToList();
+            Assert.AreEqual(7, result.Count);
+            Assert.AreEqual(IngredientType.WheatBran, result[0].IngredientType);
+            Assert.AreEqual(32.53, result[0].PercentageInDiet);
+            Assert.AreEqual(IngredientType.Barley, result[1].IngredientType);
+            Assert.AreEqual(24, result[1].PercentageInDiet);
+            Assert.AreEqual(IngredientType.CornDistillersDriedGrainsSolublesGreaterThanSixAndLessThanNinePercentOil, result[2].IngredientType);
+            Assert.AreEqual(12, result[2].PercentageInDiet);
+            Assert.AreEqual(IngredientType.SoybeanMealDehulledExpelled, result[3].IngredientType);
+            Assert.AreEqual(10, result[3].PercentageInDiet);
+            Assert.AreEqual(IngredientType.CanolaMealExpelled, result[4].IngredientType);
+            Assert.AreEqual(6, result[4].PercentageInDiet);
+            Assert.AreEqual(IngredientType.FieldPeas, result[5].IngredientType);
+            Assert.AreEqual(12, result[5].PercentageInDiet);
+            Assert.AreEqual(IngredientType.CanolaFullFat, result[6].IngredientType);
+            Assert.AreEqual(1.2, result[6].PercentageInDiet);
+        }
+
+        #endregion
+
+        #region Dairy Diet Unit Tests
+
+        [TestMethod]
+        public void GetIngredientsForDiet_DairyDryCow_CloseUp_ReturnsCorrectIngredients()
+        {
+            var result = _sut.GetIngredientsForDiet(AnimalType.DairyDryCow, DietType.CloseUp).ToList();
+            Assert.AreEqual(5, result.Count);
+            Assert.AreEqual(IngredientType.CornYellowSilageNormal, result[0].IngredientType);
+            Assert.AreEqual(48, result[0].PercentageInDiet);
+            Assert.AreEqual(IngredientType.GrassLegumeMixturesPredomLegumesSilageMidMaturity, result[1].IngredientType);
+            Assert.AreEqual(23, result[1].PercentageInDiet);
+            Assert.AreEqual(IngredientType.CornYellowGrainCrackedDry, result[2].IngredientType);
+            Assert.AreEqual(12, result[2].PercentageInDiet);
+            Assert.AreEqual(IngredientType.CanolaMealMechExtracted, result[3].IngredientType);
+            Assert.AreEqual(9, result[3].PercentageInDiet);
+            Assert.AreEqual(IngredientType.CornYellowGlutenMealDried, result[4].IngredientType);
+            Assert.AreEqual(8, result[4].PercentageInDiet);
+        }
+
+        [TestMethod]
+        public void GetIngredientsForDiet_DairyHeifers_HighFiber_ReturnsCorrectIngredients()
+        {
+            var result = _sut.GetIngredientsForDiet(AnimalType.DairyHeifers, DietType.HighFiber).ToList();
+            Assert.AreEqual(3, result.Count);
+            Assert.AreEqual(IngredientType.GrassesCoolHayMature, result[0].IngredientType);
+            Assert.AreEqual(50, result[0].PercentageInDiet);
+            Assert.AreEqual(IngredientType.BarleyGrainRolled, result[1].IngredientType);
+            Assert.AreEqual(45, result[1].PercentageInDiet);
+            Assert.AreEqual(IngredientType.SoybeanMealExpellers, result[2].IngredientType);
+            Assert.AreEqual(5, result[2].PercentageInDiet);
+        }
+
+        #endregion
     }
 }

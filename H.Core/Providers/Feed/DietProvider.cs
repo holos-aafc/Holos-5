@@ -99,12 +99,7 @@ namespace H.Core.Providers.Feed
                 DietType = DietType.HighFiber,
                 AnimalType = AnimalType.DairyHeifers,
 
-                Ingredients = new ObservableCollection<FeedIngredient>()
-                {
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)dairyIngredients.Single(x => x.IngredientType == IngredientType.GrassesCoolHayMature), 50),
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)dairyIngredients.Single(x => x.IngredientType == IngredientType.BarleyGrainRolled), 45),
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)dairyIngredients.Single(x => x.IngredientType == IngredientType.SoybeanMealExpellers), 5),
-                },
+                Ingredients = new ObservableCollection<FeedIngredient>(_feedIngredientProvider.GetIngredientsForDiet(AnimalType.DairyHeifers, DietType.HighFiber).Select(x => (FeedIngredient)x)),
 
                 Forage = 87.6,
                 MethaneConversionFactor = 0.07,
@@ -117,12 +112,7 @@ namespace H.Core.Providers.Feed
                 DietType = DietType.LowFiber,
                 AnimalType = AnimalType.DairyHeifers,
 
-                Ingredients = new ObservableCollection<FeedIngredient>()
-                {
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)dairyIngredients.Single(x => x.IngredientType == IngredientType.CornYellowSilageNormal), 50),
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)dairyIngredients.Single(x => x.IngredientType == IngredientType.BarleyGrainRolled), 42),
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)dairyIngredients.Single(x => x.IngredientType == IngredientType.CanolaMealMechExtracted), 8),
-                },
+                Ingredients = new ObservableCollection<FeedIngredient>(_feedIngredientProvider.GetIngredientsForDiet(AnimalType.DairyHeifers, DietType.LowFiber).Select(x => (FeedIngredient)x)),
 
                 Forage = 63,
                 MethaneConversionFactor = 0.063,
@@ -191,16 +181,7 @@ namespace H.Core.Providers.Feed
                 DietType = DietType.LegumeForageBased,
                 AnimalType = AnimalType.DairyLactatingCow,
 
-                Ingredients = new ObservableCollection<FeedIngredient>()
-                {
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)dairyIngredients.Single(x => x.IngredientType == IngredientType.LegumesForageHayMature), 22),
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)dairyIngredients.Single(x => x.IngredientType == IngredientType.LegumesForageSilageAllSamples), 22),
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)dairyIngredients.Single(x => x.IngredientType == IngredientType.BarleyGrainRolled), 45),
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)dairyIngredients.Single(x => x.IngredientType == IngredientType.CanolaMealMechExtracted), 2),
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)dairyIngredients.Single(x => x.IngredientType == IngredientType.SoybeanHulls), 5),
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)dairyIngredients.Single(x => x.IngredientType == IngredientType.MolassesBeetSugar), 1),
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)dairyIngredients.Single(x => x.IngredientType == IngredientType.CornYellowGlutenFeedDried), 3),
-                },
+                Ingredients = new ObservableCollection<FeedIngredient>(_feedIngredientProvider.GetIngredientsForDiet(AnimalType.DairyLactatingCow, DietType.LegumeForageBased).Select(x => (FeedIngredient)x)),
 
                 Forage = 77.8,
                 MethaneConversionFactor = 0.056,
@@ -213,17 +194,7 @@ namespace H.Core.Providers.Feed
                 DietType = DietType.BarleySilageBased,
                 AnimalType = AnimalType.DairyLactatingCow,
 
-                Ingredients = new ObservableCollection<FeedIngredient>()
-                {
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)dairyIngredients.Single(x => x.IngredientType == IngredientType.BarleySilageHeaded), 49),
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)dairyIngredients.Single(x => x.IngredientType == IngredientType.LegumesForageHayMidMaturity), 5),
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)dairyIngredients.Single(x => x.IngredientType == IngredientType.BarleyGrainRolled), 17),
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)dairyIngredients.Single(x => x.IngredientType == IngredientType.CornYellowGrainRolledHighMoisture), 13),
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)dairyIngredients.Single(x => x.IngredientType == IngredientType.CanolaMealMechExtracted), 5),
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)dairyIngredients.Single(x => x.IngredientType == IngredientType.SoybeanMealExpellers), 4),
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)dairyIngredients.Single(x => x.IngredientType == IngredientType.BeetSugarPulpDried), 2),
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)dairyIngredients.Single(x => x.IngredientType == IngredientType.MolassesSugarCane), 1),
-                },
+                Ingredients = new ObservableCollection<FeedIngredient>(_feedIngredientProvider.GetIngredientsForDiet(AnimalType.DairyLactatingCow, DietType.BarleySilageBased).Select(x => (FeedIngredient)x)),
 
                 Forage = 60.5,
                 MethaneConversionFactor = 0.056,
@@ -236,15 +207,7 @@ namespace H.Core.Providers.Feed
                 DietType = DietType.CornSilageBased,
                 AnimalType = AnimalType.DairyLactatingCow,
 
-                Ingredients = new ObservableCollection<FeedIngredient>()
-                {
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)dairyIngredients.Single(x => x.IngredientType == IngredientType.CornYellowSilageNormal), 55),
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)dairyIngredients.Single(x => x.IngredientType == IngredientType.GrassesCoolHayMidMaturity), 6),
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)dairyIngredients.Single(x => x.IngredientType == IngredientType.CornYellowGrainGraundDry), 11),
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)dairyIngredients.Single(x => x.IngredientType == IngredientType.SoybeanMealSolvent48), 12),
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)dairyIngredients.Single(x => x.IngredientType == IngredientType.SoybeanHulls), 5),
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)dairyIngredients.Single(x => x.IngredientType == IngredientType.CornYellowGlutenFeedDried), 11),
-                },
+                Ingredients = new ObservableCollection<FeedIngredient>(_feedIngredientProvider.GetIngredientsForDiet(AnimalType.DairyLactatingCow, DietType.CornSilageBased).Select(x => (FeedIngredient)x)),
 
                 Forage = 59.1,
                 MethaneConversionFactor = 0.056,
@@ -458,17 +421,7 @@ namespace H.Core.Providers.Feed
                 AnimalType = AnimalType.Swine,
                 Comments = Resources.LabelDietA,
 
-                Ingredients = new ObservableCollection<FeedIngredient>()
-                {
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient) swineIngredients.Single(x => x.IngredientType == IngredientType.WheatBran), 14),
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient) swineIngredients.Single(x => x.IngredientType == IngredientType.WheatShorts), 3),
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient) swineIngredients.Single(x => x.IngredientType == IngredientType.Barley), 62.2),
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient) swineIngredients.Single(x => x.IngredientType == IngredientType.SoybeanMealDehulledExpelled), 4),
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient) swineIngredients.Single(x => x.IngredientType == IngredientType.CanolaMealExpelled), 3),
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient) swineIngredients.Single(x => x.IngredientType == IngredientType.FieldPeas), 6),
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient) swineIngredients.Single(x => x.IngredientType == IngredientType.SugarBeetPulp), 5.6),
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient) swineIngredients.Single(x => x.IngredientType == IngredientType.CanolaFullFat), 0.4),
-                },
+                Ingredients = new ObservableCollection<FeedIngredient>(_feedIngredientProvider.GetIngredientsForDiet(AnimalType.Swine, DietType.Gestation).Select(x => (FeedIngredient)x)),
 
                 DailyDryMatterFeedIntakeOfFeed = 2.49,
                 CrudeProtein = 14.28,
@@ -483,16 +436,7 @@ namespace H.Core.Providers.Feed
                 AnimalType = AnimalType.Swine,
                 Comments = Resources.LabelDietB,
 
-                Ingredients = new ObservableCollection<FeedIngredient>()
-                {
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient) swineIngredients.Single(x => x.IngredientType == IngredientType.WheatBran), 41),
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)swineIngredients.Single(x => x.IngredientType == IngredientType.Barley), 21.8),
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient) swineIngredients.Single(x => x.IngredientType == IngredientType.CornDistillersDriedGrainsSolublesGreaterThanSixAndLessThanNinePercentOil), 9),
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)swineIngredients.Single(x => x.IngredientType == IngredientType.SoybeanMealDehulledExpelled), 9),
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient) swineIngredients.Single(x => x.IngredientType == IngredientType.CanolaMealExpelled), 5),
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient) swineIngredients.Single(x => x.IngredientType == IngredientType.FieldPeas), 10),
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient) swineIngredients.Single(x => x.IngredientType == IngredientType.CanolaFullFat), 1.8),
-                },
+                Ingredients = new ObservableCollection<FeedIngredient>(_feedIngredientProvider.GetIngredientsForDiet(AnimalType.Swine, DietType.Lactation).Select(x => (FeedIngredient)x)),
 
                 DailyDryMatterFeedIntakeOfFeed = 6.59,
                 CrudeProtein = 19.07,
@@ -507,16 +451,7 @@ namespace H.Core.Providers.Feed
                 AnimalType = AnimalType.Swine,
                 Comments = Resources.LabelDietC1,
 
-                Ingredients = new ObservableCollection<FeedIngredient>()
-                {
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient) swineIngredients.Single(x => x.IngredientType == IngredientType.WheatBran), 39),
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient) swineIngredients.Single(x => x.IngredientType == IngredientType.CornDistillersDriedGrainsSolublesGreaterThanSixAndLessThanNinePercentOil), 11.38),
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)swineIngredients.Single(x => x.IngredientType == IngredientType.SoybeanMealDehulledExpelled), 20),
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)swineIngredients.Single(x => x.IngredientType == IngredientType.FieldPeas), 11),
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)swineIngredients.Single(x => x.IngredientType == IngredientType.CanolaFullFat), 1.2),
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)swineIngredients.Single(x => x.IngredientType == IngredientType.WheyPermeateLactose80), 10),
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)swineIngredients.Single(x => x.IngredientType == IngredientType.FishMealCombined), 5),
-                },
+                Ingredients = new ObservableCollection<FeedIngredient>(_feedIngredientProvider.GetIngredientsForDiet(AnimalType.Swine, DietType.NurseryWeanersStarter1).Select(x => (FeedIngredient)x)),
 
                 DailyDryMatterFeedIntakeOfFeed = 0.80,
                 CrudeProtein = 23.88,
@@ -531,16 +466,7 @@ namespace H.Core.Providers.Feed
                 AnimalType = AnimalType.Swine,
                 Comments = Resources.LabelDietC2,
 
-                Ingredients = new ObservableCollection<FeedIngredient>()
-                {
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)swineIngredients.Single(x => x.IngredientType == IngredientType.WheatBran), 33.76),
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)swineIngredients.Single(x => x.IngredientType == IngredientType.Barley), 20),
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)swineIngredients.Single(x => x.IngredientType == IngredientType.CornDistillersDriedGrainsSolublesGreaterThanSixAndLessThanNinePercentOil), 10),
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)swineIngredients.Single(x => x.IngredientType == IngredientType.SoybeanMealDehulledExpelled), 14),
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)swineIngredients.Single(x => x.IngredientType == IngredientType.CanolaMealExpelled), 7),
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)swineIngredients.Single(x => x.IngredientType == IngredientType.FieldPeas), 10),
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)swineIngredients.Single(x => x.IngredientType == IngredientType.CanolaFullFat), 2.5),
-                },
+                Ingredients = new ObservableCollection<FeedIngredient>(_feedIngredientProvider.GetIngredientsForDiet(AnimalType.Swine, DietType.NurseryWeanersStarter2).Select(x => (FeedIngredient)x)),
 
                 DailyDryMatterFeedIntakeOfFeed = 1.17,
                 CrudeProtein = 21.45,
@@ -555,16 +481,7 @@ namespace H.Core.Providers.Feed
                 AnimalType = AnimalType.Swine,
                 Comments = Resources.LabelDietD1,
 
-                Ingredients = new ObservableCollection<FeedIngredient>()
-                {
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)swineIngredients.Single(x => x.IngredientType == IngredientType.WheatBran), 32.53),
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)swineIngredients.Single(x => x.IngredientType == IngredientType.Barley), 24),
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)swineIngredients.Single(x => x.IngredientType == IngredientType.CornDistillersDriedGrainsSolublesGreaterThanSixAndLessThanNinePercentOil), 12),
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)swineIngredients.Single(x => x.IngredientType == IngredientType.SoybeanMealDehulledExpelled), 10),
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)swineIngredients.Single(x => x.IngredientType == IngredientType.CanolaMealExpelled), 6),
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)swineIngredients.Single(x => x.IngredientType == IngredientType.FieldPeas), 12),
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)swineIngredients.Single(x => x.IngredientType == IngredientType.CanolaFullFat), 1.2),
-                },
+                Ingredients = new ObservableCollection<FeedIngredient>(_feedIngredientProvider.GetIngredientsForDiet(AnimalType.Swine, DietType.GrowerFinisherDiet1).Select(x => (FeedIngredient)x)),
 
                 DailyDryMatterFeedIntakeOfFeed = 1.68,
                 CrudeProtein = 20.27,
@@ -579,16 +496,7 @@ namespace H.Core.Providers.Feed
                 AnimalType = AnimalType.Swine,
                 Comments = Resources.LabelDietD2,
 
-                Ingredients = new ObservableCollection<FeedIngredient>()
-                {
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)swineIngredients.Single(x => x.IngredientType == IngredientType.WheatBran), 32.2),
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)swineIngredients.Single(x => x.IngredientType == IngredientType.Barley), 26.79),
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)swineIngredients.Single(x => x.IngredientType == IngredientType.CornDistillersDriedGrainsSolublesGreaterThanSixAndLessThanNinePercentOil), 12),
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)swineIngredients.Single(x => x.IngredientType == IngredientType.SoybeanMealDehulledExpelled), 8),
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)swineIngredients.Single(x => x.IngredientType == IngredientType.CanolaMealExpelled), 8),
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)swineIngredients.Single(x => x.IngredientType == IngredientType.FieldPeas), 10),
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)swineIngredients.Single(x => x.IngredientType == IngredientType.CanolaFullFat), 1.1),
-                },
+                Ingredients = new ObservableCollection<FeedIngredient>(_feedIngredientProvider.GetIngredientsForDiet(AnimalType.Swine, DietType.GrowerFinisherDiet2).Select(x => (FeedIngredient)x)),
 
                 DailyDryMatterFeedIntakeOfFeed = 2.13,
                 CrudeProtein = 19.89,
@@ -603,17 +511,7 @@ namespace H.Core.Providers.Feed
                 AnimalType = AnimalType.Swine,
                 Comments = Resources.LabelDietD3,
 
-                Ingredients = new ObservableCollection<FeedIngredient>()
-                {
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)swineIngredients.Single(x => x.IngredientType == IngredientType.WheatBran), 25.2),
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)swineIngredients.Single(x => x.IngredientType == IngredientType.WheatShorts), 6.3),
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)swineIngredients.Single(x => x.IngredientType == IngredientType.Barley), 28),
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)swineIngredients.Single(x => x.IngredientType == IngredientType.CornDistillersDriedGrainsSolublesGreaterThanSixAndLessThanNinePercentOil), 12),
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)swineIngredients.Single(x => x.IngredientType == IngredientType.SoybeanMealDehulledExpelled), 8),
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)swineIngredients.Single(x => x.IngredientType == IngredientType.CanolaMealExpelled), 8),
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)swineIngredients.Single(x => x.IngredientType == IngredientType.FieldPeas), 10),
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)swineIngredients.Single(x => x.IngredientType == IngredientType.CanolaFullFat), 0.8),
-                },
+                Ingredients = new ObservableCollection<FeedIngredient>(_feedIngredientProvider.GetIngredientsForDiet(AnimalType.Swine, DietType.GrowerFinisherDiet3).Select(x => (FeedIngredient)x)),
 
                 DailyDryMatterFeedIntakeOfFeed = 2.55,
                 CrudeProtein = 19.92,
@@ -628,17 +526,7 @@ namespace H.Core.Providers.Feed
                 AnimalType = AnimalType.Swine,
                 Comments = Resources.LabelDietD4,
 
-                Ingredients = new ObservableCollection<FeedIngredient>()
-                {
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)swineIngredients.Single(x => x.IngredientType == IngredientType.WheatBran), 19.1),
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)swineIngredients.Single(x => x.IngredientType == IngredientType.WheatShorts), 11.8),
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)swineIngredients.Single(x => x.IngredientType == IngredientType.Barley), 30),
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)swineIngredients.Single(x => x.IngredientType == IngredientType.CornDistillersDriedGrainsSolublesGreaterThanSixAndLessThanNinePercentOil), 15),
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)swineIngredients.Single(x => x.IngredientType == IngredientType.SoybeanMealDehulledExpelled), 6),
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)swineIngredients.Single(x => x.IngredientType == IngredientType.CanolaMealExpelled), 8),
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)swineIngredients.Single(x => x.IngredientType == IngredientType.FieldPeas), 8),
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)swineIngredients.Single(x => x.IngredientType == IngredientType.CanolaFullFat), 0.8),
-                },
+                Ingredients = new ObservableCollection<FeedIngredient>(_feedIngredientProvider.GetIngredientsForDiet(AnimalType.Swine, DietType.GrowerFinisherDiet3).Select(x => (FeedIngredient)x)),
 
                 DailyDryMatterFeedIntakeOfFeed = 2.93,
                 CrudeProtein = 19.66,
@@ -653,16 +541,7 @@ namespace H.Core.Providers.Feed
                 AnimalType = AnimalType.Swine,
                 Comments = Resources.LabelGiltDeveloperDiet,
 
-                Ingredients = new ObservableCollection<FeedIngredient>()
-                {
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)swineIngredients.Single(x => x.IngredientType == IngredientType.WheatBran), 35),
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)swineIngredients.Single(x => x.IngredientType == IngredientType.WheatShorts), 10.1),
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)swineIngredients.Single(x => x.IngredientType == IngredientType.Barley), 20),
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)swineIngredients.Single(x => x.IngredientType == IngredientType.CornDistillersDriedGrainsSolublesGreaterThanSixAndLessThanNinePercentOil), 12.1),
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)swineIngredients.Single(x => x.IngredientType == IngredientType.CanolaMealExpelled), 15),
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)swineIngredients.Single(x => x.IngredientType == IngredientType.FieldPeas), 5),
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)swineIngredients.Single(x => x.IngredientType == IngredientType.CanolaFullFat), 0.5),
-                },
+                Ingredients = new ObservableCollection<FeedIngredient>(_feedIngredientProvider.GetIngredientsForDiet(AnimalType.Swine, DietType.GiltDeveloperDiet).Select(x => (FeedIngredient)x)),
 
                 DailyDryMatterFeedIntakeOfFeed = 2.80,
                 CrudeProtein = 17.95,
@@ -677,17 +556,7 @@ namespace H.Core.Providers.Feed
                 AnimalType = AnimalType.Swine,
                 Comments = Resources.LabelBoarDiet,
 
-                Ingredients = new ObservableCollection<FeedIngredient>()
-                {
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)swineIngredients.Single(x => x.IngredientType == IngredientType.WheatBran), 38),
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)swineIngredients.Single(x => x.IngredientType == IngredientType.WheatShorts), 2),
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)swineIngredients.Single(x => x.IngredientType == IngredientType.Barley), 20),
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)swineIngredients.Single(x => x.IngredientType == IngredientType.CornDistillersDriedGrainsSolublesGreaterThanSixAndLessThanNinePercentOil), 10.6),
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)swineIngredients.Single(x => x.IngredientType == IngredientType.SoybeanMealDehulledExpelled), 7.1),
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)swineIngredients.Single(x => x.IngredientType == IngredientType.CanolaMealExpelled), 15),
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)swineIngredients.Single(x => x.IngredientType == IngredientType.FieldPeas), 5),
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)swineIngredients.Single(x => x.IngredientType == IngredientType.CanolaFullFat), 0.5),
-                },
+                Ingredients = new ObservableCollection<FeedIngredient>(_feedIngredientProvider.GetIngredientsForDiet(AnimalType.Swine, DietType.Boars).Select(x => (FeedIngredient)x)),
 
                 DailyDryMatterFeedIntakeOfFeed = 3,
                 CrudeProtein = 20.1,

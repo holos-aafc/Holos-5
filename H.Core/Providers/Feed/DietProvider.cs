@@ -275,11 +275,7 @@ namespace H.Core.Providers.Feed
                 //MetabolizableEnergy = 2.51,
                 //Ndf = 40.5,                
 
-                Ingredients = new ObservableCollection<FeedIngredient>()
-                {
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)beefIngredients.Single(x => x.IngredientType == IngredientType.BarleySilage), 65),
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)beefIngredients.Single(x => x.IngredientType == IngredientType.CornGrain), 35)
-                },
+                Ingredients = new ObservableCollection<FeedIngredient>(_feedIngredientProvider.GetIngredientsForDiet(AnimalType.BeefBackgrounder, DietType.SlowGrowth).Select(x => (FeedIngredient)x)),
 
                 MethaneConversionFactor = 0.063,
             });
@@ -300,11 +296,7 @@ namespace H.Core.Providers.Feed
                 //MetabolizableEnergy = 2.56,
                 //Ndf = 38.5,                
 
-                Ingredients = new ObservableCollection<FeedIngredient>()
-                {
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)beefIngredients.Single(x => x.IngredientType == IngredientType.BarleySilage), 65),
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)beefIngredients.Single(x => x.IngredientType == IngredientType.BarleyGrain), 35)
-                },
+                Ingredients = new ObservableCollection<FeedIngredient>(_feedIngredientProvider.GetIngredientsForDiet(AnimalType.BeefBackgrounder, DietType.MediumGrowth).Select(x => (FeedIngredient)x)),
 
                 MethaneConversionFactor = 0.063,
             });
@@ -314,8 +306,6 @@ namespace H.Core.Providers.Feed
 
         private IEnumerable<Diet> CreateBeefFinishingDiets()
         {
-            var beefIngredients = _feedIngredientProvider.GetBeefFeedIngredients().ToList();
-
             var diets = new List<Diet>();
 
             diets.Add(new Diet
@@ -334,11 +324,7 @@ namespace H.Core.Providers.Feed
                 //MetabolizableEnergy = 2.91,
                 //Ndf = 21,                
 
-                Ingredients = new ObservableCollection<FeedIngredient>()
-                {
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)beefIngredients.Single(x => x.IngredientType == IngredientType.BarleySilage), 10),
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)beefIngredients.Single(x => x.IngredientType == IngredientType.BarleyGrain), 90),
-                },
+                Ingredients = new ObservableCollection<FeedIngredient>(_feedIngredientProvider.GetIngredientsForDiet(AnimalType.BeefFinisher, DietType.BarleyGrainBased).Select(x => (FeedIngredient)x)),
 
                 MethaneConversionFactor = 0.035,
             });
@@ -359,12 +345,7 @@ namespace H.Core.Providers.Feed
                 //MetabolizableEnergy = 3.03,
                 //Ndf = 13.5,                
 
-                Ingredients = new ObservableCollection<FeedIngredient>()
-                {
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)beefIngredients.Single(x => x.IngredientType == IngredientType.BarleySilage), 10),
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)beefIngredients.Single(x => x.IngredientType == IngredientType.CornGrain), 88.7),
-                    _feedIngredientProvider.CopyIngredient((FeedIngredient)beefIngredients.Single(x => x.IngredientType == IngredientType.Urea), 1.3)
-                },
+                Ingredients = new ObservableCollection<FeedIngredient>(_feedIngredientProvider.GetIngredientsForDiet(AnimalType.BeefFinisher, DietType.CornGrainBased).Select(x => (FeedIngredient)x)),
 
                 MethaneConversionFactor = 0.03,
             });

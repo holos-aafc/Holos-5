@@ -1,9 +1,16 @@
-﻿        #region Imports
+﻿#region Imports
 
 using System.Linq;
+using AutoMapper;
 using H.Core.Enumerations;
+using H.Core.Mappers;
+using H.Core.Models;
 using H.Core.Providers.Feed;
+using H.Infrastructure.Services;
+using Microsoft.Extensions.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
+using Prism.Ioc;
 
 #endregion
 
@@ -32,7 +39,16 @@ namespace H.Core.Test.Providers.Feed {
         [TestInitialize]
         public void TestInitialize()
         {
-            _sut = new FeedIngredientProvider();
+            var mockLogger = new Mock<ILogger>();
+            var mockContainerProvider = new Mock<IContainerProvider>();
+            var mockCacheService = new Mock<ICacheService>();
+
+            mockContainerProvider.Setup(x => x.Resolve(typeof(IMapper), It.IsAny<string>())).Returns(new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile<FeedIngredientToFeedIngredientMapper>();
+            }).CreateMapper());
+
+            _sut = new FeedIngredientProvider(mockLogger.Object, mockContainerProvider.Object, mockCacheService.Object);
         }
 
         [TestCleanup]
@@ -178,6 +194,20 @@ namespace H.Core.Test.Providers.Feed {
         }
 
         [TestMethod]
+        public void GetBeefDataReturnsCorrectNumberOfRows()
+        {
+            var data = _sut.GetBeefFeedIngredients();
+            Assert.AreEqual(218, data.Count());
+        }
+
+        [TestMethod]
+        public void GetDairyDataReturnsCorrectNumberOfRows()
+        {
+            var data = _sut.GetDairyFeedIngredients();
+            Assert.AreEqual(122, data.Count());
+        }
+
+        [TestMethod]
         public void GetIngredientsForDiet_BeefCowLowEnergyAndProtein_ReturnsNativePrairieHay()
         {
             var result = _sut.GetIngredientsForDiet(AnimalType.BeefCow, DietType.LowEnergyAndProtein);
@@ -193,7 +223,7 @@ namespace H.Core.Test.Providers.Feed {
             var result = _sut.GetIngredientsForDiet(AnimalType.BeefCow, DietType.MediumEnergyAndProtein).ToList();
             Assert.AreEqual(3, result.Count);
             Assert.AreEqual(IngredientType.AlfalfaHay, ((FeedIngredient)result[0]).IngredientType);
-            Assert.AreEqual(22, result[0].PercentageInDiet);
+            Assert.AreEqual(32, result[0].PercentageInDiet);
             Assert.AreEqual(IngredientType.MeadowHay, ((FeedIngredient)result[1]).IngredientType);
             Assert.AreEqual(65, result[1].PercentageInDiet);
             Assert.AreEqual(IngredientType.BarleyGrain, ((FeedIngredient)result[2]).IngredientType);
@@ -214,17 +244,19 @@ namespace H.Core.Test.Providers.Feed {
         }
 
         [TestMethod]
-        public void GetIngredientsForDiet_InvalidAnimalType_ThrowsArgumentOutOfRangeException()
+        public void GetIngredientsForDiet_InvalidAnimalType_ReturnsEmptyList()
         {
-            Assert.ThrowsException<ArgumentOutOfRangeException>(() =>
-                _sut.GetIngredientsForDiet(AnimalType.Sheep, DietType.LowEnergyAndProtein));
+            var result = _sut.GetIngredientsForDiet(AnimalType.Sheep, DietType.LowEnergyAndProtein);
+
+            Assert.IsFalse(result.Any());
         }
 
         [TestMethod]
-        public void GetIngredientsForDiet_InvalidDietType_ThrowsArgumentOutOfRangeException()
+        public void GetIngredientsForDiet_InvalidDietType_ReturnsEmptyList()
         {
-            Assert.ThrowsException<ArgumentOutOfRangeException>(() =>
-                _sut.GetIngredientsForDiet(AnimalType.BeefCow, (DietType)999));
+            var result = _sut.GetIngredientsForDiet(AnimalType.BeefCow, (DietType)999);
+
+            Assert.IsFalse(result.Any());
         }
 
         [TestMethod]
@@ -237,6 +269,136 @@ namespace H.Core.Test.Providers.Feed {
             Assert.AreEqual(original.IngredientType, copy.IngredientType);
             Assert.AreEqual(percentage, copy.PercentageInDiet);
             Assert.AreNotSame(original, copy);
+        }
+
+        [TestMethod]
+        public void Get_ReturnsNull_WhenIngredientNotFound()
+        {
+            // Arrange
+            var mockLogger = new Mock<ILogger>();
+            var mockContainerProvider = new Mock<IContainerProvider>();
+            var mockCacheService = new Mock<ICacheService>();
+
+            mockContainerProvider.Setup(x => x.Resolve(typeof(IMapper), It.IsAny<string>())).Returns(new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile<FeedIngredientToFeedIngredientMapper>();
+            }).CreateMapper());
+
+            var provider = new FeedIngredientProvider(mockLogger.Object, mockContainerProvider.Object, mockCacheService.Object);
+
+            // Act
+            var method = typeof(FeedIngredientProvider).GetMethod("Get", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+            var result = method.Invoke(provider, new object[] { ComponentCategory.BeefProduction, (IngredientType)9999 });
+
+            // Assert
+            Assert.IsNull(result);
+        }
+
+        [TestMethod]
+        public void CopyIngredient_ReturnsNull_WhenIngredientIsNull()
+        {
+            var result = _sut.CopyIngredient(null, 10.0);
+            Assert.IsNull(result);
+        }
+
+        [TestMethod]
+        public void GetIngredient_ReturnsNull_WhenIngredientNotFound()
+        {
+            var method = typeof(FeedIngredientProvider).GetMethod("GetIngredient", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+            var result = method.Invoke(_sut, new object[] { (IngredientType)9999, 10.0, ComponentCategory.BeefProduction });
+            Assert.IsNull(result);
+        }
+
+        [TestMethod]
+        public void Dictionaries_ArePopulated_AfterConstruction()
+        {
+            var ingredientsByAnimalCategory = typeof(FeedIngredientProvider)
+                .GetField("_ingredientsByAnimalCategory", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+                .GetValue(_sut) as Dictionary<ComponentCategory, IReadOnlyList<IFeedIngredient>>;
+            var ingredientDictionary = typeof(FeedIngredientProvider)
+                .GetField("_ingredientDictionary", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+                .GetValue(_sut) as Dictionary<Tuple<ComponentCategory, IngredientType>, IFeedIngredient>;
+
+            Assert.IsTrue(ingredientsByAnimalCategory.Count > 0);
+            Assert.IsTrue(ingredientDictionary.Count > 0);
+        }
+
+        #endregion
+
+        #region BeefFinisher Diet Unit Tests
+
+        [TestMethod]
+        public void GetIngredientsForDiet_BeefFinisher_BarleyGrainBased_ReturnsCorrectIngredients()
+        {
+            // Arrange
+            var provider = _sut;
+
+            // Act
+            var result = provider.GetIngredientsForDiet(AnimalType.BeefFinisher, DietType.BarleyGrainBased).ToList();
+
+            // Assert
+            Assert.AreEqual(2, result.Count);
+            Assert.AreEqual(IngredientType.BarleySilage, result[0].IngredientType);
+            Assert.AreEqual(10, result[0].PercentageInDiet);
+            Assert.AreEqual(IngredientType.BarleyGrain, result[1].IngredientType);
+            Assert.AreEqual(90, result[1].PercentageInDiet);
+        }
+
+        [TestMethod]
+        public void GetIngredientsForDiet_BeefFinisher_CornGrainBased_ReturnsCorrectIngredients()
+        {
+            // Arrange
+            var provider = _sut;
+
+            // Act
+            var result = provider.GetIngredientsForDiet(AnimalType.BeefFinisher, DietType.CornGrainBased).ToList();
+
+            // Assert
+            Assert.AreEqual(3, result.Count);
+            Assert.AreEqual(IngredientType.BarleySilage, result[0].IngredientType);
+            Assert.AreEqual(10, result[0].PercentageInDiet);
+            Assert.AreEqual(IngredientType.CornGrain, result[1].IngredientType);
+            Assert.AreEqual(88.7, result[1].PercentageInDiet);
+            Assert.AreEqual(IngredientType.Urea, result[2].IngredientType);
+            Assert.AreEqual(1.3, result[2].PercentageInDiet);
+        }
+
+        #endregion
+
+        #region BeefBackgrounder Diet Unit Tests
+
+        [TestMethod]
+        public void GetIngredientsForDiet_BeefBackgrounder_SlowGrowth_ReturnsCorrectIngredients()
+        {
+            // Arrange
+            var provider = _sut;
+
+            // Act
+            var result = provider.GetIngredientsForDiet(AnimalType.BeefBackgrounder, DietType.SlowGrowth).ToList();
+
+            // Assert
+            Assert.AreEqual(2, result.Count);
+            Assert.AreEqual(IngredientType.BarleySilage, result[0].IngredientType);
+            Assert.AreEqual(65, result[0].PercentageInDiet);
+            Assert.AreEqual(IngredientType.CornGrain, result[1].IngredientType);
+            Assert.AreEqual(35, result[1].PercentageInDiet);
+        }
+
+        [TestMethod]
+        public void GetIngredientsForDiet_BeefBackgrounder_MediumGrowth_ReturnsCorrectIngredients()
+        {
+            // Arrange
+            var provider = _sut;
+
+            // Act
+            var result = provider.GetIngredientsForDiet(AnimalType.BeefBackgrounder, DietType.MediumGrowth).ToList();
+
+            // Assert
+            Assert.AreEqual(2, result.Count);
+            Assert.AreEqual(IngredientType.BarleySilage, result[0].IngredientType);
+            Assert.AreEqual(65, result[0].PercentageInDiet);
+            Assert.AreEqual(IngredientType.BarleyGrain, result[1].IngredientType);
+            Assert.AreEqual(35, result[1].PercentageInDiet);
         }
 
         #endregion

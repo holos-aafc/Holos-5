@@ -20,19 +20,36 @@ using Prism.Ioc;
 
 namespace H.Core.Providers.Feed
 {
-
     /// <summary>
     /// </summary>
     public class FeedIngredientProvider : IFeedIngredientProvider
     {
+        #region Private Classes
+
+        internal class IngredientBreakdown(IngredientType ingredientType, double percentageInDiet)
+        {
+            public IngredientType IngredientType { get; set; } = ingredientType;
+            public double PercentageInDiet { get; set; } = percentageInDiet;
+        }
+
+        internal class IngredientList(DietType dietType, AnimalType animalType)
+        {
+            public DietType DietType { get; set; } = dietType;
+            public AnimalType AnimalType { get; set; } = animalType;
+            public List<IngredientBreakdown> Recipes { get; set; } = new();
+        }
+
+        #endregion
+
         #region Fields
 
         private readonly IMapper _feedIngredientMapper;
-        private ILogger _logger;
+        private readonly ILogger _logger;
         private ICacheService _cacheService;
 
         private readonly Dictionary<ComponentCategory, IReadOnlyList<IFeedIngredient>> _ingredientsByAnimalCategory;
         private readonly Dictionary<Tuple<ComponentCategory, IngredientType>, IFeedIngredient> _ingredientDictionary;
+        private readonly IReadOnlyCollection<IngredientList> _recipes;
 
         #endregion
 
@@ -42,8 +59,10 @@ namespace H.Core.Providers.Feed
         {
             _ingredientsByAnimalCategory = new Dictionary<ComponentCategory, IReadOnlyList<IFeedIngredient>>();
             _ingredientDictionary = new Dictionary<Tuple<ComponentCategory, IngredientType>, IFeedIngredient>();
+            _recipes = this.CreateIngredientLists();
 
             this.BuildDictionary();
+            this.CreateIngredientLists();
 
             _feedIngredientMapper = new Mapper(new MapperConfiguration(expression =>
             {
@@ -83,75 +102,48 @@ namespace H.Core.Providers.Feed
 
         #region Public Methods
 
-        private FeedIngredient Get(ComponentCategory componentCategory, IngredientType ingredientType)
-        {
-            var tuple = new Tuple<ComponentCategory, IngredientType>(componentCategory, ingredientType);
-
-            return _ingredientDictionary[tuple] as FeedIngredient;
-        }
-
-        private IFeedIngredient GetIngredient(IngredientType ingredientType, double percentageInDiet, ComponentCategory componentCategory)
-        {
-            var ingredient = this.Get(componentCategory, ingredientType);
-            var copy = this.CopyIngredient(ingredient, percentageInDiet);
-
-            return copy;
-        }
-
         public IReadOnlyCollection<IFeedIngredient> GetIngredientsForDiet(AnimalType animalType, DietType dietType)
         {
-            switch (animalType)
+            var result = _recipes.SingleOrDefault(x => x.DietType == dietType && x.AnimalType == animalType);
+            if (result!= null)
             {
-                case AnimalType.BeefCow:
-                    {
-                        switch (dietType)
-                        {
-                            case DietType.LowEnergyAndProtein:
-                            {
-                                return new List<IFeedIngredient>()
-                                {
-                                    this.GetIngredient(IngredientType.NativePrairieHay, 100, ComponentCategory.BeefProduction),
-                                };
-                            }
-                            case DietType.MediumEnergyAndProtein:
-                            {
-                                return new List<IFeedIngredient>()
-                                {
-                                    this.GetIngredient(IngredientType.AlfalfaHay, 22, ComponentCategory.BeefProduction),
-                                    this.GetIngredient(IngredientType.MeadowHay, 65, ComponentCategory.BeefProduction),
-                                    this.GetIngredient(IngredientType.BarleyGrain, 3, ComponentCategory.BeefProduction),
-                                };
-                            }
-                            case DietType.HighEnergyAndProtein:
-                            {
-                                return new List<IFeedIngredient>()
-                                {
-                                    this.GetIngredient(IngredientType.OrchardgrassHay, 60, ComponentCategory.BeefProduction),
-                                    this.GetIngredient(IngredientType.AlfalfaHay, 20, ComponentCategory.BeefProduction),
-                                    this.GetIngredient(IngredientType.BarleyGrain, 20, ComponentCategory.BeefProduction),
-                                };
-                            }
+                var collection = new List<IFeedIngredient>();
 
-                            default:
-                                throw new ArgumentOutOfRangeException(nameof(dietType), dietType, null);
-                        }
-                    }
-                    break;
+                foreach (var ingredientBreakdown in result.Recipes)
+                {
+                    var category = animalType.GetComponentCategoryFromAnimalType();
 
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(animalType), animalType, null);
+                    collection.Add(this.GetIngredient(ingredientBreakdown.IngredientType, ingredientBreakdown.PercentageInDiet, category));
+                }
+
+                return collection;
+            }
+            else
+            {
+                _logger.LogError($"No ingredients for {animalType} and {dietType}");
+
+                return new List<IFeedIngredient>();
             }
         }
 
         public FeedIngredient CopyIngredient(IFeedIngredient ingredient, double defaultPercentageInDiet)
         {
-            var copiedIngredient = new FeedIngredient();
+            if (ingredient != null)
+            {
+                var copiedIngredient = new FeedIngredient();
 
-            _feedIngredientMapper.Map(ingredient, copiedIngredient);
+                _feedIngredientMapper.Map(ingredient, copiedIngredient);
 
-            copiedIngredient.PercentageInDiet = defaultPercentageInDiet;
+                copiedIngredient.PercentageInDiet = defaultPercentageInDiet;
 
-            return copiedIngredient;
+                return copiedIngredient;
+            }
+            else
+            {
+                _logger.LogError("Ingredient is null, cannot perform copy");
+
+                return null;
+            }
         }
 
         public IList<IFeedIngredient> GetBeefFeedIngredients()
@@ -172,7 +164,115 @@ namespace H.Core.Providers.Feed
         #endregion
 
         #region Private Methods      
-        
+
+        private FeedIngredient Get(ComponentCategory componentCategory, IngredientType ingredientType)
+        {
+            var tuple = new Tuple<ComponentCategory, IngredientType>(componentCategory, ingredientType);
+            IFeedIngredient ingredient;
+            bool exists = _ingredientDictionary.TryGetValue(tuple, out ingredient);
+            if (exists)
+            {
+                return (FeedIngredient)ingredient;
+            }
+            else
+            {
+                _logger.LogError($"The ingredient type '{ingredientType}' does not exist in the category '{componentCategory}'.");
+
+                return null;
+            }
+        }
+
+        private IFeedIngredient GetIngredient(IngredientType ingredientType, double percentageInDiet, ComponentCategory componentCategory)
+        {
+            var ingredient = this.Get(componentCategory, ingredientType);
+            var copy = this.CopyIngredient(ingredient, percentageInDiet);
+
+            return copy;
+        }
+
+        private IReadOnlyCollection<IngredientList> CreateIngredientLists()
+        {
+            return new List<IngredientList>()
+            {
+                #region Beef cow
+
+                new(DietType.LowEnergyAndProtein, AnimalType.BeefCow)
+                {
+                    Recipes =
+                    [
+                        new IngredientBreakdown(IngredientType.NativePrairieHay, 100)
+                    ]
+                },
+
+                new(DietType.MediumEnergyAndProtein, AnimalType.BeefCow)
+                {
+                    Recipes =
+                    [
+                        new IngredientBreakdown(IngredientType.AlfalfaHay, 32),
+                        new IngredientBreakdown(IngredientType.MeadowHay, 65),
+                        new IngredientBreakdown(IngredientType.BarleyGrain, 3),
+                    ]
+                },
+
+                new(DietType.HighEnergyAndProtein, AnimalType.BeefCow)
+                {
+                    Recipes =
+                    [
+                        new IngredientBreakdown(IngredientType.OrchardgrassHay, 60),
+                        new IngredientBreakdown(IngredientType.AlfalfaHay, 20),
+                        new IngredientBreakdown(IngredientType.BarleyGrain, 20),
+                    ]
+                },
+
+                #endregion
+
+                #region Beef finisher
+
+                new(DietType.BarleyGrainBased, AnimalType.BeefFinisher)
+                {
+                    Recipes =
+                    [
+                        new IngredientBreakdown(IngredientType.BarleySilage, 10),
+                        new IngredientBreakdown(IngredientType.BarleyGrain, 90),
+                    ]
+                },
+
+                new(DietType.CornGrainBased, AnimalType.BeefFinisher)
+                {
+                    Recipes =
+                    [
+                        new IngredientBreakdown(IngredientType.BarleySilage, 10),
+                        new IngredientBreakdown(IngredientType.CornGrain, 88.7),
+                        new IngredientBreakdown(IngredientType.Urea, 1.3),
+                    ]
+                },
+
+                #endregion
+
+                #region Beef backgrounding
+
+                new(DietType.SlowGrowth, AnimalType.BeefBackgrounder)
+                {
+                    Recipes = 
+                    [
+                        new IngredientBreakdown(IngredientType.BarleySilage, 65),
+                        new IngredientBreakdown(IngredientType.CornGrain, 35),
+                    ]
+                },
+
+                new(DietType.MediumGrowth, AnimalType.BeefBackgrounder)
+                {
+                    Recipes =
+                    [
+                        new IngredientBreakdown(IngredientType.BarleySilage, 65),
+                        new IngredientBreakdown(IngredientType.BarleyGrain, 35),
+                    ]
+                },
+
+                #endregion
+            };
+        }
+
         private void BuildDictionary()
         {
             var beeFeedIngredients = this.ReadBeefFile().ToList();
@@ -188,7 +288,6 @@ namespace H.Core.Providers.Feed
             foreach (var dairyIngredient in dairyIngredients)
             {
                 var tuple = new Tuple<ComponentCategory, IngredientType>(ComponentCategory.Dairy, dairyIngredient.IngredientType);
-
                 _ingredientDictionary.Add(tuple, dairyIngredient);
             }
 

@@ -196,4 +196,5 @@ public interface IFeedIngredient
     double IV { get; set; }
     double IVP { get; set; }
     double Nemf { get; }
+    bool IsReadonly { get; set; }
 }

@@ -1,4 +1,5 @@
 using H.Core.Enumerations;
+using H.Core.Properties;
 using H.Core.Providers.Feed;
 using H.Core.Services.DietService;
 using H.Infrastructure.Services;
@@ -52,7 +53,7 @@ public class DietFactoryTest
     {
         var result = _sut.Create(DietType.LowEnergyAndProtein, AnimalType.BeefCow);
 
-        Assert.AreEqual("Low Energy and Protein Diet for Beef Cow", result.Name);
+        Assert.AreEqual(Resources.LowEnergyProtein, result.Name);
     }
 
     [TestMethod]

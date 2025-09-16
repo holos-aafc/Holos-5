@@ -1,7 +1,8 @@
-﻿using System.ComponentModel.Design;
-using H.Core.Enumerations;
+﻿using H.Core.Enumerations;
 using H.Core.Providers.Feed;
 using Microsoft.Extensions.Logging;
+using System.ComponentModel.Design;
+using static H.Core.Providers.Feed.IDiet;
 
 namespace H.Core.Services.DietService;
 
@@ -9,10 +10,10 @@ public class DefaultDietService : IDietService
 {
     #region Fields
 
-    private IDietProvider _dietProvider;
+    private readonly IDietProvider _dietProvider;
     private IFeedIngredientProvider _feedIngredientProvider;
     private ILogger _logger;
-    private IDietFactory _dietFactory;
+    private readonly IDietFactory _dietFactory;
 
     #endregion
 
@@ -124,6 +125,15 @@ public class DefaultDietService : IDietService
             var diet = _dietFactory.Create(dietType, animalType);
 
             result.Add(diet);
+        }
+
+        // This is set to indicate it is a system/default diet and the ingredient composition is not meant to be modified.
+        foreach (var diet in result)
+        {
+            foreach (var ingredient in diet.Ingredients)
+            {
+                ingredient.IsReadonly = true;
+            }
         }
 
         return result;

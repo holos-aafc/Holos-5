@@ -26,7 +26,7 @@ namespace H.Core.Providers.Feed
 
         #region Constructors
 
-        public DietProvider()
+        public DietProvider()  
         {
             _feedIngredientProvider = new FeedIngredientProvider();
         }

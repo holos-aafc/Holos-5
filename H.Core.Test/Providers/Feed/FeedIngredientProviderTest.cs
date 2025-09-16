@@ -526,5 +526,64 @@ namespace H.Core.Test.Providers.Feed {
         }
 
         #endregion
+
+        #region Caching Tests
+
+        [TestMethod]
+        public void GetIngredientsForDiet_ReturnsCachedResult_WhenPresent()
+        {
+            // Arrange
+            var mockLogger = new Mock<ILogger>();
+            var mockContainerProvider = new Mock<IContainerProvider>();
+            var mockCacheService = new Mock<ICacheService>();
+            var expected = new List<IFeedIngredient> { new FeedIngredient { IngredientType = IngredientType.BarleyGrain, PercentageInDiet = 100 } };
+            var cacheKey = "FeedIngredientProvider_GetIngredientsForDiet_BeefCow_LowEnergyAndProtein";
+
+            mockContainerProvider.Setup(x => x.Resolve(typeof(IMapper), It.IsAny<string>())).Returns(new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile<FeedIngredientToFeedIngredientMapper>();
+            }).CreateMapper());
+
+            mockCacheService.Setup(x => x.Get<IReadOnlyCollection<IFeedIngredient>>(cacheKey)).Returns(expected);
+
+            var provider = new FeedIngredientProvider(mockLogger.Object, mockContainerProvider.Object, mockCacheService.Object);
+
+            // Act
+            var result = provider.GetIngredientsForDiet(AnimalType.BeefCow, DietType.LowEnergyAndProtein);
+
+            // Assert
+            Assert.AreSame(expected, result);
+            mockCacheService.Verify(x => x.Get<IReadOnlyCollection<IFeedIngredient>>(cacheKey), Times.Once);
+            mockCacheService.Verify(x => x.Set(It.IsAny<string>(), It.IsAny<IReadOnlyCollection<IFeedIngredient>>(), It.IsAny<Microsoft.Extensions.Caching.Memory.MemoryCacheEntryOptions>()), Times.Never);
+        }
+
+        [TestMethod]
+        public void GetIngredientsForDiet_CachesResult_WhenNotCached()
+        {
+            // Arrange
+            var mockLogger = new Mock<ILogger>();
+            var mockContainerProvider = new Mock<IContainerProvider>();
+            var mockCacheService = new Mock<ICacheService>();
+            var cacheKey = "FeedIngredientProvider_GetIngredientsForDiet_BeefCow_LowEnergyAndProtein";
+
+            mockContainerProvider.Setup(x => x.Resolve(typeof(IMapper), It.IsAny<string>())).Returns(new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile<FeedIngredientToFeedIngredientMapper>();
+            }).CreateMapper());
+
+            mockCacheService.Setup(x => x.Get<IReadOnlyCollection<IFeedIngredient>>(cacheKey)).Returns((IReadOnlyCollection<IFeedIngredient>)null);
+
+            var provider = new FeedIngredientProvider(mockLogger.Object, mockContainerProvider.Object, mockCacheService.Object);
+
+            // Act
+            var result = provider.GetIngredientsForDiet(AnimalType.BeefCow, DietType.LowEnergyAndProtein);
+
+            // Assert
+            Assert.IsNotNull(result);
+            mockCacheService.Verify(x => x.Get<IReadOnlyCollection<IFeedIngredient>>(cacheKey), Times.Once);
+            mockCacheService.Verify(x => x.Set(cacheKey, result, It.IsAny<Microsoft.Extensions.Caching.Memory.MemoryCacheEntryOptions>()), Times.Once);
+        }
+
+        #endregion
     }
 }

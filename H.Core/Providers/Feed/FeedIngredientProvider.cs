@@ -7,6 +7,7 @@ using H.Content;
 using H.Core.Converters;
 using H.Infrastructure;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Security.Principal;
 using AutoMapper;
 using H.Core.Enumerations;
@@ -21,22 +22,35 @@ using Prism.Ioc;
 namespace H.Core.Providers.Feed
 {
     /// <summary>
+    /// Provides feed ingredient data and diet recipes for various animal types and diet types.
+    /// This class loads, manages, and caches feed ingredient information from data sources,
+    /// and supplies ingredient breakdowns for specific animal and diet combinations.
+    /// It supports efficient retrieval of feed ingredient lists, leveraging caching to improve performance,
+    /// and is used as a core service for ration formulation and feed analysis in livestock management applications.
     /// </summary>
     public class FeedIngredientProvider : IFeedIngredientProvider
     {
         #region Private Classes
 
+        /// <summary>
+        /// Represents a single ingredient and its percentage in a diet formulation.
+        /// Used to describe the breakdown of a diet recipe by ingredient type and proportion.
+        /// </summary>
         internal class IngredientBreakdown(IngredientType ingredientType, double percentageInDiet)
         {
             public IngredientType IngredientType { get; set; } = ingredientType;
             public double PercentageInDiet { get; set; } = percentageInDiet;
         }
 
+        /// <summary>
+        /// Represents a list of ingredient breakdowns for a specific animal and diet type combination.
+        /// Used to define a complete diet recipe for a given animal and diet.
+        /// </summary>
         internal class IngredientList(DietType dietType, AnimalType animalType)
         {
             public DietType DietType { get; set; } = dietType;
             public AnimalType AnimalType { get; set; } = animalType;
-            public List<IngredientBreakdown> Recipes { get; set; } = new();
+            public List<IngredientBreakdown> Ingredients { get; set; } = new();
         }
 
         #endregion
@@ -45,11 +59,11 @@ namespace H.Core.Providers.Feed
 
         private readonly IMapper _feedIngredientMapper;
         private readonly ILogger _logger;
-        private ICacheService _cacheService;
+        private readonly ICacheService _cacheService;
 
         private readonly Dictionary<ComponentCategory, IReadOnlyList<IFeedIngredient>> _ingredientsByAnimalCategory;
         private readonly Dictionary<Tuple<ComponentCategory, IngredientType>, IFeedIngredient> _ingredientDictionary;
-        private readonly IReadOnlyCollection<IngredientList> _recipes;
+        private readonly IReadOnlyCollection<IngredientList> _ingredientLists;
 
         #endregion
 
@@ -59,7 +73,7 @@ namespace H.Core.Providers.Feed
         {
             _ingredientsByAnimalCategory = new Dictionary<ComponentCategory, IReadOnlyList<IFeedIngredient>>();
             _ingredientDictionary = new Dictionary<Tuple<ComponentCategory, IngredientType>, IFeedIngredient>();
-            _recipes = this.CreateIngredientLists();
+            _ingredientLists = this.CreateIngredientLists();
 
             this.BuildDictionary();
             this.CreateIngredientLists();
@@ -104,26 +118,47 @@ namespace H.Core.Providers.Feed
 
         public IReadOnlyCollection<IFeedIngredient> GetIngredientsForDiet(AnimalType animalType, DietType dietType)
         {
-            var result = _recipes.SingleOrDefault(x => x.DietType == dietType && x.AnimalType == animalType);
-            if (result!= null)
-            {
-                var collection = new List<IFeedIngredient>();
+            // Build a unique cache key for this animal and diet type combination
+            var cacheKey = $"{nameof(FeedIngredientProvider)}_{nameof(GetIngredientsForDiet)}_" +
+                            $"{animalType}_{dietType}";
 
-                foreach (var ingredientBreakdown in result.Recipes)
+            // Try to retrieve the result from cache
+            IReadOnlyCollection<IFeedIngredient> cachedResult = null;
+            if (_cacheService != null)
+            {
+                cachedResult = _cacheService.Get<IReadOnlyCollection<IFeedIngredient>>(cacheKey);
+                if (cachedResult != null)
+                {
+                    // Return cached result if available
+                    return cachedResult;
+                }
+            }
+
+            // Find the recipe for the given animal and diet type
+            var result = _ingredientLists.SingleOrDefault(x => x.DietType == dietType && x.AnimalType == animalType);
+            IReadOnlyCollection<IFeedIngredient> collection;
+            if (result != null)
+            {
+                var list = new List<IFeedIngredient>();
+                // For each ingredient in the recipe, get the ingredient and set its percentage
+                foreach (var ingredientBreakdown in result.Ingredients)
                 {
                     var category = animalType.GetComponentCategoryFromAnimalType();
-
-                    collection.Add(this.GetIngredient(ingredientBreakdown.IngredientType, ingredientBreakdown.PercentageInDiet, category));
+                    list.Add(this.GetIngredient(ingredientBreakdown.IngredientType, ingredientBreakdown.PercentageInDiet, category));
                 }
-
-                return collection;
+                collection = list;
             }
             else
             {
+                // Log and return an empty list if no recipe is found
                 _logger.LogError($"No ingredients for {animalType} and {dietType}");
-
-                return new List<IFeedIngredient>();
+                collection = new List<IFeedIngredient>();
             }
+
+            // Store the result in cache for future requests
+            _cacheService?.Set<IReadOnlyCollection<IFeedIngredient>>(key: cacheKey, value: collection, options: null);
+
+            return collection;
         }
 
         public FeedIngredient CopyIngredient(IFeedIngredient ingredient, double defaultPercentageInDiet)
@@ -146,16 +181,25 @@ namespace H.Core.Providers.Feed
             }
         }
 
+        /// <summary>
+        /// Gets the list of beef feed ingredients available for beef production.
+        /// </summary>
         public IList<IFeedIngredient> GetBeefFeedIngredients()
         {
             return _ingredientsByAnimalCategory[ComponentCategory.BeefProduction] as IList<IFeedIngredient>;
         }
 
+        /// <summary>
+        /// Gets the list of dairy feed ingredients available for dairy production.
+        /// </summary>
         public IList<IFeedIngredient> GetDairyFeedIngredients()
         {
             return _ingredientsByAnimalCategory[ComponentCategory.Dairy] as IList<IFeedIngredient>;
         }
 
+        /// <summary>
+        /// Gets the list of swine feed ingredients available for swine production.
+        /// </summary>
         public IList<IFeedIngredient> GetSwineFeedIngredients()
         {
             return _ingredientsByAnimalCategory[ComponentCategory.Swine] as IList<IFeedIngredient>;
@@ -165,6 +209,13 @@ namespace H.Core.Providers.Feed
 
         #region Private Methods      
 
+        /// <summary>
+        /// Retrieves a feed ingredient for the specified component category and ingredient type.
+        /// Looks up the ingredient in the internal dictionary and returns it if found; otherwise, logs an error and returns null.
+        /// </summary>
+        /// <param name="componentCategory">The component category (e.g., BeefProduction, Dairy, Swine).</param>
+        /// <param name="ingredientType">The type of ingredient to retrieve.</param>
+        /// <returns>The <see cref="FeedIngredient"/> if found; otherwise, null.</returns>
         private FeedIngredient Get(ComponentCategory componentCategory, IngredientType ingredientType)
         {
             var tuple = new Tuple<ComponentCategory, IngredientType>(componentCategory, ingredientType);
@@ -190,6 +241,11 @@ namespace H.Core.Providers.Feed
             return copy;
         }
 
+        /// <summary>
+        /// Creates and returns a collection of predefined ingredient lists for various animal and diet type combinations.
+        /// Each ingredient list represents a diet recipe, specifying the ingredients and their percentages for a specific animal and diet.
+        /// </summary>
+        /// <returns>A read-only collection of <see cref="IngredientList"/> objects representing diet recipes.</returns>
         private IReadOnlyCollection<IngredientList> CreateIngredientLists()
         {
             return new List<IngredientList>()
@@ -198,7 +254,7 @@ namespace H.Core.Providers.Feed
 
                 new(DietType.LowEnergyAndProtein, AnimalType.BeefCow)
                 {
-                    Recipes =
+                    Ingredients =
                     [
                         new IngredientBreakdown(IngredientType.NativePrairieHay, 100)
                     ]
@@ -206,7 +262,7 @@ namespace H.Core.Providers.Feed
 
                 new(DietType.MediumEnergyAndProtein, AnimalType.BeefCow)
                 {
-                    Recipes =
+                    Ingredients =
                     [
                         new IngredientBreakdown(IngredientType.AlfalfaHay, 32),
                         new IngredientBreakdown(IngredientType.MeadowHay, 65),
@@ -216,7 +272,7 @@ namespace H.Core.Providers.Feed
 
                 new(DietType.HighEnergyAndProtein, AnimalType.BeefCow)
                 {
-                    Recipes =
+                    Ingredients =
                     [
                         new IngredientBreakdown(IngredientType.OrchardgrassHay, 60),
                         new IngredientBreakdown(IngredientType.AlfalfaHay, 20),
@@ -230,7 +286,7 @@ namespace H.Core.Providers.Feed
 
                 new(DietType.BarleyGrainBased, AnimalType.BeefFinisher)
                 {
-                    Recipes =
+                    Ingredients =
                     [
                         new IngredientBreakdown(IngredientType.BarleySilage, 10),
                         new IngredientBreakdown(IngredientType.BarleyGrain, 90),
@@ -239,7 +295,7 @@ namespace H.Core.Providers.Feed
 
                 new(DietType.CornGrainBased, AnimalType.BeefFinisher)
                 {
-                    Recipes =
+                    Ingredients =
                     [
                         new IngredientBreakdown(IngredientType.BarleySilage, 10),
                         new IngredientBreakdown(IngredientType.CornGrain, 88.7),
@@ -253,7 +309,7 @@ namespace H.Core.Providers.Feed
 
                 new(DietType.SlowGrowth, AnimalType.BeefBackgrounder)
                 {
-                    Recipes = 
+                    Ingredients = 
                     [
                         new IngredientBreakdown(IngredientType.BarleySilage, 65),
                         new IngredientBreakdown(IngredientType.CornGrain, 35),
@@ -262,7 +318,7 @@ namespace H.Core.Providers.Feed
 
                 new(DietType.MediumGrowth, AnimalType.BeefBackgrounder)
                 {
-                    Recipes =
+                    Ingredients =
                     [
                         new IngredientBreakdown(IngredientType.BarleySilage, 65),
                         new IngredientBreakdown(IngredientType.BarleyGrain, 35),
@@ -275,7 +331,7 @@ namespace H.Core.Providers.Feed
 
                 new(DietType.LegumeForageBased, AnimalType.DairyLactatingCow)
                 {
-                    Recipes =
+                    Ingredients =
                     [
                         new IngredientBreakdown(IngredientType.LegumesForageHayMature, 22),
                         new IngredientBreakdown(IngredientType.LegumesForageSilageAllSamples, 22),
@@ -289,7 +345,7 @@ namespace H.Core.Providers.Feed
 
                 new(DietType.BarleySilageBased, AnimalType.DairyLactatingCow)
                 {
-                    Recipes =
+                    Ingredients =
                     [
                         new IngredientBreakdown(IngredientType.BarleySilageHeaded, 49),
                         new IngredientBreakdown(IngredientType.LegumesForageHayMidMaturity, 5),
@@ -304,7 +360,7 @@ namespace H.Core.Providers.Feed
 
                 new(DietType.CornSilageBased, AnimalType.DairyLactatingCow)
                 {
-                    Recipes =
+                    Ingredients =
                     [
                         new IngredientBreakdown(IngredientType.CornYellowSilageNormal, 55),
                         new IngredientBreakdown(IngredientType.GrassesCoolHayMidMaturity, 6),
@@ -321,7 +377,7 @@ namespace H.Core.Providers.Feed
 
                 new(DietType.CloseUp, AnimalType.DairyDryCow)
                 {
-                    Recipes =
+                    Ingredients =
                     [
                         new IngredientBreakdown(IngredientType.CornYellowSilageNormal, 48),
                         new IngredientBreakdown(IngredientType.GrassLegumeMixturesPredomLegumesSilageMidMaturity, 23),
@@ -333,7 +389,7 @@ namespace H.Core.Providers.Feed
 
                 new(DietType.FarOff, AnimalType.DairyDryCow)
                 {
-                    Recipes =
+                    Ingredients =
                     [
                         new IngredientBreakdown(IngredientType.GrassLegumeMixturesPredomLegumesHayMidMaturity, 57),
                         new IngredientBreakdown(IngredientType.BarleyGrainRolled, 38),
@@ -347,7 +403,7 @@ namespace H.Core.Providers.Feed
 
                 new(DietType.HighFiber, AnimalType.DairyHeifers)
                 {
-                    Recipes =
+                    Ingredients =
                     [
                         new IngredientBreakdown(IngredientType.GrassesCoolHayMature, 50),
                         new IngredientBreakdown(IngredientType.BarleyGrainRolled, 45),
@@ -357,7 +413,7 @@ namespace H.Core.Providers.Feed
 
                 new(DietType.LowFiber, AnimalType.DairyHeifers)
                 {
-                    Recipes =
+                    Ingredients =
                     [
                         new IngredientBreakdown(IngredientType.CornYellowSilageNormal, 50),
                         new IngredientBreakdown(IngredientType.BarleyGrainRolled, 42),
@@ -371,7 +427,7 @@ namespace H.Core.Providers.Feed
 
                 new(DietType.Gestation, AnimalType.Swine)
                 {
-                    Recipes =
+                    Ingredients =
                     [
                         new IngredientBreakdown(IngredientType.WheatBran, 14),
                         new IngredientBreakdown(IngredientType.WheatShorts, 3),
@@ -386,7 +442,7 @@ namespace H.Core.Providers.Feed
 
                 new(DietType.Lactation, AnimalType.Swine)
                 {
-                    Recipes =
+                    Ingredients =
                     [
                         new IngredientBreakdown(IngredientType.WheatBran, 41),
                         new IngredientBreakdown(IngredientType.Barley, 21.8),
@@ -400,7 +456,7 @@ namespace H.Core.Providers.Feed
 
                 new(DietType.NurseryWeanersStarter1, AnimalType.Swine)
                 {
-                    Recipes =
+                    Ingredients =
                     [
                         new IngredientBreakdown(IngredientType.WheatBran, 39),
                         new IngredientBreakdown(IngredientType.CornDistillersDriedGrainsSolublesGreaterThanSixAndLessThanNinePercentOil, 11.38),
@@ -414,7 +470,7 @@ namespace H.Core.Providers.Feed
 
                 new(DietType.NurseryWeanersStarter2, AnimalType.Swine)
                 {
-                    Recipes =
+                    Ingredients =
                     [
                         new IngredientBreakdown(IngredientType.WheatBran, 33.76),
                         new IngredientBreakdown(IngredientType.Barley, 20),
@@ -428,7 +484,7 @@ namespace H.Core.Providers.Feed
 
                 new(DietType.GrowerFinisherDiet1, AnimalType.Swine)
                 {
-                    Recipes =
+                    Ingredients =
                     [
                         new IngredientBreakdown(IngredientType.WheatBran, 32.53),
                         new IngredientBreakdown(IngredientType.Barley, 24),
@@ -442,7 +498,7 @@ namespace H.Core.Providers.Feed
 
                 new(DietType.GrowerFinisherDiet2, AnimalType.Swine)
                 {
-                    Recipes =
+                    Ingredients =
                     [
                         new IngredientBreakdown(IngredientType.WheatBran, 32.2),
                         new IngredientBreakdown(IngredientType.Barley, 26.79),
@@ -456,7 +512,7 @@ namespace H.Core.Providers.Feed
 
                 new(DietType.GrowerFinisherDiet3, AnimalType.Swine)
                 {
-                    Recipes =
+                    Ingredients =
                     [
                         new IngredientBreakdown(IngredientType.WheatBran, 25.2),
                         new IngredientBreakdown(IngredientType.WheatShorts, 6.3),
@@ -471,7 +527,7 @@ namespace H.Core.Providers.Feed
 
                 new(DietType.GrowerFinisherDiet4, AnimalType.Swine)
                 {
-                    Recipes =
+                    Ingredients =
                     [
                         new IngredientBreakdown(IngredientType.WheatBran, 19.1),
                         new IngredientBreakdown(IngredientType.WheatShorts, 11.8),
@@ -486,7 +542,7 @@ namespace H.Core.Providers.Feed
 
                 new(DietType.GiltDeveloperDiet, AnimalType.Swine)
                 {
-                    Recipes =
+                    Ingredients =
                     [
                         new IngredientBreakdown(IngredientType.WheatBran, 35),
                         new IngredientBreakdown(IngredientType.WheatShorts, 10.1),
@@ -500,7 +556,7 @@ namespace H.Core.Providers.Feed
 
                 new(DietType.Boars, AnimalType.Swine)
                 {
-                    Recipes =
+                    Ingredients =
                     [
                         new IngredientBreakdown(IngredientType.WheatBran, 38),
                         new IngredientBreakdown(IngredientType.WheatShorts, 2),
@@ -517,6 +573,11 @@ namespace H.Core.Providers.Feed
             };
         }
 
+        /// <summary>
+        /// Populates the internal dictionaries that map component categories and ingredient types to feed ingredients.
+        /// Loads feed ingredient data for beef, dairy, and swine from their respective sources,
+        /// and organizes them for efficient lookup by category and ingredient type.
+        /// </summary>
         private void BuildDictionary()
         {
             var beeFeedIngredients = this.ReadBeefFile().ToList();
@@ -544,6 +605,12 @@ namespace H.Core.Providers.Feed
             }
         }
 
+        /// <summary>
+        /// Reads swine feed ingredient data from a CSV resource file and parses each line into a <see cref="FeedIngredient"/> object.
+        /// Converts string values to their appropriate types and populates all relevant properties for each ingredient.
+        /// Adds a constant Urea ingredient at the end of the list.
+        /// </summary>
+        /// <returns>A collection of <see cref="FeedIngredient"/> objects representing swine feed ingredients.</returns>
         private IEnumerable<FeedIngredient> ReadSwineFile()
         {
             var cultureInfo = InfrastructureConstants.EnglishCultureInfo;
@@ -719,6 +786,12 @@ namespace H.Core.Providers.Feed
             return result;
         }
 
+        /// <summary>
+        /// Reads beef feed ingredient data from a CSV resource file and parses each line into a <see cref="FeedIngredient"/> object.
+        /// Converts string values to their appropriate types and populates all relevant properties for each ingredient.
+        /// Adds a constant Urea ingredient at the end of the list.
+        /// </summary>
+        /// <returns>A collection of <see cref="FeedIngredient"/> objects representing beef feed ingredients.</returns>
         private IEnumerable<FeedIngredient> ReadBeefFile()
         {
             var cultureInfo = InfrastructureConstants.EnglishCultureInfo;
@@ -816,6 +889,12 @@ namespace H.Core.Providers.Feed
             return result;
         }
 
+        /// <summary>
+        /// Reads dairy feed ingredient data from a CSV resource file and parses each line into a <see cref="FeedIngredient"/> object.
+        /// Converts string values to their appropriate types and populates all relevant properties for each ingredient.
+        /// Skips lines without a line number and uses converters for ingredient and dairy feed class types.
+        /// </summary>
+        /// <returns>A collection of <see cref="FeedIngredient"/> objects representing dairy feed ingredients.</returns>
         private IEnumerable<FeedIngredient> ReadDairyFile()
         {
             var cultureInfo = InfrastructureConstants.EnglishCultureInfo;

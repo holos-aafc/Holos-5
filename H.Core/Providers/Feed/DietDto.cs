@@ -24,4 +24,7 @@ public class DietDto : IDietDto
     public string Comments { get; set; }
     public double DailyDryMatterFeedIntakeOfFeed { get; set; }
     public double CrudeProtein { get; set; }
+    public double TotalDigestibleNutrient { get; set; }
+    public double Ash { get; set; }
+    public bool IsCustomPlaceholderDiet { get; set; }
 }

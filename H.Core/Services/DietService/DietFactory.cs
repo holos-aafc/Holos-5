@@ -60,6 +60,7 @@ namespace H.Core.Services.DietService
         private readonly ICacheService _cacheService;
         private readonly IReadOnlyList<Tuple<AnimalType, DietType>> _validDietKeys;
         private readonly IFeedIngredientProvider _feedIngredientProvider;
+        private readonly IReadOnlyCollection<IDietDto> _dietCollection;
 
         #endregion
 
@@ -67,7 +68,7 @@ namespace H.Core.Services.DietService
 
         public DietFactory()
         {
-            _validDietKeys = this.CreateDietKeys();
+
         }
 
         public DietFactory(ILogger logger, ICacheService cacheService, IFeedIngredientProvider feedIngredientProvider) : this()
@@ -100,6 +101,9 @@ namespace H.Core.Services.DietService
             }
 
             _feedIngredientProvider = feedIngredientProvider;
+
+            _dietCollection = this.BuildDiets();
+            _validDietKeys = this.CreateDietKeys();
         }
 
         #endregion
@@ -360,14 +364,12 @@ namespace H.Core.Services.DietService
         /// <seealso cref="DietType"/>
         private IReadOnlyList<Tuple<AnimalType, DietType>> CreateDietKeys()
         {
-            var dietList = new List<Tuple<AnimalType, DietType>>()
-            {
-                new (AnimalType.BeefCow, DietType.LowEnergyAndProtein),
-                new (AnimalType.BeefCow, DietType.MediumEnergyAndProtein),
-                new (AnimalType.BeefCow, DietType.HighEnergyAndProtein),
-            };
+            var result = new List<Tuple<AnimalType, DietType>>();
 
-            return dietList;
+            var keys = _dietCollection.Select(d => new Tuple<AnimalType, DietType>(d.AnimalType, d.DietType));
+            result.AddRange(keys);
+
+            return result;
         }
 
         private IReadOnlyCollection<IDietDto> BuildDiets()
@@ -382,6 +384,9 @@ namespace H.Core.Services.DietService
              *
              * Any other overrides to the composition provided by the ingredient list needs to be done after the collection of ingredients is
              * initialized (i.e. setting a custom Forage, or Crude Protein value)
+             *
+             * Animals from the cow-calf component (bulls, cows, calves) have the same set (and composition) of diets as the stocker diets from the algorithm document, and so we do not
+             * create a separate collection of diets just for stockers.
              */
 
             List<IDietDto> result =
@@ -810,12 +815,68 @@ namespace H.Core.Services.DietService
                 },
 
                 #endregion
+
+                #region Sheep
+
+                new DietDto()
+                {
+                    Name = Core.Properties.Resources.GoodQualityForage,
+                    DietType = DietType.GoodQualityForage,
+                    AnimalType = AnimalType.Sheep,
+                    TotalDigestibleNutrient = 60.0,
+                    CrudeProtein = 17.7, 
+                    Ash = 8.0,
+                    MethaneConversionFactor = 0.067,
+                },
+
+                new DietDto()
+                {
+                    Name = Core.Properties.Resources.AverageQualityForage,
+                    AnimalType = AnimalType.Sheep,
+                    DietType = DietType.AverageQualityForage,
+                    TotalDigestibleNutrient = 55,
+                    CrudeProtein = 12.4,
+                    Ash = 8,
+                    MethaneConversionFactor = 0.067,
+                },
+
+                new DietDto()
+                {
+                    IsDefaultDiet = true,
+                    Name = Core.Properties.Resources.PoorQualityForage,
+                    DietType = DietType.PoorQualityForage,
+                    AnimalType = AnimalType.Sheep,
+                    TotalDigestibleNutrient = 48,
+                    CrudeProtein = 5.7,
+                    Ash = 8,
+                    MethaneConversionFactor = 0.067,
+                },
+
+                #endregion
+
+                /*
+                 * Some animal groups will not have a diet (poultry, other livestock, suckling pigs, etc.). In these cases, a non-null diet
+                 * must still be set.
+                 */
+
+                new DietDto()
+                {
+                    Name = Resources.None,
+                    IsCustomPlaceholderDiet = true,
+                    DietType = DietType.None,
+                    AnimalType = AnimalType.NotSelected,
+                }
             ];
 
             // These are all system/default diets
             foreach (var dietDto in result)
             {
                 dietDto.IsDefaultDiet = true;
+
+                foreach (var feedIngredient in dietDto.Ingredients)
+                {
+                    feedIngredient.IsReadonly = true;
+                }
             }
 
             return result;
@@ -830,95 +891,7 @@ namespace H.Core.Services.DietService
                 return new DietDto();
             }
 
-            IDietDto result = null;
-
-            var ingredients = _feedIngredientProvider.GetIngredientsForDiet(animalType, dietType);
-            switch (animalType)
-            {
-                /*
-                 * Beef cow diets
-                 */
-
-                case AnimalType.BeefCow:
-                    switch (dietType)
-                    {
-                        case DietType.LowEnergyAndProtein:
-                            {
-                                result = new DietDto()
-                                {
-                                    /*
-                                     * This is the breakdown of the diet if ingredients are not added:
-                                     *
-                                     * TotalDigestibleNutrient = 47
-                                     * CrudeProtein = 6
-                                     * Forage = 100
-                                     * Starch = 5.5
-                                     * Fat = 1.4
-                                     * MetabolizableEnergy = 1.73
-                                     * Ndf = 71.4
-                                     */
-
-                                    IsDefaultDiet = true,
-                                    Name = Resources.LowEnergyProtein,
-                                    DietType = DietType.LowEnergyAndProtein,
-                                    AnimalType = AnimalType.BeefCow,
-                                    MethaneConversionFactor = 0.07,
-                                    DietaryNetEnergyConcentration = 4.5,
-                                    Ingredients = ingredients,
-                                };
-                            }
-                            break;
-
-                        case DietType.MediumEnergyAndProtein:
-                            {
-                                result = new DietDto()
-                                {
-                                    /*
-                                     * This is the breakdown of the diet if ingredients are not added:
-                                     *
-                                     * TotalDigestibleNutrient = 54.6
-                                     * CrudeProtein = 12.4
-                                     * Forage = 97
-                                     * Starch = 7.1
-                                     * Fat = 1.8
-                                     * MetabolizableEnergy = 1.98
-                                     * Ndf = 53.5
-                                     */
-
-                                    IsDefaultDiet = true,
-                                    Name = Resources.LabelMediumEnergyProteinDiet,
-                                    DietType = DietType.MediumEnergyAndProtein,
-                                    AnimalType = AnimalType.BeefCow,
-                                    MethaneConversionFactor = 0.070,
-                                    DietaryNetEnergyConcentration = 6,
-                                    Ingredients = ingredients,
-                                };
-                            }
-                            break;
-
-                        case DietType.HighEnergyAndProtein:
-                            {
-                                result = new DietDto()
-                                {
-                                    /*
-                                     * This is the breakdown of the diet if ingredients are not added:
-                                     *
-                                     * TotalDigestibleNutrient = 62.8
-                                     * CrudeProtein = 17.7
-                                     * Forage = 85
-                                     * Starch = 9.9
-                                     * Fat = 2.2
-                                     * MetabolizableEnergy = 2.14
-                                     * Ndf = 45.1
-                                     */
-                                };
-                            }
-                            break;
-                    }
-                    break;
-            }
-
-            return result;
+            return _dietCollection.Single(x => x.AnimalType == animalType && x.DietType == dietType);
         }
 
         #endregion

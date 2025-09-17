@@ -36,6 +36,9 @@ public class DietFactoryTest
         var mockCacheService = new Mock<ICacheService>();
         var mockFeedIngredientProvider = new Mock<IFeedIngredientProvider>();
 
+        mockFeedIngredientProvider.Setup(x => x.GetIngredientsForDiet(It.IsAny<AnimalType>(), It.IsAny<DietType>()))
+            .Returns(new List<IFeedIngredient>());
+
         _sut = new DietFactory(mockLogger.Object, mockCacheService.Object, mockFeedIngredientProvider.Object);
     }
 

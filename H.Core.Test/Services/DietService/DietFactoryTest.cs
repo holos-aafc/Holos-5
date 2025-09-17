@@ -94,5 +94,27 @@ public class DietFactoryTest
         Assert.AreEqual("Unknown diet", result.Name);
     }
 
+    [TestMethod]
+    public void Create_ReturnsAllValidDiets_FromDietCollection()
+    {
+        // Arrange
+        var validKeys = _sut.GetValidDietKeys();
+
+        // Act
+        var createdDiets = validKeys
+            .Select(key => _sut.Create(key.Item2, key.Item1))
+            .ToList();
+
+        // Assert
+        Assert.AreEqual(validKeys.Count, createdDiets.Count);
+        foreach (var (animalType, dietType) in validKeys)
+        {
+            var diet = createdDiets.SingleOrDefault(d => d.AnimalType == animalType && d.DietType == dietType);
+            Assert.IsNotNull(diet, $"Diet not found for AnimalType: {animalType}, DietType: {dietType}");
+            Assert.AreEqual(animalType, diet.AnimalType);
+            Assert.AreEqual(dietType, diet.DietType);
+        }
+    }
+
     #endregion
 }

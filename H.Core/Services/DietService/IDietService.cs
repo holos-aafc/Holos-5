@@ -6,7 +6,7 @@ namespace H.Core.Services.DietService;
 public interface IDietService
 {
     IReadOnlyList<AnimalType> GetValidAnimalDietTypes(AnimalType animalType);
-    List<IDietDto> GetDiets();
+    IReadOnlyList<IDietDto> GetDiets();
     IDietDto GetNoDiet();
     IDietDto GetDiet(AnimalType animalType, DietType dietType);
 }

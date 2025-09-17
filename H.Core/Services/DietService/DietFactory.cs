@@ -68,7 +68,6 @@ namespace H.Core.Services.DietService
 
         public DietFactory()
         {
-
         }
 
         public DietFactory(ILogger logger, ICacheService cacheService, IFeedIngredientProvider feedIngredientProvider) : this()
@@ -191,7 +190,7 @@ namespace H.Core.Services.DietService
         {
             if (this.IsValidDietType(animalType, dietType))
             {
-                var key = $"{nameof(DietFactory.Create)}_{dietType}_{animalType}";
+                var key = $"{nameof(DietFactory)}_{nameof(DietFactory.Create)}_{dietType}_{animalType}";
                 var cachedDiet = _cacheService.Get<IDietDto>(key);
                 if (cachedDiet != null)
                 {
@@ -200,14 +199,16 @@ namespace H.Core.Services.DietService
                 }
 
                 _logger.LogInformation($"Creating diet for {dietType} and {animalType}");
-                var dietDto = BuildDietDto(animalType, dietType);
 
+                var dietDto = BuildDietDto(animalType, dietType);
                 _cacheService.Set(key, dietDto);
+
                 return dietDto;
             }
             else
             {
                 _logger.LogError($"Cannot create {dietType} for {animalType}");
+
                 return new DietDto()
                 {
                     Name = "Unknown diet",
@@ -372,7 +373,7 @@ namespace H.Core.Services.DietService
             return result;
         }
 
-        private IReadOnlyCollection<IDietDto> BuildDiets()
+        private IReadOnlyList<IDietDto> BuildDiets()
         {
             /*
              * Set the MCF after the ingredient collection has been initialized so that it is not overwritten when the collection changed event
@@ -382,11 +383,14 @@ namespace H.Core.Services.DietService
              *
              * For dairy diets, the ingredient provider does not provide Forage content values, and so they must be set manually.
              *
-             * Any other overrides to the composition provided by the ingredient list needs to be done after the collection of ingredients is
-             * initialized (i.e. setting a custom Forage, or Crude Protein value)
+             * Any other property overrides to the composition provided by the ingredient list needs to be done after the collection of ingredients is
+             * initialized (i.e. this includes setting properties for a custom forage, or crude protein value)
              *
              * Animals from the cow-calf component (bulls, cows, calves) have the same set (and composition) of diets as the stocker diets from the algorithm document, and so we do not
              * create a separate collection of diets just for stockers.
+             *
+             * Some diets should not be displayed in the diet formulator since not all animal types allow for custom diets. Any diet that
+             * should be hidden from user in diet formulator view should have the HideFromUserInDietFormulator property set to true.
              */
 
             List<IDietDto> result =
@@ -394,6 +398,8 @@ namespace H.Core.Services.DietService
                 #region Beef cow
 
                 /*
+                 * Implements: Table 20. Examples of NEmf content of typical diets fed to cattle for estimation of dry matter intake (IPCC, 2019, Table 10.8a).
+                 *
                  * Footnote 1: The low, moderate and high quality forage diets are equivalent to the low, medium and high energy/protein diets, respectively, for beef cows in Table 21.
                  *
                  * Footnote 2: If the model user wants to formulate their own diet, the feed energy content [NEmf (MJkg-1 DM)]
@@ -868,7 +874,7 @@ namespace H.Core.Services.DietService
                 }
             ];
 
-            // These are all system/default diets
+            // These are all system/default diets and the ingredient composition is not meant to be modified
             foreach (var dietDto in result)
             {
                 dietDto.IsDefaultDiet = true;

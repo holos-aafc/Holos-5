@@ -2,6 +2,7 @@
 using H.Core.Providers.Feed;
 using Microsoft.Extensions.Logging;
 using System.ComponentModel.Design;
+using CsvHelper;
 using static H.Core.Providers.Feed.IDiet;
 
 namespace H.Core.Services.DietService;
@@ -112,7 +113,7 @@ public class DefaultDietService : IDietService
         return new List<AnimalType>();
     }
 
-    public List<IDietDto> GetDiets()
+    public IReadOnlyList<IDietDto> GetDiets()
     {
         var validDietTypes = _dietFactory.GetValidDietKeys();
         var result = new List<IDietDto>();
@@ -127,15 +128,6 @@ public class DefaultDietService : IDietService
             result.Add(diet);
         }
 
-        // This is set to indicate it is a system/default diet and the ingredient composition is not meant to be modified.
-        foreach (var diet in result)
-        {
-            foreach (var ingredient in diet.Ingredients)
-            {
-                ingredient.IsReadonly = true;
-            }
-        }
-
         return result;
     }
 
@@ -144,9 +136,7 @@ public class DefaultDietService : IDietService
     /// </summary>
     public IDietDto GetNoDiet()
     {
-        // You may need to implement a conversion from Diet to DietDto if necessary
-        var diet = _dietProvider.GetNoDiet();
-        throw new NotImplementedException();
+        return _dietFactory.Create(DietType.None, AnimalType.NotSelected);
     }
 
     public IDietDto GetDiet(AnimalType animalType, DietType dietType)

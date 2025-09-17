@@ -4,7 +4,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="1200" d:DesignHeight="600"
              xmlns:properties="clr-namespace:H.Core.Properties;assembly=H.Core"
+             xmlns:vm="clr-namespace:H.Avalonia.ViewModels.SupportingViews"
              x:Class="H.Avalonia.Views.SupportingViews.DietFormulatorView">
+
+    <d:UserControl.DataContext>
+        <vm:DietFormulatorViewModelDesign />
+    </d:UserControl.DataContext>
 
     <StackPanel Margin="20">
         

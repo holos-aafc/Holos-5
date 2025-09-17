@@ -54,6 +54,7 @@ using Prism.Regions;
 using System;
 using System.Text.RegularExpressions;
 using System.Threading;
+using H.Core.Factories.FarmFactory;
 using H.Infrastructure.Services;
 using Microsoft.Extensions.Caching.Memory;
 using ClimateResultsView = H.Avalonia.Views.ResultViews.ClimateResultsView;
@@ -217,6 +218,7 @@ namespace H.Avalonia
             containerRegistry.RegisterSingleton<ICropFactory, CropFactory>();
             containerRegistry.RegisterSingleton<IFieldComponentDtoFactory, FieldComponentDtoFactory>();
             containerRegistry.RegisterSingleton<IDietFactory, DietFactory>();
+            containerRegistry.RegisterSingleton<IFarmFactory, FarmFactory>();
 
             // Mappers
             this.SetupMappers(containerRegistry);

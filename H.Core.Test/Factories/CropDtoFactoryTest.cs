@@ -43,11 +43,15 @@ public class CropDtoFactoryTest
 
     #endregion
 
+    #region Tests
+
     [TestMethod]
     public void CreateReturnsNonNull()
     {
         var result = _factory.CreateCropDto();
 
         Assert.IsNotNull(result);
-    }
+    } 
+
+    #endregion
 }

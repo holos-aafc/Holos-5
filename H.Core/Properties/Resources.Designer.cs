@@ -18642,5 +18642,68 @@ namespace H.Core.Properties {
                 return ResourceManager.GetString("Yukon", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Diet Formulator.
+        /// </summary>
+        public static string LabelDietFormulator {
+            get {
+                return ResourceManager.GetString("LabelDietFormulator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Diet Type.
+        /// </summary>
+        public static string LabelDietType {
+            get {
+                return ResourceManager.GetString("LabelDietType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Crude Protein (%).
+        /// </summary>
+        public static string LabelCrudeProtein {
+            get {
+                return ResourceManager.GetString("LabelCrudeProtein", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total Digestible Nutrient (%).
+        /// </summary>
+        public static string LabelTotalDigestibleNutrient {
+            get {
+                return ResourceManager.GetString("LabelTotalDigestibleNutrient", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Forage (%).
+        /// </summary>
+        public static string LabelForage {
+            get {
+                return ResourceManager.GetString("LabelForage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Daily Dry Matter Feed Intake (kg/day).
+        /// </summary>
+        public static string LabelDailyDryMatterFeedIntake {
+            get {
+                return ResourceManager.GetString("LabelDailyDryMatterFeedIntake", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Methane Conversion Factor.
+        /// </summary>
+        public static string LabelMethaneConversionFactor {
+            get {
+                return ResourceManager.GetString("LabelMethaneConversionFactor", resourceCulture);
+            }
+        }
     }
 }

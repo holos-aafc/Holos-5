@@ -24,6 +24,7 @@ using H.Avalonia.ViewModels.SupportingViews.Disclaimer;
 using H.Avalonia.ViewModels.SupportingViews.MeasurementProvince;
 using H.Avalonia.ViewModels.SupportingViews.RegionSelection;
 using H.Avalonia.ViewModels.SupportingViews.Start;
+using H.Avalonia.ViewModels.SupportingViews;
 using H.Avalonia.Views;
 using H.Avalonia.Views.ComponentViews;
 using H.Avalonia.Views.FarmCreationViews;
@@ -32,6 +33,7 @@ using H.Avalonia.Views.SupportingViews.CountrySelection;
 using H.Avalonia.Views.SupportingViews.Disclaimer;
 using H.Avalonia.Views.SupportingViews.MeasurementProvince;
 using H.Avalonia.Views.SupportingViews.RegionSelection;
+using H.Avalonia.Views.SupportingViews;
 using H.Core;
 using H.Core.Calculators.UnitsOfMeasurement;
 using H.Core.Enumerations;
@@ -171,6 +173,9 @@ namespace H.Avalonia
             containerRegistry.RegisterForNavigation<Views.FarmCreationViews.FarmImportFileView, FarmImportFileViewModel>();
             containerRegistry.RegisterForNavigation<Views.OptionsViews.FileMenuViews.FileExportClimateView, FileExportClimateViewModel>();
             containerRegistry.RegisterForNavigation<Views.OptionsViews.FileMenuViews.FileExportManureView, FileExportManureViewModel>();
+
+            // Diet formulator
+            containerRegistry.RegisterForNavigation<Views.SupportingViews.DietFormulatorView, DietFormulatorViewModel>();
 
             // Blank Page
             containerRegistry.RegisterForNavigation<Views.BlankView, BlankViewModel>();

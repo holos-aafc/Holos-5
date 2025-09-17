@@ -125,7 +125,7 @@ namespace H.Avalonia.Core.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to Aaron McPherson
-        ///Hassan Afzaal.
+        ///Wyatt Bristow.
         /// </summary>
         public static string ContributorsList {
             get {

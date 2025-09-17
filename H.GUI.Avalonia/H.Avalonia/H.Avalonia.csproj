@@ -25,14 +25,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <AvaloniaResource Remove="Assets\Images\Icons\HolosIEIcon.ico" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Remove="Assets\Images\Icons\HolosIEIcon.ico" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectCapability Include="Avalonia" />
     <TrimmerRootAssembly Include="Avalonia.Themes.Fluent" />
   </ItemGroup>
@@ -126,6 +118,9 @@
     <Compile Update="Views\SupportingViews\MeasurementProvince\MeasurementProvinceView.axaml.cs">
       <DependentUpon>MeasurementProvinceView.axaml</DependentUpon>
     </Compile>
+	  <Compile Update="Views\SupportingViews\DietFormulatorView.axaml.cs">
+		  <DependentUpon>DietFormulatorView.axaml</DependentUpon>
+	  </Compile>
   </ItemGroup>
 
   <ItemGroup>

@@ -34,7 +34,7 @@ namespace H.Avalonia.Test.ViewModels.SupportingViews
                 { 
                     Name = "Test Diet 1", 
                     AnimalType = AnimalType.Beef, 
-                    DietType = DietType.HighEnergyDiet,
+                    DietType = DietType.HighEnergy,
                     CrudeProtein = 12.5,
                     TotalDigestibleNutrient = 85.0
                 },
@@ -42,7 +42,7 @@ namespace H.Avalonia.Test.ViewModels.SupportingViews
                 { 
                     Name = "Test Diet 2", 
                     AnimalType = AnimalType.Dairy, 
-                    DietType = DietType.MediumEnergyDiet,
+                    DietType = DietType.MediumEnergy,
                     CrudeProtein = 15.2,
                     TotalDigestibleNutrient = 75.0
                 },

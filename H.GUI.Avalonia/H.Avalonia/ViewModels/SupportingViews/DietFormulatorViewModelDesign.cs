@@ -1,6 +1,9 @@
 using System.Collections.ObjectModel;
 using H.Core.Providers.Feed;
 using H.Core.Enumerations;
+using H.Core.Services.DietService;
+using H.Core.Services.StorageService;
+using Prism.Regions;
 
 namespace H.Avalonia.ViewModels.SupportingViews
 {
@@ -14,11 +17,11 @@ namespace H.Avalonia.ViewModels.SupportingViews
             // Create sample data for design-time
             Diets = new ObservableCollection<IDietDto>
             {
-                new DietDto 
-                { 
-                    Name = "High Energy Beef Diet", 
-                    AnimalType = AnimalType.Beef, 
-                    DietType = DietType.HighEnergyDiet,
+                new DietDto
+                {
+                    Name = "High Energy Beef Diet",
+                    AnimalType = AnimalType.Beef,
+                    DietType = DietType.HighEnergy,
                     CrudeProtein = 12.5,
                     TotalDigestibleNutrient = 85.0,
                     Forage = 15.0,
@@ -26,11 +29,11 @@ namespace H.Avalonia.ViewModels.SupportingViews
                     MethaneConversionFactor = 0.065,
                     Comments = "High energy diet for beef cattle"
                 },
-                new DietDto 
-                { 
-                    Name = "Medium Energy Dairy Diet", 
-                    AnimalType = AnimalType.Dairy, 
-                    DietType = DietType.MediumEnergyDiet,
+                new DietDto
+                {
+                    Name = "Medium Energy Dairy Diet",
+                    AnimalType = AnimalType.Dairy,
+                    DietType = DietType.MediumEnergy,
                     CrudeProtein = 16.2,
                     TotalDigestibleNutrient = 75.0,
                     Forage = 45.0,
@@ -38,10 +41,10 @@ namespace H.Avalonia.ViewModels.SupportingViews
                     MethaneConversionFactor = 0.061,
                     Comments = "Standard dairy cow diet"
                 },
-                new DietDto 
-                { 
-                    Name = "Swine Gestation Diet", 
-                    AnimalType = AnimalType.Swine, 
+                new DietDto
+                {
+                    Name = "Swine Gestation Diet",
+                    AnimalType = AnimalType.Swine,
                     DietType = DietType.Gestation,
                     CrudeProtein = 14.3,
                     TotalDigestibleNutrient = 80.0,
@@ -50,11 +53,11 @@ namespace H.Avalonia.ViewModels.SupportingViews
                     MethaneConversionFactor = 0.001,
                     Comments = "Diet for gestating sows"
                 },
-                new DietDto 
-                { 
-                    Name = "Sheep High Protein Diet", 
-                    AnimalType = AnimalType.Sheep, 
-                    DietType = DietType.HighEnergyAndProteinDiet,
+                new DietDto
+                {
+                    Name = "Sheep High Protein Diet",
+                    AnimalType = AnimalType.Sheep,
+                    DietType = DietType.HighEnergyAndProtein,
                     CrudeProtein = 18.5,
                     TotalDigestibleNutrient = 78.0,
                     Forage = 60.0,
@@ -62,11 +65,11 @@ namespace H.Avalonia.ViewModels.SupportingViews
                     MethaneConversionFactor = 0.065,
                     Comments = "High protein diet for sheep"
                 },
-                new DietDto 
-                { 
-                    Name = "Poultry Starter Diet", 
-                    AnimalType = AnimalType.Poultry, 
-                    DietType = DietType.HighEnergyAndProteinDiet,
+                new DietDto
+                {
+                    Name = "Poultry Starter Diet",
+                    AnimalType = AnimalType.Poultry,
+                    DietType = DietType.HighEnergyAndProtein,
                     CrudeProtein = 22.0,
                     TotalDigestibleNutrient = 82.0,
                     Forage = 0.0,
@@ -77,6 +80,11 @@ namespace H.Avalonia.ViewModels.SupportingViews
             };
 
             SearchText = "";
+        }
+
+        public DietFormulatorViewModelDesign(IRegionManager regionManager, IStorageService storageService,
+            IDietService dietService) : base(regionManager, storageService, dietService)
+        {
         }
     }
 }

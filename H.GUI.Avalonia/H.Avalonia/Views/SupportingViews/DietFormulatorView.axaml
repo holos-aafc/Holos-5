@@ -7,9 +7,9 @@
              xmlns:vm="clr-namespace:H.Avalonia.ViewModels.SupportingViews"
              x:Class="H.Avalonia.Views.SupportingViews.DietFormulatorView">
 
-    <d:UserControl.DataContext>
+    <Design.DataContext>
         <vm:DietFormulatorViewModelDesign />
-    </d:UserControl.DataContext>
+    </Design.DataContext>
 
     <StackPanel Margin="20">
         

@@ -205,6 +205,25 @@ namespace H.Core.Providers.Feed
             return _ingredientsByAnimalCategory[ComponentCategory.Swine] as IList<IFeedIngredient>;
         }
 
+        /// <summary>
+        /// Gets all feed ingredients available for a given animal type.
+        /// Maps the animal type to its corresponding component category and returns the appropriate ingredients.
+        /// </summary>
+        /// <param name="animalType">The animal type to get ingredients for</param>
+        /// <returns>A read-only collection of feed ingredients for the specified animal type</returns>
+        public IReadOnlyCollection<IFeedIngredient> GetAllIngredientsForAnimalType(AnimalType animalType)
+        {
+            var componentCategory = animalType.GetComponentCategoryFromAnimalType();
+            
+            if (_ingredientsByAnimalCategory.TryGetValue(componentCategory, out var ingredients))
+            {
+                return ingredients;
+            }
+            
+            _logger?.LogWarning($"No ingredients found for animal type {animalType} (component category: {componentCategory})");
+            return new List<IFeedIngredient>();
+        }
+
         #endregion
 
         #region Private Methods      

@@ -9,6 +9,7 @@ using Avalonia.Controls;
 using H.Avalonia.Events;
 using H.Avalonia.Views.ComponentViews;
 using H.Avalonia.Views.FarmCreationViews;
+using H.Avalonia.Views.SupportingViews;
 using H.Core.Models;
 using H.Core.Services.StorageService;
 using Prism.Events;
@@ -78,6 +79,9 @@ namespace H.Avalonia.ViewModels.OptionsViews
                         break;
 
                     // Settings Menu
+                    case "Diets":
+                        base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(DietFormulatorView));
+                        break;
                     case "Farm":
                         base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(Views.OptionsViews.OptionFarmView));
                         break;

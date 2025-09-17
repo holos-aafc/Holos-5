@@ -31,15 +31,7 @@
                            Margin="0,0,0,5" />
                 <ComboBox Width="200" 
                           SelectedItem="{Binding SelectedAnimalType}"
-                          ItemsSource="{x:Static enums:AnimalType.Beef}">
-                    <ComboBox.Items>
-                        <enums:AnimalType>Beef</enums:AnimalType>
-                        <enums:AnimalType>Dairy</enums:AnimalType>
-                        <enums:AnimalType>Swine</enums:AnimalType>
-                        <enums:AnimalType>Sheep</enums:AnimalType>
-                        <enums:AnimalType>Poultry</enums:AnimalType>
-                    </ComboBox.Items>
-                </ComboBox>
+                          ItemsSource="{Binding AvailableAnimalTypes}" />
             </StackPanel>
             
             <!-- Search Bar -->

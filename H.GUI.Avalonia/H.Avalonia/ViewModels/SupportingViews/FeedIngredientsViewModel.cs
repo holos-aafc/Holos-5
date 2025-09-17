@@ -92,6 +92,23 @@ namespace H.Avalonia.ViewModels.SupportingViews
             }
         }
 
+        /// <summary>
+        /// List of animal types that have feed ingredient data available
+        /// </summary>
+        public IList<AnimalType> AvailableAnimalTypes
+        {
+            get
+            {
+                return new List<AnimalType>
+                {
+                    AnimalType.Beef,      // Maps to ComponentCategory.BeefProduction
+                    AnimalType.Dairy,     // Maps to ComponentCategory.Dairy
+                    AnimalType.Swine      // Maps to ComponentCategory.Swine
+                    // Note: Other animal types (Sheep, Poultry, etc.) don't have feed ingredient data yet
+                };
+            }
+        }
+
         #endregion
 
         #region Public Methods

@@ -70,6 +70,7 @@
                   Height="500" 
                   BorderThickness="2"  
                   BorderBrush="#EDEDED" 
+                  CanUserResizeColumns="True"
                   CornerRadius="10" 
                   Background="#f5f5f5">
             
@@ -85,57 +86,42 @@
                 <!-- Ingredient Type -->
                 <DataGridTextColumn Header="Ingredient Type" 
                                     Binding="{Binding IngredientTypeString}" 
-                                    Width="200" />
+                                    Width="200"/>
                 
                 <!-- IFN -->
                 <DataGridTextColumn Header="IFN" 
                                     Binding="{Binding IFN}" 
-                                    Width="100" />
+                                    Width="Auto"/>
                 
                 <!-- Dry Matter -->
                 <DataGridTextColumn Header="{x:Static properties:Resources.LabelDryMatter}" 
                                     Binding="{Binding DryMatter, StringFormat='{}{0:F1}'}" 
-                                    Width="100" />
+                                    Width="SizeToHeader" />
                 
                 <!-- Crude Protein -->
                 <DataGridTextColumn Header="{x:Static properties:Resources.LabelCrudeProtein}" 
                                     Binding="{Binding CrudeProtein, StringFormat='{}{0:F1}'}" 
-                                    Width="110" />
+                                    Width="SizeToHeader" />
                 
                 <!-- Total Digestible Nutrient -->
                 <DataGridTextColumn Header="TDN %" 
                                     Binding="{Binding TotalDigestibleNutrient, StringFormat='{}{0:F1}'}" 
-                                    Width="100" />
+                                    Width="SizeToHeader" />
                 
                 <!-- Fat -->
                 <DataGridTextColumn Header="Fat %" 
                                     Binding="{Binding Fat, StringFormat='{}{0:F1}'}" 
-                                    Width="80" />
+                                    Width="SizeToHeader" />
                 
                 <!-- Crude Fiber -->
                 <DataGridTextColumn Header="Crude Fiber %" 
                                     Binding="{Binding CrudeFiber, StringFormat='{}{0:F1}'}" 
-                                    Width="110" />
+                                    Width="SizeToHeader" />
                 
                 <!-- Forage -->
                 <DataGridTextColumn Header="{x:Static properties:Resources.LabelForage}" 
                                     Binding="{Binding Forage, StringFormat='{}{0:F1}'}" 
-                                    Width="80" />
-                
-                <!-- Cost -->
-                <DataGridTextColumn Header="Cost ($/kg)" 
-                                    Binding="{Binding Cost, StringFormat='{}{0:F3}'}" 
-                                    Width="100" />
-                
-                <!-- Calcium -->
-                <DataGridTextColumn Header="Ca %" 
-                                    Binding="{Binding Ca, StringFormat='{}{0:F2}'}" 
-                                    Width="80" />
-                
-                <!-- Phosphorus -->
-                <DataGridTextColumn Header="P %" 
-                                    Binding="{Binding P, StringFormat='{}{0:F2}'}" 
-                                    Width="80" />
+                                    Width="SizeToHeader" />
                 
             </DataGrid.Columns>
         </DataGrid>

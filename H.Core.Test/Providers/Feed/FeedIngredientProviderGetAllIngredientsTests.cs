@@ -54,5 +54,14 @@ namespace H.Core.Test.Providers.Feed
             var provider = new FeedIngredientProvider();
 
             // Act
-            var result = provider.GetAllIngredientsForAnimal
-
+            var result = provider.GetAllIngredientsForAnimalType(AnimalType.Swine);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.IsTrue(result.Any());
+            Assert.AreEqual(123, result.Count());
+
+        }
+    }
+}
+

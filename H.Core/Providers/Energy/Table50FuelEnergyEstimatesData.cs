@@ -7,7 +7,7 @@ using H.Core.Enumerations;
 
 namespace H.Core.Providers.Energy
 {
-    public class Table_50_Fuel_Energy_Estimates_Data : EnergyDataCharacteristics
+    public class Table50FuelEnergyEstimatesData : EnergyDataCharacteristics
     {
         /// <summary>
         /// The crop for which fuel energy estimate data is required.

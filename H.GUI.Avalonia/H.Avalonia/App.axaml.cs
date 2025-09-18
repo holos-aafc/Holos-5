@@ -174,8 +174,9 @@ namespace H.Avalonia
             containerRegistry.RegisterForNavigation<Views.OptionsViews.FileMenuViews.FileExportClimateView, FileExportClimateViewModel>();
             containerRegistry.RegisterForNavigation<Views.OptionsViews.FileMenuViews.FileExportManureView, FileExportManureViewModel>();
 
-            // Diet formulator
+            // Diet
             containerRegistry.RegisterForNavigation<Views.SupportingViews.DietFormulatorView, DietFormulatorViewModel>();
+            containerRegistry.RegisterForNavigation<Views.SupportingViews.FeedIngredientsView, FeedIngredientsViewModel>();
 
             // Blank Page
             containerRegistry.RegisterForNavigation<Views.BlankView, BlankViewModel>();

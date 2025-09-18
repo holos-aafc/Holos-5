@@ -82,6 +82,9 @@ namespace H.Avalonia.ViewModels.OptionsViews
                     case "Diets":
                         base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(DietFormulatorView));
                         break;
+                    case "Ingredients":
+                        base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(FeedIngredientsView));
+                        break;
                     case "Farm":
                         base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(Views.OptionsViews.OptionFarmView));
                         break;

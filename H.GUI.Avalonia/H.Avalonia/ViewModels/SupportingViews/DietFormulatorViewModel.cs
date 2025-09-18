@@ -93,7 +93,10 @@ namespace H.Avalonia.ViewModels.SupportingViews
         /// </summary>
         private void LoadDiets()
         {
-            if (_dietService == null) return;
+            if (_dietService == null)
+            {
+                return;
+            }
 
             var allDiets = _dietService.GetDiets();
             
@@ -109,7 +112,10 @@ namespace H.Avalonia.ViewModels.SupportingViews
         /// </summary>
         private void FilterDiets()
         {
-            if (_dietService == null) return;
+            if (_dietService == null)
+            {
+                return;
+            }
 
             var allDiets = _dietService.GetDiets();
             

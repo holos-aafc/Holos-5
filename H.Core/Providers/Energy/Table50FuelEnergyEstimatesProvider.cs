@@ -8,13 +8,14 @@ using H.Content;
 using H.Core.Converters;
 using H.Core.Enumerations;
 using H.Infrastructure;
+using Microsoft.Extensions.Logging;
 
 namespace H.Core.Providers.Energy
 {
     /// <summary>
     /// Table 50: Fuel energy requirement (Efuel) estimates for various crops in different regions of Canada for specific soils and tillage operations1 (GJ ha-1)
     /// </summary>
-    public class Table_50_Fuel_Energy_Estimates_Provider
+    public class Table50FuelEnergyEstimatesProvider : ITable50FuelEnergyEstimatesProvider
     {
         #region Fields
 
@@ -22,6 +23,11 @@ namespace H.Core.Providers.Energy
         private readonly SoilFunctionalCategoryStringConverter _soilFunctionalCategoryStringConverter;
         private readonly TillageTypeStringConverter _tillageTypeStringConverter;
         private readonly CropTypeStringConverter _cropTypeStringConverter;
+        private readonly ILogger _logger;
+
+        #endregion
+
+        #region Constants
 
         // Sets the default value for when no fuel energy estimate value is available for a cell
         private const double DefaultValue = 0.0;
@@ -29,8 +35,8 @@ namespace H.Core.Providers.Energy
         #endregion
 
         #region Constructors
-        
-        public Table_50_Fuel_Energy_Estimates_Provider()
+
+        public Table50FuelEnergyEstimatesProvider()
         {
             _provinceStringConverter = new ProvinceStringConverter();
             _soilFunctionalCategoryStringConverter = new SoilFunctionalCategoryStringConverter();
@@ -40,11 +46,23 @@ namespace H.Core.Providers.Energy
             this.Data = this.ReadFile();
         }
 
+        public Table50FuelEnergyEstimatesProvider(ILogger logger) : this()
+        {
+            if (logger != null)
+            {
+                _logger = logger;
+            }
+            else
+            {
+                throw new ArgumentNullException(nameof(logger));
+            }
+        }
+
         #endregion
 
         #region Properties
         // List that stores all instances of FuelEnergyData. Each instance corresponds to a given province, soil category, tillage type and crop.
-        private List<Table_50_Fuel_Energy_Estimates_Data> Data { get; set; }
+        private List<Table50FuelEnergyEstimatesData> Data { get; set; }
 
         #endregion
 
@@ -57,9 +75,9 @@ namespace H.Core.Providers.Energy
         /// <param name="soilCategory">The functional soil category for the province and crop</param>
         /// <param name="tillageType">The tillage type used for the crop</param>
         /// <param name="cropType">The type of crop for which fuel energy estimate data is required</param>
-        /// <returns> The method returns an instance of FuelEnergyEstimateData based on the characteristics in the parameters. Returns an empty instance of <see cref="Table_50_Fuel_Energy_Estimates_Data"/> if nothing found
+        /// <returns> The method returns an instance of FuelEnergyEstimateData based on the characteristics in the parameters. Returns an empty instance of <see cref="Table50FuelEnergyEstimatesData"/> if nothing found
         ///  Unit of measurement of fuel energy estimate value = GJ ha-1</returns>
-        public Table_50_Fuel_Energy_Estimates_Data GetFuelEnergyEstimatesDataInstance(Province province, SoilFunctionalCategory soilCategory, TillageType tillageType, CropType cropType)
+        public Table50FuelEnergyEstimatesData GetFuelEnergyEstimatesDataInstance(Province province, SoilFunctionalCategory soilCategory, TillageType tillageType, CropType cropType)
         {
             var soilLookupType = soilCategory.GetSimplifiedSoilCategory();
 
@@ -69,7 +87,7 @@ namespace H.Core.Providers.Energy
                 cropType = CropType.Fallow;
             }
 
-            Table_50_Fuel_Energy_Estimates_Data data = this.Data.Find(x => (x.Province == province) && (x.SoilFunctionalCategory == soilLookupType)
+            Table50FuelEnergyEstimatesData data = this.Data.Find(x => (x.Province == province) && (x.SoilFunctionalCategory == soilLookupType)
                                                             && (x.TillageType == tillageType) && (x.CropType == cropType));
             
             // If instance is found return the instance
@@ -85,9 +103,10 @@ namespace H.Core.Providers.Energy
             // The specified crop type was wrong
             if (data != null)
             {
-                Trace.TraceError($"{nameof(Table_50_Fuel_Energy_Estimates_Provider)}.{nameof(Table_50_Fuel_Energy_Estimates_Provider.GetFuelEnergyEstimatesDataInstance)}" +
-                                 $" unable to find Crop: {cropType} in the available crop type data. Returning empty {nameof(Table_50_Fuel_Energy_Estimates_Data)}");
-                return new Table_50_Fuel_Energy_Estimates_Data();
+                _logger?.LogError($"{nameof(Table50FuelEnergyEstimatesProvider)}.{nameof(Table50FuelEnergyEstimatesProvider.GetFuelEnergyEstimatesDataInstance)}" +
+                                  $" unable to find Crop: {cropType} in the available crop type data. Returning empty {nameof(Table50FuelEnergyEstimatesData)}");
+
+                return new Table50FuelEnergyEstimatesData();
             }
 
             data = this.Data.Find(x => (x.Province == province) && (x.TillageType == tillageType) && (x.CropType == cropType));
@@ -95,18 +114,18 @@ namespace H.Core.Providers.Energy
             // The specified soil category was wrong
             if (data != null)
             {
-                Trace.TraceError($"{nameof(Table_50_Fuel_Energy_Estimates_Provider)}.{nameof(Table_50_Fuel_Energy_Estimates_Provider.GetFuelEnergyEstimatesDataInstance)}" +
-                                 $" unable to find Soil Category: {soilLookupType} in the available soil data. Returning empty {nameof(Table_50_Fuel_Energy_Estimates_Data)}");
+                _logger?.LogError($"{nameof(Table50FuelEnergyEstimatesProvider)}.{nameof(Table50FuelEnergyEstimatesProvider.GetFuelEnergyEstimatesDataInstance)}" +
+                                  $" unable to find Soil Category: {soilLookupType} in the available soil data. Returning empty {nameof(Table50FuelEnergyEstimatesData)}");
             }
 
             // The specified province type was wrong
             else
             {
-                Trace.TraceError($"{nameof(Table_50_Fuel_Energy_Estimates_Provider)}.{nameof(Table_50_Fuel_Energy_Estimates_Provider.GetFuelEnergyEstimatesDataInstance)}" +
-                                 $" unable to find Province: {province} in the available province data. Returning empty {nameof(Table_50_Fuel_Energy_Estimates_Data)}");
+                _logger?.LogError($"{nameof(Table50FuelEnergyEstimatesProvider)}.{nameof(Table50FuelEnergyEstimatesProvider.GetFuelEnergyEstimatesDataInstance)}" +
+                                  $" unable to find Province: {province} in the available province data. Returning empty {nameof(Table50FuelEnergyEstimatesData)}");
             }
 
-            return new Table_50_Fuel_Energy_Estimates_Data();
+            return new Table50FuelEnergyEstimatesData();
         }
 
 
@@ -118,9 +137,9 @@ namespace H.Core.Providers.Energy
         /// Reads the Comma Separated Value (.csv) file containing the required data. 
         /// </summary>
         /// <returns>Returns a List of Table_50_Fuel_Energy_Estimates_Data instances. Each instance represents a single cell and contains properties that are read from the csv file.</returns>
-        private List<Table_50_Fuel_Energy_Estimates_Data> ReadFile()
+        private List<Table50FuelEnergyEstimatesData> ReadFile()
         {
-            var results = new List<Table_50_Fuel_Energy_Estimates_Data>();
+            var results = new List<Table50FuelEnergyEstimatesData>();
 
             IEnumerable<string[]> fileLines = CsvResourceReader.GetFileLines(CsvResourceNames.FuelEnergyEstimates);
 
@@ -136,8 +155,9 @@ namespace H.Core.Providers.Energy
             {
                 if (string.IsNullOrWhiteSpace(line[0]))
                 {
-                    Trace.Write($"{nameof(Table_50_Fuel_Energy_Estimates_Provider)}.{nameof(ReadFile)}" +
+                    _logger?.LogWarning($"{nameof(Table50FuelEnergyEstimatesProvider)}.{nameof(ReadFile)}" +
                                 $" - File: {nameof(CsvResourceNames.FuelEnergyEstimates)} : first cell of the line is empty. Exiting loop to stop reading more lines inside .csv file.");
+
                     break;
                 }
 
@@ -152,7 +172,7 @@ namespace H.Core.Providers.Energy
                     CropType cropType = _cropTypeStringConverter.Convert(line[0]);
 
 
-                    results.Add(new Table_50_Fuel_Energy_Estimates_Data
+                    results.Add(new Table50FuelEnergyEstimatesData
                     {
                         FuelEstimate = fuelEnergyEstimate,
                         Province = provinceName,

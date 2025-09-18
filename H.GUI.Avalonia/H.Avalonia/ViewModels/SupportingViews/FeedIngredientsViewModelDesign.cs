@@ -43,7 +43,7 @@ namespace H.Avalonia.ViewModels.SupportingViews
                 },
                 new DesignTimeFeedIngredient
                 {
-                    IngredientType = IngredientType.SoybeanMeal,
+                    IngredientType = IngredientType.SoybeanMealExpelled,
                     IngredientTypeString = "Soybean Meal",
                     DryMatter = 89.0,
                     CrudeProtein = 48.5,
@@ -126,6 +126,10 @@ namespace H.Avalonia.ViewModels.SupportingViews
         public double SP { get; set; }
         public double ADICP { get; set; }
         public double OA { get; set; }
+        public double Ash { get; set; }
+        public double NDF { get; set; }
+        public double Lignin { get; set; }
+        public double CR { get; set; }
         public double Ca { get; set; }
         public double P { get; set; }
         public double K { get; set; }
@@ -135,6 +139,7 @@ namespace H.Avalonia.ViewModels.SupportingViews
         public double Cl { get; set; }
         public double Co { get; set; }
         public double Cu { get; set; }
+        public double I { get; set; }
         public double Fe { get; set; }
         public double Mn { get; set; }
         public double Se { get; set; }
@@ -152,8 +157,43 @@ namespace H.Avalonia.ViewModels.SupportingViews
         public double VitB12 { get; set; }
         public double KdPb { get; set; }
         public double Pef { get; set; }
+        public double ME { get; set; }
+        public double NEma { get; set; }
+        public double NEga { get; set; }
+        public double RUP { get; set; }
+        public double kdPB { get; set; }
+        public double KdCB1 { get; set; }
+        public double KdCB2 { get; set; }
+        public double KdCB3 { get; set; }
+        public double PBID { get; set; }
+        public double CB1ID { get; set; }
+        public double CB2ID { get; set; }
+        public double ARG { get; set; }
+        public double HIS { get; set; }
+        public double ILE { get; set; }
+        public double LEU { get; set; }
+        public double LYS { get; set; }
+        public double MET { get; set; }
+        public double CYS { get; set; }
+        public double PHE { get; set; }
+        public double TYR { get; set; }
+        public double THR { get; set; }
+        public double TRP { get; set; }
+        public double VAL { get; set; }
+        public double ALA { get; set; }
+        public double ASP { get; set; }
+        public double GLU { get; set; }
+        public double GLY { get; set; }
+        public double PRO { get; set; }
+        public double SER { get; set; }
         public string FeedNumber { get; set; }
         public DairyFeedClassType DairyFeedClass { get; set; }
+        public double PAF { get; set; }
+        public double NEL_ThreeX { get; set; }
+        public double NEL_FourX { get; set; }
+        public double NEM { get; set; }
+        public double NEG { get; set; }
+        public double NDICP { get; set; }
         public double Paf { get; set; }
         public double Nel_threex { get; set; }
         public double Nel_fourx { get; set; }
@@ -163,9 +203,11 @@ namespace H.Avalonia.ViewModels.SupportingViews
         public double EE { get; set; }
         public double Phytate { get; set; }
         public double PhytatePhosphorus { get; set; }
+        public double NonPhytatePhosphorus { get; set; }
         public double NonphytatePhosphorus { get; set; }
         public double BetaCarotene { get; set; }
         public double Choline { get; set; }
+        public double NE { get; set; }
         public double Ne { get; set; }
         public double CpDigestAID { get; set; }
         public double ArgDigestAID { get; set; }
@@ -186,6 +228,36 @@ namespace H.Avalonia.ViewModels.SupportingViews
         public double ProDigestAID { get; set; }
         public double SerDigestAID { get; set; }
         public double TyrDigestAID { get; set; }
+        public double CpDigestSID { get; set; }
+        public double ArgDigestSID { get; set; }
+        public double HisDigestSID { get; set; }
+        public double IleDigestSID { get; set; }
+        public double LeuDigestSID { get; set; }
+        public double LysDigestSID { get; set; }
+        public double MetDigestSID { get; set; }
+        public double PheDigestSID { get; set; }
+        public double ThrDigestSID { get; set; }
+        public double TrpDigestSID { get; set; }
+        public double ValDigestSID { get; set; }
+        public double AlaDigestSID { get; set; }
+        public double AspDigestSID { get; set; }
+        public double CysDigestSID { get; set; }
+        public double GluDigestSID { get; set; }
+        public double GlyDigestSID { get; set; }
+        public double ProDigestSID { get; set; }
+        public double SerDigestSID { get; set; }
+        public double TyrDigestSID { get; set; }
+        public string AAFCO { get; set; }
+        public string AAFCO2010 { get; set; }
+        public double ATTDPhosphorus { get; set; }
+        public double STTDPhosphorus { get; set; }
+        public double Biotin { get; set; }
+        public double Folacin { get; set; }
+        public double Niacin { get; set; }
+        public double PantothenicAcid { get; set; }
+        public double Riboflavin { get; set; }
+        public double Thiamin { get; set; }
+        public double EtherExtractDup { get; set; }
         public double C120 { get; set; }
         public double C140 { get; set; }
         public double C160 { get; set; }
@@ -194,13 +266,23 @@ namespace H.Avalonia.ViewModels.SupportingViews
         public double C181 { get; set; }
         public double C182 { get; set; }
         public double C183 { get; set; }
+        public double C184 { get; set; }
         public double C200 { get; set; }
         public double C201 { get; set; }
         public double C204 { get; set; }
+        public double C205 { get; set; }
         public double C220 { get; set; }
         public double C221 { get; set; }
         public double C225 { get; set; }
         public double C226 { get; set; }
+        public double C240 { get; set; }
+        public double SFA { get; set; }
+        public double MUFA { get; set; }
+        public double PUFA { get; set; }
+        public double IV { get; set; }
+        public double IVP { get; set; }
+        public double Nemf { get; }
+        public bool IsReadonly { get; set; }
         public double PercentageInDiet { get; set; }
     }
 }

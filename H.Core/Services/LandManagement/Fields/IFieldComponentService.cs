@@ -95,4 +95,6 @@ public interface IFieldComponentService :  IFieldComponentDtoFactory, ICropFacto
     /// <param name="fieldSystemComponent">The associated <see cref="FieldSystemComponent"/> that contains the <see cref="CropViewItem"/> to be removed</param>
     /// <param name="cropDto">The <see cref="CropDto"/> that identifies which <see cref="CropViewItem"/> to remove</param>
     void RemoveCropFromSystem(FieldSystemComponent fieldSystemComponent, ICropDto cropDto);
+
+    CropViewItem GetCropViewItemFromDto(ICropDto cropDto, FieldSystemComponent fieldSystemComponent);
 }

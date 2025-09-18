@@ -34,6 +34,9 @@ public class FieldComponentViewModelDesign : FieldComponentViewModel
                 HectaresString = "(ha)",
             }
         };
+
+        base.SelectedCropDto = new CropDto();
+        base.SelectedCropDto.AmountOfIrrigation = 100;
     }
 
     public FieldComponentViewModelDesign(IRegionManager regionManager, IEventAggregator eventAggregator, IStorageService storageService, IFieldComponentDtoFactory fieldComponentDtoFactory, ICropFactory cropFactory, IFieldComponentService fieldComponentService, IUnitsOfMeasurementCalculator unitsOfMeasurementCalculator, ILogger logger) : base(regionManager, eventAggregator, storageService, fieldComponentService, unitsOfMeasurementCalculator, logger)

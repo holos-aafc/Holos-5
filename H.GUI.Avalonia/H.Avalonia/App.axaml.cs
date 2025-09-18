@@ -56,6 +56,7 @@ using Prism.Regions;
 using System;
 using System.Text.RegularExpressions;
 using System.Threading;
+using H.Avalonia.Views.ComponentViews.LandManagement.Field;
 using H.Core.Factories.FarmFactory;
 using H.Core.Providers.Energy;
 using H.Core.Services.Initialization;
@@ -114,7 +115,7 @@ namespace H.Avalonia
             containerRegistry.RegisterForNavigation<SoilResultsView, SoilResultsViewModel>();
             containerRegistry.RegisterForNavigation<MyComponentsView, MyComponentsViewModel>();
             containerRegistry.RegisterForNavigation<ChooseComponentsView, ChooseComponentsViewModel>();
-            containerRegistry.RegisterForNavigation<Views.ComponentViews.LandManagement.FieldComponentView, FieldComponentViewModel>();
+            containerRegistry.RegisterForNavigation<FieldComponentView, FieldComponentViewModel>();
             containerRegistry.RegisterForNavigation<Views.OptionsViews.OptionsView, OptionsViewModel>();
             containerRegistry.RegisterForNavigation<Views.OptionsViews.SelectOptionView, SelectOptionViewModel>();
             containerRegistry.RegisterForNavigation<Views.OptionsViews.OptionFarmView, FarmSettingsViewModel>();
@@ -312,7 +313,7 @@ namespace H.Avalonia
         {
             var cropDtoToCropDtoConfiguration = new MapperConfiguration(expression =>
             {
-                expression.AddProfile<CropDToCropDtoMapper>();
+                expression.AddProfile<CropDtoToCropDtoMapper>();
             });
 
             var cropDtoToCropVieItemConfiguration = new MapperConfiguration(expression =>
@@ -341,7 +342,7 @@ namespace H.Avalonia
             });
 
             // Register named mappers
-            containerRegistry.RegisterInstance<IMapper>(cropDtoToCropDtoConfiguration.CreateMapper(), nameof(CropDToCropDtoMapper));
+            containerRegistry.RegisterInstance<IMapper>(cropDtoToCropDtoConfiguration.CreateMapper(), nameof(CropDtoToCropDtoMapper));
             containerRegistry.RegisterInstance<IMapper>(cropDtoToCropVieItemConfiguration.CreateMapper(), nameof(CropDtoToCropViewItemMapper));
             containerRegistry.RegisterInstance<IMapper>(cropViewItemToCropVieItemConfiguration.CreateMapper(), nameof(CropViewItemToCropDtoMapper));
             containerRegistry.RegisterInstance<IMapper>(fieldComponentToFieldDtoConfiguration.CreateMapper(), nameof(FieldComponentToDtoMapper));

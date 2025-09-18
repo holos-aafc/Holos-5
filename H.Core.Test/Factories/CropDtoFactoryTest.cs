@@ -44,9 +44,9 @@ public class CropDtoFactoryTest
             cfg.AddProfile<CropViewItemToCropDtoMapper>();
         }).CreateMapper());
 
-        mockContainerProvider.Setup(x => x.Resolve(typeof(IMapper), nameof(CropDToCropDtoMapper))).Returns(new MapperConfiguration(cfg =>
+        mockContainerProvider.Setup(x => x.Resolve(typeof(IMapper), nameof(CropDtoToCropDtoMapper))).Returns(new MapperConfiguration(cfg =>
         {
-            cfg.AddProfile<CropDToCropDtoMapper>();
+            cfg.AddProfile<CropDtoToCropDtoMapper>();
         }).CreateMapper());
 
         mockContainerProvider.Setup(x => x.Resolve(typeof(IMapper), nameof(CropDtoToCropViewItemMapper))).Returns(new MapperConfiguration(cfg =>

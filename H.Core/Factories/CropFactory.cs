@@ -37,7 +37,7 @@ public class CropFactory : ICropFactory
         }
         
         _cropViewItemToDtoMapper = containerProvider.Resolve<IMapper>(nameof(CropViewItemToCropDtoMapper));
-        _cropDtoToDtoMapper = containerProvider.Resolve<IMapper>(nameof(CropDToCropDtoMapper));
+        _cropDtoToDtoMapper = containerProvider.Resolve<IMapper>(nameof(CropDtoToCropDtoMapper));
         _cropDtoToViewItemMapper = containerProvider.Resolve<IMapper>(nameof(CropDtoToCropViewItemMapper));
     } 
 

@@ -324,6 +324,12 @@ public class FieldComponentService : IFieldComponentService
         }
     }
 
+    public CropViewItem GetCropViewItemFromDto(ICropDto cropDto, FieldSystemComponent fieldSystemComponent)
+    {
+        return fieldSystemComponent.CropViewItems.SingleOrDefault(x => x.Guid.Equals(cropDto.Guid));
+
+    }
+
     #endregion
 
     #region Private Methods

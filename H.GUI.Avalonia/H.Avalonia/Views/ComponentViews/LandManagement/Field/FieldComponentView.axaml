@@ -4,8 +4,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:field="clr-namespace:H.Avalonia.ViewModels.ComponentViews.LandManagement.Field"
              xmlns:properties="clr-namespace:H.Avalonia.Infrastructure.Properties;assembly=H.Avalonia.Infrastructure"
+             xmlns:avalonia="clr-namespace:H.Avalonia"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="H.Avalonia.Views.ComponentViews.LandManagement.FieldComponentView">
+             x:Class="H.Avalonia.Views.ComponentViews.LandManagement.Field.FieldComponentView">
 
     <Design.DataContext>
         <field:FieldComponentViewModelDesign/>
@@ -27,6 +28,7 @@
         </StackPanel>
 
         <StackPanel Grid.Row="1">
+            <avalonia:CropView/>
             <Grid HorizontalAlignment="Left">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition MinWidth="120"/>
@@ -71,6 +73,7 @@
                     </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
+
         </StackPanel>
 	</Grid>
 </UserControl>

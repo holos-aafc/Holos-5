@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using H.Core.Enumerations;
 using H.Core.Mappers;
+using H.Core.Models;
 using H.Core.Models.LandManagement.Fields;
+using H.Core.Services.Initialization;
 using H.Infrastructure;
 using Prism.Ioc;
 
@@ -17,15 +19,25 @@ public class CropFactory : ICropFactory
     private readonly IMapper _cropViewItemToDtoMapper;
     private readonly IMapper _cropDtoToDtoMapper;
     private readonly IMapper _cropDtoToViewItemMapper;
+    private ICropInitializationService _cropInitializationService;
 
     #endregion
 
     #region Constructors
 
-    public CropFactory(IContainerProvider containerProvider)
+    public CropFactory(ICropInitializationService cropInitializationService, IContainerProvider containerProvider)
     {
+        if (cropInitializationService != null)
+        {
+            _cropInitializationService = cropInitializationService; 
+        }
+        else
+        {
+            throw new ArgumentNullException(nameof(cropInitializationService));
+        }
+        
         _cropViewItemToDtoMapper = containerProvider.Resolve<IMapper>(nameof(CropViewItemToCropDtoMapper));
-        _cropDtoToDtoMapper = containerProvider.Resolve<IMapper>(nameof(CropDtoCropDtoMapper));
+        _cropDtoToDtoMapper = containerProvider.Resolve<IMapper>(nameof(CropDToCropDtoMapper));
         _cropDtoToViewItemMapper = containerProvider.Resolve<IMapper>(nameof(CropDtoToCropViewItemMapper));
     } 
 
@@ -33,9 +45,16 @@ public class CropFactory : ICropFactory
 
     #region Public Methods
 
-    public ICropDto CreateCropDto()
+    public ICropDto CreateCropDto(Farm farm)
     {
-        return new CropDto();
+        var cropViewItem = new CropViewItem();
+
+        cropViewItem.CropType = CropType.Wheat;
+        _cropInitializationService.Initialize(cropViewItem, farm);
+
+        var dto = this.CreateCropDto(cropViewItem);
+
+        return dto;
     }
 
     public ICropDto CreateCropDto(ICropDto template)

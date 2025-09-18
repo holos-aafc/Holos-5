@@ -164,9 +164,9 @@ public class FieldComponentService : IFieldComponentService
         return _fieldComponentDtoFactory.CreateFieldDto(template);
     }
 
-    public ICropDto CreateCropDto()
+    public ICropDto CreateCropDto(Farm farm)
     {
-        return _cropFactory.CreateCropDto();
+        return _cropFactory.CreateCropDto(farm);
     }
 
     public ICropDto CreateCropDto(CropViewItem template)

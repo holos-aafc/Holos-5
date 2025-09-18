@@ -4,9 +4,9 @@ using H.Core.Models.LandManagement.Fields;
 
 namespace H.Core.Mappers;
 
-public class CropDtoCropDtoMapper : Profile
+public class CropDToCropDtoMapper : Profile
 {
-    public CropDtoCropDtoMapper()
+    public CropDToCropDtoMapper()
     {
         CreateMap<CropViewItem, CropDto>();
     }

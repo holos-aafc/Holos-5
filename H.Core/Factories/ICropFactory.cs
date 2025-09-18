@@ -1,4 +1,5 @@
-﻿using H.Core.Models.LandManagement.Fields;
+﻿using H.Core.Models;
+using H.Core.Models.LandManagement.Fields;
 
 namespace H.Core.Factories;
 
@@ -9,7 +10,8 @@ public interface ICropFactory
     /// <summary>
     /// Create a new instance with no additional configuration to a default instance.
     /// </summary>
-    ICropDto CreateCropDto();
+    /// <param name="farm"></param>
+    ICropDto CreateCropDto(Farm farm);
 
     /// <summary>
     /// Create a new instance that is based on the state of an existing <see cref="CropViewItem"/>. This method is used to create a

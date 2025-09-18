@@ -57,6 +57,7 @@ using System;
 using System.Text.RegularExpressions;
 using System.Threading;
 using H.Core.Factories.FarmFactory;
+using H.Core.Providers.Energy;
 using H.Infrastructure.Services;
 using Microsoft.Extensions.Caching.Memory;
 using ClimateResultsView = H.Avalonia.Views.ResultViews.ClimateResultsView;
@@ -226,6 +227,9 @@ namespace H.Avalonia
             containerRegistry.RegisterSingleton<IDietFactory, DietFactory>();
             containerRegistry.RegisterSingleton<IFarmFactory, FarmFactory>();
 
+            // Tables
+            containerRegistry.RegisterSingleton<ITable50FuelEnergyEstimatesProvider, Table50FuelEnergyEstimatesProvider>();
+
             // Mappers
             this.SetupMappers(containerRegistry);
 
@@ -306,7 +310,7 @@ namespace H.Avalonia
         {
             var cropDtoToCropDtoConfiguration = new MapperConfiguration(expression =>
             {
-                expression.AddProfile<CropDtoCropDtoMapper>();
+                expression.AddProfile<CropDToCropDtoMapper>();
             });
 
             var cropDtoToCropVieItemConfiguration = new MapperConfiguration(expression =>
@@ -335,7 +339,7 @@ namespace H.Avalonia
             });
 
             // Register named mappers
-            containerRegistry.RegisterInstance<IMapper>(cropDtoToCropDtoConfiguration.CreateMapper(), nameof(CropDtoCropDtoMapper));
+            containerRegistry.RegisterInstance<IMapper>(cropDtoToCropDtoConfiguration.CreateMapper(), nameof(CropDToCropDtoMapper));
             containerRegistry.RegisterInstance<IMapper>(cropDtoToCropVieItemConfiguration.CreateMapper(), nameof(CropDtoToCropViewItemMapper));
             containerRegistry.RegisterInstance<IMapper>(cropViewItemToCropVieItemConfiguration.CreateMapper(), nameof(CropViewItemToCropDtoMapper));
             containerRegistry.RegisterInstance<IMapper>(fieldComponentToFieldDtoConfiguration.CreateMapper(), nameof(FieldComponentToDtoMapper));

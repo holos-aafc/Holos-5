@@ -19,7 +19,7 @@ public class CropFactory : ICropFactory
     private readonly IMapper _cropViewItemToDtoMapper;
     private readonly IMapper _cropDtoToDtoMapper;
     private readonly IMapper _cropDtoToViewItemMapper;
-    private ICropInitializationService _cropInitializationService;
+    private readonly ICropInitializationService _cropInitializationService;
 
     #endregion
 
@@ -50,6 +50,9 @@ public class CropFactory : ICropFactory
         var cropViewItem = new CropViewItem();
 
         cropViewItem.CropType = CropType.Wheat;
+        cropViewItem.Year = DateTime.Now.Year;
+        cropViewItem.Name = $"{cropViewItem.CropType} {cropViewItem.Year}";
+
         _cropInitializationService.Initialize(cropViewItem, farm);
 
         var dto = this.CreateCropDto(cropViewItem);

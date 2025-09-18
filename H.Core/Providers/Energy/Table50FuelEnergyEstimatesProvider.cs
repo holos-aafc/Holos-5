@@ -94,8 +94,7 @@ namespace H.Core.Providers.Energy
             // The specified crop type was wrong
             if (data != null)
             {
-                _logger?.LogError($"{nameof(Table50FuelEnergyEstimatesProvider)}.{nameof(Table50FuelEnergyEstimatesProvider.GetFuelEnergyEstimatesDataInstance)}" +
-                                  $" unable to find Crop: {cropType} in the available crop type data. Returning empty {nameof(Table50FuelEnergyEstimatesData)}");
+                _logger?.LogError($" unable to find Crop: {cropType} in the available crop type data. Returning empty {nameof(Table50FuelEnergyEstimatesData)}");
 
                 return new Table50FuelEnergyEstimatesData();
             }
@@ -105,15 +104,13 @@ namespace H.Core.Providers.Energy
             // The specified soil category was wrong
             if (data != null)
             {
-                _logger?.LogError($"{nameof(Table50FuelEnergyEstimatesProvider)}.{nameof(Table50FuelEnergyEstimatesProvider.GetFuelEnergyEstimatesDataInstance)}" +
-                                  $" unable to find Soil Category: {soilLookupType} in the available soil data. Returning empty {nameof(Table50FuelEnergyEstimatesData)}");
+                _logger?.LogError($" unable to find Soil Category: {soilLookupType} in the available soil data. Returning empty {nameof(Table50FuelEnergyEstimatesData)}");
             }
 
             // The specified province type was wrong
             else
             {
-                _logger?.LogError($"{nameof(Table50FuelEnergyEstimatesProvider)}.{nameof(Table50FuelEnergyEstimatesProvider.GetFuelEnergyEstimatesDataInstance)}" +
-                                  $" unable to find Province: {province} in the available province data. Returning empty {nameof(Table50FuelEnergyEstimatesData)}");
+                _logger?.LogError($" unable to find Province: {province} in the available province data. Returning empty {nameof(Table50FuelEnergyEstimatesData)}");
             }
 
             return new Table50FuelEnergyEstimatesData();

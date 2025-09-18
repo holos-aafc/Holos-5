@@ -58,6 +58,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using H.Core.Factories.FarmFactory;
 using H.Core.Providers.Energy;
+using H.Core.Services.Initialization;
 using H.Infrastructure.Services;
 using Microsoft.Extensions.Caching.Memory;
 using ClimateResultsView = H.Avalonia.Views.ResultViews.ClimateResultsView;
@@ -214,6 +215,7 @@ namespace H.Avalonia
             containerRegistry.RegisterSingleton<IFieldComponentService, FieldComponentService>();
             containerRegistry.RegisterSingleton<IFarmResultsService_NEW, FarmResultsService_NEW>();
             containerRegistry.RegisterSingleton<IDietService, DefaultDietService>();
+            containerRegistry.RegisterSingleton<ICropInitializationService, CropInitializationService>();
 
             // Unit conversion
             containerRegistry.RegisterSingleton<IUnitsOfMeasurementCalculator, UnitsOfMeasurementCalculator>();

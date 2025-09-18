@@ -2,6 +2,7 @@
 using H.Core.Models.LandManagement.Fields;
 using H.Core.Providers.Energy;
 using H.Infrastructure.Services;
+using Microsoft.Extensions.Logging;
 
 namespace H.Core.Services.Initialization;
 
@@ -11,15 +12,26 @@ public partial class CropInitializationService : ICropInitializationService
 
     private readonly ITable50FuelEnergyEstimatesProvider _table50FuelEnergyEstimatesProvider;
     private ICacheService _cahCacheService;
+    private ILogger _logger;
 
     #endregion
 
     #region Constructors
 
     public CropInitializationService(
+        ILogger logger,
         ICacheService cahCacheService,
         ITable50FuelEnergyEstimatesProvider table50FuelEnergyEstimatesProvider)
     {
+        if (logger != null)
+        {
+            _logger = logger; 
+        }
+        else
+        {
+            throw new ArgumentNullException(nameof(logger));
+        }
+
         if (cahCacheService != null)
         {
             _cahCacheService = cahCacheService;

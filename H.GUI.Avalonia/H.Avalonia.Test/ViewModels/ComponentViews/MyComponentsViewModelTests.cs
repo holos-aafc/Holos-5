@@ -1,5 +1,5 @@
-using System.Collections.ObjectModel;
 using H.Avalonia.Events;
+using H.Avalonia.Test.TestHelpers;
 using H.Avalonia.ViewModels.ComponentViews;
 using H.Core.Models;
 using H.Core.Models.LandManagement.Fields;
@@ -12,8 +12,10 @@ using Prism.Regions;
 namespace H.Avalonia.Test.ViewModels.ComponentViews;
 
 [TestClass]
-public class MyComponentsViewModelTests
+public partial class MyComponentsViewModelTests
 {
+    // Add this helper class at the top of your test file (or in a suitable test helpers location)
+
     #region Fields
 
     private MyComponentsViewModel _viewModel;
@@ -61,6 +63,23 @@ public class MyComponentsViewModelTests
         storage.ApplicationData.Farms.Add(_testFarm);
         _mockStorageService.Setup(x => x.Storage).Returns(storage);
         _mockStorageService.Setup(x => x.GetActiveFarm()).Returns(_testFarm);
+
+        // Setup region manager mocks
+        var mockRegionCollection = new Mock<IRegionCollection>();
+        var mockRegion = new Mock<IRegion>();
+
+        // Setup the IRegionCollection indexer to return a mock region for any region name
+        mockRegionCollection
+            .Setup(rc => rc[It.IsAny<string>()])
+            .Returns(mockRegion.Object);
+
+        // Setup the Regions property on the region manager
+        _mockRegionManager
+            .Setup(rm => rm.Regions)
+            .Returns(mockRegionCollection.Object);
+
+        // Setup ActiveViews to return a non-null collection
+        mockRegion.Setup(r => r.ActiveViews).Returns(new TestViewsCollection());
 
         // Setup event aggregator mocks
         var mockComponentAddedEvent = new Mock<ComponentAddedEvent>();

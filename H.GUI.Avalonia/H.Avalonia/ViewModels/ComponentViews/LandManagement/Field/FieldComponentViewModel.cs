@@ -266,6 +266,15 @@ public class FieldComponentViewModel : ViewModelBase
         }
     }
 
+    private void CropDtoOnPropertyChanged(object? sender, PropertyChangedEventArgs e)
+    {
+        if (sender is CropDto cropDto)
+        {
+            // Persist the changes to the system
+            _fieldComponentService.TransferCropDtoToSystem(cropDto, _selectedCropViewItem);
+        }
+    }
+
     /// <summary>
     /// Used to indicate to the GUI if the command button should be enabled or disabled
     /// </summary>
@@ -289,11 +298,7 @@ public class FieldComponentViewModel : ViewModelBase
         }
     }
 
-    private void CropDtoOnPropertyChanged(object? sender, PropertyChangedEventArgs e)
-    {
-        // Persist the changes to the system
-        _fieldComponentService.TransferCropDtoToSystem(this.SelectedCropDto, _selectedCropViewItem);
-    }
+
 
     private void OnPropertyChanged(object? sender, PropertyChangedEventArgs e)
     {

@@ -124,11 +124,14 @@ public class MyComponentsViewModel : ViewModelBase
     {
         if (this.SelectedComponent != null)
         {
+            // Store the component to remove
+            var componentToRemove = this.SelectedComponent;
+
             // Remove from the local collection
-            this.MyComponents.Remove(this.SelectedComponent);
+            this.MyComponents.Remove(componentToRemove);
             
             // Remove from the farm's Components collection
-            base.ActiveFarm.Components.Remove(this.SelectedComponent);
+            base.ActiveFarm.Components.Remove(componentToRemove);
 
             this.SelectedComponent = this.MyComponents.LastOrDefault();
         }

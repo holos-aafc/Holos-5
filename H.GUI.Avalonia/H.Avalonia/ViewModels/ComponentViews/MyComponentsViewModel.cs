@@ -9,6 +9,7 @@ using H.Core.Models;
 using H.Core.Services;
 using H.Core.Services.LandManagement.Fields;
 using H.Core.Services.StorageService;
+using Prism.Commands;
 using Prism.Events;
 using Prism.Regions;
 
@@ -48,6 +49,9 @@ public class MyComponentsViewModel : ViewModelBase
 
         this.MyComponents = new ObservableCollection<ComponentBase>();
         
+        // Initialize the RemoveComponent command
+        RemoveComponent = new DelegateCommand(OnRemoveComponentExecute, OnRemoveComponentCanExecute);
+        
         base.EventAggregator.GetEvent<ComponentAddedEvent>().Subscribe(OnComponentAddedEvent);
         base.EventAggregator.GetEvent<EditingComponentsCompletedEvent>().Subscribe(OnEditingComponentsCompletedEvent);
     }
@@ -59,7 +63,11 @@ public class MyComponentsViewModel : ViewModelBase
     public ComponentBase SelectedComponent
     {
         get => _selectedComponent;
-        set => SetProperty(ref _selectedComponent, value);
+        set 
+        {
+            SetProperty(ref _selectedComponent, value);
+            RemoveComponent.RaiseCanExecuteChanged();
+        }
     }
 
     public ObservableCollection<ComponentBase> MyComponents
@@ -72,6 +80,8 @@ public class MyComponentsViewModel : ViewModelBase
         get => _selectedFarm;
         set => SetProperty(ref _selectedFarm, value);
     }
+
+    public DelegateCommand RemoveComponent { get; }
 
     #endregion
 
@@ -114,10 +124,19 @@ public class MyComponentsViewModel : ViewModelBase
     {
         if (this.SelectedComponent != null)
         {
+            // Remove from the local collection
             this.MyComponents.Remove(this.SelectedComponent);
+            
+            // Remove from the farm's Components collection
+            base.ActiveFarm.Components.Remove(this.SelectedComponent);
 
             this.SelectedComponent = this.MyComponents.LastOrDefault();
         }
+    }
+
+    private bool OnRemoveComponentCanExecute()
+    {
+        return this.SelectedComponent != null;
     }
 
     private void OnComponentAddedEvent(ComponentBase componentBase)

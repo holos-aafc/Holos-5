@@ -222,8 +222,6 @@ public class FieldComponentViewModel : ViewModelBase
     public override void OnNavigatedFrom(NavigationContext navigationContext)
     {
         base.OnNavigatedFrom(navigationContext);
-        
-        this.PropertyChanged -= OnPropertyChanged;
     }
 
     #endregion
@@ -271,8 +269,10 @@ public class FieldComponentViewModel : ViewModelBase
     {
         if (sender is CropDto cropDto)
         {
+            var viewItem = _fieldComponentService.GetCropViewItemFromDto(cropDto, _selectedFieldSystemComponent);
+
             // Persist the changes to the system
-            _fieldComponentService.TransferCropDtoToSystem(cropDto, _selectedCropViewItem);
+            _fieldComponentService.TransferCropDtoToSystem(cropDto, viewItem);
         }
     }
 
@@ -288,18 +288,17 @@ public class FieldComponentViewModel : ViewModelBase
     {
         if (this.SelectedCropDto != null)
         {
-            
+            // Keep a reference to the dto to remove before removing it from the collection
+            var dtoToRemove = this.SelectedCropDto;
 
-            this.SelectedFieldSystemComponentDto.CropDtos.Remove(this.SelectedCropDto);
+            this.SelectedFieldSystemComponentDto.CropDtos.Remove(dtoToRemove);
 
             // Ensure consecutive ordering (by year) of all crops now that one has been removed
             _fieldComponentService.ResetAllYears(this.SelectedFieldSystemComponentDto.CropDtos);
 
-            // Why doesn't calling the above method trigger a call to CropDtoOnPropertyChanged for the dtos that have their year changed.
-
             this.RemoveCropCommand.RaiseCanExecuteChanged();
 
-            _fieldComponentService.RemoveCropFromSystem(_selectedFieldSystemComponent, this.SelectedCropDto);
+            _fieldComponentService.RemoveCropFromSystem(_selectedFieldSystemComponent, dtoToRemove);
         }
     }
 
@@ -308,6 +307,14 @@ public class FieldComponentViewModel : ViewModelBase
         if (e.PropertyName.Equals(nameof(SelectedCropDto)))
         {
             RemoveCropCommand.RaiseCanExecuteChanged();
+
+            if (this.SelectedCropDto != null)
+            {
+                this.SelectedCropDto.PropertyChanged -= CropDtoOnPropertyChanged;
+                this.SelectedCropDto.PropertyChanged += CropDtoOnPropertyChanged;
+
+                _selectedCropViewItem = _fieldComponentService.GetCropViewItemFromDto(this.SelectedCropDto, _selectedFieldSystemComponent);
+            }
         }
     }
 
@@ -323,14 +330,12 @@ public class FieldComponentViewModel : ViewModelBase
         // Use this as the new selected instance
         this.SelectedCropDto = dto;
 
-
         // If disabled before, enable this command now so that the user can remove a DTO
         this.RemoveCropCommand.RaiseCanExecuteChanged();
 
         _fieldComponentService.AddCropDtoToSystem(_selectedFieldSystemComponent, dto);
-        _selectedCropViewItem = _fieldComponentService.GetCropViewItemFromDto(dto, _selectedFieldSystemComponent);
 
-        dto.PropertyChanged += CropDtoOnPropertyChanged;
+        _selectedCropViewItem = _fieldComponentService.GetCropViewItemFromDto(dto, _selectedFieldSystemComponent);
     }
 
     #endregion

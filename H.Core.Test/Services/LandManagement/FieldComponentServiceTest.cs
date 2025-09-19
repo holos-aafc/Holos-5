@@ -8,6 +8,7 @@ using H.Core.Services.LandManagement.Fields;
 using Moq;
 using Prism.Ioc;
 using System.Collections.ObjectModel;
+using Microsoft.Extensions.Logging;
 
 namespace H.Core.Test.Services.LandManagement;
 
@@ -42,6 +43,7 @@ public class FieldComponentServiceTest
         _mockFieldComponentDtoFactory = new Mock<IFieldComponentDtoFactory>();
         _mockCropFactory = new Mock<ICropFactory>();
         _mockUnitsOfMeasurementCalculator = new Mock<IUnitsOfMeasurementCalculator>();
+        var mockLogger = new Mock<ILogger>();
         var mockContainerProvider = new Mock<IContainerProvider>();
 
         // Setup mappers to return a working IMapper for each required profile
@@ -75,7 +77,7 @@ public class FieldComponentServiceTest
             cfg.AddProfile<FieldDtoToFieldDtoMapper>();
         }).CreateMapper());
 
-        _fieldComponentService = new FieldComponentService(_mockFieldComponentDtoFactory.Object, _mockCropFactory.Object, _mockUnitsOfMeasurementCalculator.Object, mockContainerProvider.Object);
+        _fieldComponentService = new FieldComponentService(_mockFieldComponentDtoFactory.Object, _mockCropFactory.Object, _mockUnitsOfMeasurementCalculator.Object, mockContainerProvider.Object, mockLogger.Object);
     }
 
     [TestCleanup]

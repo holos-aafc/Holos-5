@@ -5,6 +5,7 @@ using H.Core.Factories;
 using H.Core.Mappers;
 using H.Core.Models;
 using H.Core.Models.LandManagement.Fields;
+using Microsoft.Extensions.Logging;
 using Prism.Ioc;
 
 namespace H.Core.Services.LandManagement.Fields;
@@ -26,16 +27,26 @@ public class FieldComponentService : IFieldComponentService
     private readonly IMapper _cropDtoToCropViewItemMapper;
     private readonly IMapper _cropViewItemToCropDtoMapper;
     private IContainerProvider _containerProvider;
+    private ILogger _logger;
 
     #endregion
 
     #region Constructors
 
-    public FieldComponentService(IFieldComponentDtoFactory fieldComponentDtoFactory, ICropFactory cropFactory, IUnitsOfMeasurementCalculator unitsOfMeasurementCalculator, IContainerProvider containerProvider)
+    public FieldComponentService(IFieldComponentDtoFactory fieldComponentDtoFactory, ICropFactory cropFactory, IUnitsOfMeasurementCalculator unitsOfMeasurementCalculator, IContainerProvider containerProvider, ILogger logger)
     {
+        if (logger != null)
+        {
+            _logger = logger; 
+        }
+        else
+        {
+            throw new ArgumentNullException(nameof(logger));
+        }
+
         if (containerProvider != null)
         {
-            _containerProvider = containerProvider; 
+            _containerProvider = containerProvider;
         }
         else
         {
@@ -71,7 +82,6 @@ public class FieldComponentService : IFieldComponentService
 
         _fieldDtoToComponentMapper = containerProvider.Resolve<IMapper>(nameof(FieldDtoToFieldComponentMapper));
         _fieldComponentToDtoMapper = containerProvider.Resolve<IMapper>(nameof(FieldComponentToDtoMapper));
-
         _cropDtoToCropViewItemMapper = containerProvider.Resolve<IMapper>(nameof(CropDtoToCropViewItemMapper));
         _cropViewItemToCropDtoMapper = containerProvider.Resolve<IMapper>(nameof(CropViewItemToCropDtoMapper));
     }
@@ -333,7 +343,6 @@ public class FieldComponentService : IFieldComponentService
     public CropViewItem GetCropViewItemFromDto(ICropDto cropDto, FieldSystemComponent fieldSystemComponent)
     {
         return fieldSystemComponent.CropViewItems.SingleOrDefault(x => x.Guid.Equals(cropDto.Guid));
-
     }
 
     #endregion

@@ -15,6 +15,7 @@ using H.Core.Models.LandManagement.Fields;
 using H.Core.Providers.Plants;
 using H.Core.Services.LandManagement.Fields;
 using H.Core.Services.StorageService;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.Extensions.Logging;
 using Prism.Commands;
 using Prism.Events;
@@ -162,6 +163,8 @@ public class FieldComponentViewModel : ViewModelBase
 
         if (component is FieldSystemComponent fieldSystemComponent)
         {
+            this.PropertyChanged += OnPropertyChanged;
+
             // Keep a reference to the model/domain object
             _selectedFieldSystemComponent = fieldSystemComponent;
 
@@ -192,8 +195,6 @@ public class FieldComponentViewModel : ViewModelBase
             }
 
             _selectedCropViewItem = _fieldComponentService.GetCropViewItemFromDto(this.SelectedCropDto, _selectedFieldSystemComponent);
-
-            this.PropertyChanged += OnPropertyChanged;
         }
     }
 
@@ -287,10 +288,14 @@ public class FieldComponentViewModel : ViewModelBase
     {
         if (this.SelectedCropDto != null)
         {
+            
+
             this.SelectedFieldSystemComponentDto.CropDtos.Remove(this.SelectedCropDto);
 
             // Ensure consecutive ordering (by year) of all crops now that one has been removed
             _fieldComponentService.ResetAllYears(this.SelectedFieldSystemComponentDto.CropDtos);
+
+            // Why doesn't calling the above method trigger a call to CropDtoOnPropertyChanged for the dtos that have their year changed.
 
             this.RemoveCropCommand.RaiseCanExecuteChanged();
 
@@ -298,11 +303,12 @@ public class FieldComponentViewModel : ViewModelBase
         }
     }
 
-
-
     private void OnPropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
-
+        if (e.PropertyName.Equals(nameof(SelectedCropDto)))
+        {
+            RemoveCropCommand.RaiseCanExecuteChanged();
+        }
     }
 
     /// <summary>

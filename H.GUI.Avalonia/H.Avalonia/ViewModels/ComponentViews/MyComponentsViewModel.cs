@@ -104,6 +104,8 @@ public class MyComponentsViewModel : ViewModelBase
             }
 
             base.IsInitialized = true;
+
+            this.SelectedComponent = this.MyComponents.FirstOrDefault();
         }
     }
 
@@ -124,7 +126,7 @@ public class MyComponentsViewModel : ViewModelBase
     {
         if (this.SelectedComponent != null)
         {
-            // Store the component to remove
+            // Store the component to remove since the SelectedComponent will be null after removal from the local collection
             var componentToRemove = this.SelectedComponent;
 
             // Remove from the local collection
@@ -134,6 +136,11 @@ public class MyComponentsViewModel : ViewModelBase
             base.ActiveFarm.Components.Remove(componentToRemove);
 
             this.SelectedComponent = this.MyComponents.LastOrDefault();
+
+            if (this.MyComponents.Any() == false)
+            {
+                this.ClearActiveView();
+            }
         }
     }
 

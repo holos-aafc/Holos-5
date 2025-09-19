@@ -1,10 +1,13 @@
-using System.Collections.ObjectModel;
+using AutoMapper;
 using H.Core.Calculators.UnitsOfMeasurement;
 using H.Core.Enumerations;
 using H.Core.Factories;
+using H.Core.Mappers;
 using H.Core.Models.LandManagement.Fields;
 using H.Core.Services.LandManagement.Fields;
 using Moq;
+using Prism.Ioc;
+using System.Collections.ObjectModel;
 
 namespace H.Core.Test.Services.LandManagement;
 
@@ -39,8 +42,40 @@ public class FieldComponentServiceTest
         _mockFieldComponentDtoFactory = new Mock<IFieldComponentDtoFactory>();
         _mockCropFactory = new Mock<ICropFactory>();
         _mockUnitsOfMeasurementCalculator = new Mock<IUnitsOfMeasurementCalculator>();
+        var mockContainerProvider = new Mock<IContainerProvider>();
 
-        _fieldComponentService = new FieldComponentService(_mockFieldComponentDtoFactory.Object, _mockCropFactory.Object, _mockUnitsOfMeasurementCalculator.Object);
+        // Setup mappers to return a working IMapper for each required profile
+        mockContainerProvider.Setup(x => x.Resolve(typeof(IMapper), nameof(CropViewItemToCropDtoMapper))).Returns(new MapperConfiguration(cfg =>
+        {
+            cfg.AddProfile<CropViewItemToCropDtoMapper>();
+        }).CreateMapper());
+
+        mockContainerProvider.Setup(x => x.Resolve(typeof(IMapper), nameof(CropDtoToCropDtoMapper))).Returns(new MapperConfiguration(cfg =>
+        {
+            cfg.AddProfile<CropDtoToCropDtoMapper>();
+        }).CreateMapper());
+
+        mockContainerProvider.Setup(x => x.Resolve(typeof(IMapper), nameof(CropDtoToCropViewItemMapper))).Returns(new MapperConfiguration(cfg =>
+        {
+            cfg.AddProfile<CropDtoToCropViewItemMapper>();
+        }).CreateMapper());
+
+        mockContainerProvider.Setup(x => x.Resolve(typeof(IMapper), nameof(FieldComponentToDtoMapper))).Returns(new MapperConfiguration(cfg =>
+        {
+            cfg.AddProfile<FieldComponentToDtoMapper>();
+        }).CreateMapper());
+
+        mockContainerProvider.Setup(x => x.Resolve(typeof(IMapper), nameof(FieldDtoToFieldComponentMapper))).Returns(new MapperConfiguration(cfg =>
+        {
+            cfg.AddProfile<FieldDtoToFieldComponentMapper>();
+        }).CreateMapper());
+
+        mockContainerProvider.Setup(x => x.Resolve(typeof(IMapper), nameof(FieldDtoToFieldDtoMapper))).Returns(new MapperConfiguration(cfg =>
+        {
+            cfg.AddProfile<FieldDtoToFieldDtoMapper>();
+        }).CreateMapper());
+
+        _fieldComponentService = new FieldComponentService(_mockFieldComponentDtoFactory.Object, _mockCropFactory.Object, _mockUnitsOfMeasurementCalculator.Object, mockContainerProvider.Object);
     }
 
     [TestCleanup]

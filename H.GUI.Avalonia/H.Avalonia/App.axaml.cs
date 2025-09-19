@@ -331,6 +331,11 @@ namespace H.Avalonia
                 expression.AddProfile<FieldComponentToDtoMapper>();
             });
 
+            var fieldDtoToFieldComponentConfiguration = new MapperConfiguration(expression =>
+            {
+                expression.AddProfile<FieldDtoToFieldComponentMapper>();
+            });
+
             var fieldDtoToFieldDtoConfiguration = new MapperConfiguration(expression =>
             {
                 expression.AddProfile<FieldDtoToFieldDtoMapper>();
@@ -346,6 +351,7 @@ namespace H.Avalonia
             containerRegistry.RegisterInstance<IMapper>(cropDtoToCropVieItemConfiguration.CreateMapper(), nameof(CropDtoToCropViewItemMapper));
             containerRegistry.RegisterInstance<IMapper>(cropViewItemToCropVieItemConfiguration.CreateMapper(), nameof(CropViewItemToCropDtoMapper));
             containerRegistry.RegisterInstance<IMapper>(fieldComponentToFieldDtoConfiguration.CreateMapper(), nameof(FieldComponentToDtoMapper));
+            containerRegistry.RegisterInstance<IMapper>(fieldDtoToFieldComponentConfiguration.CreateMapper(), nameof(FieldDtoToFieldComponentMapper));
             containerRegistry.RegisterInstance<IMapper>(fieldDtoToFieldDtoConfiguration.CreateMapper(), nameof(FieldDtoToFieldDtoMapper));
             containerRegistry.RegisterInstance<IMapper>(feedIngredientToFeedIngredientConfiguration.CreateMapper(), nameof(FeedIngredientToFeedIngredientMapper));
         }

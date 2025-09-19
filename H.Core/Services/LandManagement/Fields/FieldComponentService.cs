@@ -2,8 +2,10 @@
 using H.Core.Calculators.UnitsOfMeasurement;
 using H.Core.Converters;
 using H.Core.Factories;
+using H.Core.Mappers;
 using H.Core.Models;
 using H.Core.Models.LandManagement.Fields;
+using Prism.Ioc;
 
 namespace H.Core.Services.LandManagement.Fields;
 
@@ -23,16 +25,26 @@ public class FieldComponentService : IFieldComponentService
 
     private readonly IMapper _cropDtoToCropViewItemMapper;
     private readonly IMapper _cropViewItemToCropDtoMapper;
+    private IContainerProvider _containerProvider;
 
     #endregion
 
     #region Constructors
 
-    public FieldComponentService(IFieldComponentDtoFactory fieldComponentDtoFactory, ICropFactory cropFactory, IUnitsOfMeasurementCalculator unitsOfMeasurementCalculator)
+    public FieldComponentService(IFieldComponentDtoFactory fieldComponentDtoFactory, ICropFactory cropFactory, IUnitsOfMeasurementCalculator unitsOfMeasurementCalculator, IContainerProvider containerProvider)
     {
+        if (containerProvider != null)
+        {
+            _containerProvider = containerProvider; 
+        }
+        else
+        {
+            throw new ArgumentNullException(nameof(containerProvider));
+        }
+
         if (unitsOfMeasurementCalculator != null)
         {
-            _unitsOfMeasurementCalculator = unitsOfMeasurementCalculator; 
+            _unitsOfMeasurementCalculator = unitsOfMeasurementCalculator;
         }
         else
         {
@@ -57,17 +69,11 @@ public class FieldComponentService : IFieldComponentService
             throw new ArgumentNullException(nameof(fieldComponentDtoFactory));
         }
 
-        var fieldDtoToComponentMapperConfiguration = new MapperConfiguration(configuration => { configuration.CreateMap<FieldSystemComponentDto, FieldSystemComponent>(); });
-        var fieldComponentDtoMapperConfiguration = new MapperConfiguration(configuration => { configuration.CreateMap<FieldSystemComponent, FieldSystemComponentDto>(); });
+        _fieldDtoToComponentMapper = containerProvider.Resolve<IMapper>(nameof(FieldDtoToFieldComponentMapper));
+        _fieldComponentToDtoMapper = containerProvider.Resolve<IMapper>(nameof(FieldComponentToDtoMapper));
 
-        var cropDtoToCropViewItemMapperConfiguration = new MapperConfiguration(configuration => { configuration.CreateMap<ICropDto, CropViewItem>(); });
-        var cropViewItemToCropDtoMapperConfiguration = new MapperConfiguration(configuration => { configuration.CreateMap<CropViewItem, ICropDto>(); });
-
-        _fieldDtoToComponentMapper = fieldDtoToComponentMapperConfiguration.CreateMapper();
-        _fieldComponentToDtoMapper = fieldComponentDtoMapperConfiguration.CreateMapper();
-
-        _cropDtoToCropViewItemMapper = cropDtoToCropViewItemMapperConfiguration.CreateMapper();
-        _cropViewItemToCropDtoMapper = cropViewItemToCropDtoMapperConfiguration.CreateMapper();
+        _cropDtoToCropViewItemMapper = containerProvider.Resolve<IMapper>(nameof(CropDtoToCropViewItemMapper));
+        _cropViewItemToCropDtoMapper = containerProvider.Resolve<IMapper>(nameof(CropViewItemToCropDtoMapper));
     }
 
     #endregion

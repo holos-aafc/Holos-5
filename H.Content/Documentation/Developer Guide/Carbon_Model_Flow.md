@@ -126,78 +126,37 @@ final pass. That call fans out to six per-species result services, each of which
 are then primed into `FieldResultsService.AnimalResults` so the nitrogen pass can fold
 grazing / manure / digestate N back into per-field N₂O totals.
 
+### Inheritance
+
+Six per-species services share a common base; beef and dairy share an extra cattle-specific
+intermediate base.
+
 ```mermaid
 classDiagram
     direction TB
 
     class IAnimalService {
         <<interface>>
-        +GetAnimalResults(farm) List
-        +GetAnimalResults(animalType, farm) List
-        +GetResultsForGroup(group, farm, component) AnimalGroupEmissionResults
-        +GetGroupEmissionsFromGrazingAnimals(...) List
     }
 
-    class AnimalResultsService {
-        +GetAnimalResults(farm) List
-        -OtherLivestockResultsService _other
-        -SwineResultsService _swine
-        -PoultryResultsService _poultry
-        -BeefCattleResultsService _beef
-        -DairyCattleResultsService _dairy
-        -SheepResultsService _sheep
-    }
+    class AnimalResultsService
 
     class AnimalResultsServiceBase {
         <<abstract>>
-        #_dietProvider
-        #_cachedComponentListResults
-        +CalculateResultsForAnimalComponents(components, farm) List
-        +GetResultsForManagementPeriod(group, period, component, farm)
-        #CalculateDailyEmissions(...)*
     }
 
     class BeefAndDairyResultsServiceBase {
         <<abstract>>
-        #CalculateIndirectManureNitrousOxide(...)
-        #GetFractionOfNitrogenExcretedInUrine(...)
     }
 
-    class BeefCattleResultsService {
-        +CalculateDailyEmissionsForCalves(...)
-        Table 16, 17, 36, 43
-    }
-
-    class DairyCattleResultsService {
-        +CalculateDailyEmissions(...)
-        Table 16, 17, 21, 36, 43
-    }
-
-    class SwineResultsService {
-        Table 27, 31, 32, 33, 39, 40
-    }
-
-    class PoultryResultsService {
-        Table 41 + TAN defaults
-    }
-
-    class SheepResultsService {
-        Table 22, 23, 24, 25, 36
-    }
-
-    class OtherLivestockResultsService {
-        Table 27, 34
-        horses / llamas / bison / etc.
-    }
+    class BeefCattleResultsService
+    class DairyCattleResultsService
+    class SwineResultsService
+    class PoultryResultsService
+    class SheepResultsService
+    class OtherLivestockResultsService
 
     IAnimalService <|.. AnimalResultsService
-
-    AnimalResultsService ..> BeefCattleResultsService : dispatches Beef
-    AnimalResultsService ..> DairyCattleResultsService : dispatches Dairy
-    AnimalResultsService ..> SwineResultsService : dispatches Swine
-    AnimalResultsService ..> SheepResultsService : dispatches Sheep
-    AnimalResultsService ..> PoultryResultsService : dispatches Poultry
-    AnimalResultsService ..> OtherLivestockResultsService : dispatches OtherLivestock
 
     AnimalResultsServiceBase <|-- BeefAndDairyResultsServiceBase
     AnimalResultsServiceBase <|-- SwineResultsService
@@ -208,6 +167,40 @@ classDiagram
     BeefAndDairyResultsServiceBase <|-- BeefCattleResultsService
     BeefAndDairyResultsServiceBase <|-- DairyCattleResultsService
 ```
+
+### Dispatch
+
+`AnimalResultsService.GetAnimalResults(farm)` routes each component category to the matching
+per-species service. Each service then runs the per-component, per-management-period rollup
+from `AnimalResultsServiceBase`.
+
+```mermaid
+flowchart LR
+    A["AnimalResultsService<br/>.GetAnimalResults(farm)"] --> B[BeefCattleResultsService]
+    A --> C[DairyCattleResultsService]
+    A --> D[SwineResultsService]
+    A --> E[PoultryResultsService]
+    A --> F[SheepResultsService]
+    A --> G[OtherLivestockResultsService]
+
+    B --> R["List of<br/>AnimalComponentEmissionsResults<br/>concatenated across species"]
+    C --> R
+    D --> R
+    E --> R
+    F --> R
+    G --> R
+```
+
+### Coefficient tables consulted by each service
+
+| Service | Tables consulted |
+|---|---|
+| `BeefCattleResultsService` | 16 (livestock coefficients), 17 (feeding activity), 36 (emission conversion), 43 (ammonia EF) |
+| `DairyCattleResultsService` | 16, 17, 21 (milk production), 36, 43 |
+| `SwineResultsService` | 27 (enteric CH₄), 31 / 32 (VS-N excretion), 33 (daily intake), 39 (crude-protein), 40 (Pr-gain defaults) |
+| `PoultryResultsService` | 41 (N-excretion parameters) + default daily TAN-excretion table |
+| `SheepResultsService` | 22 (livestock coefficients), 23 (feeding activity), 24 (lamb weight gain), 25 (pregnancy coefficients), 36 |
+| `OtherLivestockResultsService` | 27 (enteric CH₄), 34 (volatile excretion) — covers horses, mules, llamas, alpacas, bison, elk, deer, goats |
 
 ### How a component flows through
 

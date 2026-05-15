@@ -1,3 +1,5 @@
+[![fr-CA](https://img.shields.io/badge/lang-fr--CA-blue.svg)](./Carbon_Model_Flow.fr-CA.md)
+
 # Carbon Model Flow — View → Analysis → Results
 
 End-to-end flowchart for the GHG / carbon analysis pipeline in Holos v5, starting from a user

@@ -1,3 +1,5 @@
+[![fr-CA](https://img.shields.io/badge/lang-fr--CA-blue.svg)](./CODING_STYLE_GUIDE.fr-CA.md)
+
 # Holos .NET Coding Style Guide
 
 ## Overview

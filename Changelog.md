@@ -1,3 +1,5 @@
+[![fr-CA](https://img.shields.io/badge/lang-fr--CA-blue.svg)](./Changelog.fr-CA.md)
+
 | Date | Commit ID | Summary of changes |
 | -------- | ------- | ------- |
 | April 29, 2026 | See algorithm document section 4.6.2 — Ammonia emissions from farm-produced land-applied manure from broilers, layers and turkeys | Fix NH3 emission factors for land-applied solid poultry manure (broilers, layers, turkeys). EFs are now based on tillage type and month of application, with a rain-based modification factor applied when precipitation occurs the day after application. |

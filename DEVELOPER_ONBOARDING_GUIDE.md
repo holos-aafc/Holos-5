@@ -1,4 +1,6 @@
-﻿# Holos Development Environment Setup Guide
+﻿[![fr-CA](https://img.shields.io/badge/lang-fr--CA-blue.svg)](./DEVELOPER_ONBOARDING_GUIDE.fr-CA.md)
+
+# Holos Development Environment Setup Guide
 
 ## Overview
 

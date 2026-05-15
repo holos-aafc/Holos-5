@@ -1,3 +1,5 @@
+[![fr-CA](https://img.shields.io/badge/lang-fr--CA-blue.svg)](./Developer_Guide_FR-CA.md)
+
 # Holos Developer Guide
 
 A starting reference for contributors. For environment setup at a deeper level

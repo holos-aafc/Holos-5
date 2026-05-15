@@ -1,3 +1,5 @@
+[![fr-CA](https://img.shields.io/badge/lang-fr--CA-blue.svg)](./GC%20Design%20-%20Colour%20Tokens.fr-CA.md)
+
 # Colour Tokens
 
 Colour tokens define colour for components and global styles.

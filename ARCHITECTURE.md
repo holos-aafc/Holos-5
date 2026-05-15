@@ -1,3 +1,5 @@
+[![fr-CA](https://img.shields.io/badge/lang-fr--CA-blue.svg)](./ARCHITECTURE.fr-CA.md)
+
 # Holos Application Architecture Guide
 
 ## Overview

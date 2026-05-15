@@ -1,13 +1,13 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Holos 5 â€” UI Preview</title>
+<title>Holos 5 — UI Preview</title>
 <style>
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ═══════════════════════════════════════════════════════════════
    GCDS Design System Tokens (from ResourceStyles.axaml)
-   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+   ═══════════════════════════════════════════════════════════════ */
 :root {
   --gcds-blue-50: #ebf2fa;
   --gcds-blue-100: #d6e4f5;
@@ -63,9 +63,9 @@ body {
   background: #e8e8e8;
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ═══════════════════════════════════════════════════════════════
    FULL-SCREEN VIEWS (pre-app flow: disclaimer, loading, farm)
-   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+   ═══════════════════════════════════════════════════════════════ */
 .fullscreen-view {
   display: none;
   position: fixed;
@@ -346,7 +346,7 @@ body {
   position: relative;
 }
 .map-placeholder::after {
-  content: 'ðŸ“ Click to select your farm location';
+  content: '📍 Click to select your farm location';
   position: absolute;
   background: rgba(255,255,255,0.9);
   padding: 8px 16px;
@@ -354,9 +354,9 @@ body {
   font-size: var(--font-body);
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ═══════════════════════════════════════════════════════════════
    APP SHELL (main app after setup)
-   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+   ═══════════════════════════════════════════════════════════════ */
 /* Toolbar */
 .toolbar {
   grid-column: 1 / -1;
@@ -527,9 +527,9 @@ body {
 .view { display: none; padding: 16px; }
 .view.active { display: block; }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ═══════════════════════════════════════════════════════════════
    Common Components
-   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+   ═══════════════════════════════════════════════════════════════ */
 .header-bar {
   background: var(--bg-light);
   border: 1px solid var(--border-light);
@@ -796,9 +796,9 @@ select.form-input { cursor: pointer; }
   letter-spacing: 0.5px;
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ═══════════════════════════════════════════════════════════════
    SHELTERBELT WIZARD
-   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+   ═══════════════════════════════════════════════════════════════ */
 #view-shelterbeltComponent.active {
   display: flex;
   flex-direction: column;
@@ -838,11 +838,11 @@ select.form-input { cursor: pointer; }
 </head>
 <body>
 
-<div class="mockup-badge">UI MOCKUP â€” NOT FUNCTIONAL</div>
+<div class="mockup-badge">UI MOCKUP — NOT FUNCTIONAL</div>
 
-<!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+<!-- ═══════════════════════════════════════════════════════════════
      SCREEN 1: DISCLAIMER
-     â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+     ═══════════════════════════════════════════════════════════════ -->
 <div id="screen-disclaimer" class="fullscreen-view active disclaimer-view">
   <div class="disclaimer-box">
 
@@ -889,9 +889,9 @@ select.form-input { cursor: pointer; }
   </div>
 </div>
 
-<!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+<!-- ═══════════════════════════════════════════════════════════════
      SCREEN 2: LOADING
-     â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+     ═══════════════════════════════════════════════════════════════ -->
 <div id="screen-loading" class="fullscreen-view loading-view">
   <div class="loading-box">
     <h1>Holos v5</h1>
@@ -902,9 +902,9 @@ select.form-input { cursor: pointer; }
   </div>
 </div>
 
-<!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+<!-- ═══════════════════════════════════════════════════════════════
      SCREEN 3: FARM OPTIONS
-     â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+     ═══════════════════════════════════════════════════════════════ -->
 <div id="screen-farmOptions" class="fullscreen-view farm-options-view">
   <div class="farm-options-box">
     <h1>Would you like to open an existing farm or create a new one?</h1>
@@ -926,9 +926,9 @@ select.form-input { cursor: pointer; }
   </div>
 </div>
 
-<!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+<!-- ═══════════════════════════════════════════════════════════════
      SCREEN 4A: FARM CREATION (New Farm)
-     â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+     ═══════════════════════════════════════════════════════════════ -->
 <div id="screen-farmCreate" class="fullscreen-view farm-creation-view">
   <div class="farm-form">
     <h1>Create New Farm</h1>
@@ -941,15 +941,15 @@ select.form-input { cursor: pointer; }
       <textarea placeholder="Add any notes about this farm..."></textarea>
     </div>
     <div class="btn-row">
-      <button class="btn btn-secondary" onclick="goTo('screen-farmOptions')">â† Go Back</button>
+      <button class="btn btn-secondary" onclick="goTo('screen-farmOptions')">← Go Back</button>
       <button class="btn btn-primary" onclick="goTo('screen-soilSetup')">Create Farm</button>
     </div>
   </div>
 </div>
 
-<!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+<!-- ═══════════════════════════════════════════════════════════════
      SCREEN 4B: FARM OPEN EXISTING
-     â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+     ═══════════════════════════════════════════════════════════════ -->
 <div id="screen-farmOpen" class="fullscreen-view farm-open-view">
   <div class="farm-open-box">
     <h1>Open an Existing Farm</h1>
@@ -980,15 +980,15 @@ select.form-input { cursor: pointer; }
       </div>
     </div>
     <div class="btn-row" style="display:flex; gap:12px;">
-      <button class="btn btn-secondary" onclick="goTo('screen-farmOptions')">â† Go Back</button>
+      <button class="btn btn-secondary" onclick="goTo('screen-farmOptions')">← Go Back</button>
       <button class="btn btn-primary" onclick="enterMainApp()">Open</button>
     </div>
   </div>
 </div>
 
-<!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+<!-- ═══════════════════════════════════════════════════════════════
      SCREEN 5: SOIL / MAP SETUP
-     â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+     ═══════════════════════════════════════════════════════════════ -->
 <div id="screen-soilSetup" class="fullscreen-view soil-setup-view">
   <div class="soil-setup-box">
     <h1>Set Up Your Farm Location</h1>
@@ -1018,25 +1018,25 @@ select.form-input { cursor: pointer; }
       <div class="form-grid" style="max-width: 500px;">
         <label class="form-label">Latitude</label>
         <input type="number" class="form-input" value="49.6947" step="0.0001">
-        <span class="form-unit">Â°N</span>
+        <span class="form-unit">°N</span>
         <label class="form-label">Longitude</label>
         <input type="number" class="form-input" value="-112.8186" step="0.0001">
-        <span class="form-unit">Â°W</span>
+        <span class="form-unit">°W</span>
       </div>
     </div>
 
     <div style="text-align: center; margin-top: 24px;">
-      <button class="btn btn-secondary" onclick="goTo('screen-farmCreate')" style="margin-right: 12px;">â† Go Back</button>
-      <button class="btn btn-primary" style="padding: 12px 32px;" onclick="enterMainApp()">Continue to Farm â†’</button>
+      <button class="btn btn-secondary" onclick="goTo('screen-farmCreate')" style="margin-right: 12px;">← Go Back</button>
+      <button class="btn btn-primary" style="padding: 12px 32px;" onclick="enterMainApp()">Continue to Farm →</button>
     </div>
   </div>
 </div>
 
-<!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+<!-- ═══════════════════════════════════════════════════════════════
      MAIN APP SHELL (after setup)
-     â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+     ═══════════════════════════════════════════════════════════════ -->
 <div class="app-shell" id="appShell">
-  <!-- TOOLBAR (currently a stub in Avalonia app â€” minimal brand bar) -->
+  <!-- TOOLBAR (currently a stub in Avalonia app — minimal brand bar) -->
   <div class="toolbar" id="appToolbar">
     <div class="toolbar-left">
       <span class="toolbar-brand">Holos</span>
@@ -1049,7 +1049,7 @@ select.form-input { cursor: pointer; }
     <div class="sidebar-header">
       <div class="sidebar-header-bar">
         <h2>My Components</h2>
-        <button class="btn-icon" title="Settings" onclick="showView('options')">âš™ï¸</button>
+        <button class="btn-icon" title="Settings" onclick="showView('options')">⚙️</button>
       </div>
     </div>
     <div class="sidebar-components" id="sidebarComponentList"></div>
@@ -1065,7 +1065,7 @@ select.form-input { cursor: pointer; }
     <div id="view-myComponents" class="view active">
       <div style="display:flex; align-items:center; justify-content:center; height:100%; text-align:center; color:var(--text-secondary); padding:40px;">
         <div>
-          <div style="font-size:48px; margin-bottom:16px; opacity:0.3;">ðŸ“¦</div>
+          <div style="font-size:48px; margin-bottom:16px; opacity:0.3;">📦</div>
           <h2 style="font-weight:400; margin-bottom:8px; color:var(--gcds-gray-450);">Select a component</h2>
           <p style="font-size:13px;">Click a component in the sidebar to view and edit its details, or click <strong>Edit Components</strong> to add new ones.</p>
         </div>
@@ -1086,7 +1086,7 @@ select.form-input { cursor: pointer; }
       </div>
       <div id="componentPanel" style="display:none;">
         <div style="margin: 4px 0 16px;">
-          <button class="btn-link" onclick="backToCategories()">â† Back to Categories</button>
+          <button class="btn-link" onclick="backToCategories()">← Back to Categories</button>
           <h2 id="categoryTitle" style="font-family: var(--heading-font); font-size: var(--font-h5); margin-top: 8px;"></h2>
           <hr style="border: none; border-top: 1px solid var(--border-subtle); margin-top: 8px;">
         </div>
@@ -1125,10 +1125,10 @@ select.form-input { cursor: pointer; }
         <!-- Management Period Instructions -->
         <div style="background: var(--selection-bg); border: 1px solid var(--border-subtle); border-radius: 6px; padding: 14px 10px; margin: 0 0 10px 0;">
           <p id="mgmtPeriodIntroText" style="font-size: var(--font-small); color: var(--text-primary); margin-bottom: 6px;">Each row in the table below represents one management period for the <span id="mgmtGroupName" style="font-weight: 600;">'Bison'</span> animal group. Use the buttons below to add or remove periods.</p>
-          <p style="font-size: var(--font-small); color: var(--text-secondary); margin-top: 4px;">â€¢ <strong>Name:</strong> Give each period a descriptive name that reflects the management context (e.g. "Winter Housing", "Summer Pasture 2024").</p>
-          <p style="font-size: var(--font-small); color: var(--text-secondary); margin-top: 4px;">â€¢ <strong>Start &amp; End Date:</strong> Use the calendar pickers to set when each period begins and ends â€” this defines how long the period lasts.</p>
-          <p style="font-size: var(--font-small); color: var(--text-secondary); margin-top: 4px;">â€¢ <strong>Number of Days:</strong> Calculated automatically from the start and end dates, but can be adjusted directly if needed.</p>
-          <p style="font-size: var(--font-small); color: var(--text-secondary); margin-top: 4px;">â€¢ <strong>Number of Animals:</strong> Enter the size of this animal group during each period.</p>
+          <p style="font-size: var(--font-small); color: var(--text-secondary); margin-top: 4px;">• <strong>Name:</strong> Give each period a descriptive name that reflects the management context (e.g. "Winter Housing", "Summer Pasture 2024").</p>
+          <p style="font-size: var(--font-small); color: var(--text-secondary); margin-top: 4px;">• <strong>Start &amp; End Date:</strong> Use the calendar pickers to set when each period begins and ends — this defines how long the period lasts.</p>
+          <p style="font-size: var(--font-small); color: var(--text-secondary); margin-top: 4px;">• <strong>Number of Days:</strong> Calculated automatically from the start and end dates, but can be adjusted directly if needed.</p>
+          <p style="font-size: var(--font-small); color: var(--text-secondary); margin-top: 4px;">• <strong>Number of Animals:</strong> Enter the size of this animal group during each period.</p>
         </div>
 
         <div style="margin-bottom: 12px;">
@@ -1139,7 +1139,7 @@ select.form-input { cursor: pointer; }
           <div class="timeline-scroll" id="mgmtPeriodTimeline">
             <div class="timeline-card selected" style="min-width: 180px;">
               <div style="font-size: var(--font-small); font-weight: 600;">Period #1</div>
-              <div style="font-size: var(--font-caption); color: var(--text-secondary); margin-top: 4px;">Jan 1 â€“ Dec 31</div>
+              <div style="font-size: var(--font-caption); color: var(--text-secondary); margin-top: 4px;">Jan 1 – Dec 31</div>
               <div style="font-size: var(--font-small); color: var(--text-secondary); margin-top: 8px;">365 days</div>
               <div style="font-size: 13px; font-weight: 500; margin-top: 4px;">50 animals</div>
               <button class="btn-danger" style="margin-top: 8px; font-size: 11px; padding: 4px 10px;">Delete</button>
@@ -1162,7 +1162,7 @@ select.form-input { cursor: pointer; }
         <div id="tab-housing" class="tab-content active">
           <div class="form-grid">
             <label class="form-label">Housing type</label>
-            <select class="form-input"><option>Confined â€“ no barn</option><option>Enclosed pasture</option><option>Housing (barn)</option></select>
+            <select class="form-input"><option>Confined – no barn</option><option>Enclosed pasture</option><option>Housing (barn)</option></select>
             <span class="form-unit"></span>
             <label class="form-label">Pasture location</label>
             <select class="form-input"><option>Not applicable</option><option>On farm field</option></select>
@@ -1172,14 +1172,14 @@ select.form-input { cursor: pointer; }
         <div id="tab-manure" class="tab-content">
           <div class="form-grid">
             <label class="form-label">Manure handling</label>
-            <select class="form-input"><option>Pasture</option><option>Deep bedding</option><option>Solid storage</option><option>Composting â€“ passive</option></select>
+            <select class="form-input"><option>Pasture</option><option>Deep bedding</option><option>Solid storage</option><option>Composting – passive</option></select>
             <span class="form-unit"></span>
             <label class="form-label">Methane conversion factor</label>
             <input type="number" class="form-input" value="0.47" step="0.01">
             <span class="form-unit">%</span>
-            <label class="form-label">Nâ‚‚O emission factor</label>
+            <label class="form-label">N₂O emission factor</label>
             <input type="number" class="form-input" value="0.02" step="0.001">
-            <span class="form-unit">kg Nâ‚‚O-N/kg N</span>
+            <span class="form-unit">kg N₂O-N/kg N</span>
           </div>
         </div>
         <div id="tab-details" class="tab-content">
@@ -1390,7 +1390,7 @@ select.form-input { cursor: pointer; }
               <span class="form-unit"></span>
               <label class="form-label">Yield</label>
               <input type="number" class="form-input" value="3200" step="100">
-              <span class="form-unit">kg haâ»Â¹</span>
+              <span class="form-unit">kg ha⁻¹</span>
               <label class="form-label">Tillage type</label>
               <select class="form-input"><option>Reduced tillage</option><option>Intensive tillage</option><option>No-till</option></select>
               <span class="form-unit"></span>
@@ -1413,10 +1413,10 @@ select.form-input { cursor: pointer; }
             <div class="form-grid">
               <label class="form-label">Nitrogen fertilizer rate</label>
               <input type="number" class="form-input" value="75" step="1">
-              <span class="form-unit">kg N haâ»Â¹</span>
+              <span class="form-unit">kg N ha⁻¹</span>
               <label class="form-label">Phosphorus fertilizer rate</label>
               <input type="number" class="form-input" value="20" step="1">
-              <span class="form-unit">kg Pâ‚‚Oâ‚… haâ»Â¹</span>
+              <span class="form-unit">kg P₂O₅ ha⁻¹</span>
             </div>
           </div>
         </div>
@@ -1433,7 +1433,7 @@ select.form-input { cursor: pointer; }
               <span class="form-unit"></span>
               <label class="form-label">Amount applied</label>
               <input type="number" class="form-input" value="0" step="100">
-              <span class="form-unit">kg haâ»Â¹</span>
+              <span class="form-unit">kg ha⁻¹</span>
             </div>
           </div>
         </div>
@@ -1475,16 +1475,16 @@ select.form-input { cursor: pointer; }
             <div class="form-grid">
               <label class="form-label">Carbon concentration</label>
               <input type="number" class="form-input" value="0.45" step="0.01">
-              <span class="form-unit">kg C kgâ»Â¹</span>
+              <span class="form-unit">kg C kg⁻¹</span>
               <label class="form-label">Moisture content of crop</label>
               <input type="number" class="form-input" value="12.0" step="0.1">
               <span class="form-unit">%</span>
               <label class="form-label">Above-ground residue</label>
               <input type="number" class="form-input" value="2800" step="100">
-              <span class="form-unit">kg haâ»Â¹</span>
+              <span class="form-unit">kg ha⁻¹</span>
               <label class="form-label">Below-ground residue</label>
               <input type="number" class="form-input" value="1200" step="100">
-              <span class="form-unit">kg haâ»Â¹</span>
+              <span class="form-unit">kg ha⁻¹</span>
               <label class="form-label">Residue returned to soil</label>
               <input type="number" class="form-input" value="100" step="1">
               <span class="form-unit">%</span>
@@ -1501,13 +1501,13 @@ select.form-input { cursor: pointer; }
             <div class="form-grid">
               <label class="form-label">Crop price</label>
               <input type="number" class="form-input" value="265.00" step="1">
-              <span class="form-unit">$ tâ»Â¹</span>
+              <span class="form-unit">$ t⁻¹</span>
               <label class="form-label">Cost of production</label>
               <input type="number" class="form-input" value="425.00" step="1">
-              <span class="form-unit">$ haâ»Â¹</span>
+              <span class="form-unit">$ ha⁻¹</span>
               <label class="form-label">Revenue from sale</label>
               <input type="number" class="form-input" value="848.00" step="1" disabled>
-              <span class="form-unit">$ haâ»Â¹</span>
+              <span class="form-unit">$ ha⁻¹</span>
             </div>
           </div>
         </div>
@@ -1524,7 +1524,7 @@ select.form-input { cursor: pointer; }
               <span class="form-unit"></span>
               <label class="form-label">Yield (wet weight)</label>
               <input type="number" class="form-input" value="1200" step="100" style="border-color:#4CAF50;">
-              <span class="form-unit">kg haâ»Â¹</span>
+              <span class="form-unit">kg ha⁻¹</span>
               <label class="form-label">Moisture content</label>
               <input type="number" class="form-input" value="80.0" step="0.5" style="border-color:#4CAF50;">
               <span class="form-unit">%</span>
@@ -1559,7 +1559,7 @@ select.form-input { cursor: pointer; }
           <text x="92" y="137" text-anchor="middle" fill="#595959" font-size="10">Parent stock for</text>
           <text x="92" y="150" text-anchor="middle" fill="#595959" font-size="10">egg &amp; meat lines</text>
 
-          <!-- Arrow: Breeder â†’ Hatchery -->
+          <!-- Arrow: Breeder → Hatchery -->
           <line x1="175" y1="112" x2="260" y2="112" stroke="#424242" stroke-width="2"/>
           <polygon points="260,112 252,107 252,117" fill="#424242"/>
           <text x="218" y="100" text-anchor="middle" fill="#595959" font-size="9" font-style="italic">Fertilized eggs</text>
@@ -1571,7 +1571,7 @@ select.form-input { cursor: pointer; }
           <text x="347" y="137" text-anchor="middle" fill="#595959" font-size="10">Incubation &amp;</text>
           <text x="347" y="150" text-anchor="middle" fill="#595959" font-size="10">hatching facility</text>
 
-          <!-- Arrow: Hatchery â†’ Pullet -->
+          <!-- Arrow: Hatchery → Pullet -->
           <line x1="430" y1="112" x2="515" y2="112" stroke="#424242" stroke-width="2"/>
           <polygon points="515,112 507,107 507,117" fill="#424242"/>
           <text x="473" y="100" text-anchor="middle" fill="#595959" font-size="9" font-style="italic">Day-old chicks</text>
@@ -1583,12 +1583,12 @@ select.form-input { cursor: pointer; }
           <text x="602" y="137" text-anchor="middle" fill="#595959" font-size="10">Growing birds to</text>
           <text x="602" y="150" text-anchor="middle" fill="#595959" font-size="10">production age</text>
 
-          <!-- Arrow: Pullet â†’ Egg (up) -->
+          <!-- Arrow: Pullet → Egg (up) -->
           <line x1="685" y1="85" x2="780" y2="60" stroke="#424242" stroke-width="2"/>
           <polygon points="780,60 770,58 773,67" fill="#424242"/>
           <text x="730" y="55" text-anchor="middle" fill="#595959" font-size="9" font-style="italic">Point-of-lay</text>
 
-          <!-- Arrow: Pullet â†’ Meat (down) -->
+          <!-- Arrow: Pullet → Meat (down) -->
           <line x1="685" y1="140" x2="780" y2="190" stroke="#424242" stroke-width="2"/>
           <polygon points="780,190 771,185 774,194" fill="#424242"/>
 
@@ -1619,12 +1619,12 @@ select.form-input { cursor: pointer; }
           <text x="92" y="387" text-anchor="middle" fill="#595959" font-size="10">Turkey parent</text>
           <text x="92" y="400" text-anchor="middle" fill="#595959" font-size="10">breeding stock</text>
 
-          <!-- Arrow: Turkey â†’ Hatchery (diagonal dashed) -->
+          <!-- Arrow: Turkey → Hatchery (diagonal dashed) -->
           <line x1="175" y1="360" x2="265" y2="170" stroke="#424242" stroke-width="2" stroke-dasharray="3,2"/>
           <polygon points="265,170 258,177 262,173" fill="#424242"/>
           <text x="178" y="290" fill="#595959" font-size="9" font-style="italic">Turkey eggs</text>
 
-          <!-- Arrow: Hatchery â†’ Turkey Meat (L-shaped) -->
+          <!-- Arrow: Hatchery → Turkey Meat (L-shaped) -->
           <line x1="348" y1="170" x2="348" y2="362" stroke="#424242" stroke-width="2"/>
           <line x1="348" y1="362" x2="780" y2="362" stroke="#424242" stroke-width="2"/>
           <polygon points="780,362 772,357 772,367" fill="#424242"/>
@@ -1638,7 +1638,7 @@ select.form-input { cursor: pointer; }
         </svg>
 
         <div id="stageInfoPanel" class="info-banner" style="display:none;">
-          <button class="close-btn" onclick="document.getElementById('stageInfoPanel').style.display='none'">âœ•</button>
+          <button class="close-btn" onclick="document.getElementById('stageInfoPanel').style.display='none'">✕</button>
           <h3 id="stageInfoTitle"></h3>
           <p id="stageInfoDesc"></p>
         </div>
@@ -1666,7 +1666,7 @@ select.form-input { cursor: pointer; }
           <div class="timeline-scroll">
             <div class="timeline-card selected">
               <div style="font-size: var(--font-small); font-weight: 600;">Period #1</div>
-              <div style="font-size: var(--font-caption); color: var(--text-secondary);">Jan 1 â€“ Dec 31</div>
+              <div style="font-size: var(--font-caption); color: var(--text-secondary);">Jan 1 – Dec 31</div>
               <div style="font-size:13px; font-weight:500; margin-top:4px;">200 birds</div>
             </div>
           </div>
@@ -1681,13 +1681,13 @@ select.form-input { cursor: pointer; }
         </div>
         <div id="ptab-housing" class="tab-content active">
           <div class="form-grid">
-            <label class="form-label">Housing type</label><select class="form-input"><option>Enclosed pasture</option><option>Confined â€“ no barn</option><option>Housing (barn)</option></select><span class="form-unit"></span>
+            <label class="form-label">Housing type</label><select class="form-input"><option>Enclosed pasture</option><option>Confined – no barn</option><option>Housing (barn)</option></select><span class="form-unit"></span>
             <label class="form-label">Bedding type</label><select class="form-input"><option>Straw</option><option>Wood shavings</option></select><span class="form-unit"></span>
           </div>
         </div>
         <div id="ptab-manure" class="tab-content">
           <div class="form-grid">
-            <label class="form-label">Manure handling</label><select class="form-input"><option>Solid storage</option><option>Composting â€“ passive</option></select><span class="form-unit"></span>
+            <label class="form-label">Manure handling</label><select class="form-input"><option>Solid storage</option><option>Composting – passive</option></select><span class="form-unit"></span>
           </div>
         </div>
         <div id="ptab-details" class="tab-content">
@@ -1715,7 +1715,7 @@ select.form-input { cursor: pointer; }
           <text x="110" y="95" text-anchor="middle" fill="#595959" font-size="10">Breeding cows, bulls,</text>
           <text x="110" y="108" text-anchor="middle" fill="#595959" font-size="10">calves, replacement heifers</text>
 
-          <!-- Arrow: Cow-Calf â†’ Backgrounding -->
+          <!-- Arrow: Cow-Calf → Backgrounding -->
           <line x1="210" y1="87" x2="285" y2="87" stroke="#424242" stroke-width="2"/>
           <polygon points="285,87 278,82 278,92" fill="#424242"/>
           <text x="248" y="75" text-anchor="middle" fill="#595959" font-size="9" font-style="italic">Weaned calves</text>
@@ -1726,7 +1726,7 @@ select.form-input { cursor: pointer; }
           <text x="390" y="95" text-anchor="middle" fill="#595959" font-size="10">Stocker steers &amp; heifers</text>
           <text x="390" y="108" text-anchor="middle" fill="#595959" font-size="10">on forage-based diets</text>
 
-          <!-- Arrow: Backgrounding â†’ Finishing -->
+          <!-- Arrow: Backgrounding → Finishing -->
           <line x1="490" y1="87" x2="565" y2="87" stroke="#424242" stroke-width="2"/>
           <polygon points="565,87 558,82 558,92" fill="#424242"/>
           <text x="528" y="75" text-anchor="middle" fill="#595959" font-size="9" font-style="italic">Feeder cattle</text>
@@ -1735,9 +1735,9 @@ select.form-input { cursor: pointer; }
           <rect x="570" y="30" width="200" height="115" rx="12" fill="#FFEBEE" stroke="#EF9A9A" stroke-width="2" cursor="pointer" onclick="selectBeefStage('finishing')"/>
           <text x="670" y="72" text-anchor="middle" fill="#C62828" font-size="13" font-weight="bold">Finishing (Feedlot)</text>
           <text x="670" y="95" text-anchor="middle" fill="#595959" font-size="10">High-energy diets to</text>
-          <text x="670" y="108" text-anchor="middle" fill="#595959" font-size="10">market weight (550â€“650 kg)</text>
+          <text x="670" y="108" text-anchor="middle" fill="#595959" font-size="10">market weight (550–650 kg)</text>
 
-          <!-- Arrow: Finishing â†’ Market -->
+          <!-- Arrow: Finishing → Market -->
           <line x1="770" y1="87" x2="845" y2="87" stroke="#424242" stroke-width="2"/>
           <polygon points="845,87 838,82 838,92" fill="#424242"/>
 
@@ -1783,7 +1783,7 @@ select.form-input { cursor: pointer; }
         </svg>
 
         <div id="beefStageInfoPanel" class="info-banner" style="display:none;">
-          <button class="close-btn" onclick="document.getElementById('beefStageInfoPanel').style.display='none'">âœ•</button>
+          <button class="close-btn" onclick="document.getElementById('beefStageInfoPanel').style.display='none'">✕</button>
           <h3 id="beefStageInfoTitle"></h3>
           <p id="beefStageInfoDesc"></p>
         </div>
@@ -1811,7 +1811,7 @@ select.form-input { cursor: pointer; }
           <div class="timeline-scroll">
             <div class="timeline-card selected">
               <div style="font-size: var(--font-small); font-weight: 600;">Period #1</div>
-              <div style="font-size: var(--font-caption); color: var(--text-secondary);">Jan 1 â€“ Dec 31</div>
+              <div style="font-size: var(--font-caption); color: var(--text-secondary);">Jan 1 – Dec 31</div>
               <div style="font-size:13px; font-weight:500; margin-top:4px;">150 animals</div>
             </div>
           </div>
@@ -1826,13 +1826,13 @@ select.form-input { cursor: pointer; }
         </div>
         <div id="btab-housing" class="tab-content active">
           <div class="form-grid">
-            <label class="form-label">Housing type</label><select class="form-input"><option>Pasture</option><option>Confined â€“ no barn</option><option>Housing (barn)</option></select><span class="form-unit"></span>
+            <label class="form-label">Housing type</label><select class="form-input"><option>Pasture</option><option>Confined – no barn</option><option>Housing (barn)</option></select><span class="form-unit"></span>
             <label class="form-label">Bedding type</label><select class="form-input"><option>Straw</option><option>Wood shavings</option><option>None</option></select><span class="form-unit"></span>
           </div>
         </div>
         <div id="btab-manure" class="tab-content">
           <div class="form-grid">
-            <label class="form-label">Manure handling</label><select class="form-input"><option>Pasture / Range</option><option>Solid storage</option><option>Composting â€“ passive</option></select><span class="form-unit"></span>
+            <label class="form-label">Manure handling</label><select class="form-input"><option>Pasture / Range</option><option>Solid storage</option><option>Composting – passive</option></select><span class="form-unit"></span>
           </div>
         </div>
         <div id="btab-details" class="tab-content">
@@ -1860,7 +1860,7 @@ select.form-input { cursor: pointer; }
           <text x="95" y="95" text-anchor="middle" fill="#595959" font-size="10">Boars, Sows,</text>
           <text x="95" y="108" text-anchor="middle" fill="#595959" font-size="10">Gilts, Dry Sows</text>
 
-          <!-- Arrow: Breeding â†’ Farrowing -->
+          <!-- Arrow: Breeding → Farrowing -->
           <line x1="180" y1="87" x2="225" y2="87" stroke="#424242" stroke-width="2"/>
           <polygon points="225,87 218,82 218,92" fill="#424242"/>
           <text x="200" y="75" text-anchor="middle" fill="#595959" font-size="9" font-style="italic">Mating</text>
@@ -1871,7 +1871,7 @@ select.form-input { cursor: pointer; }
           <text x="315" y="95" text-anchor="middle" fill="#595959" font-size="10">Lactating sows</text>
           <text x="315" y="108" text-anchor="middle" fill="#595959" font-size="10">nursing piglets</text>
 
-          <!-- Arrow: Farrowing â†’ Nursery -->
+          <!-- Arrow: Farrowing → Nursery -->
           <line x1="400" y1="87" x2="445" y2="87" stroke="#424242" stroke-width="2"/>
           <polygon points="445,87 438,82 438,92" fill="#424242"/>
           <text x="420" y="75" text-anchor="middle" fill="#595959" font-size="9" font-style="italic">Weaning</text>
@@ -1882,7 +1882,7 @@ select.form-input { cursor: pointer; }
           <text x="535" y="95" text-anchor="middle" fill="#595959" font-size="10">Weaned piglets</text>
           <text x="535" y="108" text-anchor="middle" fill="#595959" font-size="10">(starters)</text>
 
-          <!-- Arrow: Nursery â†’ Growing -->
+          <!-- Arrow: Nursery → Growing -->
           <line x1="620" y1="87" x2="665" y2="87" stroke="#424242" stroke-width="2"/>
           <polygon points="665,87 658,82 658,92" fill="#424242"/>
 
@@ -1890,9 +1890,9 @@ select.form-input { cursor: pointer; }
           <rect x="670" y="30" width="170" height="115" rx="12" fill="#E8F5E9" stroke="#A5D6A7" stroke-width="2" cursor="pointer" onclick="selectSwineStage('growing')"/>
           <text x="755" y="72" text-anchor="middle" fill="#2E7D32" font-size="13" font-weight="bold">Growing</text>
           <text x="755" y="95" text-anchor="middle" fill="#595959" font-size="10">Grower pigs</text>
-          <text x="755" y="108" text-anchor="middle" fill="#595959" font-size="10">(25â€“60 kg)</text>
+          <text x="755" y="108" text-anchor="middle" fill="#595959" font-size="10">(25–60 kg)</text>
 
-          <!-- Arrow: Growing â†’ Finishing -->
+          <!-- Arrow: Growing → Finishing -->
           <line x1="840" y1="87" x2="885" y2="87" stroke="#424242" stroke-width="2"/>
           <polygon points="885,87 878,82 878,92" fill="#424242"/>
 
@@ -1900,7 +1900,7 @@ select.form-input { cursor: pointer; }
           <rect x="890" y="30" width="170" height="115" rx="12" fill="#FFEBEE" stroke="#EF9A9A" stroke-width="2" cursor="pointer" onclick="selectSwineStage('finishing')"/>
           <text x="975" y="72" text-anchor="middle" fill="#C62828" font-size="13" font-weight="bold">Finishing</text>
           <text x="975" y="95" text-anchor="middle" fill="#595959" font-size="10">Finisher pigs</text>
-          <text x="975" y="108" text-anchor="middle" fill="#595959" font-size="10">(60â€“120 kg) â†’ Market</text>
+          <text x="975" y="108" text-anchor="middle" fill="#595959" font-size="10">(60–120 kg) → Market</text>
 
           <!-- Feedback arc: replacement gilts -->
           <path d="M 975,145 Q 500,180 95,145" fill="none" stroke="#283593" stroke-width="2" stroke-dasharray="4,2"/>
@@ -1915,7 +1915,7 @@ select.form-input { cursor: pointer; }
           <rect x="460" y="210" width="140" height="22" rx="4" fill="#E3F2FD" cursor="pointer" onclick="selectSwineStage('farrowToFinish')"/>
           <text x="530" y="225" text-anchor="middle" fill="#1565C0" font-size="11" font-weight="bold">Farrow-to-Finish</text>
 
-          <!-- Bracket: Farrow-to-Wean (Breeding â†’ Nursery) -->
+          <!-- Bracket: Farrow-to-Wean (Breeding → Nursery) -->
           <line x1="10" y1="245" x2="10" y2="255" stroke="#6A1B9A" stroke-width="2"/>
           <line x1="10" y1="255" x2="620" y2="255" stroke="#6A1B9A" stroke-width="2"/>
           <line x1="620" y1="245" x2="620" y2="255" stroke="#6A1B9A" stroke-width="2"/>
@@ -1929,7 +1929,7 @@ select.form-input { cursor: pointer; }
           <rect x="490" y="305" width="100" height="22" rx="4" fill="#FFF3E0" cursor="pointer" onclick="selectSwineStage('isoWean')"/>
           <text x="540" y="320" text-anchor="middle" fill="#E65100" font-size="11" font-weight="bold">Iso-Wean</text>
 
-          <!-- Bracket: Grower-to-Finish (Growing â†’ Finishing) -->
+          <!-- Bracket: Grower-to-Finish (Growing → Finishing) -->
           <line x1="670" y1="245" x2="670" y2="255" stroke="#2E7D32" stroke-width="2"/>
           <line x1="670" y1="255" x2="1060" y2="255" stroke="#2E7D32" stroke-width="2"/>
           <line x1="1060" y1="245" x2="1060" y2="255" stroke="#2E7D32" stroke-width="2"/>
@@ -1939,7 +1939,7 @@ select.form-input { cursor: pointer; }
         </svg>
 
         <div id="swineStageInfoPanel" class="info-banner" style="display:none;">
-          <button class="close-btn" onclick="document.getElementById('swineStageInfoPanel').style.display='none'">âœ•</button>
+          <button class="close-btn" onclick="document.getElementById('swineStageInfoPanel').style.display='none'">✕</button>
           <h3 id="swineStageInfoTitle"></h3>
           <p id="swineStageInfoDesc"></p>
         </div>
@@ -1967,7 +1967,7 @@ select.form-input { cursor: pointer; }
           <div class="timeline-scroll">
             <div class="timeline-card selected">
               <div style="font-size: var(--font-small); font-weight: 600;">Period #1</div>
-              <div style="font-size: var(--font-caption); color: var(--text-secondary);">Jan 1 â€“ Dec 31</div>
+              <div style="font-size: var(--font-caption); color: var(--text-secondary);">Jan 1 – Dec 31</div>
               <div style="font-size:13px; font-weight:500; margin-top:4px;">50 animals</div>
             </div>
           </div>
@@ -1982,7 +1982,7 @@ select.form-input { cursor: pointer; }
         </div>
         <div id="stab-housing" class="tab-content active">
           <div class="form-grid">
-            <label class="form-label">Housing type</label><select class="form-input"><option>Confined â€“ no barn</option><option>Housing (barn)</option><option>Enclosed pasture</option></select><span class="form-unit"></span>
+            <label class="form-label">Housing type</label><select class="form-input"><option>Confined – no barn</option><option>Housing (barn)</option><option>Enclosed pasture</option></select><span class="form-unit"></span>
             <label class="form-label">Bedding type</label><select class="form-input"><option>Straw</option><option>Wood shavings</option><option>None</option></select><span class="form-unit"></span>
           </div>
         </div>
@@ -2037,7 +2037,7 @@ select.form-input { cursor: pointer; }
           </div>
         </div>
         <div style="margin-top:16px; padding:12px 16px; background:var(--bg-light); border-radius:var(--radius-sm); font-size:var(--font-small); color:var(--text-secondary);">
-          <strong>Summary:</strong> Total area: <strong>195 ha</strong> Â· Fields: <strong>3</strong> Â· Years per field: <strong>6</strong> Â· Total crop-years: <strong>18</strong>
+          <strong>Summary:</strong> Total area: <strong>195 ha</strong> · Fields: <strong>3</strong> · Years per field: <strong>6</strong> · Total crop-years: <strong>18</strong>
         </div>
       </div>
 
@@ -2090,11 +2090,11 @@ select.form-input { cursor: pointer; }
         <div style="font-size: 11px; color: #6B7280; font-style: italic; margin-top: 8px;">This defines the crop rotation cycle. The actual year each crop is grown depends on the field and its starting position in the rotation.</div>
       </div>
 
-      <!-- Step 3: Rotation Preview (field Ã— year grid) -->
+      <!-- Step 3: Rotation Preview (field × year grid) -->
       <div class="step-container">
         <div class="step-header">
           <span class="step-badge">Step 3</span>
-          <span class="step-description">Rotation preview â€” field assignments by year</span>
+          <span class="step-description">Rotation preview — field assignments by year</span>
         </div>
         <div style="overflow-x:auto;">
           <table class="data-grid">
@@ -2231,7 +2231,7 @@ select.form-input { cursor: pointer; }
               <span class="form-unit"></span>
               <label class="form-label">Yield</label>
               <input type="number" class="form-input" value="3200" step="100">
-              <span class="form-unit">kg haâ»Â¹</span>
+              <span class="form-unit">kg ha⁻¹</span>
               <label class="form-label">Tillage type</label>
               <select class="form-input"><option>Reduced tillage</option><option>No-till</option><option>Intensive tillage</option></select>
               <span class="form-unit"></span>
@@ -2251,10 +2251,10 @@ select.form-input { cursor: pointer; }
             <div class="form-grid">
               <label class="form-label">Nitrogen rate</label>
               <input type="number" class="form-input" value="75" step="1">
-              <span class="form-unit">kg N haâ»Â¹</span>
+              <span class="form-unit">kg N ha⁻¹</span>
               <label class="form-label">Phosphorus rate</label>
               <input type="number" class="form-input" value="20" step="1">
-              <span class="form-unit">kg Pâ‚‚Oâ‚… haâ»Â¹</span>
+              <span class="form-unit">kg P₂O₅ ha⁻¹</span>
             </div>
           </div>
         </div>
@@ -2271,7 +2271,7 @@ select.form-input { cursor: pointer; }
               <span class="form-unit"></span>
               <label class="form-label">Amount applied</label>
               <input type="number" class="form-input" value="0" step="100">
-              <span class="form-unit">kg haâ»Â¹</span>
+              <span class="form-unit">kg ha⁻¹</span>
             </div>
           </div>
         </div>
@@ -2313,10 +2313,10 @@ select.form-input { cursor: pointer; }
             <div class="form-grid">
               <label class="form-label">Above-ground residue</label>
               <input type="number" class="form-input" value="2800" step="100">
-              <span class="form-unit">kg haâ»Â¹</span>
+              <span class="form-unit">kg ha⁻¹</span>
               <label class="form-label">Below-ground residue</label>
               <input type="number" class="form-input" value="1200" step="100">
-              <span class="form-unit">kg haâ»Â¹</span>
+              <span class="form-unit">kg ha⁻¹</span>
             </div>
           </div>
         </div>
@@ -2330,10 +2330,10 @@ select.form-input { cursor: pointer; }
             <div class="form-grid">
               <label class="form-label">Crop price</label>
               <input type="number" class="form-input" value="310" step="1">
-              <span class="form-unit">$ tâ»Â¹</span>
+              <span class="form-unit">$ t⁻¹</span>
               <label class="form-label">Cost of production</label>
               <input type="number" class="form-input" value="450" step="1">
-              <span class="form-unit">$ haâ»Â¹</span>
+              <span class="form-unit">$ ha⁻¹</span>
             </div>
           </div>
         </div>
@@ -2350,7 +2350,7 @@ select.form-input { cursor: pointer; }
               <span class="form-unit"></span>
               <label class="form-label">Yield (wet weight)</label>
               <input type="number" class="form-input" value="1200" step="100" style="border-color:#4CAF50;">
-              <span class="form-unit">kg haâ»Â¹</span>
+              <span class="form-unit">kg ha⁻¹</span>
               <label class="form-label">Moisture content</label>
               <input type="number" class="form-input" value="80.0" step="0.5" style="border-color:#4CAF50;">
               <span class="form-unit">%</span>
@@ -2419,14 +2419,14 @@ select.form-input { cursor: pointer; }
             <text x="722" y="200" text-anchor="middle" fill="#F57C00" font-size="9" font-weight="bold">Calving cycle repeats</text>
           </svg>
           <div id="dairyStageInfoPanel" class="info-banner" style="display:none;">
-            <button class="close-btn" onclick="document.getElementById('dairyStageInfoPanel').style.display='none'">âœ•</button>
+            <button class="close-btn" onclick="document.getElementById('dairyStageInfoPanel').style.display='none'">✕</button>
             <h3 id="dairyStageInfoTitle"></h3>
             <p id="dairyStageInfoDesc"></p>
           </div>
         </div>
       </div>
 
-      <!-- Step 1: Herd Composition â€” stage cards -->
+      <!-- Step 1: Herd Composition — stage cards -->
       <div class="step-container" style="background:#f0f8f0; border-color:#c8e6c9;">
         <div class="step-header">
           <span class="step-badge">Step 1</span>
@@ -2498,7 +2498,7 @@ select.form-input { cursor: pointer; }
             <label style="font-size:var(--font-small); font-weight:500;">Practice:</label>
             <select class="form-input" style="flex:1;"><option>Phase 1: Milk-Fed Period</option><option>Phase 2: Starter Feed Period</option></select>
             <button class="btn btn-primary" style="font-size:var(--font-small); padding:6px 14px;">+ Add</button>
-            <button class="btn-danger" style="font-size:var(--font-small); padding:6px 10px;">ðŸ—‘</button>
+            <button class="btn-danger" style="font-size:var(--font-small); padding:6px 10px;">🗑</button>
           </div>
           <div class="tab-bar">
             <button class="tab-btn active" onclick="switchTab(this, 'tab-dairy-housing')">Housing</button>
@@ -2509,7 +2509,7 @@ select.form-input { cursor: pointer; }
           <div id="tab-dairy-housing" class="tab-content active">
             <div class="form-grid">
               <label class="form-label">Housing type</label>
-              <select class="form-input"><option>Housed in barn (solid)</option><option>Housed in barn (slurry)</option><option>Enclosed pasture</option><option>Confined â€“ no barn</option></select>
+              <select class="form-input"><option>Housed in barn (solid)</option><option>Housed in barn (slurry)</option><option>Enclosed pasture</option><option>Confined – no barn</option></select>
               <span class="form-unit"></span>
             </div>
             <div style="margin-top:12px; padding-top:12px; border-top:1px solid var(--border-light);">
@@ -2527,7 +2527,7 @@ select.form-input { cursor: pointer; }
           <div id="tab-dairy-manure" class="tab-content">
             <div class="form-grid">
               <label class="form-label">Manure handling system</label>
-              <select class="form-input"><option>Solid storage</option><option>Liquid (slurry)</option><option>Composting â€“ passive</option><option>Daily spread</option><option>Deep bedding</option></select>
+              <select class="form-input"><option>Solid storage</option><option>Liquid (slurry)</option><option>Composting – passive</option><option>Daily spread</option><option>Deep bedding</option></select>
               <span class="form-unit"></span>
             </div>
           </div>
@@ -2558,13 +2558,13 @@ select.form-input { cursor: pointer; }
       </div>
     </div>
 
-    <!-- ═══════════════════════════════════════════════════════════════
-         RESULTS VIEW — mirrors GHGResultsView.axaml as of v5 main.
+    <!-- ---------------------------------------------------------------
+         RESULTS VIEW � mirrors GHGResultsView.axaml as of v5 main.
          Header (farm + Strategy ComboBox + Recalculate + Export to Excel)
          then the soil-organic-carbon trend chart, then the per-field
          per-year DataGrid, with the shelterbelt DataGrid conditionally
          appearing for farms that have shelterbelt components.
-         ═══════════════════════════════════════════════════════════════ -->
+         --------------------------------------------------------------- -->
     <div id="view-results" class="view">
       <div style="display:flex; flex-direction:column; height:100%; background:#fff;">
 
@@ -2602,7 +2602,7 @@ select.form-input { cursor: pointer; }
 
           <!-- Soil organic carbon trend chart -->
           <h2 style="font-size:16px; font-weight:600; color:#2c3e50; margin:0 0 8px 0;">
-            Soil organic carbon trend (kg C ha⁻¹)
+            Soil organic carbon trend (kg C ha?�)
           </h2>
           <div style="border:1px solid #dee2e6; border-radius:6px; padding:12px; margin-bottom:24px; background:#fff;">
             <!-- Simple SVG sketch of the LiveCharts CartesianChart line series -->
@@ -2652,7 +2652,7 @@ select.form-input { cursor: pointer; }
 
           <!-- Field carbon results DataGrid -->
           <h2 style="font-size:16px; font-weight:600; color:#2c3e50; margin:0 0 8px 0;">
-            Field carbon results (per field × year)
+            Field carbon results (per field � year)
           </h2>
           <div style="border:1px solid #dee2e6; border-radius:6px; overflow:auto; max-height:380px; margin-bottom:24px; background:#fff;">
             <table style="width:100%; border-collapse:collapse; font-size:12.5px; min-width:1200px;">
@@ -2667,11 +2667,11 @@ select.form-input { cursor: pointer; }
                   <th style="padding:8px 10px; text-align:right;">Manure C (kg/ha)</th>
                   <th style="padding:8px 10px; text-align:right;">Total C inputs (kg/ha)</th>
                   <th style="padding:8px 10px; text-align:right;">Soil C (kg/ha)</th>
-                  <th style="padding:8px 10px; text-align:right;">Δ Soil C (kg/ha/yr)</th>
+                  <th style="padding:8px 10px; text-align:right;">? Soil C (kg/ha/yr)</th>
                   <th style="padding:8px 10px; text-align:right;">Manure N (kg)</th>
-                  <th style="padding:8px 10px; text-align:right;">Direct N₂O (kg/ha)</th>
-                  <th style="padding:8px 10px; text-align:right;">Indirect N₂O (kg/ha)</th>
-                  <th style="padding:8px 10px; text-align:right;">Total N₂O (kg/ha)</th>
+                  <th style="padding:8px 10px; text-align:right;">Direct N2O (kg/ha)</th>
+                  <th style="padding:8px 10px; text-align:right;">Indirect N2O (kg/ha)</th>
+                  <th style="padding:8px 10px; text-align:right;">Total N2O (kg/ha)</th>
                 </tr>
               </thead>
               <tbody>
@@ -2716,7 +2716,7 @@ select.form-input { cursor: pointer; }
 
           <!-- Shelterbelt results (only rendered when HasShelterbeltResults; shown here for the mockup) -->
           <h2 style="font-size:16px; font-weight:600; color:#2c3e50; margin:0 0 8px 0;">
-            Shelterbelt carbon results (per shelterbelt × year)
+            Shelterbelt carbon results (per shelterbelt � year)
           </h2>
           <div style="border:1px solid #dee2e6; border-radius:6px; overflow:auto; max-height:240px; background:#fff;">
             <table style="width:100%; border-collapse:collapse; font-size:12.5px; min-width:900px;">
@@ -2725,11 +2725,11 @@ select.form-input { cursor: pointer; }
                   <th style="padding:8px 10px; text-align:left;">Year</th>
                   <th style="padding:8px 10px; text-align:left;">Shelterbelt</th>
                   <th style="padding:8px 10px; text-align:right;">Living Biomass C (Mg/km)</th>
-                  <th style="padding:8px 10px; text-align:right;">Δ Living Biomass C</th>
+                  <th style="padding:8px 10px; text-align:right;">? Living Biomass C</th>
                   <th style="padding:8px 10px; text-align:right;">DOM C (Mg/km)</th>
-                  <th style="padding:8px 10px; text-align:right;">Δ DOM C</th>
+                  <th style="padding:8px 10px; text-align:right;">? DOM C</th>
                   <th style="padding:8px 10px; text-align:right;">Total Ecosystem C (Mg/km)</th>
-                  <th style="padding:8px 10px; text-align:right;">Δ Total Ecosystem C</th>
+                  <th style="padding:8px 10px; text-align:right;">? Total Ecosystem C</th>
                 </tr>
               </thead>
               <tbody>
@@ -2770,7 +2770,7 @@ select.form-input { cursor: pointer; }
           <select class="form-input"><option>Alberta</option><option>British Columbia</option><option>Manitoba</option><option>Ontario</option><option>Quebec</option><option>Saskatchewan</option></select>
           <span class="form-unit"></span>
           <label class="form-label">SLC polygon</label>
-          <select class="form-input"><option>793001 â€“ Edmonton area</option><option>793002 â€“ Red Deer area</option></select>
+          <select class="form-input"><option>793001 – Edmonton area</option><option>793002 – Red Deer area</option></select>
           <span class="form-unit"></span>
         </div>
       </div>
@@ -2778,7 +2778,7 @@ select.form-input { cursor: pointer; }
         <div class="step-header"><span class="step-badge">Data</span><span class="step-description">Monthly climate normals</span></div>
         <div style="overflow-x: auto;">
           <table class="data-grid">
-            <thead><tr><th>Month</th><th>Mean Temp (Â°C)</th><th>Precipitation (mm)</th><th>PET (mm)</th><th>Growing Days</th></tr></thead>
+            <thead><tr><th>Month</th><th>Mean Temp (°C)</th><th>Precipitation (mm)</th><th>PET (mm)</th><th>Growing Days</th></tr></thead>
             <tbody>
               <tr><td>January</td><td>-14.2</td><td>22.1</td><td>0.0</td><td>0</td></tr>
               <tr><td>February</td><td>-10.8</td><td>16.5</td><td>0.0</td><td>0</td></tr>
@@ -2886,18 +2886,18 @@ select.form-input { cursor: pointer; }
             <button class="options-item" onclick="showOptionPanel('opt-ingredients')">Ingredients</button>
 
             <div style="font-size:12px; font-weight:800; color:var(--bg-primary); background:#f2f2f2; border-top:1px solid #8c8c8c; border-bottom:1px solid #8c8c8c; margin-top:8px; padding:8px 12px 8px 16px;">Soil &amp; Manure Defaults</div>
-            <button class="options-item" onclick="showOptionPanel('opt-n2o')">Soil Nâ‚‚O Breakdown</button>
+            <button class="options-item" onclick="showOptionPanel('opt-n2o')">Soil N₂O Breakdown</button>
             <button class="options-item" onclick="showOptionPanel('opt-bedding')">Default Bedding Composition</button>
             <button class="options-item" onclick="showOptionPanel('opt-manure-comp')">Default Manure Composition</button>
           </div>
           <div style="padding:10px; border-top:1px solid var(--border-light);">
-            <button class="btn" style="width:100%;" onclick="showView('myComponents'); renderMyComponents();">â† Go Back</button>
+            <button class="btn" style="width:100%;" onclick="showView('myComponents'); renderMyComponents();">← Go Back</button>
           </div>
         </div>
         <!-- Options Content Panel -->
         <div style="flex:1; display:flex; align-items:center; justify-content:center; color:var(--text-secondary);" id="optionsContent">
           <div style="text-align:center;">
-            <div style="font-size:40px; opacity:0.3; margin-bottom:12px;">âš™ï¸</div>
+            <div style="font-size:40px; opacity:0.3; margin-bottom:12px;">⚙️</div>
             <h2 style="font-weight:400; color:var(--gcds-gray-450);">Select an Option</h2>
             <p style="font-size:13px;">Choose a file operation or settings category from the menu.</p>
           </div>
@@ -2993,15 +2993,15 @@ select.form-input { cursor: pointer; }
   </main>
 
   <footer class="footer">
-    <span>Holos v5.0.0-preview â€” Agriculture and Agri-Food Canada</span>
+    <span>Holos v5.0.0-preview — Agriculture and Agri-Food Canada</span>
     <span>UI Mockup for Review</span>
   </footer>
 </div>
 
 <script>
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ═══════════════════════════════════════════════════════════════
    DATA
-   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+   ═══════════════════════════════════════════════════════════════ */
 const categories = [
   { name: 'Land Management', components: [
     { type: 'Field', desc: 'Annual and perennial crop production with detailed management' },
@@ -3050,19 +3050,19 @@ const categories = [
 ];
 
 let myComponents = [
-  { name: 'East Pasture', type: 'Field', desc: 'Main grazing field â€” 160 acres mixed grass', category: 'Land Management' },
+  { name: 'East Pasture', type: 'Field', desc: 'Main grazing field — 160 acres mixed grass', category: 'Land Management' },
   { name: 'North Windbreak', type: 'Shelterbelt', desc: 'Tree-based windbreak and carbon sequestration', category: 'Land Management' },
   { name: 'Cow-Calf Herd', type: 'Cow-Calf', desc: '150 head cow-calf operation on native pasture', category: 'Beef Production', isBeef: true },
-  { name: 'Egg Barn', type: 'Chicken Egg Production', desc: '2000 laying hens â€” free run barn system', category: 'Poultry', isPoultry: true },
+  { name: 'Egg Barn', type: 'Chicken Egg Production', desc: '2000 laying hens — free run barn system', category: 'Poultry', isPoultry: true },
   { name: 'Hog Barn', type: 'Farrow-to-Finish', desc: '200 sow farrow-to-finish operation', category: 'Swine', isSwine: true }
 ];
 
 let animalGroupCounter = 1;
 let mgmtPeriodCounter = 1;
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ═══════════════════════════════════════════════════════════════
    FULLSCREEN FLOW NAVIGATION
-   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+   ═══════════════════════════════════════════════════════════════ */
 function goTo(screenId) {
   document.querySelectorAll('.fullscreen-view').forEach(v => v.classList.remove('active'));
   document.getElementById(screenId).classList.add('active');
@@ -3110,19 +3110,22 @@ function selectFarm(el) {
   el.classList.add('selected');
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ═══════════════════════════════════════════════════════════════
    APP VIEW NAVIGATION
-   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+   ═══════════════════════════════════════════════════════════════ */
 function showView(viewName) {
   document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
   const view = document.getElementById('view-' + viewName);
   if (view) view.classList.add('active');
 
-  // Toggle sidebar visibility: hide when in options (options has its own sidebar menu)
+  // Toggle sidebar visibility: hide when in options (options has its own sidebar menu).
+  // The results view keeps the global sidebar visible — it matches what the live
+  // GHGResultsView does (the sidebar with the My Components list stays in view so the
+  // user can navigate between components and back to results without losing context).
   const sidebar = document.querySelector('.sidebar');
   const shell = document.getElementById('appShell');
   const toolbar = document.getElementById('appToolbar');
-  if (viewName === 'options' || viewName === 'results') {
+  if (viewName === 'options') {
     sidebar.style.display = 'none';
     if (toolbar) toolbar.style.display = 'none';
     shell.classList.add('no-sidebar');
@@ -3158,7 +3161,7 @@ function showOptionPanel(panelId) {
     'opt-temp-settings': 'Temperature Settings', 'opt-barn-temp': 'Barn Temperature Settings',
     'opt-precip': 'Precipitation Settings', 'opt-evapotrans': 'Evapotranspiration Settings',
     'opt-diets': 'Diets', 'opt-ingredients': 'Ingredients',
-    'opt-n2o': 'Soil Nâ‚‚O Breakdown', 'opt-bedding': 'Default Bedding Composition',
+    'opt-n2o': 'Soil N₂O Breakdown', 'opt-bedding': 'Default Bedding Composition',
     'opt-manure-comp': 'Default Manure Composition', 'opt-user-settings': 'User Settings'
   };
   const title = labels[panelId] || panelId;
@@ -3170,9 +3173,9 @@ function showOptionPanel(panelId) {
     '</div></div>';
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ═══════════════════════════════════════════════════════════════
    MY COMPONENTS
-   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+   ═══════════════════════════════════════════════════════════════ */
 function renderMyComponents() {
   const list = document.getElementById('sidebarComponentList');
   if (myComponents.length === 0) {
@@ -3226,9 +3229,9 @@ function openComponent(i) {
   }
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ═══════════════════════════════════════════════════════════════
    CHOOSE COMPONENTS
-   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+   ═══════════════════════════════════════════════════════════════ */
 function renderCategories() {
   const c = document.getElementById('categoryCards');
   c.innerHTML = categories.map((cat, i) =>
@@ -3264,9 +3267,9 @@ function addComponent(type, desc, category, isPoultry, isSwine, isBeef) {
   openComponent(myComponents.length - 1);
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ═══════════════════════════════════════════════════════════════
    COMPONENT EDITING
-   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+   ═══════════════════════════════════════════════════════════════ */
 function renderAnimalGroups() {
   const tl = document.getElementById('animalGroupTimeline');
   if (tl && tl.children.length === 0) addAnimalGroup();
@@ -3313,7 +3316,7 @@ function addCropToField() {
 
 /* Results view navigation handlers from the old "Basic / Advanced 7-chapter report"
    mockup have been removed along with that section. The current GHGResultsView in the
-   Avalonia app is a single scrolling page (header + chart + DataGrids + buttons) — no
+   Avalonia app is a single scrolling page (header + chart + DataGrids + buttons) � no
    sidebar mode toggle, no chapter navigation. If you need to restore a sidebar /
    chapter-style alternative in the future, this is where the JS would live. */
 
@@ -3339,7 +3342,7 @@ function toggleCoverCrop(checkbox) {
   updateCoverCropToggleVisibility();
 }
 
-/* â”€â”€ Table-based cover crop toggle â”€â”€ */
+/* ── Table-based cover crop toggle ── */
 function toggleTableCoverCrop(checkbox) {
   const label = checkbox.closest('label');
   const noneSpan = label.querySelector('span');
@@ -3365,7 +3368,7 @@ function toggleTableCoverCrop(checkbox) {
   updateCoverCropToggleVisibility();
 }
 
-/* â”€â”€ Row selection â”€â”€ */
+/* ── Row selection ── */
 function selectCropRow(row, tableType) {
   if (event && (event.target.tagName === 'BUTTON' || event.target.tagName === 'SELECT' || event.target.tagName === 'OPTION' || event.target.tagName === 'INPUT')) return;
   const tableId = tableType === 'field' ? 'fieldCropTable' : 'rotationCropTable';
@@ -3380,7 +3383,7 @@ function selectCropRow(row, tableType) {
   row.style.borderLeft = '3px solid #26428B';
 }
 
-/* â”€â”€ Move crop up â”€â”€ */
+/* ── Move crop up ── */
 function moveCropUp(btn) {
   event.stopPropagation();
   const row = btn.closest('tr');
@@ -3392,7 +3395,7 @@ function moveCropUp(btn) {
   }
 }
 
-/* â”€â”€ Move crop down â”€â”€ */
+/* ── Move crop down ── */
 function moveCropDown(btn) {
   event.stopPropagation();
   const row = btn.closest('tr');
@@ -3404,7 +3407,7 @@ function moveCropDown(btn) {
   }
 }
 
-/* â”€â”€ Delete crop row â”€â”€ */
+/* ── Delete crop row ── */
 function deleteCropRow(btn) {
   event.stopPropagation();
   const row = btn.closest('tr');
@@ -3418,7 +3421,7 @@ function deleteCropRow(btn) {
   }
 }
 
-/* â”€â”€ Resequence labels and alternating backgrounds â”€â”€ */
+/* ── Resequence labels and alternating backgrounds ── */
 function resequenceCropRows(tbody) {
   const rows = tbody.querySelectorAll('tr');
   rows.forEach(function(tr, i) {
@@ -3436,7 +3439,7 @@ function resequenceCropRows(tbody) {
   });
 }
 
-/* â”€â”€ Ordinal helper (1st, 2nd, 3rd, 4th ...) â”€â”€ */
+/* ── Ordinal helper (1st, 2nd, 3rd, 4th ...) ── */
 function getOrdinal(n) {
   var s = ['th','st','nd','rd'];
   var v = n % 100;
@@ -3529,7 +3532,7 @@ function addManagementPeriod() {
   card.className = 'timeline-card';
   card.style.minWidth = '180px';
   card.innerHTML = '<div style="font-size:var(--font-small); font-weight:600;">Period #' + mgmtPeriodCounter + '</div>' +
-    '<div style="font-size:var(--font-caption); color:var(--text-secondary); margin-top:4px;">Jan 1 â€“ Dec 31</div>' +
+    '<div style="font-size:var(--font-caption); color:var(--text-secondary); margin-top:4px;">Jan 1 – Dec 31</div>' +
     '<div style="font-size:var(--font-small); color:var(--text-secondary); margin-top:8px;">365 days</div>' +
     '<div style="font-size:13px; font-weight:500; margin-top:4px;">50 animals</div>' +
     '<button class="btn-danger" style="margin-top:8px; font-size:11px; padding:4px 10px;" onclick="this.closest(\'.timeline-card\').remove()">Delete</button>';
@@ -3541,9 +3544,9 @@ function addManagementPeriod() {
   tl.appendChild(card);
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ═══════════════════════════════════════════════════════════════
    TABS
-   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+   ═══════════════════════════════════════════════════════════════ */
 function switchTab(btn, tabId) {
   const bar = btn.parentElement;
   const container = bar.parentElement;
@@ -3553,9 +3556,9 @@ function switchTab(btn, tabId) {
   document.getElementById(tabId).classList.add('active');
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ═══════════════════════════════════════════════════════════════
    CHECKLIST TOGGLE CARDS
-   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+   ═══════════════════════════════════════════════════════════════ */
 function toggleCategoryCard(card, categoryId) {
   const isActive = card.classList.contains('active');
   const section = document.getElementById('section-' + categoryId);
@@ -3602,9 +3605,9 @@ function toggleSection(sectionId) {
   }
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ═══════════════════════════════════════════════════════════════
    POULTRY DIAGRAM
-   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+   ═══════════════════════════════════════════════════════════════ */
 const stageInfo = {
   breeder: { title: 'Chicken Multiplier Breeder', desc: 'The multiplier breeder facility maintains parent stock that produce fertilized eggs. These eggs are sent to the multiplier hatchery. Breeder flocks are typically replaced every 40-60 weeks.' },
   hatchery: { title: 'Multiplier Hatchery', desc: 'The hatchery receives fertilized eggs and incubates them for 21 days (chickens) or 28 days (turkeys). Day-old chicks are then distributed to pullet farms or meat production facilities.' },
@@ -3623,17 +3626,17 @@ function selectStage(stage) {
   document.getElementById('stageInfoPanel').style.display = 'block';
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ═══════════════════════════════════════════════════════════════
    BEEF DIAGRAM
-   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+   ═══════════════════════════════════════════════════════════════ */
 const beefStageInfo = {
-  cowCalf: { title: 'Cow-Calf Stage', desc: 'The cow-calf stage is the foundation of beef production. A breeding herd of cows and bulls produces calves each year. The herd includes lactating cows nursing calves, dry cows, bulls, and replacement heifers. Calves are raised on pasture until weaning at 6â€“8 months (200â€“300 kg). This stage accounts for the largest share of lifetime greenhouse gas emissions due to enteric methane from forage digestion.' },
-  backgrounding: { title: 'Backgrounding Stage', desc: 'Backgrounding (stocker/growing) is a transitional phase where weaned calves grow on forage-based diets before entering the feedlot. Cattle gain 0.5â€“1.0 kg/day on pasture, silage, or hay rations over 3â€“8 months, adding 100â€“200 kg of body weight. This builds frame size before high-energy finishing diets.' },
-  finishing: { title: 'Finishing (Feedlot) Stage', desc: 'Finishing cattle are fed high-energy grain-based diets to reach market weight of 550â€“650 kg. Steers and heifers gain 1.2â€“1.8 kg/day over 120â€“200 days in feedlot pens. Feed conversion is approximately 6:1. This stage has the highest daily feed intake and most concentrated manure output.' },
+  cowCalf: { title: 'Cow-Calf Stage', desc: 'The cow-calf stage is the foundation of beef production. A breeding herd of cows and bulls produces calves each year. The herd includes lactating cows nursing calves, dry cows, bulls, and replacement heifers. Calves are raised on pasture until weaning at 6–8 months (200–300 kg). This stage accounts for the largest share of lifetime greenhouse gas emissions due to enteric methane from forage digestion.' },
+  backgrounding: { title: 'Backgrounding Stage', desc: 'Backgrounding (stocker/growing) is a transitional phase where weaned calves grow on forage-based diets before entering the feedlot. Cattle gain 0.5–1.0 kg/day on pasture, silage, or hay rations over 3–8 months, adding 100–200 kg of body weight. This builds frame size before high-energy finishing diets.' },
+  finishing: { title: 'Finishing (Feedlot) Stage', desc: 'Finishing cattle are fed high-energy grain-based diets to reach market weight of 550–650 kg. Steers and heifers gain 1.2–1.8 kg/day over 120–200 days in feedlot pens. Feed conversion is approximately 6:1. This stage has the highest daily feed intake and most concentrated manure output.' },
   cowCalfSystem: { title: 'Cow-Calf Production System', desc: 'A cow-calf operation maintains a breeding herd to produce weaned calves. It manages the full breeding cycle: bull selection, gestation (~283 days), calving, lactation, and weaning. Operations are predominantly pasture-based with winter supplemental feeding. Calves are sold at weaning or after preconditioning.' },
   backgroundingSystem: { title: 'Backgrounding Production System', desc: 'A backgrounding operation purchases weaned calves and grows them on forage before feedlot entry. These operations add frame and weight at lower cost than feedlot finishing. Backgrounding can be on pasture (stocker), in drylots, or a combination. Animals are sold to finishing operations at an appropriate weight and frame size.' },
   finishingSystem: { title: 'Finishing (Feedlot) Production System', desc: 'A finishing operation purchases backgrounded or weaned cattle and feeds high-energy diets to slaughter weight. Feedlots range from small farmer-feeders to large commercial yards. Cattle are penned in groups and fed total mixed rations. Implants and ionophores are commonly used to improve efficiency. Manure management is a major environmental component.' },
-  fullCycle: { title: 'Full Beef Production Cycle', desc: 'The full cycle spans cow-calf, backgrounding, and finishing â€” typically 18â€“24 months from birth to slaughter. Some operations integrate all stages; most cattle move between specialized farms. The cow-calf stage accounts for the largest share of lifetime emissions (enteric methane), while finishing has the highest daily emissions intensity.' }
+  fullCycle: { title: 'Full Beef Production Cycle', desc: 'The full cycle spans cow-calf, backgrounding, and finishing — typically 18–24 months from birth to slaughter. Some operations integrate all stages; most cattle move between specialized farms. The cow-calf stage accounts for the largest share of lifetime emissions (enteric methane), while finishing has the highest daily emissions intensity.' }
 };
 
 function selectBeefStage(stage) {
@@ -3644,19 +3647,19 @@ function selectBeefStage(stage) {
   document.getElementById('beefStageInfoPanel').style.display = 'block';
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ═══════════════════════════════════════════════════════════════
    SWINE DIAGRAM
-   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+   ═══════════════════════════════════════════════════════════════ */
 const swineStageInfo = {
   breeding: { title: 'Breeding Stock', desc: 'The breeding stage includes boars, sows, gilts, and dry (non-lactating) sows. Boars are mature males used for breeding, while gilts are young females that have not yet had their first litter. The gestation period is approximately 114 days (3 months, 3 weeks, 3 days). Breeding stock is selected for litter size, growth rate, feed efficiency, and carcass quality.' },
-  farrowing: { title: 'Farrowing (Lactating Sows)', desc: 'Lactating sows give birth to and nurse piglets in specialized farrowing crates or pens. A sow typically produces 10â€“14 piglets per litter. Lactation lasts 3â€“4 weeks with very high nutritional requirements for milk production. This stage has significant feed intake and manure output.' },
-  nursery: { title: 'Nursery (Starters / Iso-Wean)', desc: 'Weaned piglets (starters) are moved to nursery barns at 3â€“4 weeks of age, weighing approximately 5â€“7 kg. This critical transition period requires highly digestible, nutrient-dense diets. In iso-wean systems, piglets are moved to isolated facilities to break disease cycles between sow herds and young pigs.' },
-  growing: { title: 'Growing Phase', desc: 'The growing phase starts when pigs reach ~25 kg at around 10 weeks of age. Pigs gain 0.7â€“0.9 kg/day on diets formulated for lean tissue growth. Feed costs represent 60â€“70% of total production costs. This stage continues until pigs reach approximately 60 kg.' },
-  finishing: { title: 'Finishing Phase', desc: 'Finisher pigs grow from ~60 kg to market weight of 110â€“130 kg. They have the highest absolute feed intake and produce the most manure per animal. Diets balance growth rate and carcass leanness. Pigs are marketed at 5â€“6 months of age. Replacement gilts may be selected and returned to breeding.' },
-  farrowToFinish: { title: 'Farrow-to-Finish Production System', desc: 'Encompasses the entire swine production cycle on a single farm â€” breeding, farrowing, nursery, growing, and finishing. Requires diverse facilities and management expertise but gives full control over pig flow and health status.' },
-  farrowToWean: { title: 'Farrow-to-Wean Production System', desc: 'Specializes in breeding, farrowing, and weaning piglets. Maintains the breeding herd and sells weaned piglets (3â€“4 weeks, 5â€“7 kg) to nursery or grower-to-finish operations. Focuses expertise on reproductive management and early piglet care.' },
-  isoWean: { title: 'Iso-Wean Production System', desc: 'Receives early-weaned piglets (2â€“3 weeks) and raises them in isolated facilities separated from the sow herd. Breaks the disease transmission cycle by removing piglets before maternal antibodies wane. Maintains strict biosecurity and all-in/all-out management.' },
-  growerToFinish: { title: 'Grower-to-Finish Production System', desc: 'Receives weaned or nursery-stage pigs (~20â€“25 kg) and raises them to market weight. Focuses on feed efficiency, growth rate, and carcass quality. Barns are designed for high-volume production with automated feeding and climate control.' }
+  farrowing: { title: 'Farrowing (Lactating Sows)', desc: 'Lactating sows give birth to and nurse piglets in specialized farrowing crates or pens. A sow typically produces 10–14 piglets per litter. Lactation lasts 3–4 weeks with very high nutritional requirements for milk production. This stage has significant feed intake and manure output.' },
+  nursery: { title: 'Nursery (Starters / Iso-Wean)', desc: 'Weaned piglets (starters) are moved to nursery barns at 3–4 weeks of age, weighing approximately 5–7 kg. This critical transition period requires highly digestible, nutrient-dense diets. In iso-wean systems, piglets are moved to isolated facilities to break disease cycles between sow herds and young pigs.' },
+  growing: { title: 'Growing Phase', desc: 'The growing phase starts when pigs reach ~25 kg at around 10 weeks of age. Pigs gain 0.7–0.9 kg/day on diets formulated for lean tissue growth. Feed costs represent 60–70% of total production costs. This stage continues until pigs reach approximately 60 kg.' },
+  finishing: { title: 'Finishing Phase', desc: 'Finisher pigs grow from ~60 kg to market weight of 110–130 kg. They have the highest absolute feed intake and produce the most manure per animal. Diets balance growth rate and carcass leanness. Pigs are marketed at 5–6 months of age. Replacement gilts may be selected and returned to breeding.' },
+  farrowToFinish: { title: 'Farrow-to-Finish Production System', desc: 'Encompasses the entire swine production cycle on a single farm — breeding, farrowing, nursery, growing, and finishing. Requires diverse facilities and management expertise but gives full control over pig flow and health status.' },
+  farrowToWean: { title: 'Farrow-to-Wean Production System', desc: 'Specializes in breeding, farrowing, and weaning piglets. Maintains the breeding herd and sells weaned piglets (3–4 weeks, 5–7 kg) to nursery or grower-to-finish operations. Focuses expertise on reproductive management and early piglet care.' },
+  isoWean: { title: 'Iso-Wean Production System', desc: 'Receives early-weaned piglets (2–3 weeks) and raises them in isolated facilities separated from the sow herd. Breaks the disease transmission cycle by removing piglets before maternal antibodies wane. Maintains strict biosecurity and all-in/all-out management.' },
+  growerToFinish: { title: 'Grower-to-Finish Production System', desc: 'Receives weaned or nursery-stage pigs (~20–25 kg) and raises them to market weight. Focuses on feed efficiency, growth rate, and carcass quality. Barns are designed for high-volume production with automated feeding and climate control.' }
 };
 
 function selectSwineStage(stage) {
@@ -3667,9 +3670,9 @@ function selectSwineStage(stage) {
   document.getElementById('swineStageInfoPanel').style.display = 'block';
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ═══════════════════════════════════════════════════════════════
    DAIRY STAGE INFO
-   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+   ═══════════════════════════════════════════════════════════════ */
 const dairyStageInfo = {
   calf: { title: 'Calf Stage', desc: 'The calf stage covers birth through weaning at approximately 4 months of age. Calves are fed milk or milk replacer and gradually introduced to starter feed. This stage is important for establishing growth trajectories and early emissions from enteric fermentation are minimal.' },
   heifer: { title: 'Heifer Stage', desc: 'Heifers are young female cattle from weaning until first calving (typically 22-26 months). During this growing phase, heifers transition to forage-based diets. Some heifers are retained as replacement animals while others may be sold. Enteric methane emissions increase as rumen function develops.' },
@@ -3712,9 +3715,9 @@ function selectDairyStage(stage) {
   document.getElementById('dairyStageInfoPanel').style.display = 'block';
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ═══════════════════════════════════════════════════════════════
    ROTATION HELPERS
-   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+   ═══════════════════════════════════════════════════════════════ */
 function addRotationCrop() {
   const tbody = document.getElementById('rotationCropTable').querySelector('tbody');
   const rowCount = tbody.rows.length;
@@ -3735,23 +3738,23 @@ function updateRotationCount() {
   document.getElementById('rotationCropCount').textContent = count;
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ═══════════════════════════════════════════════════════════════
    TOOLBAR FARM NAME
-   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+   ═══════════════════════════════════════════════════════════════ */
 function setToolbarFarmName(name) {
   const el = document.getElementById('toolbarFarmName');
   if (el) el.textContent = name || 'My Farm';
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ═══════════════════════════════════════════════════════════════
    INITIALIZATION
-   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+   ═══════════════════════════════════════════════════════════════ */
 // Set initial visibility of cover crop toggle switches
 updateCoverCropToggleVisibility();
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ═══════════════════════════════════════════════════════════════
    SHELTERBELT WIZARD
-   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+   ═══════════════════════════════════════════════════════════════ */
 let sbData = {
   name: 'North Windbreak',
   zone: 'H3b',
@@ -3860,12 +3863,12 @@ function sbRenderCurrentStep() {
     document.getElementById('sb-numrows').value = sbData.numRows;
   } else if (step.startsWith('row-details-')) {
     const ri = parseInt(step.split('-')[2]);
-    document.getElementById('sb-step-title').textContent = 'Row Details â€” Row ' + (ri+1) + ' of ' + sbData.numRows;
+    document.getElementById('sb-step-title').textContent = 'Row Details — Row ' + (ri+1) + ' of ' + sbData.numRows;
     sbRenderStep4(ri);
     document.getElementById('sb-step-4').style.display = '';
   } else if (step.startsWith('row-species-')) {
     const ri = parseInt(step.split('-')[2]);
-    document.getElementById('sb-step-title').textContent = 'Species & Tree Groups â€” Row ' + (ri+1) + ' of ' + sbData.numRows;
+    document.getElementById('sb-step-title').textContent = 'Species & Tree Groups — Row ' + (ri+1) + ' of ' + sbData.numRows;
     sbRenderStep5(ri);
     document.getElementById('sb-step-5').style.display = '';
   } else if (step === 'review') {

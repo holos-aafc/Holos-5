@@ -241,42 +241,50 @@ and how the carbon-results page is reached. Every transition corresponds to a re
 need to find the trigger.
 
 ```mermaid
-stateDiagram-v2
-    [*] --> Disclaimer : App.OnInitialized
-    Disclaimer --> MeasurementProvince : Accept
+flowchart TD
+    Start([App start]) --> Disclaimer
+    Disclaimer --> Province[Measurement & Province]
+    Province --> FarmOptions
 
-    state "Measurement &amp; Province\n(one-time, persisted in app.config)" as MeasurementProvince
-    MeasurementProvince --> FarmOptions : Continue
+    FarmOptions --> FarmCreation[New farm]
+    FarmOptions --> FarmOpen[Open existing]
+    FarmOptions --> FarmImport[Import v4 .json]
 
-    state "Farm Options\n(landing screen for an open session)" as FarmOptions
-    FarmOptions --> FarmCreation : New farm
-    FarmOptions --> FarmOpenExisting : Open existing
-    FarmOptions --> FarmImportFile : Import v4 .json
+    FarmCreation --> SoilData
+    SoilData --> ClimateData
+    ClimateData --> MyComponents
 
-    FarmCreation --> SoilDataView : Configure soil
-    SoilDataView --> ClimateDataView : Configure climate
-    ClimateDataView --> MyComponents : Done setup
+    FarmOpen --> MyComponents
+    FarmImport --> FarmOpen
 
-    FarmOpenExisting --> MyComponents : Select farm
-    FarmImportFile --> FarmOpenExisting : Import succeeded
+    MyComponents --> FieldEditor[Field component editor]
+    MyComponents --> AnimalEditor[Animal component editor]
+    MyComponents --> ShelterbeltEditor[Shelterbelt editor]
+    MyComponents --> ADEditor[Anaerobic digester editor]
+    MyComponents --> GHGResults[GHG & Carbon Results]
 
-    state "My Components\n(active-farm dashboard)" as MyComponents
-    MyComponents --> FieldComponent : Add / edit field
-    MyComponents --> AnimalComponent : Add / edit beef / dairy / swine / etc.
-    MyComponents --> ShelterbeltComponent : Add / edit shelterbelt
-    MyComponents --> ADComponent : Add / edit anaerobic digester
-    MyComponents --> GHGResults : Results button
-
-    state "Field Component Editor\n(3 steps: name/area/soil, crops, details)" as FieldComponent
-    FieldComponent --> MyComponents : Save / back
-
-    AnimalComponent --> MyComponents : Save / back
-    ShelterbeltComponent --> MyComponents : Save / back
-    ADComponent --> MyComponents : Save / back
-
-    state "GHG &amp; Carbon Results\n(per-field DataGrid + soil-C trend chart)" as GHGResults
-    GHGResults --> MyComponents : Go back
+    FieldEditor --> MyComponents
+    AnimalEditor --> MyComponents
+    ShelterbeltEditor --> MyComponents
+    ADEditor --> MyComponents
+    GHGResults --> MyComponents
 ```
+
+**Screens at a glance:**
+
+| Screen | Purpose | One-time? |
+|---|---|---|
+| Disclaimer | Legal acceptance | Yes — persisted, skipped on subsequent launches |
+| Measurement & Province | Pick units + province | Yes — persisted in `app.config` |
+| Farm Options | Landing screen for an open session — new / open / import | No |
+| Farm Creation | New-farm wizard entry | Per-farm |
+| Farm Open Existing | Select an existing farm | Per session |
+| Farm Import File | Pick + import a v4 `.json` export | Per import |
+| Soil Data | Configure soil polygon + ecodistrict | Per farm |
+| Climate Data | Configure climate normals + custom data | Per farm |
+| My Components | Active-farm dashboard, the navigation hub | Always reachable |
+| Field / Animal / Shelterbelt / AD editor | Per-component multi-step editor | Per component |
+| GHG & Carbon Results | Soil-C trend chart + per-field DataGrid | Per analysis |
 
 ### Things worth knowing about the navigation graph
 

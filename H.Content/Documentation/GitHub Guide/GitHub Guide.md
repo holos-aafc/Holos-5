@@ -3,7 +3,7 @@
  <img src="../../Images/logo.png" alt="Holos Logo" width="650"/>
     <br>
 </p>
-In Holos Discussion Forum, you can share your idea, give some feedback about the program, and ask questions. To begin using the discussion forum, a GitHub account needs to be created. If you don’t already have a GitHub account, follow the steps below.
+In Holos Discussion Forum, you can share your idea, give some feedback about the program, and ask questions. To begin using the discussion forum, a GitHub account needs to be created. If you donâ€™t already have a GitHub account, follow the steps below.
 
 <br>
 <br>

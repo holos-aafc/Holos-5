@@ -298,7 +298,7 @@ protected override void RegisterTypes(IContainerRegistry containerRegistry)
 /// Equation 3.2.1-2
 /// Equation 3.3.1-3
 /// </summary>
-/// <param name="maintenanceCoefficient">Maintenance coefficient � adjusted for temperature (MJ day^-1 kg?�)</param>
+/// <param name="maintenanceCoefficient">Maintenance coefficient — adjusted for temperature (MJ day⁻¹ kg⁻¹)</param>
 /// <param name="weight">Average weight (kg head^-1)</param>
 /// <returns>Net energy for maintenance (MJ head^-1 day^-1)</returns>
 public double CalculateNetEnergyForMaintenance(double maintenanceCoefficient, double weight)
@@ -321,7 +321,7 @@ containerRegistry.RegisterSingleton<IStorage, H.Core.Storage>();
 // Good - Explains non-obvious behavior
 if (temperature > 20)
 {
-    temperature = 20; // Upper limit = 20, temperatures above 20�C use 20�C
+    temperature = 20; // Upper limit = 20, temperatures above 20°C use 20°C
 }
 
 // Avoid - States the obvious

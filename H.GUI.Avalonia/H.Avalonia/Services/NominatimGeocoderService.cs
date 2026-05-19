@@ -12,7 +12,6 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Avalonia.Animation;
 using NLog.Config;
-using Tmds.DBus.Protocol;
 using Path = System.IO.Path;
 
 namespace H.Avalonia.Services

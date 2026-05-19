@@ -3,4 +3,38 @@
     <!-- Suppress SQLitePCLRaw version-specific RID warning (third-party library issue) -->
     <NoWarn>$(NoWarn);NETSDK1206</NoWarn>
   </PropertyGroup>
+
+  <!--
+    Transitive-package CVE overrides.
+
+    The GitHub Actions Dependency Review job fails any PR whose dependency graph
+    contains a moderate-or-higher CVE. Older Avalonia 11.0.2 + LiveCharts 2.0.0-rc1
+    pull in transitive packages that have published advisories:
+
+      System.Text.Json     6.0.3       High      GHSA-8g4q-xg66-9fp4
+      System.Drawing.Common 4.7.0      Critical  GHSA-rxg9-xrhp-64gj
+      SkiaSharp            2.88.3/.5   High      GHSA-j7hp-h8jx-5ppr
+      Tmds.DBus.Protocol   0.15.0      High      GHSA-xrw6-gwf8-vvr9
+
+    Adding direct PackageReference entries here overrides the transitive
+    resolution for every project that inherits this file. NuGet picks the highest
+    compatible version that satisfies the constraints from the existing transitive
+    graph; the versions below are the patched releases that close each advisory
+    while staying within the same major line so Avalonia 11.0.2 and LiveCharts
+    2.0.0-rc1 don't need to be bumped at the same time.
+
+    If a future Avalonia / LiveCharts bump moves to newer SkiaSharp etc., these
+    overrides can be revisited (or removed if the transitive resolves to a safe
+    version on its own).
+
+    PrivateAssets="all" is intentionally NOT set — these overrides must flow
+    through to consuming projects via project references; otherwise the
+    overrides would only protect the project that declares them.
+  -->
+  <ItemGroup>
+    <PackageReference Include="System.Text.Json" Version="9.0.0" />
+    <PackageReference Include="System.Drawing.Common" Version="9.0.0" />
+    <PackageReference Include="SkiaSharp" Version="2.88.9" />
+    <PackageReference Include="Tmds.DBus.Protocol" Version="0.93.0" />
+  </ItemGroup>
 </Project>

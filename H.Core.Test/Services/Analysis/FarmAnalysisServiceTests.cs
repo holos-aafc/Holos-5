@@ -89,31 +89,22 @@ public class FarmAnalysisServiceTests
     }
 
     [TestMethod]
-    public void RunAnalysis_NonCanadianProvince_ThrowsInvalidOperationExceptionWithClearMessage()
+    public void RunAnalysis_NonCanadianSoilProvince_IsBlockedByGuard()
     {
-        // Guard A: a farm imported from a v4 .json with Province=Laois (or any other
-        // Ireland-mode value) used to silently produce a NaN-filled chart because every
-        // Canada-keyed provider missed and the ICBM steady-state denominator collapsed
-        // to zero. Now we refuse to run at all and surface a clear message that the
-        // existing LastErrorMessage banner in GHGResultsView can show.
-        var farm = new Farm { Province = Province.Laois, Name = "Imported v4 farm" };
+        // Guard A: refuse to run when the farm's soil-polygon province isn't in the Canadian
+        // whitelist. The upstream "Refactor province handling" commit (997f5d2) moved the
+        // guard's check from Farm.Province to GeographicData.DefaultSoilData.Province because
+        // that's what the downstream calculators actually read. A fresh `new Farm()` happens
+        // to default DefaultSoilData.Province to Alberta — which IS Canadian — so to
+        // exercise the guard we have to explicitly clear that to a non-Canadian value
+        // (SelectProvince is the only such option now that the v4 Ireland counties have
+        // been removed from the Province enum).
+        var farm = new Farm { Name = "Soil polygon not yet picked" };
+        farm.GeographicData.DefaultSoilData.Province = Province.SelectProvince;
 
         var ex = Assert.ThrowsExactly<InvalidOperationException>(() => _sut.RunAnalysis(farm));
 
         StringAssert.Contains(ex.Message, "non-Canadian");
-        StringAssert.Contains(ex.Message, "Laois");
-    }
-
-    [TestMethod]
-    public void RunAnalysis_DefaultSelectProvince_AlsoBlockedByGuard()
-    {
-        // A brand-new Farm() defaults to Province.SelectProvince (enum value 0). The guard
-        // treats this the same way as any other non-Canadian value: refuse to run so the
-        // user is forced into the soil settings to pick a province first. This is the
-        // behaviour every other test in this class works around via MakeFarm().
-        var farm = new Farm { Name = "Fresh farm with no province picked" };
-
-        Assert.ThrowsExactly<InvalidOperationException>(() => _sut.RunAnalysis(farm));
     }
 
     [TestMethod]

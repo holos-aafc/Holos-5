@@ -92,7 +92,7 @@ public class FarmAnalysisService : IFarmAnalysisService
         var selectedProvince = farm.Province;
         var soilProvince = farm.GeographicData?.DefaultSoilData?.Province;
         var nonCanadianProvinces = new List<string>();
-        if (!CanadianProvinces.IsCanadian(selectedProvince))
+        if (!CanadianProvinces.IsCanadian(soilProvince))
         {
             nonCanadianProvinces.Add($"Farm.Province='{selectedProvince.GetDescription()}'");
         }

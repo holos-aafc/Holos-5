@@ -28,7 +28,6 @@ namespace H.Core.Services.LandManagement
     /// </summary>
     public partial class FieldResultsService
     {
-
         #region Public Methods
 
         /// <summary>
@@ -212,7 +211,7 @@ namespace H.Core.Services.LandManagement
                     }
                 }
 
-               this.PostProcessPerennials(component, farm);
+                this.PostProcessPerennials(component, farm);
             }
         }
 

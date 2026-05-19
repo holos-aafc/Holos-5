@@ -34,7 +34,7 @@ namespace H.Core.Enumerations
         /// the Canadian data tables have entries for. Returns false for Ireland counties,
         /// <see cref="Province.SelectProvince"/>, and any future non-Canadian additions.
         /// </summary>
-        public static bool IsCanadian(Province province) => _canadianSet.Contains(province);
+        public static bool IsCanadian(Province? province) => _canadianSet.Contains((Province) province!);
 
         /// <summary>
         /// The set of supported Canadian provinces / territories.

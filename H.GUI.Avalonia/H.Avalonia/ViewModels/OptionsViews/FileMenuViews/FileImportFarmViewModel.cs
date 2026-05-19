@@ -12,6 +12,7 @@ using H.Core.Enumerations;
 using H.Core.Services.StorageService;
 using H.Infrastructure;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Prism.Commands;
 using Prism.Regions;
 using NLog;
@@ -183,7 +184,16 @@ namespace H.Avalonia.ViewModels.OptionsViews.FileMenuViews
                         // Serializer and de-serializer must both have this set to Auto
                         TypeNameHandling = TypeNameHandling.Auto,
                     };
-                    return serializer.Deserialize<List<H.Core.Models.Farm>>(jsonReader);
+
+                    // Parse to a JArray first so JsonMigrationPipeline can patch the v4-shape
+                    // JSON before deserialization. Without this step, the migration we lean on
+                    // for v4 import quirks (IsSecondaryCrop normalization on field-component
+                    // crop items, etc.) is bypassed and the downstream carbon pipeline has to
+                    // rely on its defensive fallbacks alone. See JsonMigrationPipeline +
+                    // V4ToV5Migration for the catalogue of patches applied at this seam.
+                    var farmArray = JArray.Load(jsonReader);
+                    H.Core.Migrations.JsonMigrationPipeline.MigrateFarmExport(farmArray);
+                    return farmArray.ToObject<List<H.Core.Models.Farm>>(serializer);
                 });
 
                 // Guard B: when a v4 .json is imported into v5, the file may carry a

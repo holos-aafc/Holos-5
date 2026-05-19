@@ -221,4 +221,182 @@ public class V4ToV5MigrationTests
         Assert.IsNotNull(farms);
         Assert.AreEqual(0, farms.Count);
     }
+
+    // ----------------------------------------------------------------------------------
+    // IsSecondaryCrop normalization (v4 farms saved before the flag existed need
+    // collection-membership-based fix-up before deserialization). See the class-level
+    // docstring on V4ToV5Migration for the full rationale.
+    // ----------------------------------------------------------------------------------
+
+    [TestMethod]
+    public void Migrate_FieldSystemComponent_SetsIsSecondaryCropFalseOnCropViewItems()
+    {
+        var farms = BuildFarmExportWithFieldComponent(
+            mainCropMissingFlag: true,
+            coverCropMissingFlag: true);
+
+        _migration.MigrateFarmExport(farms);
+
+        var fieldComponent = (farms[0]["Components"] as JArray)![0];
+        var mainCrops = (fieldComponent["CropViewItems"] as JArray)!;
+        Assert.AreEqual(2, mainCrops.Count);
+        Assert.AreEqual(false, mainCrops[0]["IsSecondaryCrop"]!.Value<bool>());
+        Assert.AreEqual(false, mainCrops[1]["IsSecondaryCrop"]!.Value<bool>());
+    }
+
+    [TestMethod]
+    public void Migrate_FieldSystemComponent_SetsIsSecondaryCropTrueOnCoverCrops()
+    {
+        var farms = BuildFarmExportWithFieldComponent(
+            mainCropMissingFlag: true,
+            coverCropMissingFlag: true);
+
+        _migration.MigrateFarmExport(farms);
+
+        var fieldComponent = (farms[0]["Components"] as JArray)![0];
+        var coverCrops = (fieldComponent["CoverCrops"] as JArray)!;
+        Assert.AreEqual(1, coverCrops.Count);
+        Assert.AreEqual(true, coverCrops[0]["IsSecondaryCrop"]!.Value<bool>());
+    }
+
+    [TestMethod]
+    public void Migrate_FieldSystemComponent_OverwritesStaleExistingFlag()
+    {
+        // A main crop with IsSecondaryCrop=true is the corruption pattern we keep seeing
+        // on v4 imports. Migration must overwrite it to false because collection
+        // membership is the authoritative signal — not whatever the JSON happens to say.
+        var farms = new JArray
+        {
+            new JObject
+            {
+                ["Components"] = new JArray
+                {
+                    new JObject
+                    {
+                        ["$type"] = "H.Core.Models.LandManagement.Fields.FieldSystemComponent, H.Core",
+                        ["CropViewItems"] = new JArray
+                        {
+                            new JObject { ["IsSecondaryCrop"] = true, ["Year"] = 1980 }, // wrong; must flip to false
+                        },
+                        ["CoverCrops"] = new JArray
+                        {
+                            new JObject { ["IsSecondaryCrop"] = false, ["Year"] = 1980 }, // wrong; must flip to true
+                        },
+                    },
+                },
+            },
+        };
+
+        _migration.MigrateFarmExport(farms);
+
+        var fieldComponent = (farms[0]["Components"] as JArray)![0];
+        Assert.AreEqual(false, fieldComponent["CropViewItems"]![0]!["IsSecondaryCrop"]!.Value<bool>());
+        Assert.AreEqual(true,  fieldComponent["CoverCrops"]![0]!["IsSecondaryCrop"]!.Value<bool>());
+    }
+
+    [TestMethod]
+    public void Migrate_FieldSystemComponent_HandlesValuesEnvelopeShape()
+    {
+        // Newtonsoft.Json with TypeNameHandling.Auto sometimes wraps collections in
+        // `{ "$type": "...", "$values": [...] }` instead of emitting a plain JArray.
+        // The migration must handle both shapes.
+        var farms = new JArray
+        {
+            new JObject
+            {
+                ["Components"] = new JArray
+                {
+                    new JObject
+                    {
+                        ["$type"] = "H.Core.Models.LandManagement.Fields.FieldSystemComponent, H.Core",
+                        ["CropViewItems"] = new JObject
+                        {
+                            ["$type"] = "System.Collections.ObjectModel.ObservableCollection`1[[...]], System",
+                            ["$values"] = new JArray
+                            {
+                                new JObject { ["Year"] = 1980 },
+                                new JObject { ["Year"] = 1981 },
+                            },
+                        },
+                    },
+                },
+            },
+        };
+
+        _migration.MigrateFarmExport(farms);
+
+        var inner = farms[0]!["Components"]![0]!["CropViewItems"]!["$values"] as JArray;
+        Assert.IsNotNull(inner);
+        Assert.AreEqual(false, inner[0]["IsSecondaryCrop"]!.Value<bool>());
+        Assert.AreEqual(false, inner[1]["IsSecondaryCrop"]!.Value<bool>());
+    }
+
+    [TestMethod]
+    public void Migrate_NonFieldComponent_IsLeftAlone()
+    {
+        // Animal / shelterbelt / AD components shouldn't get touched.
+        var farms = new JArray
+        {
+            new JObject
+            {
+                ["Components"] = new JArray
+                {
+                    new JObject
+                    {
+                        ["$type"] = "H.Core.Models.Animals.Beef.BeefCattleComponent, H.Core",
+                        ["Groups"] = new JArray { new JObject { ["Name"] = "Cow-Calf" } },
+                    },
+                },
+            },
+        };
+
+        _migration.MigrateFarmExport(farms);
+
+        var component = (farms[0]["Components"] as JArray)![0];
+        Assert.IsNull(component["IsSecondaryCrop"]);
+        Assert.IsNotNull(component["Groups"]);
+    }
+
+    /// <summary>
+    /// Helper that builds a minimal v4-shape farm export with one field component
+    /// containing two main crops and one cover crop. Toggle whether the
+    /// <c>IsSecondaryCrop</c> property is omitted (legacy farms) or present.
+    /// </summary>
+    private static JArray BuildFarmExportWithFieldComponent(
+        bool mainCropMissingFlag,
+        bool coverCropMissingFlag)
+    {
+        JObject Crop(int year, bool? flag)
+        {
+            var o = new JObject { ["Year"] = year };
+            if (flag.HasValue)
+            {
+                o["IsSecondaryCrop"] = flag.Value;
+            }
+            return o;
+        }
+
+        return new JArray
+        {
+            new JObject
+            {
+                ["Components"] = new JArray
+                {
+                    new JObject
+                    {
+                        ["$type"] = "H.Core.Models.LandManagement.Fields.FieldSystemComponent, H.Core",
+                        ["CropViewItems"] = new JArray
+                        {
+                            Crop(1980, mainCropMissingFlag ? null : false),
+                            Crop(1981, mainCropMissingFlag ? null : false),
+                        },
+                        ["CoverCrops"] = new JArray
+                        {
+                            Crop(1980, coverCropMissingFlag ? null : true),
+                        },
+                    },
+                },
+            },
+        };
+    }
 }

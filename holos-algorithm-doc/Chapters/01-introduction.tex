@@ -1,0 +1,684 @@
+% ═══════════════════════════════════════════════════════════════════════════
+\chapter{Introduction}
+\label{ch:introduction}
+
+\noindent\textit{(by S.J.\ Pogue, P.\ Mantle, A.\ McPherson and R.\ Kröbel)}
+
+% ───────────────────────────────────────────────────────────────────────────
+\section{Purpose of the Holos model}
+\label{sec:purpose}
+
+The Holos model is a software application developed and provided by Agriculture
+and Agri-Food Canada (AAFC) to estimate greenhouse gas (GHG) emissions and soil
+C changes from Canadian farming systems. The development of the Holos model
+drives innovation and ingenuity for the benefit of all Canadians through the
+adoption of scientific research that develops new knowledge and technologies,
+transferring them to the agriculture and agri-food sector in the form of a
+software application. The model's development focuses on enhancing the
+environmental sustainability of Canadian farming systems (while attempting to
+capture market opportunities) by testing, validating, and providing
+sustainability attributes for Canadian agricultural production systems.
+
+The development of the Holos model aligns with AAFC's agro-ecosystem resilience
+strategy, which aims to reduce the environmental footprint of agricultural
+production, and thus also interlinks closely with other AAFC sector strategies.
+For this purpose, the model combines country-specific emission factors (EFs) and
+algorithms in a whole-farm approach that encompasses all components of a farm
+system, which can include different common livestock types such as beef, dairy,
+pork, and poultry, but also less common types such as sheep, bison, horses,
+etc., annual crops (e.g., wheat, canola, corn, various legumes and other small
+grain crops), pastures and grasslands. The model can also provide estimates of
+fuel and electricity demand (e.g., irrigation pumps) from farming operations
+and infrastructure.
+
+The model estimates direct nitrous oxide (N\textsubscript{2}O), methane
+(CH\textsubscript{4}), and carbon dioxide (CO\textsubscript{2}) losses from
+the different farm components, and indirect losses as a consequence of ammonia
+(NH\textsubscript{3}) volatilization and nitrate
+(NO\textsubscript{3}\textsuperscript{--}) leaching. In addition to these, the
+model includes `upstream' estimates for emissions created through the production
+of farm inputs (e.g., CO\textsubscript{2} losses from fertilizer, pesticide,
+and electricity production). This allows for the estimation of GHG emissions
+from farming systems, as well as commodity-based `cradle to farm-gate'
+assessments that can be part of life cycle analyses.
+
+While there is the option to test the results of scientific experiments in a
+whole-farm context (under `what is?' scenarios), it is the aim of the model to
+allow for the exploration of alternative management scenarios that may aid the
+decision-making processes of producers and policy makers alike (answering `what
+if?' questions). Holos V4 aims, thus, to provide an easy-to-use model for
+multiple users (including producers, researchers and policy makers), allowing
+them to investigate the impacts of on-farm practices, management decisions and
+policy interventions on GHG emissions.
+
+With the development of version 4 (V4) of the model, the Holos team recognizes
+the need to further facilitate the holistic assessment of farms with additional
+components (e.g., on-farm wetlands, riparian buffers, woodlots, and renewable
+energy generation), as well as the need to provide additional capabilities
+(e.g., economics and ecosystem services modules). Although these components are
+not featured in Holos V4, the future collaborative development of Holos (V5 and
+thereafter) has been facilitated by the open source availability of the V4
+model code. Thus, we are continually searching for opportunities to involve
+the expertise of other groups in- and outside of AAFC to facilitate the
+improvement and expansion of future versions.
+
+% ───────────────────────────────────────────────────────────────────────────
+\section{Target audience}
+\label{sec:audience}
+
+There is not one single target user group for Holos, as the model aims to serve
+the needs of users from a variety of backgrounds and with different objectives.
+These objectives may be scientific in nature, related to policy making, or the
+user may wish to explore the impacts of alternative farm management decisions.
+In the latter sense, the model can also be used as an educational tool, opening
+up the user community to also include educators. The development team aims to
+increase the capabilities and usability of the model by providing options for
+collaborative development for computer science experts or multi-media artists.
+
+Scientific use of the model concentrates primarily on the (re)assessment of
+results from scientific experiments, comparing emission measurements to the
+model outputs, or testing the effects of these experiments in the context of
+overall farm emissions. This has led to a number of peer-reviewed publications
+that have examined the emission sources in beef and dairy production systems,
+comparing past and present performance, and investigated the effect of feed
+ingredient choice on overall farm emissions. The latter involves the estimation
+of crop production emissions and carbon (C) storage potentials from crop
+production choices (e.g., reduction of tillage or planting of perennials). For
+scientific use, we expect detailed data inputs that reflect the experimental
+setup.
+
+Policy makers are likely to utilize the model for policy implementation, where
+farmers (landowners) input their farm operation data into the model and use the
+outputs (potentially through a certified third party) as confirmation that the
+policy has been fulfilled. This requires certainty that the model algorithms
+work reliably (i.e., by alignment with national metrics), that the specific
+policy option can be modelled, and that the farmer (landowner) has all required
+input data available. Another option for the policy maker is, however, to test
+policies and their effects before implementation. For that purpose, the model
+requires appropriate regionally representative default farming systems (with all
+of the necessary input parameters) to test the policy under different settings.
+
+For farmers, the model could be useful to self-explore where emissions come from
+on their farm, and how they compare in magnitude. In addition, they can explore
+management practices that lower emissions from the farm, altering individual
+practices or the entire farm system. Productivity changes due to management
+decisions are not included in the model, as the estimation of crop or animal
+growth would require additional inputs that are not readily available, and would
+also lead to considerable uncertainty (note that a simple economic model for
+cropping operations attempts to provide cost estimates for changing management,
+but is limited in scope and operability). Regardless of these limitations,
+farmers have used the model for self-assessments (`what if?') for marketing
+purposes.
+
+The model has further application in agricultural education, particularly in
+courses concerned with sustainability. This serves both to showcase to students
+how interconnected production processes are in farming systems, and also to
+identify GHG sources in farming and the best options to reduce them effectively.
+The software development in itself has also proven to be an excellent teaching
+opportunity for individual computer science students who want to experience
+industry standard programming and code maintenance. Last but not least, the team
+is looking to partner with multimedia and arts students to improve the design
+and form of model inputs and outputs.
+
+% ───────────────────────────────────────────────────────────────────────────
+\section{Principles of model development}
+\label{sec:principles}
+
+Development of the Holos model takes place in two phases: the development and
+combination of algorithms, and the transferral of these algorithms into software
+code in conjunction with the design of the interface. This is not necessarily a
+one-way street, as both interface design and software development may trigger
+additional development (mainly due to opportunity rather than necessity). In any
+case, the Holos development team follows the two principles of transparency and
+scientific reliability in order to foster open and collaborative model and
+software development.
+
+Scientific reliability is at the core of Holos algorithm development and means
+that the team attempts to build the model entirely out of algorithms and
+relationships that have been published in peer-reviewed articles, which have,
+where possible and/or required, a Canadian context. This approach does mean that
+the model will not be abreast of current scientific developments in the field,
+but rather that new knowledge will only be adopted when scientific consensus is
+built. Scientific reliability is also achieved through alignment with other
+metrics and assessment methods, with the National GHG inventory and AAFC's
+Agri-environmental indicators being important benchmarks and algorithm
+providers. Lifecycle analysis standards (ISO 14044) also provide important
+guidance on how model results should be summarized. Scientific reliability and
+the opportunity to trace each algorithm to its published origin is also the
+foundation of the transparency principle.
+
+In an attempt to avoid Holos model outputs being perceived as the result of
+`black box' simulations, the Holos development team releases algorithm documents
+that detail each and every algorithm incorporated into the model (equation
+numbers in the document will match equation numbers in the software code) as
+well as the lookup values and default data used to populate the model. Algorithm
+documents track the progress of consecutive model versions, and in principle
+provide the basis for re-building the model in any other (software) environment.
+To further expand the transparency and adaptability of the model, the model's
+software code is shared in an open source environment on the
+\href{https://github.com/holos-aafc/Holos}{Holos GitHub repository}. This is
+with the goal of sharing the algorithm interconnectedness that is hard to relay
+in written documents, but also to open the model's software code for
+collaborative additions by other groups, and for adaptation of the model by
+other groups for their specific objectives and requirements.
+
+The Holos development team pledges to create and share a framework for
+collaborative development with respect to software architecture. However, the
+determination of what is included in subsequent Holos model versions remains
+with the Holos development team for the foreseeable future.
+
+% ───────────────────────────────────────────────────────────────────────────
+\section{Workshops and outreach}
+\label{sec:workshops}
+
+Modelling agricultural systems is a way to test our scientific understanding of
+processes taking place in these systems, to provide context to the results of
+scientific experiments, to understand and teach the interconnectedness of farm
+systems, to explore options and capabilities to influence the system and its
+outputs, and to guide and inform future research. Despite these benefits,
+modelling these systems doesn't come naturally to any of our potential user
+groups, and the team, therefore, provides multiple options to learn more about
+modelling and the model. These options range from organizing an annual
+workshop/conference (including a model training session), providing model
+training as invited course or seminar speakers, providing training upon request
+or online, developing and distributing training materials, hosting trainees for
+model training or development purposes, as well as conducting and publishing our
+own modelling studies.
+
+Our annual event has evolved from an initial afternoon Holos release workshop
+with 10 participants to a three-day `Sustainability of Canadian Agriculture'
+conference with several hundred attendees, where we bring together scientists,
+academics, farmers, farmer organizations, and policy makers to debate how
+Canadian farming can continue into the future, and, in this sense, how the
+Holos model and its team can help and support the community. During this
+conference, our half-day Holos training session has attracted over a hundred
+participants in recent years.
+
+Model training has been provided on demand on multiple occasions, mostly upon
+invite from university partners, although the provincial government has also
+requested model training. Typically, the Holos team appreciates a formal invite
+($>$2 months before the event) to organize travel (contact
+\href{mailto:holos@agr.gc.ca}{holos@agr.gc.ca}). Training can be held for up
+to 50 participants (it is advisable that trainees work in pairs), and computers
+(Windows platform) should be available with the Holos model pre-installed. It
+is helpful if trainers other than the Holos team are familiar with the training
+to assist participants. Training can also be provided through an online platform,
+although troubleshooting is more limited and there is less opportunity for
+feedback.
+
+One element that can improve online training, in particular self-training, are
+our Holos training materials, which include step-by-step pdf training guides and
+a series of video tutorials (available on our
+\href{https://github.com/holos-aafc/Holos/tree/main}{GitHub page}). The team is
+available to host trainees at the Lethbridge Research and Development Centre and
+also offers opportunities for students as part of the Canadian universities
+Co-op student program.
+
+Last but not least, the Holos team conducts its own model application studies
+that aim to demonstrate how the model can be utilized. Publications relating to
+model development and model application are listed on our
+\href{http://www.agr.gc.ca/eng/scientific-collaboration-and-research-in-agriculture/agricultural-research-results/holos-software-program/?id=1349181297838}{Holos download page},
+but we have limited resources to find publications by other groups who utilized
+the model. We would therefore appreciate if you could send us a copy!
+
+% ───────────────────────────────────────────────────────────────────────────
+\section{Structure of this document}
+\label{sec:structure}
+
+The Holos algorithm document provides a detailed description of the algorithms
+incorporated into the Holos model. It begins with the land management section
+(\textbf{Chapter~2}, also the recommended first step in model input for users),
+detailing at first the calculations for carbon change using the Introductory
+Carbon Balance Model (ICBM), and subsequently the IPCC Tier~2 carbon model
+(IPCC 2019), the current National GHG inventory approach and, thus, the default
+option in Holos. The final carbon section is the updated shelterbelt component,
+from where we plan to continue into the water budget sub-model (this will be
+added after the release of V4). With the nitrogen (N) model, we describe the
+multi-year N budget approach (compliant with the National GHG inventory as far
+as the emissions estimates are concerned).
+
+In the livestock sections (\textbf{Chapters~3, 4 and 5}), we separate beef
+cattle, dairy cattle, swine, sheep, poultry and other livestock, using an IPCC
+Tier~2 methodology for beef and dairy cattle and some poultry calculations, and
+a mostly IPCC Tier~1 methodology for all other livestock types.
+
+\textbf{Note:} throughout the document the term ``livestock type'' refers to
+the broad livestock categories included in the model, e.g., beef cattle, dairy
+cattle, swine, etc., while the term ``animal group'' refers to individual
+sub-groups of animals within each livestock type, e.g., beef cows, dairy
+heifers, sows, rams, turkey hens, etc.
+
+In these sections, the model estimates emissions from livestock and the manure
+they produce, tracking C and N flows from excretion through to land application.
+\textbf{Chapter~4} also includes an anaerobic digestion (AD) component, into
+which the user can `load' manure and crop residues, with this sub-model tracking
+C and N losses throughout the AD process and the production of biogas, heat and
+electricity. In \textbf{Chapter~6} the energy requirement calculations (and
+emissions) are detailed. The economics section is still under development, as we
+determine how to move forward from the initial economics component in Holos V3
+(also to be added after the release of V4). The end of the document details the
+summation of the results, uncertainty estimates and reporting considerations,
+before finishing with the appendices.
+
+% ───────────────────────────────────────────────────────────────────────────
+\section{Required input parameters}
+\label{sec:inputs}
+
+\noindent\textbf{General considerations:}
+
+\begin{itemize}[leftmargin=1.5em]
+    \item \textbf{Metric or imperial units of measurement are chosen at the
+          start, and apply to the complete run.} \textit{Note: the imperial
+          option is currently unavailable but will be re-enabled in a future
+          version of Holos.}
+
+    \item \textbf{There is a French and an English version of the interface.}
+
+    \item \textbf{All information entered saves instantaneously and
+          continuously.}
+
+    \item \textbf{The user can select each farm component multiple times.}
+
+    \item \textbf{The default soils data are limited to the areas designated
+          as containing agricultural land by Statistics Canada.}
+
+    \item \textbf{When adjusting inputs in an already saved farm, press
+          `reload data from previous screen' on the Details screen to update
+          the results.}
+
+    \item \textbf{In the options, model defaults can be reset to the latest
+          lookup-table values in the settings menu.}
+\end{itemize}
+
+% ·····················································
+\subsection{Map location}
+\label{subsec:map}
+
+The first required model input is the selection of the farm's location. The
+user first selects the relevant Canadian province, and then the specific
+longitude and latitude of the farm by clicking on the relevant location in the
+displayed map. Selecting the specific farm location also allows Holos (as a
+default) to download a location-specific historic daily weather dataset from
+\url{https://power.larc.nasa.gov/data-access-viewer/}. These climate data are
+required for the ICBM (detailed in \textbf{Section~2.1}), the IPCC Tier~2
+carbon model (\textbf{Section~2.2}), the calculation of N\textsubscript{2}O
+emissions from agricultural soils (\textbf{Sections~2.5, 2.6, and 2.7}), and
+the estimation of emissions from livestock (\textbf{Chapters~3, 4 and 5}).
+
+Each farm location will fall within a specific Soil Landscapes of Canada (SLC)
+polygon. The choice of SLC polygon allows the lookup of commonly present soil
+types in the region
+(\url{https://open.canada.ca/data/en/dataset/5ad5e20c-f2bb-497d-a2a2-440eec6e10cd}),
+permitting the user to choose the best fitting soil type (where more than one
+exists within a single SLC polygon), which is then applied as a default
+throughout the farm.
+
+\textbf{Note:} the user can specify soil data for individual fields on the
+`Soil' tab for the relevant field -- this will override the default soil data
+used for the entire farm.
+
+Also in the Map Location screen, on a different tab, the appropriate plant
+hardiness zone (PHZ) can be selected
+(\url{http://www.planthardiness.gc.ca/?m=1}), if more than one is present in
+the selected polygon. The PHZ is used for specific shelterbelt soil C and root
+growth lookup tables, with the exception of the province of Saskatchewan (SK),
+where lookup tables are present for each ecodistrict (this is one case where
+the province selection triggers a province-specific lookup).
+
+% ·····················································
+\subsection{Climate data}
+\label{subsec:climate}
+
+The resolution of the climate data required by Holos varies depending on the
+model component. Daily climate data are needed for the calculation of
+NH\textsubscript{3} losses and animal performance, as well as in the land
+management component to calculate the soil moisture, but the model is set up to
+run with monthly climate normals if daily data are not available.
+
+For the ICBM, daily temperature and precipitation data are required for the
+estimation of soil temperature and as input to the soil moisture model;
+additionally, daily potential evapotranspiration data are required. Research
+conducted by Martel et al.\ (2018) found that the Turc (1961) equation was best
+suited to estimate actual evapotranspiration from Canadian farming systems,
+compared with measured data from an Eddy-flux system. These equations (in
+response to the relative humidity) are given below.
+
+\bigskip
+\noindent\textbf{For $RH \geq 50\%$:}
+
+\begin{equation}
+    ET_r = 0.013 \times \frac{T_{\mathrm{mean}}}{T_{\mathrm{mean}} + 15}
+           \times \bigl(23.8856 \times R_s + 50\bigr)
+    \tag{Eq.\ 1.6.2.1}
+\end{equation}
+
+\noindent\textbf{For $RH < 50\%$:}
+
+\begin{equation}
+    ET_r = 0.013 \times \frac{T_{\mathrm{mean}}}{T_{\mathrm{mean}} + 15}
+           \times \bigl(23.8856 \times R_s + 50\bigr)
+           \times \left(1 + \frac{50 - RH_{\mathrm{mean}}}{70}\right)
+    \tag{Eq.\ 1.6.2.2}
+\end{equation}
+
+\noindent\textit{Turc (1961) after Alexandris et al.\ (2008)}
+
+\begin{multline}
+    K_c = a + b\!\left(\frac{T_{\max}-T_{\min}}{2} - T_{\mathrm{base}}\right)
+            + c\!\left(\frac{T_{\max}-T_{\min}}{2} - T_{\mathrm{base}}\right)^{\!2} \\
+            + d\!\left(\frac{T_{\max}-T_{\min}}{2} - T_{\mathrm{base}}\right)^{\!3}
+            + e\!\left(\frac{T_{\max}-T_{\min}}{2} - T_{\mathrm{base}}\right)^{\!4}
+    \tag{Eq.\ 1.6.2.3}
+\end{multline}
+
+\noindent For grasses, a non-linear function to calculate $K_c$ is used:
+
+\begin{equation}
+    K_c^{(\mathrm{grass})} = a \times
+        \left(1 - e^{-b\left(\tfrac{T_{\max}-T_{\min}}{2} - T_{\mathrm{base}}\right)}\right)
+    \tag{Eq.\ 1.6.2.4}
+\end{equation}
+
+\begin{equation}
+    ET_c = K_c \times ET_r
+    \tag{Eq.\ 1.6.2.5}
+\end{equation}
+
+\noindent where
+
+\begin{center}
+\begin{tabular}{@{}ll@{}}
+\toprule
+\textbf{Symbol} & \textbf{Definition} \\
+\midrule
+$ET_r$              & Reference evapotranspiration (mm day\textsuperscript{-1}) \\
+$ET_c$              & Crop-specific evapotranspiration (mm day\textsuperscript{-1}), \\
+                    & without consideration of soil water availability \\
+$T_{\mathrm{mean}}$ & Mean daily temperature (\textdegree C) \\
+$R_s$               & Solar radiation (MJ m\textsuperscript{-2} day\textsuperscript{-1}) \\
+$RH_{\mathrm{mean}}$& Relative humidity (\%) \\
+$K_c$               & Growing degree day driven crop coefficients \\
+$T_{\mathrm{base}}$ & 5 \textdegree C (Martel et al.\ 2018) \\
+$a,b,c,d,e$         & Coefficients required to calculate $K_c$ (Table~1) \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\bigskip
+In order to reduce data input requirements for the user, the Holos model links
+to a repository of daily climate data from the NASA POWER data access viewer:
+\url{https://power.larc.nasa.gov/data-access-viewer/}.
+
+For future scenarios, Holos calculates monthly climate normals for the
+projection period based on daily NASA data (when there is an internet
+connection) or using in-built Holos climate normals for each SLC polygon (when
+no internet connection is available). Using the NASA climate data, Holos
+calculates climate normals for the 2000--current year period as a default;
+using the SLC-specific climate normals, the calculation period is 1990--2017.
+The climate normals are calculated as follows:
+
+\begin{equation}
+    \mathrm{Climate\_Normal}_{(\mathit{type},\,\mathit{period},\,\mathit{month})}
+    = \frac{\displaystyle\sum_{i=\mathit{Start}_{\mathit{year}}}^{\mathit{End}_{\mathit{year}}}
+            \sum_{i=\mathit{Start}_{\mathit{month}}}^{\mathit{End}_{\mathit{month}}}
+            \mathrm{Climate\_value}_{(\mathit{type},\,\mathit{day},\,\mathit{month},\,\mathit{year})}}
+           {(\mathit{End}_{\mathit{month}} - \mathit{Start}_{\mathit{month}}) \times 30}
+    \tag{Eq.\ 1.6.2.6}
+\end{equation}
+
+\noindent where
+
+\begin{center}
+\begin{tabular}{@{}lp{9cm}@{}}
+\toprule
+\textbf{Symbol} & \textbf{Definition} \\
+\midrule
+$\mathrm{Climate\_Normal}_{(type, period, month)}$
+    & 30-year average of daily climate values for a certain \textit{type},
+      \textit{period}, and \textit{month} \\
+\textit{Period}
+    & Range of years for which climate normals are calculated (Table~2) \\
+\textit{Month}
+    & Range of months for which climate normals are calculated (Table~2) \\
+\textit{Type}
+    & Maximum temperature (\textdegree C), minimum temperature (\textdegree C),
+      mean temperature (\textdegree C), precipitation (mm), crop
+      evapotranspiration (mm), relative humidity (\%), solar radiation
+      (MJ m\textsuperscript{-2}) \\
+$\mathit{Start}_{\mathit{year}}$
+    & Year in which a climate normal period starts (Table~2) \\
+$\mathit{End}_{\mathit{year}}$
+    & Year in which a climate normal period ends (Table~2) \\
+$\mathit{Start}_{\mathit{month}}$
+    & Julian day on which a month starts (Table~2) \\
+$\mathit{End}_{\mathit{month}}$
+    & Julian day on which a month ends (Table~2) \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+% ·····················································
+\subsection{Land management}
+\label{subsec:land}
+
+\subsubsection{Field inputs}
+
+\begin{itemize}[leftmargin=1.5em]
+    \item Crop type grown (incl.\ cover crop) and field size are essential
+          inputs, as these are needed to estimate N inputs from aboveground
+          (i.e., straw and product (harvest losses)) and belowground (i.e.,
+          roots and root exudates/extra-root material) biomass to the soil.
+          To carry out the necessary calculations, the model uses the input
+          data together with in-built default data. If the user wants to
+          specify a (repeating) cropping sequence/crop rotation, the crops
+          planted in previous years also need to be specified.
+
+    \item Crop yield, amount of fertilizer applied, and residue return should
+          be provided by the user if possible. In the absence of user-defined
+          inputs for these parameters, the model will use default data,
+          although these are only approximate representations:
+          \begin{itemize}
+              \item Default crop yields are based on yields from the Small
+                    Area Data (SAD) database for the specified crop and year
+                    (\url{https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=3210000201}).
+                    When the user selects `Average Yield' as the Yield
+                    Assignment Method, Holos calculates this as the average
+                    of the yield for all crops in the rotation as specified
+                    under Step~3 in the Component Selection screen.
+              \item Default fertilization rates (N) are calculated from crop
+                    N demand (based on the crop yield), assuming a
+                    fertilization efficiency of 50\% (thus by default
+                    doubling the crop N demand).
+              \item Manure N and C additions are estimated from the livestock
+                    components or from literature derived averages.
+              \item The residue return default for roots is 100\% for all
+                    annual crops (except root crops), and straw return is
+                    assumed to be 100\% (all straw remaining in the field).
+                    For perennial crops, 30\% of the root biomass is assumed
+                    returned to the soil in all years except the final year
+                    of the stand, when this value is 100\%. Harvest losses
+                    are assumed to be 2\% for annual crops and 35\% for
+                    perennial crops.
+          \end{itemize}
+
+    \item Tillage regime, irrigation amount, and pesticide application rates
+          are minor inputs for GHG emission estimates, as their impact is
+          primarily driven by the emissions caused through fuel use. However,
+          they are major cost elements in a farm system and will have more
+          importance in the economics component. Atmospheric N deposition,
+          N fixation, soil test N and fertilizer efficiency (to reduce the
+          estimated N fertilization rate), and the moisture content of the
+          crop at harvest can also be adjusted by the user.
+
+    \item Crop-specific biomass fractions and N concentrations are `hidden'
+          inputs that can be overwritten if specific or better data are
+          available, but these are considered expert level changes and making
+          these adjustments is not recommended for the average model user.
+\end{itemize}
+
+\subsubsection{Crop rotation}
+
+The crop rotation component has the same input requirements as the field
+component, with the difference being that each added rotation phase (i.e.,
+year) will automatically add one field within the same rotation, but with the
+crop sequence shifted by one year. This is done to maintain the principle that
+each rotation phase is present each year. The crop management practices
+specified are automatically applied to all fields for the entire duration of the
+simulation, although these can be modified later in the `Timeline' screen.
+
+\subsubsection{Shelterbelt}
+
+For the shelterbelt component, the current state of C accumulation can be
+calculated using row length, number of trees and their average circumference,
+as long as the shelterbelt species is specified. The age of the shelterbelt can
+also be defined. The model will provide estimates of the amount of C stored
+within the tree and C stored in the soil below. Projections into the future
+presume non-limited (ideal) growth if planted new, but if a below-average
+circumference is specified for an existing shelterbelt, that reduction will
+perpetuate into future C accumulation estimates.
+
+% ·····················································
+\subsection{Livestock management}
+\label{subsec:livestock}
+
+The livestock management interface for all animal groups follows the same
+principle. In the first step, the user defines how many animal groups are in
+their system. Animals can be partitioned into groups with similar management
+practices, but if so desired, the management for individual animals can be
+specified. In the second step, users define the management periods for their
+system (by animal group), again with the option to detail management practices
+for individual days if desired. The third step permits the user to specify the
+number of animals, their start weight and average daily gain. Model default
+values for the housing and manure management systems can be overwritten.
+Furthermore, diet quality can be defined, either by using the provided defaults,
+or by designing a new diet using the Custom Diet Creator. When choosing pasture
+as the housing system, an additional dropdown will enable the user to `place'
+the animals onto one of the fields that have been added to the farm. This will
+trigger the model to calculate excreted manure as a C and N addition to that
+field.
+
+\subsubsection{Beef}
+
+The beef production system provides three components: the cow-calf component
+that is pre-setup to cover a full year, and the (at least initially)
+shorter-term backgrounding and finishing components. The cow-calf component has
+presets for cow/calf groups, replacement heifers and bulls, and preset
+management periods for winter feeding, summer grazing and extended fall grazing.
+
+Preset animal numbers, weights and weight gain, housing system, manure
+management and diets are also present for all beef components, but note that
+only one management period is entered as default for the backgrounding and
+finishing components. If the user wishes to explore emissions over a full year,
+they will have to add management periods to represent subsequent cattle
+generations.
+
+The user should override these defaults as needed, with the primary focus
+(regarding the calculation accuracy of GHG emissions) on animal numbers and
+animal weights (and gain), followed by diet specifications, and the housing and
+manure management options. Selecting ``Show Additional Information'' in the
+``Housing'' tab also grants access to the bedding material calculator, and in
+the ``Manure'' tab this grants access to several EFs used in the model
+calculations. The latter should not be changed without scientific evidence.
+
+\subsubsection{Dairy}
+
+The dairy production system does not feature different components, but instead
+lists the different animal groups within a single component. However,
+group-specific management periods and practices are provided and can (and
+should) be overwritten by the user where locally-specific data are available.
+In contrast to the beef components, milk production, milk fat content and milk
+protein should be specified by the user as this information will impact the
+energy requirement calculation, and thus the enteric CH\textsubscript{4}
+estimates.
+
+\subsubsection{Pork}
+
+The pork/swine production system offers different components (or combinations
+thereof) that represent typical Canadian farming systems (Farrow-to-Wean,
+Iso-Wean, Grower-to-Finish, and Farrow-to-Finish). The user should select the
+components that best represent their system. Only the Farrow-to-Wean and
+Farrow-to-Finish include Sow and Boar groups as default, but animal groups can
+be added to any component as needed. As it is common to switch diets based on
+weight during the different stages of growth, the default management periods are
+set up to represent expected changes in diet as animals age.
+
+Note that the enteric CH\textsubscript{4} emissions from pork are calculated
+using a per animal emission rate, specific to different animal groups and weight
+categories. These EFs can be adjusted when the user selects the ``Show
+Additional Information'' option, although these should only be changed based on
+scientific evidence. By default, the model assumes that all animals are housed
+in barns but there is also the option to place the animals on pasture. Diet
+formulations can also be changed, but as mentioned above, this will not impact
+the CH\textsubscript{4} emission rate until a method is developed that can
+account for such changes. However, changes in diet do impact C and N excretion
+in manure and subsequent emissions estimates.
+
+\subsubsection{Poultry}
+
+The poultry components represent different operations commonly present in Canada
+(Pullet Farm, Chicken Multiplier Breeder, Chicken Multiplier Hatchery, Chicken
+Meat Production, Chicken Egg Production, Turkey Multiplier Breeder, and Turkey
+Meat Production), but these are more limited than the other livestock components
+due to the lack of a model that can take diet information into account. The
+poultry model therefore does not require feed information at this time. Animal
+numbers, housing, and manure management are inputs that can be adjusted.
+
+\subsubsection{Sheep}
+
+The sheep components include Rams, Lambs and Ewes, and a Sheep Feedlot. Input
+requirements are similar to the beef cattle and dairy components. However, due
+to a lack of available data, Holos does not currently include Canada-specific
+default management periods for these animals. For the diets, the user can choose
+the preset default diets or define custom diets in the Custom Diet Creator.
+
+\subsubsection{Other livestock}
+
+All other livestock components use the IPCC Tier~1 (IPCC 2006, 2019)
+methodology (default emission rates per animal), which is why only animal
+numbers and manure management information are needed. Manure excretion rates are
+estimated, so animals can be placed on pasture, but currently no biomass
+consumption rates are available for these animal groups.
+
+% ───────────────────────────────────────────────────────────────────────────
+\section{References}
+\label{sec:references}
+
+\begin{description}[leftmargin=0pt, style=nextline]
+
+    \item[IPCC, 2006]
+        \textit{2006 IPCC Guidelines for National Greenhouse Gas Inventories.}
+        Edited by S.\ Eggelston, L.\ Buendia, K.\ Miwa, T.\ Ngara, K.\ Tanabe.
+        Published by the Institute for Global Environmental Strategies (IGES)
+        for the IPCC. ISBN 4-88788-032-4.\\
+        \url{https://www.ipcc.ch/report/2006-ipcc-guidelines-for-national-greenhouse-gas-inventories/}
+
+    \item[IPCC, 2019]
+        \textit{2019 Refinement to the 2006 IPCC Guidelines for National
+        Greenhouse Gas Inventories.} E.\ Calvo Buendia, K.\ Tanabe,
+        A.\ Kranjc, J.\ Baasansuren, M.\ Fukuda, S.\ Ngarize, A.\ Osako,
+        Y.\ Pyrozhenko, P.\ Shermanau, S.\ Federici (eds). Published: IPCC,
+        Switzerland.\\
+        \url{https://www.ipcc.ch/report/2019-refinement-to-the-2006-ipcc-guidelines-for-national-greenhouse-gas-inventories/}
+
+    \item[Martel et al., 2018]
+        M.\ Martel, A.\ Glenn, H.\ Wilson, and R.\ Kröbel.
+        Simulation of actual evapotranspiration from agricultural landscapes
+        in the Canadian Prairies.
+        \textit{Journal of Hydrology: Regional Studies}, 15, 105--118.\\
+        \url{https://doi.org/10.1016/j.ejrh.2017.11.010}
+
+    \item[Martel et al., 2021]
+        M.\ Martel, A.\ Glenn, H.\ Wilson, S.\ Danielescu, R.\ Kröbel,
+        W.\ Smith, B.\ McConkey, G.\ Guest, and H.\ Janzen.
+        A parsimonious water budget model for Canadian agricultural conditions.
+        \textit{Journal of Hydrology: Regional Studies}, 36, August 2021,
+        100846.\\
+        \url{https://doi.org/10.1016/j.ejrh.2021.100846}
+
+    \item[Turc, 1961]
+        L.\ Turc.
+        Water requirements assessment of irrigation, potential
+        evapotranspiration: simplified and updated climatic formula.
+        \textit{Ann.\ Agron.}, 12, 13--49. (In French.)
+
+\end{description}

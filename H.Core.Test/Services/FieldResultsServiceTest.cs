@@ -55,6 +55,15 @@ namespace H.Core.Test.Services
         public void TestInitialize()
         {
             _mockAnimalResultsService = new Mock<IAnimalService>();
+            // FieldResultsService delegates GetGrazingManagementPeriods to the animal service
+            // (Phase 4 follow-up #4). Mirror the real (pure) implementation so the grazing-uptake
+            // tests that mock IAnimalService still resolve the periods from the animal group.
+            _mockAnimalResultsService
+                .Setup(x => x.GetGrazingManagementPeriods(It.IsAny<AnimalGroup>(), It.IsAny<FieldSystemComponent>()))
+                .Returns((AnimalGroup animalGroup, FieldSystemComponent fieldSystemComponent) =>
+                    animalGroup.ManagementPeriods
+                        .Where(x => fieldSystemComponent.IsGrazingManagementPeriodFromPasture(x))
+                        .ToList());
 
             _n2OEmissionFactorCalculator = new N2OEmissionFactorCalculator(_climateProvider);
             _iCbmSoilCarbonCalculator = new ICBMSoilCarbonCalculator(_climateProvider, _n2OEmissionFactorCalculator);
@@ -1019,8 +1028,7 @@ namespace H.Core.Test.Services
 
             var result = _resultsService.GetMainCropForYear(
                 viewItems: detailViewItems,
-                year: 2000,
-                fieldSystemComponent: new FieldSystemComponent());
+                year: 2000);
 
             Assert.AreEqual(CropType.Lentils, result.CropType);
         }
@@ -1045,8 +1053,7 @@ namespace H.Core.Test.Services
             // Since the IsSecondaryCrop is FALSE we expect the first item in the list to be returned as a workaround for old farms
             var result = _resultsService.GetMainCropForYear(
                 viewItems: detailViewItems,
-                year: 2000,
-                fieldSystemComponent: new FieldSystemComponent());
+                year: 2000);
 
             Assert.AreEqual(CropType.Lentils, result.CropType);
         }
@@ -1461,7 +1468,7 @@ namespace H.Core.Test.Services
             var component = new FieldSystemComponent() { CropViewItems = new ObservableCollection<CropViewItem>(viewItems) };
 
             // In the year 2000 we have two crops being grown, this is why careful consideration must be made so that we return the undersown perennial and not the annual being grown in the year 2000
-            var result = _resultsService.GetAdjoiningYears(viewItems, 2001, component);
+            var result = _resultsService.GetAdjoiningYears(viewItems, 2001);
 
             Assert.AreEqual(CropType.TameGrass, result.PreviousYearViewItem.CropType);
             Assert.AreEqual(2000, result.PreviousYearViewItem.Year);
@@ -1485,7 +1492,7 @@ namespace H.Core.Test.Services
 
             var component = new FieldSystemComponent() { CropViewItems = new ObservableCollection<CropViewItem>(viewItems) };
 
-            var result = _resultsService.GetAdjoiningYears(viewItems, 2001, component);
+            var result = _resultsService.GetAdjoiningYears(viewItems, 2001);
 
             Assert.IsNull(result.PreviousYearViewItem);
 
@@ -1508,7 +1515,7 @@ namespace H.Core.Test.Services
 
             var component = new FieldSystemComponent() { CropViewItems = new ObservableCollection<CropViewItem>(viewItems) };
 
-            var result = _resultsService.GetAdjoiningYears(viewItems, 2000, component);
+            var result = _resultsService.GetAdjoiningYears(viewItems, 2000);
 
             Assert.IsNull(result.PreviousYearViewItem);
             Assert.AreEqual(CropType.Lentils, result.CurrentYearViewItem.CropType);

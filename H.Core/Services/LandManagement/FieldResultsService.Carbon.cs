@@ -35,75 +35,20 @@ namespace H.Core.Services.LandManagement
     /// </summary>
     public partial class FieldResultsService
     {
-        /// <summary>
-        /// Tuple holding a year's three adjoining <see cref="CropViewItem"/>s — the year itself,
-        /// the year before it, and the year after. Some ICBM input calculations (perennial root
-        /// returns, missing-yield interpolation) need to look across year boundaries; this
-        /// struct makes the lookup explicit.
-        ///
-        /// <para>
-        /// For perennial crops, the previous/next items must belong to the <i>same perennial
-        /// stand</i> (matched on <c>PerennialStandGroupId</c>) — switching to a new stand resets
-        /// the temporal continuity. For annuals, previous/next are usually <c>null</c>.
-        /// </para>
-        /// </summary>
-        public class AdjoiningYears
-        {
-            /// <summary>Item for <c>year - 1</c>, or <c>null</c> for annuals / start of history / start of a perennial stand.</summary>
-            public CropViewItem? PreviousYearViewItem { get; set; }
-
-            /// <summary>Item for <c>year</c>. Always populated when <see cref="AdjoiningYears"/> is returned by <c>GetAdjoiningYears</c>.</summary>
-            public CropViewItem CurrentYearViewItem { get; set; } = null!;
-
-            /// <summary>Item for <c>year + 1</c>, or <c>null</c> for annuals / end of history / end of a perennial stand.</summary>
-            public CropViewItem? NextYearViewItem { get; set; }
-        }
-
         #region Public Methods
 
         /// <summary>
-        /// A method to get the previous year from a perennial stand when undersown crops are used. Getting the previous year and next year for an
-        /// item is required since the carbon input calculations for perennials need to look back/forward in time to calculate inputs for any year that has a missing yield.
-        /// 
-        /// For annuals, there is no need to get the previous/next years but for consistency, this method is called for annual crops regardless.
+        /// Returns a year's previous / current / next <see cref="CropViewItem"/>s (needed by the
+        /// perennial missing-yield interpolation and root-return continuity). Delegates to the
+        /// field-component helper (Phase 4 follow-up #4 — this was a private copy plus a nested
+        /// <c>AdjoiningYears</c> class shadowing <see cref="H.Core.Models.AdjoiningYears"/>; the
+        /// unused <c>fieldSystemComponent</c> parameter was dropped).
         /// </summary>
         public AdjoiningYears GetAdjoiningYears(
             IEnumerable<CropViewItem> viewItems,
-            int year,
-            FieldSystemComponent fieldSystemComponent)
+            int year)
         {
-            var previousYear = year - 1;
-            var nextYear = year + 1;
-
-            // Get all items from the same year
-            var viewItemsForYear = viewItems.Where(x => x.Year == year).OrderBy(x => x.Year).ToList();
-
-            var mainCropForCurrentYear = this.GetMainCropForYear(viewItemsForYear, year, fieldSystemComponent);
-            if (mainCropForCurrentYear != null && mainCropForCurrentYear.CropType.IsPerennial())
-            {
-                // Items with same stand id
-                var perennialItemsInStand = viewItems.Where(x =>
-                    x.CropType.IsPerennial() &&
-                    x.PerennialStandGroupId.Equals(mainCropForCurrentYear.PerennialStandGroupId));
-                var previousItemInStand = perennialItemsInStand.SingleOrDefault(x => x.Year == previousYear);
-                var nextItemInStand = perennialItemsInStand.SingleOrDefault(x => x.Year == nextYear);
-
-                return new AdjoiningYears()
-                {
-                    PreviousYearViewItem = previousItemInStand,
-                    CurrentYearViewItem = mainCropForCurrentYear,
-                    NextYearViewItem = nextItemInStand
-                };
-            }
-            else
-            {
-                return new AdjoiningYears()
-                {
-                    PreviousYearViewItem = null,
-                    CurrentYearViewItem = mainCropForCurrentYear!,
-                    NextYearViewItem = null,
-                };
-            }
+            return _fieldComponentHelper.GetAdjoiningYears(viewItems, year);
         }
 
         /// <summary>
@@ -138,11 +83,13 @@ namespace H.Core.Services.LandManagement
             foreach (var year in distinctYears)
             {
                 innerSw.Restart();
-                var adjoiningYears = this.GetAdjoiningYears(mainCrops, year, fieldSystemComponent);
+                var adjoiningYears = this.GetAdjoiningYears(mainCrops, year);
                 adjoiningMs += innerSw.ElapsedMilliseconds;
 
                 var previousYearViewItem = adjoiningYears.PreviousYearViewItem;
-                var currentYearViewItem = adjoiningYears.CurrentYearViewItem;
+                // Non-null here: the loop iterates the distinct years of mainCrops, so every year
+                // resolves to a main crop. (Canonical AdjoiningYears.CurrentYearViewItem is nullable.)
+                var currentYearViewItem = adjoiningYears.CurrentYearViewItem!;
                 var nextYearViewItem = adjoiningYears.NextYearViewItem;
 
                 innerSw.Restart();
@@ -861,7 +808,7 @@ namespace H.Core.Services.LandManagement
                         foreach (var animalGroup in animalGroups)
                         {
                             // managementPeriod.Start.Year == currentYearResults.Year
-                            var grazingManagementPeriodsByGroup = this.GetGrazingManagementPeriods(animalGroup, fieldSystemComponent).Where(x => x.Start.Year == cropViewItem.Year).ToList();
+                            var grazingManagementPeriodsByGroup = this.AnimalResultsService.GetGrazingManagementPeriods(animalGroup, fieldSystemComponent).Where(x => x.Start.Year == cropViewItem.Year).ToList();
                             var totalCarbonLostForAllManagementPeriods = this.CalculateUptakeByGrazingAnimals(grazingManagementPeriodsByGroup, cropViewItem, animalGroup, fieldSystemComponent, farm, animalComponentBase);
 
                             totalLostForAllGroups += totalCarbonLostForAllManagementPeriods.Item1;
@@ -941,19 +888,6 @@ namespace H.Core.Services.LandManagement
 
                 return new Tuple<double, double>(result, totalCarbonUptake);
             }
-        }
-
-        /// <summary>
-        /// Selects the management periods and associated emissions for animals that are grazing on pasture according to Chapter 11/Appendix methodology
-        /// </summary>
-        private List<ManagementPeriod> GetGrazingManagementPeriods(
-            AnimalGroup animalGroup, 
-            FieldSystemComponent fieldSystemComponent)
-        {
-            var managementPeriods = animalGroup.ManagementPeriods.ToList();
-            var grazingPeriods = managementPeriods.Where(x => fieldSystemComponent.IsGrazingManagementPeriodFromPasture(x)).ToList();
-            return grazingPeriods;
-
         }
 
         #endregion

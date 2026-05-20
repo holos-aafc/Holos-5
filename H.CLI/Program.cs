@@ -15,6 +15,7 @@ using System.Collections.Generic;
 using H.Core.Calculators.Carbon;
 using H.Core.Calculators.Nitrogen;
 using H.Core.Providers.Climate;
+using H.Core.Services.Animals;
 using H.Core.Services.LandManagement;
 using H.Localization.Resources.Strings;
 
@@ -167,8 +168,9 @@ namespace H.CLI
                     var n2oEmissionFactorCalculator = new N2OEmissionFactorCalculator(climateProvider);
                     var iCBMSoilCarbonCalculator = new ICBMSoilCarbonCalculator(climateProvider, n2oEmissionFactorCalculator);
                     var ipcc = new IPCCTier2SoilCarbonCalculator(climateProvider, n2oEmissionFactorCalculator);
+                    var icbmCarbonInputCalculator = new ICBMCarbonInputCalculator(new ManureService(), new DigestateService(), new AnimalResultsService());
 
-                    var fieldResultsService = new FieldResultsService(iCBMSoilCarbonCalculator, ipcc, n2oEmissionFactorCalculator);
+                    var fieldResultsService = new FieldResultsService(iCBMSoilCarbonCalculator, ipcc, n2oEmissionFactorCalculator, icbmCarbonInputCalculator);
                     // Overall Results For All the Farms
                     var componentResults = new ComponentResultsProcessor(storage, new TimePeriodHelper(), fieldResultsService);
 

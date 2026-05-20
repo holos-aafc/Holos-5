@@ -38,7 +38,7 @@ namespace H.Core.Test.Integration
 
             _nasaClimateProvider = new NasaClimateProvider();
 
-            _fieldResultsService = new FieldResultsService(_iCbmSoilCarbonCalculator, _ipcc, _n2OEmissionFactorCalculator);
+            _fieldResultsService = new FieldResultsService(_iCbmSoilCarbonCalculator, _ipcc, _n2OEmissionFactorCalculator, _icbmCarbonInputCalculator);
         }
 
         [TestMethod]

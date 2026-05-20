@@ -26,12 +26,16 @@ public class CarbonService : ICarbonService
 
     #region Constructors
 
-    public CarbonService()
+    public CarbonService(
+        IIPCCTier2CarbonInputCalculator ipccTier2CarbonInputCalculator,
+        IICBMCarbonInputCalculator icbmCarbonInputCalculator,
+        IAnimalService animalService,
+        IFieldComponentHelper fieldComponentHelper)
     {
-        _ipccTier2CarbonInputCalculator = new IPCCTier2CarbonInputCalculator();
-        _icbmCarbonInputCalculator = new ICBMCarbonInputCalculator();
-        _animalService = new AnimalResultsService();
-        _fieldComponentHelper = new FieldComponentHelper();
+        _ipccTier2CarbonInputCalculator = ipccTier2CarbonInputCalculator ?? throw new ArgumentNullException(nameof(ipccTier2CarbonInputCalculator));
+        _icbmCarbonInputCalculator = icbmCarbonInputCalculator ?? throw new ArgumentNullException(nameof(icbmCarbonInputCalculator));
+        _animalService = animalService ?? throw new ArgumentNullException(nameof(animalService));
+        _fieldComponentHelper = fieldComponentHelper ?? throw new ArgumentNullException(nameof(fieldComponentHelper));
     }
 
     #endregion

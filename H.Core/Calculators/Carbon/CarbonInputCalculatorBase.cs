@@ -11,11 +11,10 @@ namespace H.Core.Calculators.Carbon;
 /// strategies share — most notably the supplemental-hay-to-grazing-animals contribution
 /// (equations 2.1.2-34 / 2.1.2-2) which feeds <c>AboveGroundCarbonInput</c> in both models.
 ///
-/// <para><b>Note on duplication:</b></para>
-/// Some input methods (PlantCarbonInAgriculturalProduct, CarbonInputFromProduct, etc.) are
-/// currently duplicated between <see cref="ICBMSoilCarbonCalculator"/> and
-/// <see cref="ICBMCarbonInputCalculator"/>. The Phase 4 follow-up list in
-/// <c>MEMORY.md</c> tracks the de-duplication work.
+/// <para><b>Dependencies are injected:</b></para>
+/// The manure / digestate / animal services are supplied via the constructor so the container
+/// hands every carbon calculator the same registered singletons (rather than each calculator
+/// newing its own). Subclasses chain to this base ctor.
 /// </summary>
 public class CarbonInputCalculatorBase : ICarbonInputCalculator
 {
@@ -35,14 +34,17 @@ public class CarbonInputCalculatorBase : ICarbonInputCalculator
     #region Constructors
 
     /// <summary>
-    /// Default-constructs the manure / digestate / animal services. Subclasses inherit the
+    /// Constructor injection for the manure / digestate / animal services. Subclasses inherit the
     /// instances; callers re-initialize them per-farm before each carbon-input pass.
     /// </summary>
-    public CarbonInputCalculatorBase()
+    public CarbonInputCalculatorBase(
+        IManureService manureService,
+        IDigestateService digestateService,
+        IAnimalService animalService)
     {
-        manureService = new ManureService();
-        digestateService = new DigestateService();
-        animalService = new AnimalResultsService();
+        this.manureService = manureService ?? throw new ArgumentNullException(nameof(manureService));
+        this.digestateService = digestateService ?? throw new ArgumentNullException(nameof(digestateService));
+        this.animalService = animalService ?? throw new ArgumentNullException(nameof(animalService));
     }
 
     #endregion

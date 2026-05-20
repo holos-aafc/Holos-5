@@ -7,6 +7,7 @@ using H.CLI.UserInput;
 using H.Core;
 using H.Core.Calculators.Carbon;
 using H.Core.Calculators.Nitrogen;
+using H.Core.Services.Animals;
 using H.Core.Enumerations;
 using H.Core.Models;
 using H.Core.Models.LandManagement.Fields;
@@ -53,8 +54,9 @@ namespace H.CLI.Handlers
             var n2oEmissionFactorCalculator = new N2OEmissionFactorCalculator(climateProvider);
             var iCBMSoilCarbonCalculator = new ICBMSoilCarbonCalculator(climateProvider, n2oEmissionFactorCalculator);
             var ipcc = new IPCCTier2SoilCarbonCalculator(climateProvider, n2oEmissionFactorCalculator);
+            var icbmCarbonInputCalculator = new ICBMCarbonInputCalculator(new ManureService(), new DigestateService(), new AnimalResultsService());
 
-            _fieldResultsService = new FieldResultsService(iCBMSoilCarbonCalculator, ipcc, n2oEmissionFactorCalculator);
+            _fieldResultsService = new FieldResultsService(iCBMSoilCarbonCalculator, ipcc, n2oEmissionFactorCalculator, icbmCarbonInputCalculator);
             _fieldProcessor = new FieldProcessor(_fieldResultsService);
         }
 

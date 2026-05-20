@@ -438,6 +438,12 @@ namespace H.Avalonia.Infrastructure.DependencyInjection
             containerRegistry.RegisterSingleton<IDefaultGeocoderService, NominatimGeocoderService>();
             containerRegistry.RegisterSingleton<ICropColorService, CropColorService>();
 
+            // Manure / digestate / field-component helpers — needed so the carbon calculators below
+            // resolve their constructor-injected dependencies (shared singletons).
+            containerRegistry.RegisterSingleton<IManureService, ManureService>();
+            containerRegistry.RegisterSingleton<IDigestateService, DigestateService>();
+            containerRegistry.RegisterSingleton<IFieldComponentHelper, FieldComponentHelper>();
+
             // Carbon input calculators + orchestrating CarbonService (also registered in CoreModule
             // for non-GUI consumers; duplicated here for parity with the rest of the GUI service
             // wiring).

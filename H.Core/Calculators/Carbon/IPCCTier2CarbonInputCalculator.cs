@@ -3,6 +3,7 @@ using H.Core.Enumerations;
 using H.Core.Models;
 using H.Core.Models.LandManagement.Fields;
 using H.Core.Providers.Plants;
+using H.Core.Services.Animals;
 
 namespace H.Core.Calculators.Carbon;
 
@@ -39,7 +40,15 @@ public class IPCCTier2CarbonInputCalculator : CarbonInputCalculatorBase, IIPCCTi
 
     #region Constructors
 
-    public IPCCTier2CarbonInputCalculator()
+    /// <summary>
+    /// Constructor injection for the shared manure / digestate / animal services (passed to the base).
+    /// The Table 9 slope/intercept CSV provider is created internally — provider DI is a separate concern.
+    /// </summary>
+    public IPCCTier2CarbonInputCalculator(
+        IManureService manureService,
+        IDigestateService digestateService,
+        IAnimalService animalService)
+        : base(manureService, digestateService, animalService)
     {
         _slopeProvider = new Table_9_Nitrogen_Lignin_Content_In_Crops_Provider();
     }

@@ -16,7 +16,7 @@ namespace H.Core.Test.Services
         {
             _mockManureService.Setup(x => x.GetTotalVolumeRemainingForFarmAndYear(It.IsAny<int>(), It.IsAny<Farm>())).Returns(200);
             _n2OEmissionFactorCalculator.ManureService = _mockManureService.Object;
-            _resultsService = new FieldResultsService(_iCbmSoilCarbonCalculator, _ipccSoilCarbonCalculator, _n2OEmissionFactorCalculator);
+            _resultsService = new FieldResultsService(_iCbmSoilCarbonCalculator, _ipccSoilCarbonCalculator, _n2OEmissionFactorCalculator, _icbmCarbonInputCalculator);
 
             var viewItem1 = new CropViewItem();
             viewItem1.Year = DateTime.Now.Year;
@@ -64,7 +64,7 @@ namespace H.Core.Test.Services
         {
             _mockManureService.Setup(x => x.GetTotalVolumeRemainingForFarmAndYear(It.IsAny<int>(), It.IsAny<Farm>())).Returns(200);
             _n2OEmissionFactorCalculator.ManureService = _mockManureService.Object;
-            _resultsService = new FieldResultsService(_iCbmSoilCarbonCalculator, _ipccSoilCarbonCalculator, _n2OEmissionFactorCalculator);
+            _resultsService = new FieldResultsService(_iCbmSoilCarbonCalculator, _ipccSoilCarbonCalculator, _n2OEmissionFactorCalculator, _icbmCarbonInputCalculator);
 
             var viewItem1 = new CropViewItem();
             viewItem1.Year = DateTime.Now.Year;
@@ -121,7 +121,7 @@ namespace H.Core.Test.Services
         {
             _mockManureService.Setup(x => x.GetTotalVolumeRemainingForFarmAndYear(It.IsAny<int>(), It.IsAny<Farm>())).Returns(200);
             _n2OEmissionFactorCalculator.ManureService = _mockManureService.Object;
-            _resultsService = new FieldResultsService(_iCbmSoilCarbonCalculator, _ipccSoilCarbonCalculator, _n2OEmissionFactorCalculator);
+            _resultsService = new FieldResultsService(_iCbmSoilCarbonCalculator, _ipccSoilCarbonCalculator, _n2OEmissionFactorCalculator, _icbmCarbonInputCalculator);
 
             var viewItem = new CropViewItem();
             viewItem.Year = DateTime.Now.Year;
@@ -154,7 +154,7 @@ namespace H.Core.Test.Services
         {
             _mockManureService.Setup(x => x.GetTotalVolumeRemainingForFarmAndYear(It.IsAny<int>(), It.IsAny<Farm>())).Returns(200);
             _n2OEmissionFactorCalculator.ManureService = _mockManureService.Object;
-            _resultsService = new FieldResultsService(_iCbmSoilCarbonCalculator, _ipccSoilCarbonCalculator, _n2OEmissionFactorCalculator);
+            _resultsService = new FieldResultsService(_iCbmSoilCarbonCalculator, _ipccSoilCarbonCalculator, _n2OEmissionFactorCalculator, _icbmCarbonInputCalculator);
 
             var viewItem1 = new CropViewItem();
             viewItem1.Year = DateTime.Now.Year;

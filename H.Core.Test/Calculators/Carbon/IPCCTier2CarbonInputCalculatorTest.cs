@@ -3,6 +3,7 @@ using H.Core.Emissions.Results;
 using H.Core.Enumerations;
 using H.Core.Models;
 using H.Core.Models.LandManagement.Fields;
+using H.Core.Services.Animals;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace H.Core.Test.Calculators.Carbon;
@@ -10,7 +11,7 @@ namespace H.Core.Test.Calculators.Carbon;
 [TestClass]
 public class IPCCTier2CarbonInputCalculatorTest
 {
-    private readonly IPCCTier2CarbonInputCalculator _sut = new();
+    private readonly IPCCTier2CarbonInputCalculator _sut = new(new ManureService(), new DigestateService(), new AnimalResultsService());
 
     [TestMethod]
     public void CalculateAboveGroundResidueDryMatterExportedTestWithGrazingAnimals()

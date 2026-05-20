@@ -43,6 +43,7 @@ namespace H.Core.Test
         protected ICBMSoilCarbonCalculator _iCbmSoilCarbonCalculator;
         protected N2OEmissionFactorCalculator _n2OEmissionFactorCalculator;
         protected IPCCTier2SoilCarbonCalculator _ipcc;
+        protected IICBMCarbonInputCalculator _icbmCarbonInputCalculator;
         protected IFieldResultsService _fieldResultsService;
         protected Mock<ISlcClimateProvider> _slcClimateProvider;
 
@@ -81,6 +82,7 @@ namespace H.Core.Test
             _n2OEmissionFactorCalculator = new N2OEmissionFactorCalculator(_climateProvider);
             _iCbmSoilCarbonCalculator = new ICBMSoilCarbonCalculator(_climateProvider, _n2OEmissionFactorCalculator);
             _ipcc = new IPCCTier2SoilCarbonCalculator(_climateProvider, _n2OEmissionFactorCalculator);
+            _icbmCarbonInputCalculator = new ICBMCarbonInputCalculator(new ManureService(), new DigestateService(), new AnimalResultsService());
 
             _fieldResultsService = new Mock<IFieldResultsService>().Object;
         }

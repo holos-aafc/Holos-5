@@ -84,7 +84,7 @@ namespace H.Core.Services.LandManagement
         // as Phase 4 follow-up #3). Input assignment now routes here, matching v4's wiring where
         // FieldResultsService delegates inputs to the carbon-input calculator and the soil
         // calculator handles only pool dynamics + nitrogen.
-        private readonly IICBMCarbonInputCalculator _icbmCarbonInputCalculator = new ICBMCarbonInputCalculator();
+        private readonly IICBMCarbonInputCalculator _icbmCarbonInputCalculator;
         private readonly IPCCTier2SoilCarbonCalculator _tier2SoilCarbonCalculator;
         private readonly ITillageFactorCalculator _tillageFactorCalculator = new TillageFactorCalculator();
         private readonly UnitsOfMeasurementCalculator _unitsCalculator = new UnitsOfMeasurementCalculator();
@@ -151,9 +151,10 @@ namespace H.Core.Services.LandManagement
         #region Constructors
 
         public FieldResultsService(
-            ICBMSoilCarbonCalculator icbmSoilCarbonCalculator, 
-            IPCCTier2SoilCarbonCalculator ipccTier2SoilCarbonCalculator, 
-            N2OEmissionFactorCalculator n2OEmissionFactorCalculator)
+            ICBMSoilCarbonCalculator icbmSoilCarbonCalculator,
+            IPCCTier2SoilCarbonCalculator ipccTier2SoilCarbonCalculator,
+            N2OEmissionFactorCalculator n2OEmissionFactorCalculator,
+            IICBMCarbonInputCalculator icbmCarbonInputCalculator)
         {
             if (icbmSoilCarbonCalculator != null)
             {
@@ -163,6 +164,8 @@ namespace H.Core.Services.LandManagement
             {
                 throw new ArgumentNullException(nameof(icbmSoilCarbonCalculator));
             }
+
+            _icbmCarbonInputCalculator = icbmCarbonInputCalculator ?? throw new ArgumentNullException(nameof(icbmCarbonInputCalculator));
 
             if (ipccTier2SoilCarbonCalculator != null)
             {

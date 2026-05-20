@@ -7,6 +7,7 @@ using H.Core.Models.LandManagement.Fields;
 using H.Core.Providers.Climate;
 using H.Core.Providers.Evapotranspiration;
 using H.Core.Providers.Precipitation;
+using H.Core.Services.Animals;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace H.Core.Test.Calculators.Carbon;
@@ -19,7 +20,7 @@ public class ICBMCarbonInputCalculatorTest : UnitTestBase
     [TestInitialize]
     public void TestInitialize()
     {
-        _sut = new ICBMCarbonInputCalculator();
+        _sut = new ICBMCarbonInputCalculator(new ManureService(), new DigestateService(), new AnimalResultsService());
     }
 
     private static Farm MakeFarm(Province province = Province.Manitoba, SoilFunctionalCategory category = SoilFunctionalCategory.Black)

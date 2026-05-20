@@ -11,6 +11,7 @@ using H.Core.Providers.Carbon;
 using H.Core.Providers.Climate;
 using H.Core.Providers.Feed;
 using H.Core.Providers.Soil;
+using H.Core.Services;
 using H.Core.Services.Analysis;
 using H.Core.Services.Animals;
 using H.Core.Services.DietService;
@@ -47,10 +48,16 @@ namespace H.Core
             containerRegistry.RegisterSingleton<ITillageFactorCalculator, TillageFactorCalculator>();
             containerRegistry.RegisterSingleton<IICBMSoilCarbonCalculator, ICBMSoilCarbonCalculator>();
 
+            // Manure / digestate / field-component helpers — registered so the carbon calculators
+            // below can receive them via constructor injection (and so every consumer shares one
+            // instance instead of each calculator newing its own).
+            containerRegistry.RegisterSingleton<IManureService, ManureService>();
+            containerRegistry.RegisterSingleton<IDigestateService, DigestateService>();
+            containerRegistry.RegisterSingleton<IFieldComponentHelper, FieldComponentHelper>();
+
             // Carbon input calculators + the orchestrating CarbonService. Registered here so non-GUI
-            // consumers (CLI, tests) get the same instances as the Avalonia app. Each class still
-            // news up its own dependencies in its parameterless constructor; converting to
-            // constructor injection is a follow-on cleanup.
+            // consumers (CLI, tests) get the same instances as the Avalonia app. These use constructor
+            // injection for their manure / digestate / animal / field-component dependencies.
             containerRegistry.RegisterSingleton<IICBMCarbonInputCalculator, ICBMCarbonInputCalculator>();
             containerRegistry.RegisterSingleton<IIPCCTier2CarbonInputCalculator, IPCCTier2CarbonInputCalculator>();
             containerRegistry.RegisterSingleton<ICarbonService, CarbonService>();

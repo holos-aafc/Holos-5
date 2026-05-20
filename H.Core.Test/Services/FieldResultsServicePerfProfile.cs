@@ -33,7 +33,7 @@ public class FieldResultsServicePerfProfile : UnitTestBase
         var n2OEmissionFactorCalculator = new N2OEmissionFactorCalculator(climateProvider);
         var icbm = new ICBMSoilCarbonCalculator(climateProvider, n2OEmissionFactorCalculator);
         var ipcc = new IPCCTier2SoilCarbonCalculator(climateProvider, n2OEmissionFactorCalculator);
-        _sut = new FieldResultsService(icbm, ipcc, n2OEmissionFactorCalculator);
+        _sut = new FieldResultsService(icbm, ipcc, n2OEmissionFactorCalculator, _icbmCarbonInputCalculator);
     }
 
     [TestMethod]

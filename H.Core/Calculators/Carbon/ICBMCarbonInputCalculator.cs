@@ -2,6 +2,7 @@ using H.Core.Emissions.Results;
 using H.Core.Enumerations;
 using H.Core.Models;
 using H.Core.Models.LandManagement.Fields;
+using H.Core.Services.Animals;
 
 namespace H.Core.Calculators.Carbon;
 
@@ -35,6 +36,21 @@ public class ICBMCarbonInputCalculator : CarbonInputCalculatorBase, IICBMCarbonI
 
     /// <summary>Year-over-year increase percentage for perennial root C input until the maximum is reached.</summary>
     private const double PerennialRootCarbonAnnualIncreasePercent = 19.35;
+
+    #region Constructors
+
+    /// <summary>
+    /// Constructor injection for the shared manure / digestate / animal services (passed to the base).
+    /// </summary>
+    public ICBMCarbonInputCalculator(
+        IManureService manureService,
+        IDigestateService digestateService,
+        IAnimalService animalService)
+        : base(manureService, digestateService, animalService)
+    {
+    }
+
+    #endregion
 
     #region Public Methods
 

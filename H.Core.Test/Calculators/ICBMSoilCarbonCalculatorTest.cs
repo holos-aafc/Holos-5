@@ -1521,7 +1521,72 @@ namespace H.Core.Test.Calculators
 
         #endregion
 
-      
+        #region CalculateCropResiduesAtInterval (Eq. 2.6.4-2)
+
+        // Equation 2.6.4-2 (AAFC Holos v4.0 algorithm document):
+        //   N_CropResidues(t)
+        //     = (YoungPoolAGresidue_N(t-1) - YoungPoolAGresidue_N(t) - Grain_N(t) - Straw_N(t))
+        //     + (YoungPoolBGresidue_N(t-1) - YoungPoolBGresidue_N(t) - Root_N(t)  - Exudate_N(t))
+        //   If N_CropResidues(t) < 0, N_CropResidues(t) = 0.
+        //
+        // These tests pin the formula against the spec so a future "tidy-up" can't silently
+        // flip the sign back. The original v5 port had both a sign error on the crop-N term and
+        // a year-index error (previous-interval rather than current-interval crop N); the v4
+        // sign fix shipped in v4 commit 0188886. See MEMORY.md "Phase 4 follow-up #1" for trail.
+
+        [TestMethod]
+        public void CalculateCropResiduesAtInterval_AppliesSpecFormula()
+        {
+            // AG: pool drops 80 -> 30 (50 kg N ha-1 mineralized from AG pool over the interval),
+            //     of which 22 came from the current-year above-ground crop additions.
+            // BG: pool drops 60 -> 25 (35), of which 17 came from current-year roots/exudate.
+            // Net availability from residue decomposition = (50 - 22) + (35 - 17) = 46.
+            var result = _sut.CalculateCropResiduesAtInterval(
+                aboveGroundResidueNitrogenForFieldAtCurrentInterval: 30,
+                aboveGroundResidueNitrogenForFieldAtPreviousInterval: 80,
+                aboveGroundResidueNitrogenForCropAtCurrentInterval: 22,
+                belowGroundResidueNitrogenForFieldAtCurrentInterval: 25,
+                belowGroundResidueNitrogenForFieldAtPreviousInterval: 60,
+                belowGroundResidueNitrogenForCropAtCurrentInterval: 17);
+
+            Assert.AreEqual(46, result, 1e-9);
+        }
+
+        [TestMethod]
+        public void CalculateCropResiduesAtInterval_ClampsNegativeResultToZero()
+        {
+            // Pool drop is smaller than the current-year crop-N input (i.e. the field accumulated
+            // more residue this year than decomposed). The raw formula yields (50-22-..) net = -4
+            // here; the spec clamps to 0 rather than reporting negative mineralization.
+            //   AG: (50 - 30) - 22 = -2
+            //   BG: (40 - 25) - 17 = -2
+            //   raw sum = -4 -> clamps to 0
+            var result = _sut.CalculateCropResiduesAtInterval(
+                aboveGroundResidueNitrogenForFieldAtCurrentInterval: 30,
+                aboveGroundResidueNitrogenForFieldAtPreviousInterval: 50,
+                aboveGroundResidueNitrogenForCropAtCurrentInterval: 22,
+                belowGroundResidueNitrogenForFieldAtCurrentInterval: 25,
+                belowGroundResidueNitrogenForFieldAtPreviousInterval: 40,
+                belowGroundResidueNitrogenForCropAtCurrentInterval: 17);
+
+            Assert.AreEqual(0, result, 1e-9);
+        }
+
+        [TestMethod]
+        public void CalculateCropResiduesAtInterval_AllZeroInputs_ReturnsZero()
+        {
+            var result = _sut.CalculateCropResiduesAtInterval(
+                aboveGroundResidueNitrogenForFieldAtCurrentInterval: 0,
+                aboveGroundResidueNitrogenForFieldAtPreviousInterval: 0,
+                aboveGroundResidueNitrogenForCropAtCurrentInterval: 0,
+                belowGroundResidueNitrogenForFieldAtCurrentInterval: 0,
+                belowGroundResidueNitrogenForFieldAtPreviousInterval: 0,
+                belowGroundResidueNitrogenForCropAtCurrentInterval: 0);
+
+            Assert.AreEqual(0, result, 1e-9);
+        }
+
+        #endregion
 
         #endregion
     }

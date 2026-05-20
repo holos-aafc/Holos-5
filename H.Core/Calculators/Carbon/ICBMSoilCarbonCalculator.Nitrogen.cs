@@ -279,25 +279,51 @@ namespace H.Core.Calculators.Carbon
         }
 
         /// <summary>
-        /// Equation 2.6.4-2
+        /// Equation 2.6.4-2 (AAFC algorithm document, Holos v4.0):
+        /// <para>
+        /// N_CropResidues(t, field n) =
+        ///     (YoungPoolAGresidue_N(t-1, field n) - YoungPoolAGresidue_N(t, field n) - Grain_N(t, crop) - Straw_N(t, crop))
+        ///   + (YoungPoolBGresidue_N(t-1, field n) - YoungPoolBGresidue_N(t, field n) - Root_N(t, field n)  - Exudate_N(t, field n))
+        /// </para>
+        /// <para>
+        /// If N_CropResidues(t, field n) &lt; 0 then N_CropResidues(t, field n) = 0.
+        /// </para>
+        /// <para>
+        /// In code, the above-ground-crop-N term (Grain_N + Straw_N) is supplied as a single combined
+        /// value via <paramref name="aboveGroundResidueNitrogenForCropAtCurrentInterval"/>, and similarly
+        /// the below-ground-crop-N term (Root_N + Exudate_N) via
+        /// <paramref name="belowGroundResidueNitrogenForCropAtCurrentInterval"/>.
+        /// </para>
+        /// <para>
+        /// History: the original v5 port had the crop-N term added rather than subtracted and used the
+        /// previous-interval crop N (not the current-interval crop N) — both wrong relative to the spec
+        /// above. v4 carried a matching sign-flip bug that was fixed in v4 commit 0188886 (`+ rootAndExudateN`
+        /// → `- rootAndExudateN`). The fix has been ported here together with the current-interval crop-N
+        /// fix and the &lt; 0 clamp. See Phase 4 follow-up #1 in MEMORY.md for the investigation trail.
+        /// </para>
         /// </summary>
-        /// <param name="aboveGroundResidueNitrogenForFieldAtCurrentInterval"></param>
-        /// <param name="aboveGroundResidueNitrogenForFieldAtPreviousInterval"></param>
-        /// <param name="aboveGroundResidueNitrogenForCropAtPreviousInterval"></param>
-        /// <param name="belowGroundResidueNitrogenForFieldAtCurrentInterval"></param>
-        /// <param name="belowGroundResidueNitrogenForFieldAtPreviousInterval"></param>
-        /// <param name="belowGroundResidueNitrogenForCropAtPreviousInterval"></param>
-        /// <returns>Availability of N from residue decomposition (kg N ha-1) on a given field</returns>
+        /// <param name="aboveGroundResidueNitrogenForFieldAtCurrentInterval">YoungPoolAGresidue_N(t, field n) — kg N ha⁻¹.</param>
+        /// <param name="aboveGroundResidueNitrogenForFieldAtPreviousInterval">YoungPoolAGresidue_N(t-1, field n) — kg N ha⁻¹.</param>
+        /// <param name="aboveGroundResidueNitrogenForCropAtCurrentInterval">Grain_N(t, crop) + Straw_N(t, crop) — kg N ha⁻¹.</param>
+        /// <param name="belowGroundResidueNitrogenForFieldAtCurrentInterval">YoungPoolBGresidue_N(t, field n) — kg N ha⁻¹.</param>
+        /// <param name="belowGroundResidueNitrogenForFieldAtPreviousInterval">YoungPoolBGresidue_N(t-1, field n) — kg N ha⁻¹.</param>
+        /// <param name="belowGroundResidueNitrogenForCropAtCurrentInterval">Root_N(t, field n) + Exudate_N(t, field n) — kg N ha⁻¹.</param>
+        /// <returns>Availability of N from residue decomposition (kg N ha⁻¹) on a given field, clamped to &gt;= 0.</returns>
         public double CalculateCropResiduesAtInterval(
             double aboveGroundResidueNitrogenForFieldAtCurrentInterval,
             double aboveGroundResidueNitrogenForFieldAtPreviousInterval,
-            double aboveGroundResidueNitrogenForCropAtPreviousInterval,
+            double aboveGroundResidueNitrogenForCropAtCurrentInterval,
             double belowGroundResidueNitrogenForFieldAtCurrentInterval,
             double belowGroundResidueNitrogenForFieldAtPreviousInterval,
-            double belowGroundResidueNitrogenForCropAtPreviousInterval)
+            double belowGroundResidueNitrogenForCropAtCurrentInterval)
         {
-            var result = ((aboveGroundResidueNitrogenForFieldAtPreviousInterval + aboveGroundResidueNitrogenForCropAtPreviousInterval) - aboveGroundResidueNitrogenForFieldAtCurrentInterval) +
-                         ((belowGroundResidueNitrogenForFieldAtPreviousInterval + belowGroundResidueNitrogenForCropAtPreviousInterval) - belowGroundResidueNitrogenForFieldAtCurrentInterval);
+            var result = (aboveGroundResidueNitrogenForFieldAtPreviousInterval - aboveGroundResidueNitrogenForFieldAtCurrentInterval - aboveGroundResidueNitrogenForCropAtCurrentInterval) +
+                         (belowGroundResidueNitrogenForFieldAtPreviousInterval - belowGroundResidueNitrogenForFieldAtCurrentInterval - belowGroundResidueNitrogenForCropAtCurrentInterval);
+
+            if (result < 0)
+            {
+                result = 0;
+            }
 
             return result;
         }
@@ -374,10 +400,10 @@ namespace H.Core.Calculators.Carbon
                 base.CropResiduePool = this.CalculateCropResiduesAtInterval(
                     aboveGroundResidueNitrogenForFieldAtCurrentInterval: base.CurrentYearResults.AboveGroundResiduePool_AGresidueN,
                     aboveGroundResidueNitrogenForFieldAtPreviousInterval: base.PreviousYearResults.AboveGroundResiduePool_AGresidueN,
-                    aboveGroundResidueNitrogenForCropAtPreviousInterval: base.PreviousYearResults.CombinedAboveGroundResidueNitrogen,
+                    aboveGroundResidueNitrogenForCropAtCurrentInterval: base.CurrentYearResults.CombinedAboveGroundResidueNitrogen,
                     belowGroundResidueNitrogenForFieldAtCurrentInterval: base.CurrentYearResults.BelowGroundResiduePool_BGresidueN,
                     belowGroundResidueNitrogenForFieldAtPreviousInterval: base.PreviousYearResults.BelowGroundResiduePool_BGresidueN,
-                    belowGroundResidueNitrogenForCropAtPreviousInterval: base.PreviousYearResults.CombinedBelowGroundResidueNitrogen);
+                    belowGroundResidueNitrogenForCropAtCurrentInterval: base.CurrentYearResults.CombinedBelowGroundResidueNitrogen);
             }
 
             base.CurrentYearResults.CropResiduesBeforeAdjustment = base.CropResiduePool;

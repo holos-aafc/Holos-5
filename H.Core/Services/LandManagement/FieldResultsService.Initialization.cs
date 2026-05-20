@@ -659,7 +659,7 @@ namespace H.Core.Services.LandManagement
             AssignSystemDefaults(grainCropViewItem, farm, globalSettings);
 
             // We specifically find the PlantCarbonInAgriculturalProduct of the grain crop as that is needed in the yield calculation.
-            grainCropViewItem.PlantCarbonInAgriculturalProduct = _icbmSoilCarbonCalculator.CalculatePlantCarbonInAgriculturalProduct(previousYearViewItem:null, currentYearViewItem:grainCropViewItem, farm:farm);
+            grainCropViewItem.PlantCarbonInAgriculturalProduct = _icbmCarbonInputCalculator.CalculatePlantCarbonInAgriculturalProduct(previousYearViewItem:null!, currentYearViewItem:grainCropViewItem, farm:farm);
 
             // We then calculate the wet and dry yield of the crop.
             silageCropViewItem.DryYield = CalculateSilageCropYield(grainCropViewItem: grainCropViewItem);

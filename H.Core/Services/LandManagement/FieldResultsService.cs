@@ -79,6 +79,12 @@ namespace H.Core.Services.LandManagement
 
         private readonly IClimateParameterCalculator _climateParameterCalculator = new ClimateParameterCalculator();
         private readonly ICBMSoilCarbonCalculator _icbmSoilCarbonCalculator;
+        // ICBM crop-carbon-input math (Eq. 2.1.2-x). The soil calculator used to carry its own
+        // copies of these methods; they were stale pre-port leftovers (the duplicate was flagged
+        // as Phase 4 follow-up #3). Input assignment now routes here, matching v4's wiring where
+        // FieldResultsService delegates inputs to the carbon-input calculator and the soil
+        // calculator handles only pool dynamics + nitrogen.
+        private readonly IICBMCarbonInputCalculator _icbmCarbonInputCalculator = new ICBMCarbonInputCalculator();
         private readonly IPCCTier2SoilCarbonCalculator _tier2SoilCarbonCalculator;
         private readonly ITillageFactorCalculator _tillageFactorCalculator = new TillageFactorCalculator();
         private readonly UnitsOfMeasurementCalculator _unitsCalculator = new UnitsOfMeasurementCalculator();

@@ -17,11 +17,12 @@ namespace H.Core.Services.LandManagement
             CropViewItem viewItem,
             FertilizerApplicationViewItem fertilizerApplicationViewItem)
         {
-            _icbmSoilCarbonCalculator.SetCarbonInputs(
-                previousYearViewItem: null,
+            _icbmCarbonInputCalculator.AssignInputs(
+                previousYearViewItem: null!,
                 currentYearViewItem: viewItem,
-                nextYearViewItem: null,
-                farm: farm);
+                nextYearViewItem: null!,
+                farm: farm,
+                animalResults: this.AnimalResults);
 
             var nitrogenContentOfGrainReturnedToSoil = _n2OEmissionFactorCalculator.CalculateGrainNitrogenTotal(
                 carbonInputFromAgriculturalProduct: viewItem.PlantCarbonInAgriculturalProduct,

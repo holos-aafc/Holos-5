@@ -154,11 +154,12 @@ namespace H.Core.Services.LandManagement
                 }
                 else
                 {
-                    _icbmSoilCarbonCalculator.SetCarbonInputs(
-                        previousYearViewItem: previousYearViewItem,
+                    _icbmCarbonInputCalculator.AssignInputs(
+                        previousYearViewItem: previousYearViewItem!,
                         currentYearViewItem: currentYearViewItem,
-                        nextYearViewItem: nextYearViewItem,
-                        farm: farm);
+                        nextYearViewItem: nextYearViewItem!,
+                        farm: farm,
+                        animalResults: this.AnimalResults);
                 }
                 inputsMs += innerSw.ElapsedMilliseconds;
 
@@ -190,11 +191,12 @@ namespace H.Core.Services.LandManagement
                 }
                 else
                 {
-                    _icbmSoilCarbonCalculator.SetCarbonInputs(
-                        previousYearViewItem: null,
+                    _icbmCarbonInputCalculator.AssignInputs(
+                        previousYearViewItem: null!,
                         currentYearViewItem: secondaryCrop,
-                        nextYearViewItem: null,
-                        farm: farm);
+                        nextYearViewItem: null!,
+                        farm: farm,
+                        animalResults: this.AnimalResults);
                 }
             }
             secondaryLoopMs = sw.ElapsedMilliseconds;
@@ -605,7 +607,7 @@ namespace H.Core.Services.LandManagement
                     }
                     else
                     {
-                        _icbmSoilCarbonCalculator.SetCarbonInputs(null, runInPeriodItem, null, farm);
+                        _icbmCarbonInputCalculator.AssignInputs(null!, runInPeriodItem, null!, farm, this.AnimalResults);
                     }
                 }
 

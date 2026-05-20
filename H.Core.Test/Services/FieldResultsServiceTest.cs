@@ -460,12 +460,15 @@ namespace H.Core.Test.Services
                 }
             };
 
-            // Required N of plant = 18.849600000000002
-            // Required amount of product = (18.849600000000002 / 25) * 100; 
+            // Plant C in agricultural product (C_p) is computed by ICBMCarbonInputCalculator using
+            // the v4 gross-yield form: C_p = (Yield / (1 - %ProductReturned/100)) * (1 - moisture) * C.
+            // (The pre-port soil-calc copy used the additive form Yield * (1 + %returned/100), which
+            // gave the slightly lower 135.71712. Phase 4 follow-up #3 routed inputs through the
+            // ICBM input calculator, so the spec-correct gross-yield value is expected here.)
 
             var result = _resultsService.CalculateAmountOfProductRequired(farm, viewItem, fertilizerApplicationViewItem);
 
-            Assert.AreEqual(135.71712, result);
+            Assert.AreEqual(135.77142857142857, result);
         }
 
         #endregion

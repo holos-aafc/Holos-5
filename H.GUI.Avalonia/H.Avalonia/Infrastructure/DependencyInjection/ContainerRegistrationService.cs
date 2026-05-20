@@ -112,6 +112,11 @@ namespace H.Avalonia.Infrastructure.DependencyInjection
         {
             _logger.LogInformation("Starting dependency injection container registration process");
 
+            // Shared calculation/core registrations live in CoreModule so the GUI and the CLI
+            // resolve the same graph from one source. Run it first; the region methods below add
+            // the GUI-only registrations (views, view models, mappers, dialogs, GUI services).
+            new CoreModule().RegisterTypes(containerRegistry);
+
             RegisterStorage(containerRegistry);
             RegisterViews(containerRegistry);
             RegisterProviders(containerRegistry);
@@ -402,11 +407,9 @@ namespace H.Avalonia.Infrastructure.DependencyInjection
             containerRegistry.RegisterSingleton<ICountrySettings, CountrySettings>();
             containerRegistry.Register<ICountries, CountriesService>();
             containerRegistry.RegisterSingleton<IProvinces, ProvincesService>();
-            containerRegistry.RegisterSingleton<IDietProvider, DietProvider>();
-            containerRegistry.RegisterSingleton<IFeedIngredientProvider, FeedIngredientProvider>();
-            containerRegistry.RegisterSingleton<IClimateProvider, ClimateProvider>();
-            containerRegistry.RegisterSingleton<ISlcClimateProvider, SlcClimateDataProvider>();
-            
+            // IDietProvider / IFeedIngredientProvider / IClimateProvider / ISlcClimateProvider are
+            // registered by CoreModule (called first in RegisterAllTypes).
+
             _logger.LogInformation("Successfully registered data providers");
         }
 
@@ -428,8 +431,6 @@ namespace H.Avalonia.Infrastructure.DependencyInjection
             containerRegistry.RegisterSingleton<IDairyComponentService, DairyComponentService>();
             containerRegistry.RegisterSingleton<IClimateService, ClimateService>();
             containerRegistry.RegisterSingleton<IFarmResultsService_NEW, FarmResultsService_NEW>();
-            containerRegistry.RegisterSingleton<IDietService, DefaultDietService>();
-            containerRegistry.RegisterSingleton<ICropInitializationService, CropInitializationService>();
             containerRegistry.RegisterSingleton<IAnimalComponentService, AnimalComponentService>();
             containerRegistry.RegisterSingleton<IManagementPeriodService, ManagementPeriodService>();
             containerRegistry.RegisterSingleton<IErrorHandlerService, ErrorHandlerService>();
@@ -438,36 +439,12 @@ namespace H.Avalonia.Infrastructure.DependencyInjection
             containerRegistry.RegisterSingleton<IDefaultGeocoderService, NominatimGeocoderService>();
             containerRegistry.RegisterSingleton<ICropColorService, CropColorService>();
 
-            // Manure / digestate / field-component helpers — needed so the carbon calculators below
-            // resolve their constructor-injected dependencies (shared singletons).
-            containerRegistry.RegisterSingleton<IManureService, ManureService>();
-            containerRegistry.RegisterSingleton<IDigestateService, DigestateService>();
-            containerRegistry.RegisterSingleton<IFieldComponentHelper, FieldComponentHelper>();
+            // The calculation stack — carbon input calculators, CarbonService, soil/N calculators,
+            // N2OEmissionFactorCalculator, IAnimalService, IFieldResultsService, IFarmAnalysisService,
+            // ShelterbeltCalculator, manure/digestate/field-component helpers, IDietService,
+            // ICropInitializationService and IUnitsOfMeasurementCalculator — is registered by
+            // CoreModule (called first in RegisterAllTypes), shared with the CLI.
 
-            // Carbon input calculators + orchestrating CarbonService (also registered in CoreModule
-            // for non-GUI consumers; duplicated here for parity with the rest of the GUI service
-            // wiring).
-            containerRegistry.RegisterSingleton<IICBMCarbonInputCalculator, ICBMCarbonInputCalculator>();
-            containerRegistry.RegisterSingleton<IIPCCTier2CarbonInputCalculator, IPCCTier2CarbonInputCalculator>();
-            containerRegistry.RegisterSingleton<ICarbonService, CarbonService>();
-
-            // Phase 5: soil/N calculator stack + FieldResultsService + FarmAnalysisService.
-            // Concrete soil/N calculators are also registered so FieldResultsService's
-            // constructor-injected dependencies resolve.
-            containerRegistry.RegisterSingleton<N2OEmissionFactorCalculator>();
-            containerRegistry.RegisterSingleton<ICBMSoilCarbonCalculator>();
-            containerRegistry.RegisterSingleton<IPCCTier2SoilCarbonCalculator>();
-            // IAnimalService is a transitive dep of IFarmAnalysisService — without this
-            // registration, Prism silently falls back to GHGResultsViewModel's parameterless
-            // constructor, leaving _logger / _farmAnalysisService null and NRE'ing on first navigate.
-            containerRegistry.RegisterSingleton<IAnimalService, AnimalResultsService>();
-            containerRegistry.RegisterSingleton<IFieldResultsService, FieldResultsService>();
-            containerRegistry.RegisterSingleton<ShelterbeltCalculator>();
-            containerRegistry.RegisterSingleton<IFarmAnalysisService, FarmAnalysisService>();
-
-            // Unit conversion
-            containerRegistry.RegisterSingleton<IUnitsOfMeasurementCalculator, UnitsOfMeasurementCalculator>();
-            
             _logger.LogInformation("Successfully registered application services");
         }
 
@@ -482,7 +459,7 @@ namespace H.Avalonia.Infrastructure.DependencyInjection
         {
             _logger.LogDebug("Registering factory services");
             
-            containerRegistry.RegisterSingleton<IDietFactory, DietFactory>();
+            // IDietFactory is registered by CoreModule (called first).
             containerRegistry.RegisterSingleton<IFarmFactory, FarmFactory>();
             containerRegistry.RegisterSingleton<IManagementPeriodFactory, ManagementPeriodFactory>();
             containerRegistry.RegisterSingleton<IDailyClimateDataFactory, DailyClimateDataFactory>();
@@ -511,9 +488,9 @@ namespace H.Avalonia.Infrastructure.DependencyInjection
         private void RegisterTables(IContainerRegistry containerRegistry)
         {
             _logger.LogDebug("Registering table providers");
-            
-            containerRegistry.RegisterSingleton<ITable50FuelEnergyEstimatesProvider, Table50FuelEnergyEstimatesProvider>();
-            
+
+            // ITable50FuelEnergyEstimatesProvider is registered by CoreModule (called first).
+
             _logger.LogInformation("Successfully registered table providers");
         }
 

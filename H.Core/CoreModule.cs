@@ -9,12 +9,14 @@ using H.Core.Calculators.UnitsOfMeasurement;
 using H.Core.Providers;
 using H.Core.Providers.Carbon;
 using H.Core.Providers.Climate;
+using H.Core.Providers.Energy;
 using H.Core.Providers.Feed;
 using H.Core.Providers.Soil;
 using H.Core.Services;
 using H.Core.Services.Analysis;
 using H.Core.Services.Animals;
 using H.Core.Services.DietService;
+using H.Core.Services.Initialization;
 using H.Core.Services.LandManagement;
 using Prism.Ioc;
 using Prism.Modularity;
@@ -83,8 +85,17 @@ namespace H.Core
             containerRegistry.RegisterSingleton<IGeographicDataProvider, GeographicDataProvider>();
             containerRegistry.RegisterSingleton<IFeedIngredientProvider, FeedIngredientProvider>();
 
+            // Climate providers — needed by N2OEmissionFactorCalculator / ICBMSoilCarbonCalculator.
+            containerRegistry.RegisterSingleton<IClimateProvider, ClimateProvider>();
+            containerRegistry.RegisterSingleton<ISlcClimateProvider, SlcClimateDataProvider>();
+
+            // Crop initialization (CLI ProcessCommandLineItems needs it; it depends on the host
+            // providing ILogger + ICacheService, which both front-ends register separately).
+            containerRegistry.RegisterSingleton<ITable50FuelEnergyEstimatesProvider, Table50FuelEnergyEstimatesProvider>();
+            containerRegistry.RegisterSingleton<ICropInitializationService, CropInitializationService>();
+
             containerRegistry.RegisterSingleton<IUnitsOfMeasurementCalculator, UnitsOfMeasurementCalculator>();
-            
+
             // Diet services
             containerRegistry.RegisterSingleton<IDietFactory, DietFactory>();
             containerRegistry.RegisterSingleton<IDietService, DefaultDietService>();

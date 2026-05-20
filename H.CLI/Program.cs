@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using H.CLI.FileAndDirectoryAccessors;
+using H.CLI.Infrastructure;
 using H.CLI.UserInput;
 using H.CLI.Processors;
 using H.Core.Providers;
@@ -18,6 +19,7 @@ using H.Core.Providers.Climate;
 using H.Core.Services.Animals;
 using H.Core.Services.LandManagement;
 using H.Localization.Resources.Strings;
+using Prism.Ioc;
 
 namespace H.CLI
 {
@@ -31,9 +33,13 @@ namespace H.CLI
             CLIArguments argValues = new CLIArguments();
             argValues.ParseArgs(args);
 
-            // CLI Language 
+            // CLI Language
             var userCulture = CultureInfo.CurrentCulture;
             CLILanguageConstants.SetCulture(userCulture);
+
+            // DI container — reuses CoreModule (the shared calculation registrations) so the CLI
+            // resolves the same calculator graph the GUI does instead of hand-constructing it.
+            var container = CliCompositionRoot.Build();
 
             // Farm directory access
             var directoryHandler = new DirectoryHandler();
@@ -164,13 +170,9 @@ namespace H.CLI
                     Console.WriteLine();
                     Console.WriteLine(AppStrings.Status_StartingProcessing);
 
-                    var climateProvider = new ClimateProvider(new SlcClimateDataProvider());
-                    var n2oEmissionFactorCalculator = new N2OEmissionFactorCalculator(climateProvider);
-                    var iCBMSoilCarbonCalculator = new ICBMSoilCarbonCalculator(climateProvider, n2oEmissionFactorCalculator);
-                    var ipcc = new IPCCTier2SoilCarbonCalculator(climateProvider, n2oEmissionFactorCalculator);
-                    var icbmCarbonInputCalculator = new ICBMCarbonInputCalculator(new ManureService(), new DigestateService(), new AnimalResultsService());
-
-                    var fieldResultsService = new FieldResultsService(iCBMSoilCarbonCalculator, ipcc, n2oEmissionFactorCalculator, icbmCarbonInputCalculator);
+                    // Resolve the field-results service (and its whole calculator graph) from the
+                    // shared CoreModule registrations instead of hand-constructing the stack.
+                    var fieldResultsService = container.Resolve<IFieldResultsService>();
                     // Overall Results For All the Farms
                     var componentResults = new ComponentResultsProcessor(storage, new TimePeriodHelper(), fieldResultsService);
 

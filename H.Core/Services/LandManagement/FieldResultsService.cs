@@ -458,34 +458,8 @@ namespace H.Core.Services.LandManagement
             List<AnimalComponentEmissionsResults> results,
             GrazingViewItem grazingViewItem)
         {
-            var result = new List<GroupEmissionsByMonth>();
-
-            // Get all animal components that have been placed on this field for grazing.
-            var animalComponentEmissionsResults = results.SingleOrDefault(x => x.Component.Guid == grazingViewItem.AnimalComponentGuid);
-            if (animalComponentEmissionsResults != null)
-            {
-                //Get all animal groups that have been placed on this field for grazing.
-                var groupEmissionResults = animalComponentEmissionsResults.EmissionResultsForAllAnimalGroupsInComponent.SingleOrDefault(x => x.AnimalGroup.Guid == grazingViewItem.AnimalGroupGuid);
-                if (groupEmissionResults != null)
-                {
-                    // Get emissions from the group when they are placed on pasture (housing type is pasture)
-                    foreach (var groupEmissionsByMonth in groupEmissionResults.GroupEmissionsByMonths)
-                    {
-                        if (groupEmissionsByMonth.MonthsAndDaysData.ManagementPeriod.HousingDetails.HousingType.IsPasture())
-                        {
-                            var start = groupEmissionsByMonth.MonthsAndDaysData.ManagementPeriod.Start;
-                            var end = groupEmissionsByMonth.MonthsAndDaysData.ManagementPeriod.End;
-
-                            if (start >= grazingViewItem.Start && end <= grazingViewItem.End)
-                            {
-                                result.Add(groupEmissionsByMonth);
-                            }
-                        }
-                    }
-                }
-            }
-
-            return result;
+            // Delegates to the animal service (Phase 4 follow-up #4 — was a private copy here).
+            return this.AnimalResultsService.GetGroupEmissionsFromGrazingAnimals(results, grazingViewItem);
         }
 
         #endregion

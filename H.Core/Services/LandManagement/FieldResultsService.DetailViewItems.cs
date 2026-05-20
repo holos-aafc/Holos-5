@@ -221,31 +221,11 @@ namespace H.Core.Services.LandManagement
         /// </summary>
         public CropViewItem? GetMainCropForYear(
             IEnumerable<CropViewItem> viewItems,
-            int year,
-            FieldSystemComponent fieldSystemComponent)
+            int year)
         {
-            var detailViewItemsForYear = viewItems.Where(x => x.Year == year).ToList();
-            if (detailViewItemsForYear.Any() == false)
-            {
-                return null;
-            }
-
-            if (detailViewItemsForYear.Count() == 1)
-            {
-                // There is only one crop grown, return it as the main crop
-                return detailViewItemsForYear.Single();
-            }
-
-            var mainCrop = detailViewItemsForYear.FirstOrDefault(x => x.IsSecondaryCrop == false);
-            if (mainCrop is not null)
-            {
-                return mainCrop;
-            }
-            else
-            {
-                // Old farms won't have this boolean set, so return first item or have user rebuild stage state
-                return detailViewItemsForYear.First();
-            }
+            // Delegates to the field-component helper (Phase 4 follow-up #4 — was a private copy
+            // here; the old fieldSystemComponent parameter was never used and has been dropped).
+            return _fieldComponentHelper.GetMainCropForYear(viewItems, year);
         }
 
         /// <summary>
@@ -266,7 +246,7 @@ namespace H.Core.Services.LandManagement
                 var viewItemsForYear = viewItems.Where(x => x.Year == year);
                 
                 // Get the main crop
-                var mainCrop = this.GetMainCropForYear(viewItemsForYear, year, fieldSystemComponent);
+                var mainCrop = this.GetMainCropForYear(viewItemsForYear, year);
                 if (mainCrop == null) continue;
 
                 // Combine inputs from other crops grown in the same year (undersown, cover crop, etc.)
@@ -339,7 +319,7 @@ namespace H.Core.Services.LandManagement
                 var itemsForYear = viewItems.Where(x => x.Year == year);
 
                 // Get the main crop
-                var mainCropForYear = this.GetMainCropForYear(itemsForYear, year, fieldSystemComponent);
+                var mainCropForYear = this.GetMainCropForYear(itemsForYear, year);
                 if (mainCropForYear == null) continue;
 
                 // Copy the item

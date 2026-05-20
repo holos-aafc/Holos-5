@@ -446,3 +446,9 @@ H.CLI/sync.ffs_db
 /perf_output4.txt
 /perf_output5.txt
 /perf_output6.txt
+.vscode/settings.json
+holos-algorithm-doc/main.aux
+holos-algorithm-doc/main.synctex.gz
+holos-algorithm-doc/main.toc
+holos-algorithm-doc/main.out
+holos-algorithm-doc/main.pdf

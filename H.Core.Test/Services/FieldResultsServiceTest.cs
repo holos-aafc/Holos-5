@@ -1817,6 +1817,42 @@ namespace H.Core.Test.Services
             Assert.AreEqual(0, viewItem.BelowGroundCarbonInput);
         }
 
+        [TestMethod]
+        public void AssignGrazingViewItemsBuildsItemForPastureManagementPeriodOnField()
+        {
+            var field = base.GetTestFieldComponent();
+            var farm = new Farm();
+            farm.Components.Add(base.GetTestGrazingAnimalComponent(field));
+
+            var viewItem = new CropViewItem()
+            {
+                CropType = CropType.TameGrass,
+                FieldSystemComponentGuid = field.Guid,
+            };
+
+            _resultsService.AssignGrazingViewItems(farm, viewItem, field);
+
+            Assert.AreEqual(1, viewItem.GrazingViewItems.Count);
+            Assert.AreEqual(Enumerations.ForageActivities.Grazed, viewItem.GrazingViewItems[0].ForageActivity);
+            Assert.AreEqual(80, viewItem.GrazingViewItems[0].MoistureContentAsPercentage);
+        }
+
+        [TestMethod]
+        public void AssignGrazingViewItemsLeavesNoItemsWhenNoAnimalsOnPasture()
+        {
+            var field = base.GetTestFieldComponent();
+            var farm = new Farm();
+            var viewItem = new CropViewItem()
+            {
+                CropType = CropType.TameGrass,
+                FieldSystemComponentGuid = field.Guid,
+            };
+
+            _resultsService.AssignGrazingViewItems(farm, viewItem, field);
+
+            Assert.AreEqual(0, viewItem.GrazingViewItems.Count);
+        }
+
         #endregion
     }
 }

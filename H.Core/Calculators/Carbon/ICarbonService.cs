@@ -74,11 +74,9 @@ public interface ICarbonService
     void CombineCarbonInputs(Farm farm,
         List<CropViewItem> viewItems);
 
-    // ProcessCommandLineItems: deferred. The v4 implementation depends on InitializeYield,
-    // InitializeLigninContent, InitializeMoistureContent, InitializeBiomassCoefficient{Product,Straw,
-    // Roots,Extraroots}, and InitializeGrazingViewItems on ICropInitializationService — none of which
-    // are ported yet in v5. CLI integration will reintroduce this method alongside that plumbing
-    // in a later phase (4.4 / 4.5 GUI-then-CLI critical path).
+    // Note: command-line residue-input recalculation lives on FieldResultsService
+    // (ProcessCommandLineItems), which reuses that service's existing Assign* initialization
+    // methods, rather than here on CarbonService.
 
     double GetSupplementalLosses(
         CropViewItem previousYearViewItem,

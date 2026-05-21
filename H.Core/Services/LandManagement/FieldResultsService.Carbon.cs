@@ -125,6 +125,15 @@ namespace H.Core.Services.LandManagement
                 }
 
                 this.AssignNitrogenFixation(currentYearViewItem);
+
+                // Command-line farms have no interactive step to build grazing view items; generate
+                // them from the farm's animal management periods so grazing-animal carbon and
+                // nitrogen contributions (manure on pasture, supplemental feed) are included.
+                var field = farm.GetFieldSystemComponent(currentYearViewItem.FieldSystemComponentGuid);
+                if (field != null)
+                {
+                    this.AssignGrazingViewItems(farm, currentYearViewItem, field);
+                }
             }
         }
 

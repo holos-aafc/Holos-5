@@ -2,6 +2,7 @@
 using H.Core.Enumerations;
 using H.Core.Mappers;
 using H.Core.Models;
+using H.Core.Models.Animals;
 using H.Core.Models.LandManagement.Fields;
 using H.Core.Providers.Soil;
 using H.Infrastructure;
@@ -83,6 +84,85 @@ namespace H.Core.Services.LandManagement
         public void AssignNitrogenFixation(CropViewItem viewItem)
         {
             viewItem.NitrogenFixationPercentage = _nitrogenFixationProvider.GetNitrogenFixationResult(viewItem.CropType).Fixation * 100;
+        }
+
+        /// <summary>
+        /// Rebuilds a crop's grazing view items from the farm's animal management periods that place
+        /// animals on pasture on this field. The GUI builds these interactively; command-line farms
+        /// have no such step, so they must be generated before the grazing carbon/nitrogen
+        /// contributions (manure on pasture, supplemental feed) can be calculated.
+        /// </summary>
+        public void AssignGrazingViewItems(Farm farm, CropViewItem viewItem, FieldSystemComponent fieldSystemComponent)
+        {
+            var existingItems = new List<GrazingViewItem>();
+            var newItems = new List<GrazingViewItem>();
+
+            foreach (var animalComponent in farm.AnimalComponents)
+            {
+                foreach (var animalGroup in animalComponent.Groups)
+                {
+                    foreach (var managementPeriod in animalGroup.ManagementPeriods)
+                    {
+                        // Only management periods that put the animals on this field's pasture.
+                        if (managementPeriod.HousingDetails.PastureLocation == null ||
+                            managementPeriod.HousingDetails.HousingType != HousingType.Pasture ||
+                            managementPeriod.HousingDetails.PastureLocation.Guid.Equals(fieldSystemComponent.Guid) == false)
+                        {
+                            continue;
+                        }
+
+                        var grazingViewItem = new GrazingViewItem();
+                        this.AssignGrazingViewItem(grazingViewItem, managementPeriod, animalComponent, animalGroup, viewItem);
+
+                        var alreadyPresent = viewItem.GrazingViewItems.SingleOrDefault(x =>
+                            x.AnimalComponentGuid == animalComponent.Guid &&
+                            x.ManagementPeriodGuid == managementPeriod.Guid &&
+                            x.AnimalGroupGuid == animalGroup.Guid &&
+                            x.Start.Date == managementPeriod.Start.Date &&
+                            x.End.Date == managementPeriod.End.Date);
+
+                        if (alreadyPresent != null)
+                        {
+                            existingItems.Add(alreadyPresent);
+                        }
+                        else
+                        {
+                            newItems.Add(grazingViewItem);
+                        }
+                    }
+                }
+            }
+
+            viewItem.GrazingViewItems.Clear();
+            foreach (var grazingViewItem in existingItems)
+            {
+                viewItem.GrazingViewItems.Add(grazingViewItem);
+            }
+            foreach (var grazingViewItem in newItems)
+            {
+                viewItem.GrazingViewItems.Add(grazingViewItem);
+            }
+        }
+
+        private void AssignGrazingViewItem(
+            GrazingViewItem grazingViewItem,
+            ManagementPeriod managementPeriod,
+            AnimalComponentBase animalComponent,
+            AnimalGroup animalGroup,
+            CropViewItem cropViewItem)
+        {
+            grazingViewItem.Start = managementPeriod.Start;
+            grazingViewItem.End = managementPeriod.End;
+            grazingViewItem.ForageActivity = ForageActivities.Grazed;
+            grazingViewItem.AnimalComponentGuid = animalComponent.Guid;
+            grazingViewItem.ManagementPeriodGuid = managementPeriod.Guid;
+            grazingViewItem.AnimalGroupGuid = animalGroup.Guid;
+            grazingViewItem.ManagementPeriodName = managementPeriod.Name;
+
+            // Table 9 moisture content for grazed fields.
+            grazingViewItem.MoistureContentAsPercentage = 80;
+
+            grazingViewItem.Utilization = _utilizationRatesForLivestockGrazingProvider.GetUtilizationRate(cropViewItem.CropType);
         }
 
         public void AssignHarvestMethod(CropViewItem viewItem, Farm farm)

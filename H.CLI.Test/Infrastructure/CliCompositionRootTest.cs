@@ -1,5 +1,6 @@
 using H.CLI.Infrastructure;
 using H.Core.Calculators.Carbon;
+using H.Core.Services.Initialization;
 using H.Core.Services.LandManagement;
 using Prism.Ioc;
 
@@ -26,6 +27,15 @@ namespace H.CLI.Test.Infrastructure
             var container = CliCompositionRoot.Build();
 
             Assert.IsNotNull(container.Resolve<ICarbonService>());
+        }
+
+        [TestMethod]
+        public void Build_ResolvesCropInitializationService()
+        {
+            // Depends on the host-provided ILogger / IMemoryCache / ICacheService registered above.
+            var container = CliCompositionRoot.Build();
+
+            Assert.IsNotNull(container.Resolve<ICropInitializationService>());
         }
     }
 }

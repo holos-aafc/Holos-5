@@ -1,4 +1,6 @@
 using H.Core;
+using H.Infrastructure.Services;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using Prism.DryIoc;
@@ -13,17 +15,11 @@ namespace H.CLI.Infrastructure
     ///
     /// <para>
     /// <see cref="CoreModule"/> owns the calculation registrations; the host supplies the small set
-    /// of infrastructure it depends on. The CLI has no UI logging surface, so a
+    /// of infrastructure it depends on: an <see cref="ILogger"/>, an <see cref="IMemoryCache"/> and
+    /// an <see cref="ICacheService"/>. The CLI has no UI logging surface, so a
     /// <see cref="NullLogger"/> satisfies the <see cref="ILogger"/> dependency — diagnostic logging
     /// still flows through NLog at each call site via <c>LogManager.GetCurrentClassLogger()</c>.
     /// </para>
-    ///
-    /// <para><b>Not yet registered:</b> <c>IMemoryCache</c> / <c>ICacheService</c>. These are only
-    /// needed to resolve <c>ICropInitializationService</c>, which the CLI does not resolve yet — it
-    /// becomes relevant once command-line residue-input processing
-    /// (<c>CarbonService.ProcessCommandLineItems</c>) is wired up. At that point add a
-    /// <c>Microsoft.Extensions.Caching.Memory</c> package reference to H.CLI and register
-    /// <c>IMemoryCache</c> + <c>ICacheService → InMemoryCacheService</c> here.</para>
     /// </summary>
     public static class CliCompositionRoot
     {
@@ -33,9 +29,11 @@ namespace H.CLI.Infrastructure
 
             // Host-provided infrastructure that CoreModule's registrations depend on.
             container.RegisterInstance<ILogger>(NullLogger.Instance);
+            container.RegisterInstance<IMemoryCache>(new MemoryCache(new MemoryCacheOptions()));
+            container.RegisterSingleton<ICacheService, InMemoryCacheService>();
 
             // Shared calculation graph (carbon/soil/N calculators, CarbonService, FieldResultsService,
-            // providers, etc.).
+            // CropInitializationService, providers, etc.).
             new CoreModule().RegisterTypes(container);
 
             container.FinalizeExtension();

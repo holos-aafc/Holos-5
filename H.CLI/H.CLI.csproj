@@ -34,6 +34,11 @@
 		<ProjectReference Include="..\H.Localization\H.Localization.csproj" />
 	</ItemGroup>
 	<ItemGroup>
+		<!-- Concrete in-memory cache used by the DI composition root (CliCompositionRoot) to
+		     satisfy ICacheService -> InMemoryCacheService, which CropInitializationService needs. -->
+		<PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="9.0.9" />
+	</ItemGroup>
+	<ItemGroup>
 		<EmbeddedResource Update="Properties\Resources.resx">
 			<Generator>PublicResXFileCodeGenerator</Generator>
 			<LastGenOutput>Resources.Designer.cs</LastGenOutput>

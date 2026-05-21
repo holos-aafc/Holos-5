@@ -64,9 +64,9 @@ namespace H.Core
             containerRegistry.RegisterSingleton<IIPCCTier2CarbonInputCalculator, IPCCTier2CarbonInputCalculator>();
             containerRegistry.RegisterSingleton<ICarbonService, CarbonService>();
 
-            // Phase 5: GUI vertical slice — register the soil/N calculator stack as concrete
-            // singletons so FieldResultsService can be resolved via constructor injection, then
-            // expose IFieldResultsService and the new IFarmAnalysisService façade.
+            // Soil/N calculator stack registered as concrete singletons so FieldResultsService can
+            // be resolved via constructor injection, then expose IFieldResultsService and the
+            // IFarmAnalysisService façade.
             containerRegistry.RegisterSingleton<N2OEmissionFactorCalculator>();
             containerRegistry.RegisterSingleton<ICBMSoilCarbonCalculator>();
             containerRegistry.RegisterSingleton<IPCCTier2SoilCarbonCalculator>();

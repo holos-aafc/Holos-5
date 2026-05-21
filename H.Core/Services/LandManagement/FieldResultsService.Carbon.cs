@@ -40,9 +40,7 @@ namespace H.Core.Services.LandManagement
         /// <summary>
         /// Returns a year's previous / current / next <see cref="CropViewItem"/>s (needed by the
         /// perennial missing-yield interpolation and root-return continuity). Delegates to the
-        /// field-component helper (Phase 4 follow-up #4 — this was a private copy plus a nested
-        /// <c>AdjoiningYears</c> class shadowing <see cref="H.Core.Models.AdjoiningYears"/>; the
-        /// unused <c>fieldSystemComponent</c> parameter was dropped).
+        /// field-component helper, which owns this lookup.
         /// </summary>
         public AdjoiningYears GetAdjoiningYears(
             IEnumerable<CropViewItem> viewItems,

@@ -298,8 +298,8 @@ namespace H.Core.Calculators.Carbon
         /// History: the original v5 port had the crop-N term added rather than subtracted and used the
         /// previous-interval crop N (not the current-interval crop N) — both wrong relative to the spec
         /// above. v4 carried a matching sign-flip bug that was fixed in v4 commit 0188886 (`+ rootAndExudateN`
-        /// → `- rootAndExudateN`). The fix has been ported here together with the current-interval crop-N
-        /// fix and the &lt; 0 clamp. See Phase 4 follow-up #1 in MEMORY.md for the investigation trail.
+        /// → `- rootAndExudateN`). The fix is applied here together with the current-interval crop-N
+        /// correction and the &lt; 0 clamp.
         /// </para>
         /// </summary>
         /// <param name="aboveGroundResidueNitrogenForFieldAtCurrentInterval">YoungPoolAGresidue_N(t, field n) — kg N ha⁻¹.</param>

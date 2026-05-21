@@ -9,8 +9,8 @@ namespace H.Core.Services.Analysis;
 /// flat <see cref="FarmAnalysisResults"/> DTO that view models can bind to without depending on
 /// CropViewItem internals.
 ///
-/// Phase 5 vertical slice: a single synchronous method that runs the full analysis pipeline.
-/// Future phases will add cancellation, progress, and partial-result reporting.
+/// Currently a single synchronous method that runs the full analysis pipeline; cancellation,
+/// progress, and partial-result reporting may be added later.
 /// </summary>
 public interface IFarmAnalysisService
 {

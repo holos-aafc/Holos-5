@@ -223,8 +223,7 @@ namespace H.Core.Services.LandManagement
             IEnumerable<CropViewItem> viewItems,
             int year)
         {
-            // Delegates to the field-component helper (Phase 4 follow-up #4 — was a private copy
-            // here; the old fieldSystemComponent parameter was never used and has been dropped).
+            // Delegates to the field-component helper, which owns this lookup.
             return _fieldComponentHelper.GetMainCropForYear(viewItems, year);
         }
 

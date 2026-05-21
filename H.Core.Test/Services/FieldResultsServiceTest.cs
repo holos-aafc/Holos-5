@@ -55,9 +55,9 @@ namespace H.Core.Test.Services
         public void TestInitialize()
         {
             _mockAnimalResultsService = new Mock<IAnimalService>();
-            // FieldResultsService delegates GetGrazingManagementPeriods to the animal service
-            // (Phase 4 follow-up #4). Mirror the real (pure) implementation so the grazing-uptake
-            // tests that mock IAnimalService still resolve the periods from the animal group.
+            // FieldResultsService delegates GetGrazingManagementPeriods to the animal service.
+            // Mirror the real (pure) implementation so the grazing-uptake tests that mock
+            // IAnimalService still resolve the periods from the animal group.
             _mockAnimalResultsService
                 .Setup(x => x.GetGrazingManagementPeriods(It.IsAny<AnimalGroup>(), It.IsAny<FieldSystemComponent>()))
                 .Returns((AnimalGroup animalGroup, FieldSystemComponent fieldSystemComponent) =>
@@ -471,9 +471,8 @@ namespace H.Core.Test.Services
 
             // Plant C in agricultural product (C_p) is computed by ICBMCarbonInputCalculator using
             // the v4 gross-yield form: C_p = (Yield / (1 - %ProductReturned/100)) * (1 - moisture) * C.
-            // (The pre-port soil-calc copy used the additive form Yield * (1 + %returned/100), which
-            // gave the slightly lower 135.71712. Phase 4 follow-up #3 routed inputs through the
-            // ICBM input calculator, so the spec-correct gross-yield value is expected here.)
+            // (The older additive form Yield * (1 + %returned/100) gave the slightly lower 135.71712;
+            // the spec-correct gross-yield value is expected here.)
 
             var result = _resultsService.CalculateAmountOfProductRequired(farm, viewItem, fertilizerApplicationViewItem);
 

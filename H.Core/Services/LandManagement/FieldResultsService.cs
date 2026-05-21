@@ -79,11 +79,8 @@ namespace H.Core.Services.LandManagement
 
         private readonly IClimateParameterCalculator _climateParameterCalculator = new ClimateParameterCalculator();
         private readonly ICBMSoilCarbonCalculator _icbmSoilCarbonCalculator;
-        // ICBM crop-carbon-input math (Eq. 2.1.2-x). The soil calculator used to carry its own
-        // copies of these methods; they were stale pre-port leftovers (the duplicate was flagged
-        // as Phase 4 follow-up #3). Input assignment now routes here, matching v4's wiring where
-        // FieldResultsService delegates inputs to the carbon-input calculator and the soil
-        // calculator handles only pool dynamics + nitrogen.
+        // ICBM crop-carbon-input math (Eq. 2.1.2-x). Input assignment routes here while the soil
+        // calculator handles only pool dynamics + nitrogen, matching v4's layout.
         private readonly IICBMCarbonInputCalculator _icbmCarbonInputCalculator;
         private readonly IPCCTier2SoilCarbonCalculator _tier2SoilCarbonCalculator;
         private readonly ITillageFactorCalculator _tillageFactorCalculator = new TillageFactorCalculator();
@@ -458,7 +455,7 @@ namespace H.Core.Services.LandManagement
             List<AnimalComponentEmissionsResults> results,
             GrazingViewItem grazingViewItem)
         {
-            // Delegates to the animal service (Phase 4 follow-up #4 — was a private copy here).
+            // Delegates to the animal service (which owns the grazing-emissions lookup).
             return this.AnimalResultsService.GetGroupEmissionsFromGrazingAnimals(results, grazingViewItem);
         }
 

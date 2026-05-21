@@ -13,9 +13,8 @@ namespace H.Core.Calculators.Carbon;
 /// the ICBM pool dynamics consume.
 ///
 /// <para><b>Relationship to <see cref="ICBMSoilCarbonCalculator"/>:</b></para>
-/// The input-side math currently lives in both this class and on the soil-carbon calculator.
-/// The Phase 4 follow-up list in <c>MEMORY.md</c> tracks the migration that strips the
-/// duplicates from <see cref="ICBMSoilCarbonCalculator"/> in favour of this calculator.
+/// This class is the single home for the ICBM input-side math; the soil-carbon calculator owns
+/// only the pool-dynamics and nitrogen-interval math and consumes the inputs produced here.
 ///
 /// <para><b>Perennial-root floor:</b></para>
 /// <see cref="MinimumPerennialRootCarbonInput"/> = 450 kg C ha⁻¹ — Holos won't let perennial

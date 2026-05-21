@@ -33,9 +33,7 @@ namespace H.Core.Calculators.Carbon
     /// <para><b>Crop-carbon-input math lives elsewhere:</b></para>
     /// The per-crop, per-year input math (plant-C-in-product, residue fractions, manure /
     /// digestate C) lives on <see cref="ICBMCarbonInputCalculator"/> (Eq. 2.1.2-x), reached via
-    /// <c>CarbonService</c> / <c>FieldResultsService</c>. This calculator used to carry duplicate
-    /// copies of those methods; they were stale pre-port leftovers and were removed (Phase 4
-    /// follow-up #3) so the input math has a single home matching the v4 source layout.
+    /// <c>CarbonService</c> / <c>FieldResultsService</c>, so the input math has a single home.
     ///
     /// <para><b>Failure mode to watch for:</b></para>
     /// Every steady-state and interval equation has the form

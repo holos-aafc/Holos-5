@@ -10,7 +10,7 @@ using H.Core.Services.LandManagement;
 namespace H.Core.Test.Services;
 
 /// <summary>
-/// Phase 4.5 smoke tests for <see cref="FieldResultsService.CalculateFinalResults(Farm)"/>.
+/// Smoke tests for <see cref="FieldResultsService.CalculateFinalResults(Farm)"/>.
 ///
 /// Verifies that the orchestrator entry point can be constructed via the v5 carbon-calculator
 /// stack (ICBMSoilCarbonCalculator + IPCCTier2SoilCarbonCalculator + N2OEmissionFactorCalculator)

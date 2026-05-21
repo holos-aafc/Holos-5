@@ -412,9 +412,9 @@ namespace H.Core.Test.Calculators
         //   If N_CropResidues(t) < 0, N_CropResidues(t) = 0.
         //
         // These tests pin the formula against the spec so a future "tidy-up" can't silently
-        // flip the sign back. The original v5 port had both a sign error on the crop-N term and
-        // a year-index error (previous-interval rather than current-interval crop N); the v4
-        // sign fix shipped in v4 commit 0188886. See MEMORY.md "Phase 4 follow-up #1" for trail.
+        // flip the sign back. An earlier version had both a sign error on the crop-N term and a
+        // year-index error (previous-interval rather than current-interval crop N); the matching
+        // v4 sign fix shipped in v4 commit 0188886.
 
         [TestMethod]
         public void CalculateCropResiduesAtInterval_AppliesSpecFormula()

@@ -50,6 +50,67 @@ namespace H.Core.Services.LandManagement
         }
 
         /// <summary>
+        /// Command-line residue-input fill. For farms loaded from the CLI input files, recalculate
+        /// any carbon-input prerequisites the user left at zero — their opt-in signal to have Holos
+        /// compute them. A no-op in GUI mode, where these are already assigned during stage-state
+        /// build. Every step is guarded on a zero value, so user-supplied non-zero values are
+        /// preserved.
+        ///
+        /// <para>
+        /// The carbon model cannot run without above- and below-ground residue inputs, so when the
+        /// user has zeroed both, default biomass coefficients are assigned and the inputs are
+        /// recomputed via the ICBM input calculator (which also re-derives manure inputs).
+        /// </para>
+        /// </summary>
+        public void ProcessCommandLineItems(List<CropViewItem> viewItems, Farm farm)
+        {
+            if (farm.IsCommandLineMode == false)
+            {
+                return;
+            }
+
+            foreach (var item in viewItems)
+            {
+                var adjoiningYears = this.GetAdjoiningYears(viewItems, item.Year);
+                var currentYearViewItem = adjoiningYears.CurrentYearViewItem;
+                if (currentYearViewItem == null)
+                {
+                    continue;
+                }
+
+                if (currentYearViewItem.Yield == 0)
+                {
+                    this.AssignYield(currentYearViewItem, farm);
+                }
+
+                if (currentYearViewItem.LigninContent == 0)
+                {
+                    this.AssignDefaultLigninContent(currentYearViewItem, farm);
+                }
+
+                if (currentYearViewItem.MoistureContentOfCropPercentage == 0)
+                {
+                    this.AssignDefaultMoistureContent(currentYearViewItem, farm);
+                }
+
+                var cropResidueInputsNeedRecalculating =
+                    currentYearViewItem.AboveGroundCarbonInput == 0 &&
+                    currentYearViewItem.BelowGroundCarbonInput == 0;
+                if (cropResidueInputsNeedRecalculating)
+                {
+                    this.AssignDefaultBiomassCoefficients(currentYearViewItem, farm);
+
+                    _icbmCarbonInputCalculator.AssignInputs(
+                        previousYearViewItem: adjoiningYears.PreviousYearViewItem!,
+                        currentYearViewItem: currentYearViewItem,
+                        nextYearViewItem: adjoiningYears.NextYearViewItem!,
+                        farm: farm,
+                        animalResults: this.AnimalResults);
+                }
+            }
+        }
+
+        /// <summary>
         /// Before carbon change can be calculated, all view items must have yields assigned so that we can determine the total carbon inputs from all crops, manure applications, supplemental 
         /// hay applications, etc. Then we can proceed to the actual carbon change calculations.
         /// </summary>
@@ -534,6 +595,10 @@ namespace H.Core.Services.LandManagement
                 viewItemsForField, leftMost);
 
             this.AssignYieldToAllYears(runInPeriodItems, farm, leftMost);
+
+            // CLI-loaded farms may have residue-input prerequisites the user left at zero; fill them
+            // before the carbon model runs. No-op in GUI mode (inputs already assigned upstream).
+            this.ProcessCommandLineItems(viewItemsForField, farm);
 
             // Check if user specified ICBM or Tier 2 carbon modelling
             if (farm.Defaults.CarbonModellingStrategy == CarbonModellingStrategies.IPCCTier2)

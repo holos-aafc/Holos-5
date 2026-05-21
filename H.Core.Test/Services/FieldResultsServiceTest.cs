@@ -1799,5 +1799,24 @@ namespace H.Core.Test.Services
         }
 
         #endregion
+
+        #region ProcessCommandLineItems
+
+        [TestMethod]
+        public void ProcessCommandLineItemsIsNoOpInGuiMode()
+        {
+            // Not command-line mode, so the residue-input fill must not touch user values even
+            // though Yield is zero.
+            var farm = new Farm() { IsCommandLineMode = false };
+            var viewItem = new CropViewItem() { Year = 2000, CropType = CropType.Barley, Yield = 0 };
+
+            _resultsService.ProcessCommandLineItems(new List<CropViewItem>() { viewItem }, farm);
+
+            Assert.AreEqual(0, viewItem.Yield);
+            Assert.AreEqual(0, viewItem.AboveGroundCarbonInput);
+            Assert.AreEqual(0, viewItem.BelowGroundCarbonInput);
+        }
+
+        #endregion
     }
 }

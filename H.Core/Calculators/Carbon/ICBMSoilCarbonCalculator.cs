@@ -76,6 +76,23 @@ namespace H.Core.Calculators.Carbon
 
         #endregion
 
+        #region Private Methods
+
+        /// <summary>
+        /// ICBM lets the user drive every pool flow by either the climate parameter or the
+        /// management factor (<c>farm.Defaults.UseClimateParameterInsteadOfManagementFactor</c>).
+        /// Both the carbon- and nitrogen-side per-interval/steady-state equations read this single
+        /// value, so the selection is centralized here rather than repeated at each call site.
+        /// </summary>
+        private static double GetClimateOrManagementFactor(Farm farm, CropViewItem viewItem)
+        {
+            return farm.Defaults.UseClimateParameterInsteadOfManagementFactor
+                ? viewItem.ClimateParameter
+                : viewItem.ManagementFactor;
+        }
+
+        #endregion
+
         #region Public Methods
 
         /// <summary>

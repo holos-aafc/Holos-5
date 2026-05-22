@@ -78,7 +78,7 @@ namespace H.Core.Calculators.Carbon
             this.YearIndex = yearIndex;
             this.Year = this.YearIndex + farm.CarbonModellingEquilibriumYear;
 
-            var climateParameterOrManagementFactor = farm.Defaults.UseClimateParameterInsteadOfManagementFactor ? currentYearResults.ClimateParameter : currentYearResults.ManagementFactor;
+            var climateParameterOrManagementFactor = GetClimateOrManagementFactor(farm, currentYearResults);
             if (climateParameterOrManagementFactor == 0)
             {
                 // Some polygons won't have data for percentage sand, clay, etc. In these cases the re_crop calculations cannot be performed and so the climate/management factor will be 0 in these cases
@@ -361,7 +361,7 @@ namespace H.Core.Calculators.Carbon
             this.CurrentYearResults.AboveGroundNitrogenResidueForCrop = this.PreviousYearResults.CombinedAboveGroundResidueNitrogen;
             this.CurrentYearResults.BelowGroundResidueNitrogenForCrop = this.PreviousYearResults.CombinedBelowGroundResidueNitrogen;
 
-            var climateParameterOrManagementFactor = farm.Defaults.UseClimateParameterInsteadOfManagementFactor ? this.CurrentYearResults.ClimateParameter : this.CurrentYearResults.ManagementFactor;
+            var climateParameterOrManagementFactor = GetClimateOrManagementFactor(farm, this.CurrentYearResults);
 
             if (this.YearIndex == 0)
             {
@@ -411,7 +411,7 @@ namespace H.Core.Calculators.Carbon
 
         protected override void SetManurePoolStartState(Farm farm)
         {
-            var climateParameterOrManagementFactor = farm.Defaults.UseClimateParameterInsteadOfManagementFactor ? this.CurrentYearResults.ClimateParameter : this.CurrentYearResults.ManagementFactor;
+            var climateParameterOrManagementFactor = GetClimateOrManagementFactor(farm, this.CurrentYearResults);
 
             if (this.YearIndex == 0)
             {

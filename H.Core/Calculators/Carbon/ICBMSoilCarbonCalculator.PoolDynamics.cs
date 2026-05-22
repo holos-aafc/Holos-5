@@ -50,10 +50,7 @@ namespace H.Core.Calculators.Carbon
             CropViewItem currentYearResults,
             Farm farm)
         {
-            // The user can choose to use either the climate parameter or the management factor in the calculations
-            var climateParameterOrManagementFactor = farm.Defaults.UseClimateParameterInsteadOfManagementFactor
-                ? currentYearResults.ClimateParameter
-                : currentYearResults.ManagementFactor;
+            var climateParameterOrManagementFactor = GetClimateOrManagementFactor(farm, currentYearResults);
 
             currentYearResults.YoungPoolSoilCarbonAboveGround =
                 this.CalculateYoungPoolAboveGroundCarbonAtInterval(
@@ -226,10 +223,7 @@ namespace H.Core.Calculators.Carbon
              * Carbon
              */
 
-            // The user can choose to use either the climate parameter or the management factor in the calculations
-            var climateOrManagementFactor = farm.Defaults.UseClimateParameterInsteadOfManagementFactor
-                ? result.ClimateParameter
-                : result.ManagementFactor;
+            var climateOrManagementFactor = GetClimateOrManagementFactor(farm, result);
 
             if (farm.UseCustomStartingSoilOrganicCarbon == false)
             {

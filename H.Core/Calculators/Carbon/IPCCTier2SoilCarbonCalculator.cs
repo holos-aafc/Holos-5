@@ -453,13 +453,18 @@ namespace H.Core.Calculators.Carbon
                 }
             }
 
-            var f1 = _globallyCalibratedModelParametersProvider.GetGloballyCalibratedModelParametersInstance(ModelParameters.FractionMetabolicDMActivePool, currentYearViewItem.TillageType)!.Value;
-            var f2 = _globallyCalibratedModelParametersProvider.GetGloballyCalibratedModelParametersInstance(ModelParameters.FractionStructuralDMActivePool, currentYearViewItem.TillageType)!.Value;
-            var f3 = _globallyCalibratedModelParametersProvider.GetGloballyCalibratedModelParametersInstance(ModelParameters.FractionStructuralDMSlowPool, currentYearViewItem.TillageType)!.Value;
-            var f5 = _globallyCalibratedModelParametersProvider.GetGloballyCalibratedModelParametersInstance(ModelParameters.FractionActiveDecayToPassive, currentYearViewItem.TillageType)!.Value;
-            var f6 = _globallyCalibratedModelParametersProvider.GetGloballyCalibratedModelParametersInstance(ModelParameters.FractionSlowDecayToPassive, currentYearViewItem.TillageType)!.Value;
-            var f7 = _globallyCalibratedModelParametersProvider.GetGloballyCalibratedModelParametersInstance(ModelParameters.FractionSlowDecayToActive, currentYearViewItem.TillageType)!.Value;
-            var f8 = _globallyCalibratedModelParametersProvider.GetGloballyCalibratedModelParametersInstance(ModelParameters.FractionPassiveDecayToActive, currentYearViewItem.TillageType)!.Value;
+            // All Table-8 globally-calibrated parameters are looked up for the same tillage type,
+            // so a local helper keeps the call sites to just the parameter being read.
+            double GetParameter(ModelParameters parameter) =>
+                _globallyCalibratedModelParametersProvider.GetGloballyCalibratedModelParametersInstance(parameter, currentYearViewItem.TillageType)!.Value;
+
+            var f1 = GetParameter(ModelParameters.FractionMetabolicDMActivePool);
+            var f2 = GetParameter(ModelParameters.FractionStructuralDMActivePool);
+            var f3 = GetParameter(ModelParameters.FractionStructuralDMSlowPool);
+            var f5 = GetParameter(ModelParameters.FractionActiveDecayToPassive);
+            var f6 = GetParameter(ModelParameters.FractionSlowDecayToPassive);
+            var f7 = GetParameter(ModelParameters.FractionSlowDecayToActive);
+            var f8 = GetParameter(ModelParameters.FractionPassiveDecayToActive);
 
             var f4 = this.CalculateAmountToSlowPool(
                 fractionDecayActivePoolToPassivePool: f5,
@@ -483,8 +488,8 @@ namespace H.Core.Calculators.Carbon
                 totalInputs: inputs,
                 ligninContent: currentYearViewItem.LigninContent);
 
-            var activePoolDecayRateConstant = _globallyCalibratedModelParametersProvider.GetGloballyCalibratedModelParametersInstance(ModelParameters.DecayRateActive, currentYearViewItem.TillageType)!.Value;
-            var tillageFactor = _globallyCalibratedModelParametersProvider.GetGloballyCalibratedModelParametersInstance(ModelParameters.TillageModifier, currentYearViewItem.TillageType)!.Value;
+            var activePoolDecayRateConstant = GetParameter(ModelParameters.DecayRateActive);
+            var tillageFactor = GetParameter(ModelParameters.TillageModifier);
 
             currentYearIpccTier2Results.ActivePoolDecayRate = this.CalculateActivePoolDecayRate(
                 activePoolDecayRateConstant: activePoolDecayRateConstant,
@@ -493,7 +498,7 @@ namespace H.Core.Calculators.Carbon
                 sand: currentYearViewItem.Sand,
                 tillageFactor: tillageFactor);
 
-            var slowPoolDecayRateConstant = _globallyCalibratedModelParametersProvider.GetGloballyCalibratedModelParametersInstance(ModelParameters.DecayRateSlow, currentYearViewItem.TillageType)!.Value;
+            var slowPoolDecayRateConstant = GetParameter(ModelParameters.DecayRateSlow);
 
             currentYearIpccTier2Results.SlowPoolDecayRate = this.CalculateSlowPoolDecayRate(
                 slowPoolDecayRateConstant: slowPoolDecayRateConstant,
@@ -501,7 +506,7 @@ namespace H.Core.Calculators.Carbon
                 waterFactor: currentYearViewItem.WFac,
                 tillageFactor: tillageFactor);
 
-            var passivePoolDecayRateConstant = _globallyCalibratedModelParametersProvider.GetGloballyCalibratedModelParametersInstance(ModelParameters.DecayRatePassive, currentYearViewItem.TillageType)!.Value;
+            var passivePoolDecayRateConstant = GetParameter(ModelParameters.DecayRatePassive);
 
             currentYearIpccTier2Results.PassivePoolDecayRate = this.CalculatePassivePoolDecayRate(
                 passivePoolDecayRateConstant: passivePoolDecayRateConstant,

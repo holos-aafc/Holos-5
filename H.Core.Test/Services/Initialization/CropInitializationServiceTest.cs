@@ -1,4 +1,5 @@
-﻿using H.Core.Models;
+﻿using H.Core.Calculators.Carbon;
+using H.Core.Models;
 using H.Core.Providers.Energy;
 using H.Core.Services.Initialization;
 using H.Infrastructure.Services;
@@ -14,6 +15,7 @@ namespace H.Core.Test.Services.Initialization
 
         private Mock<ICacheService> _cacheServiceMock = null!;
         private Mock<ITable50FuelEnergyEstimatesProvider> _table50ProviderMock = null!;
+        private Mock<IICBMCarbonInputCalculator> _icbmCarbonInputCalculatorMock = null!;
         private CropInitializationService _service = null!;
         private Mock<ILogger> _mockLogger = null!;
 
@@ -26,8 +28,9 @@ namespace H.Core.Test.Services.Initialization
         {
             _cacheServiceMock = new Mock<ICacheService>();
             _table50ProviderMock = new Mock<ITable50FuelEnergyEstimatesProvider>();
+            _icbmCarbonInputCalculatorMock = new Mock<IICBMCarbonInputCalculator>();
             _mockLogger = new Mock<Microsoft.Extensions.Logging.ILogger>();
-            _service = new CropInitializationService(_mockLogger.Object, _cacheServiceMock.Object, _table50ProviderMock.Object);
+            _service = new CropInitializationService(_mockLogger.Object, _cacheServiceMock.Object, _table50ProviderMock.Object, _icbmCarbonInputCalculatorMock.Object);
         }
 
         #endregion
@@ -39,7 +42,7 @@ namespace H.Core.Test.Services.Initialization
         {
             // Arrange
             var farm = new Farm();
-            var serviceMock = new Mock<CropInitializationService>(_mockLogger.Object, _cacheServiceMock.Object, _table50ProviderMock.Object) { CallBase = true };
+            var serviceMock = new Mock<CropInitializationService>(_mockLogger.Object, _cacheServiceMock.Object, _table50ProviderMock.Object, _icbmCarbonInputCalculatorMock.Object) { CallBase = true };
             serviceMock.Setup(s => s.InitializeFuelEnergy(farm)).Verifiable();
 
             // Act

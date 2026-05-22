@@ -54,5 +54,21 @@ public partial class CropInitializationService
         }
     }
 
+    public virtual void InitializeHerbicideEnergy(Farm farm, CropViewItem viewItem)
+    {
+        var soilData = farm.GetPreferredSoilData(viewItem);
+
+        var herbicideEnergyEstimates = _herbicideEnergyEstimatesProvider.GetHerbicideEnergyDataInstance(
+            provinceName: soilData.Province,
+            soilCategory: soilData.SoilFunctionalCategory,
+            tillageType: viewItem.TillageType,
+            cropType: viewItem.CropType);
+
+        if (herbicideEnergyEstimates != null)
+        {
+            viewItem.HerbicideEnergy = herbicideEnergyEstimates.HerbicideEstimate;
+        }
+    }
+
     #endregion
 }

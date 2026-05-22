@@ -843,19 +843,27 @@ public class FieldComponentViewModel : ViewModelBase
         try
         {
             if (_cropFactory is null) return;
+
+            // Create a presentation DTO (not the domain object yet) seeded from the active farm's defaults.
             var dto = _cropFactory.CreateDto(base.ActiveFarm);
 
+            // Apply field-level defaults (year sequencing, etc.) onto the new DTO.
             _fieldComponentService?.InitializeCropDto(this.SelectedFieldSystemComponentDto, dto);
 
-            // Use this as the new selected instance
+            // Bind the new DTO to the editor.
             this.SelectedCropDto = dto;
 
-            // If disabled before, enable this command now so that the user can remove a DTO
+            // A crop now exists, so the Remove command becomes available.
             this.RemoveCropCommand?.RaiseCanExecuteChanged();
 
             if (_selectedFieldSystemComponent is not null)
             {
+                // The actual domain CropViewItem is created here (IsSecondaryCrop = false) and added
+                // to the field's CropViewItems. This is the seam where the carbon pipeline's input
+                // data first enters the model; everything downstream reads from these items.
                 _fieldComponentService?.AddCropDtoToSystem(_selectedFieldSystemComponent, dto);
+
+                // Cache the domain item backing the DTO so subsequent edits can be transferred to it.
                 _selectedCropViewItem = _fieldComponentService?.GetCropViewItemFromDto(dto, _selectedFieldSystemComponent);
             }
         }

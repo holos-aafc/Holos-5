@@ -82,17 +82,17 @@ namespace H.Core.Services.LandManagement
 
                 if (currentYearViewItem.Yield == 0)
                 {
-                    this.AssignYield(currentYearViewItem, farm);
+                    _cropInitializationService.InitializeYield(currentYearViewItem, farm);
                 }
 
                 if (currentYearViewItem.LigninContent == 0)
                 {
-                    this.AssignDefaultLigninContent(currentYearViewItem, farm);
+                    _cropInitializationService.InitializeLigninContent(currentYearViewItem, farm);
                 }
 
                 if (currentYearViewItem.MoistureContentOfCropPercentage == 0)
                 {
-                    this.AssignDefaultMoistureContent(currentYearViewItem, farm);
+                    _cropInitializationService.InitializeMoistureContent(currentYearViewItem, farm);
                 }
 
                 var cropResidueInputsNeedRecalculating =
@@ -100,7 +100,7 @@ namespace H.Core.Services.LandManagement
                     currentYearViewItem.BelowGroundCarbonInput == 0;
                 if (cropResidueInputsNeedRecalculating)
                 {
-                    this.AssignDefaultBiomassCoefficients(currentYearViewItem, farm);
+                    _cropInitializationService.InitializeBiomassCoefficients(currentYearViewItem, farm);
 
                     _icbmCarbonInputCalculator.AssignInputs(
                         previousYearViewItem: adjoiningYears.PreviousYearViewItem!,
@@ -121,10 +121,10 @@ namespace H.Core.Services.LandManagement
                     currentYearViewItem.NitrogenContentInExtraroot == 0;
                 if (nitrogenContentNeedsRecalculating)
                 {
-                    this.AssignDefaultNitrogenContentValues(currentYearViewItem, farm);
+                    _cropInitializationService.InitializeNitrogenContent(currentYearViewItem, farm);
                 }
 
-                this.AssignNitrogenFixation(currentYearViewItem);
+                _cropInitializationService.InitializeNitrogenFixation(currentYearViewItem);
 
                 // Command-line farms have no interactive step to build grazing view items; generate
                 // them from the farm's animal management periods so grazing-animal carbon and
@@ -132,7 +132,7 @@ namespace H.Core.Services.LandManagement
                 var field = farm.GetFieldSystemComponent(currentYearViewItem.FieldSystemComponentGuid);
                 if (field != null)
                 {
-                    this.AssignGrazingViewItems(farm, currentYearViewItem, field);
+                    _cropInitializationService.InitializeGrazingViewItems(farm, currentYearViewItem, field);
                 }
             }
         }
@@ -151,7 +151,7 @@ namespace H.Core.Services.LandManagement
             long inputsMs = 0, climateMs = 0, tillageMs = 0, managementMs = 0, adjoiningMs = 0;
 
             // Yields must be assigned to all items before we can loop over each year and calculate plant carbon in agricultural product (C_p)
-            this.AssignYieldToAllYears(
+            _cropInitializationService.InitializeYieldForAllYears(
                 cropViewItems: viewItems,
                 farm: farm, fieldSystemComponent: fieldSystemComponent);
             yieldsMs = sw.ElapsedMilliseconds; sw.Restart();
@@ -621,7 +621,7 @@ namespace H.Core.Services.LandManagement
             var runInPeriodItems = this.GetRunInPeriodItems(farm, leftMost.CropViewItems, leftMost.StartYear,
                 viewItemsForField, leftMost);
 
-            this.AssignYieldToAllYears(runInPeriodItems, farm, leftMost);
+            _cropInitializationService.InitializeYieldForAllYears(runInPeriodItems, farm, leftMost);
 
             // CLI-loaded farms may have residue-input prerequisites the user left at zero; fill them
             // before the carbon model runs. No-op in GUI mode (inputs already assigned upstream).

@@ -31,7 +31,7 @@ public class FieldResultsServiceCalculateFinalResultsSmokeTest : UnitTestBase
         var icbm = new ICBMSoilCarbonCalculator(climateProvider, n2OEmissionFactorCalculator);
         var ipcc = new IPCCTier2SoilCarbonCalculator(climateProvider, n2OEmissionFactorCalculator);
 
-        _sut = new FieldResultsService(icbm, ipcc, n2OEmissionFactorCalculator, _icbmCarbonInputCalculator);
+        _sut = new FieldResultsService(icbm, ipcc, n2OEmissionFactorCalculator, _icbmCarbonInputCalculator, _cropInitializationService);
     }
 
     [TestMethod]

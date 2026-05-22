@@ -18,6 +18,7 @@ using H.Core.Providers.Nitrogen;
 using H.Core.Providers.Plants;
 using H.Core.Providers.Soil;
 using H.Core.Services.Animals;
+using H.Core.Services.Initialization;
 using NLog;
 
 namespace H.Core.Services.LandManagement
@@ -83,31 +84,21 @@ namespace H.Core.Services.LandManagement
         // calculator handles only pool dynamics + nitrogen, matching v4's layout.
         private readonly IICBMCarbonInputCalculator _icbmCarbonInputCalculator;
         private readonly IPCCTier2SoilCarbonCalculator _tier2SoilCarbonCalculator;
+        // Owns per-crop default seeding (yield, biomass, residue N, moisture, lignin, etc.).
+        private readonly ICropInitializationService _cropInitializationService;
         private readonly ITillageFactorCalculator _tillageFactorCalculator = new TillageFactorCalculator();
         private readonly UnitsOfMeasurementCalculator _unitsCalculator = new UnitsOfMeasurementCalculator();
         private readonly N2OEmissionFactorCalculator _n2OEmissionFactorCalculator;
         private readonly DigestateService _digestateService = new DigestateService();
         private readonly IManureService _manureService = new ManureService();
 
-        private readonly LandManagementChangeHelper _landManagementChangeHelper = new LandManagementChangeHelper();
-        private readonly EconomicsHelper _economicsHelper = new EconomicsHelper();
         private readonly FieldComponentHelper _fieldComponentHelper = new FieldComponentHelper();
 
 
 
         private readonly Table_48_Carbon_Footprint_For_Fertilizer_Blends_Provider _carbonFootprintForFertilizerBlendsProvider = new Table_48_Carbon_Footprint_For_Fertilizer_Blends_Provider();
-        private readonly Table_9_Nitrogen_Lignin_Content_In_Crops_Provider _slopeProviderTable = new Table_9_Nitrogen_Lignin_Content_In_Crops_Provider();
-        private readonly LumCMax_KValues_Perennial_Cropping_Change_Provider _lumCMaxKValuesPerennialCroppingChangeProvider = new LumCMax_KValues_Perennial_Cropping_Change_Provider();
-        private readonly LumCMax_KValues_Fallow_Practice_Change_Provider _lumCMaxKValuesFallowPracticeChangeProvider = new LumCMax_KValues_Fallow_Practice_Change_Provider();
-        private readonly SmallAreaYieldProvider _smallAreaYieldProvider = new SmallAreaYieldProvider();
-        private readonly Table50FuelEnergyEstimatesProvider _fuelEnergyEstimatesProvider = new Table50FuelEnergyEstimatesProvider();
-        private readonly Table_51_Herbicide_Energy_Estimates_Provider _herbicideEnergyEstimatesProvider = new Table_51_Herbicide_Energy_Estimates_Provider();
-        private readonly EcodistrictDefaultsProvider _ecodistrictDefaultsProvider = new EcodistrictDefaultsProvider();
-        private readonly NitogenFixationProvider _nitrogenFixationProvider = new NitogenFixationProvider();
-        private readonly Table_60_Utilization_Rates_For_Livestock_Grazing_Provider _utilizationRatesForLivestockGrazingProvider = new Table_60_Utilization_Rates_For_Livestock_Grazing_Provider();
         private readonly ICustomFileYieldProvider _customFileYieldProvider = new CustomFileYieldProvider();
         private readonly Table_7_Relative_Biomass_Information_Provider _relativeBiomassInformationProvider = new Table_7_Relative_Biomass_Information_Provider();
-        private readonly CropEconomicsProvider _economicsProvider = new CropEconomicsProvider();
 
         // Memoization cache for CalculateClimateParameter(viewItem, farm).
         //
@@ -151,7 +142,8 @@ namespace H.Core.Services.LandManagement
             ICBMSoilCarbonCalculator icbmSoilCarbonCalculator,
             IPCCTier2SoilCarbonCalculator ipccTier2SoilCarbonCalculator,
             N2OEmissionFactorCalculator n2OEmissionFactorCalculator,
-            IICBMCarbonInputCalculator icbmCarbonInputCalculator)
+            IICBMCarbonInputCalculator icbmCarbonInputCalculator,
+            ICropInitializationService cropInitializationService)
         {
             _icbmSoilCarbonCalculator = icbmSoilCarbonCalculator ?? throw new ArgumentNullException(nameof(icbmSoilCarbonCalculator));
 
@@ -160,7 +152,10 @@ namespace H.Core.Services.LandManagement
             _tier2SoilCarbonCalculator = ipccTier2SoilCarbonCalculator ?? throw new ArgumentNullException(nameof(ipccTier2SoilCarbonCalculator));
 
             _n2OEmissionFactorCalculator = n2OEmissionFactorCalculator ?? throw new ArgumentNullException(nameof(n2OEmissionFactorCalculator));
-            _smallAreaYieldProvider.Initialize();
+
+            // Per-crop default seeding (yield, biomass, residue N, moisture, lignin, etc.) is owned by
+            // the crop-initialization service; this service delegates to it during stage-state build.
+            _cropInitializationService = cropInitializationService ?? throw new ArgumentNullException(nameof(cropInitializationService));
 
             this.AnimalResults = new List<AnimalComponentEmissionsResults>();
             this.AnimalResultsService = new AnimalResultsService();

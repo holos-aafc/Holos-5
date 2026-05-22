@@ -13,13 +13,18 @@ using H.Core.Models;
 using H.Core.Models.LandManagement.Fields;
 using H.Core.Providers;
 using H.Core.Providers.Climate;
+using H.Core.Providers.Energy;
+using H.Core.Services.Initialization;
 using H.Core.Services.LandManagement;
+using H.Infrastructure.Services;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using H.Localization.Resources.Strings;
+using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Logging.Abstractions;
 
 namespace H.CLI.Handlers
 {
@@ -55,8 +60,13 @@ namespace H.CLI.Handlers
             var iCBMSoilCarbonCalculator = new ICBMSoilCarbonCalculator(climateProvider, n2oEmissionFactorCalculator);
             var ipcc = new IPCCTier2SoilCarbonCalculator(climateProvider, n2oEmissionFactorCalculator);
             var icbmCarbonInputCalculator = new ICBMCarbonInputCalculator(new ManureService(), new DigestateService(), new AnimalResultsService());
+            var cropInitializationService = new CropInitializationService(
+                NullLogger.Instance,
+                new InMemoryCacheService(new MemoryCache(new MemoryCacheOptions())),
+                new Table50FuelEnergyEstimatesProvider(),
+                icbmCarbonInputCalculator);
 
-            _fieldResultsService = new FieldResultsService(iCBMSoilCarbonCalculator, ipcc, n2oEmissionFactorCalculator, icbmCarbonInputCalculator);
+            _fieldResultsService = new FieldResultsService(iCBMSoilCarbonCalculator, ipcc, n2oEmissionFactorCalculator, icbmCarbonInputCalculator, cropInitializationService);
             _fieldProcessor = new FieldProcessor(_fieldResultsService);
         }
 

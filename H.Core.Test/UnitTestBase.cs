@@ -15,11 +15,15 @@ using Moq;
 using H.Core.Calculators.Carbon;
 using H.Core.Calculators.Nitrogen;
 using H.Core.Providers;
+using H.Core.Providers.Energy;
 using H.Core.Providers.Evapotranspiration;
 using H.Core.Providers.Precipitation;
 using H.Core.Providers.Soil;
 using H.Core.Providers.Temperature;
+using H.Core.Services.Initialization;
 using H.Core.Services.LandManagement;
+using H.Infrastructure.Services;
+using Microsoft.Extensions.Logging.Abstractions;
 
 namespace H.Core.Test
 {
@@ -46,6 +50,15 @@ namespace H.Core.Test
         protected IICBMCarbonInputCalculator _icbmCarbonInputCalculator;
         protected IFieldResultsService _fieldResultsService;
         protected Mock<ISlcClimateProvider> _slcClimateProvider;
+
+        // Shared crop-initialization service for tests. Static so the SmallAreaYieldProvider CSV
+        // (loaded in its constructor) is read once for the whole test run rather than per test.
+        protected static readonly ICropInitializationService _cropInitializationService =
+            new CropInitializationService(
+                NullLogger.Instance,
+                new Mock<ICacheService>().Object,
+                new Table50FuelEnergyEstimatesProvider(),
+                new ICBMCarbonInputCalculator(new ManureService(), new DigestateService(), new AnimalResultsService()));
 
         #endregion
 

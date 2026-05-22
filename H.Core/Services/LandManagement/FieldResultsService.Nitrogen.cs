@@ -57,6 +57,22 @@ namespace H.Core.Services.LandManagement
         }
 
         /// <summary>
+        /// Assigns the crop's nitrogen fertilizer rate using the more accurate calculated requirement
+        /// (rather than a flat default). Kept on this service because it depends on the carbon-input
+        /// and N₂O-emission-factor calculators rather than the crop-default lookups.
+        /// </summary>
+        public void AssignDefaultNitrogenFertilizerRate(
+            CropViewItem viewItem,
+            Farm farm,
+            FertilizerApplicationViewItem fertilizerApplicationViewItem)
+        {
+            viewItem.NitrogenFertilizerRate = this.CalculateRequiredNitrogenFertilizer(
+                farm: farm,
+                viewItem: viewItem,
+                fertilizerApplicationViewItem: fertilizerApplicationViewItem);
+        }
+
+        /// <summary>
         /// Equation 2.5.5-7
         ///
         /// Calculates the amount of the fertilizer blend needed to support the yield that was input.This considers the amount of nitrogen uptake by the plant and then

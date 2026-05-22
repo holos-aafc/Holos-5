@@ -93,7 +93,8 @@ public partial class CropInitializationService : ICropInitializationService
 
     public void Initialize(CropViewItem viewItem, Farm farm)
     {
-        this.InitializeFuelEnergy(farm, viewItem);
+        // Full default seeding for a single crop (used at crop-creation time via the factory).
+        this.InitializeCrop(viewItem, farm, new GlobalSettings());
     }
 
     /// <summary>

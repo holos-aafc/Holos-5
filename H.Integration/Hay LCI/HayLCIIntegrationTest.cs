@@ -121,7 +121,7 @@ namespace H.Integration.Hay_LCI
             var n2oEmissionFactorCalculator = new N2OEmissionFactorCalculator(_climateProvider);
             var ipcc = new IPCCTier2SoilCarbonCalculator(_climateProvider, n2oEmissionFactorCalculator);
 
-            var fieldResultsService = new FieldResultsService(iCBMSoilCarbonCalculator, ipcc, n2oEmissionFactorCalculator, _icbmCarbonInputCalculator);
+            var fieldResultsService = new FieldResultsService(iCBMSoilCarbonCalculator, ipcc, n2oEmissionFactorCalculator, _icbmCarbonInputCalculator, _cropInitializationService);
 
             _fieldResultsService = fieldResultsService;
 
@@ -455,7 +455,7 @@ namespace H.Integration.Hay_LCI
 
                 foreach (var cropViewItem in field.CropViewItems)
                 {
-                    _fieldResultsService.AssignSystemDefaults(cropViewItem, farm, _globalSettings);
+                    _cropInitializationService.InitializeCrop(cropViewItem, farm, _globalSettings);
 
                     this.AssignFertilizerApplications(cropViewItem, farm);
                     this.AssignManureApplications(cropViewItem, farm);
@@ -534,7 +534,7 @@ namespace H.Integration.Hay_LCI
                 fertilizerApplication.FertilizerBlendData.FertilizerBlend = blend;
                 fertilizerApplication.AmountOfBlendedProductApplied = rate;
 
-                _fieldResultsService.AssignDefaultBlendData(fertilizerApplication);
+                _cropInitializationService.InitializeBlendData(fertilizerApplication);
 
                 viewItem.FertilizerApplicationViewItems.Add(fertilizerApplication);
 

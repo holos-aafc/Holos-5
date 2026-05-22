@@ -38,7 +38,7 @@ namespace H.Core.Test.Integration
 
             _nasaClimateProvider = new NasaClimateProvider();
 
-            _fieldResultsService = new FieldResultsService(_iCbmSoilCarbonCalculator, _ipcc, _n2OEmissionFactorCalculator, _icbmCarbonInputCalculator);
+            _fieldResultsService = new FieldResultsService(_iCbmSoilCarbonCalculator, _ipcc, _n2OEmissionFactorCalculator, _icbmCarbonInputCalculator, _cropInitializationService);
         }
 
         [TestMethod]
@@ -94,7 +94,7 @@ namespace H.Core.Test.Integration
             // Assign default properties to
             foreach (var cropViewItem in cropsInRotation)
             {
-                _fieldResultsService.AssignSystemDefaults(cropViewItem, farm, _globalSettings);
+                _cropInitializationService.InitializeCrop(cropViewItem, farm, _globalSettings);
             }
 
             // Override default properties for some crops (optional)
@@ -168,7 +168,7 @@ namespace H.Core.Test.Integration
 
             var cvi1 = new CropViewItem();
             cvi1.CropType = CropType.AlfalfaMedicagoSativaL;
-            _fieldResultsService.AssignSystemDefaults(cvi1, farm, _applicationData.GlobalSettings);  // moisture content will be set here
+            _cropInitializationService.InitializeCrop(cvi1, farm, _applicationData.GlobalSettings);  // moisture content will be set here
 
 
 
@@ -232,7 +232,7 @@ namespace H.Core.Test.Integration
 
 
             cvi2.CropType = CropType.Canola;
-            _fieldResultsService.AssignSystemDefaults(cvi2, farm, _applicationData.GlobalSettings);
+            _cropInitializationService.InitializeCrop(cvi2, farm, _applicationData.GlobalSettings);
 
 
 
@@ -284,7 +284,7 @@ namespace H.Core.Test.Integration
 
 
             cvi3.CropType = CropType.FieldPeas;
-            _fieldResultsService.AssignSystemDefaults(cvi3, farm, _applicationData.GlobalSettings);
+            _cropInitializationService.InitializeCrop(cvi3, farm, _applicationData.GlobalSettings);
 
 
 
@@ -332,7 +332,7 @@ namespace H.Core.Test.Integration
 
 
             cvi4.CropType = CropType.Wheat;
-            _fieldResultsService.AssignSystemDefaults(cvi4, farm, _applicationData.GlobalSettings);
+            _cropInitializationService.InitializeCrop(cvi4, farm, _applicationData.GlobalSettings);
 
 
 

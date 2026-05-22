@@ -69,7 +69,7 @@ namespace H.Core.Test.Services
             _iCbmSoilCarbonCalculator = new ICBMSoilCarbonCalculator(_climateProvider, _n2OEmissionFactorCalculator);
             _ipccSoilCarbonCalculator = new IPCCTier2SoilCarbonCalculator(_climateProvider, _n2OEmissionFactorCalculator);
 
-            _resultsService = new FieldResultsService(_iCbmSoilCarbonCalculator, _ipccSoilCarbonCalculator, _n2OEmissionFactorCalculator, _icbmCarbonInputCalculator);
+            _resultsService = new FieldResultsService(_iCbmSoilCarbonCalculator, _ipccSoilCarbonCalculator, _n2OEmissionFactorCalculator, _icbmCarbonInputCalculator, _cropInitializationService);
             _resultsService.AnimalResultsService = _mockAnimalResultsService.Object;
         }
 
@@ -531,7 +531,7 @@ namespace H.Core.Test.Services
             detailsScreenViewItem.Year = 1985;
             detailsScreenViewItem.FieldSystemComponentGuid = fieldSystemComponent.Guid;
 
-            _resultsService.AssignYieldToYear(farm, detailsScreenViewItem, fieldSystemComponent);
+            _cropInitializationService.InitializeYieldForYear(farm, detailsScreenViewItem, fieldSystemComponent);
 
             Assert.AreEqual(150, detailsScreenViewItem.Yield);
         }
@@ -676,7 +676,7 @@ namespace H.Core.Test.Services
             var globalSettings = new GlobalSettings();
             globalSettings.CropDefaults.Add(cropDefault);
 
-            _resultsService.AssignUserDefaults(viewItem, globalSettings);
+            _cropInitializationService.InitializeUserDefaults(viewItem, globalSettings);
 
             Assert.AreEqual(777, viewItem.Yield);
         }
@@ -1830,7 +1830,7 @@ namespace H.Core.Test.Services
                 FieldSystemComponentGuid = field.Guid,
             };
 
-            _resultsService.AssignGrazingViewItems(farm, viewItem, field);
+            _cropInitializationService.InitializeGrazingViewItems(farm, viewItem, field);
 
             Assert.AreEqual(1, viewItem.GrazingViewItems.Count);
             Assert.AreEqual(Enumerations.ForageActivities.Grazed, viewItem.GrazingViewItems[0].ForageActivity);
@@ -1848,7 +1848,7 @@ namespace H.Core.Test.Services
                 FieldSystemComponentGuid = field.Guid,
             };
 
-            _resultsService.AssignGrazingViewItems(farm, viewItem, field);
+            _cropInitializationService.InitializeGrazingViewItems(farm, viewItem, field);
 
             Assert.AreEqual(0, viewItem.GrazingViewItems.Count);
         }

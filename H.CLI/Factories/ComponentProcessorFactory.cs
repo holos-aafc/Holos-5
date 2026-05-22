@@ -6,7 +6,12 @@ using H.Core.Calculators.Carbon;
 using H.Core.Calculators.Nitrogen;
 using H.Core.Providers;
 using H.Core.Providers.Climate;
+using H.Core.Providers.Energy;
 using H.Core.Services.Animals;
+using H.Core.Services.Initialization;
+using H.Infrastructure.Services;
+using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Logging.Abstractions;
 
 namespace H.CLI.Factories
 {
@@ -28,8 +33,13 @@ namespace H.CLI.Factories
             var iCBMSoilCarbonCalculator = new ICBMSoilCarbonCalculator(climateProvider, n2oEmissionFactorCalculator);
             var ipcc = new IPCCTier2SoilCarbonCalculator(climateProvider, n2oEmissionFactorCalculator);
             var icbmCarbonInputCalculator = new ICBMCarbonInputCalculator(new ManureService(), new DigestateService(), new AnimalResultsService());
+            var cropInitializationService = new CropInitializationService(
+                NullLogger.Instance,
+                new InMemoryCacheService(new MemoryCache(new MemoryCacheOptions())),
+                new Table50FuelEnergyEstimatesProvider(),
+                icbmCarbonInputCalculator);
 
-            var fieldResultsService = new FieldResultsService(iCBMSoilCarbonCalculator, ipcc, n2oEmissionFactorCalculator, icbmCarbonInputCalculator);
+            var fieldResultsService = new FieldResultsService(iCBMSoilCarbonCalculator, ipcc, n2oEmissionFactorCalculator, icbmCarbonInputCalculator, cropInitializationService);
             _fieldProcessor = new FieldProcessor(fieldResultsService);
             _shelterbeltProcessor = new ShelterbeltProcessor();
         } 

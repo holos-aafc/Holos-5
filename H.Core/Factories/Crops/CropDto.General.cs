@@ -17,6 +17,10 @@ public partial class CropDto
 
     #region General Properties
 
+    /// <summary>
+    /// Dry-weight yield of the crop (kg ha^-1) — moisture removed. The dry counterpart to
+    /// <see cref="CropDto.WetYield"/>. Maps name-for-name to <c>CropViewItem.DryYield</c>.
+    /// </summary>
     [Units(MetricUnitsOfMeasurement.KilogramsPerHectare)]
     public double DryYield
     {

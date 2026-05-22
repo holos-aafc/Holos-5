@@ -326,8 +326,14 @@ namespace H.Core.Models.LandManagement.Fields
         }
 
         /// <summary>
-        /// The yield of the crop (wet weight). Holos uses this property (not the optional user entered dry weight) in soil carbon change calculations.
-        /// 
+        /// The yield of the crop (<b>wet weight</b> — moisture included). Holos uses this property
+        /// (not the optional user-entered dry weight) in soil carbon change calculations.
+        ///
+        /// <para><b>Naming note:</b> this is the legacy v4 name, which has always meant wet weight.
+        /// On the GUI DTO the same value is exposed under the clearer name <c>CropDto.WetYield</c>;
+        /// the mappers bridge <c>CropViewItem.Yield ↔ CropDto.WetYield</c>. Do not confuse it with
+        /// <see cref="DryYield"/>.</para>
+        ///
         /// (kg ha^-1)
         /// </summary>
         public double Yield
@@ -337,7 +343,9 @@ namespace H.Core.Models.LandManagement.Fields
         }
 
         /// <summary>
-        /// The yield of the crop (dry weight not fresh weight - i.e. moisture weight is subtracted)
+        /// The yield of the crop (<b>dry weight</b>, not fresh weight — i.e. moisture weight is
+        /// subtracted). The dry counterpart to <see cref="Yield"/>; maps name-for-name to
+        /// <c>CropDto.DryYield</c>.
         ///
         /// (kg ha^-1)
         /// </summary>

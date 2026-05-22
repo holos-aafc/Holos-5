@@ -23,7 +23,13 @@ public interface ICropDto : IDto
 
     // ── General ──
 
+    /// <summary>
+    /// Wet-weight (fresh) yield, kg ha^-1. Bridges to the domain <c>CropViewItem.Yield</c>
+    /// (the legacy name that has always meant wet weight). See <see cref="CropDto.WetYield"/>.
+    /// </summary>
     double WetYield { get; set; }
+
+    /// <summary>Dry-weight yield, kg ha^-1. Maps name-for-name to <c>CropViewItem.DryYield</c>.</summary>
     double DryYield { get; set; }
     double MoistureContentOfCropPercentage { get; set; }
     double AmountOfIrrigation { get; set; }

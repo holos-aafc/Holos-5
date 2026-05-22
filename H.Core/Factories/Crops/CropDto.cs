@@ -183,6 +183,16 @@ public partial class CropDto : DtoBase, ICropDto
         set => SetProperty(ref _amountOfIrrigation, value);
     }
 
+    /// <summary>
+    /// Wet-weight (fresh) yield of the crop (kg ha^-1) — moisture still included. This is the
+    /// editable yield bound in the GUI and the value the carbon model ultimately uses.
+    ///
+    /// <para><b>Naming map (read this to avoid confusion):</b> the DTO's <see cref="WetYield"/>
+    /// corresponds to the domain <c>CropViewItem.Yield</c> (the legacy v4 name, which has always
+    /// meant wet weight). The mappers bridge the two: <c>CropViewItem.Yield ↔ CropDto.WetYield</c>.
+    /// The dry-weight variant keeps the same name on both sides (<see cref="DryYield"/> ↔
+    /// <c>CropViewItem.DryYield</c>).</para>
+    /// </summary>
     [Units(MetricUnitsOfMeasurement.KilogramsPerHectare)]
     public double WetYield
     {

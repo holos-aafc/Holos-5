@@ -202,8 +202,15 @@ namespace H.Core.Services.LandManagement
 
         /// <summary>
         /// Used by the carbon pipeline to look up grazing manure / supplemental-feed contributions on
-        /// behalf of the field. Defaulted to a self-constructed <see cref="AnimalResultsService"/> for
-        /// the legacy CLI / test path; production DI overrides this with the registered singleton.
+        /// behalf of the field. Defaulted to a self-constructed <see cref="AnimalResultsService"/>.
+        /// <para>
+        /// This default is used in every path — GUI, CLI and tests — because the container performs
+        /// no property injection here. That is safe: <see cref="AnimalResultsService"/> holds no
+        /// per-farm state (it dispatches to stateless per-species services and runs an idempotent
+        /// initialization pass on each call), so a dedicated instance is behaviourally identical to
+        /// the shared <see cref="IAnimalService"/> singleton. The setter is retained so tests can
+        /// substitute a mock.
+        /// </para>
         /// </summary>
         public IAnimalService AnimalResultsService { get; set; }
 

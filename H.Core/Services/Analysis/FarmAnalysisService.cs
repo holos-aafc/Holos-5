@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using H.Core.Calculators.Shelterbelt;
+﻿using H.Core.Calculators.Shelterbelt;
 using H.Core.Enumerations;
 using H.Core.Models;
 using H.Core.Models.LandManagement.Fields;
@@ -26,11 +25,7 @@ namespace H.Core.Services.Analysis;
 ///   <item>Map both into the <see cref="FarmAnalysisResults"/> DTO so view models can bind without depending on <c>CropViewItem</c>.</item>
 /// </list>
 ///
-/// <para>
-/// Emits a <c>[GHGAnalysis]</c> trace line with a per-phase ms breakdown — useful for spotting
-/// regressions without attaching a profiler. See <c>Carbon_Model_Flow.md</c> for the full
-/// pipeline diagram.
-/// </para>
+/// <para>See <c>Carbon_Model_Flow.md</c> for the full pipeline diagram.</para>
 /// </summary>
 public class FarmAnalysisService : IFarmAnalysisService
 {
@@ -115,11 +110,8 @@ public class FarmAnalysisService : IFarmAnalysisService
             throw new InvalidOperationException(message);
         }
 
-        var totalSw = Stopwatch.StartNew();
-        long animalMs, fieldMs, shelterbeltMs, mapMs, initMs;
-
         // CalculateFinalResults reads the per-year detail view items from the farm's
-        // FieldSystemDetailsStageState â€” which is populated lazily by InitializeStageState. In the
+        // FieldSystemDetailsStageState — which is populated lazily by InitializeStageState. In the
         // legacy WPF GUI that initialization happens when the user opens the details screen for a
         // field; the Avalonia GUI lets the user go straight from the field component editor to the
         // results page without ever visiting a details screen, so the stage state is empty and the
@@ -127,11 +119,10 @@ public class FarmAnalysisService : IFarmAnalysisService
         //
         // Only (re)initialize when the stage state isn't already populated. Rebuilding the whole
         // detail-item tree on every call (e.g. every time the user toggles the carbon modelling
-        // strategy combo box) is wasted work â€” the strategy only affects the downstream math, not
-        // the inputs â€” and on a multi-field / multi-decade farm it dominates the analysis time.
+        // strategy combo box) is wasted work — the strategy only affects the downstream math, not
+        // the inputs — and on a multi-field / multi-decade farm it dominates the analysis time.
         // Callers that know inputs have changed (a field component was edited, the user hit
         // Recalculate, etc.) can flip `stageState.IsInitialized` back to false to force a rebuild.
-        var sw = Stopwatch.StartNew();
         var fieldStageState = farm.StageStates
             .OfType<H.Core.Models.LandManagement.Fields.FieldSystemDetailsStageState>()
             .SingleOrDefault();
@@ -140,23 +131,15 @@ public class FarmAnalysisService : IFarmAnalysisService
         {
             _fieldResultsService.InitializeStageState(farm);
         }
-        initMs = sw.ElapsedMilliseconds;
 
         // The field results service expects animal emissions to be populated before calculating
         // soil carbon results, because grazing / manure inputs feed the residue C/N calculations.
-        sw.Restart();
         _fieldResultsService.AnimalResults = _animalService.GetAnimalResults(farm);
-        animalMs = sw.ElapsedMilliseconds;
 
-        sw.Restart();
         var detailViewItems = _fieldResultsService.CalculateFinalResults(farm);
-        fieldMs = sw.ElapsedMilliseconds;
 
-        sw.Restart();
         var shelterbeltResults = CalculateShelterbeltResults(farm);
-        shelterbeltMs = sw.ElapsedMilliseconds;
 
-        sw.Restart();
         var result = new FarmAnalysisResults
         {
             FarmName = farm.Name ?? string.Empty,
@@ -169,16 +152,10 @@ public class FarmAnalysisService : IFarmAnalysisService
                 .ToList(),
             ShelterbeltYearResults = shelterbeltResults,
         };
-        mapMs = sw.ElapsedMilliseconds;
-        totalSw.Stop();
 
-        // Emit a structured trace so the user can see where the time goes without needing a full
-        // profiler attached. The 'GHGAnalysis' tag makes it greppable in Visual Studio's
         _log.Info(
-            $"[GHGAnalysis] Farm='{farm.Name}' total={totalSw.ElapsedMilliseconds}ms " +
-            $"init={initMs}ms animal={animalMs}ms field={fieldMs}ms shelterbelt={shelterbeltMs}ms map={mapMs}ms " +
-            $"rows={result.YearResults.Count} shelterbeltRows={result.ShelterbeltYearResults.Count} " +
-            $"strategy={farm.Defaults.CarbonModellingStrategy}");
+            $"Completed farm analysis for '{farm.Name}': {result.YearResults.Count} field-year rows, " +
+            $"{result.ShelterbeltYearResults.Count} shelterbelt rows, strategy={farm.Defaults.CarbonModellingStrategy}.");
 
         return result;
     }
@@ -201,7 +178,7 @@ public class FarmAnalysisService : IFarmAnalysisService
         // Each component needs its yearly Trannum data built up before the cross-component
         // aggregation. The calculator does both halves but exposes them as separate calls so the
         // GUI's "edit shelterbelt" flow can recompute one component without re-running the entire
-        // farm â€” mirroring that split here keeps both code paths consistent.
+        // farm — mirroring that split here keeps both code paths consistent.
         foreach (var component in shelterbelts)
         {
             _shelterbeltCalculator.CalculateInitialResults(component);
@@ -271,7 +248,7 @@ public class FarmAnalysisService : IFarmAnalysisService
         SoilCarbon = viewItem.SoilCarbon,
         ChangeInSoilCarbon = viewItem.ChangeInCarbon,
 
-        // Nâ‚‚O coverage (Phase 6.4): manure/digestate/grazing N flows through
+        // N₂O coverage: manure/digestate/grazing N flows through
         // FieldResultsService.CalculateNitrogenAtInterval into TotalDirect/IndirectNitrousOxide
         // per hectare. AmountOfNitrogenAppliedFromManure is the total field N from manure +
         // digestate + grazing-deposited manure.

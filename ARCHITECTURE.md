@@ -21,6 +21,7 @@ Holos is a sophisticated desktop application built using modern .NET technologie
 ### **Dependency Injection Container**
 - **DryIoc**: High-performance IoC container used as the underlying DI container
 - **Prism.DryIoc**: Integration layer that combines Prism's application framework with DryIoc's container capabilities
+- **`CoreModule`** (`H.Core/CoreModule.cs`): the single source of the shared calculation graph (carbon input calculators, soil/N calculators, `IAnimalService`, `IFieldResultsService`, `IFarmAnalysisService`, climate/diet/table providers, caching). Both the GUI and the CLI register it, so they resolve an identical calculator graph rather than each hand-wiring it. See [Shared core registrations](#shared-core-registrations-coremodule-and-the-two-composition-roots).
 
 ## Application Bootstrap Process
 
@@ -47,7 +48,7 @@ The `App` class is the **entry point and orchestrator** of the entire applicatio
 
 #### **Dependency Registration**
 - Configures unified logging through NLog. Every class in the codebase logs through the same pipeline — `ILogger` injected via DI for classes the container constructs, or a static `NLog.Logger` field via `LogManager.GetCurrentClassLogger()` for classes it doesn't (providers, helpers, partial classes). See `NLog.config` at `H.GUI.Avalonia/H.Avalonia/NLog.config`.
-- Registers hundreds of services, views, factories, and providers
+- Registers the shared calculation graph via `new CoreModule().RegisterTypes(...)` first, then the GUI-only services, views, factories, and providers on top of it
 - Wires up the project's custom `PropertyMapper` and the per-type `IModelMapper<,>` implementations under `H.Core/Mappers/`. The codebase deliberately does **not** use AutoMapper — the mapping layer is a small reflection-driven copy-by-name engine that produces compiled delegates for hot paths.
 - Configures caching and transfer services
 
@@ -115,7 +116,8 @@ sequenceDiagram
     rect rgb(245,245,245)
     Note over App,CRS: ContainerRegistrationService.RegisterAllTypes
     App->>CRS: new(Container, logger).RegisterAllTypes(containerRegistry)
-    CRS->>DI: Register hundreds of services / views / factories / providers
+    CRS->>DI: new CoreModule().RegisterTypes(...) — shared calc graph (first)
+    CRS->>DI: Register GUI-only services / views / factories / mappers / dialogs
     CRS->>CRS: PreWarmHeavyServices()
     CRS-)FRS: Task.Run → Resolve<IFieldResultsService> (off-thread)
     Note right of FRS: SmallAreaYieldProvider<br/>parses ~1M-row CSV<br/>so first user click<br/>doesn't pay the cost
@@ -144,6 +146,50 @@ sequenceDiagram
   HTTP probe, etc.), use the `PreWarmHeavyServices` Task.Run pattern so the first user
   interaction doesn't block. `SmallAreaYieldProvider`'s 1M-row parse is the existing
   example.
+
+### **Shared core registrations: `CoreModule` and the two composition roots**
+
+The carbon/nitrogen/animal calculation graph is needed by **two** front-ends — the Avalonia
+GUI and the command-line `H.CLI` — so its DI registrations live in one place:
+`H.Core/CoreModule.cs`. `CoreModule` is a Prism `IModule` that registers the whole shared
+stack (carbon-input calculators, soil/N calculators, `N2OEmissionFactorCalculator`,
+`IAnimalService`, `IFieldResultsService`, `IFarmAnalysisService`, `ICropInitializationService`,
+manure/digestate/field-component helpers, the climate/diet/feed/table providers, and
+`IMemoryCache` / `ICacheService`).
+
+Each front-end has its own **composition root** that registers `CoreModule` plus the
+infrastructure that front-end owns:
+
+| Front-end | Composition root | Adds on top of `CoreModule` |
+|---|---|---|
+| GUI | `ContainerRegistrationService.RegisterAllTypes` (`H.GUI.Avalonia/H.Avalonia/Infrastructure/DependencyInjection/`) | Views + view-models, mappers, factories, transfer services, dialogs, GUI services (storage, notifications, error handling), and `ILogger` (from `App.SetUpLogging`). `IEventAggregator` comes from `PrismApplication`. |
+| CLI | `CliCompositionRoot.Build` (`H.CLI/Infrastructure/`) | `ILogger` = `NullLogger`, an `IMemoryCache`, and `ICacheService` → `InMemoryCacheService`. `Program.cs` then resolves `IFieldResultsService` from the container. |
+
+```mermaid
+flowchart TD
+    CM["CoreModule.RegisterTypes<br/>(shared calc graph)"]
+    GUI["ContainerRegistrationService<br/>.RegisterAllTypes"] --> CM
+    GUI --> GUIextra["+ Views / ViewModels<br/>Mappers / Factories<br/>Dialogs / GUI services"]
+    CLI["CliCompositionRoot.Build"] --> CM
+    CLI --> CLIextra["+ NullLogger<br/>IMemoryCache<br/>InMemoryCacheService"]
+```
+
+**Why it's wired this way:** before this consolidation `CoreModule` was dead code and the GUI
+hand-registered everything, while the CLI hand-`new`ed its calculator stack with no container
+at all. Centralising the shared registrations means a new calculator is registered once, in
+`CoreModule`, and both front-ends pick it up.
+
+**Test coverage for the DI graph** (there is no test that launches the real app, so these
+guard the wiring):
+
+- `H.Core.Test/CoreModuleResolutionTests.cs` — builds a DryIoc container over `CoreModule`
+  (plus the host infra it expects) and resolves the top-level calculation services. Guards the
+  shared graph used by both front-ends.
+- `H.GUI.Avalonia/H.Avalonia.Test/Infrastructure/FullContainerResolutionTests.cs` — builds the
+  **full** GUI container through `RegisterAllTypes` and resolves the GUI-only top-level services.
+  Complements the manual GUI smoke test.
+- `H.CLI.Test/Infrastructure/CliCompositionRootTest.cs` — resolves the calculation services from
+  the CLI composition root.
 
 ### **Modern Architecture Benefits**
 

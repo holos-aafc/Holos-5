@@ -119,6 +119,86 @@ flowchart TD
 - **Stage-state initialisation is cached across analysis runs.** Switching the Strategy ComboBox between ICBM and Tier 2 does *not* re-run `InitializeStageState` — only the downstream math (`CalculateFinalResults` onward) re-runs. The strategy only affects pool dynamics, not the C-input inventory. If you change something upstream that affects inputs (a yield, a crop, a manure application), call `InvalidateFieldStageState()` on the ViewModel or flip `stageState.IsInitialized = false` so the next `RunAnalysis` rebuilds.
 - **`AssignPerennialStandIds` has a defensive `FirstOrDefault` fallback** for legacy v4 farms where some years have zero items with `IsSecondaryCrop == false`. Same pattern as three sibling methods (`GetMainCropForYear` in `FieldResultsService.DetailViewItems.cs`, `FieldComponentHelper.cs`, `IFieldComponentHelper.cs`). The fallback exists because the v4 → v5 JSON load path doesn't reliably set the flag.
 
+## CLI path — files → farm → results files
+
+The command-line front-end (`H.CLI`) runs the **same** carbon pipeline as the GUI but reaches
+it differently. There is no authoring UI and no `FarmAnalysisService`: the CLI parses input
+files into a `Farm`, resolves `IFieldResultsService` from its own DI container, and calls
+`CalculateFinalResults(farm)` directly — the exact node the GUI flow reaches at step 5 above.
+Everything from that node onward (strategy dispatch, equilibrium + per-year loop or Tier 2
+pool dynamics, nitrogen pass, shelterbelt, DTO assembly) is shared; only the **front** (file
+parsing, CLI-only residue fill) and the **back** (output to CSV files instead of a chart)
+differ.
+
+```mermaid
+flowchart TD
+    %% ========================================================================
+    %% 1. CLI BOOTSTRAP
+    %% ========================================================================
+    subgraph boot ["1. Bootstrap (Program.Main)"]
+        Args["Parse args + culture<br/>(CLIArguments)"]
+        Root["CliCompositionRoot.Build()<br/>DI container =<br/>CoreModule + NullLogger<br/>+ IMemoryCache + InMemoryCacheService"]
+        Args --> Root
+    end
+
+    %% ========================================================================
+    %% 2. INPUT FILES → FARM
+    %% ========================================================================
+    Root --> Geo["GeographicDataProvider.Initialize()<br/>(once, up front)"]
+    Geo --> Read
+
+    subgraph parse ["2. Build the Farm from input files"]
+        Read["For each Farm folder + .settings file:<br/>DataInputHandler.ProcessDataInputFiles<br/>→ components from each input row"]
+        Read --> Flags["farm.IsCommandLineMode = true<br/>+ apply .settings (climate, soil, units)"]
+        Flags --> Stage["Per-year CropViewItems come from the<br/>input-file rows themselves<br/>(FieldSystemInputConverter on read) —<br/>stage state is NOT rebuilt in the processor"]
+    end
+
+    %% ========================================================================
+    %% 3. PER-FARM PROCESSING
+    %% ========================================================================
+    Stage --> Resolve["container.Resolve&lt;IFieldResultsService&gt;()<br/>(shared CoreModule graph)"]
+    Resolve --> PF["ComponentResultsProcessor.ProcessFarms<br/>→ FieldProcessor.ProcessComponent (per field)"]
+
+    subgraph proc ["3. FieldProcessor.ProcessComponent"]
+        An["_animalService.GetAnimalResults(farm)<br/>(FieldProcessor holds its own<br/>AnimalResultsService instance)"]
+        An --> Prime["_fieldResultsService.AnimalResults = animalResults"]
+        Prime --> Call["_fieldResultsService.CalculateFinalResults(farm)"]
+    end
+
+    %% ========================================================================
+    %% 4. CLI-ONLY RESIDUE FILL + CONVERGENCE
+    %% ========================================================================
+    Call --> PCLI["ProcessCommandLineItems (CLI-only)<br/>runs at the top of CalculateFinalResultsForField,<br/>guarded by farm.IsCommandLineMode.<br/>Fills any C/N-input prerequisites left at zero:<br/>yield, lignin, moisture, biomass coefficients,<br/>residue N contents, N fixation, grazing view items"]
+    PCLI --> Converge[["Converges with the GUI flow at<br/>CalculateFinalResults — see the main Flow<br/>diagram from this node onward"]]
+
+    %% ========================================================================
+    %% 5. OUTPUT
+    %% ========================================================================
+    Converge --> Out["_fieldResultsService.ExportResultsToFile<br/>per-field CSV under Outputs/"]
+    Out --> Total["ComponentResultsProcessor.WriteEmissionsToFiles<br/>total-for-all-farms output"]
+```
+
+### CLI-specific things worth knowing
+
+- **The convergence point is `CalculateFinalResults(farm)`.** The CLI shares the entire
+  downstream pipeline with the GUI; do not duplicate that logic in `H.CLI`. If a calculation
+  bug reproduces in the GUI it will reproduce in the CLI and vice versa, because it is the same
+  service instance graph (resolved from `CoreModule`).
+- **`ProcessCommandLineItems` only runs in CLI mode.** It is a no-op when
+  `farm.IsCommandLineMode == false`, so it never affects GUI results. It exists because CLI
+  input files may legitimately leave residue-input prerequisites at zero as an opt-in signal
+  for Holos to compute them; each step is guarded on a zero value so user-supplied non-zero
+  values are preserved. See the `FieldResultsService.Carbon.cs` doc comment for the full list.
+- **Stage state is built during file parsing, not in the processor.** `FieldProcessor`
+  deliberately does *not* call `InitializeStageState`; the per-year `CropViewItem`s are created
+  from the input-file rows as they are read (this lets a GUI-exported farm round-trip its
+  existing stage state through the input files). The GUI path, by contrast, builds stage state
+  in `InitializeStageState` (step 3 of the main flow).
+- **`FieldProcessor` holds its own `AnimalResultsService`.** It is `new`ed rather than resolved
+  from the container. That is harmless — `AnimalResultsService` holds no per-farm state — but it
+  means animal results in the CLI come from a dedicated instance rather than the `CoreModule`
+  singleton.
+
 ## Animal pipeline dispatch
 
 Branching off the main flow above: `FarmAnalysisService.RunAnalysis` calls
@@ -258,3 +338,7 @@ the cattle base rather than under it.
 | Final Tier 2 math | `H.Core/Calculators/Carbon/IPCCTier2SoilCarbonCalculator.cs` (`CalculateResults`) |
 | Shelterbelt | `H.Core/Calculators/Shelterbelt/ShelterbeltCalculator.cs` |
 | Result DTOs | `H.Core/Models/Results/FarmAnalysisResults.cs`, `FieldAnalysisYearResult.cs`, `ShelterbeltYearResult.cs` |
+| CLI bootstrap / DI | `H.CLI/Program.cs`, `H.CLI/Infrastructure/CliCompositionRoot.cs` |
+| CLI input files → farm | `H.CLI/Handlers/DataInputHandler.cs`, `H.CLI/Handlers/ExportedFarmsHandler.cs` |
+| CLI per-farm processing | `H.CLI/Results/ComponentResultsProcessor.cs`, `H.CLI/Processors/FieldProcessor.cs` |
+| CLI-only residue fill | `FieldResultsService.Carbon.cs` (`ProcessCommandLineItems`) |

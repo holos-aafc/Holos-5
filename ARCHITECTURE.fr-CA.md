@@ -30,6 +30,7 @@ Les liens ci-dessous pointent vers les sections correspondantes du
 - [Processus d'amorçage de l'application](./ARCHITECTURE.md#application-bootstrap-process) — déroulement du démarrage.
 - [App.axaml.cs — le chargeur d'amorçage](./ARCHITECTURE.md#starting-point-appaxamlcs---the-application-bootloader) — point d'entrée principal.
 - [Diagramme de séquence d'injection de dépendances](./ARCHITECTURE.md#di-bootstrap-sequence-detailed) — diagramme Mermaid détaillé du démarrage.
+- [Enregistrements partagés du noyau : `CoreModule` et les deux racines de composition](./ARCHITECTURE.md#shared-core-registrations-coremodule-and-the-two-composition-roots) — graphe de calcul partagé entre l'interface graphique et l'interface en ligne de commande.
 - [Documentation connexe](./ARCHITECTURE.md#related-documentation) — liens vers les autres guides.
 
 ## Comment contribuer à la traduction

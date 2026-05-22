@@ -34,6 +34,7 @@ Les liens ci-dessous pointent vers les sections correspondantes du
 
 - [Flux principal](./Carbon_Model_Flow.md#flow) — diagramme Mermaid de bout en bout (vue → analyse → résultats).
 - [Points non évidents](./Carbon_Model_Flow.md#things-the-diagram-doesnt-make-obvious) — pièges et invariants d'ordre que le diagramme ne montre pas.
+- [Cheminement de l'interface en ligne de commande](./Carbon_Model_Flow.md#cli-path--files--farm--results-files) — diagramme du flux CLI (fichiers → ferme → fichiers de résultats) et point de convergence avec le flux de l'interface graphique.
 - [Répartition du pipeline animal](./Carbon_Model_Flow.md#animal-pipeline-dispatch) — diagrammes d'héritage et de répartition pour les six services par espèce.
   - [Héritage](./Carbon_Model_Flow.md#inheritance) — diagramme de classes.
   - [Répartition](./Carbon_Model_Flow.md#dispatch) — organigramme de répartition.

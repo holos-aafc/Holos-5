@@ -11,4 +11,11 @@ public class RotationComponentToRotationComponentDtoMapper : IModelMapper<Rotati
         dest.FieldArea = source.FieldSystemComponent.FieldArea;
         return dest;
     }
+
+    /// <summary>In-place transfer path: carry the derived FieldArea from the field component.</summary>
+    public void Map(RotationComponent source, RotationComponentDto dest)
+    {
+        PropertyMapper.CopyTo(source, dest);
+        dest.FieldArea = source.FieldSystemComponent.FieldArea;
+    }
 }

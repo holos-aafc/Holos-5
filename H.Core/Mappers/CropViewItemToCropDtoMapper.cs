@@ -23,4 +23,16 @@ public class CropViewItemToCropDtoMapper : IModelMapper<CropViewItem, CropDto>
         dest.Guid = source.Guid;
         return dest;
     }
+
+    /// <summary>
+    /// In-place display path (used by <c>TransferService.TransferDomainObjectToDto</c>): bridge the
+    /// domain's <c>Yield</c> onto the DTO's <c>WetYield</c> so the bound DTO shows the correct wet
+    /// yield. Guid is not copied here — the transfer path manages the DTO's identity separately
+    /// (<c>DomainObjectGuid</c>).
+    /// </summary>
+    public void Map(CropViewItem source, CropDto dest)
+    {
+        PropertyMapper.CopyTo(source, dest);
+        dest.WetYield = source.Yield;
+    }
 }

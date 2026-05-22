@@ -12,4 +12,12 @@ public class DailyClimateDtoToDailyClimateDataMapper : IModelMapper<DailyClimate
         dest.MeanDailyPrecipitation = source.TotalPPT;
         return dest;
     }
+
+    /// <summary>In-place transfer/edit path: bridge the differently-named PET / precipitation properties.</summary>
+    public void Map(DailyClimateDto source, DailyClimateData dest)
+    {
+        PropertyMapper.CopyTo(source, dest);
+        dest.MeanDailyPET = source.TotalPET;
+        dest.MeanDailyPrecipitation = source.TotalPPT;
+    }
 }

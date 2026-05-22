@@ -11,4 +11,11 @@ public class DailyClimateDataToDailyClimateDtoMapper : IModelMapper<DailyClimate
         dest.MeanDailyEvapotranspiration = source.MeanDailyPET;
         return dest;
     }
+
+    /// <summary>In-place transfer path: bridge the differently-named PET property.</summary>
+    public void Map(DailyClimateData source, DailyClimateDto dest)
+    {
+        PropertyMapper.CopyTo(source, dest);
+        dest.MeanDailyEvapotranspiration = source.MeanDailyPET;
+    }
 }

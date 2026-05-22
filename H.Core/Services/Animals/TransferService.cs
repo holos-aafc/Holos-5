@@ -74,8 +74,10 @@ namespace H.Core.Services.Animals
         {
             var dto = _dtoFactory.CreateDto(new Farm());
 
-            // Use the internal mapper
-            PropertyMapper.CopyTo(model, dto);
+            // Map the model onto the fresh DTO via the configured mapper so any special property
+            // bridges (e.g. CropViewItem.Yield -> CropDto.WetYield) are applied, not just same-named
+            // properties.
+            _modelToDtoMapper.Map(model, dto);
 
             // Track which domain object this DTO was created from
             dto.DomainObjectGuid = model.Guid;
@@ -120,9 +122,10 @@ namespace H.Core.Services.Animals
                 property.SetValue(copy, bindingValue);
             }
 
-            // Map values from the copy of the DTO to the internal system object.
-            // Cast to TDto so PropertyMapper sees the concrete type's properties, not just IDto's.
-            PropertyMapper.CopyTo((TDto)copy, model);
+            // Map values from the (unit-converted) copy of the DTO onto the existing system object
+            // via the configured mapper so special property bridges (e.g. CropDto.WetYield ->
+            // CropViewItem.Yield) are applied. Cast to TDto so the mapper sees the concrete type.
+            _dtoToModelMapper.Map((TDto)copy, model);
 
             return model;
         }

@@ -23,4 +23,18 @@ public class CropDtoToCropViewItemMapper : IModelMapper<ICropDto, CropViewItem>
         dest.Guid = source.Guid;
         return dest;
     }
+
+    /// <summary>
+    /// In-place edit path (used by <c>TransferService.TransferDtoToDomainObject</c>): bridge the
+    /// DTO's <c>WetYield</c> onto the domain's <c>Yield</c> so yield edits are persisted. Guid is
+    /// not copied — the transfer path operates on a cloned DTO with a fresh Guid, and the target
+    /// view item already owns the correct Guid.
+    /// </summary>
+    public void Map(ICropDto source, CropViewItem dest)
+    {
+        // Cast to the concrete CropDto so PropertyMapper reflects over its full property set, not
+        // just the ICropDto interface members (mirrors the create path's Map(ICropDto)).
+        PropertyMapper.CopyTo((CropDto)source, dest);
+        dest.Yield = source.WetYield;
+    }
 }

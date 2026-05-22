@@ -262,6 +262,53 @@ namespace H.Core.Test.Services.Animals
         }
 
         [TestMethod]
+        public void TransferDomainObjectToDto_BridgesYieldToWetYield()
+        {
+            // CropViewItem.Yield (the legacy wet-weight yield) must bridge to the DTO's WetYield via
+            // the configured mapper, not be dropped because the property names differ.
+            _mockUnitsCalculator.Setup(x => x.GetUnitsOfMeasurement()).Returns(MeasurementSystemType.Metric);
+            ITransferService<CropViewItem, CropDto> service = new TransferService<CropViewItem, CropDto>(
+                _mockUnitsCalculator.Object,
+                _mockCropDtoFactory.Object,
+                _cropDtoToCropViewItemMapper,
+                _cropViewItemToCropDtoMapper);
+
+            var cropViewItem = new CropViewItem { Yield = 1234 };
+
+            var dto = service.TransferDomainObjectToDto(cropViewItem);
+
+            Assert.AreEqual(1234, dto.WetYield, "Domain Yield should bridge to DTO WetYield on transfer.");
+        }
+
+        [TestMethod]
+        public void TransferDtoToDomainObject_BridgesWetYieldToYield()
+        {
+            // Editing the wet yield in the GUI (DTO.WetYield) must persist to the domain's Yield on
+            // the transfer/edit path; previously this was silently dropped because TransferService
+            // copied by matching property name only (and CropViewItem has no WetYield).
+            _mockUnitsCalculator.Setup(x => x.GetUnitsOfMeasurement()).Returns(MeasurementSystemType.Metric);
+            _mockCropDtoFactory.Setup(f => f.CreateDtoFromDtoTemplate(It.IsAny<IDto>()))
+                .Returns<IDto>(template =>
+                {
+                    var source = (CropDto)template;
+                    return new CropDto { WetYield = source.WetYield, DryYield = source.DryYield };
+                });
+
+            ITransferService<CropViewItem, CropDto> service = new TransferService<CropViewItem, CropDto>(
+                _mockUnitsCalculator.Object,
+                _mockCropDtoFactory.Object,
+                _cropDtoToCropViewItemMapper,
+                _cropViewItemToCropDtoMapper);
+
+            var model = new CropViewItem { Yield = 0 };
+            var dto = new CropDto { WetYield = 4321 };
+
+            service.TransferDtoToDomainObject(dto, model);
+
+            Assert.AreEqual(4321, model.Yield, "Edited DTO WetYield should persist to domain Yield on transfer.");
+        }
+
+        [TestMethod]
         public void TransferDtoToDomainObject_DoesNotOverwriteModelGuid()
         {
             // Arrange

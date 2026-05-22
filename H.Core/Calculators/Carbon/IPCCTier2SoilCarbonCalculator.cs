@@ -393,31 +393,29 @@ namespace H.Core.Calculators.Carbon
             var temperaturesForYear = climateData.GetMonthlyTemperaturesForYear(
                 year: currentYearViewItem.Year).Select(x => x.Value).ToList();
 
-            currentYearViewItem.TFac = this.CalculateAverageAnnualTemperatureFactor(
+            // Build the 12 monthly temperature factors once, then derive both the annual factor
+            // (their average) and the per-month assignment from the same list.
+            var monthlyTemperatureFactors = this.CalculateMonthlyTemperatureFactors(
                 monthlyAverageTemperatures: temperaturesForYear,
                 maximumTemperatureForDecomposition: maximumTemperature!.Value,
                 optimumTemperatureForDecomposition: optimumTemperature!.Value);
 
-            this.SetMonthlyTemperatureFactors(
-                monthlyAverageTemperatures: temperaturesForYear,
-                maximumTemperatureForDecomposition: maximumTemperature!.Value,
-                optimumTemperatureForDecomposition: optimumTemperature!.Value,
-                currentYearViewItem);
+            currentYearViewItem.TFac = this.CalculateAverageAnnualTemperatureFactor(monthlyTemperatureFactors);
+            this.SetMonthlyTemperatureFactors(monthlyTemperatureFactors, currentYearViewItem);
 
             var slopeParameter = _globallyCalibratedModelParametersProvider.GetGloballyCalibratedModelParametersInstance(
                 parameter: ModelParameters.SlopeParameter,
                 tillageType: currentYearViewItem.TillageType);
 
-            currentYearViewItem.WFac = this.CalculateAnnualWaterFactor(
+            // Likewise build the 12 monthly water effects once and reuse for the annual factor and
+            // the per-month assignment.
+            var monthlyWaterFactors = this.GetMonthlyWaterEffects(
                 monthlyTotalPrecipitations: precipitationsForYear,
                 monthlyTotalEvapotranspirations: evapotranspirationsForYear,
                 slopeParameter: slopeParameter!.Value);
 
-            this.SetMonthlyWaterFactors(
-                monthlyTotalPrecipitations: precipitationsForYear,
-                monthlyTotalEvapotranspirations: evapotranspirationsForYear,
-                slopeParameter: slopeParameter!.Value,
-                viewItem: currentYearViewItem);
+            currentYearViewItem.WFac = this.CalculateAnnualWaterFactor(monthlyWaterFactors);
+            this.SetMonthlyWaterFactors(monthlyWaterFactors, currentYearViewItem);
         }
 
         public void CalculatePools(
@@ -809,6 +807,15 @@ namespace H.Core.Calculators.Carbon
                 monthlyTotalEvapotranspirations: monthlyTotalEvapotranspirations,
                 slopeParameter: slopeParameter);
 
+            this.SetMonthlyWaterFactors(monthlyWaterFactors, viewItem);
+        }
+
+        /// <summary>
+        /// Assigns precomputed monthly water factors to the view item. Used when the monthly
+        /// effects have already been built so they are not recomputed.
+        /// </summary>
+        public void SetMonthlyWaterFactors(List<double> monthlyWaterFactors, CropViewItem viewItem)
+        {
             for (int i = 0; i < monthlyWaterFactors.Count; i++)
             {
                 var month = (Months)(i + 1);
@@ -828,6 +835,15 @@ namespace H.Core.Calculators.Carbon
                 maximumTemperatureForDecomposition: maximumTemperatureForDecomposition,
                 optimumTemperatureForDecomposition: optimumTemperatureForDecomposition);
 
+            this.SetMonthlyTemperatureFactors(monthlyTemperatureFactors, cropViewItem);
+        }
+
+        /// <summary>
+        /// Assigns precomputed monthly temperature factors to the view item. Used when the monthly
+        /// factors have already been built so they are not recomputed.
+        /// </summary>
+        public void SetMonthlyTemperatureFactors(List<double> monthlyTemperatureFactors, CropViewItem cropViewItem)
+        {
             for (int i = 0; i < monthlyTemperatureFactors.Count; i++)
             {
                 var month = (Months)(i + 1);
@@ -854,10 +870,21 @@ namespace H.Core.Calculators.Carbon
                 maximumTemperatureForDecomposition: maximumTemperatureForDecomposition,
                 optimumTemperatureForDecomposition: optimumTemperatureForDecomposition);
 
-            var sum = monthlyValues.Sum();
+            return this.CalculateAverageAnnualTemperatureFactor(monthlyValues);
+        }
+
+        /// <summary>
+        /// Equation 2.2.3-2, averaging step only. Accepts precomputed monthly temperature factors
+        /// so the caller can reuse a list it has already built.
+        /// </summary>
+        /// <param name="monthlyTemperatureFactors">Per-month temperature effects on decomposition (unitless)</param>
+        /// <returns>Annual average air temperature effect on decomposition, (unitless)</returns>
+        public double CalculateAverageAnnualTemperatureFactor(List<double> monthlyTemperatureFactors)
+        {
+            var sum = monthlyTemperatureFactors.Sum();
 
             // There might be an incomplete year where there isn't 12 values for temperature
-            var annualTemperatureFactor = sum / monthlyValues.Count;
+            var annualTemperatureFactor = sum / monthlyTemperatureFactors.Count;
 
             return annualTemperatureFactor;
         }
@@ -930,8 +957,19 @@ namespace H.Core.Calculators.Carbon
                 monthlyTotalEvapotranspirations: monthlyTotalEvapotranspirations,
                 slopeParameter: slopeParameter);
 
-            var total = monthlyValues.Sum();
-            var average = total / monthlyValues.Count;
+            return this.CalculateAnnualWaterFactor(monthlyValues);
+        }
+
+        /// <summary>
+        /// Equation 2.2.3-5, averaging step only. Accepts precomputed monthly water effects so the
+        /// caller can reuse a list it has already built.
+        /// </summary>
+        /// <param name="monthlyWaterEffects">Per-month water effects on decomposition (unitless)</param>
+        /// <returns>Annual water effect on decomposition (unitless)</returns>
+        public double CalculateAnnualWaterFactor(List<double> monthlyWaterEffects)
+        {
+            var total = monthlyWaterEffects.Sum();
+            var average = total / monthlyWaterEffects.Count;
             var annualWaterEffect = 1.5 * average;
 
             return annualWaterEffect;

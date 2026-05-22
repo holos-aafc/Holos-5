@@ -67,23 +67,9 @@ namespace H.Core.Calculators.Carbon
         /// <exception cref="ArgumentNullException">If either dependency is <c>null</c>.</exception>
         public ICBMSoilCarbonCalculator(IClimateProvider climateProvider, N2OEmissionFactorCalculator n2OEmissionFactorCalculator)
         {
-            if (climateProvider != null)
-            {
-                _climateProvider = climateProvider;
-            }
-            else
-            {
-                throw new ArgumentNullException(nameof(climateProvider));
-            }
+            _climateProvider = climateProvider ?? throw new ArgumentNullException(nameof(climateProvider));
 
-            if (n2OEmissionFactorCalculator != null)
-            {
-                base.N2OEmissionFactorCalculator = n2OEmissionFactorCalculator;
-            }
-            else
-            {
-                throw new ArgumentNullException(nameof(n2OEmissionFactorCalculator));
-            }
+            base.N2OEmissionFactorCalculator = n2OEmissionFactorCalculator ?? throw new ArgumentNullException(nameof(n2OEmissionFactorCalculator));
         }
 
         #endregion

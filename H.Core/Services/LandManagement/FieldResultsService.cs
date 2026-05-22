@@ -153,34 +153,13 @@ namespace H.Core.Services.LandManagement
             N2OEmissionFactorCalculator n2OEmissionFactorCalculator,
             IICBMCarbonInputCalculator icbmCarbonInputCalculator)
         {
-            if (icbmSoilCarbonCalculator != null)
-            {
-                _icbmSoilCarbonCalculator = icbmSoilCarbonCalculator;
-            }
-            else
-            {
-                throw new ArgumentNullException(nameof(icbmSoilCarbonCalculator));
-            }
+            _icbmSoilCarbonCalculator = icbmSoilCarbonCalculator ?? throw new ArgumentNullException(nameof(icbmSoilCarbonCalculator));
 
             _icbmCarbonInputCalculator = icbmCarbonInputCalculator ?? throw new ArgumentNullException(nameof(icbmCarbonInputCalculator));
 
-            if (ipccTier2SoilCarbonCalculator != null)
-            {
-                _tier2SoilCarbonCalculator = ipccTier2SoilCarbonCalculator;
-            }
-            else
-            {
-                throw new ArgumentNullException(nameof(ipccTier2SoilCarbonCalculator));
-            }
+            _tier2SoilCarbonCalculator = ipccTier2SoilCarbonCalculator ?? throw new ArgumentNullException(nameof(ipccTier2SoilCarbonCalculator));
 
-            if (n2OEmissionFactorCalculator != null)
-            {
-                _n2OEmissionFactorCalculator = n2OEmissionFactorCalculator;
-            }
-            else
-            {
-                throw new ArgumentNullException(nameof(n2OEmissionFactorCalculator));
-            }
+            _n2OEmissionFactorCalculator = n2OEmissionFactorCalculator ?? throw new ArgumentNullException(nameof(n2OEmissionFactorCalculator));
             _smallAreaYieldProvider.Initialize();
 
             this.AnimalResults = new List<AnimalComponentEmissionsResults>();

@@ -41,10 +41,7 @@ namespace H.Avalonia.ViewModels.Results
 
         public ResultsSidebarViewModel(IRegionManager regionManager, IEventAggregator eventAggregator, ILogger logger) : base(regionManager, eventAggregator)
         {
-            if (logger != null)
-                _logger = logger;
-            else
-                throw new ArgumentNullException(nameof(logger));
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
 
             PopulateBasicChaptersTitles();
             PopulateAdvancedTabs();

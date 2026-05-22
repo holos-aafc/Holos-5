@@ -77,23 +77,9 @@ namespace H.Core.Providers.Feed
 
         public FeedIngredientProvider(ILogger logger, IContainerProvider containerProvider, ICacheService cacheService) : this()
         {
-            if (cacheService != null)
-            {
-                _cacheService = cacheService;
-            }
-            else
-            {
-                throw new ArgumentNullException(nameof(cacheService));
-            }
+            _cacheService = cacheService ?? throw new ArgumentNullException(nameof(cacheService));
 
-            if (logger != null)
-            {
-                _logger = logger;
-            }
-            else
-            {
-                throw new ArgumentNullException(nameof(logger));
-            }
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
 
             _feedIngredientMapper = containerProvider.Resolve<IModelMapper<FeedIngredient, FeedIngredient>>(nameof(FeedIngredientToFeedIngredientMapper));
         }

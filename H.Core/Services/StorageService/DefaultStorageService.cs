@@ -13,14 +13,7 @@ public class DefaultStorageService : IStorageService
 
     public DefaultStorageService(IStorage storage)
     {
-        if (storage != null)
-        {
-            this.Storage = storage;
-        }
-        else
-        {
-            throw new ArgumentNullException(nameof(storage));
-        }
+        this.Storage = storage ?? throw new ArgumentNullException(nameof(storage));
     }
 
     #endregion

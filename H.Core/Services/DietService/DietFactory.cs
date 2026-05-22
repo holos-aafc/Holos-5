@@ -72,32 +72,11 @@ namespace H.Core.Services.DietService
 
         public DietFactory(ILogger logger, ICacheService cacheService, IFeedIngredientProvider feedIngredientProvider) : this()
         {
-            if (feedIngredientProvider != null)
-            {
-                _feedIngredientProvider = feedIngredientProvider;
-            }
-            else
-            {
-                throw new ArgumentNullException(nameof(feedIngredientProvider));
-            }
+            _feedIngredientProvider = feedIngredientProvider ?? throw new ArgumentNullException(nameof(feedIngredientProvider));
 
-            if (cacheService != null)
-            {
-                _cacheService = cacheService;
-            }
-            else
-            {
-                throw new ArgumentNullException(nameof(cacheService));
-            }
+            _cacheService = cacheService ?? throw new ArgumentNullException(nameof(cacheService));
 
-            if (logger != null)
-            {
-                _logger = logger;
-            }
-            else
-            {
-                throw new ArgumentNullException(nameof(logger));
-            }
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
 
             _feedIngredientProvider = feedIngredientProvider;
 

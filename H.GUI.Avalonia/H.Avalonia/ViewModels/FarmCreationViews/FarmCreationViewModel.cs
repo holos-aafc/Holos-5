@@ -28,14 +28,7 @@ namespace H.Avalonia.ViewModels.FarmCreationViews
 
         public FarmCreationViewModel(IRegionManager regionManager, IStorageService storageService, IFarmHelper farmHelper) : base(regionManager, storageService)
         {
-            if (farmHelper != null)
-            {
-                _farmHelper = farmHelper;
-            }
-            else
-            {
-                throw new ArgumentNullException(nameof(farmHelper));
-            }
+            _farmHelper = farmHelper ?? throw new ArgumentNullException(nameof(farmHelper));
 
             NavigateToPreviousPage = new DelegateCommand(OnNavigateToPreviousPage);
         }

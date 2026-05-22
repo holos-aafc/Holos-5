@@ -44,24 +44,10 @@ namespace H.Avalonia.ViewModels.OptionsViews.FileMenuViews
         public FileExportManureViewModel(IManureService manureService, IFarmResultsService farmResultsService, IStorage storage) 
         {
             // Validate and assign the farm results service
-            if (farmResultsService != null)
-            {
-                _farmResultsService = farmResultsService;
-            }
-            else
-            {
-                throw new ArgumentNullException(nameof(farmResultsService));
-            }
+            _farmResultsService = farmResultsService ?? throw new ArgumentNullException(nameof(farmResultsService));
 
             // Validate and assign the manure service
-            if (manureService != null)
-            {
-                _manureService = manureService;
-            }
-            else
-            {
-                throw new ArgumentNullException(nameof(manureService));
-            }
+            _manureService = manureService ?? throw new ArgumentNullException(nameof(manureService));
         }
         #endregion
 

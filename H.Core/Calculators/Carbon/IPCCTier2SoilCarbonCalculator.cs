@@ -81,23 +81,9 @@ namespace H.Core.Calculators.Carbon
         {
             this.CalculationMode = CalculationModes.Carbon;
 
-            if (climateProvider != null)
-            {
-                _climateProvider = climateProvider;
-            }
-            else
-            {
-                throw new ArgumentNullException(nameof(climateProvider));
-            }
+            _climateProvider = climateProvider ?? throw new ArgumentNullException(nameof(climateProvider));
 
-            if (n2OEmissionFactorCalculator != null)
-            {
-                this.N2OEmissionFactorCalculator = n2OEmissionFactorCalculator;
-            }
-            else
-            {
-                throw new ArgumentNullException(nameof(n2OEmissionFactorCalculator));
-            }
+            this.N2OEmissionFactorCalculator = n2OEmissionFactorCalculator ?? throw new ArgumentNullException(nameof(n2OEmissionFactorCalculator));
         }
 
         #endregion

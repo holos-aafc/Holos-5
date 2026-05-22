@@ -41,14 +41,7 @@ namespace H.Avalonia.ViewModels.SupportingViews.Disclaimer
                                    IEventAggregator eventAggregator,
                                    ICountrySettings countrySettings) : base(regionManager, eventAggregator)
         {
-            if (countrySettings != null)
-            {
-                _countrySettings = countrySettings; 
-            }
-            else
-            {
-                throw new ArgumentNullException(nameof(countrySettings));
-            }
+            _countrySettings = countrySettings ?? throw new ArgumentNullException(nameof(countrySettings));
 
             LanguageCollection = new ObservableCollection<Languages>(EnumHelper.GetValues<Languages>());
             this.Construct();

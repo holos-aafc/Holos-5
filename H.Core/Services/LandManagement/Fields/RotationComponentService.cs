@@ -28,32 +28,11 @@ public class RotationComponentService : ComponentServiceBase, IRotationComponent
         ICropFactory cropFactory,
         ITransferService<RotationComponent, RotationComponentDto> rotationTransferService) : base(logger)
     {
-        if (cropFactory != null)
-        {
-            _cropFactory = cropFactory; 
-        }
-        else
-        {
-            throw new ArgumentNullException(nameof(cropFactory));
-        }
+        _cropFactory = cropFactory ?? throw new ArgumentNullException(nameof(cropFactory));
 
-        if (fieldFactory != null)
-        {
-            _fieldFactory = fieldFactory; 
-        }
-        else
-        {
-            throw new ArgumentNullException(nameof(fieldFactory));
-        }
+        _fieldFactory = fieldFactory ?? throw new ArgumentNullException(nameof(fieldFactory));
 
-        if (rotationTransferService != null)
-        {
-            _rotationTransferService = rotationTransferService;
-        }
-        else
-        {
-            throw new ArgumentNullException(nameof(rotationTransferService));
-        }
+        _rotationTransferService = rotationTransferService ?? throw new ArgumentNullException(nameof(rotationTransferService));
     }
 
     #endregion

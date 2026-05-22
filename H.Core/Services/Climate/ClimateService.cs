@@ -43,41 +43,13 @@ namespace H.Core.Services.Climate
             ILogger logger,
             IClimateProvider climateProvider)
         {
-            if (climateProvider != null)
-            {
-                _climateProvider = climateProvider; 
-            }
-            else
-            {
-                throw new ArgumentNullException(nameof(climateProvider));
-            }
+            _climateProvider = climateProvider ?? throw new ArgumentNullException(nameof(climateProvider));
 
-            if (climateTransferService != null)
-            {
-                _climateTransferService = climateTransferService;
-            }
-            else
-            {
-                throw new ArgumentNullException(nameof(climateTransferService));
-            }
+            _climateTransferService = climateTransferService ?? throw new ArgumentNullException(nameof(climateTransferService));
 
-            if (dailyClimateDataFactory != null)
-            {
-                _dailyClimateDataFactory = dailyClimateDataFactory;
-            }
-            else
-            {
-                throw new ArgumentNullException(nameof(dailyClimateDataFactory));
-            }
+            _dailyClimateDataFactory = dailyClimateDataFactory ?? throw new ArgumentNullException(nameof(dailyClimateDataFactory));
 
-            if (logger != null)
-            {
-                _logger = logger;
-            }
-            else
-            {
-                throw new ArgumentNullException(nameof(logger));
-            }
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
         #endregion

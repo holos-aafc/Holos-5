@@ -22,32 +22,11 @@ namespace H.Avalonia.Services
 
         public ErrorHandlerService(ILogger logger, IEventAggregator eventAggregator, INotificationManagerService notificationManagerService)
         {
-            if (logger != null)
-            {
-                _logger = logger;
-            }
-            else
-            {
-                throw new ArgumentNullException(nameof(logger));
-            }
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
 
-            if (eventAggregator != null)
-            {
-                _eventAggregator = eventAggregator;
-            }
-            else
-            {
-                throw new ArgumentNullException(nameof(eventAggregator));
-            }
+            _eventAggregator = eventAggregator ?? throw new ArgumentNullException(nameof(eventAggregator));
 
-            if (notificationManagerService != null)
-            {
-                _notificationManager = notificationManagerService;
-            }
-            else
-            {
-                throw new ArgumentNullException(nameof(notificationManagerService));
-            }
+            _notificationManager = notificationManagerService ?? throw new ArgumentNullException(nameof(notificationManagerService));
         }
 
         #endregion

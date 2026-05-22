@@ -75,32 +75,11 @@ namespace H.Core.Services
         #region Constructors
         public FarmResultsService(IEventAggregator eventAggregator, IFieldResultsService fieldResultsService, IADCalculator adCalculator, IManureService manureService, IAnimalService animalService)
         {
-            if (animalService != null)
-            {
-                _animalResultsService = animalService;
-            }
-            else
-            {
-                throw new ArgumentNullException(nameof(animalService));
-            }
+            _animalResultsService = animalService ?? throw new ArgumentNullException(nameof(animalService));
 
-            if (manureService != null)
-            {
-                _manureService = manureService;
-            }
-            else
-            {
-                throw new ArgumentNullException(nameof(manureService));
-            }
+            _manureService = manureService ?? throw new ArgumentNullException(nameof(manureService));
 
-            if (adCalculator != null)
-            {
-                _adCalculator = adCalculator;
-            }
-            else
-            {
-                throw new ArgumentNullException(nameof(adCalculator));
-            }
+            _adCalculator = adCalculator ?? throw new ArgumentNullException(nameof(adCalculator));
 
             if (fieldResultsService != null)
             {
@@ -112,14 +91,7 @@ namespace H.Core.Services
                 throw new ArgumentNullException(nameof(fieldResultsService));
             }
 
-            if (eventAggregator != null)
-            {
-                _eventAggregator = eventAggregator;
-            }
-            else
-            {
-                throw new ArgumentNullException(nameof(eventAggregator));
-            }
+            _eventAggregator = eventAggregator ?? throw new ArgumentNullException(nameof(eventAggregator));
 
             _initializationService = new InitializationService();
         }

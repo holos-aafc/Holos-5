@@ -17,65 +17,23 @@ public abstract class ComponentServiceBase : IComponentService
 
     protected ComponentServiceBase(ILogger logger, IContainerProvider containerProvider, IUnitsOfMeasurementCalculator unitsOfMeasurementCalculator)
     {
-        if (unitsOfMeasurementCalculator != null)
-        {
-            UnitsOfMeasurementCalculator = unitsOfMeasurementCalculator; 
-        }
-        else
-        {
-            throw new ArgumentNullException(nameof(unitsOfMeasurementCalculator));
-        }
+        UnitsOfMeasurementCalculator = unitsOfMeasurementCalculator ?? throw new ArgumentNullException(nameof(unitsOfMeasurementCalculator));
 
-        if (containerProvider != null)
-        {
-            ContainerProvider = containerProvider; 
-        }
-        else
-        {
-            throw new ArgumentNullException(nameof(containerProvider));
-        }
+        ContainerProvider = containerProvider ?? throw new ArgumentNullException(nameof(containerProvider));
 
-        if (logger != null)
-        {
-            Logger = logger; 
-        }
-        else
-        {
-            throw new ArgumentNullException(nameof(logger));
-        }
+        Logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
 
     protected ComponentServiceBase(ILogger logger, IContainerProvider containerProvider)
     {
-        if (containerProvider != null)
-        {
-            ContainerProvider = containerProvider;
-        }
-        else
-        {
-            throw new ArgumentNullException(nameof(containerProvider));
-        }
+        ContainerProvider = containerProvider ?? throw new ArgumentNullException(nameof(containerProvider));
 
-        if (logger != null)
-        {
-            Logger = logger;
-        }
-        else
-        {
-            throw new ArgumentNullException(nameof(logger));
-        }
+        Logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
 
     protected ComponentServiceBase(ILogger logger)
     {
-        if (logger != null)
-        {
-            Logger = logger;
-        }
-        else
-        {
-            throw new ArgumentNullException(nameof(logger));
-        }
+        Logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
 
     protected ComponentServiceBase()

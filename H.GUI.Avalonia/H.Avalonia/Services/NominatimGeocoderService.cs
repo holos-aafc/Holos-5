@@ -55,23 +55,9 @@ namespace H.Avalonia.Services
 
         public NominatimGeocoderService(ILogger logger, INotificationManagerService notificationManagerService)
         {
-            if (logger != null)
-            {
-                _logger = logger;
-            }
-            else
-            {
-                throw new ArgumentNullException(nameof(logger));
-            }
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
 
-            if (notificationManagerService != null)
-            {
-                _notificationManagerService = notificationManagerService;
-            }
-            else
-            {
-                throw new ArgumentNullException(nameof(notificationManagerService));
-            }
+            _notificationManagerService = notificationManagerService ?? throw new ArgumentNullException(nameof(notificationManagerService));
         }
 
         #endregion

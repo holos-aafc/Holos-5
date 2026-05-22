@@ -28,14 +28,7 @@ namespace H.CLI.Processors
 
         public FieldProcessor(IFieldResultsService fieldResultsService)
         {
-            if (fieldResultsService != null)
-            {
-                _fieldResultsService = fieldResultsService;
-            }
-            else
-            {
-                throw new ArgumentNullException(nameof(fieldResultsService));
-            }
+            _fieldResultsService = fieldResultsService ?? throw new ArgumentNullException(nameof(fieldResultsService));
 
             _animalService = new AnimalResultsService();
         }

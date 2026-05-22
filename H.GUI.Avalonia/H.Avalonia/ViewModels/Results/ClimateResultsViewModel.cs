@@ -53,32 +53,11 @@ namespace H.Avalonia.ViewModels.Results
 
         public ClimateResultsViewModel(IRegionManager regionManager, INotificationManagerService notificationManager, ExportHelpers exportHelpers, IStorageService storageService, IClimateService climateService, ILogger logger) : base(regionManager, notificationManager, storageService)
         {
-            if (logger != null)
-            {
-                _logger = logger;
-            }
-            else
-            {
-                throw new ArgumentNullException(nameof(logger));
-            }
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
 
-            if (climateService != null)
-            {
-                _climateService = climateService;
-            }
-            else
-            {
-                throw new ArgumentNullException(nameof(climateService));
-            }
+            _climateService = climateService ?? throw new ArgumentNullException(nameof(climateService));
 
-            if (exportHelpers != null)
-            {
-                _exportHelpers = exportHelpers;
-            }
-            else
-            {
-                throw new ArgumentNullException(nameof(exportHelpers));
-            }
+            _exportHelpers = exportHelpers ?? throw new ArgumentNullException(nameof(exportHelpers));
 
             _climateResultsViewItemMap = new ClimateResultsViewItemMap();
 

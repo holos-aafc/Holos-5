@@ -28,14 +28,7 @@ namespace H.Avalonia.ViewModels.OptionsViews
 
         public SoilN2OBreakdownSettingsViewModel(IStorageService storageService, IEventAggregator eventAggregator, IErrorHandlerService errorHandlerService) : base(storageService, eventAggregator)
         {
-            if (errorHandlerService != null)
-            {
-                _errorHandlerService = errorHandlerService;
-            }
-            else
-            {
-                throw new ArgumentNullException(nameof(errorHandlerService));
-            }
+            _errorHandlerService = errorHandlerService ?? throw new ArgumentNullException(nameof(errorHandlerService));
         }
 
         #endregion

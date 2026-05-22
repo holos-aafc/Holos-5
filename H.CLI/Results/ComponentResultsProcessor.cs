@@ -60,14 +60,7 @@ namespace H.CLI.Results
 
         public ComponentResultsProcessor(Storage storage, ITimePeriodHelper timePeriodHelper, IFieldResultsService fieldResultsService)
         {
-            if (fieldResultsService != null)
-            {
-                _fieldResultsService = fieldResultsService;
-            }
-            else
-            {
-                throw new ArgumentNullException(nameof(fieldResultsService));
-            }
+            _fieldResultsService = fieldResultsService ?? throw new ArgumentNullException(nameof(fieldResultsService));
 
             _energyCalculator = new EnergyCarbonDioxideEmissionsCalculator();
             _uncertaintyCalculator = new Table_57_58_Expression_Of_Uncertainty_Calculator();

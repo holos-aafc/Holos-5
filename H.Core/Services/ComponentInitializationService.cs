@@ -30,50 +30,15 @@ public class ComponentInitializationService : IComponentInitializationService
         IAnimalComponentService animalComponentService,
         IRotationComponentService rotationComponentService)
     {
-        if (logger != null)
-        {
-            _logger = logger; 
-        }
-        else
-        {
-            throw new ArgumentNullException(nameof(logger));
-        }
+        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
 
-        if (rotationComponentService != null)
-        {
-            _rotationComponentService = rotationComponentService;
-        }
-        else
-        {
-            throw new ArgumentNullException(nameof(rotationComponentService));
-        }
+        _rotationComponentService = rotationComponentService ?? throw new ArgumentNullException(nameof(rotationComponentService));
 
-        if (animalComponentService != null)
-        {
-            _animalComponentService = animalComponentService;
-        }
-        else
-        {
-            throw new ArgumentNullException(nameof(animalComponentService));
-        }
+        _animalComponentService = animalComponentService ?? throw new ArgumentNullException(nameof(animalComponentService));
 
-        if (storageService != null)
-        {
-            _storageService = storageService;
-        }
-        else
-        {
-            throw new ArgumentNullException(nameof(storageService));
-        }
+        _storageService = storageService ?? throw new ArgumentNullException(nameof(storageService));
 
-        if (fieldComponentService != null)
-        {
-            _fieldComponentService = fieldComponentService;
-        }
-        else
-        {
-            throw new ArgumentNullException(nameof(fieldComponentService));
-        }
+        _fieldComponentService = fieldComponentService ?? throw new ArgumentNullException(nameof(fieldComponentService));
     }
 
     #endregion

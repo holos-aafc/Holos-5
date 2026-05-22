@@ -109,32 +109,11 @@ namespace H.Avalonia.ViewModels
             IClimateService climateService,
             IStorageService storageService) : base(regionManager, notificationManager, storageService)
         {
-            if (climateService != null)
-            {
-                _climateService = climateService;
-            }
-            else
-            {
-                throw new ArgumentNullException(nameof(climateService));
-            }
+            _climateService = climateService ?? throw new ArgumentNullException(nameof(climateService));
 
-            if (importHelper != null)
-            {
-                _importHelper = importHelper;
-            }
-            else
-            {
-                throw new ArgumentNullException(nameof(importHelper));
-            }
+            _importHelper = importHelper ?? throw new ArgumentNullException(nameof(importHelper));
 
-            if (dialogService != null)
-            {
-                _dialogService = dialogService;
-            }
-            else
-            {
-                throw new ArgumentNullException(nameof(dialogService));
-            }
+            _dialogService = dialogService ?? throw new ArgumentNullException(nameof(dialogService));
 
             InitializeCommands();
 

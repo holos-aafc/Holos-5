@@ -42,14 +42,7 @@ namespace H.Core.Providers.Energy
 
         public Table50FuelEnergyEstimatesProvider(ILogger logger) : this()
         {
-            if (logger != null)
-            {
-                _logger = logger;
-            }
-            else
-            {
-                throw new ArgumentNullException(nameof(logger));
-            }
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
         #endregion

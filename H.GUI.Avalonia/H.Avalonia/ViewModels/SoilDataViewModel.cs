@@ -349,23 +349,9 @@ namespace H.Avalonia.ViewModels
             IDefaultGeocoderService defaultGeocoderService) : base(regionManager, storageService, notificationManager, logger)
 #pragma warning restore CS0618
         {
-            if (countrySettings != null)
-            {
-                _countrySettings = countrySettings; 
-            }
-            else
-            {
-                throw new ArgumentNullException(nameof(countrySettings));
-            }
+            _countrySettings = countrySettings ?? throw new ArgumentNullException(nameof(countrySettings));
 
-            if (defaultGeocoderService != null)
-            {
-                _defaultGeocoderService = defaultGeocoderService;
-            }
-            else
-            {
-                throw new ArgumentNullException(nameof(defaultGeocoderService));
-            }
+            _defaultGeocoderService = defaultGeocoderService ?? throw new ArgumentNullException(nameof(defaultGeocoderService));
 
             this.StoragePlaceholder = storage;
 

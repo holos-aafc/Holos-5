@@ -23,32 +23,11 @@ public partial class CropInitializationService : ICropInitializationService
         ICacheService cahCacheService,
         ITable50FuelEnergyEstimatesProvider table50FuelEnergyEstimatesProvider)
     {
-        if (logger != null)
-        {
-            _logger = logger; 
-        }
-        else
-        {
-            throw new ArgumentNullException(nameof(logger));
-        }
+        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
 
-        if (cahCacheService != null)
-        {
-            _cahCacheService = cahCacheService;
-        }
-        else
-        {
-            throw new ArgumentNullException(nameof(cahCacheService));
-        }
+        _cahCacheService = cahCacheService ?? throw new ArgumentNullException(nameof(cahCacheService));
 
-        if (table50FuelEnergyEstimatesProvider != null)
-        {
-            _table50FuelEnergyEstimatesProvider = table50FuelEnergyEstimatesProvider;
-        }
-        else
-        {
-            throw new ArgumentNullException(nameof(table50FuelEnergyEstimatesProvider));
-        }
+        _table50FuelEnergyEstimatesProvider = table50FuelEnergyEstimatesProvider ?? throw new ArgumentNullException(nameof(table50FuelEnergyEstimatesProvider));
     }
 
     #endregion

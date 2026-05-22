@@ -23,14 +23,7 @@ namespace H.Avalonia.ViewModels.OptionsViews.FileMenuViews
 
         public FileSaveOptionsViewModel(IStorageService storageService, IFarmResultsService_NEW farmResultsService) : base(storageService)
         {
-            if (farmResultsService != null)
-            {
-                _farmResultsService = farmResultsService;
-            }
-            else
-            {
-                throw new ArgumentNullException(nameof(farmResultsService));
-            }
+            _farmResultsService = farmResultsService ?? throw new ArgumentNullException(nameof(farmResultsService));
 
             this.SaveCommand = new DelegateCommand(OnSaveExecute, CanExecuteSave);
             this.SaveAsCommand = new DelegateCommand(OnSaveAsExecute);

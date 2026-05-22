@@ -55,50 +55,22 @@ namespace H.Avalonia.ViewModels
 
         protected ViewModelBase(IStorageService storageService, INotificationManagerService notificationManager) : this(storageService)
         {
-            if (notificationManager != null)
-            {
-                this.NotificationManager = notificationManager;
-            }
-            else
-            {
-                throw new ArgumentNullException(nameof(notificationManager));
-            }
+            this.NotificationManager = notificationManager ?? throw new ArgumentNullException(nameof(notificationManager));
         }
 
         protected ViewModelBase(IStorageService storageService, ILogger logger) : this(storageService)
         {
-            if (logger != null)
-            {
-                Logger = logger;
-            }
-            else
-            {
-                throw new ArgumentNullException(nameof(logger));
-            }
+            Logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
         protected ViewModelBase(IEventAggregator eventAggregator)
         {
-            if (eventAggregator != null)
-            {
-                this.EventAggregator = eventAggregator;
-            }
-            else
-            {
-                throw new ArgumentNullException(nameof(eventAggregator));
-            }
+            this.EventAggregator = eventAggregator ?? throw new ArgumentNullException(nameof(eventAggregator));
         }
 
         protected ViewModelBase(IStorageService storageService, IEventAggregator eventAggregator)
         {
-            if(eventAggregator != null)
-            {
-                this.EventAggregator = eventAggregator;
-            }
-            else
-            {
-                throw new ArgumentNullException(nameof(eventAggregator));
-            }
+            this.EventAggregator = eventAggregator ?? throw new ArgumentNullException(nameof(eventAggregator));
             if (storageService != null)
             {
                 this.StorageService = storageService;
@@ -112,71 +84,29 @@ namespace H.Avalonia.ViewModels
 
         protected ViewModelBase(IRegionManager regionManager, IEventAggregator eventAggregator) : this(eventAggregator)
         {
-            if (regionManager != null)
-            {
-                RegionManager = regionManager;
-            }
-            else
-            {
-                throw new ArgumentNullException(nameof(regionManager));
-            }
+            RegionManager = regionManager ?? throw new ArgumentNullException(nameof(regionManager));
         }
 
         protected ViewModelBase(IRegionManager regionManager, IStorageService storageService)
         {
-            if (storageService != null)
-            {
-                this.StorageService = storageService;
-            }
-            else
-            {
-                throw new ArgumentNullException(nameof(storageService));
-            }
+            this.StorageService = storageService ?? throw new ArgumentNullException(nameof(storageService));
 
-            if (regionManager != null)
-            {
-                RegionManager = regionManager;
-            }
-            else
-            {
-                throw new ArgumentNullException(nameof(regionManager));
-            }
+            RegionManager = regionManager ?? throw new ArgumentNullException(nameof(regionManager));
         }
 
         protected ViewModelBase(IRegionManager regionManager, IStorageService storageService, ILogger logger) : this(regionManager, storageService)
         {
-            if (logger != null)
-            {
-                this.Logger = logger;
-            }
-            else
-            {
-                throw new ArgumentNullException(nameof(logger));
-            }
+            this.Logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
         protected ViewModelBase(IRegionManager regionManager, IStorageService storageService, INotificationManagerService notificationManager) : this(regionManager, storageService)
         {
-            if (notificationManager != null)
-            {
-                this.NotificationManager = notificationManager;
-            }
-            else
-            {
-                throw new ArgumentNullException(nameof(notificationManager));
-            }
+            this.NotificationManager = notificationManager ?? throw new ArgumentNullException(nameof(notificationManager));
         }
 
         protected ViewModelBase(IRegionManager regionManager, IStorageService storageService, INotificationManagerService notificationManager , ILogger logger) : this(regionManager, storageService, notificationManager)
         {
-            if (logger != null)
-            {
-                this.Logger = logger;
-            }
-            else
-            {
-                throw new ArgumentNullException(nameof(logger));
-            }
+            this.Logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
         protected ViewModelBase(
@@ -184,14 +114,7 @@ namespace H.Avalonia.ViewModels
             IEventAggregator eventAggregator,
             IStorageService storageService, ILogger logger) : this(regionManager, storageService)
         {
-            if (logger != null)
-            {
-                this.Logger = logger;
-            }
-            else
-            {
-                throw new ArgumentNullException(nameof(logger));
-            }
+            this.Logger = logger ?? throw new ArgumentNullException(nameof(logger));
 
             if (storageService != null)
             {
@@ -203,91 +126,35 @@ namespace H.Avalonia.ViewModels
                 throw new ArgumentNullException(nameof(storageService));
             }
 
-            if (eventAggregator != null)
-            {
-                this.EventAggregator = eventAggregator;
-            }
-            else
-            {
-                throw new ArgumentNullException(nameof(eventAggregator));
-            }
+            this.EventAggregator = eventAggregator ?? throw new ArgumentNullException(nameof(eventAggregator));
         }
 
         protected ViewModelBase(IRegionManager regionManager,
             IEventAggregator eventAggregator,
             IStorageService storageService, INotificationManagerService notificationManager) : this(regionManager, storageService)
         {
-            if(eventAggregator != null)
-            {
-                this.EventAggregator = eventAggregator;
-            }
-            else
-            {
-                throw new ArgumentNullException(nameof(eventAggregator));
-            }
+            this.EventAggregator = eventAggregator ?? throw new ArgumentNullException(nameof(eventAggregator));
 
-            if (notificationManager != null)
-            {
-                this.NotificationManager = notificationManager;
-            }
-            else
-            {
-                throw new ArgumentNullException(nameof(notificationManager));
-            }
+            this.NotificationManager = notificationManager ?? throw new ArgumentNullException(nameof(notificationManager));
         }
 
         protected ViewModelBase(IRegionManager regionManager)
         {
-            if (regionManager != null)
-            {
-                this.RegionManager = regionManager;
-            }
-            else
-            {
-                throw new ArgumentNullException(nameof(regionManager));
-            }
+            this.RegionManager = regionManager ?? throw new ArgumentNullException(nameof(regionManager));
         }
 
         protected ViewModelBase(IRegionManager regionManager, INotificationManagerService notificationManager) : this(regionManager)
         {
-            if (notificationManager != null)
-            {
-                this.NotificationManager = notificationManager;
-            }
-            else
-            {
-                throw new ArgumentNullException(nameof(notificationManager));
-            }
+            this.NotificationManager = notificationManager ?? throw new ArgumentNullException(nameof(notificationManager));
         }
 
         protected ViewModelBase(IRegionManager regionManager, INotificationManagerService notificationManager, IStorageService storageService) : this()
         {
-            if (regionManager != null)
-            {
-                this.RegionManager = regionManager;
-            }
-            else
-            {
-                throw new ArgumentNullException(nameof(regionManager));
-            }
+            this.RegionManager = regionManager ?? throw new ArgumentNullException(nameof(regionManager));
 
-            if (notificationManager != null)
-            {
-                this.NotificationManager = notificationManager;
-            }
-            else
-            {
-                throw new ArgumentNullException(nameof(notificationManager));
-            }
+            this.NotificationManager = notificationManager ?? throw new ArgumentNullException(nameof(notificationManager));
 
-            if (storageService != null)
-            {
-                this.StorageService = storageService;
-            }
-            else
-            {
-                throw new ArgumentNullException(nameof(storageService));
-            }
+            this.StorageService = storageService ?? throw new ArgumentNullException(nameof(storageService));
         }
 
         #endregion

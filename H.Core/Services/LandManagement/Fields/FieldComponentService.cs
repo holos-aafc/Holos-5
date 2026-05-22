@@ -55,41 +55,13 @@ public class FieldComponentService : ComponentServiceBase, IFieldComponentServic
         ITransferService<CropViewItem, CropDto> cropTransferService,
         ITransferService<FieldSystemComponent, FieldSystemComponentDto> fieldTransferService) : base(logger)
     {
-        if (fieldTransferService != null)
-        {
-            _fieldTransferService = fieldTransferService;
-        }
-        else
-        {
-            throw new ArgumentNullException(nameof(fieldTransferService));
-        }
+        _fieldTransferService = fieldTransferService ?? throw new ArgumentNullException(nameof(fieldTransferService));
 
-        if (cropTransferService != null)
-        {
-            _cropTransferService = cropTransferService;
-        }
-        else
-        {
-            throw new ArgumentNullException(nameof(cropTransferService));
-        }
+        _cropTransferService = cropTransferService ?? throw new ArgumentNullException(nameof(cropTransferService));
 
-        if (cropFactory != null)
-        {
-            _cropFactory = cropFactory;
-        }
-        else
-        {
-            throw new ArgumentNullException(nameof(cropFactory));
-        }
+        _cropFactory = cropFactory ?? throw new ArgumentNullException(nameof(cropFactory));
 
-        if (fieldFactory != null)
-        {
-            _fieldFactory = fieldFactory;
-        }
-        else
-        {
-            throw new ArgumentNullException(nameof(fieldFactory));
-        }
+        _fieldFactory = fieldFactory ?? throw new ArgumentNullException(nameof(fieldFactory));
     }
 
     #endregion

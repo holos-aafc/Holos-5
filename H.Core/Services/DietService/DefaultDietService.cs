@@ -19,41 +19,13 @@ public class DefaultDietService : IDietService
 
     public DefaultDietService(IDietProvider dietProvider, IFeedIngredientProvider feedIngredientProvider, ILogger logger, IDietFactory dietFactory)
     {
-        if (dietFactory != null)
-        {
-            _dietFactory = dietFactory;
-        }
-        else
-        {
-            throw new ArgumentNullException(nameof(dietFactory));
-        }
+        _dietFactory = dietFactory ?? throw new ArgumentNullException(nameof(dietFactory));
 
-        if (logger != null)
-        {
-            _logger = logger; 
-        }
-        else
-        {
-            throw new ArgumentNullException(nameof(logger));
-        }
+        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
 
-        if (dietProvider != null)
-        {
-            _dietProvider = dietProvider;
-        }
-        else
-        {
-            throw new ArgumentNullException(nameof(dietProvider));
-        }
+        _dietProvider = dietProvider ?? throw new ArgumentNullException(nameof(dietProvider));
 
-        if (feedIngredientProvider != null)
-        {
-            _feedIngredientProvider = feedIngredientProvider;
-        }
-        else
-        {
-            throw new ArgumentNullException(nameof(feedIngredientProvider));
-        }
+        _feedIngredientProvider = feedIngredientProvider ?? throw new ArgumentNullException(nameof(feedIngredientProvider));
     } 
 
     #endregion

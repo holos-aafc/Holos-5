@@ -52,41 +52,13 @@ namespace H.Core.Services.Animals
         /// <exception cref="ArgumentNullException">Thrown if required dependencies are null.</exception>
         public TransferService(IUnitsOfMeasurementCalculator unitsOfMeasurementCalculator, IFactory<TDto> dtoFactory, IModelMapper<TDto, TModelBase> dtoToModelMapper, IModelMapper<TModelBase, TDto> modelToDtoMapper)
         {
-            if (dtoFactory != null)
-            {
-                _dtoFactory = dtoFactory;
-            }
-            else
-            {
-                throw new ArgumentNullException(nameof(dtoFactory));
-            }
+            _dtoFactory = dtoFactory ?? throw new ArgumentNullException(nameof(dtoFactory));
 
-            if (unitsOfMeasurementCalculator != null)
-            {
-                _unitsOfMeasurementCalculator = unitsOfMeasurementCalculator;
-            }
-            else
-            {
-                throw new ArgumentNullException(nameof(unitsOfMeasurementCalculator));
-            }
+            _unitsOfMeasurementCalculator = unitsOfMeasurementCalculator ?? throw new ArgumentNullException(nameof(unitsOfMeasurementCalculator));
 
-            if (modelToDtoMapper != null)
-            {
-                _modelToDtoMapper = modelToDtoMapper; 
-            }
-            else
-            {
-                throw new ArgumentNullException(nameof(modelToDtoMapper));
-            }
+            _modelToDtoMapper = modelToDtoMapper ?? throw new ArgumentNullException(nameof(modelToDtoMapper));
 
-            if (dtoToModelMapper != null)
-            {
-                _dtoToModelMapper = dtoToModelMapper;
-            }
-            else 
-            {
-                throw new ArgumentNullException(nameof(dtoToModelMapper));
-            }
+            _dtoToModelMapper = dtoToModelMapper ?? throw new ArgumentNullException(nameof(dtoToModelMapper));
         }
 
         #endregion

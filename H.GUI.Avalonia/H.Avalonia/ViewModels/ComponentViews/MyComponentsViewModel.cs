@@ -56,14 +56,7 @@ public class MyComponentsViewModel : ViewModelBase
 
     public MyComponentsViewModel(IRegionManager regionManager, IEventAggregator eventAggregator, IStorageService storageService, IComponentInitializationService componentInitializationService, ILogger logger) : base(regionManager, eventAggregator, storageService, logger)
     {
-        if (componentInitializationService != null)
-        {
-            _componentInitializationService = componentInitializationService; 
-        }
-        else
-        {
-            throw new ArgumentNullException(nameof(componentInitializationService));
-        }
+        _componentInitializationService = componentInitializationService ?? throw new ArgumentNullException(nameof(componentInitializationService));
         
         base.PropertyChanged += OnPropertyChanged;
 

@@ -16,14 +16,7 @@ namespace H.Core.Services.Animals
 
         public ScaleUpService(ITable_28_Production_Days_Provider table28ProductionDaysProvider)
         {
-            if (table28ProductionDaysProvider != null)
-            {
-                _table28ProductionDaysProvider = table28ProductionDaysProvider;
-            }
-            else
-            {
-                throw new ArgumentNullException(nameof(table28ProductionDaysProvider));
-            }
+            _table28ProductionDaysProvider = table28ProductionDaysProvider ?? throw new ArgumentNullException(nameof(table28ProductionDaysProvider));
         }
 
         #endregion

@@ -39,14 +39,7 @@ public class CropFactory : ICropFactory
 
     public CropFactory(ICropInitializationService cropInitializationService, IContainerProvider containerProvider)
     {
-        if (cropInitializationService != null)
-        {
-            _cropInitializationService = cropInitializationService; 
-        }
-        else
-        {
-            throw new ArgumentNullException(nameof(cropInitializationService));
-        }
+        _cropInitializationService = cropInitializationService ?? throw new ArgumentNullException(nameof(cropInitializationService));
 
         if (containerProvider == null)
         {

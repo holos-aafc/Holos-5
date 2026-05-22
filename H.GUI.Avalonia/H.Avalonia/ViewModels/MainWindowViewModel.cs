@@ -24,14 +24,7 @@ namespace H.Avalonia.ViewModels
 
         public MainWindowViewModel(INotificationManagerService notificationManagerService) : base()
         {
-            if (notificationManagerService != null)
-            {
-                _notificationManagerService = notificationManagerService;
-            }
-            else
-            {
-                throw new ArgumentNullException(nameof(notificationManagerService));
-            }
+            _notificationManagerService = notificationManagerService ?? throw new ArgumentNullException(nameof(notificationManagerService));
         }
 
         #endregion

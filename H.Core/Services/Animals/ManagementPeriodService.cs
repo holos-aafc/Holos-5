@@ -29,41 +29,13 @@ public class ManagementPeriodService : IManagementPeriodService
 
     public ManagementPeriodService(ILogger logger, IContainerProvider containerProvider, IManagementPeriodFactory managementPeriodFactory, IUnitsOfMeasurementCalculator unitsOfMeasurementCalculator)
     {
-        if (logger != null)
-        {
-            _logger = logger;
-        }
-        else
-        {
-            throw new ArgumentNullException(nameof(logger));
-        }
+        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
 
-        if (containerProvider != null)
-        {
-            _containerProvider = containerProvider;
-        }
-        else
-        {
-            throw new ArgumentNullException(nameof(containerProvider));
-        }
+        _containerProvider = containerProvider ?? throw new ArgumentNullException(nameof(containerProvider));
 
-        if (managementPeriodFactory != null)
-        {
-            _managementPeriodFactory = managementPeriodFactory;
-        }
-        else
-        {
-            throw new ArgumentNullException(nameof(managementPeriodFactory));
-        }
+        _managementPeriodFactory = managementPeriodFactory ?? throw new ArgumentNullException(nameof(managementPeriodFactory));
 
-        if (unitsOfMeasurementCalculator != null)
-        {
-            _unitsOfMeasurementCalculator = unitsOfMeasurementCalculator;
-        }
-        else
-        {
-            throw new ArgumentNullException(nameof(unitsOfMeasurementCalculator));
-        }
+        _unitsOfMeasurementCalculator = unitsOfMeasurementCalculator ?? throw new ArgumentNullException(nameof(unitsOfMeasurementCalculator));
 
         _managementPeriodDtoToManagementPeriodMapper = _containerProvider.Resolve<IModelMapper<ManagementPeriodDto, ManagementPeriod>>(nameof(ManagementPeriodDtoToManagementPeriodMapper));
         _managementPeriodToManagementPeriodDtoMapper = _containerProvider.Resolve<IModelMapper<ManagementPeriod, ManagementPeriodDto>>(nameof(ManagementPeriodToManagementPeriodDtoMapper));

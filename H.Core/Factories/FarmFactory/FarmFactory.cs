@@ -19,32 +19,11 @@ public class FarmFactory : IFarmFactory
 
     public FarmFactory(IDietService dietService, ICacheService cacheService, ILogger logger)
     {
-        if (logger != null)
-        {
-            _logger = logger; 
-        }
-        else
-        {
-            throw new ArgumentNullException(nameof(logger));
-        }
+        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
 
-        if (cacheService != null)
-        {
-            _cacheService = cacheService;
-        }
-        else
-        {
-            throw new ArgumentNullException(nameof(cacheService));
-        }
+        _cacheService = cacheService ?? throw new ArgumentNullException(nameof(cacheService));
 
-        if (dietService != null)
-        {
-            _dietService = dietService;
-        }
-        else
-        {
-            throw new ArgumentNullException(nameof(dietService));
-        }
+        _dietService = dietService ?? throw new ArgumentNullException(nameof(dietService));
     }
 
     #endregion

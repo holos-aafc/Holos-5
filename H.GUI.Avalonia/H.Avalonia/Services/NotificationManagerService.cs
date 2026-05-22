@@ -61,14 +61,7 @@ namespace H.Avalonia.Services
 
         public NotificationManagerService(ILogger logger)
         {
-            if (logger != null)
-            {
-                _logger = logger;
-            }
-            else
-            {
-                throw new ArgumentNullException(nameof(logger));
-            }
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
         #endregion

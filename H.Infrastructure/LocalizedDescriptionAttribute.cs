@@ -26,14 +26,7 @@ namespace H.Infrastructure
                 throw new ArgumentNullException(nameof(resourceKey));
             }
 
-            if (resourceType != null)
-            {
-                _resourceType = resourceType;
-            }
-            else
-            {
-                throw new ArgumentNullException(nameof(resourceType));
-            }
+            _resourceType = resourceType ?? throw new ArgumentNullException(nameof(resourceType));
 
             _resourceManager = new ResourceManager(resourceType);
         }

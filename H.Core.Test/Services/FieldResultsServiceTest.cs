@@ -132,7 +132,7 @@ namespace H.Core.Test.Services
 
             farm.Components.Add(fieldComponent);
 
-            var result = _resultsService.CalculateEquilibriumYear(
+            var result = _iCbmSoilCarbonCalculator.CalculateEquilibriumYear(
                 detailViewItems: detailViewItems,
                 farm: farm,
                 componentId: fieldGuid);

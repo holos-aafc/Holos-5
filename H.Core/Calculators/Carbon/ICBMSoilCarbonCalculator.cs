@@ -140,7 +140,7 @@ namespace H.Core.Calculators.Carbon
         /// Equation 2.1.3-4. Steady-state value of the above-ground young pool: how much C this
         /// pool holds when input and decay are balanced over the rotation. Seeds
         /// <c>YoungPoolSoilCarbonAboveGround</c> on the equilibrium-year view item that
-        /// <c>FieldResultsService.CalculateEquilibriumYear</c> builds.
+        /// <see cref="CalculateEquilibriumYear"/> builds.
         ///
         /// <para><b>NaN failure mode:</b></para>
         /// The denominator is <c>1 - exp(-k * climateParameter)</c>. When <c>climateParameter</c>

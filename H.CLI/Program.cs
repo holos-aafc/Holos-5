@@ -47,7 +47,7 @@ namespace H.CLI
             var farmsFolderPath = Directory.GetCurrentDirectory();
 
             // Farms exported from GUI access
-            var exportedFarmsHandler = new ExportedFarmsHandler();
+            var exportedFarmsHandler = container.Resolve<ExportedFarmsHandler>();
             List<string> generatedFarmFolders = new List<string>();
 
             // Separate initialize functions with and without CLI arguments
@@ -75,7 +75,7 @@ namespace H.CLI
             var applicationData = new ApplicationData();
             var storage = new Storage();
             var templateFarmHandler = new TemplateFarmHandler();
-            var processorHandler = new ProcessorHandler();
+            var processorHandler = container.Resolve<ProcessorHandler>();
 
             // Get The Directories in the "Farms" folder
             var listOfFarmPaths = directoryHandler.getListOfFarms(farmsFolderPath, argValues, exportedFarmsHandler.pathToExportedFarm, generatedFarmFolders);
@@ -173,8 +173,14 @@ namespace H.CLI
                     // Resolve the field-results service (and its whole calculator graph) from the
                     // shared CoreModule registrations instead of hand-constructing the stack.
                     var fieldResultsService = container.Resolve<IFieldResultsService>();
-                    // Overall Results For All the Farms
-                    var componentResults = new ComponentResultsProcessor(storage, new TimePeriodHelper(), fieldResultsService);
+                    // Overall Results For All the Farms. The farm-results service (and its animal /
+                    // manure / AD collaborators) comes from the same container so the CLI shares one
+                    // calculator graph rather than hand-constructing duplicates.
+                    var componentResults = new ComponentResultsProcessor(
+                        storage,
+                        container.Resolve<ITimePeriodHelper>(),
+                        fieldResultsService,
+                        container.Resolve<IFarmResultsService>());
 
                     // Get base directory of user entered path to create Total Results For All Farms folder
                     Directory.CreateDirectory(InfrastructureConstants.BaseOutputDirectoryPath + @"\" + AppStrings.Column_Outputs + @"\" + AppStrings.Result_TotalForAllFarms);

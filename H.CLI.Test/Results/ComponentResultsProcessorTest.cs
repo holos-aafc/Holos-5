@@ -10,8 +10,11 @@ using H.Core.Models;
 using H.Core.Models.Animals;
 using H.Core.Models.Animals.Beef;
 using H.Core.Models.Animals.Swine;
+using H.Core.Calculators.Infrastructure;
 using H.Core.Services;
+using H.Core.Services.Animals;
 using H.Core.Test;
+using Prism.Events;
 
 namespace H.CLI.Test.Results
 {
@@ -39,7 +42,9 @@ namespace H.CLI.Test.Results
         public void TestInitialize()
         {
             storage.ApplicationData = new ApplicationData();
-            _componentResultsProcessor = new ComponentResultsProcessor(storage, new TimePeriodHelper(), _fieldResultsService);
+            var farmResultsService = new FarmResultsService(
+                new EventAggregator(), _fieldResultsService, new ADCalculator(), new ManureService(), new AnimalResultsService());
+            _componentResultsProcessor = new ComponentResultsProcessor(storage, new TimePeriodHelper(), _fieldResultsService, farmResultsService);
 
 
             var swineStarterGroup = new AnimalGroup()

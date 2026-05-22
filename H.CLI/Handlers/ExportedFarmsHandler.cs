@@ -5,26 +5,18 @@ using H.CLI.Processors;
 using H.CLI.TemporaryComponentStorage;
 using H.CLI.UserInput;
 using H.Core;
-using H.Core.Calculators.Carbon;
-using H.Core.Calculators.Nitrogen;
-using H.Core.Services.Animals;
 using H.Core.Enumerations;
 using H.Core.Models;
 using H.Core.Models.LandManagement.Fields;
 using H.Core.Providers;
 using H.Core.Providers.Climate;
-using H.Core.Providers.Energy;
-using H.Core.Services.Initialization;
 using H.Core.Services.LandManagement;
-using H.Infrastructure.Services;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using H.Localization.Resources.Strings;
-using Microsoft.Extensions.Caching.Memory;
-using Microsoft.Extensions.Logging.Abstractions;
 
 namespace H.CLI.Handlers
 {
@@ -47,27 +39,16 @@ namespace H.CLI.Handlers
         private readonly PoultryConverter _poultryConverter = new PoultryConverter();
         private readonly OtherLiveStockConverter _otherLiveStockConverter = new OtherLiveStockConverter();
 
-        private readonly FieldResultsService _fieldResultsService;
+        private readonly IFieldResultsService _fieldResultsService;
 
         public string pathToExportedFarm = string.Empty;
 
         #endregion
 
-        public ExportedFarmsHandler()
+        public ExportedFarmsHandler(IFieldResultsService fieldResultsService, FieldProcessor fieldProcessor)
         {
-            var climateProvider = new ClimateProvider(new SlcClimateDataProvider());
-            var n2oEmissionFactorCalculator = new N2OEmissionFactorCalculator(climateProvider);
-            var iCBMSoilCarbonCalculator = new ICBMSoilCarbonCalculator(climateProvider, n2oEmissionFactorCalculator);
-            var ipcc = new IPCCTier2SoilCarbonCalculator(climateProvider, n2oEmissionFactorCalculator);
-            var icbmCarbonInputCalculator = new ICBMCarbonInputCalculator(new ManureService(), new DigestateService(), new AnimalResultsService());
-            var cropInitializationService = new CropInitializationService(
-                NullLogger.Instance,
-                new InMemoryCacheService(new MemoryCache(new MemoryCacheOptions())),
-                new Table50FuelEnergyEstimatesProvider(),
-                icbmCarbonInputCalculator);
-
-            _fieldResultsService = new FieldResultsService(iCBMSoilCarbonCalculator, ipcc, n2oEmissionFactorCalculator, icbmCarbonInputCalculator, cropInitializationService);
-            _fieldProcessor = new FieldProcessor(_fieldResultsService);
+            _fieldResultsService = fieldResultsService ?? throw new ArgumentNullException(nameof(fieldResultsService));
+            _fieldProcessor = fieldProcessor ?? throw new ArgumentNullException(nameof(fieldProcessor));
         }
 
         #region Public Methods

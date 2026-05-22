@@ -1,5 +1,9 @@
+using H.CLI.Factories;
+using H.CLI.Handlers;
 using H.CLI.Infrastructure;
+using H.CLI.Processors;
 using H.Core.Calculators.Carbon;
+using H.Core.Services;
 using H.Core.Services.Initialization;
 using H.Core.Services.LandManagement;
 using Prism.Ioc;
@@ -36,6 +40,29 @@ namespace H.CLI.Test.Infrastructure
             var container = CliCompositionRoot.Build();
 
             Assert.IsNotNull(container.Resolve<ICropInitializationService>());
+        }
+
+        [TestMethod]
+        public void Build_ResolvesFarmResultsService()
+        {
+            // FarmResultsService pulls in IEventAggregator + IADCalculator + IManureService +
+            // IAnimalService + IFieldResultsService — all from the one container.
+            var container = CliCompositionRoot.Build();
+
+            Assert.IsNotNull(container.Resolve<IFarmResultsService>());
+        }
+
+        [TestMethod]
+        public void Build_ResolvesCliProcessorsAndHandlers()
+        {
+            // The CLI orchestrators are now resolved from the container rather than hand-constructing
+            // their own calculator stacks. Resolving the top of the chain proves the whole graph wires.
+            var container = CliCompositionRoot.Build();
+
+            Assert.IsNotNull(container.Resolve<FieldProcessor>());
+            Assert.IsNotNull(container.Resolve<ComponentProcessorFactory>());
+            Assert.IsNotNull(container.Resolve<ProcessorHandler>());
+            Assert.IsNotNull(container.Resolve<ExportedFarmsHandler>());
         }
     }
 }

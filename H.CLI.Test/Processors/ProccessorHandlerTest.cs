@@ -1,4 +1,6 @@
-﻿using H.CLI.Processors;
+﻿using H.CLI.Infrastructure;
+using H.CLI.Processors;
+using Prism.Ioc;
 
 namespace H.CLI.Test.Processors
 {
@@ -8,7 +10,7 @@ namespace H.CLI.Test.Processors
         [TestMethod]
         public void TestSetProcessor()
         {
-            var processorHandler = new ProcessorHandler();
+            var processorHandler = CliCompositionRoot.Build().Resolve<ProcessorHandler>();
             processorHandler.SetProccessor(new ShelterbeltProcessor());
             Assert.IsInstanceOfType(processorHandler._processor, typeof(ShelterbeltProcessor));
         }

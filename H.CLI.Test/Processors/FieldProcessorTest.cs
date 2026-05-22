@@ -25,7 +25,7 @@ namespace H.CLI.Test.Processors
             var ipcc = new IPCCTier2SoilCarbonCalculator(_climateProvider, n2oEmissionFactorCalculator);
 
             var fieldResultsService = new FieldResultsService(iCBMSoilCarbonCalculator, ipcc, n2oEmissionFactorCalculator, _icbmCarbonInputCalculator, _cropInitializationService);
-            _sut = new FieldProcessor(fieldResultsService);
+            _sut = new FieldProcessor(fieldResultsService, new H.Core.Services.Animals.AnimalResultsService());
 
             Directory.CreateDirectory(testPath);
         }

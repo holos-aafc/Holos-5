@@ -20,17 +20,16 @@ namespace H.CLI.Processors
         #region Fields
         public List<ComponentBase> FieldComponents { get; set; } = new List<ComponentBase>();
         private readonly IFieldResultsService _fieldResultsService;
-        private AnimalResultsService _animalService;
+        private readonly IAnimalService _animalService;
 
         #endregion
 
         #region Constructors
 
-        public FieldProcessor(IFieldResultsService fieldResultsService)
+        public FieldProcessor(IFieldResultsService fieldResultsService, IAnimalService animalService)
         {
             _fieldResultsService = fieldResultsService ?? throw new ArgumentNullException(nameof(fieldResultsService));
-
-            _animalService = new AnimalResultsService();
+            _animalService = animalService ?? throw new ArgumentNullException(nameof(animalService));
         }
 
         #endregion

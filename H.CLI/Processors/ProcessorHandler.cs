@@ -11,8 +11,15 @@ namespace H.CLI.Processors
     public class ProcessorHandler
     {
         #region Fields
-        private ComponentProcessorFactory processorFactory = new ComponentProcessorFactory();
+        private readonly ComponentProcessorFactory processorFactory;
         public IProcessor _processor { get; set; }
+        #endregion
+
+        #region Constructors
+        public ProcessorHandler(ComponentProcessorFactory processorFactory)
+        {
+            this.processorFactory = processorFactory ?? throw new ArgumentNullException(nameof(processorFactory));
+        }
         #endregion
 
         #region Public Methods

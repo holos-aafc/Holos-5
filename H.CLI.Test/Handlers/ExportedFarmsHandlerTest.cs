@@ -1,6 +1,8 @@
 ﻿#region Imports
 
 using H.CLI.Handlers;
+using H.CLI.Infrastructure;
+using Prism.Ioc;
 
 #endregion
 
@@ -11,6 +13,8 @@ namespace H.CLI.Test.Handlers
     {
         #region Fields
 
+        // Built once for the class; CliCompositionRoot loads the SmallAreaYieldProvider CSV.
+        private static readonly IContainerExtension _container = CliCompositionRoot.Build();
         private ExportedFarmsHandler _handler = null!;
 
         #endregion
@@ -30,7 +34,7 @@ namespace H.CLI.Test.Handlers
         [TestInitialize]
         public void TestInitialize()
         {
-            _handler = new ExportedFarmsHandler();
+            _handler = _container.Resolve<ExportedFarmsHandler>();
         }
 
         [TestCleanup]

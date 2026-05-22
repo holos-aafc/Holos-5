@@ -23,7 +23,7 @@ flowchart TD
     %% ========================================================================
     %% 1. GUI AUTHORING
     %% ========================================================================
-    subgraph authoring ["1: View / ViewModel - User authors a wheat field"]
+    subgraph authoring ["1: View / ViewModel"]
         U["User opens MyComponentsView<br>and adds a Field component"]
         S1["FieldComponentView · Step 1<br>name, area, soil polygon<br>(province lives on DefaultSoilData)"]
         S2["FieldComponentView · Step 2<br>AddCropDtoToSystem<br>CropDto: Year=2024, CropType=Wheat<br>IsSecondaryCrop = false<br>→ CropViewItems.Add(viewItem)"]
@@ -43,7 +43,7 @@ flowchart TD
     %% ========================================================================
     %% 3. BUILD PER-YEAR DETAIL VIEW ITEMS
     %% ========================================================================
-    subgraph build ["3: Build the per-year CropViewItem tree (stage state)"]
+    subgraph build ["3: Stage-state build"]
         Init["InitializeStageState(farm)<br>(skipped if already initialised)"]
         Init --> CreateDV["For each FieldSystemComponent:<br>CreateDetailViewItems"]
         CreateDV --> CreateItems["CreateItems<br>= PreProcessViewItems<br>  (CropViewItems ∪ CoverCrops)<br>+ CreateOrderedViewItems<br>  mod-cycles them across<br>  startYear..endYear"]
@@ -91,7 +91,7 @@ flowchart TD
     %% ========================================================================
     %% 7. RESULTS VIEW
     %% ========================================================================
-    subgraph results ["7: GHGResultsView - what the user sees"]
+    subgraph results ["7: GHGResultsView"]
         UIBack --> RV["GHGResultsView<br>· Header: Farm + Strategy + Recalculate/Export"]
         RV --> Chart["LiveCharts CartesianChart<br>one LineSeries per field<br>X = years, Y = SoilCarbon kg/ha"]
         RV --> Grid["Field DataGrid<br>per-year × per-field rows<br>(C inputs, ΔSoilC, N₂O)"]
@@ -135,7 +135,7 @@ flowchart TD
     %% ========================================================================
     %% 1. CLI BOOTSTRAP
     %% ========================================================================
-    subgraph boot ["1: Bootstrap (Program.Main)"]
+    subgraph boot ["1: Bootstrap"]
         Args["Parse args + culture<br/>(CLIArguments)"]
         Root["CliCompositionRoot.Build()<br/>DI container =<br/>CoreModule + NullLogger<br/>+ IMemoryCache + InMemoryCacheService"]
         Args --> Root
@@ -147,7 +147,7 @@ flowchart TD
     Root --> Geo["GeographicDataProvider.Initialize()<br/>(once, up front)"]
     Geo --> Read
 
-    subgraph parse ["2: Build the Farm from input files"]
+    subgraph parse ["2: Files to Farm"]
         Read["For each Farm folder + .settings file:<br/>DataInputHandler.ProcessDataInputFiles<br/>→ components from each input row"]
         Read --> Flags["farm.IsCommandLineMode = true<br/>+ apply .settings (climate, soil, units)"]
         Flags --> Stage["Per-year CropViewItems come from the<br/>input-file rows themselves<br/>(FieldSystemInputConverter on read):<br/>stage state is NOT rebuilt in the processor"]
@@ -159,7 +159,7 @@ flowchart TD
     Stage --> Resolve["container.Resolve(IFieldResultsService)<br/>(shared CoreModule graph)"]
     Resolve --> PF["ComponentResultsProcessor.ProcessFarms<br/>→ FieldProcessor.ProcessComponent (per field)"]
 
-    subgraph proc ["3: FieldProcessor.ProcessComponent"]
+    subgraph proc ["3: FieldProcessor"]
         An["_animalService.GetAnimalResults(farm)<br/>(FieldProcessor holds its own<br/>AnimalResultsService instance)"]
         An --> Prime["_fieldResultsService.AnimalResults = animalResults"]
         Prime --> Call["_fieldResultsService.CalculateFinalResults(farm)"]

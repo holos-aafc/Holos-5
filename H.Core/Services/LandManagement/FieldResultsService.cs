@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using H.Core.Calculators.Carbon;
+﻿using H.Core.Calculators.Carbon;
 using H.Core.Mappers;
 using H.Core.Calculators.Climate;
 using H.Core.Calculators.Economics;
@@ -221,9 +220,6 @@ namespace H.Core.Services.LandManagement
         /// </list>
         /// Then <c>CalculateAverageSoilOrganicCarbonForFields</c> assigns each row the farm-wide
         /// per-year average SoilCarbon for cross-field comparisons.
-        ///
-        /// Emits a <c>[GHGAnalysis.Field]</c> trace line with a per-phase ms breakdown so a
-        /// contributor can spot which step regresses without attaching a profiler.
         /// </summary>
         /// <returns>
         /// Flat list of merged <see cref="CropViewItem"/>s (one per field × year) with SoilCarbon,
@@ -232,13 +228,10 @@ namespace H.Core.Services.LandManagement
         /// </returns>
         public List<CropViewItem> CalculateFinalResults(Farm farm)
         {
-            var totalSw = System.Diagnostics.Stopwatch.StartNew();
-            long groupMs = 0, combineMs = 0, mergeMs = 0, fieldCalcMs = 0, avgSocMs = 0;
-            int fieldCount = 0;
             var result = new List<CropViewItem>();
 
             // Get all of the detail view items for all fields for this farm
-             var detailsStageState = this.GetStageState(farm);
+            var detailsStageState = this.GetStageState(farm);
             if (detailsStageState != null)
             {
                 /*
@@ -246,9 +239,7 @@ namespace H.Core.Services.LandManagement
                  * detail view items for all fields on a farm
                  */
 
-                var sw = System.Diagnostics.Stopwatch.StartNew();
-                var viewItemsGroupedByField =  detailsStageState.DetailsScreenViewCropViewItems.GroupBy(viewItem => viewItem.FieldSystemComponentGuid);
-                groupMs = sw.ElapsedMilliseconds;
+                var viewItemsGroupedByField = detailsStageState.DetailsScreenViewCropViewItems.GroupBy(viewItem => viewItem.FieldSystemComponentGuid);
                 foreach (var groupingByFieldSystem in viewItemsGroupedByField)
                 {
                     var fieldGuid = groupingByFieldSystem.Key;
@@ -257,7 +248,6 @@ namespace H.Core.Services.LandManagement
                     {
                         continue;
                     }
-                    fieldCount++;
 
                     var detailViewItems = groupingByFieldSystem.ToList();
 
@@ -265,35 +255,22 @@ namespace H.Core.Services.LandManagement
                      * At this point there could be multiple items for one year (e.g. a main crop and a cover crop or an undersown crop), here we combine
                      * multiple inputs from same year into the main crop
                      */
-                    sw.Restart();
                     this.CombineInputsForAllCropsInSameYear(detailViewItems, fieldSystemComponent);
-                    combineMs += sw.ElapsedMilliseconds;
 
                     // Merge multiple items with the same year into a single year view items so that no two view items have the same year when calculating ICBM results (ICBM calculations
                     // require exactly one item per year (with combined inputs when there is a secondary crop grown)
-                    sw.Restart();
                     var mergedItems = this.MergeDetailViewItems(detailViewItems, fieldSystemComponent);
-                    mergeMs += sw.ElapsedMilliseconds;
 
-                    sw.Restart();
                     this.CalculateFinalResultsForField(
-                        viewItemsForField: mergedItems, 
-                        farm: farm, 
+                        viewItemsForField: mergedItems,
+                        farm: farm,
                         fieldSystemGuid: groupingByFieldSystem.Key);
-                    fieldCalcMs += sw.ElapsedMilliseconds;
 
                     result.AddRange(mergedItems);
                 }
 
-                var sw2 = System.Diagnostics.Stopwatch.StartNew();
                 this.CalculateAverageSoilOrganicCarbonForFields(result);
-                avgSocMs = sw2.ElapsedMilliseconds;
             }
-
-            totalSw.Stop();
-            _log.Info(
-                $"[GHGAnalysis.Field] total={totalSw.ElapsedMilliseconds}ms group={groupMs}ms combine={combineMs}ms " +
-                $"merge={mergeMs}ms fieldCalc={fieldCalcMs}ms avgSoc={avgSocMs}ms fields={fieldCount} rows={result.Count}");
 
             return result;
         }

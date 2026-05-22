@@ -1,5 +1,4 @@
 ﻿using System.Collections.ObjectModel;
-using System.Diagnostics;
 using H.Core.Enumerations;
 using H.Core.Mappers;
 using H.Core.Models;
@@ -152,12 +151,9 @@ namespace H.Core.Services.LandManagement
         /// field components. Calling this twice in a row is safe; calling it on every
         /// analysis pass is wasteful (multi-decade farms can spend &gt;10s here).
         /// </para>
-        ///
-        /// <para>Emits a <c>[GHGAnalysis.Init]</c> trace with the clear / build ms breakdown.</para>
         /// </summary>
         public void InitializeStageState(Farm farm)
         {
-            var sw = System.Diagnostics.Stopwatch.StartNew();
             var stageState = this.GetStageState(farm);
 
             // Clear existing items because we want to reset values for view items.
@@ -168,17 +164,10 @@ namespace H.Core.Services.LandManagement
             // exists to amortize repeated lookups within a single InitializeStageState run.
             _climateParameterCache.Clear();
 
-            var clearMs = sw.ElapsedMilliseconds; sw.Restart();
-
             // Initialize the stage state (create view items that will be needed to create result view items)
             this.CreateDetailViewItems(farm);
-            var createMs = sw.ElapsedMilliseconds;
 
             stageState.IsInitialized = true;
-
-            _log.Info(
-                $"[GHGAnalysis.Init] clear={clearMs}ms createDetailViewItems={createMs}ms " +
-                $"items={stageState.DetailsScreenViewCropViewItems.Count}");
         }
 
         /// <summary>
@@ -368,8 +357,6 @@ namespace H.Core.Services.LandManagement
             Farm farm)
         {
             _log.Info($"{nameof(FieldResultsService)}.{nameof(CreateItems)}: creating details view items for field: '{fieldSystemComponent.Name}' and farm: '{farm.Name}'");
-            var compSw = System.Diagnostics.Stopwatch.StartNew();
-            long digMs, hayMs, createItemsMs, initPropsMs, perennialsMs, coverMs, undersownMs, grazingMs, addRangeMs, manureMs, assignCarbonMs;
 
             // When called from the CLI, and the user specifies a path to a custom yield file, read in data now and assign yield data to the farm
             if (farm.IsCommandLineMode && farm.YieldAssignmentMethod == YieldAssignmentMethod.InputFile)
@@ -387,65 +374,36 @@ namespace H.Core.Services.LandManagement
                 }
             }
 
-            var sw = System.Diagnostics.Stopwatch.StartNew();
             this.ProcessDigestateViewItems(farm, fieldSystemComponent);
-            digMs = sw.ElapsedMilliseconds;
 
-            sw.Restart();
             this.CalculateCarbonLostFromHayExports(fieldSystemComponent, farm);
-            hayMs = sw.ElapsedMilliseconds;
 
-            sw.Restart();
             var viewItems = this.CreateItems(fieldSystemComponent, farm).ToList();
-            createItemsMs = sw.ElapsedMilliseconds;
 
-            sw.Restart();
             this.AssignInitialProperties(fieldSystemComponent, viewItems, farm);
-            initPropsMs = sw.ElapsedMilliseconds;
 
-            sw.Restart();
             this.ProcessPerennials(viewItems, fieldSystemComponent);
-            perennialsMs = sw.ElapsedMilliseconds;
 
-            sw.Restart();
             this.ProcessCoverCrops(viewItems, fieldSystemComponent);
-            coverMs = sw.ElapsedMilliseconds;
 
-            sw.Restart();
             this.ProcessUndersownCrops(viewItems, fieldSystemComponent);
-            undersownMs = sw.ElapsedMilliseconds;
 
-            sw.Restart();
             this.CalculateCarbonLostByGrazingAnimals(
                 farm,
                 fieldSystemComponent: fieldSystemComponent,
                 animalComponentEmissionsResults: this.AnimalResults, viewItems: viewItems);
-            grazingMs = sw.ElapsedMilliseconds;
 
             var stageState = this.GetStageState(farm);
 
-            sw.Restart();
             stageState.DetailsScreenViewCropViewItems.AddRange(viewItems.OrderBy(x => x.Year).ThenBy(x => x.IsSecondaryCrop));
-            addRangeMs = sw.ElapsedMilliseconds;
 
-            sw.Restart();
             this.CalculateManureCarbonInputByGrazingAnimals(fieldSystemComponent, viewItems);
             this.CalculateManureNitrogenInputsByGrazingAnimals(fieldSystemComponent, viewItems);
-            manureMs = sw.ElapsedMilliseconds;
 
-            sw.Restart();
             this.AssignCarbonInputs(
                 viewItems: viewItems,
                 farm: farm,
                 fieldSystemComponent: fieldSystemComponent);
-            assignCarbonMs = sw.ElapsedMilliseconds;
-
-            compSw.Stop();
-            _log.Info(
-                $"[GHGAnalysis.Comp] field='{fieldSystemComponent.Name}' total={compSw.ElapsedMilliseconds}ms " +
-                $"dig={digMs}ms hay={hayMs}ms createItems={createItemsMs}ms initProps={initPropsMs}ms " +
-                $"perennials={perennialsMs}ms cover={coverMs}ms undersown={undersownMs}ms grazing={grazingMs}ms " +
-                $"addRange={addRangeMs}ms manure={manureMs}ms assignCarbon={assignCarbonMs}ms items={viewItems.Count}");
         }
 
         /// <summary>

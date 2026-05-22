@@ -40,9 +40,7 @@ namespace H.Core.Calculators.Carbon
     /// <c>numerator / (1 - exp(-k * climateParameter))</c>. A <c>climateParameter</c> of 0 makes
     /// the denominator 0 and produces <c>±Infinity</c> or <c>NaN</c>. The downstream chart in
     /// <c>GHGResultsView</c> silently drops NaN points, so a corrupted climate parameter looks
-    /// like "the chart is empty". Diagnostic <c>[GHGAnalysis.ICBM]</c> traces in
-    /// <c>FieldResultsService.Carbon.cs</c> emit the per-year pool values to make this visible
-    /// in the VS Output window.
+    /// like "the chart is empty". See the failure-mode table in <c>Carbon_Model_Flow.md</c>.
     ///
     /// <para>
     /// The nitrogen-side math lives in the partial class file

@@ -27,11 +27,6 @@ namespace H.Core.Services.LandManagement
     ///     <see cref="H.Core.Calculators.Carbon.IPCCTier2SoilCarbonCalculator.CalculateResults"/>.
     ///   </item>
     /// </list>
-    ///
-    /// <para>
-    /// Diagnostic traces tagged <c>[GHGAnalysis.AssignC]</c> and <c>[GHGAnalysis.ICBM]</c> are
-    /// emitted from these paths to help spot bad inputs / NaN propagation.
-    /// </para>
     /// </summary>
     public partial class FieldResultsService
     {
@@ -146,31 +141,22 @@ namespace H.Core.Services.LandManagement
             Farm farm,
             FieldSystemComponent fieldSystemComponent)
         {
-            var sw = System.Diagnostics.Stopwatch.StartNew();
-            long yieldsMs, updateReturnsMs, mainLoopMs, secondaryLoopMs;
-            long inputsMs = 0, climateMs = 0, tillageMs = 0, managementMs = 0, adjoiningMs = 0;
-
             // Yields must be assigned to all items before we can loop over each year and calculate plant carbon in agricultural product (C_p)
             _cropInitializationService.InitializeYieldForAllYears(
                 cropViewItems: viewItems,
                 farm: farm, fieldSystemComponent: fieldSystemComponent);
-            yieldsMs = sw.ElapsedMilliseconds; sw.Restart();
 
             // After yields have been set, we must consider perennial years in which there is 0 for the yield input (from user or by default yield provider)
             this.UpdatePercentageReturnsForPerennials(
                 viewItems: viewItems);
-            updateReturnsMs = sw.ElapsedMilliseconds; sw.Restart();
 
             var mainCrops = viewItems.OrderBy(x => x.Year).Where(x => x.IsSecondaryCrop == false).ToList();
             var distinctYears = mainCrops.Select(x => x.Year).Distinct().OrderBy(x => x).ToList();
 
             // Consider the main crops for each year in the sequence
-            var innerSw = new System.Diagnostics.Stopwatch();
             foreach (var year in distinctYears)
             {
-                innerSw.Restart();
                 var adjoiningYears = this.GetAdjoiningYears(mainCrops, year);
-                adjoiningMs += innerSw.ElapsedMilliseconds;
 
                 var previousYearViewItem = adjoiningYears.PreviousYearViewItem;
                 // Non-null here: the loop iterates the distinct years of mainCrops, so every year
@@ -178,7 +164,6 @@ namespace H.Core.Services.LandManagement
                 var currentYearViewItem = adjoiningYears.CurrentYearViewItem!;
                 var nextYearViewItem = adjoiningYears.NextYearViewItem;
 
-                innerSw.Restart();
                 if (farm.Defaults.CarbonModellingStrategy == CarbonModellingStrategies.IPCCTier2 &&
                     _tier2SoilCarbonCalculator.CanCalculateInputsForCrop(currentYearViewItem))
                 {
@@ -194,23 +179,15 @@ namespace H.Core.Services.LandManagement
                         farm: farm,
                         animalResults: this.AnimalResults);
                 }
-                inputsMs += innerSw.ElapsedMilliseconds;
 
-                innerSw.Restart();
                 currentYearViewItem.ClimateParameter = this.CalculateClimateParameter(currentYearViewItem, farm);
-                climateMs += innerSw.ElapsedMilliseconds;
 
-                innerSw.Restart();
                 currentYearViewItem.TillageFactor = this.CalculateTillageFactor(currentYearViewItem, farm);
-                tillageMs += innerSw.ElapsedMilliseconds;
 
-                innerSw.Restart();
                 currentYearViewItem.ManagementFactor =
                     this.CalculateManagementFactor(currentYearViewItem.ClimateParameter,
                         currentYearViewItem.TillageFactor);
-                managementMs += innerSw.ElapsedMilliseconds;
             }
-            mainLoopMs = sw.ElapsedMilliseconds; sw.Restart();
 
             // Consider the secondary crops
             var secondaryCrops = viewItems.OrderBy(x => x.Year).Where(x => x.IsSecondaryCrop).ToList();
@@ -232,12 +209,6 @@ namespace H.Core.Services.LandManagement
                         animalResults: this.AnimalResults);
                 }
             }
-            secondaryLoopMs = sw.ElapsedMilliseconds;
-
-            _log.Info(
-                $"[GHGAnalysis.AssignC] yields={yieldsMs}ms updateReturns={updateReturnsMs}ms " +
-                $"main={mainLoopMs}ms (adjoin={adjoiningMs}ms inputs={inputsMs}ms climate={climateMs}ms tillage={tillageMs}ms mgmt={managementMs}ms) " +
-                $"secondary={secondaryLoopMs}ms mainYears={distinctYears.Count} secondaryItems={secondaryCrops.Count}");
         }
 
         /// <summary>
@@ -671,25 +642,10 @@ namespace H.Core.Services.LandManagement
                 _icbmSoilCarbonCalculator.N2OEmissionFactorCalculator.ManureService
                     .Initialize(farm, this.AnimalResults);
 
-                // Create the item with the steady state (equilibrium) values
+                // Create the item with the steady-state (equilibrium) values. Note: if the climate
+                // parameter is ~0 the equilibrium denominator can produce NaN/Infinity (and the chart
+                // then drops the series) — see the failure-mode table in Carbon_Model_Flow.md.
                 var equilibriumYearResults = this.CalculateEquilibriumYear(viewItemsForField, farm, fieldSystemGuid);
-
-                // Diagnostic: when the ICBM chart shows nothing, the usual cause is either an
-                // equilibrium that came out as NaN/Infinity (climate parameter ~ 0 in the
-                // steady-state denominator) or C inputs of zero. Trace the seed values once per
-                // field so the Output window shows what the per-year loop is starting from.
-                _log.Info(
-                    $"[GHGAnalysis.ICBM] field='{fieldSystemComponent?.Name}' equilibrium " +
-                    $"AG_input={equilibriumYearResults.CombinedAboveGroundInput:F2} " +
-                    $"BG_input={equilibriumYearResults.CombinedBelowGroundInput:F2} " +
-                    $"Y_ag={equilibriumYearResults.YoungPoolSoilCarbonAboveGround:F2} " +
-                    $"Y_bg={equilibriumYearResults.YoungPoolSoilCarbonBelowGround:F2} " +
-                    $"Y_manure={equilibriumYearResults.YoungPoolManureCarbon:F2} " +
-                    $"O={equilibriumYearResults.OldPoolSoilCarbon:F2} " +
-                    $"SoilC={equilibriumYearResults.SoilCarbon:F2} " +
-                    $"climate={equilibriumYearResults.ClimateParameter:F3} " +
-                    $"mgmt={equilibriumYearResults.ManagementFactor:F3} " +
-                    $"useClimate={farm.Defaults.UseClimateParameterInsteadOfManagementFactor}");
 
                 for (int i = 0; i < viewItemsForField.Count; i++)
                 {
@@ -713,20 +669,6 @@ namespace H.Core.Services.LandManagement
                         nextYearResults: null,
                         farm: farm,
                         yearIndex: i);
-
-                    // Diagnostic: per-year SoilCarbon so we can see exactly what the chart is
-                    // going to receive. If these come out as 0, NaN, or Infinity the chart will
-                    // either flat-line on the axis or drop the series entirely.
-                    _log.Info(
-                        $"[GHGAnalysis.ICBM] field='{fieldSystemComponent?.Name}' year={currentYearResults.Year} " +
-                        $"AG_input={currentYearResults.CombinedAboveGroundInput:F2} " +
-                        $"BG_input={currentYearResults.CombinedBelowGroundInput:F2} " +
-                        $"Y_ag={currentYearResults.YoungPoolSoilCarbonAboveGround:F2} " +
-                        $"Y_bg={currentYearResults.YoungPoolSoilCarbonBelowGround:F2} " +
-                        $"Y_manure={currentYearResults.YoungPoolManureCarbon:F2} " +
-                        $"O={currentYearResults.OldPoolSoilCarbon:F2} " +
-                        $"SoilC={currentYearResults.SoilCarbon:F2} " +
-                        $"dSoilC={currentYearResults.ChangeInCarbon:F3}");
                 }
             }
 

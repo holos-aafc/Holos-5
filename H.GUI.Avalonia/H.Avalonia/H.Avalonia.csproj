@@ -75,6 +75,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <InternalsVisibleTo Include="H.Avalonia.Test" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Avalonia" Version="11.0.2" />
     <PackageReference Include="Avalonia.Controls.DataGrid" Version="11.0.2" />
     <PackageReference Include="Avalonia.Desktop" Version="11.0.2" />

@@ -19,10 +19,18 @@ namespace H.Avalonia.Services
         // ConcurrentBag used over list as it avoids potential issues introduced by async timer for notification expirations
         // Bag used over queue as some notifications have greater lifespan
         private readonly ConcurrentBag<Notification> _activeNotifications = new();
-        private TimeSpan _successTimeSpan = TimeSpan.FromSeconds(5);
-        private TimeSpan _informationTimeSpan = TimeSpan.FromSeconds(5);
-        private TimeSpan _warningTimeSpan = TimeSpan.FromSeconds(10);
-        private TimeSpan _errorTimeSpan = TimeSpan.FromSeconds(10);
+
+        #endregion
+
+        #region Display Durations
+
+        // How long each notification type stays on screen before it auto-dismisses. Exposed as
+        // settable members (rather than constants) so a host can tune the policy and so tests can
+        // use a long duration that prevents the auto-dismiss timer from firing mid-run.
+        internal TimeSpan SuccessDuration { get; set; } = TimeSpan.FromSeconds(5);
+        internal TimeSpan InformationDuration { get; set; } = TimeSpan.FromSeconds(5);
+        internal TimeSpan WarningDuration { get; set; } = TimeSpan.FromSeconds(10);
+        internal TimeSpan ErrorDuration { get; set; } = TimeSpan.FromSeconds(10);
 
         #endregion
 
@@ -101,17 +109,17 @@ namespace H.Avalonia.Services
             }
 
             // Determine duration based on notification type if not explicitly provided
-            TimeSpan duration = _informationTimeSpan;
+            TimeSpan duration = InformationDuration;
             switch (type)
             {
                 case NotificationType.Success:
-                    duration = _successTimeSpan;
+                    duration = SuccessDuration;
                     break;
                 case NotificationType.Warning:
-                    duration = _warningTimeSpan;
+                    duration = WarningDuration;
                     break;
-                case NotificationType.Error: 
-                    duration = _errorTimeSpan;
+                case NotificationType.Error:
+                    duration = ErrorDuration;
                     break;
             }
 

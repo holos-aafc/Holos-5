@@ -94,6 +94,7 @@ namespace H.Avalonia.Test.Services
         public void TestShowOneToast()
         {
             _service = new NotificationManagerService(_loggerMock);
+            UsePersistentNotifications(_service);
             _service.Initialize(_window);
             _service.ShowToast("Test Title", "Test Message");
             Assert.AreEqual(1, _service.ActiveNotifications.Count);
@@ -103,6 +104,7 @@ namespace H.Avalonia.Test.Services
         public void TestShowMoreToasts()
         {
             _service = new NotificationManagerService(_loggerMock);
+            UsePersistentNotifications(_service);
             _service.Initialize(_window);
             _service.ShowToast("Test Title1", "Test Message1");
             _service.ShowToast("Test Title2", "Test Message2");
@@ -111,6 +113,28 @@ namespace H.Avalonia.Test.Services
             _service.ShowToast("Test Title5", "Test Message5");
 
             Assert.AreEqual(5, _service.ActiveNotifications.Count);
+        }
+
+        /// <summary>
+        /// Makes notifications effectively persistent for the duration of the test run.
+        /// <para>
+        /// <see cref="Avalonia.Controls.Notifications.WindowNotificationManager.Show"/> schedules an
+        /// internal <c>Task.Delay(expiration)</c> that then calls <c>NotificationCard.Close()</c>.
+        /// Under the headless <c>SetupWithoutStarting()</c> harness there is no running dispatcher, so
+        /// that continuation runs on a thread-pool thread and <c>Close()</c> throws
+        /// "Call from invalid thread". With the production 5–10 s durations the callback can fire
+        /// while a later, slower test keeps the process alive — crashing the whole test host. Using a
+        /// duration longer than any test run guarantees the callback never fires before the process
+        /// exits, while leaving the assertions (which read the service's own collection) unaffected.
+        /// </para>
+        /// </summary>
+        private static void UsePersistentNotifications(NotificationManagerService service)
+        {
+            var persistent = TimeSpan.FromHours(1);
+            service.SuccessDuration = persistent;
+            service.InformationDuration = persistent;
+            service.WarningDuration = persistent;
+            service.ErrorDuration = persistent;
         }
 
         // Adds unnecessary time to execution of tests, so ignored by default

@@ -116,7 +116,7 @@ sequenceDiagram
     rect rgb(245,245,245)
     Note over App,CRS: ContainerRegistrationService.RegisterAllTypes
     App->>CRS: new(Container, logger).RegisterAllTypes(containerRegistry)
-    CRS->>DI: new CoreModule().RegisterTypes(...) — shared calc graph (first)
+    CRS->>DI: new CoreModule().RegisterTypes(...) registers shared calc graph (first)
     CRS->>DI: Register GUI-only services / views / factories / mappers / dialogs
     CRS->>CRS: PreWarmHeavyServices()
     CRS-)FRS: Task.Run → Resolve<IFieldResultsService> (off-thread)

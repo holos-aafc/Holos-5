@@ -23,7 +23,7 @@ flowchart TD
     %% ========================================================================
     %% 1. GUI AUTHORING
     %% ========================================================================
-    subgraph authoring ["1. View / ViewModel — User authors a wheat field"]
+    subgraph authoring ["1. View / ViewModel - User authors a wheat field"]
         U["User opens MyComponentsView<br>and adds a Field component"]
         S1["FieldComponentView · Step 1<br>name, area, soil polygon<br>(province lives on DefaultSoilData)"]
         S2["FieldComponentView · Step 2<br>AddCropDtoToSystem<br>CropDto: Year=2024, CropType=Wheat<br>IsSecondaryCrop = false<br>→ CropViewItems.Add(viewItem)"]
@@ -36,7 +36,7 @@ flowchart TD
     %% 2. NAVIGATION
     %% ========================================================================
     Btn --> VM["GHGResultsViewModel<br>.RunAnalysisAsync"]
-    VM --> Bg["await Task.Run<br>(off UI thread — Recalculate banner shows)"]
+    VM --> Bg["await Task.Run<br>(off UI thread - Recalculate banner shows)"]
     Bg --> Svc["FarmAnalysisService.RunAnalysis(farm)"]
     Svc --> Init
 
@@ -54,7 +54,7 @@ flowchart TD
     end
 
     %% ========================================================================
-    %% 4. INPUT DISPATCH — ICBM vs IPCC Tier 2
+    %% 4. INPUT DISPATCH - ICBM vs IPCC Tier 2
     %% ========================================================================
     Assign --> Strat{"farm.Defaults<br>.CarbonModellingStrategy"}
     Strat -- "ICBM (default)" --> ICBMin["ICBMSoilCarbonCalculator.SetCarbonInputs<br>computes:<br>· PlantCarbonInAgriculturalProduct (Cp)<br>· CarbonInputFromProduct / Straw / Roots / Extraroot<br>· AboveGroundCarbonInput<br>· BelowGroundCarbonInput<br>· ManureCarbonInputsPerHectare<br>· DigestateCarbonInputsPerHectare<br>· TotalCarbonInputs"]
@@ -79,7 +79,7 @@ flowchart TD
 
     Nloop --> Shelter
     T2Final --> Shelter
-    Shelter["CalculateShelterbeltResults<br>(only if farm has ShelterbeltComponents —<br>allometric model, orthogonal to ICBM/Tier 2)"]
+    Shelter["CalculateShelterbeltResults<br>(only if farm has ShelterbeltComponents,<br>allometric model, orthogonal to ICBM/Tier 2)"]
 
     %% ========================================================================
     %% 6. DTO MAPPING
@@ -91,7 +91,7 @@ flowchart TD
     %% ========================================================================
     %% 7. RESULTS VIEW
     %% ========================================================================
-    subgraph results ["7. GHGResultsView — what the user sees"]
+    subgraph results ["7. GHGResultsView - what the user sees"]
         UIBack --> RV["GHGResultsView<br>· Header: Farm + Strategy + Recalculate/Export"]
         RV --> Chart["LiveCharts CartesianChart<br>one LineSeries per field<br>X = years, Y = SoilCarbon kg/ha"]
         RV --> Grid["Field DataGrid<br>per-year × per-field rows<br>(C inputs, ΔSoilC, N₂O)"]
@@ -150,13 +150,13 @@ flowchart TD
     subgraph parse ["2. Build the Farm from input files"]
         Read["For each Farm folder + .settings file:<br/>DataInputHandler.ProcessDataInputFiles<br/>→ components from each input row"]
         Read --> Flags["farm.IsCommandLineMode = true<br/>+ apply .settings (climate, soil, units)"]
-        Flags --> Stage["Per-year CropViewItems come from the<br/>input-file rows themselves<br/>(FieldSystemInputConverter on read) —<br/>stage state is NOT rebuilt in the processor"]
+        Flags --> Stage["Per-year CropViewItems come from the<br/>input-file rows themselves<br/>(FieldSystemInputConverter on read):<br/>stage state is NOT rebuilt in the processor"]
     end
 
     %% ========================================================================
     %% 3. PER-FARM PROCESSING
     %% ========================================================================
-    Stage --> Resolve["container.Resolve&lt;IFieldResultsService&gt;()<br/>(shared CoreModule graph)"]
+    Stage --> Resolve["container.Resolve(IFieldResultsService)<br/>(shared CoreModule graph)"]
     Resolve --> PF["ComponentResultsProcessor.ProcessFarms<br/>→ FieldProcessor.ProcessComponent (per field)"]
 
     subgraph proc ["3. FieldProcessor.ProcessComponent"]
@@ -169,7 +169,7 @@ flowchart TD
     %% 4. CLI-ONLY RESIDUE FILL + CONVERGENCE
     %% ========================================================================
     Call --> PCLI["ProcessCommandLineItems (CLI-only)<br/>runs at the top of CalculateFinalResultsForField,<br/>guarded by farm.IsCommandLineMode.<br/>Fills any C/N-input prerequisites left at zero:<br/>yield, lignin, moisture, biomass coefficients,<br/>residue N contents, N fixation, grazing view items"]
-    PCLI --> Converge[["Converges with the GUI flow at<br/>CalculateFinalResults — see the main Flow<br/>diagram from this node onward"]]
+    PCLI --> Converge[["Converges with the GUI flow at<br/>CalculateFinalResults - see the main Flow<br/>diagram from this node onward"]]
 
     %% ========================================================================
     %% 5. OUTPUT

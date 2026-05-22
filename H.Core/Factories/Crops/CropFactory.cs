@@ -11,9 +11,9 @@ namespace H.Core.Factories.Crops;
 /// Default <see cref="ICropFactory"/> implementation. Holds three DI-resolved
 /// <see cref="IModelMapper{TSource, TDest}"/> instances that handle the actual property
 /// copies between CropViewItem ↔ CropDto + DTO ↔ DTO clones, and an
-/// <see cref="ICropInitializationService"/> reference. In v5 that service seeds only the
-/// fuel-energy estimate (Table 50) for a new crop; the residue / biomass / moisture / nitrogen
-/// defaults are assigned later, during stage-state build in <c>FieldResultsService</c>.
+/// <see cref="ICropInitializationService"/> reference that seeds a new crop's full science
+/// defaults (yield, biomass coefficients, residue nitrogen, moisture, lignin, tillage,
+/// percentage-returns, energy, economics) before it reaches the user.
 ///
 /// <para><b>Three mapper roles:</b></para>
 /// <list type="bullet">
@@ -70,16 +70,16 @@ public class CropFactory : ICropFactory
     }
 
     /// <summary>
-    /// Creates an initialized <see cref="CropDto"/> for a brand-new crop on the given farm.
+    /// Creates a fully initialized <see cref="CropDto"/> for a brand-new crop on the given farm.
     /// This is what the field editor calls when the user adds a crop: it seeds a default
-    /// (Wheat, current year) <see cref="CropViewItem"/>, runs the initialization service to set
-    /// that crop's fuel-energy estimate, then maps the item to a DTO for binding. (The
-    /// residue / biomass / moisture / nitrogen defaults are filled later, during stage-state build.)
+    /// (Wheat, current year) <see cref="CropViewItem"/>, runs the initialization service to fill in
+    /// all the crop's science defaults (yield, biomass, residue nitrogen, moisture, lignin, energy,
+    /// economics) via <c>InitializeCrop</c>, then maps the populated item to a DTO for binding.
     /// </summary>
     public CropDto CreateDto(Farm farm)
     {
         // Seed a sensible default crop. CropType must be set first: the initialization service
-        // uses it (with the farm's province/soil/tillage) to look up the Table 50 fuel-energy row.
+        // uses it (with the farm's province/soil/tillage) to look up the per-crop default values.
         var cropViewItem = new CropViewItem();
 
         cropViewItem.CropType = CropType.Wheat;

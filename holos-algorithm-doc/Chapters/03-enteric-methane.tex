@@ -1,0 +1,1568 @@
+% ============================================================
+%  Chapter 3 – Livestock enteric methane emissions
+% ============================================================
+\chapter{Livestock enteric methane emissions}
+\label{ch:enteric}
+
+\textit{Authors: A.W.\ Alemu and S.J.\ Pogue}
+
+% ─────────────────────────────────────────────────────────────────────────────
+\section{Beef cattle}
+\label{sec:beef}
+
+Management data are input for each management period. Emissions are calculated
+on a daily basis.
+
+\noindent\textbf{Assumptions:}
+\begin{itemize}[leftmargin=1.5em]
+    \item Cattle feed intake is equal to energy requirements
+    \item All feed is utilized --- waste feed emissions are not accounted for
+    \item All cows are pregnant and 5\,kg of protein is retained for every pregnancy
+    \item Calves consume 1\% of their own body weight as solid food
+    \item Calves retain 20\% of protein intake from dry feed and 40\% of protein
+          intake from milk
+    \item Enteric CH$_4$ emissions from calves are calculated using the IPCC $Y_m$
+          approach only (Section~\ref{subsec:beef-calves})
+\end{itemize}
+
+% ·····················································
+\subsection{IPCC \texorpdfstring{$Y_m$}{Ym} approach for beef cattle (except calves)}
+\label{subsec:beef-ym}
+
+Enteric CH$_4$ calculations should be completed for each cattle group (except calves).
+
+\begin{equation}
+    \mathrm{Weight} = \mathrm{ADG} \times \mathrm{days} + \mathrm{wt}_{\mathrm{initial}}
+    \tag{Eq.\ 3.1.1.1}
+\end{equation}
+
+\noindent where
+\begin{description}[font=\normalfont, leftmargin=9em, style=sameline, nosep]
+    \item[$\mathrm{Weight}$] Weight (kg~head$^{-1}$)
+    \item[$\mathrm{ADG}$] Average daily gain (kg~head$^{-1}$~day$^{-1}$), calculated
+          using Eq.~3.1.1.7
+    \item[$\mathrm{days}$] Total number of days since start of management period
+    \item[$\mathrm{wt}_{\mathrm{initial}}$] Initial weight (kg~head$^{-1}$) (Table~16,
+          by beef cattle group, or user-defined)
+\end{description}
+
+\bigskip
+\noindent\textbf{Net energy requirements}
+
+$C_{f,\mathrm{adjusted}}$ represents the influence of temperature on the maintenance
+coefficient ($C_f$) and varies by day due to daily average temperature.
+
+\begin{equation}
+    C_{f,\mathrm{adjusted}} = C_f + \bigl(0.0048 \times (20 - \mathrm{Temperature})\bigr)
+    \tag{Eq.\ 3.1.1.2}
+\end{equation}
+
+\noindent IPCC (2019), Eq.~10.2
+
+\noindent where
+\begin{description}[font=\normalfont, leftmargin=9em, style=sameline, nosep]
+    \item[$C_{f,\mathrm{adjusted}}$] Maintenance coefficient adjusted for temperature
+          (MJ~day$^{-1}$~kg$^{-1}$)
+    \item[$C_f$] Baseline maintenance coefficient (MJ~day$^{-1}$~kg$^{-1}$) (Table~16,
+          by beef cattle group)
+    \item[$\mathrm{Temperature}$] Average daily temperature (upper limit = 20\textdegree{}C;
+          if temperature $>$ 20\textdegree{}C or if cattle are housed in a barn, use
+          20\textdegree{}C)
+\end{description}
+
+\noindent\textit{Note: While this is calculated and labelled as $C_f$ in the model
+code, it is labelled ``Maintenance coefficient'' in the model interface. By default,
+daily Temperature data are obtained from the NASA POWER data access viewer
+(\url{https://power.larc.nasa.gov/data-access-viewer/}). The model user can override
+these data using custom daily climate data. In the event that neither NASA daily climate
+data nor user-defined daily climate data are available, Holos uses 1990--2017 monthly
+climate normals for each SLC polygon as a default.}
+
+\begin{equation}
+    \mathrm{NE}_{\mathrm{maintenance}} =
+        C_{f,\mathrm{adjusted}} \times \mathrm{Weight}^{0.75}
+    \tag{Eq.\ 3.1.1.3}
+\end{equation}
+
+\noindent IPCC (2019), Eq.~10.3
+
+\noindent where
+\begin{description}[font=\normalfont, leftmargin=9em, style=sameline, nosep]
+    \item[$\mathrm{NE}_{\mathrm{maintenance}}$] Net energy for maintenance
+          (MJ~head$^{-1}$~day$^{-1}$)
+\end{description}
+
+\begin{equation}
+    \mathrm{NE}_{\mathrm{activity}} = C_a \times \mathrm{NE}_{\mathrm{maintenance}}
+    \tag{Eq.\ 3.1.1.4}
+\end{equation}
+
+\noindent IPCC (2019), Eq.~10.4
+
+\noindent where
+\begin{description}[font=\normalfont, leftmargin=9em, style=sameline, nosep]
+    \item[$\mathrm{NE}_{\mathrm{activity}}$] Net energy for activity
+          (MJ~head$^{-1}$~day$^{-1}$)
+    \item[$C_a$] Feeding activity coefficient (Table~17, by activity type)
+\end{description}
+
+\noindent For lactating beef cows only (use only when cows are lactating ---
+when \#calves $>$ 0):
+
+\begin{equation}
+    \mathrm{NE}_{\mathrm{lactation}} =
+        \bigl[\mathrm{milk}_{\mathrm{prod}} \times 1.47
+            + 0.40 \times \mathrm{fat}_{\mathrm{content}}\bigr]
+        \times \frac{\#\mathrm{calves}}{\#\mathrm{cows}}
+    \tag{Eq.\ 3.1.1.5}
+\end{equation}
+
+\noindent IPCC (2019), Eq.~10.8
+
+\noindent where
+\begin{description}[font=\normalfont, leftmargin=9em, style=sameline, nosep]
+    \item[$\mathrm{NE}_{\mathrm{lactation}}$] Net energy for lactation
+          (MJ~head$^{-1}$~day$^{-1}$)
+    \item[$\mathrm{milk}_{\mathrm{prod}}$] Milk production (kg~head$^{-1}$~day$^{-1}$)
+    \item[$\mathrm{fat}_{\mathrm{content}}$] Fat content (\%)
+    \item[$\#\mathrm{calves}$] Number of calves
+    \item[$\#\mathrm{cows}$] Number of cows
+\end{description}
+
+\noindent Holos V4 uses the following constant values:
+$\mathrm{milk}_{\mathrm{prod}} = 8$\,(kg~head$^{-1}$~day$^{-1}$),
+$\mathrm{fat}_{\mathrm{content}} = 4$\,(\%).
+
+\noindent\textit{Note: \#calves/\#cows adjusts for cows without calves and
+averages energy for lactation across all individuals.}
+
+\noindent For pregnant beef cows only:
+
+\begin{equation}
+    \mathrm{NE}_{\mathrm{pregnancy}} = 0.10 \times \mathrm{NE}_{\mathrm{maintenance}}
+    \tag{Eq.\ 3.1.1.6}
+\end{equation}
+
+\noindent IPCC (2019), Eq.~10.13
+
+\noindent where
+\begin{description}[font=\normalfont, leftmargin=9em, style=sameline, nosep]
+    \item[$\mathrm{NE}_{\mathrm{pregnancy}}$] Net energy for pregnancy
+          (MJ~head$^{-1}$~day$^{-1}$)
+    \item[$0.1$] Pregnancy coefficient --- IPCC (2019) default for cattle and buffalo
+\end{description}
+
+\noindent\textit{This equation averages pregnancy energy requirements over the
+entire year.}
+
+\bigskip
+\noindent\textbf{Average daily gain (ADG), net energy for gain}
+
+For all beef cattle groups, default ADG values are provided for each management period,
+based on default start and end weights and the number of days in each management period.
+As for most other inputs in Holos, this information can be overridden with user-defined
+inputs.
+
+\begin{equation}
+    \mathrm{ADG} = \frac{\mathrm{wt}_{\mathrm{final}} - \mathrm{wt}_{\mathrm{initial}}}
+                        {\#\mathrm{days}}
+    \tag{Eq.\ 3.1.1.7}
+\end{equation}
+
+\noindent where
+\begin{description}[font=\normalfont, leftmargin=9em, style=sameline, nosep]
+    \item[$\mathrm{ADG}$] Average daily gain (kg~head$^{-1}$~day$^{-1}$)
+    \item[$\mathrm{wt}_{\mathrm{final}}$] Final weight (kg~head$^{-1}$) (Table~16,
+          by beef cattle group)
+    \item[$\mathrm{wt}_{\mathrm{initial}}$] Initial weight (kg~head$^{-1}$) (Table~16,
+          by beef cattle group)
+    \item[$\#\mathrm{days}$] Number of days --- includes all months where animals
+          $>0$ are entered
+\end{description}
+
+\noindent For all beef animals (excluding calves):
+
+\begin{equation}
+    \mathrm{NE}_{\mathrm{gain}} = 22.02 \times
+        \frac{\mathrm{Weight}}{C_d \times \mathrm{wt}_{\mathrm{final}}^{0.75}}
+        \times \mathrm{ADG}^{1.097}
+    \tag{Eq.\ 3.1.1.8}
+\end{equation}
+
+\noindent IPCC (2019), Eq.~10.6
+
+\noindent where
+\begin{description}[font=\normalfont, leftmargin=9em, style=sameline, nosep]
+    \item[$\mathrm{NE}_{\mathrm{gain}}$] Net energy for gain (MJ~head$^{-1}$~day$^{-1}$)
+    \item[$\mathrm{Weight}$] Weight (kg~head$^{-1}$)
+    \item[$\mathrm{wt}_{\mathrm{final}}$] Final weight of animal (kg) (Table~16)
+    \item[$C_d$] Gain coefficient (Table~16, by cattle group)
+    \item[$\mathrm{ADG}$] Average daily gain (kg~head$^{-1}$~day$^{-1}$)
+\end{description}
+
+\bigskip
+\noindent\textbf{Ratios of net energy available to digestible energy}
+
+\begin{equation}
+    \mathrm{REM} = 1.123 - 4.092 \times 10^{-3} \times \mathrm{TDN}
+        + 1.126 \times 10^{-5} \times \mathrm{TDN}^{2}
+        - \frac{25.4}{\mathrm{TDN}}
+    \tag{Eq.\ 3.1.1.9}
+\end{equation}
+
+\noindent IPCC (2019), Eq.~10.14
+
+\noindent where
+\begin{description}[font=\normalfont, leftmargin=6em, style=sameline, nosep]
+    \item[$\mathrm{REM}$] Ratio of net energy available in diet for maintenance to
+          digestible energy consumed
+    \item[$\mathrm{TDN}$] Percent total digestible nutrients in feed (Table~18,
+          by diet)
+\end{description}
+
+\noindent\textit{Note: TDN is to be entered as a percentage (e.g.\ as 81 not 0.81).}
+
+\begin{equation}
+    \mathrm{REG} = 1.164 - 5.160 \times 10^{-3} \times \mathrm{TDN}
+        + 1.308 \times 10^{-5} \times \mathrm{TDN}^{2}
+        - \frac{37.4}{\mathrm{TDN}}
+    \tag{Eq.\ 3.1.1.10}
+\end{equation}
+
+\noindent IPCC (2019), Eq.~10.15
+
+\noindent where
+\begin{description}[font=\normalfont, leftmargin=6em, style=sameline, nosep]
+    \item[$\mathrm{REG}$] Ratio of net energy available in diet for gain to
+          digestible energy consumed
+\end{description}
+
+\noindent\textit{Note: TDN is to be entered as a percentage (e.g.\ as 81 not 0.81).}
+
+\bigskip
+\noindent\textbf{Gross energy intake}
+
+\begin{multline}
+    \mathrm{GEI} =
+        \left(\frac{\mathrm{NE}_{\mathrm{maintenance}} + \mathrm{NE}_{\mathrm{activity}}
+            + \mathrm{NE}_{\mathrm{lactation}} + \mathrm{NE}_{\mathrm{pregnancy}}}
+            {\mathrm{REM}}
+        + \frac{\mathrm{NE}_{\mathrm{gain}}}{\mathrm{REG}}\right)
+        \times \frac{100}{\mathrm{TDN}}
+    \tag{Eq.\ 3.1.1.11}
+\end{multline}
+
+\noindent IPCC (2019), Eq.~10.16
+
+\noindent where
+\begin{description}[font=\normalfont, leftmargin=6em, style=sameline, nosep]
+    \item[$\mathrm{GEI}$] Gross energy intake (MJ~head$^{-1}$~day$^{-1}$)
+\end{description}
+
+\noindent\textit{Note: TDN is to be entered as a percentage (e.g.\ as 81 not 0.81).}
+
+\bigskip
+\noindent\textbf{Enteric CH$_4$ emission}
+
+\begin{equation}
+    \mathrm{CH}_{4,\mathrm{enteric\text{-}rate}} =
+        \mathrm{GEI} \times \frac{Y_m}{55.65}
+        \times \left(1 - \frac{\mathrm{AR}}{100}\right)
+    \tag{Eq.\ 3.1.1.12}
+\end{equation}
+
+\noindent Derived from IPCC (2019), Eq.~10.21
+
+\noindent where
+\begin{description}[font=\normalfont, leftmargin=9em, style=sameline, nosep]
+    \item[$\mathrm{CH}_{4,\mathrm{enteric\text{-}rate}}$] Enteric CH$_4$ emission rate
+          (kg~head$^{-1}$~day$^{-1}$)
+    \item[$Y_m$] Methane conversion factor (Table~18, by diet)
+    \item[$55.65$] Energy content of CH$_4$ (MJ~kg$^{-1}$~CH$_4$)
+    \item[$\mathrm{AR}$] Additive reduction factor (Table~19, by additive)
+\end{description}
+
+\noindent\textit{Note: When a custom diet is created by the model user, $Y_m$ is first
+determined on the basis of the forage content --- if forage content $<$ 15\%, a default
+$Y_m$ value of 0.04 is used. If forage content $>$ 15\% then $Y_m$ is calculated based
+on the TDN content of the diet.}
+
+\begin{equation}
+    \mathrm{CH}_{4,\mathrm{enteric}} =
+        \mathrm{CH}_{4,\mathrm{enteric\text{-}rate}} \times \#\mathrm{cattle}
+    \tag{Eq.\ 3.1.1.13}
+\end{equation}
+
+\noindent where
+\begin{description}[font=\normalfont, leftmargin=9em, style=sameline, nosep]
+    \item[$\mathrm{CH}_{4,\mathrm{enteric}}$] Enteric CH$_4$ emissions by animal group
+          (kg~CH$_4$~day$^{-1}$)
+    \item[$\#\mathrm{cattle}$] Number of beef cattle
+\end{description}
+
+\bigskip
+\noindent\textbf{Other enteric CH$_4$ estimates}
+
+In addition to using the default IPCC (2019) $Y_m$ conversion factors to estimate
+enteric CH$_4$ emissions from beef cattle, the inclusion of different mathematical
+equations (linear and exponential) with varying input requirements provides the model
+user (and in particular researchers) with additional options. For beef cattle, the
+selected equations were developed and evaluated by van Lingen et al.\ (2019). Four
+equations were selected and divided into two groups based on the concentration of forage
+in the diet. Two equations are for diets containing $\geq 25$\% forage DM (high forage
+diets, Eq.~3.1.1.14 and Eq.~3.1.1.15) and the remaining two equations are for diets
+containing $< 25$\% forage DM (low forage diets, Eq.~3.1.1.16 and Eq.~3.1.1.17).
+
+\noindent\textit{High forage diet alternatives ($\geq 25$\% dietary forage)}
+
+\begin{multline}
+    \mathrm{CH}_{4,\mathrm{enteric}(\mathrm{B1})\mathrm{\text{-}rate}} =
+        \left[-35.0 + 0.08 \times \mathrm{BW} + 1.2 \times \mathrm{Forage}
+        - 69.8 \times \mathrm{EEI}^{3}
+        + 3.14 \times \frac{\mathrm{GEI}}{4.184}\right]
+        \times \frac{1}{1000}
+    \tag{Eq.\ 3.1.1.14}
+\end{multline}
+
+\noindent Escobar-Bahamondes et al.\ (2017), Eq.~AL-OR
+
+\noindent where
+\begin{description}[font=\normalfont, leftmargin=9em, style=sameline, nosep]
+    \item[$\mathrm{CH}_{4,\mathrm{enteric}(\mathrm{B1})\mathrm{\text{-}rate}}$]
+          Enteric CH$_4$ emissions (kg~head$^{-1}$~day$^{-1}$)
+    \item[$\mathrm{BW}$] Body weight (kg)
+    \item[$\mathrm{Forage}$] \% forage in the diet (\% of DM)
+    \item[$\mathrm{EEI}$] Ether extract/crude fat intake (kg~head$^{-1}$~day$^{-1}$)
+    \item[$\mathrm{GEI}$] Gross energy intake (MJ~head$^{-1}$~day$^{-1}$)
+\end{description}
+
+\noindent Holos V4 uses the following calculation:
+$\mathrm{EEI} = \mathrm{DMI}\,(\text{kg/day}) \times [\mathrm{EE\ concentration\ in\ feed\ or\ diet}\ (\%\mathrm{DM})/100]$
+$+ \mathrm{DMI}\,(\text{kg~day}^{-1}) \times (\%\text{Fat supplement added as diet additives}/100)$
+
+\begin{equation}
+    \mathrm{CH}_{4,\mathrm{enteric}(\mathrm{B2})\mathrm{\text{-}rate}} =
+        \left(-6.41 + 11.3 \times \mathrm{DMI}
+            + 0.557 \times \mathrm{Forage}
+            + 0.0996 \times \mathrm{BW}\right)
+        \times \frac{1}{1000}
+    \tag{Eq.\ 3.1.1.15}
+\end{equation}
+
+\noindent van Lingen et al.\ (2019), Eq.~17
+
+\noindent where
+\begin{description}[font=\normalfont, leftmargin=9em, style=sameline, nosep]
+    \item[$\mathrm{CH}_{4,\mathrm{enteric}(\mathrm{B2})\mathrm{\text{-}rate}}$]
+          Enteric CH$_4$ emission rate (kg~head$^{-1}$~day$^{-1}$)
+    \item[$\mathrm{DMI}$] DM intake (kg~head$^{-1}$~day$^{-1}$), calculated using
+          Eq.~11.3.1.1
+    \item[$\mathrm{Forage}$] Dietary forage (\% of DM)
+    \item[$\mathrm{BW}$] Body weight (kg)
+\end{description}
+
+\noindent\textit{Low forage diet alternatives ($< 25$\% dietary forage)}
+
+\begin{multline}
+    \mathrm{CH}_{4,\mathrm{enteric}(\mathrm{B3})\mathrm{\text{-}rate}} =
+        \left[-10.1 + 0.21 \times \mathrm{BW}
+            + 0.36 \times \mathrm{DMI}^{2}
+            - 69.2 \times \mathrm{EEI}^{3}
+            + 13 \times \frac{\mathrm{CPI}}{\mathrm{NDFI}}
+            - 4.9 \times \frac{\mathrm{StarchI}}{\mathrm{NDFI}}\right]
+        \times \frac{1}{1000}
+    \tag{Eq.\ 3.1.1.16}
+\end{multline}
+
+\noindent Escobar-Bahamondes et al.\ (2017), Eq.~LF-MC
+
+\noindent where
+\begin{description}[font=\normalfont, leftmargin=7em, style=sameline, nosep]
+    \item[$\mathrm{CH}_{4,\mathrm{enteric}(\mathrm{B3})\mathrm{\text{-}rate}}$]
+          Enteric CH$_4$ emission rate (kg~head$^{-1}$~day$^{-1}$)
+    \item[$\mathrm{BW}$] Body weight (kg)
+    \item[$\mathrm{DMI}$] DM intake (kg~head$^{-1}$~day$^{-1}$), calculated using
+          Eq.~11.3.1.1
+    \item[$\mathrm{EEI}$] Ether extract/crude fat intake (kg~head$^{-1}$~day$^{-1}$)
+    \item[$\mathrm{CPI}$] Crude protein intake (kg~head$^{-1}$~day$^{-1}$)
+    \item[$\mathrm{NDFI}$] Neutral detergent fiber intake (kg~head$^{-1}$~day$^{-1}$)
+    \item[$\mathrm{StarchI}$] Starch intake (kg~head$^{-1}$~day$^{-1}$)
+\end{description}
+
+\noindent Holos V4 uses the following calculations:
+$\mathrm{CPI} = \mathrm{DMI}\,(\text{kg/day}) \times [\mathrm{CP\ concentration\ in\ feed\ or\ diet}\ (\%\mathrm{DM})/100]$;
+$\mathrm{NDFI} = \mathrm{DMI}\,(\text{kg/day}) \times [\mathrm{NDF\ concentration\ in\ feed\ or\ diet}\ (\%\mathrm{DM})/100]$;
+$\mathrm{StarchI} = \mathrm{DMI}\,(\text{kg/day}) \times [\mathrm{Starch\ concentration\ in\ feed\ or\ diet}\ (\%\mathrm{DM})/100]$
+
+\begin{equation}
+    \mathrm{CH}_{4,\mathrm{enteric}(\mathrm{B4})\mathrm{\text{-}rate}} =
+        \left[48.2 + 14.4 \times \mathrm{DMI}
+            - 20.5 \times \frac{\mathrm{Starch}}{\mathrm{NDF}}\right]
+        \times \frac{1}{1000}
+    \tag{Eq.\ 3.1.1.17}
+\end{equation}
+
+\noindent Ellis et al.\ (2009), Eq.~N
+
+\noindent where
+\begin{description}[font=\normalfont, leftmargin=9em, style=sameline, nosep]
+    \item[$\mathrm{CH}_{4,\mathrm{enteric}(\mathrm{B4})\mathrm{\text{-}rate}}$]
+          Enteric CH$_4$ emissions rate (kg~head$^{-1}$~day$^{-1}$)
+    \item[$\mathrm{DMI}$] DM intake (kg~head$^{-1}$~day$^{-1}$), calculated using
+          Eq.~11.3.1.1
+    \item[$\mathrm{Starch}$] Dietary starch (\% of DM)
+    \item[$\mathrm{NDF}$] Dietary neutral detergent fiber (\% of DM)
+\end{description}
+
+\begin{equation}
+    \mathrm{CH}_{4,\mathrm{enteric}(n)} =
+        \mathrm{CH}_{4,\mathrm{enteric}(n)\mathrm{\text{-}rate}}
+        \times \#\mathrm{cattle}
+    \tag{Eq.\ 3.1.1.18}
+\end{equation}
+
+\noindent where
+\begin{description}[font=\normalfont, leftmargin=9em, style=sameline, nosep]
+    \item[$\mathrm{CH}_{4,\mathrm{enteric}(n)}$] Enteric CH$_4$ emissions by animal
+          group (kg~CH$_4$~day$^{-1}$), $n = \mathrm{B1, B2, B3, B4}$
+    \item[$\#\mathrm{cattle}$] Number of cattle
+\end{description}
+
+% ·····················································
+\subsection{Enteric CH\texorpdfstring{$_4$}{4} emissions from beef calves}
+\label{subsec:beef-calves}
+
+Enteric CH$_4$ emissions from beef calves are estimated based on a simplified Tier~2
+approach from IPCC (2019) for the estimation of daily DMI. Enteric CH$_4$ emissions for
+this animal group are estimated only for those days when the calves are on a non-milk
+(i.e., forage) diet. To calculate enteric CH$_4$ from these calves, we assume that, in
+addition to consuming milk, calves also graze on forage from 01 July to 31 October
+(123 days, according to Legesse et al.\ 2016, 2018) on the same pasture (native or tame)
+as the cows. Prior to that, the calves consume milk only and thus generate no enteric
+CH$_4$.
+
+\begin{equation}
+    \mathrm{Weight} = \mathrm{ADG} \times \mathrm{days} + \mathrm{wt}_{\mathrm{initial}}
+    \tag{Eq.\ 3.1.2.1}
+\end{equation}
+
+\noindent where
+\begin{description}[font=\normalfont, leftmargin=9em, style=sameline, nosep]
+    \item[$\mathrm{Weight}$] Weight (kg~head$^{-1}$)
+    \item[$\mathrm{ADG}$] Average daily gain (kg~head$^{-1}$~day$^{-1}$), calculated
+          according to Eq.~3.1.1.7
+    \item[$\mathrm{days}$] Total number of days since start of management period
+    \item[$\mathrm{wt}_{\mathrm{initial}}$] Initial weight (kg~head$^{-1}$) (Table~16,
+          by beef cattle group)
+\end{description}
+
+\begin{equation}
+    \mathrm{DMI} = \frac{\mathrm{Weight}^{0.75}
+        \times \bigl(0.0582 \times \mathrm{NE}_{\mathrm{mf}}
+            - 0.00266 \times \mathrm{NE}_{\mathrm{mf}}^{2}
+            - 0.1128\bigr)}
+        {0.239 \times \mathrm{NE}_{\mathrm{mf}}}
+    \tag{Eq.\ 3.1.2.2}
+\end{equation}
+
+\noindent Derived from IPCC (2019), Eq.~10.17
+
+\noindent where
+\begin{description}[font=\normalfont, leftmargin=7em, style=sameline, nosep]
+    \item[$\mathrm{DMI}$] DM intake (kg~head$^{-1}$~day$^{-1}$)
+    \item[$\mathrm{Weight}$] Weight (kg~head$^{-1}$)
+    \item[$\mathrm{NE}_{\mathrm{mf}}$] Estimated dietary net energy concentration of
+          diet or default values (MJ~kg$^{-1}$) (Table~20)
+\end{description}
+
+\noindent\textit{Note: For beef and dairy calves on a milk-only diet, the DMI is
+estimated as: $\mathrm{DMI} = \mathrm{Weight} \times 0.01$}
+
+\begin{equation}
+    \mathrm{GEI} = \mathrm{DMI} \times 18.45
+    \tag{Eq.\ 3.1.2.3}
+\end{equation}
+
+\noindent IPCC (2019)
+
+\noindent where
+\begin{description}[font=\normalfont, leftmargin=6em, style=sameline, nosep]
+    \item[$\mathrm{GEI}$] Gross energy intake (MJ~head$^{-1}$~day$^{-1}$)
+    \item[$18.45$] Conversion factor for gross energy per kg of DM (MJ~kg$^{-1}$)
+\end{description}
+
+\noindent Use Eq.~3.1.1.12 and Eq.~3.1.1.13 to calculate enteric CH$_4$ emissions
+for beef calves.
+
+% ·····················································
+\subsection{Total enteric CH\texorpdfstring{$_4$}{4} emissions}
+\label{subsec:beef-total}
+
+Enteric CH$_4$ emissions should be summed for all relevant management periods and
+beef cattle groups.
+
+\begin{equation}
+    \mathrm{Total\_CH}_{4,\mathrm{enteric}} =
+        \sum_{\mathrm{all\ scenario\ cattle}}
+        \mathrm{CH}_{4,\mathrm{enteric}}
+    \tag{Eq.\ 3.1.3.1}
+\end{equation}
+
+\noindent IPCC (2019), Eq.~10.20
+
+\noindent where
+\begin{description}[font=\normalfont, leftmargin=9em, style=sameline, nosep]
+    \item[$\mathrm{Total\_CH}_{4,\mathrm{enteric}}$] Total enteric CH$_4$ emissions
+          from beef cattle (kg~CH$_4$~year$^{-1}$)
+    \item[$\mathrm{CH}_{4,\mathrm{enteric}}$] Enteric CH$_4$ emissions (kg~CH$_4$)
+\end{description}
+
+% ─────────────────────────────────────────────────────────────────────────────
+\section{Dairy cattle}
+\label{sec:dairy}
+
+Management data are input for each management period. Emissions are calculated
+on a daily basis.
+
+\noindent\textbf{Assumptions:}
+\begin{itemize}[leftmargin=1.5em]
+    \item All cows are pregnant
+    \item 5\,kg of protein is retained for every pregnancy
+    \item All feed is utilized --- waste feed emissions are not accounted for
+    \item Cattle feed intake is equal to energy requirements
+    \item Three lactation periods each year are assumed, and milk production can be
+          defined separately for each of these periods
+    \item A single default management period for dairy calves of 3 months is assumed,
+          during which time these animals are milk-fed only (after this, emissions for
+          weaned calves may be calculated under a `Dairy heifers' group)
+    \item For all milk-fed-only dairy calves, enteric CH$_4$ emissions are assumed to
+          be zero
+    \item Manure must be applied at least once per year
+\end{itemize}
+
+% ·····················································
+\subsection{IPCC \texorpdfstring{$Y_m$}{Ym} approach for dairy cattle (except calves)}
+\label{subsec:dairy-ym}
+
+Enteric CH$_4$ calculations should be completed for each dairy cattle group (except calves).
+
+\begin{equation}
+    \mathrm{Weight} = \mathrm{ADG} \times \mathrm{days} + \mathrm{wt}_{\mathrm{initial}}
+    \tag{Eq.\ 3.2.1.1}
+\end{equation}
+
+\noindent where
+\begin{description}[font=\normalfont, leftmargin=9em, style=sameline, nosep]
+    \item[$\mathrm{Weight}$] Weight (kg~head$^{-1}$)
+    \item[$\mathrm{ADG}$] Average daily gain (kg~head$^{-1}$~day$^{-1}$), calculated
+          using Eq.~3.2.1.6
+    \item[$\mathrm{days}$] Total number of days since start of management period
+    \item[$\mathrm{wt}_{\mathrm{initial}}$] Initial weight (kg~head$^{-1}$) (Table~16,
+          by cattle group)
+\end{description}
+
+\bigskip
+\noindent\textbf{Net energy requirements}
+
+\begin{equation}
+    \mathrm{NE}_{\mathrm{maintenance}} = C_f \times \mathrm{Weight}^{0.75}
+    \tag{Eq.\ 3.2.1.2}
+\end{equation}
+
+\noindent IPCC (2019), Eq.~10.3
+
+\noindent where
+\begin{description}[font=\normalfont, leftmargin=9em, style=sameline, nosep]
+    \item[$\mathrm{NE}_{\mathrm{maintenance}}$] Net energy for maintenance
+          (MJ~head$^{-1}$~day$^{-1}$)
+    \item[$C_f$] Maintenance coefficient (MJ~day$^{-1}$~kg$^{-1}$) (Table~16,
+          by dairy cattle group)
+\end{description}
+
+\begin{equation}
+    \mathrm{NE}_{\mathrm{activity}} = C_a \times \mathrm{NE}_{\mathrm{maintenance}}
+    \tag{Eq.\ 3.2.1.3}
+\end{equation}
+
+\noindent IPCC (2019), Eq.~10.4
+
+\noindent where
+\begin{description}[font=\normalfont, leftmargin=9em, style=sameline, nosep]
+    \item[$\mathrm{NE}_{\mathrm{activity}}$] Net energy for activity
+          (MJ~head$^{-1}$~day$^{-1}$)
+    \item[$C_a$] Feeding activity coefficient (Table~17, by activity type)
+\end{description}
+
+\noindent For lactating dairy cows only (use only when cows are lactating --- as a
+default, Holos assumes 305 days lactation per year):
+
+\begin{equation}
+    \mathrm{NE}_{\mathrm{lactation}} =
+        \mathrm{milk}_{\mathrm{prod}} \times
+        \bigl(1.47 + 0.40 \times \mathrm{fat}_{\mathrm{content}}\bigr)
+    \tag{Eq.\ 3.2.1.4}
+\end{equation}
+
+\noindent IPCC (2019), Eq.~10.8
+
+\noindent where
+\begin{description}[font=\normalfont, leftmargin=9em, style=sameline, nosep]
+    \item[$\mathrm{NE}_{\mathrm{lactation}}$] Net energy for lactation
+          (MJ~head$^{-1}$~day$^{-1}$)
+    \item[$\mathrm{milk}_{\mathrm{prod}}$] Milk production (kg~head$^{-1}$~day$^{-1}$),
+          by province (Table~21)
+    \item[$\mathrm{fat}_{\mathrm{content}}$] Fat content (\%). A default value of 3.71\%
+          is used (Canadian Dairy Information Centre)
+\end{description}
+
+\noindent\textit{Note: fat\_content is entered as a percentage (e.g.\ as 4 not 0.04).}
+
+\noindent For pregnant dairy cows only:
+
+\begin{equation}
+    \mathrm{NE}_{\mathrm{pregnancy}} = 0.10 \times \mathrm{NE}_{\mathrm{maintenance}}
+    \tag{Eq.\ 3.2.1.5}
+\end{equation}
+
+\noindent IPCC (2019), Eq.~10.13
+
+\noindent where
+\begin{description}[font=\normalfont, leftmargin=9em, style=sameline, nosep]
+    \item[$\mathrm{NE}_{\mathrm{pregnancy}}$] Net energy for pregnancy
+          (MJ~head$^{-1}$~day$^{-1}$)
+    \item[$0.1$] Pregnancy coefficient --- IPCC (2019) default for cattle and buffalo
+\end{description}
+
+\noindent\textit{This equation averages pregnancy energy requirements over the
+entire year.}
+
+\bigskip
+\noindent\textbf{Average daily gain, net energy for gain}
+
+\begin{equation}
+    \mathrm{ADG} = \frac{\mathrm{wt}_{\mathrm{final}} - \mathrm{wt}_{\mathrm{initial}}}
+                        {\#\mathrm{days}}
+    \tag{Eq.\ 3.2.1.6}
+\end{equation}
+
+\noindent where
+\begin{description}[font=\normalfont, leftmargin=9em, style=sameline, nosep]
+    \item[$\mathrm{ADG}$] Average daily gain (kg~head$^{-1}$~day$^{-1}$)
+    \item[$\mathrm{wt}_{\mathrm{initial}}$] Initial weight (kg~head$^{-1}$) (Table~16,
+          by dairy cattle group)
+    \item[$\mathrm{wt}_{\mathrm{final}}$] Final weight (kg~head$^{-1}$) (Table~16,
+          by dairy cattle group)
+    \item[$\#\mathrm{days}$] Number of days --- includes all months where $>0$ animals
+          are entered
+\end{description}
+
+\begin{equation}
+    \mathrm{NE}_{\mathrm{gain}} = 22.02 \times
+        \frac{\mathrm{Weight}}{C_d \times \mathrm{wt}_{\mathrm{final,milkcow}}^{0.75}}
+        \times \mathrm{ADG}^{1.097}
+    \tag{Eq.\ 3.2.1.7}
+\end{equation}
+
+\noindent IPCC (2019), Eq.~10.6
+
+\noindent where
+\begin{description}[font=\normalfont, leftmargin=9em, style=sameline, nosep]
+    \item[$\mathrm{NE}_{\mathrm{gain}}$] Net energy for gain (MJ~head$^{-1}$~day$^{-1}$)
+    \item[$\mathrm{Weight}$] Weight (kg~head$^{-1}$)
+    \item[$\mathrm{wt}_{\mathrm{final,milkcow}}$] Final weight of animal (kg)
+    \item[$C_d$] Gain coefficient (Table~16, by cattle group)
+\end{description}
+
+\bigskip
+\noindent\textbf{Ratios of net energy available to digestible energy}
+
+\begin{equation}
+    \mathrm{REM} = 1.123 - 4.092 \times 10^{-3} \times \mathrm{TDN}
+        + 1.126 \times 10^{-5} \times \mathrm{TDN}^{2}
+        - \frac{25.4}{\mathrm{TDN}}
+    \tag{Eq.\ 3.2.1.8}
+\end{equation}
+
+\noindent IPCC (2019), Eq.~10.14
+
+\noindent where
+\begin{description}[font=\normalfont, leftmargin=6em, style=sameline, nosep]
+    \item[$\mathrm{REM}$] Ratio of net energy available in diet for maintenance to
+          digestible energy consumed
+    \item[$\mathrm{TDN}$] Percent total digestible nutrients in feed (Table~18,
+          by diet)
+\end{description}
+
+\noindent\textit{Note: TDN is to be entered as a percentage (e.g.\ as 81 not 0.81).}
+
+\begin{equation}
+    \mathrm{REG} = 1.164 - 5.160 \times 10^{-3} \times \mathrm{TDN}
+        + 1.308 \times 10^{-5} \times \mathrm{TDN}^{2}
+        - \frac{37.44}{\mathrm{TDN}}
+    \tag{Eq.\ 3.2.1.9}
+\end{equation}
+
+\noindent IPCC (2019), Eq.~10.15
+
+\noindent where
+\begin{description}[font=\normalfont, leftmargin=6em, style=sameline, nosep]
+    \item[$\mathrm{REG}$] Ratio of net energy available in diet for gain to
+          digestible energy consumed
+\end{description}
+
+\noindent\textit{Note: TDN is to be entered as a percentage (e.g.\ as 81 not 0.81).}
+
+\bigskip
+\noindent\textbf{Gross energy intake}
+
+\begin{multline}
+    \mathrm{GEI} =
+        \left(\frac{\mathrm{NE}_{\mathrm{maintenance}} + \mathrm{NE}_{\mathrm{activity}}
+            + \mathrm{NE}_{\mathrm{lactation}} + \mathrm{NE}_{\mathrm{pregnancy}}}
+            {\mathrm{REM}}
+        + \frac{\mathrm{NE}_{\mathrm{gain}}}{\mathrm{REG}}\right)
+        \times \frac{100}{\mathrm{TDN}}
+    \tag{Eq.\ 3.2.1.10}
+\end{multline}
+
+\noindent IPCC (2019), Eq.~10.16
+
+\noindent where
+\begin{description}[font=\normalfont, leftmargin=6em, style=sameline, nosep]
+    \item[$\mathrm{GEI}$] Gross energy intake (MJ~head$^{-1}$~day$^{-1}$)
+\end{description}
+
+\noindent\textit{Note: TDN is to be entered as a percentage (e.g.\ as 81 not 0.81).}
+
+\bigskip
+\noindent\textbf{Enteric CH$_4$ emissions}
+
+\begin{equation}
+    \mathrm{CH}_{4,\mathrm{enteric\text{-}rate}} =
+        \mathrm{GEI} \times \frac{Y_m}{55.65}
+        \times \left(1 - \frac{\mathrm{AR}}{100}\right)
+    \tag{Eq.\ 3.2.1.11}
+\end{equation}
+
+\noindent Derived from IPCC (2019), Eq.~10.21
+
+\noindent where
+\begin{description}[font=\normalfont, leftmargin=9em, style=sameline, nosep]
+    \item[$\mathrm{CH}_{4,\mathrm{enteric\text{-}rate}}$] Enteric CH$_4$ emission rate
+          (kg~head$^{-1}$~day$^{-1}$)
+    \item[$Y_m$] CH$_4$ conversion factor (Table~18, by diet)
+    \item[$55.65$] Energy content of CH$_4$ (MJ~kg$^{-1}$~CH$_4$)
+    \item[$\mathrm{AR}$] Additive reduction factor (Table~19, by additive)
+\end{description}
+
+\begin{equation}
+    \mathrm{CH}_{4,\mathrm{enteric}} =
+        \mathrm{CH}_{4,\mathrm{enteric\text{-}rate}} \times \#\mathrm{cattle}
+    \tag{Eq.\ 3.2.1.12}
+\end{equation}
+
+\noindent where
+\begin{description}[font=\normalfont, leftmargin=9em, style=sameline, nosep]
+    \item[$\mathrm{CH}_{4,\mathrm{enteric}}$] Enteric CH$_4$ emissions by animal group
+          (kg~CH$_4$~day$^{-1}$)
+    \item[$\#\mathrm{cattle}$] Number of dairy cattle
+\end{description}
+
+\noindent\textit{For dairy calves:} In Holos, a single default management period for
+pre-weaned dairy calves is assumed, during which time these animals are exclusively
+milk-fed and enteric CH$_4$ emissions are assumed to be zero. If the model user wishes
+to include a weaned dairy calf group, they should do this by adding another management
+period under the `Dairy heifers' animal group to model emissions from older calves eating
+a partial or full forage diet. To estimate the daily Weight of milk-fed dairy calves,
+Holos uses the same approach used for beef calves --- see Eq.~3.1.2.1. For dairy calves
+on a milk-only diet, the DMI is estimated as: $\mathrm{DMI} = \mathrm{Weight} \times
+0.01$. The GEI is also estimated using the beef calf approach --- see Eq.~3.1.2.3.
+
+\bigskip
+\noindent\textbf{Other enteric CH$_4$ estimates}
+
+In addition to using the default IPCC (2019) $Y_m$ conversion factors to estimate
+enteric CH$_4$ emissions from dairy cattle, the inclusion of different mathematical
+equations (linear and exponential) with varying input requirements provides the model
+user (and in particular researchers) with additional options. For dairy cattle, the
+selected equations were developed and evaluated by Niu et al.\ (2018) and Benaouda
+et al.\ (2019). Four equations were selected and divided into two groups based on the
+concentration of forage in the diet. Two equations are for diets containing $\geq 25$\%
+forage DM (high forage diets, Eq.~3.2.1.13 and Eq.~3.2.1.14) and the remaining two
+equations are for diets containing $< 25$\% forage DM (low forage diets,
+Eq.~3.2.1.15 and Eq.~3.2.1.16).
+
+\noindent\textit{High forage diets alternatives ($\geq 25$\% dietary forage)}
+
+\begin{equation}
+    \mathrm{CH}_{4,\mathrm{enteric}(\mathrm{D1})\mathrm{\text{-}rate}} =
+        \left(20 + 35.8 \times \mathrm{DMI}
+            - 0.5 \times \mathrm{DMI}^{2}\right)
+        \times 0.714 \times \frac{1}{1000}
+    \tag{Eq.\ 3.2.1.13}
+\end{equation}
+
+\noindent Ramin and Huhtanen (2013)
+
+\noindent where
+\begin{description}[font=\normalfont, leftmargin=9em, style=sameline, nosep]
+    \item[$\mathrm{CH}_{4,\mathrm{enteric}(\mathrm{D1})\mathrm{\text{-}rate}}$]
+          Enteric CH$_4$ emissions rate (kg~head$^{-1}$~day$^{-1}$)
+    \item[$\mathrm{DMI}$] DM intake (kg~head$^{-1}$~day$^{-1}$), calculated using
+          Eq.~11.3.1.1
+\end{description}
+
+\begin{equation}
+    \mathrm{CH}_{4,\mathrm{enteric}(\mathrm{D2})\mathrm{\text{-}rate}} =
+        \left[56.27 - 56.27 \times e^{-0.028 \times \mathrm{DMI}}\right]
+        \times \frac{1}{55.65}
+    \tag{Eq.\ 3.2.1.14}
+\end{equation}
+
+\noindent Mills et al.\ (2003), Eq.~NL1
+
+\noindent where
+\begin{description}[font=\normalfont, leftmargin=9em, style=sameline, nosep]
+    \item[$\mathrm{CH}_{4,\mathrm{enteric}(\mathrm{D2})\mathrm{\text{-}rate}}$]
+          Enteric CH$_4$ emissions rate (kg~head$^{-1}$~day$^{-1}$)
+    \item[$\mathrm{DMI}$] DM intake (kg~head$^{-1}$~day$^{-1}$), calculated using
+          Eq.~11.3.1.1
+\end{description}
+
+\noindent\textit{Low forage diets alternatives ($< 25$\% dietary forage)}
+
+\begin{equation}
+    \mathrm{CH}_{4,\mathrm{enteric}(\mathrm{D3})\mathrm{\text{-}rate}} =
+        \left(2.16 + 0.493 \times \mathrm{DMI}
+            - 1.36 \times \mathrm{ADFI}
+            + 1.97 \times \mathrm{NDFI}\right)
+        \times \frac{1}{55.65}
+    \tag{Eq.\ 3.2.1.15}
+\end{equation}
+
+\noindent Ellis et al.\ (2007), Eq.~8d
+
+\noindent where
+\begin{description}[font=\normalfont, leftmargin=9em, style=sameline, nosep]
+    \item[$\mathrm{CH}_{4,\mathrm{enteric}(\mathrm{D3})\mathrm{\text{-}rate}}$]
+          Enteric CH$_4$ emissions rate (kg~head$^{-1}$~day$^{-1}$)
+    \item[$\mathrm{DMI}$] DM intake (kg~head$^{-1}$~day$^{-1}$), calculated using
+          Eq.~11.3.1.1
+    \item[$\mathrm{ADFI}$] Acid detergent fiber intake (kg~head$^{-1}$~day$^{-1}$)
+    \item[$\mathrm{NDFI}$] Neutral detergent fiber intake (kg~head$^{-1}$~day$^{-1}$)
+\end{description}
+
+\begin{equation}
+    \mathrm{CH}_{4,\mathrm{enteric}(\mathrm{D4})\mathrm{\text{-}rate}} =
+        \left(76.0 + 13.5 \times \mathrm{DMI}
+            - 9.55 \times \mathrm{EE}
+            + 2.24 \times \mathrm{NDF}\right)
+        \times \frac{1}{1000}
+    \tag{Eq.\ 3.2.1.16}
+\end{equation}
+
+\noindent Niu et al.\ (2018), Eq.~5
+
+\noindent where
+\begin{description}[font=\normalfont, leftmargin=9em, style=sameline, nosep]
+    \item[$\mathrm{CH}_{4,\mathrm{enteric}(\mathrm{D4})\mathrm{\text{-}rate}}$]
+          Enteric CH$_4$ emissions rate (kg~head$^{-1}$~day$^{-1}$)
+    \item[$\mathrm{DMI}$] DM intake (kg~head$^{-1}$~day$^{-1}$), calculated using
+          Eq.~11.3.1.1
+    \item[$\mathrm{EE}$] Dietary fat/ether extract (\% of DM)
+    \item[$\mathrm{NDF}$] Dietary neutral detergent fiber (\% of DM)
+\end{description}
+
+\noindent Holos V4 uses the following calculations:
+$\mathrm{ADFI} = \mathrm{DMI}\,(\text{kg~d}^{-1}) \times [\mathrm{ADF\ in\ the\ diet\ or\ feed}\ (\%\mathrm{DM})/100]$;
+$\mathrm{NDFI} = \mathrm{DMI}\,(\text{kg~d}^{-1}) \times [\mathrm{NDF\ in\ the\ diet\ or\ feed}\ (\%\mathrm{DM})/100]$
+
+\begin{equation}
+    \mathrm{CH}_{4,\mathrm{enteric}(n)} =
+        \mathrm{CH}_{4,\mathrm{enteric}(n)\mathrm{\text{-}rate}} \times \#\mathrm{cattle}
+    \tag{Eq.\ 3.2.1.17}
+\end{equation}
+
+\noindent where
+\begin{description}[font=\normalfont, leftmargin=9em, style=sameline, nosep]
+    \item[$\mathrm{CH}_{4,\mathrm{enteric}(n)}$] Enteric CH$_4$ emissions
+          (kg~CH$_4$), $n = \mathrm{D1, D2, D3, D4}$
+    \item[$\#\mathrm{cattle}$] Number of cattle
+\end{description}
+
+% ·····················································
+\subsection{Enteric CH\texorpdfstring{$_4$}{4} emissions from dairy calves}
+\label{subsec:dairy-calves}
+
+For dairy calves, Eq.~3.2.2.1 is used to calculate enteric CH$_4$ emissions from
+milk-fed dairy calves.
+
+\begin{equation}
+    \mathrm{CH}_{4,\mathrm{enteric}} = 0
+    \tag{Eq.\ 3.2.2.1}
+\end{equation}
+
+\noindent IPCC (2019)
+
+\noindent where
+\begin{description}[font=\normalfont, leftmargin=9em, style=sameline, nosep]
+    \item[$\mathrm{CH}_{4,\mathrm{enteric}}$] Enteric CH$_4$ emissions from dairy
+          calves (kg~CH$_4$~day$^{-1}$)
+\end{description}
+
+\noindent IPCC (2019) states that ``A CH$_4$ conversion factor of zero is assumed for
+all juveniles consuming only milk (i.e., milk-fed lambs as well as calves).'' Therefore,
+there are no enteric CH$_4$ emissions associated with milk-fed dairy calves.
+
+% ·····················································
+\subsection{Total enteric CH\texorpdfstring{$_4$}{4} emissions}
+\label{subsec:dairy-total}
+
+Emissions should be summed for all relevant management periods and dairy cattle groups.
+
+\begin{equation}
+    \mathrm{Total\_CH}_{4,\mathrm{enteric}} =
+        \sum_{\mathrm{all\ scenario\ cattle}}
+        \mathrm{CH}_{4,\mathrm{enteric}}
+    \tag{Eq.\ 3.2.3.1}
+\end{equation}
+
+\noindent IPCC (2019), Eq.~10.20
+
+\noindent where
+\begin{description}[font=\normalfont, leftmargin=9em, style=sameline, nosep]
+    \item[$\mathrm{Total\_CH}_{4,\mathrm{enteric}}$] Total enteric CH$_4$ emissions
+          from dairy cattle (kg~CH$_4$~year$^{-1}$)
+    \item[$\mathrm{CH}_{4,\mathrm{enteric}}$] Enteric CH$_4$ emissions (kg~CH$_4$),
+          by dairy cattle group
+\end{description}
+
+% ─────────────────────────────────────────────────────────────────────────────
+\section{Sheep}
+\label{sec:sheep}
+
+Management data are input for each management period. Emissions are calculated
+on a daily basis.
+
+\noindent\textbf{Assumptions:}
+\begin{itemize}[leftmargin=1.5em]
+    \item The user specifies the number of ewes and number of lambs, from which the
+          number of lambs per ewe (lamb:ewe ratio) is calculated
+    \item The pregnancy twinning rate is based on the current lamb:ewe ratio
+          (assumed static)
+    \item There are no emissions from nursing lambs
+    \item Sheep feed intake is equal to energy requirements
+    \item The sex ratio of the feedlot is 1:1
+    \item All feed is utilized --- waste feed emissions are not accounted for
+    \item All barn manure is handled as solid storage (stockpiled) manure and
+          land-applied at least once per year
+\end{itemize}
+
+% ·····················································
+\subsection{Enteric CH\texorpdfstring{$_4$}{4} emissions from sheep}
+\label{subsec:sheep-enteric}
+
+Enteric CH$_4$ calculations should be completed for each sheep group.
+
+\begin{equation}
+    \mathrm{Weight} = \mathrm{ADG} \times \mathrm{days} + \mathrm{wt}_{\mathrm{initial}}
+    \tag{Eq.\ 3.3.1.1}
+\end{equation}
+
+\noindent where
+\begin{description}[font=\normalfont, leftmargin=9em, style=sameline, nosep]
+    \item[$\mathrm{Weight}$] Weight (kg~head$^{-1}$)
+    \item[$\mathrm{ADG}$] Average daily gain (kg~head$^{-1}$~day$^{-1}$), calculated
+          using Eq.~3.3.1.9
+    \item[$\mathrm{days}$] Total number of days since start of management period
+    \item[$\mathrm{wt}_{\mathrm{initial}}$] Initial weight (kg~head$^{-1}$) (Table~22,
+          by sheep group)
+\end{description}
+
+\bigskip
+\noindent\textbf{Lamb:ewe ratio}
+
+This is calculated only for those days when there are lambs with ewes; the average
+yearly lamb:ewe ratio is used.
+
+\begin{equation}
+    \mathrm{Lamb\_Ratio} = \frac{\#\mathrm{lambs}}{\#\mathrm{ewes}}
+    \tag{Eq.\ 3.3.1.2}
+\end{equation}
+
+\noindent where
+\begin{description}[font=\normalfont, leftmargin=9em, style=sameline, nosep]
+    \item[$\mathrm{Lamb\_Ratio}$] Lamb:ewe ratio
+    \item[$\#\mathrm{lambs}$] Number of lambs
+    \item[$\#\mathrm{ewes}$] Number of ewes
+\end{description}
+
+\bigskip
+\noindent\textbf{Net energy requirements}
+
+\begin{equation}
+    \mathrm{NE}_{\mathrm{maintenance}} = C_f \times \mathrm{Weight}^{0.75}
+    \tag{Eq.\ 3.3.1.3}
+\end{equation}
+
+\noindent IPCC (2019), Eq.~10.3
+
+\noindent where
+\begin{description}[font=\normalfont, leftmargin=9em, style=sameline, nosep]
+    \item[$\mathrm{NE}_{\mathrm{maintenance}}$] Net energy for maintenance
+          (MJ~head$^{-1}$~day$^{-1}$)
+    \item[$C_f$] Maintenance coefficient (MJ~day$^{-1}$~kg$^{-1}$) (Table~22,
+          by sheep group)
+\end{description}
+
+\begin{equation}
+    \mathrm{NE}_{\mathrm{activity}} = C_a \times \mathrm{Weight}
+    \tag{Eq.\ 3.3.1.4}
+\end{equation}
+
+\noindent IPCC (2019), Eq.~10.5
+
+\noindent where
+\begin{description}[font=\normalfont, leftmargin=9em, style=sameline, nosep]
+    \item[$\mathrm{NE}_{\mathrm{activity}}$] Net energy for activity
+          (MJ~head$^{-1}$~day$^{-1}$)
+    \item[$C_a$] Feeding activity coefficient (MJ~kg$^{-1}$) (Table~23,
+          by activity type)
+\end{description}
+
+\noindent For lactating ewes only (use only when ewes are lactating and milk
+production is \textbf{unknown} and when \#lambs $>$ 0):
+
+\begin{equation}
+    \mathrm{NE}_{\mathrm{lactation}} =
+        5 \times \mathrm{WG}_{\mathrm{lamb}} \times \mathrm{EV}_{\mathrm{milk}}
+    \tag{Eq.\ 3.3.1.5}
+\end{equation}
+
+\noindent Derived from IPCC (2019), Eq.~10.10
+
+\noindent where
+\begin{description}[font=\normalfont, leftmargin=9em, style=sameline, nosep]
+    \item[$\mathrm{NE}_{\mathrm{lactation}}$] Net energy for lactation
+          (MJ~head$^{-1}$~day$^{-1}$)
+    \item[$\mathrm{WG}_{\mathrm{lamb}}$] Daily pre-weaning weight gain of lamb(s)
+          (Table~24, by Lamb:ewe ratio)
+    \item[$5$] When milk production is not known, AFRC (1990) indicates that for a
+          single birth, the milk yield is about 5 times the weight gain of the lamb.
+          For multiple births, the total annual milk production can be estimated as
+          five times the increase in combined weight gain of all lambs birthed by a
+          single ewe.
+    \item[$\mathrm{EV}_{\mathrm{milk}}$] Energy required to produce 1\,kg of milk
+          (MJ~kg$^{-1}$)
+\end{description}
+
+\noindent Holos V4 uses the following constant value:
+$\mathrm{EV}_{\mathrm{milk}} = 4.6$\,MJ~kg$^{-1}$ (IPCC 2019). The default IPCC (2019)
+$\mathrm{EV}_{\mathrm{milk}}$ value of 4.6\,MJ~kg$^{-1}$ can be used for sheep
+(AFRC 1993; AFRC 1995), which corresponds to a milk fat content of 7\% by weight.
+
+\noindent For lactating ewes only (use only when ewes are lactating and milk
+production is \textbf{known} and when \#lambs $>$ 0):
+
+\begin{equation}
+    \mathrm{NE}_{\mathrm{lactation}} =
+        \mathrm{Milk} \times \mathrm{EV}_{\mathrm{milk}}
+    \tag{Eq.\ 3.3.1.6}
+\end{equation}
+
+\noindent IPCC (2019), Eq.~10.9
+
+\noindent where
+\begin{description}[font=\normalfont, leftmargin=9em, style=sameline, nosep]
+    \item[$\mathrm{Milk}$] Amount of milk produced (kg~head$^{-1}$~day$^{-1}$).
+          A default value of 2\,kg~head$^{-1}$~day$^{-1}$ is used (based on a value
+          of approximately 2\,L per sheep per day (Farm and Food Care Ontario 2016)),
+          assuming that 1\,L of milk weighs approx.\ 1\,kg.
+\end{description}
+
+\noindent For pregnant ewes only:
+
+\begin{equation}
+    \mathrm{NE}_{\mathrm{pregnancy}} =
+        C_{\mathrm{preg}} \times \mathrm{NE}_{\mathrm{maintenance}}
+    \tag{Eq.\ 3.3.1.7}
+\end{equation}
+
+\noindent IPCC (2019), Eq.~10.13
+
+\noindent where
+\begin{description}[font=\normalfont, leftmargin=9em, style=sameline, nosep]
+    \item[$\mathrm{NE}_{\mathrm{pregnancy}}$] Net energy for pregnancy
+          (MJ~head$^{-1}$~day$^{-1}$)
+    \item[$C_{\mathrm{preg}}$] Pregnancy coefficient (Table~25, by Lamb:ewe ratio)
+\end{description}
+
+\noindent\textit{This equation averages pregnancy energy requirements over the
+entire year.}
+
+\noindent For ewes and rams only:
+
+\begin{equation}
+    \mathrm{NE}_{\mathrm{wool}} =
+        \frac{\mathrm{EV}_{\mathrm{wool}} \times \mathrm{wool}_{\mathrm{prod}}}{365}
+    \tag{Eq.\ 3.3.1.8}
+\end{equation}
+
+\noindent IPCC (2019), Eq.~10.12
+
+\noindent where
+\begin{description}[font=\normalfont, leftmargin=9em, style=sameline, nosep]
+    \item[$\mathrm{NE}_{\mathrm{wool}}$] Net energy for wool production
+          (MJ~head$^{-1}$~day$^{-1}$)
+    \item[$\mathrm{EV}_{\mathrm{wool}}$] Energy value of 1\,kg of wool (MJ~kg$^{-1}$)
+    \item[$\mathrm{wool}_{\mathrm{prod}}$] Wool production (kg~year$^{-1}$) (Table~22,
+          by sheep group)
+    \item[$365$] Number of days in year
+\end{description}
+
+\noindent Holos V4 uses the following constant value:
+$\mathrm{EV}_{\mathrm{wool}} = 24$\,MJ~kg$^{-1}$ (IPCC 2019).
+
+\bigskip
+\noindent\textbf{Average daily gain, net energy for gain}
+
+ADG is not entered into the model interface for ewes and rams, but is required for
+sheep feedlot animals. For ewes and rams:
+
+\begin{equation}
+    \mathrm{ADG} = \frac{\mathrm{wt}_{\mathrm{final}} - \mathrm{wt}_{\mathrm{initial}}}
+                        {\#\mathrm{days}}
+    \tag{Eq.\ 3.3.1.9}
+\end{equation}
+
+\noindent where
+\begin{description}[font=\normalfont, leftmargin=9em, style=sameline, nosep]
+    \item[$\mathrm{ADG}$] Average daily gain (kg~head$^{-1}$~day$^{-1}$)
+    \item[$\mathrm{wt}_{\mathrm{initial}}$] Initial weight (kg~head$^{-1}$) (Table~22,
+          by sheep group)
+    \item[$\mathrm{wt}_{\mathrm{final}}$] Final weight (kg~head$^{-1}$) (Table~22,
+          by sheep group)
+    \item[$\#\mathrm{days}$] Number of days in management period --- includes all days
+          where animals $> 0$ are entered
+\end{description}
+
+\noindent For feedlot sheep (weaned lambs), ewes and rams:
+
+\begin{equation}
+    \mathrm{NE}_{\mathrm{gain}} =
+        \mathrm{ADG} \times \bigl(a + b \times \mathrm{Weight}\bigr)
+    \tag{Eq.\ 3.3.1.10}
+\end{equation}
+
+\noindent Based on IPCC (2019), Eq.~10.7
+
+\noindent where
+\begin{description}[font=\normalfont, leftmargin=9em, style=sameline, nosep]
+    \item[$\mathrm{NE}_{\mathrm{gain}}$] Net energy for gain (MJ~head$^{-1}$~day$^{-1}$)
+    \item[$a$] Coefficient $a$ (MJ~kg$^{-1}$) (Table~22, by sheep group)
+    \item[$b$] Coefficient $b$ (MJ~kg$^{-2}$) (Table~22, by sheep group)
+    \item[$\mathrm{Weight}$] Weight (kg~head$^{-1}$)
+    \item[$\mathrm{ADG}$] Average daily gain (kg~head$^{-1}$~day$^{-1}$), calculated
+          using Eq.~3.3.1.9
+\end{description}
+
+\bigskip
+\noindent\textbf{Ratios of net energy available to digestible energy}
+
+\begin{equation}
+    \mathrm{REM} = 1.123 - 4.092 \times 10^{-3} \times \mathrm{TDN}
+        + 1.126 \times 10^{-5} \times \mathrm{TDN}^{2}
+        - \frac{25.4}{\mathrm{TDN}}
+    \tag{Eq.\ 3.3.1.11}
+\end{equation}
+
+\noindent IPCC (2019), Eq.~10.14
+
+\noindent where
+\begin{description}[font=\normalfont, leftmargin=6em, style=sameline, nosep]
+    \item[$\mathrm{REM}$] Ratio of net energy available in diet for maintenance to
+          digestible energy consumed
+    \item[$\mathrm{TDN}$] Percent digestible energy in feed (Table~26, by diet)
+\end{description}
+
+\noindent\textit{Note: TDN is to be entered as a percentage (e.g.\ as 81 not 0.81).}
+
+\begin{equation}
+    \mathrm{REG} = 1.164 - 5.16 \times 10^{-3} \times \mathrm{TDN}
+        + 1.308 \times 10^{-5} \times \mathrm{TDN}^{2}
+        - \frac{37.4}{\mathrm{TDN}}
+    \tag{Eq.\ 3.3.1.12}
+\end{equation}
+
+\noindent IPCC (2019), Eq.~10.15
+
+\noindent where
+\begin{description}[font=\normalfont, leftmargin=6em, style=sameline, nosep]
+    \item[$\mathrm{REG}$] Ratio of net energy available in diet for gain to
+          digestible energy consumed
+\end{description}
+
+\noindent\textit{Note: TDN is to be entered as a percentage (e.g.\ as 81 not 0.81).}
+
+\bigskip
+\noindent\textbf{Gross energy intake}
+
+\begin{multline}
+    \mathrm{GEI} =
+        \left(\frac{\mathrm{NE}_{\mathrm{maintenance}} + \mathrm{NE}_{\mathrm{activity}}
+            + \mathrm{NE}_{\mathrm{lactation}} + \mathrm{NE}_{\mathrm{pregnancy}}}
+            {\mathrm{REM}}
+        + \frac{\mathrm{NE}_{\mathrm{gain}} + \mathrm{NE}_{\mathrm{wool}}}
+               {\mathrm{REG}}\right)
+        \times \frac{100}{\mathrm{TDN}}
+    \tag{Eq.\ 3.3.1.13}
+\end{multline}
+
+\noindent IPCC (2019), Eq.~10.16
+
+\noindent where
+\begin{description}[font=\normalfont, leftmargin=6em, style=sameline, nosep]
+    \item[$\mathrm{GEI}$] Gross energy intake (MJ~head$^{-1}$~day$^{-1}$)
+\end{description}
+
+\noindent\textit{Note: TDN is to be entered as a percentage (e.g.\ as 81 not 0.81).}
+
+\bigskip
+\noindent\textbf{Enteric CH$_4$ emissions}
+
+\begin{equation}
+    \mathrm{CH}_{4,\mathrm{enteric\text{-}rate}} =
+        \mathrm{GEI} \times \frac{Y_m}{55.65}
+    \tag{Eq.\ 3.3.1.14}
+\end{equation}
+
+\noindent IPCC (2019), Eq.~10.21
+
+\noindent where
+\begin{description}[font=\normalfont, leftmargin=9em, style=sameline, nosep]
+    \item[$\mathrm{CH}_{4,\mathrm{enteric\text{-}rate}}$] Enteric CH$_4$ emission
+          rate (kg~head$^{-1}$~day$^{-1}$)
+    \item[$Y_m$] CH$_4$ conversion factor (Table~26, by sheep group)
+    \item[$55.65$] Energy content of CH$_4$ (MJ~kg$^{-1}$~CH$_4$)
+\end{description}
+
+\begin{equation}
+    \mathrm{CH}_{4,\mathrm{enteric}} =
+        \mathrm{CH}_{4,\mathrm{enteric\text{-}rate}} \times \#\mathrm{sheep}
+    \tag{Eq.\ 3.3.1.15}
+\end{equation}
+
+\noindent where
+\begin{description}[font=\normalfont, leftmargin=9em, style=sameline, nosep]
+    \item[$\mathrm{CH}_{4,\mathrm{enteric}}$] Enteric CH$_4$ emissions, by sheep
+          group (kg~CH$_4$~day$^{-1}$)
+    \item[$\#\mathrm{sheep}$] Number of sheep
+\end{description}
+
+% ·····················································
+\subsection{Total enteric CH\texorpdfstring{$_4$}{4} emissions}
+\label{subsec:sheep-total}
+
+Emissions should be summed for all relevant management periods and sheep groups.
+
+\begin{equation}
+    \mathrm{Total\_CH}_{4,\mathrm{enteric}} =
+        \sum_{\mathrm{all\ scenario\ sheep}}
+        \mathrm{CH}_{4,\mathrm{enteric}}
+    \tag{Eq.\ 3.3.2.1}
+\end{equation}
+
+\noindent IPCC (2019), Eq.~10.20
+
+\noindent where
+\begin{description}[font=\normalfont, leftmargin=9em, style=sameline, nosep]
+    \item[$\mathrm{Total\_CH}_{4,\mathrm{enteric}}$] Total enteric CH$_4$ emissions
+          from sheep (kg~CH$_4$~year$^{-1}$)
+    \item[$\mathrm{CH}_{4,\mathrm{enteric}}$] Enteric CH$_4$ emissions (kg~CH$_4$)
+\end{description}
+
+% ─────────────────────────────────────────────────────────────────────────────
+\section{Swine, Poultry and other livestock}
+\label{sec:swine-poultry}
+
+Management data are input for each management period. Emissions are calculated
+on a daily basis.
+
+\noindent\textbf{Assumptions:}
+\begin{itemize}[leftmargin=1.5em]
+    \item All feed is utilized --- waste feed emissions are not accounted for
+    \item All barn manure uses the same handling system
+    \item Manure must be applied at least once per year
+    \item There are no emissions from nursing piglets or other unweaned young
+    \item There are no emissions from chicks or poults
+\end{itemize}
+
+% ·····················································
+\subsection{Enteric CH\texorpdfstring{$_4$}{4} emissions from swine, poultry and
+other livestock}
+\label{subsec:swine-enteric}
+
+Daily enteric CH$_4$ calculations should be completed for each animal group within
+each livestock type.
+
+\begin{equation}
+    \mathrm{CH}_{4,\mathrm{enteric}} =
+        \frac{\mathrm{CH}_{4,\mathrm{enteric\text{-}rate}}}{365}
+        \times \#\mathrm{animals}
+    \tag{Eq.\ 3.4.1.1}
+\end{equation}
+
+\noindent IPCC (2019), Eq.~10.19
+
+\noindent where
+\begin{description}[font=\normalfont, leftmargin=9em, style=sameline, nosep]
+    \item[$\mathrm{CH}_{4,\mathrm{enteric}}$] Enteric CH$_4$ emissions
+          (kg~CH$_4$~day$^{-1}$)
+    \item[$\mathrm{CH}_{4,\mathrm{enteric\text{-}rate}}$] Yearly enteric CH$_4$
+          emission rate (Verg\'{e} et al.\ (2009) for swine; IPCC (2019) for all
+          other livestock) (Table~27)
+    \item[$365$] Number of days in year
+\end{description}
+
+% ·····················································
+\subsection{Total enteric CH\texorpdfstring{$_4$}{4} emissions}
+\label{subsec:swine-total}
+
+Emissions should be summed for all management periods and animal groups within each
+livestock type.
+
+\begin{equation}
+    \mathrm{Total\_CH}_{4,\mathrm{enteric}} =
+        \sum_{\mathrm{all\ scenario\ animals}}
+        \mathrm{CH}_{4,\mathrm{enteric}}
+    \tag{Eq.\ 3.4.2.1}
+\end{equation}
+
+\noindent IPCC (2019), Eq.~10.20
+
+\noindent where
+\begin{description}[font=\normalfont, leftmargin=9em, style=sameline, nosep]
+    \item[$\mathrm{Total\_CH}_{4,\mathrm{enteric}}$] Total enteric CH$_4$ emissions
+          (kg~CH$_4$~production cycle$^{-1}$) --- in the event that the production
+          cycle equates to 365 days, this total is a yearly total
+    \item[$\mathrm{CH}_{4,\mathrm{enteric}}$] Enteric CH$_4$ emissions (kg~CH$_4$),
+          by animal group
+\end{description}
+
+% ─────────────────────────────────────────────────────────────────────────────
+\section{Scaling up to yearly estimates}
+\label{sec:scaling-up}
+
+\noindent\textit{Note: Scaling up of the detailed emission report to annual values has
+been disabled in V4, and all outputs reported in Holos are currently for a single
+production cycle only. All Holos estimates, including those on the Manure Management
+report, are for a single production cycle only --- if the model user wants to know these
+estimates for an entire year (365 days), they will need to scale-up these estimates
+themselves outside of the Holos interface --- please see below for the method to do so.}
+
+\noindent\textbf{Scaling up of emissions estimates from production cycle to annual values}
+
+In Canada, some livestock production systems are typically ``all in, all out'' systems,
+where all animals enter and leave the barn at the same time with a number of days between
+production periods to clean the facilities before the next group of animals arrives.
+These systems include feedlot cattle (steers and heifers), swine, and poultry production.
+Therefore, to calculate total annual emissions from a livestock operation where there are
+multiple production cycles per year, the number of production days per year (excluding
+non-productive days between production cycles) are considered. Daily emissions estimates
+are multiplied by the total number of production days in a year.
+
+In Holos, for each animal group, a single default production cycle (composed of one or
+more management periods) is provided in the interface, detailing the number of production
+days in each cycle. A default number of rest days between production cycles is also
+provided (Table~28). For all animal groups not included in Table~28, we assume that
+either their production cycle lasts 365 days (e.g., beef cows and bulls) or that they
+typically have just a single production cycle per year (e.g., beef calves). This
+`scaling-up' should be carried out in Holos for the following GHG emissions estimates
+reported in the Detailed Emission Report on the Results screen: `Enteric CH$_4$',
+`Manure CH$_4$', `Direct N$_2$O', `Indirect N$_2$O', `Farm energy CO$_2$',
+`Upstream CO$_2$' and `Subtotal'.
+
+\begin{equation}
+    \mathrm{No.Prod.Cycles} =
+        \frac{365}{\mathrm{No.Days}_{\mathrm{Cycle}}
+              + \mathrm{No.Days}_{\mathrm{Rest}}}
+    \tag{Eq.\ 3.5.1.1}
+\end{equation}
+
+\noindent where
+\begin{description}[font=\normalfont, leftmargin=9em, style=sameline, nosep]
+    \item[$\mathrm{No.Prod.Cycles}$] Total number of production cycles per year,
+          by animal group
+    \item[$\mathrm{No.Days}_{\mathrm{Cycle}}$] Number of days in a single production
+          cycle, by animal group. This is calculated in Holos as the sum of days in
+          all specified management periods for a given animal group; typical values for
+          the average number of days in a single production cycle for certain animal
+          groups are provided, for reference, in Table~28
+    \item[$\mathrm{No.Days}_{\mathrm{Rest}}$] Number of non-production or rest days
+          between production cycles, by animal group, user-specified or default
+          (Table~28)
+\end{description}
+
+\begin{equation}
+    \mathrm{CH}_{4,\mathrm{enteric,annual}} =
+        \mathrm{CH}_{4,\mathrm{enteric}} \times \mathrm{No.Prod.Cycles}
+    \tag{Eq.\ 3.5.1.2}
+\end{equation}
+
+\noindent where
+\begin{description}[font=\normalfont, leftmargin=9em, style=sameline, nosep]
+    \item[$\mathrm{CH}_{4,\mathrm{enteric,annual}}$] Total enteric CH$_4$ emissions
+          for all production days in a year (kg~CH$_4$~year$^{-1}$), by animal group
+    \item[$\mathrm{CH}_{4,\mathrm{enteric}}$] Enteric CH$_4$ emissions for all animals
+          and all management periods within a single production cycle (kg~CH$_4$), by
+          animal group
+\end{description}
+
+% ─────────────────────────────────────────────────────────────────────────────
+\section{References}
+\label{sec:enteric-refs}
+
+\subsection*{3.1 Beef}
+\begin{description}[leftmargin=0pt, style=nextline]
+
+    \item[Ellis et al., 2009]
+        Ellis, J.L., Kebreab, E., Odongo, N.E., Beauchemin, K., McGinn, S., Nkrumah,
+        J.D., Moore, S.S., Christopherson, R., Murdoch, G.K., McBride, B.W., Okine,
+        E.K., France, J., 2009. Modeling methane production from beef cattle using
+        linear and nonlinear approaches. \textit{J.\ Anim.\ Sci.} 87, 1334--1345.
+        \url{https://doi.org/10.2527/jas.2007-0725}
+
+    \item[Escobar-Bahamondes et al., 2017]
+        Escobar-Bahamondes, P., Oba, M., Beauchemin, K., 2017. Universally applicable
+        methane prediction equations for beef cattle fed high- or low-forage diets.
+        \textit{Can.\ J.\ Anim.\ Sci.} 94.
+        \url{https://doi.org/10.1139/CJAS-2016-0042}
+
+    \item[IPCC, 2019]
+        2019 Refinement to the 2006 IPCC Guidelines for National Greenhouse Gas
+        Inventories, Calvo Buendia, E., Tanabe, K., Kranjc, A., Baasansuren, J.,
+        Fukuda, M., Ngarize S., Osako, A., Pyrozhenko, Y., Shermanau, P.\ and
+        Federici, S.\ (eds). Published: IPCC, Switzerland.\\
+        \url{https://www.ipcc.ch/report/2019-refinement-to-the-2006-ipcc-guidelines-for-national-greenhouse-gas-inventories/}
+
+    \item[Legesse et al., 2016]
+        Legesse G., Beauchemin K.A., Ominski K.H., McGeough E.J., Kroebel R.,
+        MacDonald D., Little S.M., and McAllister T.A., 2016. Greenhouse gas emissions
+        of Canadian beef production in 1981 as compared with 2011.
+        \textit{Animal Production Science} 56, 153--168.
+        \url{https://doi.org/10.1071/AN15386}
+
+    \item[Legesse et al., 2018]
+        Legesse, G., Cordeiro, M.R.C., Ominski, K.H., Beauchemin, K.A., Kroebel, R.,
+        McGeough, E.J., Pogue, S., and McAllister, T.A., 2018. Water use intensity of
+        Canadian beef production in 1981 as compared to 2011.
+        \textit{Sci.\ Total Environ.} 619--620: 1030--1039.
+        \url{https://doi.org/10.1016/j.scitotenv.2017.11.194}
+
+    \item[van Lingen et al., 2019]
+        van Lingen, H.J., Niu, M., Kebreab, E., et al., 2019. Prediction of enteric
+        methane production, yield and intensity of beef cattle using an intercontinental
+        database. \textit{Agriculture, Ecosystems and Environment} 283, 106575.
+        \url{https://doi.org/10.1016/j.agee.2019.106575}
+
+\end{description}
+
+\subsection*{3.2 Dairy}
+\begin{description}[leftmargin=0pt, style=nextline]
+
+    \item[Benaouda et al., 2019]
+        Benaouda, M., Martin, C., Li, X., Kebreab, E., et al., 2019. Evaluation of the
+        performance of existing mathematical models predicting enteric methane emissions
+        from ruminants: Animal categories and dietary mitigation strategies.
+        \textit{Animal Feed Science and Technology} 255, 114207.
+        \url{https://doi.org/10.1016/j.anifeedsci.2019.114207}
+
+    \item[Ellis et al., 2007]
+        Ellis, J.L., Kebreab, E., Odongo, N.E., McBride, B.W., Okine, E.K., France,
+        J., 2007. Prediction of methane production from dairy and beef cattle.
+        \textit{J.\ Dairy Sci.} 90, 3456--3466.
+        \url{https://doi.org/10.3168/jds.2006-675}
+
+    \item[IPCC, 2019]
+        As cited in Section~3.1 Beef references.
+
+    \item[Mills et al., 2003]
+        Mills, J.A.N., Kebreab, E., Yates, C.M., Crompton, L.A., Cammell, S.B.,
+        Dhanoa, M.S., Agnew, R.E., France, J., 2003. Alternative approaches to
+        predicting methane emissions from dairy cows. \textit{J.\ Anim.\ Sci.} 81,
+        3141--3150.
+        \url{https://doi.org/10.2527/2003.81123141x}
+
+    \item[Niu et al., 2018]
+        Niu, M., Kebreab, E., Hristov, A.N., Oh, J., Arndt, C., et al., 2018.
+        Prediction of enteric methane production, yield, and intensity in dairy cattle
+        using an intercontinental database. \textit{Glob Change Biol.} 24: 3368--3389.
+        \url{https://doi.org/10.1111/gcb.14094}
+
+    \item[Ramin \& Huhtanen, 2013]
+        Ramin, M. and Huhtanen, P., 2013. Development of equations for predicting
+        methane emissions from ruminants. \textit{J Dairy Sci.} 96(4):2476--2493.
+        \url{https://doi.org/10.3168/jds.2012-6095}
+
+\end{description}
+
+\subsection*{3.3 Sheep}
+\begin{description}[leftmargin=0pt, style=nextline]
+
+    \item[AFRC, 1990]
+        Nutritive Requirements of Ruminant Animals: Energy. Rep.\ 5. Wallingford, UK:
+        CAB International.
+
+    \item[AFRC, 1993]
+        Energy and Protein Requirements of Ruminants. An advisory manual prepared by
+        the AFRC Technical Committee on Response to Nutrients. Wallingford, UK: CAB
+        International, pp.\ 24--159.
+
+    \item[AFRC, 1995]
+        Energy and protein requirements of ruminants. An advisory manual prepared by
+        the AFRC Technical Committee on Response to Nutrients. Wallingford, UK: CAB
+        International, pp.\ 159.
+
+    \item[Farm and Food Care Ontario, 2016]
+        Facts and Figures about Canadian sheep.
+        \url{https://www.farmfoodcareon.org/wp-content/uploads/2017/05/Fact-Sheet-Sheep-2016.pdf}
+
+    \item[IPCC, 2019]
+        As cited in Section~3.1 Beef references.
+
+\end{description}
+
+\subsection*{3.4 Swine, Poultry and others}
+\begin{description}[leftmargin=0pt, style=nextline]
+
+    \item[IPCC, 2019]
+        As cited in Section~3.1 Beef references.
+
+    \item[Verg\'{e} et al., 2009]
+        Verg\'{e}, X.P.X., Dyer, J.A., Desjardins, R.L., Worth, D., 2009. Greenhouse
+        gas emissions from the Canadian pork industry.
+        \textit{Livestock Science} 121: 92--101.
+        \url{https://doi.org/10.1016/j.livsci.2008.05.022}
+
+\end{description}
+
+\subsection*{3.5 Scaling up of emissions estimates from production cycle to annual values}
+\begin{description}[leftmargin=0pt, style=nextline]
+
+    \item[New-Life Mills, 2016]
+        Pullet and Layer Management Guide: A Complete Guide to Profitable Performance.
+
+    \item[Newlands et al., 2011]
+        Newlands, N.K., Davidson, A., Howard, A., and Hill, H., 2011. Validation and
+        inter-comparison of three methodologies for interpolating daily precipitation
+        and temperature across Canada. \textit{Environmetrics} 22(2), 205--223.
+        \url{https://doi.org/10.1002/env.1044}
+
+    \item[Sheppard et al., 2009]
+        Sheppard, S.C., Bittman, S., Beaulieu, M., and Sheppard, M.I., 2009. Ecoregion
+        and farm-size differences in feed and manure nitrogen management: 1.\ Survey
+        methods and results for poultry.
+        \textit{Canadian Journal of Animal Science} 89: 1--19.
+        \url{https://doi.org/10.4141/CJAS08054}
+
+\end{description}

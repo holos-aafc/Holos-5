@@ -1,0 +1,939 @@
+% ============================================================
+%  Chapter 5 – Animals in Grazing Situations
+% ============================================================
+\chapter{Animals in Grazing Situations}
+\label{ch:grazing}
+
+\noindent\textit{(by S.J.\ Pogue and A.W.\ Alemu)}
+
+% ─────────────────────────────────────────────────────────────────────────────
+\section{Enteric CH\texorpdfstring{$_4$}{4} emissions from grazing animals on pasture}
+\label{sec:grazing-enteric}
+
+For livestock grazing on pasture (incl.\ young), enteric CH$_4$ emissions are
+estimated using the same approach as for non-grazing animals --- see
+Section~\ref{sec:beef} (beef cattle), Section~\ref{sec:dairy} (dairy cattle),
+Section~\ref{sec:sheep} (sheep) and Section~\ref{sec:other} (other livestock).
+
+% ─────────────────────────────────────────────────────────────────────────────
+\section{Manure C and CH\texorpdfstring{$_4$}{4} emissions from livestock manure deposited on pasture}
+\label{sec:grazing-manure-ch4}
+
+In Canada, between 16\% (for dairy cattle) and 72\% (for llamas and alpacas) of
+manure produced by grazing livestock is managed in pasture, range or paddock
+systems (Table~29), where faeces and urine are deposited directly in the field.
+Carbon utilization by animals on pasture is a function of the C content of
+pasture forage and its digestibility. The entire undigested C content (e.g.,
+39\% for beef cattle, Baron et al.\ 2002) is assumed to be returned to the field
+and distributed throughout the field by the animal. The amount of C excreted
+varies among animal groups and can range between 25 and 60\%
+(\url{http://www.soilcc.ca/resources.htm}). The ungrazed portion of the biomass
+and the amount of excreted C minus CH$_4$ losses from manure deposited on
+pasture is used as an input to the IPCC Tier~2 and ICBM soil C models for the
+respective fields/pastures. The amount of N excreted minus direct and indirect N
+losses is used as manure inputs to the soil N pool for the respective soil
+N$_2$O models.
+
+% ·····················································
+\subsection{Manure C deposited on pasture}
+\label{subsec:grazing-manure-c-deposited}
+
+For livestock on pasture, only faecal C is added to the field (no bedding C).
+The amount of C excreted by grazing animals ($C_{\mathrm{excretion}}$) is
+estimated using the same approach as for non-grazing livestock --- to estimate
+faecal C excretion for each animal group, see Section~4.1.1.1.
+
+% ·····················································
+\subsection{CH\texorpdfstring{$_4$}{4} emissions from livestock manure deposited on pasture}
+\label{subsec:grazing-ch4-manure}
+
+To estimate CH$_4$ emissions from manure deposited on pasture
+($\mathrm{CH}_{4,\mathrm{pasture}}$) for all animal groups, we use the same
+approach as for solid manure excreted by non-grazing animals --- see
+Section~4.1.2.
+
+\noindent\textit{Note: in Eq.~4.1.2-4, $B_o$ (maximum CH$_4$ producing
+capacity, m$^3$~CH$_4$~kg$^{-1}$~VS) should be set to 0.19 for all livestock
+located on pasture.}
+
+% ─────────────────────────────────────────────────────────────────────────────
+\section{Direct N\texorpdfstring{$_2$}{2}O emissions from livestock manure deposited on pasture}
+\label{sec:grazing-direct-n2o}
+
+% ·····················································
+\subsection{Direct N\texorpdfstring{$_2$}{2}O emissions from livestock manure deposited on pasture}
+\label{subsec:grazing-direct-n2o-1}
+
+Direct daily N$_2$O emissions occur from livestock manure (urine + faeces)
+deposited on pasture via combined nitrification and denitrification of N
+contained in the manure. The direct N$_2$O emission rate
+(kg~N$_2$O~head$^{-1}$~day$^{-1}$) depends on the amount of N excreted by the
+animal and default N$_2$O EFs ($\mathit{EF}_{\mathrm{direct}}$) from ECCC (2022)
+for animals on pasture/range/paddock (Table~36). For grazing livestock in BC,
+AB, SK and MB, the direct N$_2$O EF is the same for all soil texture classes and
+is based on a study for beef cattle in Western Canada (Lemke et al.\ 2012). For
+grazing livestock in ON, QC and the Atlantic provinces, the direct N$_2$O EFs
+depend on the soil texture class and are based on a dairy cow study in Eastern
+Canada (Rochette et al.\ 2014). The EF is applied to the amount of N excreted by
+the animal ($N_{\mathrm{excretion}}$), assuming that 75\% of this is contained in
+urine (Rochette et al.\ 2014). For Western Canada, an EF of
+0.00043~kg~N$_2$O-N~kg$^{-1}$~N is applied for all soil texture classes (the EF
+for urine is 0.0006 and the EF for dung is 0), while in Eastern Canada a
+different EF is applied for each soil texture class:
+0.0078~kg~N$_2$O-N~kg$^{-1}$~N for fine-textured soil,
+0.0062~kg~N$_2$O-N~kg$^{-1}$~N for medium-textured soil and
+0.0047~kg~N$_2$O-N~kg$^{-1}$~N for coarse-textured soil (Rochette et al.\ 2014).
+
+\bigskip
+\noindent\textbf{For beef cattle, dairy cattle, broilers, layers and turkeys:}
+
+\begin{equation}
+    \mathrm{N_2O\text{-}N}_{\mathrm{directpasture,rate}}
+        = N_{\mathrm{excretion,rate}} \times \mathit{EF}_{\mathrm{direct}}
+    \tag{Eq.\ 5.3.1-1}
+\end{equation}
+
+\noindent where
+
+\begin{description}[font=\normalfont, leftmargin=12em, style=nextline, nosep]
+    \item[$\mathrm{N_2O\text{-}N}_{\mathrm{directpasture,rate}}$]
+        Direct N$_2$O-N emissions from manure deposited on pasture for beef
+        cattle, dairy cattle, broilers, layers and turkeys
+        (kg~N$_2$O-N~head$^{-1}$~day$^{-1}$)
+    \item[$N_{\mathrm{excretion,rate}}$]
+        Daily N excretion by beef and dairy cattle, broilers, layers and turkeys
+        (kg~N~head$^{-1}$~day$^{-1}$)
+    \item[$\mathit{EF}_{\mathrm{direct}}$]
+        Direct N$_2$O-N EF for manure deposited on pasture
+        (kg~N$_2$O-N~kg$^{-1}$~N); for Western Canada (BC, AB, SK, MB),
+        0.00043~kg~N$_2$O-N~kg$^{-1}$~N for all soil texture classes; for
+        Eastern Canada (ON, QC, Atlantic provinces) the EF is dependent on soil
+        texture: 0.0078 (fine), 0.0062 (medium), 0.0047 (coarse)
+        kg~N$_2$O-N~kg$^{-1}$~N (Table~36)
+\end{description}
+
+\bigskip
+\noindent\textbf{For all other livestock:}
+
+\begin{equation}
+    \mathrm{N_2O\text{-}N}_{\mathrm{directpasture,rate}}
+        = N_{\mathrm{excretion,rate}} \times \mathit{EF}_{\mathrm{direct}}
+    \tag{Eq.\ 5.3.1-2}
+\end{equation}
+
+\noindent where
+
+\begin{description}[font=\normalfont, leftmargin=12em, style=nextline, nosep]
+    \item[$\mathrm{N_2O\text{-}N}_{\mathrm{directpasture,rate}}$]
+        Direct N$_2$O-N emissions from manure deposited directly on pasture for
+        sheep, swine, poultry (except broilers, layers and turkeys), and other
+        livestock (kg~N$_2$O-N~head$^{-1}$~day$^{-1}$)
+    \item[$N_{\mathrm{excretion,rate}}$]
+        Daily N excretion (kg~N~head$^{-1}$~day$^{-1}$) for sheep
+        (Eq.~4.2.1-18), swine (Eq.~4.2.1-24), pullets, broilers and layers
+        (Eq.~4.2.1-28), other livestock (Table~42)
+    \item[$\mathit{EF}_{\mathrm{direct}}$]
+        Direct N$_2$O-N EF for urine deposited on pasture
+        (kg~N$_2$O-N~kg$^{-1}$~N); for Western Canada (BC, AB, SK, MB),
+        0.00043~kg~N$_2$O-N~kg$^{-1}$~N for all soil texture classes; for
+        Eastern Canada (ON, QC, Atlantic provinces) the EF is dependent on soil
+        texture: 0.0078 (fine), 0.0062 (medium), 0.0047 (coarse)
+        kg~N$_2$O-N~kg$^{-1}$~N (Table~36)
+\end{description}
+
+\bigskip
+\noindent\textbf{For all livestock:}
+
+\begin{equation}
+    \mathrm{N_2O\text{-}N}_{\mathrm{directpasture}}
+        = \mathrm{N_2O\text{-}N}_{\mathrm{directpasture,rate}}
+          \times n_{\mathrm{animals}}
+    \tag{Eq.\ 5.3.1-3}
+\end{equation}
+
+\noindent where
+
+\begin{description}[font=\normalfont, leftmargin=12em, style=nextline, nosep]
+    \item[$\mathrm{N_2O\text{-}N}_{\mathrm{directpasture}}$]
+        Direct N$_2$O-N emissions from dung and urine deposited directly on
+        pasture (kg~N$_2$O-N~day$^{-1}$), by animal group
+\end{description}
+
+\begin{equation}
+    \mathrm{Total\,N_2O\text{-}N}_{\mathrm{directpasture}}
+        = \sum_{\text{all scenario animals}}
+          \mathrm{N_2O\text{-}N}_{\mathrm{directpasture}}
+    \tag{Eq.\ 5.3.1-4}
+\end{equation}
+
+\noindent where
+
+\begin{description}[font=\normalfont, leftmargin=12em, style=nextline, nosep]
+    \item[$\mathrm{Total\,N_2O\text{-}N}_{\mathrm{directpasture}}$]
+        Total direct N$_2$O-N emissions from manure for all animals managed on
+        pasture (kg~N$_2$O-N), by livestock type
+\end{description}
+
+% ─────────────────────────────────────────────────────────────────────────────
+\section{Indirect N\texorpdfstring{$_2$}{2}O emissions from manure deposited on pasture for all livestock types}
+\label{sec:grazing-indirect-n2o}
+
+% ·····················································
+\subsection{NH\texorpdfstring{$_3$}{3} emissions from manure deposited on pasture for beef cattle and dairy cattle}
+\label{subsec:grazing-nh3-cattle}
+
+\subsubsection{Urinary nitrogen / total ammoniacal nitrogen (TAN) for beef and dairy cattle (including calves) on pasture}
+\label{subsubsec:grazing-tan}
+
+To calculate the amount of TAN excreted in urine by grazing beef and dairy
+animals on pasture, use Eq.~4.3.1-1 to Eq.~4.3.1-4.
+
+\subsubsection{Faecal/organic nitrogen for beef and dairy cattle on pasture}
+\label{subsubsec:grazing-faecal-n}
+
+For grazing beef and dairy cattle, there is no application of bedding material
+and organic N is equal to the amount of N excreted through faeces. To calculate
+the amount of N excreted through faeces (faecal N) by grazing beef and dairy
+animals on pasture, use Eq.~4.3.1-5 and Eq.~4.3.1-6.
+
+\subsubsection{Ammonia volatilization from manure deposited on pasture for beef and dairy cattle (including calves)}
+\label{subsubsec:grazing-nh3-cattle-eq}
+
+Ammonia emissions from grazing beef and dairy cattle on pasture are calculated
+on a daily basis.
+
+\begin{equation}
+    \mathrm{ATA}_{\mathrm{pasture}}
+        = \frac{1.041^{\,T}}{1.041^{15}}
+    \tag{Eq.\ 5.4.1-1}
+\end{equation}
+
+\noindent where
+
+\begin{description}[font=\normalfont, leftmargin=9em, style=sameline, nosep]
+    \item[$\mathrm{ATA}_{\mathrm{pasture}}$]
+        Ambient temperature-based adjustment used to correct the default NH$_3$
+        EF (kg~NH$_3$-N~kg$^{-1}$~TAN, Table~43) for grazed pasture (enclosed,
+        open range)
+    \item[$T$] Average outdoor daily temperature (\textdegree C)
+\end{description}
+
+\begin{equation}
+    \mathit{EF}_{\mathrm{pasture,adju}}
+        = \mathit{EF}_{\mathrm{pasture}} \times \mathrm{ATA}_{\mathrm{pasture}}
+    \tag{Eq.\ 5.4.1-2}
+\end{equation}
+
+\noindent where
+
+\begin{description}[font=\normalfont, leftmargin=9em, style=sameline, nosep]
+    \item[$\mathit{EF}_{\mathrm{pasture,adju}}$]
+        Adjusted NH$_3$ EF for grazed pasture (kg~NH$_3$-N~kg$^{-1}$~TAN)
+        $(0 \leq \mathit{EF}_{\mathrm{pasture,adju}} \leq 1)$
+    \item[$\mathit{EF}_{\mathrm{pasture}}$]
+        Default NH$_3$ EF for grazed pasture (enclosed, open range, Table~43)
+\end{description}
+
+\begin{equation}
+    \mathrm{NH_3\text{-}N}_{\mathrm{pasture,rate}}
+        = \mathrm{TAN}_{\mathrm{excretion,rate}}
+          \times \mathit{EF}_{\mathrm{pasture,adju}}
+    \tag{Eq.\ 5.4.1-3}
+\end{equation}
+
+\noindent where
+
+\begin{description}[font=\normalfont, leftmargin=12em, style=nextline, nosep]
+    \item[$\mathrm{NH_3\text{-}N}_{\mathrm{pasture,rate}}$]
+        NH$_3$-N emissions from beef and dairy cattle manure deposited directly
+        on pasture (kg~NH$_3$-N~head$^{-1}$~day$^{-1}$)
+    \item[$\mathrm{TAN}_{\mathrm{excretion,rate}}$]
+        Daily TAN excretion rate (kg~TAN~head$^{-1}$~day$^{-1}$)
+\end{description}
+
+\begin{equation}
+    \mathrm{NH_3\text{-}N}_{\mathrm{pasture}}
+        = \mathrm{NH_3\text{-}N}_{\mathrm{pasture,rate}}
+          \times n_{\mathrm{animals}}
+    \tag{Eq.\ 5.4.1-4}
+\end{equation}
+
+\noindent where
+
+\begin{description}[font=\normalfont, leftmargin=12em, style=nextline, nosep]
+    \item[$\mathrm{NH_3\text{-}N}_{\mathrm{pasture}}$]
+        NH$_3$-N emissions from beef and dairy cattle manure deposited directly
+        on pasture (kg~NH$_3$-N), by animal group
+    \item[$n_{\mathrm{animals}}$] Number of animals
+\end{description}
+
+\begin{equation}
+    \mathrm{Total\,NH_3\text{-}N}_{\mathrm{pasture}}
+        = \sum_{\text{all scenario animals}} \mathrm{NH_3\text{-}N}_{\mathrm{pasture}}
+    \tag{Eq.\ 5.4.1-5}
+\end{equation}
+
+\noindent where
+
+\begin{description}[font=\normalfont, leftmargin=12em, style=nextline, nosep]
+    \item[$\mathrm{Total\,NH_3\text{-}N}_{\mathrm{pasture}}$]
+        Total NH$_3$-N emissions via volatilization from manure for all animals
+        managed on pasture (kg~NH$_3$-N), by livestock type
+\end{description}
+
+% ·····················································
+\subsection{NH\texorpdfstring{$_3$}{3} emissions from manure deposited on pasture for all non-cattle grazing livestock}
+\label{subsec:grazing-nh3-noncattle}
+
+\subsubsection{Total N excretion for non-cattle livestock on pasture}
+\label{subsubsec:grazing-n-excretion-noncattle}
+
+The daily N excretion rate (kg~N~head$^{-1}$~day$^{-1}$) is calculated using
+Eq.~4.2.1-18 for sheep, Eq.~4.2.1-24 for swine, Eq.~4.2.1-28 for pullets,
+broilers and layers, and Table~42 for all other livestock.
+
+\subsubsection{Ammonia volatilization from manure deposited on pasture for non-cattle animals}
+\label{subsubsec:grazing-nh3-noncattle-eq}
+
+Ammonia emissions from manure deposited on pasture for all non-cattle grazing
+livestock are estimated using a default IPCC (2019) $\mathit{Frac}_{\mathrm{volatilization}}$
+value of 0.21~[(kg~NH$_3$-N + NO$_x$-N)(kg~N~applied~or~deposited)$^{-1}$]
+(Table~36).
+
+\begin{equation}
+    \mathrm{NH_3\text{-}N}_{\mathrm{pasture,rate}}
+        = N_{\mathrm{excretion,rate}}
+          \times \mathit{Frac}_{\mathrm{volatilization}}
+    \tag{Eq.\ 5.4.2-1}
+\end{equation}
+
+\noindent where
+
+\begin{description}[font=\normalfont, leftmargin=12em, style=nextline, nosep]
+    \item[$\mathrm{NH_3\text{-}N}_{\mathrm{pasture,rate}}$]
+        NH$_3$ emissions from non-cattle manure deposited directly on pasture
+        (kg~NH$_3$-N~head$^{-1}$~day$^{-1}$), by animal group
+    \item[$\mathit{Frac}_{\mathrm{volatilization}}$]
+        Fraction of manure N volatilized as NH$_3$ and NO$_x$ for manure
+        deposited directly on pasture (Table~36)
+\end{description}
+
+\begin{equation}
+    \mathrm{NH_3\text{-}N}_{\mathrm{pasture}}
+        = \mathrm{NH_3\text{-}N}_{\mathrm{pasture,rate}}
+          \times n_{\mathrm{animals}}
+    \tag{Eq.\ 5.4.2-2}
+\end{equation}
+
+\noindent where
+
+\begin{description}[font=\normalfont, leftmargin=12em, style=nextline, nosep]
+    \item[$\mathrm{NH_3\text{-}N}_{\mathrm{pasture}}$]
+        NH$_3$ emissions from non-cattle manure deposited directly on pasture
+        (kg~NH$_3$-N), by animal group
+    \item[$n_{\mathrm{animals}}$] Number of animals
+\end{description}
+
+\begin{equation}
+    \mathrm{Total\,NH_3\text{-}N}_{\mathrm{pasture}}
+        = \sum_{\text{all scenario animals}} \mathrm{NH_3\text{-}N}_{\mathrm{pasture}}
+    \tag{Eq.\ 5.4.2-3}
+\end{equation}
+
+\noindent where
+
+\begin{description}[font=\normalfont, leftmargin=12em, style=nextline, nosep]
+    \item[$\mathrm{Total\,NH_3\text{-}N}_{\mathrm{pasture}}$]
+        Total NH$_3$-N emissions via volatilization from manure for all animals
+        managed on pasture (kg~NH$_3$-N), by livestock type
+\end{description}
+
+% ·····················································
+\subsection{N\texorpdfstring{$_2$}{2}O volatilization from manure deposited on pasture for all livestock}
+\label{subsec:grazing-volatilization}
+
+Indirect N$_2$O emissions are calculated on a daily basis for all animal groups.
+For beef and dairy cattle, $\mathit{Frac}_{\mathrm{volatilization}}$ values for
+each animal group are calculated using Eq.~5.4.3-1; for all other livestock
+types on pasture, default IPCC (2019) values are used (Table~36).
+
+\bigskip
+\noindent\textbf{For beef and dairy cattle (including beef and dairy calves):}
+
+\begin{equation}
+    \mathit{Frac}_{\mathrm{volatilization}}
+        = \frac{\mathrm{NH_3\text{-}N}_{\mathrm{pasture}}}{N_{\mathrm{excretion}}}
+    \tag{Eq.\ 5.4.3-1}
+\end{equation}
+
+\noindent where
+
+\begin{description}[font=\normalfont, leftmargin=12em, style=nextline, nosep]
+    \item[$\mathit{Frac}_{\mathrm{volatilization}}$]
+        Fraction of manure N excreted that is volatilized as NH$_3$ and NO$_x$
+        from beef and dairy cattle manure deposited on pasture
+        (kg~NH$_3$-N~kg$^{-1}$~N)
+    \item[$\mathrm{NH_3\text{-}N}_{\mathrm{pasture}}$]
+        NH$_3$ emissions from beef and dairy cattle managed on pasture
+        (kg~NH$_3$-N), by animal group
+    \item[$N_{\mathrm{excretion}}$]
+        Total amount of N excreted by beef or dairy cattle on pasture
+        (kg~N~day$^{-1}$)
+\end{description}
+
+\bigskip
+\noindent\textbf{For all animal groups:}
+
+\begin{equation}
+    \mathrm{N_2O\text{-}N}_{\mathrm{volatilizationpasture,rate}}
+        = N_{\mathrm{excretion,rate}}
+          \times \mathit{Frac}_{\mathrm{volatilization}}
+          \times \mathit{EF}_{\mathrm{volatilization}}
+    \tag{Eq.\ 5.4.3-2}
+\end{equation}
+
+\noindent Derived from IPCC (2019), Eq.~10.26, Eq.~10.28
+
+\noindent where
+
+\begin{description}[font=\normalfont, leftmargin=12em, style=nextline, nosep]
+    \item[$\mathrm{N_2O\text{-}N}_{\mathrm{volatilizationpasture,rate}}$]
+        Indirect N$_2$O emissions via volatilization from manure deposited
+        directly on pasture (kg~N$_2$O-N~head$^{-1}$~day$^{-1}$)
+    \item[$\mathit{Frac}_{\mathrm{volatilization}}$]
+        Fraction of manure N excreted that is volatilized as NH$_3$ and NO$_x$
+        from manure deposited directly on pasture (kg~NH$_3$-N~kg$^{-1}$~N);
+        calculated using Eq.~5.4.3-1 for beef and dairy cattle and derived from
+        Table~36 for all other animal groups
+    \item[$\mathit{EF}_{\mathrm{volatilization}}$]
+        EF for volatilization [kg~N$_2$O-N~(kg~NH$_3$-N~volatilized)$^{-1}$]
+        (Table~36)
+\end{description}
+
+\begin{equation}
+    \mathrm{N_2O\text{-}N}_{\mathrm{volatilizationpasture}}
+        = \mathrm{N_2O\text{-}N}_{\mathrm{volatilizationpasture,rate}}
+          \times n_{\mathrm{animals}}
+    \tag{Eq.\ 5.4.3-3}
+\end{equation}
+
+\noindent where
+
+\begin{description}[font=\normalfont, leftmargin=12em, style=nextline, nosep]
+    \item[$\mathrm{N_2O\text{-}N}_{\mathrm{volatilizationpasture}}$]
+        Indirect N$_2$O emissions via volatilization from manure deposited
+        directly on pasture (kg~N$_2$O-N), by animal group
+    \item[$n_{\mathrm{animals}}$] Number of animals
+\end{description}
+
+\begin{equation}
+    \mathrm{Total\,N_2O\text{-}N}_{\mathrm{volatilizationpasture}}
+        = \sum_{\text{all scenario animals}}
+          \mathrm{N_2O\text{-}N}_{\mathrm{volatilizationpasture}}
+    \tag{Eq.\ 5.4.3-4}
+\end{equation}
+
+\noindent where
+
+\begin{description}[font=\normalfont, leftmargin=12em, style=nextline, nosep]
+    \item[$\mathrm{Total\,N_2O\text{-}N}_{\mathrm{volatilizationpasture}}$]
+        Total indirect N$_2$O emissions via volatilization from manure for all
+        animals managed on pasture (kg~N$_2$O-N), by livestock type
+    \item[$\mathrm{N_2O\text{-}N}_{\mathrm{volatilizationpasture}}$]
+        Indirect N$_2$O emissions via volatilization from manure deposited
+        directly on pasture (kg~N$_2$O-N), by animal group
+\end{description}
+
+\subsubsection{Adjustment of NH\texorpdfstring{$_3$}{3} volatilization estimates from manure deposited on pasture following indirect N\texorpdfstring{$_2$}{2}O emissions}
+\label{subsubsec:grazing-nh3-adjust}
+
+Adjusted ammonia emissions from manure deposited on pasture are calculated on a
+daily basis. Ammonia emissions from manure deposited on pasture need to be
+adjusted to avoid double-counting of subsequent indirect N$_2$O-N losses.
+
+\bigskip
+\noindent\textbf{For all animal groups:}
+
+\begin{equation}
+    \mathrm{NH_3\text{-}N}_{\mathrm{pasture,adju}}
+        = \mathrm{NH_3\text{-}N}_{\mathrm{pasture}}
+          - \mathrm{N_2O\text{-}N}_{\mathrm{volatilizationpasture}}
+    \tag{Eq.\ 5.4.3-5}
+\end{equation}
+
+\noindent where
+
+\begin{description}[font=\normalfont, leftmargin=12em, style=nextline, nosep]
+    \item[$\mathrm{NH_3\text{-}N}_{\mathrm{pasture,adju}}$]
+        Adjusted daily NH$_3$-N emissions from manure deposited directly on
+        pasture (kg~NH$_3$-N~day$^{-1}$), by animal group
+\end{description}
+
+\begin{equation}
+    \mathrm{Total\,NH_3\text{-}N}_{\mathrm{pasture,adju}}
+        = \sum_{\text{all scenario animals}}
+          \mathrm{NH_3\text{-}N}_{\mathrm{pasture,adju}}
+    \tag{Eq.\ 5.4.3-6}
+\end{equation}
+
+\noindent where
+
+\begin{description}[font=\normalfont, leftmargin=12em, style=nextline, nosep]
+    \item[$\mathrm{Total\,NH_3\text{-}N}_{\mathrm{pasture,adju}}$]
+        Adjusted daily NH$_3$-N emissions from manure deposited directly on
+        pasture (kg~NH$_3$-N~day$^{-1}$), by livestock type
+\end{description}
+
+% ·····················································
+\subsection{Indirect N losses from manure deposited on pasture via leaching and runoff}
+\label{subsec:grazing-leaching}
+
+\noindent\textbf{For all animal groups:}
+
+\begin{equation}
+    \mathrm{N_2O\text{-}N}_{\mathrm{leachingpasture,rate}}
+        = N_{\mathrm{excretion,rate}}
+          \times \mathit{Frac}_{N_{\mathrm{leach}}}
+          \times \mathit{EF}_{\mathrm{leach}}
+    \tag{Eq.\ 5.4.4-1}
+\end{equation}
+
+\noindent where
+
+\begin{description}[font=\normalfont, leftmargin=12em, style=nextline, nosep]
+    \item[$\mathrm{N_2O\text{-}N}_{\mathrm{leachingpasture,rate}}$]
+        N$_2$O emissions due to leaching and runoff from manure deposited
+        directly on pasture (kg~N$_2$O-N~head$^{-1}$~day$^{-1}$), by animal
+        group
+    \item[$N_{\mathrm{excretion,rate}}$]
+        N excreted by livestock in manure deposited directly on pasture
+        (kg~N~head$^{-1}$~day$^{-1}$)
+    \item[$\mathit{Frac}_{N_{\mathrm{leach}}}$]
+        Leaching fraction, calculated using Eq.~2.6.6-1
+    \item[$\mathit{EF}_{\mathrm{leach}}$]
+        EF for leaching [kg~N$_2$O-N~(kg~N)$^{-1}$]
+\end{description}
+
+\bigskip
+\noindent\textbf{Holos V4 uses the following constant value:}
+
+\smallskip
+\noindent\begin{tabular}{@{}ll@{}}
+    $\mathit{EF}_{\mathrm{leach}}$ & 0.011 (IPCC 2019) \\
+\end{tabular}
+
+\begin{equation}
+    \mathrm{N_2O\text{-}N}_{\mathrm{leachingpasture}}
+        = \mathrm{N_2O\text{-}N}_{\mathrm{leachingpasture,rate}}
+          \times n_{\mathrm{animals}}
+    \tag{Eq.\ 5.4.4-2}
+\end{equation}
+
+\noindent where
+
+\begin{description}[font=\normalfont, leftmargin=12em, style=nextline, nosep]
+    \item[$\mathrm{N_2O\text{-}N}_{\mathrm{leachingpasture}}$]
+        Indirect N$_2$O-N emissions via leaching and runoff from manure
+        deposited directly on pasture (kg~N$_2$O-N~day$^{-1}$), by animal group
+\end{description}
+
+\begin{equation}
+    \mathrm{Total\,N_2O\text{-}N}_{\mathrm{leachingpasture}}
+        = \sum_{\text{all scenario animals}}
+          \mathrm{N_2O\text{-}N}_{\mathrm{leachingpasture}}
+    \tag{Eq.\ 5.4.4-3}
+\end{equation}
+
+\noindent where
+
+\begin{description}[font=\normalfont, leftmargin=12em, style=nextline, nosep]
+    \item[$\mathrm{Total\,N_2O\text{-}N}_{\mathrm{leachingpasture}}$]
+        N$_2$O-N leached from manure deposited directly on pasture
+        (kg~N$_2$O-N), by livestock type
+\end{description}
+
+\noindent To estimate the actual amount of NO$_3$-N leached:
+
+\begin{equation}
+    \mathrm{NO_3\text{-}N}_{\mathrm{leachingpasture}}
+        = N_{\mathrm{excretion}}
+          \times \mathit{Frac}_{\mathrm{leach}}
+          \times \bigl(1 - \mathit{EF}_{\mathrm{leach}}\bigr)
+    \tag{Eq.\ 5.4.4-4}
+\end{equation}
+
+\noindent where
+
+\begin{description}[font=\normalfont, leftmargin=12em, style=nextline, nosep]
+    \item[$\mathrm{NO_3\text{-}N}_{\mathrm{leachingpasture}}$]
+        NO$_3$-N leached from manure deposited directly on pasture (kg~NO$_3$-N),
+        by animal group
+\end{description}
+
+\begin{equation}
+    \mathrm{Total\,NO_3\text{-}N}_{\mathrm{leachingpasture}}
+        = \sum_{\text{all scenario animals}}
+          \mathrm{NO_3\text{-}N}_{\mathrm{leachingpasture}}
+    \tag{Eq.\ 5.4.4-5}
+\end{equation}
+
+\noindent where
+
+\begin{description}[font=\normalfont, leftmargin=12em, style=nextline, nosep]
+    \item[$\mathrm{Total\,NO_3\text{-}N}_{\mathrm{leachingpasture}}$]
+        NO$_3$-N leached from manure deposited directly on pasture
+        (kg~NO$_3$-N), by livestock type
+\end{description}
+
+% ·····················································
+\subsection{Total indirect N\texorpdfstring{$_2$}{2}O emissions from manure}
+\label{subsec:grazing-total-indirect}
+
+\noindent\textbf{For all animal groups:}
+
+\begin{equation}
+    \mathrm{N_2O\text{-}N}_{\mathrm{indirectpasture}}
+        = \mathrm{N_2O\text{-}N}_{\mathrm{volatilizationpasture}}
+          + \mathrm{N_2O\text{-}N}_{\mathrm{leachingpasture}}
+    \tag{Eq.\ 5.4.5-1}
+\end{equation}
+
+\noindent where
+
+\begin{description}[font=\normalfont, leftmargin=12em, style=nextline, nosep]
+    \item[$\mathrm{N_2O\text{-}N}_{\mathrm{indirectpasture}}$]
+        Total indirect N$_2$O emissions from manure deposited on pasture
+        (kg~N$_2$O-N~day$^{-1}$), by animal group
+\end{description}
+
+% ·····················································
+\subsection{Total N\texorpdfstring{$_2$}{2}O emissions from livestock manure deposited on pasture}
+\label{subsec:grazing-total-n2o}
+
+\noindent\textbf{For all animal groups:}
+
+\begin{equation}
+    \mathrm{Total\,N_2O\text{-}N}_{\mathrm{pasture}}
+        = \mathrm{N_2O\text{-}N}_{\mathrm{directpasture}}
+          + \mathrm{N_2O\text{-}N}_{\mathrm{indirectpasture}}
+    \tag{Eq.\ 5.4.6-1}
+\end{equation}
+
+\noindent where
+
+\begin{description}[font=\normalfont, leftmargin=12em, style=nextline, nosep]
+    \item[$\mathrm{Total\,N_2O\text{-}N}_{\mathrm{pasture}}$]
+        Total direct and indirect manure N$_2$O emissions from livestock manure
+        deposited on pasture (kg~N$_2$O-N), by animal group
+\end{description}
+
+% ─────────────────────────────────────────────────────────────────────────────
+\section{Total emissions}
+\label{sec:grazing-total-emissions}
+
+Emissions from livestock manure deposited on pasture should be summed for all
+animal groups within each broad livestock type (i.e., beef cattle, dairy cattle,
+sheep, etc.).
+
+% ·····················································
+\subsection{Manure CH\texorpdfstring{$_4$}{4} emissions}
+\label{subsec:grazing-total-ch4}
+
+\begin{equation}
+    \mathrm{Total\,CH_{4,\mathrm{pasture}}}
+        = \sum_{\text{all scenario animals}} \mathrm{CH_{4,\mathrm{pasture}}}
+    \tag{Eq.\ 5.5.1-1}
+\end{equation}
+
+\noindent where
+
+\begin{description}[font=\normalfont, leftmargin=12em, style=nextline, nosep]
+    \item[$\mathrm{Total\,CH_{4,\mathrm{pasture}}}$]
+        Total CH$_4$ emissions from manure deposited directly on pasture
+        (kg~CH$_4$~year$^{-1}$), by livestock type
+    \item[$\mathrm{CH_{4,\mathrm{manure}}}$]
+        Manure CH$_4$ emissions from manure deposited directly on pasture
+        (kg~CH$_4$), by animal group
+\end{description}
+
+% ·····················································
+\subsection{Manure N emissions}
+\label{subsec:grazing-total-n}
+
+\begin{equation}
+    \mathrm{Total\,N_2O\text{-}N}_{\mathrm{directpasture}}
+        = \sum_{\text{all scenario animals}}
+          \mathrm{N_2O\text{-}N}_{\mathrm{directpasture}}
+    \tag{Eq.\ 5.5.2-1}
+\end{equation}
+
+\noindent where
+
+\begin{description}[font=\normalfont, leftmargin=12em, style=nextline, nosep]
+    \item[$\mathrm{Total\,N_2O\text{-}N}_{\mathrm{directpasture}}$]
+        Total direct N$_2$O emissions from manure deposited directly on pasture
+        (kg~N$_2$O-N~year$^{-1}$), by livestock type
+    \item[$\mathrm{N_2O\text{-}N}_{\mathrm{directpasture}}$]
+        Direct N$_2$O emissions from manure deposited on pasture (kg~N$_2$O-N)
+\end{description}
+
+\begin{equation}
+    \mathrm{Total\,NH_3\text{-}N}_{\mathrm{pasture}}
+        = \sum_{\text{all scenario animals}} \mathrm{NH_3\text{-}N}_{\mathrm{pasture}}
+    \tag{Eq.\ 5.5.2-2}
+\end{equation}
+
+\noindent where
+
+\begin{description}[font=\normalfont, leftmargin=12em, style=nextline, nosep]
+    \item[$\mathrm{Total\,NH_3\text{-}N}_{\mathrm{pasture}}$]
+        Total NH$_3$-N emissions from manure deposited directly on pasture
+        (kg~NH$_3$-N~year$^{-1}$), by livestock type
+    \item[$\mathrm{NH_3\text{-}N}_{\mathrm{pasture}}$]
+        Ammonia emissions from manure deposited on pasture (kg~NH$_3$-N), by
+        animal group
+\end{description}
+
+\begin{equation}
+    \mathrm{Total\,N_2O\text{-}N}_{\mathrm{volatilizationpasture}}
+        = \sum_{\text{all scenario animals}}
+          \mathrm{N_2O\text{-}N}_{\mathrm{volatilizationpasture}}
+    \tag{Eq.\ 5.5.2-3}
+\end{equation}
+
+\noindent where
+
+\begin{description}[font=\normalfont, leftmargin=12em, style=nextline, nosep]
+    \item[$\mathrm{Total\,N_2O\text{-}N}_{\mathrm{volatilizationpasture}}$]
+        Total manure volatilization N emissions from manure deposited directly
+        on pasture (kg~N$_2$O-N~year$^{-1}$), by livestock type
+    \item[$\mathrm{N_2O\text{-}N}_{\mathrm{volatilizationpasture}}$]
+        Volatilization N emissions from manure deposited directly on pasture
+        (kg~N$_2$O-N), by animal group
+\end{description}
+
+\begin{equation}
+    \mathrm{Total\,N_2O\text{-}N}_{\mathrm{leachingpasture}}
+        = \sum_{\text{all scenario animals}}
+          \mathrm{N_2O\text{-}N}_{\mathrm{leachingpasture}}
+    \tag{Eq.\ 5.5.2-4}
+\end{equation}
+
+\noindent where
+
+\begin{description}[font=\normalfont, leftmargin=12em, style=nextline, nosep]
+    \item[$\mathrm{Total\,N_2O\text{-}N}_{\mathrm{leachingpasture}}$]
+        Total leaching N emissions from manure deposited directly on pasture
+        (kg~N$_2$O-N~year$^{-1}$), by livestock type
+    \item[$\mathrm{N_2O\text{-}N}_{\mathrm{leachingpasture}}$]
+        Leaching N emissions from manure deposited directly on pasture
+        (kg~N$_2$O-N), by animal group
+\end{description}
+
+\begin{equation}
+    \mathrm{Total\,NO_3\text{-}N}_{\mathrm{leachingpasture}}
+        = \sum_{\text{all scenario animals}}
+          \mathrm{NO_3\text{-}N}_{\mathrm{leachingpasture}}
+    \tag{Eq.\ 5.5.2-5}
+\end{equation}
+
+\noindent where
+
+\begin{description}[font=\normalfont, leftmargin=12em, style=nextline, nosep]
+    \item[$\mathrm{Total\,NO_3\text{-}N}_{\mathrm{leachingpasture}}$]
+        Total leaching NO$_3$-N emissions from manure deposited directly on
+        pasture (kg~NO$_3$-N~year$^{-1}$), by livestock type
+    \item[$\mathrm{NO_3\text{-}N}_{\mathrm{leachingpasture}}$]
+        Leaching NO$_3$-N emissions from manure deposited directly on pasture
+        (kg~NO$_3$-N), by animal group
+\end{description}
+
+\begin{equation}
+    \mathrm{Total\,N_2O\text{-}N}_{\mathrm{indirectpasture}}
+        = \mathrm{Total\,N_2O\text{-}N}_{\mathrm{volatilizationpasture}}
+          + \mathrm{Total\,N_2O\text{-}N}_{\mathrm{leachingpasture}}
+    \tag{Eq.\ 5.5.2-6}
+\end{equation}
+
+\noindent where
+
+\begin{description}[font=\normalfont, leftmargin=12em, style=nextline, nosep]
+    \item[$\mathrm{Total\,N_2O\text{-}N}_{\mathrm{indirectpasture}}$]
+        Total indirect N emissions from manure deposited directly on pasture
+        (kg~N$_2$O-N~year$^{-1}$), by livestock type
+\end{description}
+
+\begin{equation}
+    \mathrm{Total\,N_2O\text{-}N}_{\mathrm{pasture}}
+        = \mathrm{Total\,N_2O\text{-}N}_{\mathrm{directpasture}}
+          + \mathrm{Total\,N_2O\text{-}N}_{\mathrm{indirectpasture}}
+    \tag{Eq.\ 5.5.2-7}
+\end{equation}
+
+\noindent where
+
+\begin{description}[font=\normalfont, leftmargin=12em, style=nextline, nosep]
+    \item[$\mathrm{Total\,N_2O\text{-}N}_{\mathrm{pasture}}$]
+        Total N emissions from manure deposited directly on pasture
+        (kg~N$_2$O-N~year$^{-1}$), by livestock type
+\end{description}
+
+% ─────────────────────────────────────────────────────────────────────────────
+\section{Manure C and N deposited on pasture by grazing animals for the ICBM/IPCC Tier 2 and soil N\texorpdfstring{$_2$}{2}O models}
+\label{sec:grazing-cn-model}
+
+% ·····················································
+\subsection{Carbon}
+\label{subsec:grazing-c-model}
+
+Manure C added to soil in grazing field $n$ in year $t$:
+
+\begin{equation}
+    C_{\mathrm{model,pasture}(t,n)}
+        = \mathrm{Total\,C}_{\mathrm{excretion}(t,n)}
+          - \mathrm{Total\,CH_{4,\mathrm{manure}}(t,n)}
+    \tag{Eq.\ 5.6.1-1}
+\end{equation}
+
+\noindent where
+
+\begin{description}[font=\normalfont, leftmargin=12em, style=nextline, nosep]
+    \item[$C_{\mathrm{model,pasture}(t,n)}$]
+        Total C added to soil from dung and urine deposited directly on pasture
+        by grazing animals (kg~C), specific to field $n$ in year $t$; this
+        includes C added to soil from all livestock types grazing on field $n$
+        in year $t$
+    \item[$\mathrm{Total\,C}_{\mathrm{excretion}(t,n)}$]
+        Total amount of C in dung and urine deposited directly on pasture
+        (kg~C), specific to field $n$ in year $t$; sum of manure C excreted by
+        all animals grazing on the field in year $t$, by livestock type
+    \item[$\mathrm{Total\,CH_{4,\mathrm{manure}}(t,n)}$]
+        Total CH$_4$ emissions from dung and urine deposited directly on pasture
+        (kg~CH$_4$), specific to field $n$ in year $t$; sum of manure CH$_4$
+        emissions from the dung and urine deposited on this field by all grazing
+        animals in year $t$
+\end{description}
+
+% ·····················································
+\subsection{Nitrogen}
+\label{subsec:grazing-n-model}
+
+Manure N added to soil in grazing field $n$ in year $t$:
+
+\begin{multline}
+    N_{\mathrm{model,pasture}(t,n)}
+        = \mathrm{Total\,N}_{\mathrm{excretion}(t,n)} \\
+          - \Bigl(
+              \mathrm{Total\,N_2O\text{-}N}_{\mathrm{pasture}(t,n)}
+              + \mathrm{Total\,NH_3\text{-}N}_{\mathrm{pasture,adju}(t,n)}
+              + \mathrm{Total\,NO_3\text{-}N}_{\mathrm{leachingpasture}(t,n)}
+            \Bigr)
+    \tag{Eq.\ 5.6.2-1}
+\end{multline}
+
+\noindent where
+
+\begin{description}[font=\normalfont, leftmargin=12em, style=nextline, nosep]
+    \item[$N_{\mathrm{model,pasture}(t,n)}$]
+        N added to soil from dung and urine deposited directly on pasture by
+        grazing animals (kg~N), specific to field $n$ in year $t$; this
+        includes N added to soil from all livestock types grazing on field $n$
+        in year $t$
+    \item[$\mathrm{Total\,N}_{\mathrm{excretion}(t,n)}$]
+        Total amount of N in dung and urine deposited directly on pasture
+        (kg~N), specific to field $n$ in year $t$
+    \item[$\mathrm{Total\,N_2O\text{-}N}_{\mathrm{pasture}(t,n)}$]
+        Total direct and indirect N$_2$O emissions from dung and urine deposited
+        directly on pasture (kg~N$_2$O-N), specific to field $n$ in year $t$;
+        sum of all direct and indirect N$_2$O losses from manure deposited on
+        this field by all grazing animals in year $t$
+    \item[$\mathrm{Total\,NH_3\text{-}N}_{\mathrm{pasture,adju}(t,n)}$]
+        Total adjusted NH$_3$ emissions from dung and urine deposited directly
+        on pasture (kg~NH$_3$-N), specific to field $n$ in year $t$; sum of
+        manure NH$_3$ emissions from dung and urine deposited on this field by
+        all grazing animals in year $t$ minus indirect N$_2$O-N emissions via
+        volatilization
+    \item[$\mathrm{Total\,NO_3\text{-}N}_{\mathrm{leachingpasture}(t,n)}$]
+        Total leaching NO$_3$-N emissions from dung and urine deposited directly
+        on pasture (kg~NO$_3$-N~year$^{-1}$), specific to field $n$ in year
+        $t$; sum of manure NO$_3$ emissions from dung and urine deposited on
+        this field by all grazing animals in year $t$
+\end{description}
+
+\begin{equation}
+    \mathrm{Total\,Volume}_{\mathrm{manurepasture}}
+        = \frac{\mathrm{Total\,N}_{\mathrm{excretion}} \times 100}
+               {N_{\mathrm{content}} \times 1000}
+    \tag{Eq.\ 5.6.2-2}
+\end{equation}
+
+\noindent where
+
+\begin{description}[font=\normalfont, leftmargin=12em, style=nextline, nosep]
+    \item[$\mathrm{Total\,Volume}_{\mathrm{manurepasture}}$]
+        Total volume of manure produced by grazing animals on pasture
+        (1000~kg~wet~weight), by livestock type
+    \item[$\mathrm{Total\,N}_{\mathrm{excretion}}$]
+        Total amount of N excreted by grazing animals on pasture
+        (kg~N~year$^{-1}$), by livestock type
+    \item[$N_{\mathrm{content}}$]
+        N content of excreta (urine + faeces; \% wet weight) (Table~6)
+\end{description}
+
+% ─────────────────────────────────────────────────────────────────────────────
+\section{Conversions}
+\label{sec:grazing-conversions}
+
+For N$_2$O-N to N$_2$O, NH$_3$-N to NH$_3$ and NO$_3$-N to NO$_3$ conversions,
+see Section~2.6.9.5.
+
+% ─────────────────────────────────────────────────────────────────────────────
+\section{References}
+\label{sec:grazing-references}
+
+\begin{description}[leftmargin=0pt, style=nextline]
+
+    \item[Baron et al., 2002]
+        V.S.\ Baron, E.\ Mapfumo, A.C.\ Dick, M.A.\ Naeth, E.K.\ Okine, and
+        D.S.\ Chanasyk.
+        Grazing intensity impacts on pasture carbon and nitrogen flow.
+        \textit{Journal of Range Management}, 55(6), 535--541.
+
+    \item[ECCC, 2022]
+        National Inventory Report 1990--2020: Greenhouse Gas Sources and Sinks
+        in Canada. Canada's Submission to the United Nations Framework
+        Convention on Climate Change. Cat.\ No.: En81-4E-PDF; ISSN: 1910-7064;
+        EC21275.02. Available at:
+        \url{https://publications.gc.ca/site/eng/9.506002/publication.html}
+
+    \item[IPCC, 2019]
+        \textit{2019 Refinement to the 2006 IPCC Guidelines for National
+        Greenhouse Gas Inventories.} E.\ Calvo Buendia, K.\ Tanabe,
+        A.\ Kranjc, J.\ Baasansuren, M.\ Fukuda, S.\ Ngarize, A.\ Osako,
+        Y.\ Pyrozhenko, P.\ Shermanau, S.\ Federici (eds). Published: IPCC,
+        Switzerland.\\
+        \url{https://www.ipcc.ch/report/2019-refinement-to-the-2006-ipcc-guidelines-for-national-greenhouse-gas-inventories/}
+
+    \item[Lemke et al., 2012]
+        R.L.\ Lemke, V.\ Baron, A.\ Iwaasa, R.\ Farrell, and J.\ Schoenau.
+        Quantifying nitrous oxide emissions resulting from animal manure on
+        pasture, range and paddock by grazing cattle in Canada. Final report
+        submitted to the Greenhouse Gas Division, Environment Canada, by
+        Agriculture and Agri-Food Canada, Saskatoon (SK).
+
+    \item[Rochette et al., 2014]
+        P.\ Rochette, M.H.\ Chantigny, N.\ Ziadi, D.A.\ Angers,
+        G.\ B\'{e}langer, \'{E}.\ Charbonneau, D.\ Pellerin, C.\ Liang, and
+        N.\ Bertrand.
+        Soil nitrous oxide emissions after deposition of dairy cow excreta in
+        eastern Canada.
+        \textit{Journal of Environmental Quality}, 43(3), 829--841.\\
+        \url{https://doi.org/10.2134/jeq2013.11.0474}
+
+    \item[Table~6] See Section~2.8 for references.
+
+    \item[Table~36] See Section~4.10 for references.
+
+    \item[Table~42] See Section~4.10 for references.
+
+\end{description}

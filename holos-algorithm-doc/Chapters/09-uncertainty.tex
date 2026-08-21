@@ -1,0 +1,43 @@
+% ============================================================
+%  Chapter 9 – Expression of Uncertainty
+% ============================================================
+\chapter{Expression of Uncertainty}
+\label{ch:uncertainty}
+
+\noindent\textit{(by R.\ Kr\"{o}bel)}
+
+% ─────────────────────────────────────────────────────────────────────────────
+\section{Uncertainty associated with each emission category}
+\label{sec:uncertainty-categories}
+
+Holos~V4 will utilize the uncertainty estimates from V3 until better estimates
+can be developed. The previous estimates of uncertainty were developed based on
+expert opinion for each of the emission categories of emission reported by Holos
+(Table~57). The categorization system used is provided in Table~58.
+
+% ·····················································
+\subsection{Uncertainty estimate for net emissions}
+\label{subsec:uncertainty-net}
+
+To determine the overall uncertainty for the estimate of net GHG emissions from
+a specified set of farm conditions, the following equation could be used in a
+future version of Holos:
+
+\begin{equation}
+    \mathrm{Uncertainty} =
+    \frac{\left[(A \cdot a)^{2} + (B \cdot b)^{2} + \cdots\right]^{0.5}}
+         {\left(A^{2} + B^{2} + \cdots\right)^{0.5}}
+    \tag{Eq.\ 9.1.1-1}
+\end{equation}
+
+\noindent where
+\begin{description}[font=\normalfont, leftmargin=10em, style=sameline, nosep]
+    \item[$\mathrm{Uncertainty}$]
+        Uncertainty associated with net farm emission estimate
+    \item[$A$]
+        Emission estimate for each emissions category
+        (t~CO$_{2}$ equivalent --- calculated in Chapter~8)
+    \item[$a$]
+        Uncertainty estimate (Table~58, by uncertainty category associated with
+        emission category and relative uncertainty in Table~57)
+\end{description}
